@@ -14,10 +14,16 @@
     "build-storybook": "turbo run build-storybook",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\"",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "17.0.7",
     "prettier": "3.8.4",
     "turbo": "2.9.18"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs,cjs,json,md,css,html}": "prettier --write"
   }
 }
