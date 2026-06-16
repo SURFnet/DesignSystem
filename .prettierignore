@@ -3,3 +3,7 @@ dist
 storybook-static
 .turbo
 pnpm-lock.yaml
+
+# vendored upstream skills — keep them byte-for-byte as fetched
+.agents/skills
+.claude/skills
