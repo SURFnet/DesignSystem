@@ -1,0 +1,35 @@
+{
+  "name": "@surfnet/storybook-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./manager": {
+      "types": "./dist/manager.d.ts",
+      "default": "./dist/manager.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "prepare": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "storybook": "10.4.5"
+  },
+  "devDependencies": {
+    "@surfnet/typescript-config": "workspace:*",
+    "storybook": "10.4.5",
+    "typescript": "6.0.3"
+  }
+}

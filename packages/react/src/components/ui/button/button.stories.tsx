@@ -5,10 +5,6 @@ import { Button } from './button';
 const meta = {
   title: 'Components/Button',
   component: Button,
-  parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: 'select',
@@ -32,8 +28,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The interactive playground — tweak variant, size and disabled via the controls. */
-export const Playground: Story = {};
+/** The default button — rendered with the default args; tweak them via the controls. */
+export const Default: Story = {};
 
 /** Every visual variant side by side. */
 export const Variants: Story = {

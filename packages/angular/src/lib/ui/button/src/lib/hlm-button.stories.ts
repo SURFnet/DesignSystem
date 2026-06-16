@@ -13,7 +13,6 @@ type ButtonArgs = HlmButton & { disabled: boolean };
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
   component: HlmButton,
-  tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [HlmButton] })],
   argTypes: {
     variant: {
@@ -35,8 +34,8 @@ export default meta;
 
 type Story = StoryObj<ButtonArgs>;
 
-/** Interactive playground — tweak variant, size and disabled via the controls. */
-export const Playground: Story = {
+/** The default button — rendered with the default args; tweak them via the controls. */
+export const Default: Story = {
   args: { disabled: false },
   render: (args) => ({
     props: args,

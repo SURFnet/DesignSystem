@@ -35,6 +35,7 @@
     "@storybook/addon-a11y": "10.4.5",
     "@storybook/addon-docs": "10.4.5",
     "@storybook/angular": "10.4.5",
+    "@surfnet/storybook-config": "workspace:*",
     "@surfnet/typescript-config": "workspace:*",
     "ng-packagr": "22.0.0",
     "rxjs": "7.8.2",
