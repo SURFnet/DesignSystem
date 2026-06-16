@@ -20,7 +20,7 @@ Both component packages style with **Tailwind CSS v4** and share the same oklch 
 
 - **Node 22 LTS** (pinned in `.nvmrc`; `engines` also allows 24). Other versions only
   warn on install. Run `nvm use` first.
-- **pnpm 9** (pinned via `packageManager`). Always use pnpm, never npm/yarn.
+- **pnpm 11** (pinned via `packageManager`). Always use pnpm, never npm/yarn.
 
 ## Core commands
 
