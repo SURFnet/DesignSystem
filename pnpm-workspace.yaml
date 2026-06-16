@@ -1,0 +1,27 @@
+packages:
+  - 'packages/*'
+
+# Supply-chain hardening (requires pnpm 10+/11).
+
+# Don't install versions younger than this many minutes (1440 = 1 day).
+minimumReleaseAge: 1440
+
+# Trusted packages exempt from the cooldown (frequent alpha releases).
+minimumReleaseAgeExclude:
+  - '@spartan-ng/brain'
+  - '@spartan-ng/cli'
+
+# Transitive deps must come from the registry, not git/tarball URLs.
+blockExoticSubdeps: true
+
+# Lifecycle-script policy. Each dependency with a build script must be listed
+# with an explicit decision — `true` to run it, `false` to decline it. Packages
+# left undecided make pnpm fail a fresh install with ERR_PNPM_IGNORED_BUILDS, so
+# the `false` entries below are required, not redundant.
+allowBuilds:
+  esbuild: true
+  '@parcel/watcher': true
+  less: false
+  lmdb: false
+  msgpackr-extract: false
+  nx: false
