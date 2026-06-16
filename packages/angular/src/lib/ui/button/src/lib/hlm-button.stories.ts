@@ -6,10 +6,6 @@ import { HlmButton } from './hlm-button';
 // itself, so widen the story args to expose it as a control.
 type ButtonArgs = HlmButton & { disabled: boolean };
 
-/**
- * The Spartan `hlmBtn` directive turns any `<button>` or `<a>` into a themed button.
- * Drive its look with the `variant` and `size` inputs.
- */
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
   component: HlmButton,
