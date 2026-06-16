@@ -6,7 +6,7 @@
   "scripts": {
     "build": "ng build angular",
     "dev": "ng build angular --watch --configuration development",
-    "lint": "tsc --noEmit -p tsconfig.json",
+    "lint": "ngc --noEmit -p tsconfig.json",
     "storybook": "ng run angular:storybook",
     "build-storybook": "ng run angular:build-storybook"
   },
