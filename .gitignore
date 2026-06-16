@@ -1,0 +1,26 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build output
+dist
+storybook-static
+
+# turbo
+.turbo
+
+# angular
+.angular
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor / os
+.DS_Store
+!.vscode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/mcp.json
+.idea
