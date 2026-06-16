@@ -1,5 +1,23 @@
 {
   "name": "surf-design-system",
   "version": "0.0.0",
-  "private": true
+  "private": true,
+  "description": "SURFnet design system — React (shadcn/Base UI) and Angular (Spartan) component packages in a Turborepo monorepo.",
+  "packageManager": "pnpm@9.15.3",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "storybook": "turbo run storybook",
+    "build-storybook": "turbo run build-storybook",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.8.4",
+    "turbo": "^2.9.18"
+  }
 }
