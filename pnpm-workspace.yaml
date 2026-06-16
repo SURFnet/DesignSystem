@@ -1,5 +1,5 @@
 packages:
-  - "packages/*"
+  - 'packages/*'
 
 # Supply-chain hardening (requires pnpm 10+/11).
 
@@ -8,8 +8,8 @@ minimumReleaseAge: 1440
 
 # Trusted packages exempt from the cooldown (frequent alpha releases).
 minimumReleaseAgeExclude:
-  - "@spartan-ng/brain"
-  - "@spartan-ng/cli"
+  - '@spartan-ng/brain'
+  - '@spartan-ng/cli'
 
 # Transitive deps must come from the registry, not git/tarball URLs.
 blockExoticSubdeps: true
@@ -17,8 +17,4 @@ blockExoticSubdeps: true
 # Only these packages may run install scripts; everything else is blocked.
 allowBuilds:
   esbuild: true
-  "@parcel/watcher": true
-  nx: false
-  lmdb: false
-  msgpackr-extract: false
-  less: false
+  '@parcel/watcher': true
