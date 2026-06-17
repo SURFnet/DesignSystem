@@ -1,25 +1,41 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { buttonContract } from '@surfnet/contracts';
 
 import { Button } from './button';
 
 const meta = {
   title: 'Components/Button',
   component: Button,
+  parameters: {
+    docs: {
+      description: {
+        component: buttonContract.description,
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'],
+      options: buttonContract.variants,
+      description: 'Visual style of the button.',
+      table: {
+        defaultValue: { summary: buttonContract.defaultVariant },
+      },
     },
     size: {
       control: 'select',
-      options: ['xs', 'sm', 'default', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
+      options: buttonContract.sizes,
+      description: 'Size of the button.',
+      table: {
+        defaultValue: { summary: buttonContract.defaultSize },
+      },
     },
     disabled: { control: 'boolean' },
   },
   args: {
     children: 'Button',
-    variant: 'default',
-    size: 'default',
+    variant: buttonContract.defaultVariant,
+    size: buttonContract.defaultSize,
     disabled: false,
   },
 } satisfies Meta<typeof Button>;
@@ -35,12 +51,11 @@ export const Default: Story = {};
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button variant="default">Default</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="link">Link</Button>
+      {buttonContract.variants.map((variant) => (
+        <Button key={variant} variant={variant} title={buttonContract.variantDocs[variant]}>
+          {variant.charAt(0).toUpperCase() + variant.slice(1)}
+        </Button>
+      ))}
     </div>
   ),
 };

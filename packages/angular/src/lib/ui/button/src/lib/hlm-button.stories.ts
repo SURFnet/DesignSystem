@@ -1,4 +1,5 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import { buttonContract } from '@surfnet/contracts';
 
 import { HlmButton } from './hlm-button';
 
@@ -10,19 +11,40 @@ const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
   component: HlmButton,
   decorators: [moduleMetadata({ imports: [HlmButton] })],
+  parameters: {
+    docs: {
+      description: {
+        component: buttonContract.description,
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'],
+      options: [...buttonContract.variants],
+      description: 'Visual style of the button.',
+      table: {
+        type: {
+          summary: buttonContract.variants.join(' | '),
+        },
+        defaultValue: { summary: buttonContract.defaultVariant },
+      },
     },
     size: {
       control: 'select',
-      options: ['xs', 'sm', 'default', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
+      options: [...buttonContract.sizes],
+      description: 'Size of the button.',
+      table: {
+        type: {
+          summary: buttonContract.sizes.join(' | '),
+        },
+        defaultValue: { summary: buttonContract.defaultSize },
+      },
     },
   },
   args: {
-    variant: 'default',
-    size: 'default',
+    variant: buttonContract.defaultVariant,
+    size: buttonContract.defaultSize,
   },
 };
 
@@ -41,6 +63,15 @@ export const Default: Story = {
 
 /** Every visual variant side by side. */
 export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: Object.entries(buttonContract.variantDocs)
+          .map(([name, doc]) => `**${name}** — ${doc}`)
+          .join('\n\n'),
+      },
+    },
+  },
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-3">
@@ -56,6 +87,15 @@ export const Variants: Story = {
 
 /** Text sizes from extra-small to large. */
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: Object.entries(buttonContract.sizeDocs)
+          .map(([name, doc]) => `**${name}** — ${doc}`)
+          .join('\n\n'),
+      },
+    },
+  },
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-3">
