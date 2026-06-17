@@ -1,6 +1,6 @@
 # surf-design-system
 
-The SURFnet design system: framework-native component packages in a single
+The SURF design system: framework-native component packages in a single
 Turborepo + pnpm monorepo. Each package builds on the "you own the code" UI
 library of its ecosystem.
 
@@ -59,7 +59,9 @@ pnpm --filter @surfnet/angular storybook   # http://localhost:6006
 Each component ships a Storybook story covering its full surface (variants, sizes,
 states). Start there to see what's available.
 
-## Adding a React component (shadcn / Base UI)
+## Adding a component
+
+### React (shadcn / Base UI)
 
 shadcn components are **vendored** — copied into the package so you own and can edit
 them. The package is configured (in [`components.json`](packages/react/components.json))
@@ -98,28 +100,7 @@ src/components/ui/
 > `style` and `iconLibrary` fields in `components.json` — don't switch `style` back to
 > a Radix style.
 
-## AI assistants (MCP servers & skills)
-
-The repo is set up so AI assistants (primarily Claude Code and GitHub Copilot) understand
-the design system. Two MCP servers are configured in both [`.mcp.json`](.mcp.json)
-(Claude Code, auto-detected) and [`.vscode/mcp.json`](.vscode/mcp.json) (VS Code / Copilot
-— open it and click **Start**):
-
-- **`shadcn`** — browse/search/install shadcn + Base UI components for the React package
-  ([docs](https://ui.shadcn.com/docs/mcp)). Scoped via `--cwd packages/react`.
-- **`spartan-ui`** — read-only Spartan docs, component APIs, and examples for the Angular
-  package ([docs](https://spartan.ng/documentation/mcp)). Reference only — use the Spartan
-  CLI to install code.
-
-In Claude Code, run `/mcp` to confirm both show `Connected`. For Cursor/Codex/OpenCode, run
-`npx shadcn@latest mcp init --client <name>` and add the `spartan-ui` entry from the snippet
-above.
-
-The repo also vendors the upstream **`shadcn`** and **`spartan`** agent skills (deep
-component/API references) in `.agents/skills/`, alongside the repo's own `add-component`
-skill. They're exposed to Claude Code through the `.claude/skills` symlink.
-
-## Adding an Angular component (Spartan)
+### Angular (Spartan)
 
 Spartan splits each component into a `brain` primitive (installed from npm) and `helm`
 styles (**copied into the package**). The generator is configured via
@@ -141,6 +122,27 @@ in `tsconfig.json`. Then:
 
 > The vendored helm files import each other through the `@spartan-ng/helm/*` path
 > alias, which resolves to local source — `ng-packagr` inlines them into the build.
+
+## AI assistants (MCP servers & skills)
+
+The repo is set up so AI assistants (primarily Claude Code and GitHub Copilot) understand
+the design system. Two MCP servers are configured in both [`.mcp.json`](.mcp.json)
+(Claude Code, auto-detected) and [`.vscode/mcp.json`](.vscode/mcp.json) (VS Code / Copilot
+— open it and click **Start**):
+
+- **`shadcn`** — browse/search/install shadcn + Base UI components for the React package
+  ([docs](https://ui.shadcn.com/docs/mcp)). Scoped via `--cwd packages/react`.
+- **`spartan-ui`** — read-only Spartan docs, component APIs, and examples for the Angular
+  package ([docs](https://spartan.ng/documentation/mcp)). Reference only — use the Spartan
+  CLI to install code.
+
+In Claude Code, run `/mcp` to confirm both show `Connected`. For Cursor/Codex/OpenCode, run
+`npx shadcn@latest mcp init --client <name>` and add the `spartan-ui` entry from the snippet
+above.
+
+The repo also vendors the upstream **`shadcn`** and **`spartan`** agent skills (deep
+component/API references) in `.agents/skills/`, alongside the repo's own `add-component`
+skill. They're exposed to Claude Code through the `.claude/skills` symlink.
 
 ## Theming
 
