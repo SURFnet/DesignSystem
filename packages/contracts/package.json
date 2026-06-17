@@ -1,0 +1,16 @@
+{
+  "name": "@surfnet/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@surfnet/typescript-config": "workspace:*",
+    "typescript": "6.0.3"
+  }
+}
