@@ -24,10 +24,10 @@ De vraag: horen die twee bij elkaar?
 
 ## Analyse — twee verschillende problemen
 
-| Laag | Output | Leeft in | Divergentie-risico |
-| --- | --- | --- | --- |
-| **Foundation — kleurschalen** | Statische `--color-*` hex/OKLCH | Code **én** Figma als gewone variabele | Geen — één bron, beide kanten op |
-| **Theme — `-hover` tokens** | Afgeleide kleur via math | Alleen code/tooling | **Hoog** — Figma kan geen OKLCH-math op aliased variables |
+| Laag                          | Output                          | Leeft in                               | Divergentie-risico                                        |
+| ----------------------------- | ------------------------------- | -------------------------------------- | --------------------------------------------------------- |
+| **Foundation — kleurschalen** | Statische `--color-*` hex/OKLCH | Code **én** Figma als gewone variabele | Geen — één bron, beide kanten op                          |
+| **Theme — `-hover` tokens**   | Afgeleide kleur via math        | Alleen code/tooling                    | **Hoog** — Figma kan geen OKLCH-math op aliased variables |
 
 **Kern:** Figma kan geen lichtheids-shift op een aliased variable berekenen (precies waarom de stock-kit `alpha`/`custom` workarounds heeft — zie [Figma Tailwind-tokens](./figma-tailwind-tokens.md) en [Dark mode](./dark-mode.md)). Een auto-afgeleide hover bestaat dan alleen in code, terwijl Figma een handmatige of "gesnapte" waarde nodig heeft → **dev library ≠ Figma library**.
 
@@ -35,25 +35,25 @@ Dat is dezelfde klasse frictie als de `--accent` / opacity-modifier mismatch die
 
 ## Overwogen opties
 
-### Optie A — Runtime OKLCH-afleiding voor hover *(afgewezen)*
+### Optie A — Runtime OKLCH-afleiding voor hover _(afgewezen)_
 
-| Pro | Con |
-| --- | --- |
+| Pro                                | Con                                               |
+| ---------------------------------- | ------------------------------------------------- |
 | Minder handmatige tokens per theme | Figma kan math niet repliceren → code/Figma-kloof |
-| Perceptueel gelijkmatige shift | Hoge-chroma kleuren vereisen per-hue ΔL |
-| | Hover valt buiten bestaande palette-stappen |
-| | Strijdig met opaque-palette-ref model |
+| Perceptueel gelijkmatige shift     | Hoge-chroma kleuren vereisen per-hue ΔL           |
+|                                    | Hover valt buiten bestaande palette-stappen       |
+|                                    | Strijdig met opaque-palette-ref model             |
 
-### Optie B — Vaste opaque palette-ref per theme/mode *(gekozen)*
+### Optie B — Vaste opaque palette-ref per theme/mode _(gekozen)_
 
 Elke `-hover` is een expliciete `{ ref: "--color-*" }`, identiek in code en Figma Mode → base.
 
-| Pro | Con |
-| --- | --- |
-| Eén waarheid in code én Figma | Handmatig per theme zetten |
-| Opaque, geen alpha/math | — |
-| Contrast direct testbaar in Contrast-tab | |
-| Consistent met borders, dark mode, item-hover | |
+| Pro                                           | Con                        |
+| --------------------------------------------- | -------------------------- |
+| Eén waarheid in code én Figma                 | Handmatig per theme zetten |
+| Opaque, geen alpha/math                       | —                          |
+| Contrast direct testbaar in Contrast-tab      |                            |
+| Consistent met borders, dark mode, item-hover |                            |
 
 ## Beslissing
 

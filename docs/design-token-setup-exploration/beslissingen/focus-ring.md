@@ -26,21 +26,21 @@ Dit besluit sluit aan op [referentie-shadcn-architectuur.md](../referentie-shadc
 
 **Semantic token (kleur):**
 
-| Token | Light (default) | Dark | Gebruik |
-| --- | --- | --- | --- |
-| `--ring` | `neutral-400` / OKLCH ~0.708 | `neutral-500` / OKLCH ~0.556 | Keyboard focus op controls |
-| `--sidebar-ring` | zelfde patroon | zelfde patroon | Focus op alt tonaliteit |
-| `--destructive` | — | — | Invalid focus ring (SURF split → `--ring-default-error`) |
+| Token            | Light (default)              | Dark                         | Gebruik                                                  |
+| ---------------- | ---------------------------- | ---------------------------- | -------------------------------------------------------- |
+| `--ring`         | `neutral-400` / OKLCH ~0.708 | `neutral-500` / OKLCH ~0.556 | Keyboard focus op controls                               |
+| `--sidebar-ring` | zelfde patroon               | zelfde patroon               | Focus op alt tonaliteit                                  |
+| `--destructive`  | —                            | —                            | Invalid focus ring (SURF split → `--ring-default-error`) |
 
 **Geen `--ring-offset` in shadcn v4 default theme.** Offset werkt via Tailwind:
 
-| Concept | Implementatie | Theme token? |
-| --- | --- | --- |
-| Ring kleur | `ring-ring` → `--ring` | Ja (`--ring`) |
-| Ring breedte | `ring-2`, `ring-[3px]` | Nee (utility) |
-| Ring opacity | `ring-ring/50` | Nee (utility) |
-| Offset breedte | `ring-offset-2` | Nee (utility) |
-| Offset kleur | `ring-offset-background` → `--background` | Nee (hergebruik surface) |
+| Concept        | Implementatie                             | Theme token?             |
+| -------------- | ----------------------------------------- | ------------------------ |
+| Ring kleur     | `ring-ring` → `--ring`                    | Ja (`--ring`)            |
+| Ring breedte   | `ring-2`, `ring-[3px]`                    | Nee (utility)            |
+| Ring opacity   | `ring-ring/50`                            | Nee (utility)            |
+| Offset breedte | `ring-offset-2`                           | Nee (utility)            |
+| Offset kleur   | `ring-offset-background` → `--background` | Nee (hergebruik surface) |
 
 **Component-patroon (typisch new-york):**
 
@@ -70,47 +70,47 @@ Globale `outline-ring/50` vangt focus op elementen zonder expliciete component-c
 
 ## Overwogen opties
 
-### Optie A — shadcn-conform: kleur-tokens + utilities voor metriek *(gekozen)*
+### Optie A — shadcn-conform: kleur-tokens + utilities voor metriek _(gekozen)_
 
 Drie ring-kleurtokens; breedte/offset/opacity via Tailwind. Offset-kleur = bestaande background-token.
 
-| Pro | Con |
-| --- | --- |
-| shadcn-pariteit | Offset-kleur per context handmatig kiezen |
-| Geen token-proliferatie | Designers moeten opacity in Figma simuleren |
-| Consistent met borders (kleur token, dikte utility) | |
-| Ring-categorie los van Borders in tool | |
+| Pro                                                 | Con                                         |
+| --------------------------------------------------- | ------------------------------------------- |
+| shadcn-pariteit                                     | Offset-kleur per context handmatig kiezen   |
+| Geen token-proliferatie                             | Designers moeten opacity in Figma simuleren |
+| Consistent met borders (kleur token, dikte utility) |                                             |
+| Ring-categorie los van Borders in tool              |                                             |
 
-### Optie B — `--ring-offset` als apart theme token *(afgewezen)*
+### Optie B — `--ring-offset` als apart theme token _(afgewezen)_
 
 Dedicated token voor de “gap” tussen element en ring.
 
-| Pro | Con |
-| --- | --- |
-| Eén plek om offset-kleur te themen | Dupliceert `--background-default` semantiek |
-| | shadcn v4 heeft dit niet |
-| | Verwarrend naast Tailwind `ring-offset-2` (breedte) |
-| | Light `0px` vs dark kleur-ref in tool was inconsistent |
+| Pro                                | Con                                                    |
+| ---------------------------------- | ------------------------------------------------------ |
+| Eén plek om offset-kleur te themen | Dupliceert `--background-default` semantiek            |
+|                                    | shadcn v4 heeft dit niet                               |
+|                                    | Verwarrend naast Tailwind `ring-offset-2` (breedte)    |
+|                                    | Light `0px` vs dark kleur-ref in tool was inconsistent |
 
-### Optie C — Geen ring-offset; alleen ring zonder gap *(afgewezen)*
+### Optie C — Geen ring-offset; alleen ring zonder gap _(afgewezen)_
 
 Alleen `ring-2 ring-default`, geen `ring-offset-*`.
 
-| Pro | Con |
-| --- | --- |
+| Pro            | Con                                                |
+| -------------- | -------------------------------------------------- |
 | Minder classes | Ring kan visueel samensmelten met border op inputs |
-| | Wijkt af van stock shadcn button/input |
-| | Minder contrast op filled buttons |
+|                | Wijkt af van stock shadcn button/input             |
+|                | Minder contrast op filled buttons                  |
 
-### Optie D — `focus` i.p.v. `focus-visible` *(afgewezen)*
+### Optie D — `focus` i.p.v. `focus-visible` _(afgewezen)_
 
 Ring ook bij muisklik.
 
-| Pro | Con |
-| --- | --- |
-| Eenvoudiger | Ring bij elke klik — visuele ruis |
-| | shadcn-standaard gebruikt `focus-visible` |
-| | WCAG best practice: onderscheid pointer vs keyboard |
+| Pro         | Con                                                 |
+| ----------- | --------------------------------------------------- |
+| Eenvoudiger | Ring bij elke klik — visuele ruis                   |
+|             | shadcn-standaard gebruikt `focus-visible`           |
+|             | WCAG best practice: onderscheid pointer vs keyboard |
 
 ## Beslissing
 
@@ -133,23 +133,23 @@ Niet in theme:
 
 **Offset-kleur per context** (geen apart token):
 
-| Context | Offset utility (gewenst) | Token |
-| --- | --- | --- |
+| Context                | Offset utility (gewenst)         | Token                  |
+| ---------------------- | -------------------------------- | ---------------------- |
 | App / default controls | `ring-offset-background-default` | `--background-default` |
-| Op card | `ring-offset-background-card` | `--background-card` |
-| In alt regio | `ring-offset-background-alt` | `--background-alt` |
-| Popover/dropdown | `ring-offset-background-popover` | `--background-popover` |
+| Op card                | `ring-offset-background-card`    | `--background-card`    |
+| In alt regio           | `ring-offset-background-alt`     | `--background-alt`     |
+| Popover/dropdown       | `ring-offset-background-popover` | `--background-popover` |
 
 ### Huidig → gewenst
 
-| Huidig (shadcn) | Gewenst | Gebruik |
-| --- | --- | --- |
-| `--ring` | `--ring-default` | Default keyboard focus |
-| `--sidebar-ring` | `--ring-alt` | Alt regio focus |
-| `--destructive` (invalid ring) | `--ring-default-error` | `aria-invalid` + focus |
-| `ring-ring` | `ring-default` | Tailwind `@theme` |
-| `ring-offset-background` | `ring-offset-background-default` | Offset gap-kleur |
-| `--ring-offset` *(tool, foutief)* | **verwijderen** | Geen theme token |
+| Huidig (shadcn)                   | Gewenst                          | Gebruik                |
+| --------------------------------- | -------------------------------- | ---------------------- |
+| `--ring`                          | `--ring-default`                 | Default keyboard focus |
+| `--sidebar-ring`                  | `--ring-alt`                     | Alt regio focus        |
+| `--destructive` (invalid ring)    | `--ring-default-error`           | `aria-invalid` + focus |
+| `ring-ring`                       | `ring-default`                   | Tailwind `@theme`      |
+| `ring-offset-background`          | `ring-offset-background-default` | Offset gap-kleur       |
+| `--ring-offset` _(tool, foutief)_ | **verwijderen**                  | Geen theme token       |
 
 Zie [Token-migratie](./token-migratie.md).
 
@@ -203,35 +203,35 @@ ring-offset-background-alt
 
 **Principes:**
 
-| Interactie | Mechanisme | Token |
-| --- | --- | --- |
-| Pointer hover | background hover tokens | `--background-item-hover`, `-primary-hover`, … |
-| Keyboard focus | `focus-visible` + ring utilities | `--ring-default` |
-| Invalid focus | `aria-invalid` + ring modifier | `--ring-default-error` |
-| Disabled | geen focus (niet tabbaar / `pointer-events-none`) | — ([Disabled state](./disabled-state.md)) |
+| Interactie     | Mechanisme                                        | Token                                          |
+| -------------- | ------------------------------------------------- | ---------------------------------------------- |
+| Pointer hover  | background hover tokens                           | `--background-item-hover`, `-primary-hover`, … |
+| Keyboard focus | `focus-visible` + ring utilities                  | `--ring-default`                               |
+| Invalid focus  | `aria-invalid` + ring modifier                    | `--ring-default-error`                         |
+| Disabled       | geen focus (niet tabbaar / `pointer-events-none`) | — ([Disabled state](./disabled-state.md))      |
 
 Focus en hover zijn **orthogonaal**: een menu-item kan tegelijk `:hover` (grijs vlak) en `:focus-visible` (ring) zijn.
 
 ### Component-overzicht (shadcn-conform → gewenst)
 
-| Component / patroon | Ring token | Ring (utility) | Offset |
-| --- | --- | --- | --- |
-| Button (alle varianten) | `ring-default` | `ring-2` | `ring-offset-2` + `ring-offset-background-default` |
-| Input, Textarea, Select | `ring-default/50` | `ring-[3px]` | — |
-| Checkbox, Radio, Switch | `ring-default` | `ring-2` | `ring-offset-2` |
-| TabsTrigger, Toggle | `ring-default` | `ring-2` | `ring-offset-2` |
-| DropdownMenuItem, CommandItem | `ring-default` | `ring-2` | contextafhankelijk |
-| Nav item (alt) | `ring-alt` | `ring-2` | `ring-offset-background-alt` |
-| Invalid control + focus | `ring-default-error/20–/40` | `ring-[3px]` of `ring-2` | — |
+| Component / patroon           | Ring token                  | Ring (utility)           | Offset                                             |
+| ----------------------------- | --------------------------- | ------------------------ | -------------------------------------------------- |
+| Button (alle varianten)       | `ring-default`              | `ring-2`                 | `ring-offset-2` + `ring-offset-background-default` |
+| Input, Textarea, Select       | `ring-default/50`           | `ring-[3px]`             | —                                                  |
+| Checkbox, Radio, Switch       | `ring-default`              | `ring-2`                 | `ring-offset-2`                                    |
+| TabsTrigger, Toggle           | `ring-default`              | `ring-2`                 | `ring-offset-2`                                    |
+| DropdownMenuItem, CommandItem | `ring-default`              | `ring-2`                 | contextafhankelijk                                 |
+| Nav item (alt)                | `ring-alt`                  | `ring-2`                 | `ring-offset-background-alt`                       |
+| Invalid control + focus       | `ring-default-error/20–/40` | `ring-[3px]` of `ring-2` | —                                                  |
 
 ### Figma-richtlijn
 
-| Element | Focus styling |
-| --- | --- |
-| Button / control | Stroke of outer glow `--ring-default`; offset visueel ~2px gap in `--background-default` |
-| Input focus | `--ring-default` @ ~50% opacity, 3px spread |
-| Invalid + focus | `--ring-default-error` @ ~20–40% opacity |
-| Control in alt regio | `--ring-alt` |
+| Element              | Focus styling                                                                            |
+| -------------------- | ---------------------------------------------------------------------------------------- |
+| Button / control     | Stroke of outer glow `--ring-default`; offset visueel ~2px gap in `--background-default` |
+| Input focus          | `--ring-default` @ ~50% opacity, 3px spread                                              |
+| Invalid + focus      | `--ring-default-error` @ ~20–40% opacity                                                 |
+| Control in alt regio | `--ring-alt`                                                                             |
 
 **Figma-only:** `--custom-ring-dark-input-dark*` (Mode → custom) simuleren dark input focus — **niet exporteren** naar developers ([Figma Tailwind-tokens](./figma-tailwind-tokens.md)).
 
@@ -243,7 +243,7 @@ Ring kleur testen tegen achtergrond-surface waar het element op staat — minima
 
 1. **shadcn-pariteit** — `focus-visible`, ring utilities en base `outline-ring/50` blijven herkenbaar na token-rename.
 2. **Rol-first** — `--ring-default` i.p.v. `--ring`; invalid ring apart ([Token roles](./token-roles.md)).
-3. **Geen `--ring-offset` token** — offset-kleur *is* surface-kleur; geen duplicaat naast `--background-default`.
+3. **Geen `--ring-offset` token** — offset-kleur _is_ surface-kleur; geen duplicaat naast `--background-default`.
 4. **Scheiding kleur vs metriek** — consistent met borders (kleur token, dikte utility) en hover (token vs opacity utility).
 5. **Focus ≠ hover ≠ invalid** — drie orthogonale interacties; elk eigen mechanisme.
 6. **Ring-categorie in tool** — semantisch los van Borders ([Borders](./borders.md)); alleen organisatorisch gegroepeerd in contrast-tab.

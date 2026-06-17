@@ -28,34 +28,34 @@ Tailwind v4 hernoemde de schaal (`shadow-sm` → `shadow-xs`, enz.) — shadcn v
 
 **Geen semantic shadow tokens in Theme:**
 
-| Concept | shadcn | Theme token? |
-| --- | --- | --- |
-| Card diepte | `border` + `bg-card` + `shadow-sm` | Nee — utility |
-| Outline button lift | `border` + `bg-background` + `shadow-xs` | Nee — utility |
-| Popover / hover-card | `border` + `bg-popover` + `shadow-md` | Nee — utility |
-| Dialog / sheet / alert | `border` + `bg-background` + `shadow-lg` | Nee — utility |
-| Dropdown submenu | `shadow-lg` (sub) vs `shadow-md` (root) | Nee — utility |
-| Keyboard focus | `ring-*` utilities | Kleur: `--ring` ([Focus ring](./focus-ring.md)) |
+| Concept                | shadcn                                   | Theme token?                                    |
+| ---------------------- | ---------------------------------------- | ----------------------------------------------- |
+| Card diepte            | `border` + `bg-card` + `shadow-sm`       | Nee — utility                                   |
+| Outline button lift    | `border` + `bg-background` + `shadow-xs` | Nee — utility                                   |
+| Popover / hover-card   | `border` + `bg-popover` + `shadow-md`    | Nee — utility                                   |
+| Dialog / sheet / alert | `border` + `bg-background` + `shadow-lg` | Nee — utility                                   |
+| Dropdown submenu       | `shadow-lg` (sub) vs `shadow-md` (root)  | Nee — utility                                   |
+| Keyboard focus         | `ring-*` utilities                       | Kleur: `--ring` ([Focus ring](./focus-ring.md)) |
 
 **Tailwind v4 shadow-schaal** (defaults, `@theme`):
 
-| Class | CSS variable | Typische waarde |
-| --- | --- | --- |
-| `shadow-2xs` | `--shadow-2xs` | `0 1px rgb(0 0 0 / 0.05)` |
-| `shadow-xs` | `--shadow-xs` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` |
-| `shadow-sm` | `--shadow-sm` | `0 1px 3px 0 …, 0 1px 2px -1px …` |
-| `shadow-md` | `--shadow-md` | `0 4px 6px -1px …, 0 2px 4px -2px …` |
-| `shadow-lg` | `--shadow-lg` | `0 10px 15px -3px …, 0 4px 6px -4px …` |
-| `shadow-xl` | `--shadow-xl` | groter |
-| `shadow-2xl` | `--shadow-2xl` | groter |
-| `shadow-none` | — | geen shadow |
+| Class         | CSS variable   | Typische waarde                        |
+| ------------- | -------------- | -------------------------------------- |
+| `shadow-2xs`  | `--shadow-2xs` | `0 1px rgb(0 0 0 / 0.05)`              |
+| `shadow-xs`   | `--shadow-xs`  | `0 1px 2px 0 rgb(0 0 0 / 0.05)`        |
+| `shadow-sm`   | `--shadow-sm`  | `0 1px 3px 0 …, 0 1px 2px -1px …`      |
+| `shadow-md`   | `--shadow-md`  | `0 4px 6px -1px …, 0 2px 4px -2px …`   |
+| `shadow-lg`   | `--shadow-lg`  | `0 10px 15px -3px …, 0 4px 6px -4px …` |
+| `shadow-xl`   | `--shadow-xl`  | groter                                 |
+| `shadow-2xl`  | `--shadow-2xl` | groter                                 |
+| `shadow-none` | —              | geen shadow                            |
 
 **v3 → v4 rename** (migratie):
 
 | Tailwind v3 | Tailwind v4 |
-| --- | --- |
+| ----------- | ----------- |
 | `shadow-sm` | `shadow-xs` |
-| `shadow` | `shadow-sm` |
+| `shadow`    | `shadow-sm` |
 
 **Kleur van shadows:** default Tailwind shadows gebruiken zwart + alpha (`rgb(0 0 0 / …)`). Geen koppeling aan `--foreground-default` of palette-ref. Colored shadows (`shadow-lg shadow-primary/50`) bestaan als utility maar shadcn stock components gebruiken ze niet.
 
@@ -63,46 +63,46 @@ Tailwind v4 hernoemde de schaal (`shadow-sm` → `shadow-xs`, enz.) — shadcn v
 
 ## Overwogen opties
 
-### Optie A — Semantic elevation tokens (`--shadow-card`, `--elevation-popover`, …) *(afgewezen)*
+### Optie A — Semantic elevation tokens (`--shadow-card`, `--elevation-popover`, …) _(afgewezen)_
 
 Per component-type een theme token met volledige `box-shadow`-waarde.
 
-| Pro | Con |
-| --- | --- |
-| Designers kunnen per theme shadow tweaken | shadcn heeft dit niet; plugin exporteert het niet |
-| Expliciete component↔token mapping | Token-proliferatie (~10+ shadow tokens) |
-| | Dupliceert Tailwind `@theme` shadow-schaal |
-| | Breekt met [Figma Tailwind-tokens](./figma-tailwind-tokens.md) Optie C |
+| Pro                                       | Con                                                                    |
+| ----------------------------------------- | ---------------------------------------------------------------------- |
+| Designers kunnen per theme shadow tweaken | shadcn heeft dit niet; plugin exporteert het niet                      |
+| Expliciete component↔token mapping        | Token-proliferatie (~10+ shadow tokens)                                |
+|                                           | Dupliceert Tailwind `@theme` shadow-schaal                             |
+|                                           | Breekt met [Figma Tailwind-tokens](./figma-tailwind-tokens.md) Optie C |
 
-### Optie B — Eén universele `--shadow` token *(afgewezen)*
+### Optie B — Eén universele `--shadow` token _(afgewezen)_
 
 Alle elevated surfaces delen één shadow.
 
-| Pro | Con |
-| --- | --- |
+| Pro      | Con                                                        |
+| -------- | ---------------------------------------------------------- |
 | Minimaal | Dialog en outline button hebben verschillende diepte nodig |
-| | Geen shadcn-pariteit |
+|          | Geen shadcn-pariteit                                       |
 
-### Optie C — Utility-schaal + component-conventies *(gekozen)*
+### Optie C — Utility-schaal + component-conventies _(gekozen)_
 
 Shadows als Tailwind utilities; Foundation-tab als lookup; vaste mapping per component-type in documentatie en component library.
 
-| Pro | Con |
-| --- | --- |
-| shadcn-pariteit | Twee plekken: schaal (Foundation) + conventies (docs/components) |
-| Consistent met spacing, opacity, border-width ([Figma Tailwind-tokens](./figma-tailwind-tokens.md)) | Designers moeten Figma effect handmatig matchen op utility |
-| `@theme { --shadow-* }` optioneel voor brand-themes | Geen `--shadow-card` in Contrast-tab |
-| Geen extra CSS vars in `:root` | |
+| Pro                                                                                                 | Con                                                              |
+| --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| shadcn-pariteit                                                                                     | Twee plekken: schaal (Foundation) + conventies (docs/components) |
+| Consistent met spacing, opacity, border-width ([Figma Tailwind-tokens](./figma-tailwind-tokens.md)) | Designers moeten Figma effect handmatig matchen op utility       |
+| `@theme { --shadow-* }` optioneel voor brand-themes                                                 | Geen `--shadow-card` in Contrast-tab                             |
+| Geen extra CSS vars in `:root`                                                                      |                                                                  |
 
-### Optie D — Border/ring i.p.v. shadow voor alle elevation *(afgewezen)*
+### Optie D — Border/ring i.p.v. shadow voor alle elevation _(afgewezen)_
 
 Cards en popovers alleen via `border` + `ring-foreground/10`, geen box-shadow.
 
-| Pro | Con |
-| --- | --- |
+| Pro                                      | Con                                                   |
+| ---------------------------------------- | ----------------------------------------------------- |
 | Minder shadow-drift tussen Figma en code | shadcn v4 gebruikt wél shadows op popover/dialog/card |
-| | Zwevende lagen (dialog over overlay) missen diepte |
-| | Outline button mist subtiele lift (`shadow-xs`) |
+|                                          | Zwevende lagen (dialog over overlay) missen diepte    |
+|                                          | Outline button mist subtiele lift (`shadow-xs`)       |
 
 ## Beslissing
 
@@ -124,13 +124,13 @@ Foundation → Shadow:
 
 Vaste shadcn-pariteit; SURF component library volgt dit na migratie:
 
-| Niveau | Utility | Gebruik (shadcn v4) |
-| --- | --- | --- |
-| **Subtle lift** | `shadow-xs` | Outline button, subtiele raised controls |
-| **Surface** | `shadow-sm` | Card, statische elevated panels |
-| **Floating** | `shadow-md` | Popover, HoverCard, DropdownMenu (root) |
-| **Modal** | `shadow-lg` | Dialog, Sheet, AlertDialog, DropdownMenuSub |
-| **Geen** | `shadow-none` | Default/ghost buttons, flat lists, inline surfaces |
+| Niveau          | Utility       | Gebruik (shadcn v4)                                |
+| --------------- | ------------- | -------------------------------------------------- |
+| **Subtle lift** | `shadow-xs`   | Outline button, subtiele raised controls           |
+| **Surface**     | `shadow-sm`   | Card, statische elevated panels                    |
+| **Floating**    | `shadow-md`   | Popover, HoverCard, DropdownMenu (root)            |
+| **Modal**       | `shadow-lg`   | Dialog, Sheet, AlertDialog, DropdownMenuSub        |
+| **Geen**        | `shadow-none` | Default/ghost buttons, flat lists, inline surfaces |
 
 **Altijd combineren met:** `border` + surface-token (`bg-card`, `bg-popover`, `bg-background-default`) — shadow vervangt geen border.
 
@@ -144,11 +144,11 @@ Geen alpha/custom shadow-tokens in Figma Mode exporteren ([Dark mode](./dark-mod
 
 ### Scheiding elevation / ring / border
 
-| Mechanisme | Doel | Waar |
-| --- | --- | --- |
-| `border-*` | Scheiding vlakken, control-omlijning | Theme: `--border-default`, … ([Borders](./borders.md)) |
-| `shadow-*` | Diepte / zwevend | Utility; geen theme token |
-| `ring-*` | Keyboard focus | Theme: `--ring-default`, … ([Focus ring](./focus-ring.md)) |
+| Mechanisme | Doel                                 | Waar                                                       |
+| ---------- | ------------------------------------ | ---------------------------------------------------------- |
+| `border-*` | Scheiding vlakken, control-omlijning | Theme: `--border-default`, … ([Borders](./borders.md))     |
+| `shadow-*` | Diepte / zwevend                     | Utility; geen theme token                                  |
+| `ring-*`   | Keyboard focus                       | Theme: `--ring-default`, … ([Focus ring](./focus-ring.md)) |
 
 Focus ring en elevation zijn **orthogonaal** — een dialog kan `shadow-lg` hebben; focus binnenin gebruikt `ring-default`.
 
@@ -183,12 +183,12 @@ Shadow-opacity modifiers (`shadow-md/50`) zijn toegestaan als utility maar **nie
 
 ### Figma-richtlijn
 
-| Element | Figma effect |
-| --- | --- |
+| Element        | Figma effect                                           |
+| -------------- | ------------------------------------------------------ |
 | Outline button | Drop shadow ≈ `shadow-xs`; border uit `--border-input` |
-| Card | Drop shadow ≈ `shadow-sm` + border |
-| Popover | Drop shadow ≈ `shadow-md` |
-| Dialog | Drop shadow ≈ `shadow-lg` |
+| Card           | Drop shadow ≈ `shadow-sm` + border                     |
+| Popover        | Drop shadow ≈ `shadow-md`                              |
+| Dialog         | Drop shadow ≈ `shadow-lg`                              |
 
 Bind **kleur** aan Mode → base (`background`, `popover`, …). Bind **shadow** aan Tailwind CSS-collectie (box-shadow variabelen) of handmatig effect dat matcht met utility-tabel — niet als Theme semantic token.
 

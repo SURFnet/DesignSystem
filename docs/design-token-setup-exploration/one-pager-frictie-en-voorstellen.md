@@ -75,7 +75,7 @@
 
 ### Alt surfaces
 
-- shadcn `--sidebar-`* is layout-specifiek; `inverse` belooft omkering die theme niet hoeft te doen
+- shadcn `--sidebar-`\* is layout-specifiek; `inverse` belooft omkering die theme niet hoeft te doen
 - **Voorstel:** surface `alt` — `--background-alt`, `--foreground-alt`, `--border-alt`, `--ring-alt`
 - Sidebar, top nav, hero binden aan `alt`; theme beslist contrast met default
 
@@ -96,13 +96,13 @@
 
 ### Elevation / shadow
 
-- shadcn gebruikt `shadow-xs` t/m `shadow-lg`; geen `--shadow-`* in theme; Figma Theme exporteert geen shadows
+- shadcn gebruikt `shadow-xs` t/m `shadow-lg`; geen `--shadow-`\* in theme; Figma Theme exporteert geen shadows
 - **Voorstel:** Tailwind utilities in Foundation; conventies: outline `shadow-xs`, card `shadow-sm`, popover `shadow-md`, dialog `shadow-lg`
 - Diepte = utility; kleur = theme token; focus = ring
 
 ### Tailwind-kleuren: bijgeleverd, niet automatisch ons systeem
 
-- Shadcn theme-tokens zijn **hardcoded** `oklch(…)`, géén link naar `--color-neutral-`*
+- Shadcn theme-tokens zijn **hardcoded** `oklch(…)`, géén link naar `--color-neutral-`\*
 - Bij `init` worden deze eenmalig geseed uit een gekozen grijsfamilie, daarna ingebakken
 - Het volledige Tailwind default-palet is enkel beschikbaar omdat Tailwind het **meelevert** voor utility classes — geen bewuste design system-keuze
 - Beschikbaarheid ≠ onderdeel van het systeem: `bg-fuchsia-700` bestaat technisch, maar hoort niet bij SURF
@@ -150,4 +150,4 @@
 - **Developers:** rol-first tokens in `globals.css`; classes aanpassen; plugin-export niet blind vertrouwen
 - **Iedereen:** token library = specificatie; contrast-tab = validatie; Figma + code = zelfde namen
 
-*2026-06-17*
+_2026-06-17_

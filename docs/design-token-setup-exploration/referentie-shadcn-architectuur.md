@@ -13,10 +13,10 @@
 
 We beginnen **niet from scratch**, maar vanuit twee bestaande shadcn-setups:
 
-| Startpunt | Wat het is |
-| --- | --- |
+| Startpunt                       | Wat het is                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------------ |
 | **shadcn/ui component library** | Copy-paste React components, `globals.css`, Tailwind v4, shadcn-default tokens |
-| **shadcndesign Figma kit** | Gespiegeld design system: componenten, Pro Blocks, variable collections |
+| **shadcndesign Figma kit**      | Gespiegeld design system: componenten, Pro Blocks, variable collections        |
 
 Die twee zijn oorspronkelijk **los van elkaar synchroon** via shadcn-conventies (zelfde token-namen, plugin-export). Dat is het vertrekpunt — geen einddoel.
 
@@ -44,13 +44,13 @@ De **doelstaat leunt niet meer volledig op de initiële shadcn-setups**. shadcn 
 - **Geen alias-laag** tussen shadcn- en SURF-namen; shadcn-namen verdwijnen overal tegelijk ([token-migratie](./beslissingen/token-migratie.md))
 - **Figma-only workarounds** (Mode → alpha/custom) blijven buiten developer-export; SURF-code lost hetzelfde op via Tailwind-patronen
 
-| | shadcn (startpunt) | SURF (doel) |
-| --- | --- | --- |
-| Wie is leidend? | shadcn docs + plugin export | Token library + besluiten → code + Figma volgen |
-| Token-naming | `--background`, `--accent`, `--destructive` | `--background-default`, `--background-item-hover`, … |
-| Figma ↔ code | Plugin exporteert shadcn Theme | Handmatig aligned; zelfde `--`-namen in beide |
-| Component gedrag | Stock shadcn classes | Aangepaste classes op gewenste tokens |
-| shadcn CLI updates | Drop-in compatible | Bewust beoordeeld; niet blind overschrijven |
+|                    | shadcn (startpunt)                          | SURF (doel)                                          |
+| ------------------ | ------------------------------------------- | ---------------------------------------------------- |
+| Wie is leidend?    | shadcn docs + plugin export                 | Token library + besluiten → code + Figma volgen      |
+| Token-naming       | `--background`, `--accent`, `--destructive` | `--background-default`, `--background-item-hover`, … |
+| Figma ↔ code       | Plugin exporteert shadcn Theme              | Handmatig aligned; zelfde `--`-namen in beide        |
+| Component gedrag   | Stock shadcn classes                        | Aangepaste classes op gewenste tokens                |
+| shadcn CLI updates | Drop-in compatible                          | Bewust beoordeeld; niet blind overschrijven          |
 
 **Kort:** shadcn = fundering. SURF design system = wat we er nu van maken, met code en Figma als **twee implementaties van één specificatie**.
 
@@ -88,12 +88,12 @@ De **doelstaat leunt niet meer volledig op de initiële shadcn-setups**. shadcn 
 └─────────────────┘                 └─────────────────┘
 ```
 
-| Laag | Rol | Relatie tot shadcn |
-| --- | --- | --- |
-| **shadcn startpunt** | Bestaande component + Figma kit | Vertrekpunt; conventies en structuur blijven nuttig |
-| **SURF token library** | Specificatie, besluiten, contrast, theme authoring | Definieert de **nieuwe** waarheid |
-| **SURF component library** | Productie-UI | Implementeert specificatie; geen shadcn-default tokens meer |
-| **SURF Figma library** | Design | Implementeert dezelfde specificatie; geen blind vertrouwen op plugin-export |
+| Laag                       | Rol                                                | Relatie tot shadcn                                                          |
+| -------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------- |
+| **shadcn startpunt**       | Bestaande component + Figma kit                    | Vertrekpunt; conventies en structuur blijven nuttig                         |
+| **SURF token library**     | Specificatie, besluiten, contrast, theme authoring | Definieert de **nieuwe** waarheid                                           |
+| **SURF component library** | Productie-UI                                       | Implementeert specificatie; geen shadcn-default tokens meer                 |
+| **SURF Figma library**     | Design                                             | Implementeert dezelfde specificatie; geen blind vertrouwen op plugin-export |
 
 ---
 
@@ -122,25 +122,25 @@ Framework-specifieke varianten (Vite, Astro, Laravel, …) wijken af in waar `gl
 
 ### 2.2 `components.json` — centrale CLI-config
 
-| Veld | Functie |
-| --- | --- |
-| `style` | Componentstijl (`new-york`; `default` is deprecated) |
-| `tailwind.config` | Pad naar Tailwind config; **leeg (`""`) bij Tailwind v4** |
-| `tailwind.css` | Pad naar CSS-bestand met Tailwind import |
-| `tailwind.baseColor` | Basispalet bij init (neutral, zinc, stone, …) |
+| Veld                    | Functie                                                     |
+| ----------------------- | ----------------------------------------------------------- |
+| `style`                 | Componentstijl (`new-york`; `default` is deprecated)        |
+| `tailwind.config`       | Pad naar Tailwind config; **leeg (`""`) bij Tailwind v4**   |
+| `tailwind.css`          | Pad naar CSS-bestand met Tailwind import                    |
+| `tailwind.baseColor`    | Basispalet bij init (neutral, zinc, stone, …)               |
 | `tailwind.cssVariables` | `true` = semantic tokens; `false` = inline Tailwind kleuren |
-| `aliases.ui` | Waar UI-components landen (bijv. `@/components/ui`) |
-| `aliases.utils` | Waar `cn()` staat (bijv. `@/lib/utils`) |
-| `aliases.components` | Algemene components-map |
-| `aliases.lib` / `hooks` | Overige hulpcode |
+| `aliases.ui`            | Waar UI-components landen (bijv. `@/components/ui`)         |
+| `aliases.utils`         | Waar `cn()` staat (bijv. `@/lib/utils`)                     |
+| `aliases.components`    | Algemene components-map                                     |
+| `aliases.lib` / `hooks` | Overige hulpcode                                            |
 
 ### 2.3 Drie lagen in CSS (Tailwind v4)
 
 shadcn scheidt **foundation**, **semantic tokens** en **utilities**:
 
 ```css
-@import "tailwindcss";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'shadcn/tailwind.css';
 
 /* Laag 1 — Semantic tokens (thema-waarden) */
 :root {
@@ -152,7 +152,7 @@ shadcn scheidt **foundation**, **semantic tokens** en **utilities**:
 }
 .dark {
   --background: oklch(0.145 0 0);
-  --border: oklch(1 0 0 / 10%);   /* dark borders vaak alpha */
+  --border: oklch(1 0 0 / 10%); /* dark borders vaak alpha */
   /* … */
 }
 
@@ -168,11 +168,14 @@ shadcn scheidt **foundation**, **semantic tokens** en **utilities**:
 
 /* Laag 3 — Base styles */
 @layer base {
-  body { @apply bg-background text-foreground; }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 ```
 
 **Belangrijk:**
+
 - Semantic tokens leven in `:root` / `.dark` — **niet** in `@layer base`
 - `@theme inline` mapt `--`-variabelen naar Tailwind utilities (`bg-background`, `text-primary`)
 - **Geen** parallel `--spacing-4` systeem — spacing/radius/opacity komen uit Tailwind utilities
@@ -182,22 +185,22 @@ shadcn scheidt **foundation**, **semantic tokens** en **utilities**:
 
 shadcn gebruikt **background/foreground pairs** zonder expliciete rol-prefix:
 
-| Token | Paar | Gebruik |
-| --- | --- | --- |
-| `background` | `foreground` | App shell, body |
-| `card` | `card-foreground` | Cards, panels |
-| `popover` | `popover-foreground` | Dropdowns, overlays |
-| `primary` | `primary-foreground` | Primary buttons, brand |
-| `secondary` | `secondary-foreground` | Secondary buttons |
-| `muted` | `muted-foreground` | Subtiele vlakken + secundaire tekst |
-| `accent` | `accent-foreground` | Hover/selected states (menu, ghost) |
-| `destructive` | — | Destructive buttons + invalid states |
-| `border` | — | Structuurborders |
-| `input` | — | Form control borders |
-| `ring` | — | Focus rings |
-| `sidebar-*` | — | shadcn startpunt → SURF **`alt`** surface ([Alt surfaces](./beslissingen/alt-surfaces.md)); `sidebar`/`inverse` vervallen |
-| `chart-1` … `chart-5` | — | Datavisualisatie |
-| `radius` | — | Basis radius; afgeleiden via `@theme` |
+| Token                 | Paar                   | Gebruik                                                                                                                   |
+| --------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `background`          | `foreground`           | App shell, body                                                                                                           |
+| `card`                | `card-foreground`      | Cards, panels                                                                                                             |
+| `popover`             | `popover-foreground`   | Dropdowns, overlays                                                                                                       |
+| `primary`             | `primary-foreground`   | Primary buttons, brand                                                                                                    |
+| `secondary`           | `secondary-foreground` | Secondary buttons                                                                                                         |
+| `muted`               | `muted-foreground`     | Subtiele vlakken + secundaire tekst                                                                                       |
+| `accent`              | `accent-foreground`    | Hover/selected states (menu, ghost)                                                                                       |
+| `destructive`         | —                      | Destructive buttons + invalid states                                                                                      |
+| `border`              | —                      | Structuurborders                                                                                                          |
+| `input`               | —                      | Form control borders                                                                                                      |
+| `ring`                | —                      | Focus rings                                                                                                               |
+| `sidebar-*`           | —                      | shadcn startpunt → SURF **`alt`** surface ([Alt surfaces](./beslissingen/alt-surfaces.md)); `sidebar`/`inverse` vervallen |
+| `chart-1` … `chart-5` | —                      | Datavisualisatie                                                                                                          |
+| `radius`              | —                      | Basis radius; afgeleiden via `@theme`                                                                                     |
 
 **Componentpatroon:** Primitives in `components/ui/` combineren Radix UI + Tailwind classes die semantic utilities gebruiken (`bg-primary`, `hover:bg-accent`, `border-input`).
 
@@ -213,26 +216,26 @@ De [shadcndesign Figma kit](https://www.shadcndesign.com/) spiegelt shadcn/ui. C
 
 De kit gebruikt **genummerde collecties** die corresponderen met shadcn-lagen:
 
-| Collectie | Naam in Figma | shadcn equivalent | ~Aantal tokens |
-| --- | --- | --- | --- |
-| **1. Tailwind CSS** | Utility-schalen | Tailwind classes (`p-4`, `rounded-lg`, `opacity-50`) | ~496 |
-| **2. Theme** | Brand/thema-kolommen | `:root` / `.dark` CSS variables | per theme-kolom |
-| **3. Mode** | Light/dark routing | `.dark` selector + semantic utilities | ~80 |
+| Collectie           | Naam in Figma        | shadcn equivalent                                    | ~Aantal tokens  |
+| ------------------- | -------------------- | ---------------------------------------------------- | --------------- |
+| **1. Tailwind CSS** | Utility-schalen      | Tailwind classes (`p-4`, `rounded-lg`, `opacity-50`) | ~496            |
+| **2. Theme**        | Brand/thema-kolommen | `:root` / `.dark` CSS variables                      | per theme-kolom |
+| **3. Mode**         | Light/dark routing   | `.dark` selector + semantic utilities                | ~80             |
 
 #### 1. Tailwind CSS — foundation utilities
 
 Bevat schalen die in code **Tailwind classes** zijn, geen CSS custom properties:
 
-| Subgroep | Voorbeelden | Code-equivalent |
-| --- | --- | --- |
-| Spacing (35) | `spacing/4` → 16px | `p-4`, `m-4`, `gap-4`, `w-4` |
-| Width / Height (33+33) | `width/12` | `w-12`, `h-12` (zelfde schaal als spacing) |
-| Border radius (10) | `border-radius/rounded-lg` | `rounded-lg` → `var(--radius-lg)` |
-| Border width (9) | `border-width/border` | `border`, `border-2` |
-| Stroke width (12) | icon strokes | SVG stroke utilities |
-| Opacity (21) | `opacity/opacity-50` | `opacity-50` |
-| Leading (20) | line-height schaal | `leading-tight`, etc. |
-| Min/max width (14+15) | container schalen | `max-w-7xl`, `min-w-sm` |
+| Subgroep               | Voorbeelden                | Code-equivalent                            |
+| ---------------------- | -------------------------- | ------------------------------------------ |
+| Spacing (35)           | `spacing/4` → 16px         | `p-4`, `m-4`, `gap-4`, `w-4`               |
+| Width / Height (33+33) | `width/12`                 | `w-12`, `h-12` (zelfde schaal als spacing) |
+| Border radius (10)     | `border-radius/rounded-lg` | `rounded-lg` → `var(--radius-lg)`          |
+| Border width (9)       | `border-width/border`      | `border`, `border-2`                       |
+| Stroke width (12)      | icon strokes               | SVG stroke utilities                       |
+| Opacity (21)           | `opacity/opacity-50`       | `opacity-50`                               |
+| Leading (20)           | line-height schaal         | `leading-tight`, etc.                      |
+| Min/max width (14+15)  | container schalen          | `max-w-7xl`, `min-w-sm`                    |
 
 #### 2. Theme — brand layer
 
@@ -246,11 +249,11 @@ Bevat schalen die in code **Tailwind classes** zijn, geen CSS custom properties:
 
 Subcollecties binnen Mode:
 
-| Subcollectie | Doel | Code-equivalent | Exporteren? |
-| --- | --- | --- | --- |
-| **base** | Semantic tokens voor componenten | `bg-background`, `text-muted-foreground` | ✅ Ja |
-| **alpha** | Opacity op aliased colors | `bg-muted/90` | ❌ Figma-workaround |
-| **custom** | Dark-mode combinaties | `dark:bg-input/50` | ❌ Figma-workaround |
+| Subcollectie | Doel                             | Code-equivalent                          | Exporteren?         |
+| ------------ | -------------------------------- | ---------------------------------------- | ------------------- |
+| **base**     | Semantic tokens voor componenten | `bg-background`, `text-muted-foreground` | ✅ Ja               |
+| **alpha**    | Opacity op aliased colors        | `bg-muted/90`                            | ❌ Figma-workaround |
+| **custom**   | Dark-mode combinaties            | `dark:bg-input/50`                       | ❌ Figma-workaround |
 
 **Waarom alpha/custom bestaan:** Figma kan geen opacity op aliased variables en geen `dark:` prefix in één variable. De kit simuleert dit met aparte tokens (`--custom-accent-dark-input50`, etc.).
 
@@ -272,14 +275,15 @@ Components + Pro Blocks
 
 ### 3.3 Figma-to-shadcn/ui plugin
 
-| Functie | Gedrag |
-| --- | --- |
-| **Code generatie** | Figma frame → shadcn/ui React code |
+| Functie             | Gedrag                                                                       |
+| ------------------- | ---------------------------------------------------------------------------- |
+| **Code generatie**  | Figma frame → shadcn/ui React code                                           |
 | **Variable export** | Exporteert Theme-kleuren uit collectie **2. Theme** → CSS voor `globals.css` |
-| **Variable import** | CSS variables terug naar Figma |
-| **Pro Blocks CLI** | CLI-commando's voor Pro Block installatie |
+| **Variable import** | CSS variables terug naar Figma                                               |
+| **Pro Blocks CLI**  | CLI-commando's voor Pro Block installatie                                    |
 
 **Beperkingen (belangrijk):**
+
 - Plugin draaien in het **MAIN shadcn/ui kit bestand**, niet in een consumer file
 - Export bevat primair **color group** uit **2. Theme** — geen volledige Tailwind CSS-collectie
 - Alpha/custom tokens worden **niet** geëxporteerd als developer-tokens
@@ -293,38 +297,38 @@ De token library is een **React/Vite lookup-tool** (`token-library.jsx`). Geen b
 
 ### 4.1 Tabs
 
-| Tab | Inhoud | Figma/shadcn equivalent |
-| --- | --- | --- |
+| Tab            | Inhoud                                                         | Figma/shadcn equivalent                  |
+| -------------- | -------------------------------------------------------------- | ---------------------------------------- |
 | **Foundation** | Typography, breakpoints, containers + Tailwind utility-schalen | Collectie 1 + `@theme` radius/typography |
-| **Colors** | Foundation palettes (`--color-*`) | Tailwind color primitives |
-| **Themes** | Semantic tokens per theme + light/dark | Collectie 2 + 3.base |
-| **Contrast** | WCAG-checks op token-paren | — |
+| **Colors**     | Foundation palettes (`--color-*`)                              | Tailwind color primitives                |
+| **Themes**     | Semantic tokens per theme + light/dark                         | Collectie 2 + 3.base                     |
+| **Contrast**   | WCAG-checks op token-paren                                     | —                                        |
 
 ### 4.2 Data-structuur in code
 
-| Constante | Functie |
-| --- | --- |
-| `FOUNDATION_TOKENS` | CSS vars + utility referentietabellen |
-| `COLOR_PALETTE_GROUPS` | Foundation kleuren (SURF, Tailwind, brand) |
-| `THEME_BASE` | Default semantic tokens (categorised) |
-| `DARK_OVERRIDES` | Dark-mode waarden voor default theme |
-| `THEME_OVERRIDES` | Named themes (studielink-aii, shadcn-default, …) |
-| `TOKEN_USAGE` | Usage descriptions per token |
-| `CONTRAST_PAIRS` | WCAG paren (text 4.5:1, border 3:1) |
-| `TAILWIND_UTILITY_CATEGORIES` | Secties die **geen** CSS vars zijn |
+| Constante                     | Functie                                          |
+| ----------------------------- | ------------------------------------------------ |
+| `FOUNDATION_TOKENS`           | CSS vars + utility referentietabellen            |
+| `COLOR_PALETTE_GROUPS`        | Foundation kleuren (SURF, Tailwind, brand)       |
+| `THEME_BASE`                  | Default semantic tokens (categorised)            |
+| `DARK_OVERRIDES`              | Dark-mode waarden voor default theme             |
+| `THEME_OVERRIDES`             | Named themes (studielink-aii, shadcn-default, …) |
+| `TOKEN_USAGE`                 | Usage descriptions per token                     |
+| `CONTRAST_PAIRS`              | WCAG paren (text 4.5:1, border 3:1)              |
+| `TAILWIND_UTILITY_CATEGORIES` | Secties die **geen** CSS vars zijn               |
 
 ### 4.3 Gelaagde documentatie (besluit)
 
 De tool volgt **Optie C** uit [figma-tailwind-tokens.md](./beslissingen/figma-tailwind-tokens.md):
 
-| Type | In tool? | Vorm |
-| --- | --- | --- |
-| Semantic CSS variables | ✅ Themes tab | `--background-default`, … |
-| Foundation colors | ✅ Colors tab | `--color-neutral-200` |
-| Typography, breakpoints, containers | ✅ Foundation | CSS variables |
-| Tailwind utility-schalen | ✅ Foundation | Referentietabel (class → waarde) |
-| Width/height | ❌ | Zelfde schaal als Spacing |
-| Mode → alpha/custom | ❌ | Gedocumenteerd als Figma-only |
+| Type                                | In tool?      | Vorm                             |
+| ----------------------------------- | ------------- | -------------------------------- |
+| Semantic CSS variables              | ✅ Themes tab | `--background-default`, …        |
+| Foundation colors                   | ✅ Colors tab | `--color-neutral-200`            |
+| Typography, breakpoints, containers | ✅ Foundation | CSS variables                    |
+| Tailwind utility-schalen            | ✅ Foundation | Referentietabel (class → waarde) |
+| Width/height                        | ❌            | Zelfde schaal als Spacing        |
+| Mode → alpha/custom                 | ❌            | Gedocumenteerd als Figma-only    |
 
 **Info-banner** in Foundation-tab waarschuwt dat Spacing t/m Leading geen CSS custom properties zijn.
 
@@ -342,48 +346,48 @@ De tool volgt **Optie C** uit [figma-tailwind-tokens.md](./beslissingen/figma-ta
 
 ### 5.1 Collectie → tab mapping
 
-| Figma (shadcndesign) | Token library | shadcn code |
-| --- | --- | --- |
-| 1. Tailwind CSS / spacing | Foundation → Spacing | `p-4`, `gap-4` |
-| 1. Tailwind CSS / border-radius | Foundation → Border radius + Themes → Radius | `rounded-lg`, `--radius-lg` |
-| 1. Tailwind CSS / opacity | Foundation → Opacity | `opacity-50` |
-| 1. Tailwind CSS / colors (primitives) | Colors → Tailwind palettes | `--color-neutral-200` in `@theme` |
-| 2. Theme / color group | Themes tab | `:root { --background: … }` |
-| 3. Mode → base | Themes tab | `bg-background`, `text-foreground` |
-| 3. Mode → alpha | **Niet in tool** | `bg-muted/90` |
-| 3. Mode → custom | **Niet in tool** | `dark:bg-input/50` |
+| Figma (shadcndesign)                  | Token library                                | shadcn code                        |
+| ------------------------------------- | -------------------------------------------- | ---------------------------------- |
+| 1. Tailwind CSS / spacing             | Foundation → Spacing                         | `p-4`, `gap-4`                     |
+| 1. Tailwind CSS / border-radius       | Foundation → Border radius + Themes → Radius | `rounded-lg`, `--radius-lg`        |
+| 1. Tailwind CSS / opacity             | Foundation → Opacity                         | `opacity-50`                       |
+| 1. Tailwind CSS / colors (primitives) | Colors → Tailwind palettes                   | `--color-neutral-200` in `@theme`  |
+| 2. Theme / color group                | Themes tab                                   | `:root { --background: … }`        |
+| 3. Mode → base                        | Themes tab                                   | `bg-background`, `text-foreground` |
+| 3. Mode → alpha                       | **Niet in tool**                             | `bg-muted/90`                      |
+| 3. Mode → custom                      | **Niet in tool**                             | `dark:bg-input/50`                 |
 
 ### 5.2 Semantic token mapping (shadcn-default → SURF gewenst)
 
 SURF migreert van shadcn-naming naar **rol-first** tokens. Zie [token-migratie.md](./beslissingen/token-migratie.md).
 
-| shadcn (huidig) | SURF gewenst | Reden |
-| --- | --- | --- |
-| `--background` | `--background-default` | Expliciete surface |
-| `--foreground` | `--foreground-default` | Parallel pair |
-| `--muted` | `--background-subtle` | Geen verwarring met disabled |
-| `--muted-foreground` | `--foreground-subtle` | Secundaire tekst |
-| `--accent` | `--background-item-hover` | Hover ≠ branding |
-| — | `--background-item-selected` | Selected apart van hover |
-| `--destructive` | `--background-error` + error-rol tokens | Multi-use opsplitsen |
-| `--border` | `--border-default` | Rol expliciet |
-| `--input` | `--border-input` | Form vs structuur |
-| `--ring` | `--ring-default` | Consistent patroon |
-| `--sidebar` | `--background-alt` | Alt tonal region — zie [Alt surfaces](./beslissingen/alt-surfaces.md) |
-| `--sidebar-*` | `--*-alt` | `sidebar` als surface-naam vervalt |
+| shadcn (huidig)      | SURF gewenst                            | Reden                                                                 |
+| -------------------- | --------------------------------------- | --------------------------------------------------------------------- |
+| `--background`       | `--background-default`                  | Expliciete surface                                                    |
+| `--foreground`       | `--foreground-default`                  | Parallel pair                                                         |
+| `--muted`            | `--background-subtle`                   | Geen verwarring met disabled                                          |
+| `--muted-foreground` | `--foreground-subtle`                   | Secundaire tekst                                                      |
+| `--accent`           | `--background-item-hover`               | Hover ≠ branding                                                      |
+| —                    | `--background-item-selected`            | Selected apart van hover                                              |
+| `--destructive`      | `--background-error` + error-rol tokens | Multi-use opsplitsen                                                  |
+| `--border`           | `--border-default`                      | Rol expliciet                                                         |
+| `--input`            | `--border-input`                        | Form vs structuur                                                     |
+| `--ring`             | `--ring-default`                        | Consistent patroon                                                    |
+| `--sidebar`          | `--background-alt`                      | Alt tonal region — zie [Alt surfaces](./beslissingen/alt-surfaces.md) |
+| `--sidebar-*`        | `--*-alt`                               | `sidebar` als surface-naam vervalt                                    |
 
 **Naamgrammatica SURF:** `--{rol}-{surface}[-{qualifier}]`  
 Voorbeeld: `--border-input`, `--border-input-error`, `--foreground-default-error`
 
 ### 5.3 Wat wél 1:1 blijft
 
-| Concept | shadcn | Figma | SURF |
-| --- | --- | --- | --- |
-| Foundation palette | `@theme` color scale | 1. Tailwind CSS colors | Colors tab |
-| Radius afgeleiden | `--radius-sm` … `--radius-4xl` | border-radius group | Themes → Radius |
-| Dark mode borders (opaque) | `neutral-700` / `600` | custom tokens in Mode | palette-ref in DARK_OVERRIDES |
-| Disabled | `opacity-50` utility | 50% layer opacity variant | Geen theme token |
-| Button hover (filled) | opacity modifiers `/80` | alpha collectie | → `--background-primary-hover` (SURF) |
+| Concept                    | shadcn                         | Figma                     | SURF                                  |
+| -------------------------- | ------------------------------ | ------------------------- | ------------------------------------- |
+| Foundation palette         | `@theme` color scale           | 1. Tailwind CSS colors    | Colors tab                            |
+| Radius afgeleiden          | `--radius-sm` … `--radius-4xl` | border-radius group       | Themes → Radius                       |
+| Dark mode borders (opaque) | `neutral-700` / `600`          | custom tokens in Mode     | palette-ref in DARK_OVERRIDES         |
+| Disabled                   | `opacity-50` utility           | 50% layer opacity variant | Geen theme token                      |
+| Button hover (filled)      | opacity modifiers `/80`        | alpha collectie           | → `--background-primary-hover` (SURF) |
 
 ---
 
@@ -493,3 +497,4 @@ Volledige uitwerking in [beslissingen.md](./beslissingen.md).
 | WCAG contrast | Token library → Contrast tab |
 | Button component code | `components/ui/button.tsx` (shadcn CLI) |
 | Design component | Figma kit → Components page |
+```

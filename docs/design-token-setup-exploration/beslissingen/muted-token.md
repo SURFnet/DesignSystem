@@ -24,22 +24,22 @@ Onze oorspronkelijke `TOKEN_USAGE` vermengde **disabled states** met **subtiele 
 
 ## Overwogen opties
 
-| Optie | Beschrijving | Status |
-| --- | --- | --- |
-| A | shadcn-namen behouden | Afgewezen |
-| B | Hernoemen naar `--background-subtle` / `--foreground-subtle` | **Gekozen** |
-| C/D | Extra disabled surface / `--muted` schrappen | Afgewezen |
+| Optie | Beschrijving                                                 | Status      |
+| ----- | ------------------------------------------------------------ | ----------- |
+| A     | shadcn-namen behouden                                        | Afgewezen   |
+| B     | Hernoemen naar `--background-subtle` / `--foreground-subtle` | **Gekozen** |
+| C/D   | Extra disabled surface / `--muted` schrappen                 | Afgewezen   |
 
 ## Beslissing
 
 **Optie B** — direct hernoemen, geen alias-laag.
 
-| Huidig | Gewenst | Doel |
-| --- | --- | --- |
-| `--muted` | `--background-subtle` | Achtergrond voor subtiele, niet-interactieve inset-vlakken |
-| `--muted-foreground` | `--foreground-subtle` | Secundaire tekst/iconen op **default én card** |
-| `--accent` | `--background-item-hover` | Interactieve hover — **niet** subtle ([Hover states](./hover-states.md)) |
-| — | Disabled | Geen token — opacity ([Disabled state](./disabled-state.md)) |
+| Huidig               | Gewenst                   | Doel                                                                     |
+| -------------------- | ------------------------- | ------------------------------------------------------------------------ |
+| `--muted`            | `--background-subtle`     | Achtergrond voor subtiele, niet-interactieve inset-vlakken               |
+| `--muted-foreground` | `--foreground-subtle`     | Secundaire tekst/iconen op **default én card**                           |
+| `--accent`           | `--background-item-hover` | Interactieve hover — **niet** subtle ([Hover states](./hover-states.md)) |
+| —                    | Disabled                  | Geen token — opacity ([Disabled state](./disabled-state.md))             |
 
 ### Contrast
 

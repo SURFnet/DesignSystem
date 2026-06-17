@@ -26,12 +26,12 @@ De token library had al `THEME_BASE` en `DARK_OVERRIDES` voor borders; de backlo
 
 **Semantic tokens (kleur):**
 
-| Token              | Light (default)              | Dark                         | Gebruik                                      |
-| ------------------ | ---------------------------- | ---------------------------- | -------------------------------------------- |
-| `--border`         | `neutral-200` (opaque)       | `oklch(1 0 0 / 10%)`         | Cards, tables, dividers, outline-button rand |
-| `--input`          | `neutral-200` (opaque)       | `oklch(1 0 0 / 15%)`         | Input, textarea, select, outline surfaces    |
-| `--sidebar-border` | zelfde patroon als `--border`| zelfde patroon als `--border`| Alt-regio — zie [Alt surfaces](./alt-surfaces.md) |
-| `--ring`           | `neutral-400`                | `neutral-500`                | Focus ring — zie [Focus ring](./focus-ring.md) |
+| Token              | Light (default)               | Dark                          | Gebruik                                           |
+| ------------------ | ----------------------------- | ----------------------------- | ------------------------------------------------- |
+| `--border`         | `neutral-200` (opaque)        | `oklch(1 0 0 / 10%)`          | Cards, tables, dividers, outline-button rand      |
+| `--input`          | `neutral-200` (opaque)        | `oklch(1 0 0 / 15%)`          | Input, textarea, select, outline surfaces         |
+| `--sidebar-border` | zelfde patroon als `--border` | zelfde patroon als `--border` | Alt-regio — zie [Alt surfaces](./alt-surfaces.md) |
+| `--ring`           | `neutral-400`                 | `neutral-500`                 | Focus ring — zie [Focus ring](./focus-ring.md)    |
 
 **Belangrijk:** `--input` is primair een **randkleur**, geen achtergrondkleur — behalve wanneer code opacity-modifiers gebruikt (`dark:bg-input/30`, `dark:hover:bg-input/50` op outline buttons). Dan fungeert dezelfde token als semi-transparante surface.
 
@@ -43,53 +43,53 @@ De Contrast-tab test `--border-default`, `--border-input` en `--ring-default` te
 
 ## Overwogen opties
 
-### Optie A — shadcn-default: light opaque, dark alpha *(vervallen)*
+### Optie A — shadcn-default: light opaque, dark alpha _(vervallen)_
 
 Was eerdere keuze. Vervangen door Optie D (symmetrisch opaque).
 
-| Pro | Con |
-| --- | --- |
+| Pro             | Con                                          |
+| --------------- | -------------------------------------------- |
 | shadcn-pariteit | Asymmetrisch; alpha moeilijk in contrast-tab |
 
-### Optie B — Border tiers (`--border-subtle`, `--border`, `--border-strong`) *(afgewezen)*
+### Optie B — Border tiers (`--border-subtle`, `--border`, `--border-strong`) _(afgewezen)_
 
 Drie intensiteiten voor hiërarchie.
 
-| Pro                    | Con                                              |
-| ---------------------- | ------------------------------------------------ |
-| Meer visuele nuance    | shadcn heeft dit niet; inconsistent met kit      |
-|                        | Meer tokens per theme                            |
-|                        | Designers moeten per component tier kiezen       |
+| Pro                 | Con                                         |
+| ------------------- | ------------------------------------------- |
+| Meer visuele nuance | shadcn heeft dit niet; inconsistent met kit |
+|                     | Meer tokens per theme                       |
+|                     | Designers moeten per component tier kiezen  |
 
-### Optie C — Eén border-token (`--border` only) *(afgewezen)*
+### Optie C — Eén border-token (`--border` only) _(afgewezen)_
 
 `--input` alias van `--border`.
 
-| Pro              | Con                                           |
-| ---------------- | --------------------------------------------- |
-| Minder tokens    | Form controls niet apart te themen            |
-|                  | Wijkt af van shadcn + shadcndesign kit        |
+| Pro           | Con                                    |
+| ------------- | -------------------------------------- |
+| Minder tokens | Form controls niet apart te themen     |
+|               | Wijkt af van shadcn + shadcndesign kit |
 
-### Optie D — Light én dark opaque palette-ref *(gekozen)*
+### Optie D — Light én dark opaque palette-ref _(gekozen)_
 
 Zelfde mechanisme in beide modes: `{ ref: "--color-neutral-*" }`.
 
-| Pro | Con |
-| --- | --- |
-| Symmetrisch light/dark | Wijkt af van shadcn dark alpha borders |
+| Pro                                  | Con                                                |
+| ------------------------------------ | -------------------------------------------------- |
+| Symmetrisch light/dark               | Wijkt af van shadcn dark alpha borders             |
 | Contrast-tab eenvoudig (vaste paren) | Border moet op **subtle én default** getest worden |
-| Figma `{ ref }` overal | Mogelijk zwaarder op wit dan shadcn alpha dark |
-| Geen blend-afhankelijke checks | |
+| Figma `{ ref }` overal               | Mogelijk zwaarder op wit dan shadcn alpha dark     |
+| Geen blend-afhankelijke checks       |                                                    |
 
-### Optie E — Light én dark alpha *(afgewezen)*
+### Optie E — Light én dark alpha _(afgewezen)_
 
 Symmetrisch via `oklch(… / 10%)` in beide modes.
 
-| Pro | Con |
-| --- | --- |
-| Visueel egaler op mixed surfaces | Contrast-tab complex (blend) |
-| | Geen `{ ref }` in Figma export |
-| | Minder in lijn met voorkeur eenvoudige WCAG-checks |
+| Pro                              | Con                                                |
+| -------------------------------- | -------------------------------------------------- |
+| Visueel egaler op mixed surfaces | Contrast-tab complex (blend)                       |
+|                                  | Geen `{ ref }` in Figma export                     |
+|                                  | Minder in lijn met voorkeur eenvoudige WCAG-checks |
 
 ## Beslissing
 
@@ -121,12 +121,12 @@ Dark (DARK_OVERRIDES):
 
 ### Component-gebruik
 
-| Component / patroon     | Border token              | Dikte (Tailwind) |
-| ----------------------- | ------------------------- | ---------------- |
-| Card, Table, Separator  | `border-default`          | `border`         |
-| Input, Textarea, Select | `border-input`            | `border`         |
-| Outline Button          | `border-input`            | `border`         |
-| Alt regio divider       | `border-alt`              | `border`         |
+| Component / patroon     | Border token     | Dikte (Tailwind) |
+| ----------------------- | ---------------- | ---------------- |
+| Card, Table, Separator  | `border-default` | `border`         |
+| Input, Textarea, Select | `border-input`   | `border`         |
+| Outline Button          | `border-input`   | `border`         |
+| Alt regio divider       | `border-alt`     | `border`         |
 
 ## Rationale
 

@@ -27,11 +27,11 @@ Contrast-paren worden triviaal: `--foreground-default` × `--background-default`
 
 ## Drie assen (orthogonaal)
 
-| As | Waarden | Voorbeeld |
-| --- | --- | --- |
-| **Emphasis** | `default`, `subtle` | body vs inset-vlak (TabsList, skeleton) |
-| **Containers** | `card`, `popover`, `alt` | raised / overlay / alt tonal region |
-| **Actions** | `primary`, `secondary`, `error` | shadcn button-semantiek behouden |
+| As             | Waarden                         | Voorbeeld                               |
+| -------------- | ------------------------------- | --------------------------------------- |
+| **Emphasis**   | `default`, `subtle`             | body vs inset-vlak (TabsList, skeleton) |
+| **Containers** | `card`, `popover`, `alt`        | raised / overlay / alt tonal region     |
+| **Actions**    | `primary`, `secondary`, `error` | shadcn button-semantiek behouden        |
 
 `default` = root app shell (was `page` / `--background`).  
 `subtle` = lichtere emphasis-laag (was `--muted` als achtergrond).  
@@ -41,41 +41,41 @@ Contrast-paren worden triviaal: `--foreground-default` × `--background-default`
 
 ### Regels
 
-| Regel | Detail |
-| --- | --- |
-| Vorm | `--{rol}-{surface}[-{qualifier}]` |
-| Rollen | `background`, `foreground`, `border`, `ring` |
+| Regel                | Detail                                                                                             |
+| -------------------- | -------------------------------------------------------------------------------------------------- |
+| Vorm                 | `--{rol}-{surface}[-{qualifier}]`                                                                  |
+| Rollen               | `background`, `foreground`, `border`, `ring`                                                       |
 | Surfaces / elementen | `default`, `subtle`, `card`, `popover`, `alt`, `primary`, `secondary`, `error`, `item`, `input`, … |
-| Qualifiers | `error`, `hover`, `selected`, … |
-| Geen `-on-` | ❌ `--foreground-on-default` → ✅ `--foreground-default` |
-| Figma = CSS | identieke `--`-naam |
+| Qualifiers           | `error`, `hover`, `selected`, …                                                                    |
+| Geen `-on-`          | ❌ `--foreground-on-default` → ✅ `--foreground-default`                                           |
+| Figma = CSS          | identieke `--`-naam                                                                                |
 
 ### Surface + rol (kern)
 
-| Background | Foreground | Gebruik |
-| --- | --- | --- |
-| `--background-default` | `--foreground-default` | App shell, body |
-| `--background-subtle` | `--foreground-default` | TabsList, skeleton, avatar fallback *(bg)* |
-| `--background-card` | `--foreground-card` | Cards |
-| `--background-popover` | `--foreground-popover` | Popovers, dropdown panels |
-| — | `--foreground-subtle` | Secundaire tekst op default **en** card |
-| `--background-primary` | `--foreground-primary` | Primary button |
-| `--background-secondary` | `--foreground-secondary` | Secondary button |
-| `--background-error` | `--foreground-error` | Destructive button |
-| `--background-alt` | `--foreground-alt` | Alt regio (nav, hero, …) — zie [Alt surfaces](./alt-surfaces.md) |
+| Background               | Foreground               | Gebruik                                                          |
+| ------------------------ | ------------------------ | ---------------------------------------------------------------- |
+| `--background-default`   | `--foreground-default`   | App shell, body                                                  |
+| `--background-subtle`    | `--foreground-default`   | TabsList, skeleton, avatar fallback _(bg)_                       |
+| `--background-card`      | `--foreground-card`      | Cards                                                            |
+| `--background-popover`   | `--foreground-popover`   | Popovers, dropdown panels                                        |
+| —                        | `--foreground-subtle`    | Secundaire tekst op default **en** card                          |
+| `--background-primary`   | `--foreground-primary`   | Primary button                                                   |
+| `--background-secondary` | `--foreground-secondary` | Secondary button                                                 |
+| `--background-error`     | `--foreground-error`     | Destructive button                                               |
+| `--background-alt`       | `--foreground-alt`       | Alt regio (nav, hero, …) — zie [Alt surfaces](./alt-surfaces.md) |
 
 ### Borders & ring (zelfde surface-naam)
 
-| Token | Gebruik |
-| --- | --- |
-| `--border-default` | Cards, dividers, tables op default |
-| `--border-input` | Input, textarea, select, outline button |
-| `--border-input-error` | Invalid input stroke |
-| `--border-card` | Card rand *(indien afwijkend; anders zelfde waarde als `--border-default`)* |
-| `--border-alt` | Divider binnen alt regio |
-| `--ring-default` | Keyboard focus |
-| `--ring-default-error` | Invalid focus ring |
-| `--ring-alt` | Focus op alt tonaliteit |
+| Token                  | Gebruik                                                                     |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `--border-default`     | Cards, dividers, tables op default                                          |
+| `--border-input`       | Input, textarea, select, outline button                                     |
+| `--border-input-error` | Invalid input stroke                                                        |
+| `--border-card`        | Card rand _(indien afwijkend; anders zelfde waarde als `--border-default`)_ |
+| `--border-alt`         | Divider binnen alt regio                                                    |
+| `--ring-default`       | Keyboard focus                                                              |
+| `--ring-default-error` | Invalid focus ring                                                          |
+| `--ring-alt`           | Focus op alt tonaliteit                                                     |
 
 Offset-kleur voor focus rings = achtergrond-surface (`ring-offset-background-default`, …) — geen apart ring-token. Zie [Focus ring](./focus-ring.md).
 
@@ -84,29 +84,29 @@ Offset-kleur voor focus rings = achtergrond-surface (`ring-offset-background-def
 Destructive **button** = `--background-error` + `--foreground-error`.  
 Invalid **field** = aparte tokens: elk is de `-error` variant van zijn basis-token (border van de input, ring van focus, tekst op default):
 
-| Token | Gebruik |
-| --- | --- |
-| `--foreground-default-error` | FieldError, invalid label (tekst op default/card) |
-| `--border-input-error` | `aria-invalid` stroke (error-variant van `--border-input`) |
-| `--ring-default-error` | Invalid focus (error-variant van `--ring-default`) |
+| Token                        | Gebruik                                                    |
+| ---------------------------- | ---------------------------------------------------------- |
+| `--foreground-default-error` | FieldError, invalid label (tekst op default/card)          |
+| `--border-input-error`       | `aria-invalid` stroke (error-variant van `--border-input`) |
+| `--ring-default-error`       | Invalid focus (error-variant van `--ring-default`)         |
 
 Zie [Invalid / error states](./invalid-error-states.md).
 
 ### Item-interaction ([Hover states](./hover-states.md))
 
-| Token | Gebruik |
-| --- | --- |
-| `--background-item-hover` | Menu / list / ghost hover |
-| `--background-item-selected` | Selected nav / row |
-| `--foreground-item-selected` | Tekst op selected *(optioneel)* |
+| Token                        | Gebruik                         |
+| ---------------------------- | ------------------------------- |
+| `--background-item-hover`    | Menu / list / ghost hover       |
+| `--background-item-selected` | Selected nav / row              |
+| `--foreground-item-selected` | Tekst op selected _(optioneel)_ |
 
 Tekst op hover-row blijft meestal `--foreground-default` (of `--foreground-card` op raised surfaces).
 
 ### Hover op buttons
 
-| Token | Gebruik |
-| --- | --- |
-| `--background-primary-hover` | Primary button hover |
+| Token                          | Gebruik                |
+| ------------------------------ | ---------------------- |
+| `--background-primary-hover`   | Primary button hover   |
 | `--background-secondary-hover` | Secondary button hover |
 
 Foreground blijft `--foreground-primary` / `--foreground-secondary`.
@@ -115,37 +115,37 @@ Foreground blijft `--foreground-primary` / `--foreground-secondary`.
 
 Volledige checklist: [Token-migratie](./token-migratie.md). Samenvatting:
 
-| Huidig (shadcn) | Gewenst |
-| --- | --- |
-| `--background` | `--background-default` |
-| `--foreground` | `--foreground-default` |
-| `--card` | `--background-card` |
-| `--card-foreground` | `--foreground-card` |
-| `--popover` | `--background-popover` |
-| `--popover-foreground` | `--foreground-popover` |
-| `--primary` | `--background-primary` |
-| `--primary-foreground` | `--foreground-primary` |
-| `--secondary` | `--background-secondary` |
-| `--secondary-foreground` | `--foreground-secondary` |
-| `--muted` | `--background-subtle` |
-| `--muted-foreground` | `--foreground-subtle` |
-| `--destructive` | `--background-error` *(+ split invalid tokens)* |
-| `--destructive-foreground` | `--foreground-error` |
-| `--border` | `--border-default` |
-| `--input` | `--border-input` |
-| `--ring` | `--ring-default` |
-| `--accent` | `--background-item-hover` *(+ `--background-item-selected`)* |
-| `--sidebar` | `--background-alt` |
-| `--sidebar-foreground` | `--foreground-alt` |
-| `--sidebar-border` | `--border-alt` |
-| `--sidebar-ring` | `--ring-alt` |
-| `--sidebar-accent` | `--background-alt-item-hover` |
-| `--background-sidebar` *(vervallen)* | `--background-alt` |
-| `--foreground-sidebar` *(vervallen)* | `--foreground-alt` |
-| `--border-sidebar` *(vervallen)* | `--border-alt` |
-| `--ring-sidebar` *(vervallen)* | `--ring-alt` |
-| `text-destructive` | `--foreground-default-error` |
-| `aria-invalid:border-*` | `--border-input-error` |
+| Huidig (shadcn)                      | Gewenst                                                      |
+| ------------------------------------ | ------------------------------------------------------------ |
+| `--background`                       | `--background-default`                                       |
+| `--foreground`                       | `--foreground-default`                                       |
+| `--card`                             | `--background-card`                                          |
+| `--card-foreground`                  | `--foreground-card`                                          |
+| `--popover`                          | `--background-popover`                                       |
+| `--popover-foreground`               | `--foreground-popover`                                       |
+| `--primary`                          | `--background-primary`                                       |
+| `--primary-foreground`               | `--foreground-primary`                                       |
+| `--secondary`                        | `--background-secondary`                                     |
+| `--secondary-foreground`             | `--foreground-secondary`                                     |
+| `--muted`                            | `--background-subtle`                                        |
+| `--muted-foreground`                 | `--foreground-subtle`                                        |
+| `--destructive`                      | `--background-error` _(+ split invalid tokens)_              |
+| `--destructive-foreground`           | `--foreground-error`                                         |
+| `--border`                           | `--border-default`                                           |
+| `--input`                            | `--border-input`                                             |
+| `--ring`                             | `--ring-default`                                             |
+| `--accent`                           | `--background-item-hover` _(+ `--background-item-selected`)_ |
+| `--sidebar`                          | `--background-alt`                                           |
+| `--sidebar-foreground`               | `--foreground-alt`                                           |
+| `--sidebar-border`                   | `--border-alt`                                               |
+| `--sidebar-ring`                     | `--ring-alt`                                                 |
+| `--sidebar-accent`                   | `--background-alt-item-hover`                                |
+| `--background-sidebar` _(vervallen)_ | `--background-alt`                                           |
+| `--foreground-sidebar` _(vervallen)_ | `--foreground-alt`                                           |
+| `--border-sidebar` _(vervallen)_     | `--border-alt`                                               |
+| `--ring-sidebar` _(vervallen)_       | `--ring-alt`                                                 |
+| `text-destructive`                   | `--foreground-default-error`                                 |
+| `aria-invalid:border-*`              | `--border-input-error`                                       |
 
 ## Voorbeeld `globals.css` (gewenste staat)
 
@@ -172,40 +172,40 @@ Volledige checklist: [Token-migratie](./token-migratie.md). Samenvatting:
 
 ### Tekst (4.5:1)
 
-| Background | Foreground |
-| --- | --- |
-| `--background-default` | `--foreground-default` |
-| `--background-default` | `--foreground-subtle` |
-| `--background-default` | `--foreground-default-error` |
-| `--background-card` | `--foreground-card` |
-| `--background-card` | `--foreground-subtle` |
-| `--background-card` | `--foreground-default-error` |
-| `--background-popover` | `--foreground-popover` |
-| `--background-subtle` | `--foreground-default` |
-| `--background-subtle` | `--foreground-subtle` |
-| `--background-primary` | `--foreground-primary` |
-| `--background-primary-hover` | `--foreground-primary` |
-| `--background-secondary` | `--foreground-secondary` |
-| `--background-secondary-hover` | `--foreground-secondary` |
-| `--background-error` | `--foreground-error` |
-| `--background-alt` | `--foreground-alt` |
-| `--background-item-selected` | `--foreground-item-selected` |
-| `--background-item-selected` | `--foreground-default` |
-| `--background-item-hover` | `--foreground-default` |
+| Background                     | Foreground                   |
+| ------------------------------ | ---------------------------- |
+| `--background-default`         | `--foreground-default`       |
+| `--background-default`         | `--foreground-subtle`        |
+| `--background-default`         | `--foreground-default-error` |
+| `--background-card`            | `--foreground-card`          |
+| `--background-card`            | `--foreground-subtle`        |
+| `--background-card`            | `--foreground-default-error` |
+| `--background-popover`         | `--foreground-popover`       |
+| `--background-subtle`          | `--foreground-default`       |
+| `--background-subtle`          | `--foreground-subtle`        |
+| `--background-primary`         | `--foreground-primary`       |
+| `--background-primary-hover`   | `--foreground-primary`       |
+| `--background-secondary`       | `--foreground-secondary`     |
+| `--background-secondary-hover` | `--foreground-secondary`     |
+| `--background-error`           | `--foreground-error`         |
+| `--background-alt`             | `--foreground-alt`           |
+| `--background-item-selected`   | `--foreground-item-selected` |
+| `--background-item-selected`   | `--foreground-default`       |
+| `--background-item-hover`      | `--foreground-default`       |
 
 ### Border / ring (3:1)
 
-| Background | Border / ring |
-| --- | --- |
-| `--background-default` | `--border-default` |
-| `--background-default` | `--border-input` |
+| Background             | Border / ring          |
+| ---------------------- | ---------------------- |
+| `--background-default` | `--border-default`     |
+| `--background-default` | `--border-input`       |
 | `--background-default` | `--border-input-error` |
-| `--background-default` | `--ring-default` |
+| `--background-default` | `--ring-default`       |
 | `--background-default` | `--ring-default-error` |
-| `--background-card` | `--border-default` |
-| `--background-card` | `--border-input` |
-| `--background-alt` | `--border-alt` |
-| `--background-alt` | `--ring-alt` |
+| `--background-card`    | `--border-default`     |
+| `--background-card`    | `--border-input`       |
+| `--background-alt`     | `--border-alt`         |
+| `--background-alt`     | `--ring-alt`           |
 
 **Totaal:** ~25 core paren + optionele card/alt varianten.
 
@@ -220,24 +220,24 @@ Semantic     --background-default, --foreground-default, …   ← gewenste staa
 
 ## Impact op eerdere besluiten
 
-| Besluit | Gewenste tokens |
-| --- | --- |
-| [Borders](./borders.md) | `--border-default`, `--border-input` |
+| Besluit                                             | Gewenste tokens                                                              |
+| --------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [Borders](./borders.md)                             | `--border-default`, `--border-input`                                         |
 | [Invalid / error states](./invalid-error-states.md) | `--foreground-default-error`, `--border-input-error`, `--ring-default-error` |
-| [Hover states](./hover-states.md) | `--background-item-hover`, `--background-primary-hover` |
-| [Focus ring](./focus-ring.md) | `--ring-default`, `--ring-default-error`, `--ring-alt` |
-| [Alt surfaces](./alt-surfaces.md) | `--background-alt`, … |
-| [Dark mode](./dark-mode.md) | `DARK_OVERRIDES`; opaque borders; geen `--custom-*` export |
-| [`--muted` token](./muted-token.md) | `--background-subtle`, `--foreground-subtle` |
+| [Hover states](./hover-states.md)                   | `--background-item-hover`, `--background-primary-hover`                      |
+| [Focus ring](./focus-ring.md)                       | `--ring-default`, `--ring-default-error`, `--ring-alt`                       |
+| [Alt surfaces](./alt-surfaces.md)                   | `--background-alt`, …                                                        |
+| [Dark mode](./dark-mode.md)                         | `DARK_OVERRIDES`; opaque borders; geen `--custom-*` export                   |
+| [`--muted` token](./muted-token.md)                 | `--background-subtle`, `--foreground-subtle`                                 |
 
 ## Afgewezen naamsvarianten
 
-| Variant | Waarom niet |
-| --- | --- |
-| `--foreground-on-default` | `-on-` grammatica; parallel `--foreground-default` |
+| Variant                                    | Waarom niet                                                    |
+| ------------------------------------------ | -------------------------------------------------------------- |
+| `--foreground-on-default`                  | `-on-` grammatica; parallel `--foreground-default`             |
 | `--background-page`, `--background-canvas` | `page`/`canvas` geen stabiele UI-term; **`default`** preferred |
-| `--background-muted`, `--foreground-muted` | verwarrend met shadcn `--muted`; **`subtle`** = emphasis-laag |
-| `--error-text`, `--destructive` multi-use | geen rol in naam / multi-use |
+| `--background-muted`, `--foreground-muted` | verwarrend met shadcn `--muted`; **`subtle`** = emphasis-laag  |
+| `--error-text`, `--destructive` multi-use  | geen rol in naam / multi-use                                   |
 
 ## Open vragen
 

@@ -43,12 +43,12 @@ Gemeenschappelijk:
 
 **Wat disabled níet is:**
 
-| State                 | Verschil met disabled                                              |
-| --------------------- | ------------------------------------------------------------------ |
-| **Readonly**          | Waarde zichtbaar, vaak geen opacity; vol contrast                  |
-| **Loading**           | Vaak `disabled` + spinner; opacity kan gelijk blijven              |
+| State                 | Verschil met disabled                                                                                         |
+| --------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Readonly**          | Waarde zichtbaar, vaak geen opacity; vol contrast                                                             |
+| **Loading**           | Vaak `disabled` + spinner; opacity kan gelijk blijven                                                         |
 | **Invalid / error**   | `--destructive` border/ring; element is wél interactief ([Invalid / error states](./invalid-error-states.md)) |
-| **`--muted` surface** | Niet-interactief vlak; geen state op een control                   |
+| **`--muted` surface** | Niet-interactief vlak; geen state op een control                                                              |
 
 **Toegankelijkheid:**
 
@@ -57,7 +57,7 @@ Gemeenschappelijk:
 
 ## Overwogen opties
 
-### Optie A — Opacity op component *(shadcn-default, gekozen)*
+### Optie A — Opacity op component _(shadcn-default, gekozen)_
 
 `disabled:opacity-50` + `pointer-events-none` of `cursor-not-allowed`.
 
@@ -68,11 +68,11 @@ Gemeenschappelijk:
 | Stock shadcn + shadcndesign compatibel     | Hele component wordt afgezwakt             |
 | Sluit aan bij muted ≠ disabled (zie muted) |                                            |
 
-### Optie B — Muted surface *(afgewezen)*
+### Optie B — Muted surface _(afgewezen)_
 
 `disabled:bg-muted disabled:text-muted-foreground` — shadcn doet dit niet; verwart `--muted`.
 
-### Optie C — Expliciete disabled tokens *(afgewezen)*
+### Optie C — Expliciete disabled tokens _(afgewezen)_
 
 `--disabled`, `--disabled-foreground` — te veel tokens, wijkt af van shadcn.
 
@@ -97,14 +97,14 @@ disabled:cursor-not-allowed disabled:opacity-50  // inputs, switches, selects
 
 **States-overzicht (interaction):**
 
-| State    | Mechanisme                                         | Theme token? |
-| -------- | -------------------------------------------------- | ------------ |
-| Default  | Variant-kleuren                                    | Ja           |
-| Hover    | Emphasis: `-hover` token; items: `--item-hover`    | Ja           |
+| State    | Mechanisme                                       | Theme token? |
+| -------- | ------------------------------------------------ | ------------ |
+| Default  | Variant-kleuren                                  | Ja           |
+| Hover    | Emphasis: `-hover` token; items: `--item-hover`  | Ja           |
 | Selected | `--item-selected` (lists, nav)                   | Ja           |
-| Active   | Visueel = default                                  | —            |
-| Disabled | `opacity-50` + cursor/pointer lock                 | **Nee**      |
-| Focus    | `--ring-default` ([Focus ring](./focus-ring.md))   | Ja           |
+| Active   | Visueel = default                                | —            |
+| Disabled | `opacity-50` + cursor/pointer lock               | **Nee**      |
+| Focus    | `--ring-default` ([Focus ring](./focus-ring.md)) | Ja           |
 
 ## Rationale
 

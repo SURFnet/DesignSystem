@@ -22,40 +22,40 @@ shadcn modelleert dit als `--sidebar-*`. SURF migreerde naar rol-first tokens, e
 
 ## Overwogen opties
 
-### Optie A — `alt` *(gekozen)*
+### Optie A — `alt` _(gekozen)_
 
 Tweede tonal zone; geen inverse-implicatie.
 
-| Pro | Con |
-| --- | --- |
-| Accuraat als sidebar = default toon | Minder beeldend dan “inverse” |
-| Geen WCAG-naamconflict | “Alt” is abstract |
-| Theme vult in: wél of niet contrast met default | |
-| Past bij `--background-default` grammatica | |
+| Pro                                             | Con                           |
+| ----------------------------------------------- | ----------------------------- |
+| Accuraat als sidebar = default toon             | Minder beeldend dan “inverse” |
+| Geen WCAG-naamconflict                          | “Alt” is abstract             |
+| Theme vult in: wél of niet contrast met default |                               |
+| Past bij `--background-default` grammatica      |                               |
 
-### Optie B — `inverse` *(vervallen)*
+### Optie B — `inverse` _(vervallen)_
 
-| Pro | Con |
-| --- | --- |
+| Pro                                       | Con                                      |
+| ----------------------------------------- | ---------------------------------------- |
 | Dark nav op light app is meteen duidelijk | **Misleidend** als theme niet invertiert |
-| | Naam belooft gedrag dat optioneel is |
+|                                           | Naam belooft gedrag dat optioneel is     |
 
-### Optie C — `chrome` *(afgewezen)*
+### Optie C — `chrome` _(afgewezen)_
 
 Nav/header-framing; geen inverse-belofte.
 
-| Pro | Con |
-| --- | --- |
+| Pro                                | Con                             |
+| ---------------------------------- | ------------------------------- |
 | Bekend bij devs (“browser chrome”) | Hero/marketing band past minder |
-| Specifieker dan shell | Nog steeds layout-associatie |
+| Specifieker dan shell              | Nog steeds layout-associatie    |
 
-### Optie D — `shell` *(afgewezen)*
+### Optie D — `shell` _(afgewezen)_
 
-| Pro | Con |
-| --- | --- |
+| Pro            | Con                                       |
+| -------------- | ----------------------------------------- |
 | App-shell term | Voelt allesomvattend (“app zit ín shell”) |
 
-### Optie E — `sidebar` *(vervallen)*
+### Optie E — `sidebar` _(vervallen)_
 
 Layout-naam in tokens — zie eerdere besluiten.
 
@@ -83,33 +83,33 @@ Item-interaction op alt (was sidebar-accent):
 
 **Semantiek:** `alt` = “eigen palette voor framing-regio's”. Mag **wel** sterk contrasteren met `default` (dark sidebar op light app), maar **hoeft niet** — theme beslist.
 
-| Component | Tokens |
-| --- | --- |
-| Sidebar | `alt` |
-| Top nav / site header | `alt` |
-| Page hero (eigen band) | `alt` |
+| Component              | Tokens |
+| ---------------------- | ------ |
+| Sidebar                | `alt`  |
+| Top nav / site header  | `alt`  |
+| Page hero (eigen band) | `alt`  |
 
 ### Huidig → gewenst
 
-| Huidig (shadcn) | Vervallen | Gewenst |
-| --- | --- | --- |
-| `--sidebar` | `--background-sidebar`, `--background-inverse` | `--background-alt` |
-| `--sidebar-foreground` | `--foreground-sidebar`, `--foreground-inverse` | `--foreground-alt` |
-| `--sidebar-border` | `--border-sidebar`, `--border-inverse` | `--border-alt` |
-| `--sidebar-ring` | `--ring-sidebar`, `--ring-inverse` | `--ring-alt` |
-| `--sidebar-primary` | `--background-*-primary`, `-emphasis` | `--background-alt-emphasis` |
-| `--sidebar-accent` | `--background-*-item-hover` | `--background-alt-item-hover` |
+| Huidig (shadcn)        | Vervallen                                      | Gewenst                       |
+| ---------------------- | ---------------------------------------------- | ----------------------------- |
+| `--sidebar`            | `--background-sidebar`, `--background-inverse` | `--background-alt`            |
+| `--sidebar-foreground` | `--foreground-sidebar`, `--foreground-inverse` | `--foreground-alt`            |
+| `--sidebar-border`     | `--border-sidebar`, `--border-inverse`         | `--border-alt`                |
+| `--sidebar-ring`       | `--ring-sidebar`, `--ring-inverse`             | `--ring-alt`                  |
+| `--sidebar-primary`    | `--background-*-primary`, `-emphasis`          | `--background-alt-emphasis`   |
+| `--sidebar-accent`     | `--background-*-item-hover`                    | `--background-alt-item-hover` |
 
 Zie [Token-migratie](./token-migratie.md).
 
 ### Tailwind `@theme` (classes)
 
-| Gewenst |
-| --- |
-| `bg-background-alt` |
-| `text-foreground-alt` |
-| `border-alt` |
-| `ring-alt` |
+| Gewenst                      |
+| ---------------------------- |
+| `bg-background-alt`          |
+| `text-foreground-alt`        |
+| `border-alt`                 |
+| `ring-alt`                   |
 | `ring-offset-background-alt` |
 
 ## Rationale

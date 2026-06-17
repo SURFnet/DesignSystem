@@ -24,10 +24,10 @@ Tegelijk gebruikt shadcn opacity-modifiers (`hover:bg-primary/90`) voor filled b
 
 Er is **geen enkele `--hover`-token** die overal geldt. shadcn combineert nu impliciet twee patronen:
 
-| Context | Default | Hover | Selected |
-| --- | --- | --- | --- |
-| **Filled button** (primary/secondary) | `bg-primary` | donkerder primary | — |
-| **List/menu/nav/ghost** op bg/card/popover | transparent | subtiele highlight (grijs) | brand/actief (blauw) |
+| Context                                    | Default      | Hover                      | Selected             |
+| ------------------------------------------ | ------------ | -------------------------- | -------------------- |
+| **Filled button** (primary/secondary)      | `bg-primary` | donkerder primary          | —                    |
+| **List/menu/nav/ghost** op bg/card/popover | transparent  | subtiele highlight (grijs) | brand/actief (blauw) |
 
 **`--accent` is geen hover van `--background`.** Het is een absolute highlight-kleur die op elke onderliggende surface hetzelfde blijft — niet berekend als `background + delta`.
 
@@ -37,20 +37,20 @@ Er is **geen enkele `--hover`-token** die overal geldt. shadcn combineert nu imp
 
 ### Optie A — shadcn-default behouden (`--accent` + `/80`-modifiers)
 
-| Pro | Con |
-| --- | --- |
-| Weinig tokens | `--accent` misleidende naam |
-| | Hover ≠ selected niet modelleren |
-| | Figma ≠ code zonder workarounds |
+| Pro           | Con                              |
+| ------------- | -------------------------------- |
+| Weinig tokens | `--accent` misleidende naam      |
+|               | Hover ≠ selected niet modelleren |
+|               | Figma ≠ code zonder workarounds  |
 
 ### Optie B — `--highlight` + `-hover` / `-selected`
 
-| Pro | Con |
-| --- | --- |
-| Eén familie | `--highlight` klinkt als achtergrondkleur |
-| | `--highlight-hover` voelt als kleurenschaal i.p.v. rol |
+| Pro         | Con                                                    |
+| ----------- | ------------------------------------------------------ |
+| Eén familie | `--highlight` klinkt als achtergrondkleur              |
+|             | `--highlight-hover` voelt als kleurenschaal i.p.v. rol |
 
-### Optie C — Twee tracks + item-tokens *(gekozen)*
+### Optie C — Twee tracks + item-tokens _(gekozen)_
 
 **Track 1 — Emphasis (filled controls):**
 
@@ -67,12 +67,12 @@ Er is **geen enkele `--hover`-token** die overal geldt. shadcn combineert nu imp
 --foreground-item-selected      (optioneel)
 ```
 
-| Pro | Con |
-| --- | --- |
-| Hover (grijs) en selected (brand) expliciet | Meer tokens dan shadcn-default |
-| Namen beschrijven rol, geen branding | Migratie van `--accent` nodig |
-| Voorspelbaar, contrast testbaar | Component classes aanpassen |
-| Werkt op default/card/popover zonder surface-specifieke tokens | |
+| Pro                                                            | Con                            |
+| -------------------------------------------------------------- | ------------------------------ |
+| Hover (grijs) en selected (brand) expliciet                    | Meer tokens dan shadcn-default |
+| Namen beschrijven rol, geen branding                           | Migratie van `--accent` nodig  |
+| Voorspelbaar, contrast testbaar                                | Component classes aanpassen    |
+| Werkt op default/card/popover zonder surface-specifieke tokens |                                |
 
 ## Beslissing
 
@@ -100,26 +100,26 @@ Disabled (geen kleurtokens):
 
 ### Huidig → gewenst
 
-| Huidig (shadcn) | Gewenst |
-| --- | --- |
-| `--accent` (hover op items/ghost) | `--background-item-hover` |
-| `--accent-foreground` | `--foreground-item-selected` of `--foreground-default` (context) |
-| selected/active nav (was ook accent) | `--background-item-selected` |
-| `hover:bg-primary/90` | `--background-primary-hover` |
-| `hover:bg-secondary/80` | `--background-secondary-hover` |
-| `hover:bg-accent` (ghost/outline) | `--background-item-hover` |
-| `--ring` | `--ring-default` |
+| Huidig (shadcn)                      | Gewenst                                                          |
+| ------------------------------------ | ---------------------------------------------------------------- |
+| `--accent` (hover op items/ghost)    | `--background-item-hover`                                        |
+| `--accent-foreground`                | `--foreground-item-selected` of `--foreground-default` (context) |
+| selected/active nav (was ook accent) | `--background-item-selected`                                     |
+| `hover:bg-primary/90`                | `--background-primary-hover`                                     |
+| `hover:bg-secondary/80`              | `--background-secondary-hover`                                   |
+| `hover:bg-accent` (ghost/outline)    | `--background-item-hover`                                        |
+| `--ring`                             | `--ring-default`                                                 |
 
 Zie [Token-migratie](./token-migratie.md).
 
 ### Interaction-principe
 
-| Type | Default | Hover | Selected |
-| --- | --- | --- | --- |
-| Primary/secondary button | `--background-primary` / `--background-secondary` | `-hover` token | — |
-| Ghost / outline button | transparent | `--background-item-hover` | — |
-| Menu/dropdown/command item | transparent | `--background-item-hover` | `--background-item-selected` |
-| Nav item | transparent | `--background-item-hover` | `--background-item-selected` |
+| Type                       | Default                                           | Hover                     | Selected                     |
+| -------------------------- | ------------------------------------------------- | ------------------------- | ---------------------------- |
+| Primary/secondary button   | `--background-primary` / `--background-secondary` | `-hover` token            | —                            |
+| Ghost / outline button     | transparent                                       | `--background-item-hover` | —                            |
+| Menu/dropdown/command item | transparent                                       | `--background-item-hover` | `--background-item-selected` |
+| Nav item                   | transparent                                       | `--background-item-hover` | `--background-item-selected` |
 
 **Focus** op items: `--ring-default` voor keyboard; pointer hover blijft `--background-item-hover`.
 
@@ -127,19 +127,19 @@ Zie [Token-migratie](./token-migratie.md).
 
 ### Visuele richtlijn (thema)
 
-| Token | Light mode richting | Dark mode richting |
-| --- | --- | --- |
-| `--background-primary-hover` | primary iets donkerder (≈ één palette-stap) | primary iets lichter |
-| `--background-secondary-hover` | secondary iets donkerder | secondary iets lichter |
-| `--background-item-hover` | neutraal grijs (subtiel) | neutraal grijs (subtiel) |
-| `--background-item-selected` | brand / primary tint | brand / primary tint |
+| Token                          | Light mode richting                         | Dark mode richting       |
+| ------------------------------ | ------------------------------------------- | ------------------------ |
+| `--background-primary-hover`   | primary iets donkerder (≈ één palette-stap) | primary iets lichter     |
+| `--background-secondary-hover` | secondary iets donkerder                    | secondary iets lichter   |
+| `--background-item-hover`      | neutraal grijs (subtiel)                    | neutraal grijs (subtiel) |
+| `--background-item-selected`   | brand / primary tint                        | brand / primary tint     |
 
 Dit is een **richtlijn voor handmatige keuze**, geen berekening. Hover-tokens zijn vaste opaque palette-refs per theme/mode — geen runtime OKLCH-afleiding. Zie [Hover-tokens: geen auto-generatie](./hover-token-generatie.md).
 
 ### Niet doen
 
 - Opacity-modifiers (`/80`, `/90`) als hoofdstrategie voor eigen components
-- `--accent-hover` — accent *was* al de hover-kleur; item-tokens vervangen het geheel
+- `--accent-hover` — accent _was_ al de hover-kleur; item-tokens vervangen het geheel
 - `--background-hover` — te gebonden aan één surface
 - Alpha-collectie als parallel developer-systeem (Figma-only)
 - `--background-item-hover` op filled primary/secondary buttons

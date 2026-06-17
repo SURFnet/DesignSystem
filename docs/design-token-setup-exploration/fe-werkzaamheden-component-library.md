@@ -18,14 +18,14 @@
 
 ## Werkzaamheden in één oogopslag
 
-| # | Werk | Aard | Risico |
-| --- | --- | --- | --- |
-| 1 | `globals.css` — semantic tokens (`:root` / `.dark`) hernoemen, splitsen, toevoegen | Mechanisch, eenmalig | Laag (foutgevoelig bij splits) |
-| 2 | `@theme inline` — Tailwind bridge herschrijven | Mechanisch | Laag |
-| 3 | `components/ui/*` — class-rewrites | Breed, veel bestanden | Middel |
-| 4 | Invalid/error states — `--destructive` opsplitsen | Inhoudelijk, per geval | Hoog |
-| 5 | Hover states — opacity-modifiers → hover-tokens | Inhoudelijk | Middel |
-| 6 | Visuele regressie-check (light + dark) | Test | Middel |
+| #   | Werk                                                                               | Aard                   | Risico                         |
+| --- | ---------------------------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| 1   | `globals.css` — semantic tokens (`:root` / `.dark`) hernoemen, splitsen, toevoegen | Mechanisch, eenmalig   | Laag (foutgevoelig bij splits) |
+| 2   | `@theme inline` — Tailwind bridge herschrijven                                     | Mechanisch             | Laag                           |
+| 3   | `components/ui/*` — class-rewrites                                                 | Breed, veel bestanden  | Middel                         |
+| 4   | Invalid/error states — `--destructive` opsplitsen                                  | Inhoudelijk, per geval | Hoog                           |
+| 5   | Hover states — opacity-modifiers → hover-tokens                                    | Inhoudelijk            | Middel                         |
+| 6   | Visuele regressie-check (light + dark)                                             | Test                   | Middel                         |
 
 **Aandachtspunten:**
 
@@ -98,16 +98,16 @@ De mapping van `--`-variabelen naar Tailwind utilities herschrijven zodat de jui
 
 Het meeste handwerk: in elke primitive de Tailwind-classes omzetten. Mechanische renames:
 
-| Huidig | Gewenst |
-| --- | --- |
-| `bg-background` | `bg-background-default` |
-| `text-foreground` | `text-foreground-default` |
-| `bg-muted` | `bg-background-subtle` |
-| `text-muted-foreground` | `text-foreground-subtle` |
-| `border-border` | `border-default` |
-| `border-input` | `border-input` *(class gelijk; var veranderde)* |
-| `ring-ring` | `ring-default` |
-| `bg-sidebar` | `bg-background-alt` |
+| Huidig                        | Gewenst                                             |
+| ----------------------------- | --------------------------------------------------- |
+| `bg-background`               | `bg-background-default`                             |
+| `text-foreground`             | `text-foreground-default`                           |
+| `bg-muted`                    | `bg-background-subtle`                              |
+| `text-muted-foreground`       | `text-foreground-subtle`                            |
+| `border-border`               | `border-default`                                    |
+| `border-input`                | `border-input` _(class gelijk; var veranderde)_     |
+| `ring-ring`                   | `ring-default`                                      |
+| `bg-sidebar`                  | `bg-background-alt`                                 |
 | `bg-primary` / `bg-secondary` | `bg-background-primary` / `bg-background-secondary` |
 
 > Let op: `hover:bg-accent`, `bg-destructive`, `text-destructive` en `aria-invalid:*` vallen onder **stap 4 en 5** — niet hier blind vervangen.
@@ -142,13 +142,13 @@ Het meeste handwerk: in elke primitive de Tailwind-classes omzetten. Mechanische
 
 `--destructive` had meerdere rollen; elk gebruik wijst nu naar het juiste token. Geen find/replace — per geval beoordelen.
 
-| Huidig gebruik | Gewenst |
-| --- | --- |
-| Destructive button background | `bg-background-error` |
-| Destructive button text | `text-foreground-error` |
-| Invalid input border (`aria-invalid`) | `border-input-error` |
-| Invalid focus ring (`aria-invalid` + focus) | `ring-default-error` |
-| Error label / FieldError tekst | `text-default-error` (`--foreground-default-error`) |
+| Huidig gebruik                              | Gewenst                                             |
+| ------------------------------------------- | --------------------------------------------------- |
+| Destructive button background               | `bg-background-error`                               |
+| Destructive button text                     | `text-foreground-error`                             |
+| Invalid input border (`aria-invalid`)       | `border-input-error`                                |
+| Invalid focus ring (`aria-invalid` + focus) | `ring-default-error`                                |
+| Error label / FieldError tekst              | `text-default-error` (`--foreground-default-error`) |
 
 > **Agent-prompt**
 >
@@ -174,12 +174,12 @@ Het meeste handwerk: in elke primitive de Tailwind-classes omzetten. Mechanische
 
 Filled buttons gebruikten opacity-modifiers (`/90`, `/80`); item/ghost hover gebruikte `--accent`. Vervangen door expliciete tokens.
 
-| Huidig | Gewenst |
-| --- | --- |
-| `hover:bg-primary/90` (filled primary) | `hover:bg-background-primary-hover` |
+| Huidig                                     | Gewenst                               |
+| ------------------------------------------ | ------------------------------------- |
+| `hover:bg-primary/90` (filled primary)     | `hover:bg-background-primary-hover`   |
 | `hover:bg-secondary/80` (filled secondary) | `hover:bg-background-secondary-hover` |
-| `hover:bg-accent` (item/ghost/menu) | `hover:bg-background-item-hover` |
-| Selected nav/row | `bg-background-item-selected` |
+| `hover:bg-accent` (item/ghost/menu)        | `hover:bg-background-item-hover`      |
+| Selected nav/row                           | `bg-background-item-selected`         |
 
 > **Agent-prompt**
 >

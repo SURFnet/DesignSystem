@@ -12,7 +12,6 @@ Dit document is het **overzicht** van architectuur- en designkeuzes voor het SUR
 
 ### Statussen
 
-
 | Status           | Betekenis                                                       |
 | ---------------- | --------------------------------------------------------------- |
 | **Voorgesteld**  | Richting lijkt goed, nog niet formeel vastgelegd in tokens/code |
@@ -20,7 +19,6 @@ Dit document is het **overzicht** van architectuur- en designkeuzes voor het SUR
 | **Afgewezen**    | Bewust niet gekozen; rationale staat erbij                      |
 | **In onderzoek** | Nog open; opties worden vergeleken                              |
 | **Verouderd**    | Vervangen door een latere beslissing                            |
-
 
 ### Nieuwe beslissing toevoegen
 
@@ -33,42 +31,40 @@ Dit document is het **overzicht** van architectuur- en designkeuzes voor het SUR
 
 ## Index
 
-
-| Onderwerp                                                                         | Status      | Datum      |
-| --------------------------------------------------------------------------------- | ----------- | ---------- |
-| [Hover states](./beslissingen/hover-states.md)                                    | Voorgesteld | 2026-06-16 |
-| [Disabled state](./beslissingen/disabled-state.md)                                | Voorgesteld | 2026-06-16 |
-| `[--muted` token](./beslissingen/muted-token.md)                                  | Voorgesteld | 2026-06-16 |
-| [Figma Tailwind-tokens in token library](./beslissingen/figma-tailwind-tokens.md) | Voorgesteld | 2026-06-16 |
-| [Borders](./beslissingen/borders.md)                                              | Voorgesteld | 2026-06-16 |
-| [Invalid / error states](./beslissingen/invalid-error-states.md)                  | Voorgesteld | 2026-06-16 |
-| [Token roles](./beslissingen/token-roles.md)                                      | Voorgesteld | 2026-06-16 |
-| [Token-migratie overzicht](./beslissingen/token-migratie.md)                      | Voorgesteld | 2026-06-16 |
-| [Focus ring](./beslissingen/focus-ring.md)                                        | Voorgesteld | 2026-06-16 |
-| [Alt surfaces](./beslissingen/alt-surfaces.md)                                      | Voorgesteld | 2026-06-16 |
-| [Dark mode](./beslissingen/dark-mode.md)                                            | Voorgesteld | 2026-06-16 |
-| [Elevation / shadow](./beslissingen/elevation-shadow.md)                            | Voorgesteld | 2026-06-16 |
+| Onderwerp                                                                          | Status      | Datum      |
+| ---------------------------------------------------------------------------------- | ----------- | ---------- |
+| [Hover states](./beslissingen/hover-states.md)                                     | Voorgesteld | 2026-06-16 |
+| [Disabled state](./beslissingen/disabled-state.md)                                 | Voorgesteld | 2026-06-16 |
+| `[--muted` token](./beslissingen/muted-token.md)                                   | Voorgesteld | 2026-06-16 |
+| [Figma Tailwind-tokens in token library](./beslissingen/figma-tailwind-tokens.md)  | Voorgesteld | 2026-06-16 |
+| [Borders](./beslissingen/borders.md)                                               | Voorgesteld | 2026-06-16 |
+| [Invalid / error states](./beslissingen/invalid-error-states.md)                   | Voorgesteld | 2026-06-16 |
+| [Token roles](./beslissingen/token-roles.md)                                       | Voorgesteld | 2026-06-16 |
+| [Token-migratie overzicht](./beslissingen/token-migratie.md)                       | Voorgesteld | 2026-06-16 |
+| [Focus ring](./beslissingen/focus-ring.md)                                         | Voorgesteld | 2026-06-16 |
+| [Alt surfaces](./beslissingen/alt-surfaces.md)                                     | Voorgesteld | 2026-06-16 |
+| [Dark mode](./beslissingen/dark-mode.md)                                           | Voorgesteld | 2026-06-16 |
+| [Elevation / shadow](./beslissingen/elevation-shadow.md)                           | Voorgesteld | 2026-06-16 |
 | [Secondary vs subtle vs item-hover](./beslissingen/secondary-subtle-item-hover.md) | Voorgesteld | 2026-06-16 |
-| [Hover-tokens: geen auto-generatie](./beslissingen/hover-token-generatie.md)        | Voorgesteld | 2026-06-17 |
-| [Inverse surfaces](./beslissingen/inverse-surfaces.md)                              | Verouderd   | 2026-06-16 |
-
+| [Hover-tokens: geen auto-generatie](./beslissingen/hover-token-generatie.md)       | Voorgesteld | 2026-06-17 |
+| [Inverse surfaces](./beslissingen/inverse-surfaces.md)                             | Verouderd   | 2026-06-16 |
 
 ### Backlog
 
 Onderwerpen die nog uitgewerkt worden.
 
+| Onderwerp                                              | Prioriteit | Notities                                                                                                                                                   |
+| ------------------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-card` apart of gelijk aan `--border-default` | Medium     | Open in token-roles, token-migratie, borders                                                                                                               |
+| OKLCH schaal-generatie voor brand-paletten             | Laag       | Foundation-versneller; onvolledige schalen (bijv. Studielink 3-staps blauw). Niet voor hover — zie [Hover-tokens](./beslissingen/hover-token-generatie.md) |
+| Success / valid states                                 | Laag       | shadcn heeft geen success token — bewust toevoegen?                                                                                                        |
+| Loading & readonly states                              | Laag       | Naast disabled opacity-regel; spinner, `aria-disabled`                                                                                                     |
+| Outline button dark hover                              | Laag       | `dark:hover:bg-input/50` → `--background-item-hover` bevestigen                                                                                            |
+| `prefers-color-scheme` vs class `.dark`                | Laag       | Alleen class, of systeem-fallback?                                                                                                                         |
+| Input-group / composite focus                          | Laag       | Ring op wrapper vs inner control                                                                                                                           |
+| Alt surface splits (`-nav` / `-hero`)                  | Laag       | Eén alt palette of later splitsen                                                                                                                          |
+| Per-theme `@theme` shadow overrides                    | Laag       | Wanneer default Tailwind-schaal te zwak in dark/brand                                                                                                      |
 
-| Onderwerp | Prioriteit | Notities |
-| --------- | ---------- | -------- |
-| `--border-card` apart of gelijk aan `--border-default` | Medium | Open in token-roles, token-migratie, borders |
-| OKLCH schaal-generatie voor brand-paletten | Laag | Foundation-versneller; onvolledige schalen (bijv. Studielink 3-staps blauw). Niet voor hover — zie [Hover-tokens](./beslissingen/hover-token-generatie.md) |
-| Success / valid states | Laag | shadcn heeft geen success token — bewust toevoegen? |
-| Loading & readonly states | Laag | Naast disabled opacity-regel; spinner, `aria-disabled` |
-| Outline button dark hover | Laag | `dark:hover:bg-input/50` → `--background-item-hover` bevestigen |
-| `prefers-color-scheme` vs class `.dark` | Laag | Alleen class, of systeem-fallback? |
-| Input-group / composite focus | Laag | Ring op wrapper vs inner control |
-| Alt surface splits (`-nav` / `-hero`) | Laag | Eén alt palette of later splitsen |
-| Per-theme `@theme` shadow overrides | Laag | Wanneer default Tailwind-schaal te zwak in dark/brand |
 ---
 
 ## Beslissingen
@@ -268,4 +264,3 @@ Onderwerpen die nog uitgewerkt worden.
 **Open:** Sidebar naming; `--border-card`; OKLCH hover-generatie.
 
 ---
-

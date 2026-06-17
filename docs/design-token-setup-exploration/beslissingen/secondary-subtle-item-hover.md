@@ -12,11 +12,11 @@
 
 Bij migratie van shadcn-default vallen drie oude tokens op dezelfde waarde:
 
-| Huidig (shadcn) | Gewenst | Default light (vóór fix) |
-| --- | --- | --- |
-| `--muted` | `--background-subtle` | `neutral-100` |
-| `--secondary` | `--background-secondary` | `neutral-100` |
-| `--accent` | `--background-item-hover` | `neutral-100` |
+| Huidig (shadcn) | Gewenst                   | Default light (vóór fix) |
+| --------------- | ------------------------- | ------------------------ |
+| `--muted`       | `--background-subtle`     | `neutral-100`            |
+| `--secondary`   | `--background-secondary`  | `neutral-100`            |
+| `--accent`      | `--background-item-hover` | `neutral-100`            |
 
 Semantisch zijn dit drie verschillende rollen ([`--muted` token](./muted-token.md), [Hover states](./hover-states.md), [Token roles](./token-roles.md)). Visueel identiek is acceptabel zolang het geen functionele UI breekt — maar **item-hover op `--background-subtle` is onzichtbaar** als beide `neutral-100` zijn (TabsList, command palette in inset-vlak).
 
@@ -30,12 +30,12 @@ Semantisch zijn dit drie verschillende rollen ([`--muted` token](./muted-token.m
 
 ## Analyse — waar collision wél en niet mag
 
-| Pair | Zelfde waarde OK? | Waarom |
-| --- | --- | --- |
-| **subtle × secondary** | Ja (neutraal default) | Verschillende UI: inset-vlak vs filled button — vorm en context scheiden. Brand themes: secondary krijgt kleur, subtle blijft neutraal. |
-| **subtle × item-hover** | **Nee** | Hover moet zichtbaar zijn op `--background-subtle` én op `--background-default`. |
-| **secondary × item-hover** | Ja (vaak) | Ghost hover en secondary-button hover mogen visueel gelijk zijn; semantics blijven apart. |
-| **secondary-hover × item-hover** | Ja (default light) | Beide `neutral-200` — acceptabel. |
+| Pair                             | Zelfde waarde OK?     | Waarom                                                                                                                                  |
+| -------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **subtle × secondary**           | Ja (neutraal default) | Verschillende UI: inset-vlak vs filled button — vorm en context scheiden. Brand themes: secondary krijgt kleur, subtle blijft neutraal. |
+| **subtle × item-hover**          | **Nee**               | Hover moet zichtbaar zijn op `--background-subtle` én op `--background-default`.                                                        |
+| **secondary × item-hover**       | Ja (vaak)             | Ghost hover en secondary-button hover mogen visueel gelijk zijn; semantics blijven apart.                                               |
+| **secondary-hover × item-hover** | Ja (default light)    | Beide `neutral-200` — acceptabel.                                                                                                       |
 
 **shadcn-default** laat alle drie op `neutral-100` vallen — dat werkt alleen zolang menu-items niet op muted-vlakken staan. SURF kiest expliciete item-hover voor voorspelbare interactie.
 
@@ -43,23 +43,23 @@ Semantisch zijn dit drie verschillende rollen ([`--muted` token](./muted-token.m
 
 ## Overwogen opties
 
-### Optie A — shadcn-collapse behouden (alle drie `neutral-100`) *(afgewezen)*
+### Optie A — shadcn-collapse behouden (alle drie `neutral-100`) _(afgewezen)_
 
-| Pro | Con |
-| --- | --- |
-| Exacte shadcn-pariteit | Hover onzichtbaar op subtle surfaces |
-| Minimale tokens-werk | Token library contrast-tab misleidend (drie namen, één swatch) |
+| Pro                    | Con                                                            |
+| ---------------------- | -------------------------------------------------------------- |
+| Exacte shadcn-pariteit | Hover onzichtbaar op subtle surfaces                           |
+| Minimale tokens-werk   | Token library contrast-tab misleidend (drie namen, één swatch) |
 
-### Optie B — Altijd drie unieke palette-stappen *(afgewezen)*
+### Optie B — Altijd drie unieke palette-stappen _(afgewezen)_
 
 Bijv. light: subtle `100`, secondary `150`/`200`, item-hover `200`.
 
-| Pro | Con |
-| --- | --- |
+| Pro                      | Con                                                             |
+| ------------------------ | --------------------------------------------------------------- |
 | Elke token unieke swatch | Kunstmatige tussenstappen; secondary button wijkt af van shadcn |
-| | Brand themes al gedifferentieerd — regel te rigide |
+|                          | Brand themes al gedifferentieerd — regel te rigide              |
 
-### Optie C — Function-first: verplicht item-hover ≠ subtle *(gekozen)*
+### Optie C — Function-first: verplicht item-hover ≠ subtle _(gekozen)_
 
 **Regels:**
 
@@ -69,11 +69,11 @@ Bijv. light: subtle `100`, secondary `150`/`200`, item-hover `200`.
 4. **`--background-alt-item-hover`** volgt dezelfde regel t.o.v. de alt-surface (niet t.o.v. global subtle).
 5. **Dark default:** item-hover één stap lichter dan subtle (`700` vs `800`).
 
-| Pro | Con |
-| --- | --- |
+| Pro                                                | Con                                                   |
+| -------------------------------------------------- | ----------------------------------------------------- |
 | Fix voor hover-op-subtle zonder token-proliferatie | Secondary en subtle delen nog swatch in default theme |
-| shadcn-pariteit voor secondary button | Designers moeten per theme item-hover checken |
-| Consistent met bestaande named-theme overrides | |
+| shadcn-pariteit voor secondary button              | Designers moeten per theme item-hover checken         |
+| Consistent met bestaande named-theme overrides     |                                                       |
 
 ## Beslissing
 
@@ -81,13 +81,13 @@ Bijv. light: subtle `100`, secondary `150`/`200`, item-hover `200`.
 
 ### Default theme waarden (THEME_BASE + DARK_OVERRIDES)
 
-| Token | Light | Dark | Opmerking |
-| --- | --- | --- | --- |
-| `--background-subtle` | `neutral-100` | `neutral-800` | Inset, niet-interactief |
-| `--background-secondary` | `neutral-100` | `neutral-800` | Secondary button; mag = subtle |
-| `--background-secondary-hover` | `neutral-200` | `neutral-700` | Emphasis hover |
-| `--background-item-hover` | `neutral-200` | `neutral-700` | Items/ghost; **≠ subtle** |
-| `--background-alt-item-hover` | `neutral-100` | `neutral-800` | Op `--background-alt` (`zinc-50` / `neutral-900`) — zichtbaar t.o.v. alt bg |
+| Token                          | Light         | Dark          | Opmerking                                                                   |
+| ------------------------------ | ------------- | ------------- | --------------------------------------------------------------------------- |
+| `--background-subtle`          | `neutral-100` | `neutral-800` | Inset, niet-interactief                                                     |
+| `--background-secondary`       | `neutral-100` | `neutral-800` | Secondary button; mag = subtle                                              |
+| `--background-secondary-hover` | `neutral-200` | `neutral-700` | Emphasis hover                                                              |
+| `--background-item-hover`      | `neutral-200` | `neutral-700` | Items/ghost; **≠ subtle**                                                   |
+| `--background-alt-item-hover`  | `neutral-100` | `neutral-800` | Op `--background-alt` (`zinc-50` / `neutral-900`) — zichtbaar t.o.v. alt bg |
 
 ### Per-theme checklist (Figma + token library)
 

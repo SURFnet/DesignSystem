@@ -18,17 +18,17 @@ De shadcndesign Figma kit bevat ~496 tokens in collectie **1. Tailwind CSS** plu
 
 1. Welke Figma-tokens horen in de token library?
 2. Moeten Tailwind utility-waarden (spacing, opacity, border-width) als CSS variables worden gemodelleerd?
-3. Gebruiken we Mode → alpha en Mode → custom? *(nee — alleen base)*
+3. Gebruiken we Mode → alpha en Mode → custom? _(nee — alleen base)_
 
 ## Analyse — drie lagen in shadcndesign
 
-| Figma-collectie | shadcn equivalent | Token library tab |
-| --- | --- | --- |
-| **1. Tailwind CSS** | Tailwind utility classes (`p-4`, `rounded-lg`, `opacity-50`) | Foundation (referentie) |
-| **2. Theme** | CSS variables in `globals.css` / `@theme inline` | Foundation + Themes |
-| **3. Mode → base** | Semantic utilities (`bg-background-default`) | Themes — **enige Mode-bron** |
-| **3. Mode → alpha** | Stock: opacity op aliased colors (`bg-muted/90`) | **Niet gebruiken** — vervangen door hover-tokens in base |
-| **3. Mode → custom** | Stock: `dark:` combinaties (`dark:bg-input/50`) | **Niet gebruiken** — vervangen door semantic tokens in base |
+| Figma-collectie      | shadcn equivalent                                            | Token library tab                                           |
+| -------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| **1. Tailwind CSS**  | Tailwind utility classes (`p-4`, `rounded-lg`, `opacity-50`) | Foundation (referentie)                                     |
+| **2. Theme**         | CSS variables in `globals.css` / `@theme inline`             | Foundation + Themes                                         |
+| **3. Mode → base**   | Semantic utilities (`bg-background-default`)                 | Themes — **enige Mode-bron**                                |
+| **3. Mode → alpha**  | Stock: opacity op aliased colors (`bg-muted/90`)             | **Niet gebruiken** — vervangen door hover-tokens in base    |
+| **3. Mode → custom** | Stock: `dark:` combinaties (`dark:bg-input/50`)              | **Niet gebruiken** — vervangen door semantic tokens in base |
 
 De Figma-to-shadcn plugin exporteert primair **Theme-kleuren** naar CSS — niet de volledige Tailwind CSS-collectie als custom properties.
 
@@ -38,32 +38,32 @@ De Figma-to-shadcn plugin exporteert primair **Theme-kleuren** naar CSS — niet
 
 Elke Figma-variable wordt een `--`-token in code en tool.
 
-| Pro | Con |
-| --- | --- |
-| 1:1 Figma ↔ code mapping | Dupliceert Tailwind; wijkt af van shadcn |
-| Eén token-systeem | ~400+ extra variables zonder meerwaarde |
-| | Alpha/custom worden parallel systeem (conflict met [Hover states](./hover-states.md)) |
+| Pro                      | Con                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------- |
+| 1:1 Figma ↔ code mapping | Dupliceert Tailwind; wijkt af van shadcn                                              |
+| Eén token-systeem        | ~400+ extra variables zonder meerwaarde                                               |
+|                          | Alpha/custom worden parallel systeem (conflict met [Hover states](./hover-states.md)) |
 
-### Optie B — Alleen semantic tokens *(huidige situatie vóór uitbreiding)*
+### Optie B — Alleen semantic tokens _(huidige situatie vóór uitbreiding)_
 
 Alleen Theme/Mode-base in tool; Tailwind utilities buiten beschouwing.
 
-| Pro | Con |
-| --- | --- |
+| Pro                         | Con                                          |
+| --------------------------- | -------------------------------------------- |
 | Sluit aan bij shadcn export | Designers missen lookup voor spacing/opacity |
-| Weinig onderhoud | Figma-kit lijkt incompleet t.o.v. Figma |
+| Weinig onderhoud            | Figma-kit lijkt incompleet t.o.v. Figma      |
 
-### Optie C — Gelaagde documentatie *(gekozen)*
+### Optie C — Gelaagde documentatie _(gekozen)_
 
 - **CSS variables** → Themes (semantic) + Foundation (typography, breakpoints, containers, radius)
 - **Tailwind utilities** → Foundation als referentietabellen (class → waarde)
 - **Figma-workarounds (alpha/custom)** → **niet binden**; migreren naar base — zie [Designer checklist](#designer-checklist-figma)
 
-| Pro | Con |
-| --- | --- |
-| Sluit aan bij shadcn architectuur | Stock kit moet worden omgebonden |
+| Pro                                     | Con                                    |
+| --------------------------------------- | -------------------------------------- |
+| Sluit aan bij shadcn architectuur       | Stock kit moet worden omgebonden       |
 | Designers én developers kunnen opzoeken | Eénmalige migratie alpha/custom → base |
-| Geen token-proliferatie in CSS | |
+| Geen token-proliferatie in CSS          |                                        |
 
 ## Beslissing
 
@@ -71,28 +71,28 @@ Alleen Theme/Mode-base in tool; Tailwind utilities buiten beschouwing.
 
 ### Wel in token library
 
-| Categorie | Locatie | Vorm |
-| --- | --- | --- |
-| Spacing (35) | Foundation → Spacing | Utility referentie (`4` → `16px`, class `p-4`) |
-| Min/max-width (14+15) | Foundation → Min/max width | Aliassen naar `--container-*` |
-| Border radius (10) | Foundation → Border radius + Themes → Radius | Utility referentie + `--radius-sm` … `--radius-4xl` |
-| Border width (9) | Foundation → Border width | Utility referentie |
-| Stroke width (12) | Foundation → Stroke width | Utility referentie |
-| Opacity (21) | Foundation → Opacity | Utility referentie |
-| Box shadow (7) | Foundation → Shadow | Utility referentie — zie [Elevation / shadow](./elevation-shadow.md) |
-| Leading (20) | Foundation → Leading | Utility referentie |
-| Breakpoints, containers | Foundation | CSS variables (bestaand) |
-| Tailwind colors | Colors | CSS variables (bestaand) |
-| Mode → base | Themes | CSS variables (bestaand) |
+| Categorie               | Locatie                                      | Vorm                                                                 |
+| ----------------------- | -------------------------------------------- | -------------------------------------------------------------------- |
+| Spacing (35)            | Foundation → Spacing                         | Utility referentie (`4` → `16px`, class `p-4`)                       |
+| Min/max-width (14+15)   | Foundation → Min/max width                   | Aliassen naar `--container-*`                                        |
+| Border radius (10)      | Foundation → Border radius + Themes → Radius | Utility referentie + `--radius-sm` … `--radius-4xl`                  |
+| Border width (9)        | Foundation → Border width                    | Utility referentie                                                   |
+| Stroke width (12)       | Foundation → Stroke width                    | Utility referentie                                                   |
+| Opacity (21)            | Foundation → Opacity                         | Utility referentie                                                   |
+| Box shadow (7)          | Foundation → Shadow                          | Utility referentie — zie [Elevation / shadow](./elevation-shadow.md) |
+| Leading (20)            | Foundation → Leading                         | Utility referentie                                                   |
+| Breakpoints, containers | Foundation                                   | CSS variables (bestaand)                                             |
+| Tailwind colors         | Colors                                       | CSS variables (bestaand)                                             |
+| Mode → base             | Themes                                       | CSS variables (bestaand)                                             |
 
 ### Niet gebruiken (stock-kit legacy)
 
-| Categorie | Waarom niet | SURF-alternatief |
-| --- | --- | --- |
-| **Mode → alpha** (~10) | Simuleerde `bg-*/90`-hovers; geen export naar CSS | `--background-*-hover` in **base** (light + dark) |
-| **Mode → custom** (~37) | Simuleerde `dark:bg-*/*`; geen export naar CSS | Semantic tokens in **base** dark mode |
-| **`--custom-*` tokens** | Parse-artefact uit oude Figma-imports | Verwijderen / niet exporteren |
-| **Width / height** (33+33) | Zelfde schaal als Spacing | `w-4` = spacing `4` |
+| Categorie                  | Waarom niet                                       | SURF-alternatief                                  |
+| -------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| **Mode → alpha** (~10)     | Simuleerde `bg-*/90`-hovers; geen export naar CSS | `--background-*-hover` in **base** (light + dark) |
+| **Mode → custom** (~37)    | Simuleerde `dark:bg-*/*`; geen export naar CSS    | Semantic tokens in **base** dark mode             |
+| **`--custom-*` tokens**    | Parse-artefact uit oude Figma-imports             | Verwijderen / niet exporteren                     |
+| **Width / height** (33+33) | Zelfde schaal als Spacing                         | `w-4` = spacing `4`                               |
 
 ### Designer checklist (Figma)
 

@@ -26,12 +26,12 @@ Form controls hebben naast default, focus, hover en disabled ook een **invalid**
 
 ### Tokens (huidig)
 
-| Token | Rol bij invalid |
-| ----- | --------------- |
-| `--destructive` | Border én ring op invalid controls; kleur van error-tekst |
+| Token                      | Rol bij invalid                                                             |
+| -------------------------- | --------------------------------------------------------------------------- |
+| `--destructive`            | Border én ring op invalid controls; kleur van error-tekst                   |
 | `--destructive-foreground` | Alleen op **filled** destructive surfaces (buttons), niet op invalid inputs |
-| `--input` | Default border; wordt overschreven bij `aria-invalid` |
-| `--ring` | Default focus; wordt overschreven bij `aria-invalid` + focus |
+| `--input`                  | Default border; wordt overschreven bij `aria-invalid`                       |
+| `--ring`                   | Default focus; wordt overschreven bij `aria-invalid` + focus                |
 
 Geen `--invalid`, `--error`, `--error-foreground` of `--success`.
 
@@ -49,32 +49,32 @@ Default border blijft `border-input`. Alleen wanneer `aria-invalid="true"` (of b
 
 **Field-primitives (v4):**
 
-| Onderdeel | Attribuut / class | Effect |
-| --------- | ----------------- | ------ |
-| Control (input, etc.) | `aria-invalid={!!error}` | Border + ring → destructive |
-| `Field` | `data-invalid` | Wrapper; `data-[invalid=true]:text-destructive` op label |
-| `FieldError` | `role="alert"`, `text-destructive` | Error-bericht onder het veld |
-| `FieldDescription` | blijft `text-muted-foreground` | Helper text, geen error-kleur |
+| Onderdeel             | Attribuut / class                  | Effect                                                   |
+| --------------------- | ---------------------------------- | -------------------------------------------------------- |
+| Control (input, etc.) | `aria-invalid={!!error}`           | Border + ring → destructive                              |
+| `Field`               | `data-invalid`                     | Wrapper; `data-[invalid=true]:text-destructive` op label |
+| `FieldError`          | `role="alert"`, `text-destructive` | Error-bericht onder het veld                             |
+| `FieldDescription`    | blijft `text-muted-foreground`     | Helper text, geen error-kleur                            |
 
 Forms (React Hook Form, TanStack Form) zetten `aria-invalid` op het control wanneer validatie faalt; `FieldError` toont het bericht.
 
 **Destructive button vs invalid input:**
 
-| Gebruik | Classes | Token |
-| ------- | ------- | ----- |
-| Destructive button | `bg-destructive text-destructive-foreground` | Achtergrond + tekst |
-| Invalid input | `aria-invalid:border-destructive` + ring modifiers | Alleen rand/ring; bg blijft transparent/`input/30` |
+| Gebruik            | Classes                                            | Token                                              |
+| ------------------ | -------------------------------------------------- | -------------------------------------------------- |
+| Destructive button | `bg-destructive text-destructive-foreground`       | Achtergrond + tekst                                |
+| Invalid input      | `aria-invalid:border-destructive` + ring modifiers | Alleen rand/ring; bg blijft transparent/`input/30` |
 
 Zelfde `--destructive` kleur, andere toepassing — geen conflict.
 
 ### Wat invalid níet is
 
-| State | Verschil |
-| ----- | -------- |
-| **Disabled** | `opacity-50`; geen validation feedback ([Disabled state](./disabled-state.md)) |
-| **Readonly** | Geen invalid-styling tenzij expliciet invalid; contrast behouden |
-| **Alert (page-level)** | `destructive` Alert-variant voor systeemfouten; geen form field state |
-| **Success / valid** | Geen `--success` token in shadcn forms; groen niet standaard |
+| State                  | Verschil                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| **Disabled**           | `opacity-50`; geen validation feedback ([Disabled state](./disabled-state.md)) |
+| **Readonly**           | Geen invalid-styling tenzij expliciet invalid; contrast behouden               |
+| **Alert (page-level)** | `destructive` Alert-variant voor systeemfouten; geen form field state          |
+| **Success / valid**    | Geen `--success` token in shadcn forms; groen niet standaard                   |
 
 ### Figma (shadcndesign kit)
 
@@ -85,43 +85,43 @@ Zelfde `--destructive` kleur, andere toepassing — geen conflict.
 
 ## Overwogen opties
 
-### Optie A — `aria-invalid` + `--destructive` *(shadcn-default, gekozen)*
+### Optie A — `aria-invalid` + `--destructive` _(shadcn-default, gekozen)_
 
 Bestaand token; state via HTML + Tailwind modifiers.
 
-| Pro | Con |
-| --- | --- |
-| shadcn-pariteit; stock components werken | Figma ≠ code zonder handmatige invalid frames |
-| Geen extra tokens | `--destructive` dekt buttons én errors (semantisch geladen) |
-| Toegankelijk (`aria-invalid`, `role="alert"`) | Ring-opacity (`/20`, `/40`) is utility, geen token |
-| Al consistent in v4 registry | |
+| Pro                                           | Con                                                         |
+| --------------------------------------------- | ----------------------------------------------------------- |
+| shadcn-pariteit; stock components werken      | Figma ≠ code zonder handmatige invalid frames               |
+| Geen extra tokens                             | `--destructive` dekt buttons én errors (semantisch geladen) |
+| Toegankelijk (`aria-invalid`, `role="alert"`) | Ring-opacity (`/20`, `/40`) is utility, geen token          |
+| Al consistent in v4 registry                  |                                                             |
 
-### Optie B — Aparte error tokens (`--invalid`, `--invalid-foreground`) *(afgewezen)*
+### Optie B — Aparte error tokens (`--invalid`, `--invalid-foreground`) _(afgewezen)_
 
-| Pro | Con |
-| --- | --- |
-| Semantisch scherper dan "destructive" | shadcn heeft dit niet; plugin export mismatch |
-| Invalid visueel los van delete-buttons | Dubbel onderhoud per theme |
-| | Figma kit zou extra variables vereisen |
+| Pro                                    | Con                                           |
+| -------------------------------------- | --------------------------------------------- |
+| Semantisch scherper dan "destructive"  | shadcn heeft dit niet; plugin export mismatch |
+| Invalid visueel los van delete-buttons | Dubbel onderhoud per theme                    |
+|                                        | Figma kit zou extra variables vereisen        |
 
-### Optie C — Invalid via border-token override (`--input` → red ref per theme) *(afgewezen)*
+### Optie C — Invalid via border-token override (`--input` → red ref per theme) _(afgewezen)_
 
 Theme wijzigt `--input` bij error.
 
-| Pro | Con |
-| --- | --- |
+| Pro              | Con                                     |
+| ---------------- | --------------------------------------- |
 | Eén border-token | Geen state-aware CSS variable zonder JS |
-| | Verliest scheiding default vs invalid |
-| | Past niet bij shadcn class-model |
+|                  | Verliest scheiding default vs invalid   |
+|                  | Past niet bij shadcn class-model        |
 
-### Optie D — Alleen error-tekst, border ongewijzigd *(afgewezen)*
+### Optie D — Alleen error-tekst, border ongewijzigd _(afgewezen)_
 
 Rode `FieldError`, normale `--input` border.
 
-| Pro | Con |
-| --- | --- |
-| Subtieler | shadcn toont wél rode border |
-| | Minder scanbaar; WCAG: kleur alleen is onvoldoende, maar border helpt |
+| Pro       | Con                                                                   |
+| --------- | --------------------------------------------------------------------- |
+| Subtieler | shadcn toont wél rode border                                          |
+|           | Minder scanbaar; WCAG: kleur alleen is onvoldoende, maar border helpt |
 
 ## Beslissing
 
@@ -144,15 +144,15 @@ Destructive button:
 
 ### Huidig → gewenst
 
-| Huidig | Gewenst | Gebruik |
-| --- | --- | --- |
-| `--destructive` (invalid border) | `--border-input-error` | `aria-invalid` |
-| `--destructive` (invalid ring) | `--ring-default-error` | `aria-invalid` + focus |
-| `text-destructive` | `--foreground-default-error` | Error-tekst |
-| `--destructive` (button bg) | `--background-error` | Destructive button |
-| `--destructive-foreground` | `--foreground-error` | Button text |
-| `--input` | `--border-input` | Default border |
-| `--ring` | `--ring-default` | Default focus |
+| Huidig                           | Gewenst                      | Gebruik                |
+| -------------------------------- | ---------------------------- | ---------------------- |
+| `--destructive` (invalid border) | `--border-input-error`       | `aria-invalid`         |
+| `--destructive` (invalid ring)   | `--ring-default-error`       | `aria-invalid` + focus |
+| `text-destructive`               | `--foreground-default-error` | Error-tekst            |
+| `--destructive` (button bg)      | `--background-error`         | Destructive button     |
+| `--destructive-foreground`       | `--foreground-error`         | Button text            |
+| `--input`                        | `--border-input`             | Default border         |
+| `--ring`                         | `--ring-default`             | Default focus          |
 
 Zie [Token-migratie](./token-migratie.md).
 
@@ -185,28 +185,28 @@ dark:aria-invalid:ring-default-error/40
 
 Ring-opacity blijft Tailwind utility ([Figma Tailwind-tokens](./figma-tailwind-tokens.md)).
 
-**Error-tekst:** `FieldError` met `text-default-error` (`--foreground-default-error`) en `role="alert"`. Geen `--foreground-error` op platte tekst — dat token is voor tekst *op* `--background-error`.
+**Error-tekst:** `FieldError` met `text-default-error` (`--foreground-default-error`) en `role="alert"`. Geen `--foreground-error` op platte tekst — dat token is voor tekst _op_ `--background-error`.
 
 ### Figma-richtlijn (gewenste staat)
 
-| Element | Invalid styling |
-| ------- | ---------------- |
-| Input / Select / Textarea stroke | `--border-input-error` |
-| Checkbox border (unchecked invalid) | `--border-input-error` |
-| Error message | `--foreground-default-error` |
-| Label | Optioneel `--foreground-default-error` |
-| Focus ring (mockup) | `--ring-default-error` @ ~20–40% opacity visueel |
+| Element                             | Invalid styling                                  |
+| ----------------------------------- | ------------------------------------------------ |
+| Input / Select / Textarea stroke    | `--border-input-error`                           |
+| Checkbox border (unchecked invalid) | `--border-input-error`                           |
+| Error message                       | `--foreground-default-error`                     |
+| Label                               | Optioneel `--foreground-default-error`           |
+| Focus ring (mockup)                 | `--ring-default-error` @ ~20–40% opacity visueel |
 
 Invalid als **component variant** in team-library (`default | invalid | disabled`).
 
 ### States-overzicht (gewenste staat)
 
-| State | Border | Ring (focus) | Interactief | Token |
-| ----- | ------ | ------------ | ----------- | ----- |
-| Default | `--border-input` | `--ring-default` /50 | Ja | input + ring |
-| Focus | `--ring-default` (border) | `--ring-default` /50 | Ja | ring |
-| Invalid | `--border-input-error` | `--ring-default-error` /20–/40 | Ja | error tokens |
-| Disabled | control @ opacity-50 | — | Nee | geen ([Disabled state](./disabled-state.md)) |
+| State    | Border                    | Ring (focus)                   | Interactief | Token                                        |
+| -------- | ------------------------- | ------------------------------ | ----------- | -------------------------------------------- |
+| Default  | `--border-input`          | `--ring-default` /50           | Ja          | input + ring                                 |
+| Focus    | `--ring-default` (border) | `--ring-default` /50           | Ja          | ring                                         |
+| Invalid  | `--border-input-error`    | `--ring-default-error` /20–/40 | Ja          | error tokens                                 |
+| Disabled | control @ opacity-50      | —                              | Nee         | geen ([Disabled state](./disabled-state.md)) |
 
 Invalid en focus kunnen tegelijk: `aria-invalid` classes blijven actief; focus-visible ring blijft destructive-tinted.
 
