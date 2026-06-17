@@ -1,0 +1,24 @@
+{
+  "name": "@surfnet/tokens",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "scripts": {
+    "build": "node style-dictionary.config.js",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@surfnet/typescript-config": "workspace:*",
+    "style-dictionary": "4.3.3",
+    "typescript": "6.0.3"
+  }
+}

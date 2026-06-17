@@ -25,3 +25,5 @@ allowBuilds:
   lmdb: false
   msgpackr-extract: false
   nx: false
+  '@bundled-es-modules/glob': false
+  style-dictionary: true
