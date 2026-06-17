@@ -6,15 +6,17 @@ easy to get wrong.
 
 ## What this repo is
 
-A Turborepo + pnpm monorepo with three packages:
+A Turborepo + pnpm monorepo with five packages:
 
-| Package                      | What                                                 | Build                               | Storybook                      |
-| ---------------------------- | ---------------------------------------------------- | ----------------------------------- | ------------------------------ |
-| `@surfnet/react`             | React components on shadcn/ui + **Base UI**          | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
-| `@surfnet/angular`           | Angular components on **Spartan** (`brain` + `helm`) | `ng-packagr`                        | `@storybook/angular` (webpack) |
-| `@surfnet/typescript-config` | Shared base `tsconfig`s                              | —                                   | —                              |
+| Package                      | What                                                                                            | Build                               | Storybook                      |
+| ---------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------ |
+| `@surfnet/react`             | React components on shadcn/ui + **Base UI**                                                     | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
+| `@surfnet/angular`           | Angular components on **Spartan** (`brain` + `helm`)                                            | `ng-packagr`                        | `@storybook/angular` (webpack) |
+| `@surfnet/tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_published_)                      | Style Dictionary                    | —                              |
+| `@surfnet/contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_) | `tsc --noEmit`                      | —                              |
+| `@surfnet/typescript-config` | Shared base `tsconfig`s                                                                         | —                                   | —                              |
 
-Both component packages style with **Tailwind CSS v4** and share the same oklch token set.
+Both component packages style with **Tailwind CSS v4** and source their design tokens from `@surfnet/tokens`.
 
 ## Environment
 
@@ -97,6 +99,25 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - Ports are pinned in the configs so both can run at once: **React → 6006** (the
   `storybook` script's `-p 6006` in `packages/react/package.json`), **Angular → 6007**
   (the `storybook` target's `"port": 6007` in `packages/angular/angular.json`).
+
+### Shared packages (`@surfnet/tokens` + `@surfnet/contracts`)
+
+- **Token source of truth is DTCG JSON only.** All color and other semantic token values
+  live in `packages/tokens/src/tokens.json`. Never hand-edit `:root` or `.dark` blocks in
+  a framework stylesheet — change the DTCG JSON and rebuild `@surfnet/tokens` instead.
+- **Token flow:** DTCG JSON -> Style Dictionary -> `dist/tokens.css` (`:root`/`.dark`
+  custom properties) + `dist/index.{js,d.ts}` (typed token map). Both component packages
+  `@import` the CSS; Vite / PostCSS inlines it into each published `styles.css`.
+- **Parity mechanism:** `@surfnet/contracts` exports an `as const` spec (e.g.
+  `buttonContract`) that declares the canonical variant names, size names, defaults, and
+  docs. Both frameworks enforce this at compile time with
+  `satisfies Record<ButtonVariantName, string>` on their cva call. A mismatch (stray
+  variant in one framework, missing size in another) fails `pnpm lint` immediately.
+- **Contracts are build-time only.** `@surfnet/contracts` is private and must not appear
+  in any published `dist` — types erase after compilation. Each framework continues to
+  export its own `VariantProps<typeof buttonVariants>`.
+- **Do not add runtime utils to the shared packages.** `cn` stays in React; `hlm` stays
+  in Angular. The shared packages are intentionally thin.
 
 ## Definition of done for a new component
 
