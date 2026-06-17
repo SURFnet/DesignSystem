@@ -8,6 +8,12 @@ library of its ecosystem.
   with [Base UI](https://base-ui.com) primitives, bundled with Vite.
 - **`@surfnet/angular`** — Angular components built on [Spartan](https://spartan.ng)
   (`brain` primitives + `helm` styles), built with `ng-packagr`.
+- **`@surfnet/tokens`** — design tokens: DTCG JSON source built with Style Dictionary
+  into `tokens.css` (`:root`/`.dark` custom properties) and a typed TS map. Published;
+  both component packages import this CSS.
+- **`@surfnet/contracts`** — per-component `as const` specs (variant names, size names,
+  defaults, docs) used at build time to enforce cross-framework parity via `satisfies`.
+  Private; leaves no trace in published `dist`.
 - **`@surfnet/typescript-config`** — shared base TypeScript configs the packages extend.
 
 ## Repository layout
@@ -20,6 +26,8 @@ surf-design-system/
 ├── .prettierrc.json        # shared formatting
 └── packages/
     ├── typescript-config/  # @surfnet/typescript-config — base.json + react-library.json
+    ├── tokens/             # @surfnet/tokens — DTCG JSON -> Style Dictionary -> tokens.css (published)
+    ├── contracts/          # @surfnet/contracts — component API specs, build-time only (private)
     ├── react/              # @surfnet/react — Vite library + Storybook (Vite)
     └── angular/            # @surfnet/angular — ng-packagr library + Storybook (webpack)
 ```
@@ -146,7 +154,12 @@ skill. They're exposed to Claude Code through the `.claude/skills` symlink.
 
 ## Theming
 
-Design tokens live as CSS variables in each package's stylesheet
-([`react/src/index.css`](packages/react/src/index.css),
-[`angular/src/styles.css`](packages/angular/src/styles.css)). They share the same
-oklch palette, so keep them in sync when you adjust the theme.
+Design tokens are defined once in [`packages/tokens/src/tokens.json`](packages/tokens/src/tokens.json)
+using the [DTCG](https://design-tokens.github.io/community-group/format/) format and built
+with Style Dictionary into `packages/tokens/dist/tokens.css`. Both component packages import
+that CSS file — never hand-edit the `:root` or `.dark` blocks in a framework stylesheet.
+Change the DTCG JSON and rebuild `@surfnet/tokens` instead.
+
+Each package's stylesheet then adds its own framework-specific wiring on top: Tailwind
+`@theme inline` mappings, the radius scale, and the font stack (Geist for React, system
+stack for Angular).

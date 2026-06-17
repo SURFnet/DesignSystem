@@ -18,6 +18,8 @@
       "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"]
     },
-    "lint": {}
+    "lint": {
+      "dependsOn": ["^build"]
+    }
   }
 }
