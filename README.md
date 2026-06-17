@@ -40,7 +40,7 @@ surf-design-system/
 - **Node.js 22 LTS** (pinned in [`.nvmrc`](.nvmrc) — run `nvm use` to switch). The
   `engines` field also accepts the 24 LTS line; other versions (including odd releases
   like 23/25) print a warning on `pnpm install` rather than failing.
-- **pnpm 9** (`corepack enable` picks up the version pinned in `package.json`).
+- **pnpm 11** (`corepack enable` picks up the version pinned in `package.json`).
 
 ## Getting started
 
