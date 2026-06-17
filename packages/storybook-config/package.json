@@ -27,6 +27,9 @@
   "peerDependencies": {
     "storybook": "10.4.5"
   },
+  "dependencies": {
+    "@surfnet/tokens": "workspace:*"
+  },
   "devDependencies": {
     "@surfnet/typescript-config": "workspace:*",
     "storybook": "10.4.5",
