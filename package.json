@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "sync:figma": "jiti scripts/sync-figma.ts",
     "dev": "turbo run dev",
     "storybook": "turbo run storybook",
     "build-storybook": "turbo run build-storybook",
@@ -18,7 +19,11 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@figma/rest-api-spec": "0.40.0",
+    "@types/node": "^22.19.21",
+    "dotenv": "17.4.2",
     "husky": "9.1.7",
+    "jiti": "2.7.0",
     "lint-staged": "17.0.7",
     "prettier": "3.8.4",
     "turbo": "2.9.18"

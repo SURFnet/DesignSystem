@@ -103,11 +103,18 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 ### Shared packages (`@surfnet/tokens` + `@surfnet/contracts`)
 
 - **Token source of truth is DTCG JSON only.** All color and other semantic token values
-  live in `packages/tokens/src/tokens.json`. Never hand-edit `:root` or `.dark` blocks in
+  live in `packages/tokens/src/tokens*.json`. Never hand-edit `:root` or `.dark` blocks in
   a framework stylesheet — change the DTCG JSON and rebuild `@surfnet/tokens` instead.
-- **Token flow:** DTCG JSON -> Style Dictionary -> `dist/tokens.css` (`:root`/`.dark`
-  custom properties) + `dist/index.{js,d.ts}` (typed token map). Both component packages
-  `@import` the CSS; Vite / PostCSS inlines it into each published `styles.css`.
+- **Figma sync:** `pnpm sync:figma` (`scripts/sync-figma.ts`, root, run via `jiti`) pulls variables from
+  the Figma Variables API and (re)writes the DTCG JSON: `tokens.json` / `tokens.dark.json`
+  for the default theme plus `tokens.<class>.json` / `tokens.<class>.dark.json` per extra
+  theme. It writes JSON only — no CSS. Needs `FIGMA_TOKEN` + `FIGMA_FILE_ID` in `.env`
+  (see `.env.example`). The JSON is committed, so syncing is optional for a normal build.
+- **Token flow:** Figma -> `sync:figma` -> DTCG JSON -> Style Dictionary build ->
+  `dist/tokens.css` (`:root` default light, `.dark` diff, `.theme-<class>` /
+  `.dark.theme-<class>` per-theme diffs) + `dist/index.{js,d.ts}` (typed token map). Both
+  component packages `@import` the CSS; Vite / PostCSS inlines it into each published
+  `styles.css`. Switch themes by adding a class to `<html>` (e.g. `class="dark theme-surf-green"`).
 - **Parity mechanism:** `@surfnet/contracts` exports an `as const` spec (e.g.
   `buttonContract`) that declares the canonical variant names, size names, defaults, and
   docs. Both frameworks enforce this at compile time with
