@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -102,6 +102,7 @@ for (const { cls, lightDiff, darkDiff: tDark } of themeBlocks) {
     cssBlocks.push(`/* theme-${cls} */`, block(`.theme-${cls}`, lightDiff));
   if (Object.keys(tDark).length) cssBlocks.push(block(`.dark.theme-${cls}`, tDark));
 }
+mkdirSync(dist, { recursive: true });
 writeFileSync(resolve(dist, 'tokens.css'), cssBlocks.join('\n\n') + '\n', 'utf8');
 
 // Emit the typed token map (index.js + index.d.ts). Token names are mode- and
