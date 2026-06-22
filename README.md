@@ -131,8 +131,8 @@ import { IconPlus } from '@tabler/icons-react';
 ```
 
 The button auto-sizes any `<svg>` it contains per button size; `data-icon="inline-start"`
-/ `data-icon="inline-end"` tighten the padding next to text. See the **Foundations/Icons**
-and **Button** stories.
+/ `data-icon="inline-end"` tighten the padding next to text. See the **Button** stories
+(`IconSizes`, `WithIcon`).
 
 ### Angular (Spartan)
 
@@ -187,8 +187,8 @@ import { HlmIcon } from '@surfnet/angular';
 ```
 
 The `size` input takes `xs | sm | base | lg | xl` (or any CSS length); inside a
-`<button hlmBtn>` you can omit it and the button auto-sizes the icon. See the
-**Foundations/Icons** and **Button** stories.
+`<button hlmBtn>` you can omit it and the button auto-sizes the icon. See the **Button**
+stories (`IconSizes`, `WithIcon`).
 
 > Same icon set as React, different package: React uses `@tabler/icons-react`
 > (`Icon*` components), Angular uses `@ng-icons/tabler-icons` (`tabler*` exports).

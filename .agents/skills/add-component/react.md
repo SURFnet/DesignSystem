@@ -115,8 +115,7 @@ pnpm format
   stories build); never move it back to `dependencies`. Render icons directly (`<IconPlus
   className="size-5" />`) or inside a button — the button auto-sizes the SVG per size, and
   `data-icon="inline-start"` / `data-icon="inline-end"` tightens the padding next to text.
-  See `button.stories.tsx` (`IconSizes`, `WithIcon`) and `src/stories/icons.stories.tsx`
-  (`Foundations/Icons`) for the established pattern.
+  See `button.stories.tsx` (`IconSizes`, `WithIcon`) for the established pattern.
 - If the component pulls in sibling shadcn components, they're vendored flat by default;
   apply the same per-directory + barrel treatment to each if you want them nested.
 - The `@surfnet/contracts` import is a `devDependency` only — it must not appear in the
