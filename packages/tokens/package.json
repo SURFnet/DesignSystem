@@ -13,11 +13,13 @@
     "./tokens.css": "./dist/tokens.css"
   },
   "scripts": {
-    "build": "node style-dictionary.config.js",
+    "build": "jiti scripts/style-dictionary.config.ts",
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@surfnet/typescript-config": "workspace:*",
+    "@types/node": "^22.19.21",
+    "jiti": "2.7.0",
     "style-dictionary": "4.3.3",
     "typescript": "6.0.3"
   }

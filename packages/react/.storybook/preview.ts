@@ -2,6 +2,9 @@ import {
   frameworkGlobalTypes,
   frameworkSwitcher,
   sharedParameters,
+  themeGlobalTypes,
+  themeInitialGlobals,
+  themeSwitcher,
 } from '@surfnet/storybook-config';
 
 // Pull in Tailwind + the design tokens so stories render with the real styles.
@@ -11,8 +14,8 @@ import '../src/index.css';
 // (project-level autodocs) — a factory call can't be parsed statically.
 export default {
   tags: ['autodocs'],
-  initialGlobals: { framework: 'react' },
-  globalTypes: frameworkGlobalTypes,
-  decorators: [frameworkSwitcher('react')],
+  initialGlobals: { framework: 'react', ...themeInitialGlobals },
+  globalTypes: { ...frameworkGlobalTypes, ...themeGlobalTypes },
+  decorators: [frameworkSwitcher('react'), themeSwitcher()],
   parameters: sharedParameters,
 };

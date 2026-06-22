@@ -13,7 +13,7 @@
   },
   "card-foreground": {
     "$type": "color",
-    "$value": "rgba(12, 10, 9, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "popover": {
     "$type": "color",
@@ -21,27 +21,27 @@
   },
   "popover-foreground": {
     "$type": "color",
-    "$value": "rgba(12, 10, 9, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "primary": {
     "$type": "color",
-    "$value": "rgba(6, 75, 203, 1)"
+    "$value": "rgba(132, 204, 22, 1)"
   },
   "primary-foreground": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 1)"
+    "$value": "rgba(250, 250, 250, 1)"
   },
   "secondary": {
     "$type": "color",
-    "$value": "rgba(46, 110, 229, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "secondary-foreground": {
     "$type": "color",
-    "$value": "rgba(0, 0, 0, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "muted": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "muted-foreground": {
     "$type": "color",
@@ -49,7 +49,7 @@
   },
   "accent": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "accent-foreground": {
     "$type": "color",
@@ -61,15 +61,15 @@
   },
   "border": {
     "$type": "color",
-    "$value": "rgba(214, 211, 209, 1)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "input": {
     "$type": "color",
-    "$value": "rgba(214, 211, 209, 1)"
+    "$value": "rgba(212, 212, 212, 1)"
   },
   "ring": {
     "$type": "color",
-    "$value": "rgba(168, 162, 158, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "chart-1": {
     "$type": "color",
@@ -93,39 +93,39 @@
   },
   "sidebar": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 1)"
+    "$value": "rgba(250, 250, 250, 1)"
   },
   "sidebar-foreground": {
     "$type": "color",
-    "$value": "rgba(12, 10, 9, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "sidebar-primary": {
     "$type": "color",
-    "$value": "rgba(28, 25, 23, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "sidebar-primary-foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 249, 1)"
+    "$value": "rgba(250, 250, 250, 1)"
   },
   "sidebar-accent": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "sidebar-accent-foreground": {
     "$type": "color",
-    "$value": "rgba(28, 25, 23, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "sidebar-border": {
     "$type": "color",
-    "$value": "rgba(214, 211, 209, 1)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "sidebar-ring": {
     "$type": "color",
-    "$value": "rgba(168, 162, 158, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "font-sans": {
     "$type": "fontFamily",
-    "$value": "Source Sans 3, sans-serif"
+    "$value": "General Sans, sans-serif"
   },
   "font-mono": {
     "$type": "fontFamily",
@@ -197,19 +197,19 @@
   },
   "custom-accent-dark-input50": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-accent-dark-calendar50": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-input-dark-input80": {
     "$type": "color",
-    "$value": "rgba(214, 211, 209, 1)"
+    "$value": "rgba(212, 212, 212, 1)"
   },
   "custom-input-dark-input30": {
     "$type": "color",
-    "$value": "rgba(214, 211, 209, 1)"
+    "$value": "rgba(212, 212, 212, 1)"
   },
   "custom-input50-dark-input80": {
     "$type": "color",
@@ -225,7 +225,7 @@
   },
   "custom-muted-dark-input50": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-destructive-dark-destructive60": {
     "$type": "color",
@@ -293,15 +293,15 @@
   },
   "custom-border-dark-input-dark": {
     "$type": "color",
-    "$value": "rgba(214, 211, 209, 1)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "custom-ring-dark-input-dark": {
     "$type": "color",
-    "$value": "rgba(168, 162, 158, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "custom-ring-dark-input-dark-2": {
     "$type": "color",
-    "$value": "rgba(168, 162, 158, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "custom-popover70": {
     "$type": "color",
@@ -313,7 +313,7 @@
   },
   "custom-ring-dark-input-dark-3": {
     "$type": "color",
-    "$value": "rgba(168, 162, 158, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "custom-bg-background20-dark-bg-background10": {
     "$type": "color",
@@ -353,31 +353,31 @@
   },
   "text-xs-font-size": {
     "$type": "dimension",
-    "$value": "0.875rem"
+    "$value": "0.75rem"
   },
   "text-xs-line-height": {
     "$type": "dimension",
-    "$value": "1.25rem"
+    "$value": "1rem"
   },
   "text-sm-font-size": {
     "$type": "dimension",
-    "$value": "1rem"
+    "$value": "0.875rem"
   },
   "text-sm-line-height": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.25rem"
   },
   "text-base-font-size": {
     "$type": "dimension",
-    "$value": "1.125rem"
+    "$value": "1rem"
   },
   "text-base-line-height": {
     "$type": "dimension",
-    "$value": "1.75rem"
+    "$value": "1.5rem"
   },
   "text-lg-font-size": {
     "$type": "dimension",
-    "$value": "1.25rem"
+    "$value": "1.125rem"
   },
   "text-lg-line-height": {
     "$type": "dimension",
@@ -385,75 +385,75 @@
   },
   "text-xl-font-size": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.25rem"
   },
   "text-xl-line-height": {
     "$type": "dimension",
-    "$value": "2rem"
+    "$value": "1.75rem"
   },
   "text-2xl-font-size": {
     "$type": "dimension",
-    "$value": "1.875rem"
+    "$value": "1.5rem"
   },
   "text-2xl-line-height": {
     "$type": "dimension",
-    "$value": "2.25rem"
+    "$value": "2rem"
   },
   "text-3xl-font-size": {
     "$type": "dimension",
-    "$value": "2.25rem"
+    "$value": "1.875rem"
   },
   "text-3xl-line-height": {
     "$type": "dimension",
-    "$value": "2.5rem"
+    "$value": "2.25rem"
   },
   "text-4xl-font-size": {
     "$type": "dimension",
-    "$value": "3rem"
+    "$value": "2.25rem"
   },
   "text-4xl-line-height": {
     "$type": "dimension",
-    "$value": "3rem"
+    "$value": "2.5rem"
   },
   "text-5xl-font-size": {
     "$type": "dimension",
-    "$value": "3.75rem"
+    "$value": "3rem"
   },
   "text-5xl-line-height": {
     "$type": "dimension",
-    "$value": "3.75rem"
+    "$value": "3rem"
   },
   "text-6xl-font-size": {
     "$type": "dimension",
-    "$value": "4.5rem"
+    "$value": "3.75rem"
   },
   "text-6xl-line-height": {
     "$type": "dimension",
-    "$value": "4.5rem"
+    "$value": "3.75rem"
   },
   "text-7xl-font-size": {
     "$type": "dimension",
-    "$value": "6rem"
+    "$value": "4.5rem"
   },
   "text-7xl-line-height": {
     "$type": "dimension",
-    "$value": "6rem"
+    "$value": "4.5rem"
   },
   "text-8xl-font-size": {
     "$type": "dimension",
-    "$value": "8rem"
+    "$value": "6rem"
   },
   "text-8xl-line-height": {
     "$type": "dimension",
-    "$value": "8rem"
+    "$value": "6rem"
   },
   "text-9xl-font-size": {
     "$type": "dimension",
-    "$value": "10rem"
+    "$value": "8rem"
   },
   "text-9xl-line-height": {
     "$type": "dimension",
-    "$value": "10rem"
+    "$value": "8rem"
   },
   "container-2xs": {
     "$type": "dimension",

@@ -2,6 +2,10 @@
 node_modules
 .pnpm-store
 
+# secrets
+.env
+.env.local
+
 # build output
 dist
 storybook-static
