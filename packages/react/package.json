@@ -22,8 +22,8 @@
     "lint": "tsc --noEmit",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
-    "test:a11y": "test-storybook --testTimeout 180000",
     "storybook:serve": "http-server storybook-static -p 6006 --silent",
+    "test:a11y": "test-storybook --testTimeout 180000",
     "test:a11y:ci": "start-server-and-test storybook:serve http://127.0.0.1:6006 test:a11y"
   },
   "peerDependencies": {
@@ -61,6 +61,7 @@
     "@vitejs/plugin-react": "6.0.2",
     "axe-playwright": "2.2.2",
     "http-server": "14.1.1",
+    "playwright": "1.61.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "rollup-plugin-preserve-directives": "^0.4.0",
