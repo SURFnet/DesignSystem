@@ -24,7 +24,7 @@
     "test:a11y:ci": {
       "dependsOn": ["build-storybook"],
       "cache": false,
-      "outputs": ["a11y-report/**"]
+      "outputs": [".a11y-report/**"]
     }
   }
 }
