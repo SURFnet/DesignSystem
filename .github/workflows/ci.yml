@@ -37,3 +37,24 @@ jobs:
       - run: pnpm lint
 
       - run: pnpm build
+
+      # Automated WCAG 2.1 AA sweep of every Storybook story (all themes/modes),
+      # via @storybook/test-runner + axe. Reports cover ~30-50% of WCAG; the
+      # residual manual checklist lives in docs/accessibility/.
+      - name: Install Playwright Chromium
+        run: pnpm --filter @surfnet/react exec playwright install --with-deps chromium
+
+      # Report-only for now: surfaces violations without blocking PRs while the
+      # backlog is triaged. Flip to blocking by removing `continue-on-error`
+      # once findings are at zero.
+      - name: Accessibility audit (WCAG 2.1 AA)
+        continue-on-error: true
+        run: pnpm test:a11y
+
+      - name: Upload a11y reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-reports
+          path: packages/*/a11y-report/**
+          if-no-files-found: ignore
