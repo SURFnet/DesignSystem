@@ -159,10 +159,9 @@ in `tsconfig.json`. Then:
 
 #### Icons (Angular)
 
-Angular renders icons with [ng-icons](https://ng-icons.github.io/ng-icons/) directly — we
-don't wrap it. `@ng-icons/core` (the `NgIcon` component) and the Tabler set
-`@ng-icons/tabler-icons` are **optional peer dependencies** — install them if you use
-icons:
+Angular uses [ng-icons](https://ng-icons.github.io/ng-icons/) for icons. Install
+`@ng-icons/core` (the `NgIcon` component, an **optional peer dependency**) plus a glyph
+set — we use the Tabler set, `@ng-icons/tabler-icons`:
 
 ```bash
 pnpm add @ng-icons/core @ng-icons/tabler-icons

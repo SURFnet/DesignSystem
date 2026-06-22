@@ -14,14 +14,10 @@
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0",
     "@ng-icons/core": "^33.0.0",
-    "@ng-icons/tabler-icons": "^33.0.0",
     "rxjs": "^7.8.0"
   },
   "peerDependenciesMeta": {
     "@ng-icons/core": {
-      "optional": true
-    },
-    "@ng-icons/tabler-icons": {
       "optional": true
     }
   },
