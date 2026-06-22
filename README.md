@@ -82,8 +82,8 @@ pnpm --filter @surfnet/react-app dev      # http://localhost:3000
 ```
 
 It imports the package's compiled stylesheet (`@surfnet/react/styles.css`) in
-[`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders the `Button` across every
-theme in [`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react`
+[`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders a `Button` in
+[`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react`
 under `transpilePackages` so Next compiles the workspace source. Turborepo wires
 `@surfnet/react-app#build` to depend on `@surfnet/react#build` automatically via `^build`.
 
