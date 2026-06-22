@@ -1,14 +1,21 @@
 /**
- * Turns the per-story a11y JSON reports (packages/<fw>/a11y-report/*.json,
+ * Turns the per-story a11y JSON reports (packages/<fw>/.a11y-report/*.json,
  * written by runStoryA11yAudit) into a Markdown summary for a sticky PR comment
  * and the GitHub Actions job summary. No runtime deps — runs via jiti.
  *
- * Usage: pnpm a11y:comment [outFile=a11y-comment.md]
+ * Usage: pnpm a11y:comment [outFile=.a11y-report/comment.md]
  *
  * Always exits 0 — reporting must never fail the build.
  */
-import { appendFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  appendFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import { dirname, resolve } from 'node:path';
 
 // Subset of the axe-core result shape we read out of each report file.
 interface AxeNode {
@@ -39,8 +46,9 @@ interface Row {
   example: string;
 }
 
-const OUT = process.argv[2] ?? 'a11y-comment.md';
+const OUT = process.argv[2] ?? '.a11y-report/comment.md';
 const PACKAGES_DIR = resolve('packages');
+const REPORT_DIR_NAME = '.a11y-report';
 
 // axe rule id -> WCAG success criterion, for the rules our audit can surface.
 // Falls back to the bare rule id for anything not listed.
@@ -77,7 +85,7 @@ let totalCombos = 0;
 const frameworksWithReports = new Set<string>();
 
 for (const fw of frameworks) {
-  const reportDir = resolve(PACKAGES_DIR, fw.name, 'a11y-report');
+  const reportDir = resolve(PACKAGES_DIR, fw.name, REPORT_DIR_NAME);
   if (!existsSync(reportDir)) continue;
   frameworksWithReports.add(fw.name);
 
@@ -112,8 +120,8 @@ for (const fw of frameworks) {
 const HEADER = '## ♿ Accessibility audit — WCAG 2.1 AA';
 const FOOTER =
   '_Automated axe covers ~30–50% of WCAG 2.1 AA. Keyboard, screen-reader and ' +
-  'reflow checks still need a manual pass — see [`docs/accessibility`](docs/accessibility/automation-feasibility.md). ' +
-  'Full per-story JSON is in the run’s `a11y-reports` artifact._';
+  'reflow checks still need a manual pass. Full per-story JSON is in the run’s ' +
+  '`a11y-reports` artifact._';
 
 function buildBody(): string {
   if (frameworksWithReports.size === 0) {
@@ -185,6 +193,7 @@ function buildBody(): string {
 }
 
 const body = buildBody();
+mkdirSync(dirname(resolve(OUT)), { recursive: true });
 writeFileSync(OUT, body + '\n', 'utf8');
 
 // Mirror into the Actions run summary when available (also covers push builds).
