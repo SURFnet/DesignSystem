@@ -4,3 +4,4 @@
  */
 export * from './lib/ui/utils/src';
 export * from './lib/ui/button/src';
+export * from './lib/ui/icon/src';

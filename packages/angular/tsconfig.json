@@ -14,7 +14,8 @@
     "lib": ["ES2022", "DOM"],
     "paths": {
       "@spartan-ng/helm/button": ["./src/lib/ui/button/src/index.ts"],
-      "@spartan-ng/helm/utils": ["./src/lib/ui/utils/src/index.ts"]
+      "@spartan-ng/helm/utils": ["./src/lib/ui/utils/src/index.ts"],
+      "@spartan-ng/helm/icon": ["./src/lib/ui/icon/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

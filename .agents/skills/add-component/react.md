@@ -111,8 +111,12 @@ pnpm format
 ## Notes
 
 - Icons: import from `@tabler/icons-react` (components are prefixed `Icon`, e.g.
-  `IconPlus`). Icon usage in stories is intentionally minimal right now — confirm the
-  current ticket's scope before adding icons.
+  `IconPlus`). The package is an **optional peer dependency** (kept as a devDependency so
+  stories build); never move it back to `dependencies`. Render icons directly (`<IconPlus
+  className="size-5" />`) or inside a button — the button auto-sizes the SVG per size, and
+  `data-icon="inline-start"` / `data-icon="inline-end"` tightens the padding next to text.
+  See `button.stories.tsx` (`IconSizes`, `WithIcon`) and `src/stories/icons.stories.tsx`
+  (`Foundations/Icons`) for the established pattern.
 - If the component pulls in sibling shadcn components, they're vendored flat by default;
   apply the same per-directory + barrel treatment to each if you want them nested.
 - The `@surfnet/contracts` import is a `devDependency` only — it must not appear in the
