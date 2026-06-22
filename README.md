@@ -82,10 +82,16 @@ pnpm --filter @surfnet/react-app dev      # http://localhost:3000
 ```
 
 It imports the package's compiled stylesheet (`@surfnet/react/styles.css`) in
-[`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders a `Button` in
-[`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react` under
-`transpilePackages` so Next compiles the workspace source. Turborepo wires
+[`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders the `Button` across every
+theme in [`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react`
+under `transpilePackages` so Next compiles the workspace source. Turborepo wires
 `@surfnet/react-app#build` to depend on `@surfnet/react#build` automatically via `^build`.
+
+The app also runs its **own Tailwind v4** build (`@tailwindcss/postcss` +
+[`app/globals.css`](apps/react-app/app/globals.css)) so you can write Tailwind utilities in
+the app. To avoid a second preflight on top of the package's compiled CSS, `globals.css`
+imports Tailwind granularly (no `preflight.css`) and re-declares the token → color mapping,
+so app utilities like `bg-primary` resolve to the same `@surfnet/tokens` variables.
 
 ## Adding a component
 
