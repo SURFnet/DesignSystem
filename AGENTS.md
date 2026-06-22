@@ -119,12 +119,45 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - **Do not add runtime utils to the shared packages.** `cn` stays in React; `hlm` stays
   in Angular. The shared packages are intentionally thin.
 
+## Releasing & versioning (Changesets)
+
+Versioning and npm publishing run through [Changesets](https://changesets.dev). Config
+lives in `.changeset/config.json`; the release automation is
+`.github/workflows/release.yml`. Human-facing docs are in the README's
+**Releasing & versioning** section.
+
+**The one rule for agents: when you change a publishable package, add a changeset.**
+
+```bash
+pnpm changeset            # interactive: pick packages, bump type, write summary
+```
+
+This writes a markdown file under `.changeset/` — **commit it alongside the code change**.
+Pick the bump type by [semver](https://semver.org): `patch` (fixes), `minor` (additive,
+backwards-compatible — e.g. a new component or variant), `major` (breaking API/token
+changes). The summary becomes the public changelog entry, so write it for consumers.
+
+Gotchas:
+
+- **Don't run `pnpm version-packages` or `pnpm release` yourself**, and don't hand-edit any
+  `version` field or `CHANGELOG.md`. CI owns that: pending changesets on `main` open a
+  "Version Packages" PR, and merging it builds + publishes. Your job ends at committing the
+  changeset file.
+- **Only `@surfnet/tokens` is public today.** The other packages are `"private": true`, so
+  Changesets versions them but never publishes them. Adding a changeset for a private
+  package is fine (it bumps the version + changelog); it just won't reach npm.
+- **Non-publishing changes** (docs, CI, repo tooling) don't need a changeset. CI does not
+  fail when one is missing, so use judgement rather than adding empty noise.
+- When a changeset bumps `@surfnet/tokens`, packages that depend on it get a `patch` bump
+  automatically (`updateInternalDependencies: "patch"`) — you don't list them yourself.
+
 ## Definition of done for a new component
 
 1. Component vendored via the framework's CLI (don't hand-write primitives).
 2. Exported from the package entry (`src/index.ts` / `src/public-api.ts`).
 3. A Storybook story covering the component's full surface (variants, sizes, states).
 4. `pnpm build`, `pnpm lint`, and `pnpm format` all pass.
+5. A changeset added (`pnpm changeset`) if a publishable package changed.
 
 ## Skills
 
