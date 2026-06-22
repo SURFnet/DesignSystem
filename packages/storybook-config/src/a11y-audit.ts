@@ -32,8 +32,9 @@ const MODES = ['light', 'dark'] as const;
 type Mode = (typeof MODES)[number];
 
 // Report directory (one JSON file per story keeps concurrent test-runner
-// workers from clobbering a shared file). Override with A11Y_REPORT_DIR.
-const REPORT_DIR = resolve(process.env.A11Y_REPORT_DIR ?? 'a11y-report');
+// workers from clobbering a shared file). Dot-prefixed and git-ignored.
+// Override with A11Y_REPORT_DIR.
+const REPORT_DIR = resolve(process.env.A11Y_REPORT_DIR ?? '.a11y-report');
 
 // Reflect a theme/mode onto <html> exactly like the `themeSwitcher` decorator,
 // so axe sees the same resolved CSS variables a real user would.
