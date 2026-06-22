@@ -163,3 +163,54 @@ Change the DTCG JSON and rebuild `@surfnet/tokens` instead.
 Each package's stylesheet then adds its own framework-specific wiring on top: Tailwind
 `@theme inline` mappings, the radius scale, and the font stack (Geist for React, system
 stack for Angular).
+
+## Releasing & versioning
+
+Versioning and publishing are managed with [Changesets](https://changesets.dev). The flow
+has two halves: contributors describe their changes, and CI turns those descriptions into
+version bumps and npm releases.
+
+### When you make a change
+
+Every PR that changes a publishable package should include a **changeset** — a small
+markdown file describing what changed and how it bumps the version. Add one with:
+
+```bash
+pnpm changeset
+```
+
+The prompt asks which packages changed, whether each bump is `major` / `minor` / `patch`
+(follow [semver](https://semver.org)), and for a summary. That summary becomes the
+changelog entry, so write it for the people consuming the package. The command writes a
+file under `.changeset/` — commit it with your code.
+
+- Skip the changeset only for changes that don't affect any published package (docs, CI,
+  internal tooling). CI does not fail without one, so use judgement.
+- Need a changeset that doesn't bump anything? Run `pnpm changeset` and pick no packages
+  (an empty changeset), useful to record that you deliberately skipped a release.
+- Private packages (everything except `@surfnet/tokens` today) are versioned but never
+  published — Changesets skips publishing any package marked `"private": true`.
+
+### How a release happens (automated)
+
+You do **not** run `version` or `publish` by hand. The
+[`.github/workflows/release.yml`](.github/workflows/release.yml) workflow watches `main`:
+
+1. When changesets land on `main`, the workflow opens (or updates) a **"Version Packages"**
+   PR. That PR consumes the pending changeset files, bumps each package's `version`, and
+   writes the `CHANGELOG.md` entries.
+2. Review and merge that PR when you want to cut a release.
+3. On merge, the same workflow runs `pnpm release` (build + `changeset publish`), publishing
+   the changed public packages to npm and pushing git tags.
+
+Publishing requires an **`NPM_TOKEN`** repository secret (an npm automation token with
+publish rights to the `@surfnet` scope). Add it under **Settings → Secrets and variables →
+Actions**. The provided `GITHUB_TOKEN` handles the PR and tags automatically.
+
+### Running it manually (rarely needed)
+
+```bash
+pnpm changeset            # add a changeset
+pnpm version-packages     # apply pending changesets: bump versions + changelogs
+pnpm release              # build, then publish to npm (needs npm auth)
+```
