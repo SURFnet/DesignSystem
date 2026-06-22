@@ -108,6 +108,32 @@ src/components/ui/
 > `style` and `iconLibrary` fields in `components.json` — don't switch `style` back to
 > a Radix style.
 
+#### Icons (React)
+
+Icons come from [`@tabler/icons-react`](https://tabler.io/icons), an **optional peer
+dependency** — install it alongside the package if you use icons:
+
+```bash
+pnpm add @tabler/icons-react
+```
+
+Each icon is a tree-shaken component prefixed `Icon`:
+
+```tsx
+import { IconPlus } from '@tabler/icons-react';
+
+<IconPlus className="size-5" />        {/* size with a Tailwind size-* utility */}
+
+<Button>
+  <IconPlus data-icon="inline-start" /> {/* inside a button, no size class needed */}
+  Add item
+</Button>
+```
+
+The button auto-sizes any `<svg>` it contains per button size; `data-icon="inline-start"`
+/ `data-icon="inline-end"` tighten the padding next to text. See the **Button** stories
+(`IconSizes`, `WithIcon`).
+
 ### Angular (Spartan)
 
 Spartan splits each component into a `brain` primitive (installed from npm) and `helm`
@@ -130,6 +156,40 @@ in `tsconfig.json`. Then:
 
 > The vendored helm files import each other through the `@spartan-ng/helm/*` path
 > alias, which resolves to local source — `ng-packagr` inlines them into the build.
+
+#### Icons (Angular)
+
+Angular uses [ng-icons](https://ng-icons.github.io/ng-icons/) for icons. Install
+`@ng-icons/core` (the `NgIcon` component, an **optional peer dependency**) plus a glyph
+set — we use the Tabler set, `@ng-icons/tabler-icons`:
+
+```bash
+pnpm add @ng-icons/core @ng-icons/tabler-icons
+```
+
+Register the glyphs you need with `provideIcons` (named exports like `tablerPlus`), then
+render them with `<ng-icon>`:
+
+```ts
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { tablerPlus } from '@ng-icons/tabler-icons';
+
+@Component({
+  imports: [NgIcon],
+  providers: [provideIcons({ tablerPlus })],
+  template: `
+    <ng-icon name="tablerPlus" size="1.5rem" />              <!-- standalone: size with NgIcon's size input -->
+    <button hlmBtn><ng-icon name="tablerPlus" data-icon="inline-start" /> Add item</button>
+  `,
+})
+```
+
+Inside a `<button hlmBtn>`, leave `size` off — the button auto-sizes the `<ng-icon>` per
+button size, and `data-icon="inline-start"` / `data-icon="inline-end"` tighten the padding
+next to text. See the **Button** stories (`IconSizes`, `WithIcon`).
+
+> Same icon set as React, different package: React uses `@tabler/icons-react`
+> (`Icon*` components), Angular uses `@ng-icons/tabler-icons` (`tabler*` exports).
 
 ## AI assistants (MCP servers & skills)
 

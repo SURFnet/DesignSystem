@@ -104,6 +104,16 @@ pnpm format
 - The library has no global stylesheet in its build output; the theme tokens in
   `src/styles.css` are loaded by Storybook (via the `styles` option) and are meant to be
   imported by consuming apps.
+- Icons: use [ng-icons](https://ng-icons.github.io/ng-icons/)'s `NgIcon` directly; there is
+  no vendored icon component. `@ng-icons/core` is an **optional peer dependency**; a glyph
+  set (we use `@ng-icons/tabler-icons`) is a `devDependency` for stories and an install the
+  consumer adds. Register glyphs with `provideIcons` and render a bare `<ng-icon name="…"
+  />`; inside a `<button hlmBtn>` omit `size` so the button auto-sizes it, with
+  `data-icon="inline-start"`/`-end` tightening the padding next to text. For standalone
+  icons use `NgIcon`'s own `size`/`color` inputs. See `hlm-button.stories.ts` (`IconSizes`,
+  `WithIcon`). Don't re-vendor the Spartan `hlm-icon` directive — it pins `--ng-icon__size`
+  and breaks the button's per-size auto-sizing (only re-add it if a future Spartan
+  generator requires `@spartan-ng/helm/icon`).
 - The `@surfnet/contracts` import is a `devDependency` only — it must not appear in the
   published `dist`. The `satisfies` annotation is erased by TypeScript at compile time, so
   no import survives into the built output.
