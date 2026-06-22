@@ -1,5 +1,5 @@
 {
-  "name": "@surfweb/react-app",
+  "name": "@surfnet/react-app",
   "version": "0.0.0",
   "private": true,
   "description": "Demo app for testing @surfnet/react components in a real Next.js consumer.",

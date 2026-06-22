@@ -31,7 +31,7 @@ surf-design-system/
 │   ├── react/              # @surfnet/react — Vite library + Storybook (Vite)
 │   └── angular/            # @surfnet/angular — ng-packagr library + Storybook (webpack)
 └── apps/
-    └── react-app/          # @surfweb/react-app — demo Next.js app for testing @surfnet/react
+    └── react-app/          # @surfnet/react-app — demo Next.js app for testing @surfnet/react
 ```
 
 ## Architecture
@@ -71,21 +71,21 @@ states). Start there to see what's available.
 
 ## Demo app
 
-[`apps/react-app`](apps/react-app) (`@surfweb/react-app`) is a minimal Next.js
+[`apps/react-app`](apps/react-app) (`@surfnet/react-app`) is a minimal Next.js
 (App Router) **demo app for testing `@surfnet/react` components** as a real
 workspace consumer — a smoke test that the package imports and renders outside
 Storybook.
 
 ```bash
 pnpm build                                # build @surfnet/react first (the app consumes its dist)
-pnpm --filter @surfweb/react-app dev      # http://localhost:3000
+pnpm --filter @surfnet/react-app dev      # http://localhost:3000
 ```
 
 It imports the package's compiled stylesheet (`@surfnet/react/styles.css`) in
 [`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders a `Button` in
 [`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react` under
 `transpilePackages` so Next compiles the workspace source. Turborepo wires
-`@surfweb/react-app#build` to depend on `@surfnet/react#build` automatically via `^build`.
+`@surfnet/react-app#build` to depend on `@surfnet/react#build` automatically via `^build`.
 
 ## Adding a component
 
