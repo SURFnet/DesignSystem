@@ -159,8 +159,8 @@ in `tsconfig.json`. Then:
 
 #### Icons (Angular)
 
-Angular renders icons through the vendored Spartan `hlm` icon directive, backed by
-[ng-icons](https://ng-icons.github.io/ng-icons/). `@ng-icons/core` and the Tabler set
+Angular renders icons with [ng-icons](https://ng-icons.github.io/ng-icons/) directly — we
+don't wrap it. `@ng-icons/core` (the `NgIcon` component) and the Tabler set
 `@ng-icons/tabler-icons` are **optional peer dependencies** — install them if you use
 icons:
 
@@ -169,26 +169,25 @@ pnpm add @ng-icons/core @ng-icons/tabler-icons
 ```
 
 Register the glyphs you need with `provideIcons` (named exports like `tablerPlus`), then
-render them through `<ng-icon hlm>`:
+render them with `<ng-icon>`:
 
 ```ts
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerPlus } from '@ng-icons/tabler-icons';
-import { HlmIcon } from '@surfnet/angular';
 
 @Component({
-  imports: [NgIcon, HlmIcon],
+  imports: [NgIcon],
   providers: [provideIcons({ tablerPlus })],
   template: `
-    <ng-icon hlm name="tablerPlus" size="base" />
-    <button hlmBtn><ng-icon hlm name="tablerPlus" data-icon="inline-start" /> Add item</button>
+    <ng-icon name="tablerPlus" size="1.5rem" />              <!-- standalone: size with NgIcon's size input -->
+    <button hlmBtn><ng-icon name="tablerPlus" data-icon="inline-start" /> Add item</button>
   `,
 })
 ```
 
-The `size` input takes `xs | sm | base | lg | xl` (or any CSS length); inside a
-`<button hlmBtn>` you can omit it and the button auto-sizes the icon. See the **Button**
-stories (`IconSizes`, `WithIcon`).
+Inside a `<button hlmBtn>`, leave `size` off — the button auto-sizes the `<ng-icon>` per
+button size, and `data-icon="inline-start"` / `data-icon="inline-end"` tighten the padding
+next to text. See the **Button** stories (`IconSizes`, `WithIcon`).
 
 > Same icon set as React, different package: React uses `@tabler/icons-react`
 > (`Icon*` components), Angular uses `@ng-icons/tabler-icons` (`tabler*` exports).

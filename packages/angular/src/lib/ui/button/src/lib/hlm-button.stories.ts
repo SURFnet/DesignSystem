@@ -1,7 +1,6 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerArrowRight, tablerPlus } from '@ng-icons/tabler-icons';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { buttonContract } from '@surfnet/contracts';
 
 import { HlmButton } from './hlm-button';
@@ -15,7 +14,7 @@ const meta: Meta<ButtonArgs> = {
   component: HlmButton,
   decorators: [
     moduleMetadata({
-      imports: [HlmButton, NgIcon, HlmIcon],
+      imports: [HlmButton, NgIcon],
       providers: [provideIcons({ tablerPlus, tablerArrowRight })],
     }),
   ],
@@ -116,18 +115,18 @@ export const Sizes: Story = {
 };
 
 /**
- * Square icon-only sizes. Drop an `<ng-icon hlm>` (from `@ng-icons/tabler-icons`) inside
- * the button — the button's CSS auto-sizes it per size. Provide an `aria-label` for
- * accessibility.
+ * Square icon-only sizes. Drop a bare `<ng-icon>` (from `@ng-icons/tabler-icons`) inside
+ * the button — the button's CSS auto-sizes it per size, so don't set `size` on the icon.
+ * Provide an `aria-label` for accessibility.
  */
 export const IconSizes: Story = {
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-3">
-        <button hlmBtn size="icon-xs" aria-label="Add"><ng-icon hlm name="tablerPlus" /></button>
-        <button hlmBtn size="icon-sm" aria-label="Add"><ng-icon hlm name="tablerPlus" /></button>
-        <button hlmBtn size="icon" aria-label="Add"><ng-icon hlm name="tablerPlus" /></button>
-        <button hlmBtn size="icon-lg" aria-label="Add"><ng-icon hlm name="tablerPlus" /></button>
+        <button hlmBtn size="icon-xs" aria-label="Add"><ng-icon name="tablerPlus" /></button>
+        <button hlmBtn size="icon-sm" aria-label="Add"><ng-icon name="tablerPlus" /></button>
+        <button hlmBtn size="icon" aria-label="Add"><ng-icon name="tablerPlus" /></button>
+        <button hlmBtn size="icon-lg" aria-label="Add"><ng-icon name="tablerPlus" /></button>
       </div>`,
   }),
 };
@@ -141,12 +140,12 @@ export const WithIcon: Story = {
     template: `
       <div class="flex flex-wrap items-center gap-3">
         <button hlmBtn>
-          <ng-icon hlm name="tablerPlus" data-icon="inline-start" />
+          <ng-icon name="tablerPlus" data-icon="inline-start" />
           Add item
         </button>
         <button hlmBtn variant="secondary">
           Continue
-          <ng-icon hlm name="tablerArrowRight" data-icon="inline-end" />
+          <ng-icon name="tablerArrowRight" data-icon="inline-end" />
         </button>
       </div>`,
   }),
