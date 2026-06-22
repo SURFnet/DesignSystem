@@ -146,37 +146,49 @@ function buildBody(): string {
     ].join('\n');
   }
 
-  const byFramework = new Map<string, Row[]>();
+  // Nest the flat rows as framework -> component/story -> theme -> modes, so the
+  // comment is scannable: collapse a whole framework, skim components, drill into
+  // a theme to see which modes fail and why.
+  interface Leaf {
+    mode: string;
+    rule: string;
+    example: string;
+  }
+  const tree = new Map<string, Map<string, Map<string, Leaf[]>>>();
   for (const r of rows) {
-    const bucket = byFramework.get(r.framework) ?? [];
-    bucket.push(r);
-    byFramework.set(r.framework, bucket);
+    const stories = tree.get(r.framework) ?? new Map<string, Map<string, Leaf[]>>();
+    const themes = stories.get(r.story) ?? new Map<string, Leaf[]>();
+    const leaves = themes.get(r.theme) ?? [];
+    leaves.push({ mode: r.mode, rule: r.rule, example: r.example });
+    themes.set(r.theme, leaves);
+    stories.set(r.story, themes);
+    tree.set(r.framework, stories);
   }
 
-  const MAX_ROWS = 100;
+  const countLeaves = (themes: Map<string, Leaf[]>) =>
+    [...themes.values()].reduce((n, leaves) => n + leaves.length, 0);
+  // Light before dark, then anything else alphabetically.
+  const modeRank = (m: string) => (m === 'light' ? 0 : m === 'dark' ? 1 : 2);
+
   const sections: string[] = [];
-  for (const [framework, frameworkRows] of [...byFramework].sort(([a], [b]) =>
-    a.localeCompare(b),
-  )) {
-    frameworkRows.sort(
-      (a, b) =>
-        a.story.localeCompare(b.story) ||
-        a.theme.localeCompare(b.theme) ||
-        a.mode.localeCompare(b.mode),
-    );
-    const shown = frameworkRows.slice(0, MAX_ROWS);
-    const table = [
-      '| Component / story | Theme | Mode | Rule (WCAG) | Detail |',
-      '| --- | --- | --- | --- | --- |',
-      ...shown.map(
-        (r) => `| ${r.story} | \`${r.theme}\` | \`${r.mode}\` | ${r.rule} | ${r.example} |`,
-      ),
-    ];
-    if (frameworkRows.length > MAX_ROWS) {
-      table.push('', `_…and ${frameworkRows.length - MAX_ROWS} more (see the artifact)._`);
+  for (const [framework, stories] of [...tree].sort(([a], [b]) => a.localeCompare(b))) {
+    const fwCount = [...stories.values()].reduce((n, themes) => n + countLeaves(themes), 0);
+
+    const blocks: string[] = [];
+    for (const [story, themes] of [...stories].sort(([a], [b]) => a.localeCompare(b))) {
+      const lines = [`#### ${story} — ${countLeaves(themes)} combination(s)`];
+      for (const [theme, leaves] of [...themes].sort(([a], [b]) => a.localeCompare(b))) {
+        lines.push(`- \`${theme}\``);
+        for (const leaf of [...leaves].sort((a, b) => modeRank(a.mode) - modeRank(b.mode))) {
+          const detail = leaf.example ? `${leaf.example} — ` : '';
+          lines.push(`  - \`${leaf.mode}\` — ${detail}${leaf.rule}`);
+        }
+      }
+      blocks.push(lines.join('\n'));
     }
+
     sections.push(
-      `<details open><summary><strong>${framework}</strong> — ${frameworkRows.length} failing combination(s)</summary>\n\n${table.join('\n')}\n\n</details>`,
+      `<details open><summary><strong>${framework}</strong> — ${fwCount} failing combination(s)</summary>\n\n${blocks.join('\n\n')}\n\n</details>`,
     );
   }
 
@@ -192,7 +204,15 @@ function buildBody(): string {
   ].join('\n');
 }
 
-const body = buildBody();
+// Keep under GitHub's 65 536-char comment limit (leave headroom for the marker).
+const MAX_LEN = 64000;
+const full = buildBody();
+const body =
+  full.length > MAX_LEN
+    ? full.slice(0, MAX_LEN) +
+      '\n\n_…truncated; see the `a11y-reports` artifact for the full list._'
+    : full;
+
 mkdirSync(dirname(resolve(OUT)), { recursive: true });
 writeFileSync(OUT, body + '\n', 'utf8');
 
