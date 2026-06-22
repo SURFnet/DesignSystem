@@ -29,4 +29,5 @@ allowBuilds:
   '@bundled-es-modules/glob': false
   style-dictionary: true
   sharp: true
+  '@swc/core': true
   unrs-resolver: true
