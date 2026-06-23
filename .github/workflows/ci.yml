@@ -50,8 +50,12 @@ jobs:
       # Automated WCAG 2.1 AA sweep of every Storybook story (all themes/modes),
       # via @storybook/test-runner + axe. Reports cover ~30-50% of WCAG; the
       # residual manual checklist lives in docs/accessibility/.
+      #
+      # Install the Chromium binary the audit drives. Scoped to
+      # @surfnet/storybook-config — the package that owns the audit and pins
+      # `playwright` — so both framework runs share one machine-global browser.
       - name: Install Playwright Chromium
-        run: pnpm --filter @surfnet/react exec playwright install --with-deps chromium
+        run: pnpm --filter @surfnet/storybook-config exec playwright install --with-deps chromium
 
       # Report-only for now: surfaces violations without blocking PRs while the
       # backlog is triaged. Flip to blocking by removing `continue-on-error`
