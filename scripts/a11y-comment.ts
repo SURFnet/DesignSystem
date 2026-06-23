@@ -45,6 +45,7 @@ interface Row {
   mode: string;
   rule: string;
   example: string;
+  themeDependent: boolean;
 }
 
 const OUT = process.argv[2] ?? '.a11y-report/comment.md';
@@ -63,6 +64,15 @@ const WCAG_REF: Record<string, string> = {
   'image-alt': '1.1.1',
   'duplicate-id-aria': '4.1.1',
 };
+
+// Axe rules whose outcome depends on resolved colors, i.e. the theme/mode. These
+// are reported per theme·mode; every other (DOM-structural) rule is identical
+// across themes, so it's collapsed to a single per-variation finding.
+const THEME_DEPENDENT_RULES = new Set([
+  'color-contrast',
+  'color-contrast-enhanced',
+  'link-in-text-block',
+]);
 
 // Pull a human-readable example ("`#fff` on `#84cc16` · ratio 1.89") out of an
 // axe node's failureSummary for contrast failures; else fall back to help text.
@@ -114,6 +124,7 @@ for (const fw of frameworks) {
           mode: combo.mode,
           rule: ref,
           example: exampleFor(v),
+          themeDependent: THEME_DEPENDENT_RULES.has(v.id),
         });
       }
     }
@@ -150,49 +161,73 @@ function buildBody(): string {
     ].join('\n');
   }
 
-  // Nest the flat rows as framework -> component -> variation -> theme -> modes,
-  // so the comment is scannable: collapse a whole framework, skim components
-  // (h4) and their variations (h5), drill into a theme to see which modes fail.
+  // Nest as framework -> component (h4) -> variation (h5). Each variation splits
+  // findings in two: `structural` (theme-independent rules, collapsed to one
+  // entry each) and `themed` (contrast rules, kept per theme -> mode).
   interface Leaf {
     mode: string;
     rule: string;
     example: string;
   }
-  type ThemeMap = Map<string, Leaf[]>;
-  type VariationMap = Map<string, ThemeMap>;
+  interface VariationData {
+    structural: Map<string, string>; // rule -> short description (deduped)
+    themed: Map<string, Leaf[]>; // theme -> failing modes
+  }
+  type VariationMap = Map<string, VariationData>;
   type ComponentMap = Map<string, VariationMap>;
 
   const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
     const components = tree.get(r.framework) ?? new Map<string, VariationMap>();
-    const variations = components.get(r.component) ?? new Map<string, ThemeMap>();
-    const themes = variations.get(r.variation) ?? new Map<string, Leaf[]>();
-    const leaves = themes.get(r.theme) ?? [];
-    leaves.push({ mode: r.mode, rule: r.rule, example: r.example });
-    themes.set(r.theme, leaves);
-    variations.set(r.variation, themes);
+    const variations = components.get(r.component) ?? new Map<string, VariationData>();
+    const data: VariationData = variations.get(r.variation) ?? {
+      structural: new Map(),
+      themed: new Map(),
+    };
+    if (r.themeDependent) {
+      const leaves = data.themed.get(r.theme) ?? [];
+      leaves.push({ mode: r.mode, rule: r.rule, example: r.example });
+      data.themed.set(r.theme, leaves);
+    } else {
+      // Same finding in every theme/mode — keep one entry per rule.
+      data.structural.set(r.rule, r.example);
+    }
+    variations.set(r.variation, data);
     components.set(r.component, variations);
     tree.set(r.framework, components);
   }
 
-  const countThemes = (themes: ThemeMap) =>
-    [...themes.values()].reduce((n, leaves) => n + leaves.length, 0);
-  const countVariations = (variations: VariationMap) =>
-    [...variations.values()].reduce((n, themes) => n + countThemes(themes), 0);
+  const themedCount = (d: VariationData) =>
+    [...d.themed.values()].reduce((n, leaves) => n + leaves.length, 0);
+  const findingCount = (d: VariationData) => d.structural.size + themedCount(d);
+  const variationsCount = (vs: VariationMap) =>
+    [...vs.values()].reduce((n, d) => n + findingCount(d), 0);
   // Light before dark, then anything else alphabetically.
   const modeRank = (m: string) => (m === 'light' ? 0 : m === 'dark' ? 1 : 2);
   const byKey = ([a]: [string, unknown], [b]: [string, unknown]) => a.localeCompare(b);
 
+  let structuralTotal = 0;
+  let themedTotal = 0;
   const sections: string[] = [];
   for (const [framework, components] of [...tree].sort(byKey)) {
-    const fwCount = [...components.values()].reduce((n, v) => n + countVariations(v), 0);
+    const fwCount = [...components.values()].reduce((n, vs) => n + variationsCount(vs), 0);
 
     const blocks: string[] = [];
     for (const [component, variations] of [...components].sort(byKey)) {
-      const lines = [`#### ${component} — ${countVariations(variations)} combination(s)`];
-      for (const [variation, themes] of [...variations].sort(byKey)) {
-        lines.push('', `##### ${variation} — ${countThemes(themes)} combination(s)`);
-        for (const [theme, leaves] of [...themes].sort(byKey)) {
+      const lines = [`#### ${component} — ${variationsCount(variations)} finding(s)`];
+      for (const [variation, data] of [...variations].sort(byKey)) {
+        lines.push('', `##### ${variation} — ${findingCount(data)} finding(s)`);
+
+        // Theme-independent findings: one line each, flagged as such.
+        for (const [rule, desc] of [...data.structural].sort(byKey)) {
+          structuralTotal += 1;
+          const detail = desc ? `${desc} — ` : '';
+          lines.push(`- ${detail}${rule} · _all themes/modes_`);
+        }
+
+        // Contrast findings: grouped theme -> mode.
+        for (const [theme, leaves] of [...data.themed].sort(byKey)) {
+          themedTotal += leaves.length;
           lines.push(`- \`${theme}\``);
           for (const leaf of [...leaves].sort((a, b) => modeRank(a.mode) - modeRank(b.mode))) {
             const detail = leaf.example ? `${leaf.example} — ` : '';
@@ -204,15 +239,19 @@ function buildBody(): string {
     }
 
     sections.push(
-      `<details open><summary><strong>${framework}</strong> — ${fwCount} failing combination(s)</summary>\n\n${blocks.join('\n\n')}\n\n</details>`,
+      `<details open><summary><strong>${framework}</strong> — ${fwCount} finding(s)</summary>\n\n${blocks.join('\n\n')}\n\n</details>`,
     );
   }
+
+  const breakdown =
+    `${themedTotal} contrast (per theme·mode), ${structuralTotal} theme-independent` +
+    ` · across ${storiesAudited} stories / ${totalCombos} audited combinations`;
 
   return [
     HEADER,
     '',
-    `⚠️ **${rows.length} failing theme·mode combination(s)** across ${storiesAudited} stories ` +
-      `/ ${totalCombos} audited combinations. Report-only — does not block merge.`,
+    `⚠️ **${structuralTotal + themedTotal} finding(s)** — ${breakdown}. ` +
+      `Report-only — does not block merge.`,
     '',
     ...sections,
     '',
