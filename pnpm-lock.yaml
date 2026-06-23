@@ -81,7 +81,7 @@ importers:
       '@ng-icons/core':
         specifier: 33.3.0
         version: 33.3.0(@angular-devkit/schematics@22.0.1(chokidar@5.0.0))(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(@schematics/angular@22.0.1(chokidar@5.0.0))(rxjs@7.8.2)
-      '@ng-icons/tabler-icons':
+      '@ng-icons/phosphor-icons':
         specifier: 33.3.0
         version: 33.3.0
       '@spartan-ng/cli':
@@ -172,6 +172,9 @@ importers:
       '@fontsource-variable/geist':
         specifier: 5.2.9
         version: 5.2.9
+      '@phosphor-icons/react':
+        specifier: 2.1.10
+        version: 2.1.10(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@storybook/addon-a11y':
         specifier: 10.4.5
         version: 10.4.5(storybook@10.4.5(@testing-library/dom@10.4.1)(@types/react@19.2.17)(prettier@3.8.4)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
@@ -196,9 +199,6 @@ importers:
       '@surfnet/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@tabler/icons-react':
-        specifier: 3.44.0
-        version: 3.44.0(react@19.2.7)
       '@tailwindcss/vite':
         specifier: 4.3.1
         version: 4.3.1(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(less@4.6.6)(sass-embedded@1.100.0)(sass@1.101.0)(terser@5.48.0)(yaml@2.9.0))
@@ -3000,8 +3000,8 @@ packages:
       '@schematics/angular': '>=21.0.0'
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@ng-icons/tabler-icons@33.3.0':
-    resolution: {integrity: sha512-Z1157ceEpwRq+lxqhKlQVpNM1iay8v2T8TA4exttWQsdr+BAwhpscTG9pjd+RVpaDzcSLyaqUwbKVCZ+Y53WvQ==}
+  '@ng-icons/phosphor-icons@33.3.0':
+    resolution: {integrity: sha512-TOBHGDYn+insTLgJwcX0O2XasgoXBVLzYNtWWpadmaMzT8PTWQWwDmeALkXFKPHZJG/vzLulYgLjsX5yDnPn+Q==}
 
   '@ngtools/webpack@21.2.15':
     resolution: {integrity: sha512-wTKYaaSgJXCISbl3C+gle9GlPrnfyho+kv2zIhbcVwRnIL7ilrQcvCJcWdkOPMr97Zj9dpvc7t0C/l5S4/fRxw==}
@@ -3579,6 +3579,13 @@ packages:
     resolution: {integrity: sha512-Vo9nkhfZxDB/sBiqIY3pjDC4mOSyure+AFlEW5hcy/tRE82MqCXjRN4InnVNMldinRt0dLYqg4HAU2XPq5e1LA==}
     peerDependencies:
       typescript: '>3.0.0'
+
+  '@phosphor-icons/react@2.1.10':
+    resolution: {integrity: sha512-vt8Tvq8GLjheAZZYa+YG/pW7HDbov8El/MANW8pOAz4eGxrwhnbfrQZq0Cp4q8zBEu8NIhHdnr+r8thnfRSNYA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>= 16.8'
+      react-dom: '>= 16.8'
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -4467,14 +4474,6 @@ packages:
 
   '@swc/types@0.1.27':
     resolution: {integrity: sha512-K6h3iUlqeM946U4sXFYeahefR1YBbXJvko+hv8WS8/0BNJ4OHiHRywMnQUJCqkR7Y9+hqQ1TvEpiKqUhz7NEFg==}
-
-  '@tabler/icons-react@3.44.0':
-    resolution: {integrity: sha512-8+rvzBbVm/1Z3sG3x7GUNAaxIKxwgz8xaMhRs23nrCnMTKRFAhEC+82zAIFeAA0seXdrAGX5HFCkaLpGK2rVHg==}
-    peerDependencies:
-      react: '>= 16'
-
-  '@tabler/icons@3.44.0':
-    resolution: {integrity: sha512-Wn0AOZG9sg0L+bjfMqq4eNhC6pQjIrk94LvvWYNYkY8KH8wC3YILRzQlrnVJc4FUeMxH/AK97QsYCX35H3LndA==}
 
   '@tailwindcss/node@4.3.1':
     resolution: {integrity: sha512-6NDaqRoAMSXD1mr/RXu0HBvNE9a2n5tHPsxu9XHLws8o4Twes5rBM2205SUUiJ9goAtadrN6xTGX0UDEwp/N4A==}
@@ -14091,7 +14090,7 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  '@ng-icons/tabler-icons@33.3.0':
+  '@ng-icons/phosphor-icons@33.3.0':
     dependencies:
       tslib: 2.8.1
 
@@ -14856,6 +14855,11 @@ snapshots:
       '@types/esquery': 1.5.4
       esquery: 1.7.0
       typescript: 6.0.3
+
+  '@phosphor-icons/react@2.1.10(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+    dependencies:
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -15699,13 +15703,6 @@ snapshots:
   '@swc/types@0.1.27':
     dependencies:
       '@swc/counter': 0.1.3
-
-  '@tabler/icons-react@3.44.0(react@19.2.7)':
-    dependencies:
-      '@tabler/icons': 3.44.0
-      react: 19.2.7
-
-  '@tabler/icons@3.44.0': {}
 
   '@tailwindcss/node@4.3.1':
     dependencies:
