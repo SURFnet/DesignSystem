@@ -1,5 +1,6 @@
 packages:
   - 'packages/*'
+  - 'apps/*'
 
 # Supply-chain hardening (requires pnpm 10+/11).
 
@@ -27,3 +28,4 @@ allowBuilds:
   nx: false
   '@bundled-es-modules/glob': false
   style-dictionary: true
+  sharp: true

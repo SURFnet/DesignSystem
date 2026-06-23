@@ -18,6 +18,18 @@ A Turborepo + pnpm monorepo with five packages:
 
 Both component packages style with **Tailwind CSS v4** and source their design tokens from `@surfnet/tokens`.
 
+The workspace also has an `apps/*` glob with one demo app:
+
+| App                  | What                                                                                     | Build        | Dev port |
+| -------------------- | ---------------------------------------------------------------------------------------- | ------------ | -------- |
+| `@surfweb/react-app` | Demo Next.js (App Router) app for testing `@surfnet/react` components in a real consumer | `next build` | 3000     |
+
+It depends on `@surfnet/react` via `workspace:*`, lists it under `transpilePackages` in
+`apps/react-app/next.config.mjs`, and imports the package's compiled `@surfnet/react/styles.css`.
+Turbo wires `@surfweb/react-app#build` after `@surfnet/react#build` via `^build` automatically, so
+build `@surfnet/react` before running the app. Apps are consumers, not published packages —
+keep library code in `packages/`.
+
 ## Environment
 
 - **Node 22 LTS** (pinned in `.nvmrc`; `engines` also allows 24). Other versions only

@@ -21,15 +21,17 @@ library of its ecosystem.
 ```
 surf-design-system/
 ├── package.json            # root scripts delegate to Turborepo
-├── pnpm-workspace.yaml      # workspace = packages/*
+├── pnpm-workspace.yaml      # workspace = packages/* + apps/*
 ├── turbo.json              # task graph (build, dev, storybook, lint)
 ├── .prettierrc.json        # shared formatting
-└── packages/
-    ├── typescript-config/  # @surfnet/typescript-config — base.json + react-library.json
-    ├── tokens/             # @surfnet/tokens — DTCG JSON -> Style Dictionary -> tokens.css (published)
-    ├── contracts/          # @surfnet/contracts — component API specs, build-time only (private)
-    ├── react/              # @surfnet/react — Vite library + Storybook (Vite)
-    └── angular/            # @surfnet/angular — ng-packagr library + Storybook (webpack)
+├── packages/
+│   ├── typescript-config/  # @surfnet/typescript-config — base.json + react-library.json
+│   ├── tokens/             # @surfnet/tokens — DTCG JSON -> Style Dictionary -> tokens.css (published)
+│   ├── contracts/          # @surfnet/contracts — component API specs, build-time only (private)
+│   ├── react/              # @surfnet/react — Vite library + Storybook (Vite)
+│   └── angular/            # @surfnet/angular — ng-packagr library + Storybook (webpack)
+└── apps/
+    └── react-app/          # @surfweb/react-app — demo Next.js app for testing @surfnet/react
 ```
 
 ## Architecture
@@ -66,6 +68,24 @@ pnpm --filter @surfnet/angular storybook   # http://localhost:6006
 
 Each component ships a Storybook story covering its full surface (variants, sizes,
 states). Start there to see what's available.
+
+## Demo app
+
+[`apps/react-app`](apps/react-app) (`@surfweb/react-app`) is a minimal Next.js
+(App Router) **demo app for testing `@surfnet/react` components** as a real
+workspace consumer — a smoke test that the package imports and renders outside
+Storybook.
+
+```bash
+pnpm build                                # build @surfnet/react first (the app consumes its dist)
+pnpm --filter @surfweb/react-app dev      # http://localhost:3000
+```
+
+It imports the package's compiled stylesheet (`@surfnet/react/styles.css`) in
+[`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders a `Button` in
+[`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react` under
+`transpilePackages` so Next compiles the workspace source. Turborepo wires
+`@surfweb/react-app#build` to depend on `@surfnet/react#build` automatically via `^build`.
 
 ## Adding a component
 
