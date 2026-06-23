@@ -8,7 +8,7 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "next typegen & tsc --noEmit"
   },
   "dependencies": {
     "@surfnet/react": "workspace:*",
