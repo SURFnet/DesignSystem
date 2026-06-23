@@ -2,7 +2,7 @@ import type { ComponentType } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { dataTableContract } from '@surfnet/contracts';
 import type { ColumnDef } from '@tanstack/react-table';
-import { IconArrowsSort, IconDots } from '@tabler/icons-react';
+import { ArrowsDownUpIcon, DotsThreeIcon } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -68,7 +68,7 @@ const columns: ColumnDef<Payment>[] = [
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Email
-        <IconArrowsSort data-icon="inline-end" />
+        <ArrowsDownUpIcon data-icon="inline-end" />
       </Button>
     ),
     cell: ({ row }) => <span className="lowercase">{row.getValue('email')}</span>,
@@ -95,7 +95,7 @@ const columns: ColumnDef<Payment>[] = [
           <DropdownMenuTrigger
             render={
               <Button variant="ghost" size="icon-sm" aria-label="Open menu">
-                <IconDots />
+                <DotsThreeIcon />
               </Button>
             }
           />

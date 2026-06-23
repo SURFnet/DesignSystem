@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { sidebarMenuButtonContract } from '@surfnet/contracts';
-import { IconApps, IconLayoutDashboard, IconSettings, IconUsers } from '@tabler/icons-react';
+import { SquaresFourIcon, GaugeIcon, GearIcon, UsersIcon } from '@phosphor-icons/react';
 
 import {
   Sidebar,
@@ -40,9 +40,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const nav = [
-  { title: 'Dashboard', icon: IconLayoutDashboard, active: true },
-  { title: 'Apps', icon: IconApps },
-  { title: 'Users', icon: IconUsers },
+  { title: 'Dashboard', icon: GaugeIcon, active: true },
+  { title: 'Apps', icon: SquaresFourIcon },
+  { title: 'Users', icon: UsersIcon },
 ];
 
 /** A full sidebar with a collapsible icon rail, grouped menu, submenu, and trigger. */
@@ -54,7 +54,7 @@ export const Default: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <IconApps />
+                <SquaresFourIcon />
                 <span>App catalog</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -91,7 +91,7 @@ export const Default: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton tooltip="Settings">
-                <IconSettings />
+                <GearIcon />
                 <span>Settings</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -122,7 +122,7 @@ export const MenuButtonVariants: Story = {
                 {sidebarMenuButtonContract.variants.map((variant) => (
                   <SidebarMenuItem key={variant}>
                     <SidebarMenuButton variant={variant}>
-                      <IconApps />
+                      <SquaresFourIcon />
                       <span>{variant}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -137,7 +137,7 @@ export const MenuButtonVariants: Story = {
                 {sidebarMenuButtonContract.sizes.map((size) => (
                   <SidebarMenuItem key={size}>
                     <SidebarMenuButton size={size}>
-                      <IconApps />
+                      <SquaresFourIcon />
                       <span>{size}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
