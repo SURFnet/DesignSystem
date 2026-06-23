@@ -3,7 +3,7 @@ import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import type { DropdownMenuItemVariantName } from '@surfnet/contracts';
 
 import { cn } from '@/lib/utils';
-import { IconChevronRight, IconCheck } from '@tabler/icons-react';
+import { CaretRightIcon, CheckIcon } from '@phosphor-icons/react';
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
@@ -118,7 +118,7 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <IconChevronRight className="ml-auto" />
+      <CaretRightIcon className="ml-auto" />
     </MenuPrimitive.SubmenuTrigger>
   );
 }
@@ -172,7 +172,7 @@ function DropdownMenuCheckboxItem({
         data-slot="dropdown-menu-checkbox-item-indicator"
       >
         <MenuPrimitive.CheckboxItemIndicator>
-          <IconCheck />
+          <CheckIcon />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -207,7 +207,7 @@ function DropdownMenuRadioItem({
         data-slot="dropdown-menu-radio-item-indicator"
       >
         <MenuPrimitive.RadioItemIndicator>
-          <IconCheck />
+          <CheckIcon />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}

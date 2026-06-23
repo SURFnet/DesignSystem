@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { dropdownMenuContract } from '@surfnet/contracts';
-import { IconDotsVertical } from '@tabler/icons-react';
+import { DotsThreeVerticalIcon } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';
 
@@ -60,7 +60,7 @@ export const RowActions: Story = {
       <DropdownMenuTrigger
         render={
           <Button variant="ghost" size="icon-sm" aria-label="Row actions">
-            <IconDotsVertical />
+            <DotsThreeVerticalIcon />
           </Button>
         }
       />

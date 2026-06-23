@@ -3,7 +3,7 @@ import { Select as SelectPrimitive } from '@base-ui/react/select';
 import type { SelectTriggerSizeName } from '@surfnet/contracts';
 
 import { cn } from '@/lib/utils';
-import { IconSelector, IconCheck, IconChevronUp, IconChevronDown } from '@tabler/icons-react';
+import { CaretUpDownIcon, CheckIcon, CaretUpIcon, CaretDownIcon } from '@phosphor-icons/react';
 
 const Select = SelectPrimitive.Root;
 
@@ -47,7 +47,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon
-        render={<IconSelector className="pointer-events-none size-4 text-muted-foreground" />}
+        render={<CaretUpDownIcon className="pointer-events-none size-4 text-muted-foreground" />}
       />
     </SelectPrimitive.Trigger>
   );
@@ -123,7 +123,7 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
           <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
         }
       >
-        <IconCheck className="pointer-events-none" />
+        <CheckIcon className="pointer-events-none" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
@@ -152,7 +152,7 @@ function SelectScrollUpButton({
       )}
       {...props}
     >
-      <IconChevronUp />
+      <CaretUpIcon />
     </SelectPrimitive.ScrollUpArrow>
   );
 }
@@ -170,7 +170,7 @@ function SelectScrollDownButton({
       )}
       {...props}
     >
-      <IconChevronDown />
+      <CaretDownIcon />
     </SelectPrimitive.ScrollDownArrow>
   );
 }

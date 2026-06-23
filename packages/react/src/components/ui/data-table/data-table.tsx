@@ -14,7 +14,7 @@ import {
   type Table as TanStackTable,
   type VisibilityState,
 } from '@tanstack/react-table';
-import { IconChevronDown } from '@tabler/icons-react';
+import { CaretDownIcon } from '@phosphor-icons/react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -113,7 +113,7 @@ function DataTable<TData, TValue>({
             render={
               <Button variant="outline" className="ml-auto">
                 {columnsLabel}
-                <IconChevronDown data-icon="inline-end" />
+                <CaretDownIcon data-icon="inline-end" />
               </Button>
             }
           />
