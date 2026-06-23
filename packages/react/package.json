@@ -24,12 +24,12 @@
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "@tabler/icons-react": "^3.0.0",
+    "@phosphor-icons/react": "^2.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "peerDependenciesMeta": {
-    "@tabler/icons-react": {
+    "@phosphor-icons/react": {
       "optional": true
     }
   },
@@ -45,10 +45,10 @@
     "@fontsource-variable/geist": "5.2.9",
     "@storybook/addon-a11y": "10.4.5",
     "@storybook/addon-docs": "10.4.5",
+    "@phosphor-icons/react": "2.1.10",
     "@storybook/react-vite": "10.4.5",
     "@surfnet/storybook-config": "workspace:*",
     "@surfnet/typescript-config": "workspace:*",
-    "@tabler/icons-react": "3.44.0",
     "@tailwindcss/vite": "4.3.1",
     "@types/node": "24.13.2",
     "@types/react": "19.2.17",
