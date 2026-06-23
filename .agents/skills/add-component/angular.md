@@ -86,6 +86,13 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
    `disabled` on the button), widen the args type with an intersection so it shows as a
    control.
 
+   **Every control you declare must be live.** A control in `argTypes`/`args` only does
+   something if a story binds those args into its template (e.g.
+   `props: args` with `[orientation]="orientation"`). If every story hardcodes its template,
+   the control shows in the panel but moving it changes nothing. Keep one args-driven
+   Playground per declared control, reserve hardcoded templates for static showcase stories,
+   and don't declare a control no story consumes.
+
 ## Verify
 
 ```bash

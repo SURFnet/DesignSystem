@@ -31,6 +31,23 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+/** Interactive playground — flip `orientation` in the controls to see both directions. */
+export const Default: Story = {
+  render: (args) => (
+    <div
+      className={
+        args.orientation === 'vertical'
+          ? 'flex h-5 items-center gap-3 text-sm'
+          : 'flex w-72 flex-col gap-3 text-sm'
+      }
+    >
+      <span>One</span>
+      <Separator {...args} />
+      <span>Two</span>
+    </div>
+  ),
+};
+
 /** A horizontal divider between stacked blocks of text. */
 export const Horizontal: Story = {
   render: () => (

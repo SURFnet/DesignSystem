@@ -96,6 +96,15 @@ Never hand-write a primitive or switch `style` to a Radix value.
    literals — a description-only component still pulls its `docs.description.component` from
    the contract. Use `@storybook/react-vite` types (`Meta`, `StoryObj`).
 
+   **Every control you declare must be live.** A control in `argTypes`/`args` only does
+   something if a story actually consumes those args — an args-driven Playground (`export
+   const Default: Story = {}`, or `render: (args) => <Card {...args} />`). If _every_ story
+   hardcodes its props in `render`, the control is dead: it shows in the panel but moving it
+   changes nothing. So keep one args-driven Playground per declared control, reserve
+   hardcoded `render` for static showcase stories (Variants, Sizes, …), and don't declare a
+   control no story consumes. (Storybook here only surfaces controls you declare explicitly —
+   it does not infer them from props — so an unused `argTypes` entry is always dead weight.)
+
 ## Target layout
 
 ```
