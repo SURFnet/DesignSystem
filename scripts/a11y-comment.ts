@@ -39,7 +39,8 @@ interface StoryReport {
 }
 interface Row {
   framework: string;
-  story: string;
+  component: string;
+  variation: string;
   theme: string;
   mode: string;
   rule: string;
@@ -98,14 +99,17 @@ for (const fw of frameworks) {
     }
     storiesAudited += 1;
     totalCombos += report.results?.length ?? 0;
-    const story = `${(report.title ?? '').replace(/^Components\//, '')} / ${report.name ?? ''}`;
+    // title is "Components/Button" -> component "Button"; name is the story variation.
+    const component = (report.title ?? '').replace(/^Components\//, '') || '(untitled)';
+    const variation = report.name ?? '';
 
     for (const combo of report.results ?? []) {
       for (const v of combo.violations ?? []) {
         const ref = WCAG_REF[v.id] ? `${v.id} (${WCAG_REF[v.id]})` : v.id;
         rows.push({
           framework: `@surfnet/${fw.name}`,
-          story,
+          component,
+          variation,
           theme: combo.theme,
           mode: combo.mode,
           rule: ref,
@@ -146,42 +150,54 @@ function buildBody(): string {
     ].join('\n');
   }
 
-  // Nest the flat rows as framework -> component/story -> theme -> modes, so the
-  // comment is scannable: collapse a whole framework, skim components, drill into
-  // a theme to see which modes fail and why.
+  // Nest the flat rows as framework -> component -> variation -> theme -> modes,
+  // so the comment is scannable: collapse a whole framework, skim components
+  // (h4) and their variations (h5), drill into a theme to see which modes fail.
   interface Leaf {
     mode: string;
     rule: string;
     example: string;
   }
-  const tree = new Map<string, Map<string, Map<string, Leaf[]>>>();
+  type ThemeMap = Map<string, Leaf[]>;
+  type VariationMap = Map<string, ThemeMap>;
+  type ComponentMap = Map<string, VariationMap>;
+
+  const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
-    const stories = tree.get(r.framework) ?? new Map<string, Map<string, Leaf[]>>();
-    const themes = stories.get(r.story) ?? new Map<string, Leaf[]>();
+    const components = tree.get(r.framework) ?? new Map<string, VariationMap>();
+    const variations = components.get(r.component) ?? new Map<string, ThemeMap>();
+    const themes = variations.get(r.variation) ?? new Map<string, Leaf[]>();
     const leaves = themes.get(r.theme) ?? [];
     leaves.push({ mode: r.mode, rule: r.rule, example: r.example });
     themes.set(r.theme, leaves);
-    stories.set(r.story, themes);
-    tree.set(r.framework, stories);
+    variations.set(r.variation, themes);
+    components.set(r.component, variations);
+    tree.set(r.framework, components);
   }
 
-  const countLeaves = (themes: Map<string, Leaf[]>) =>
+  const countThemes = (themes: ThemeMap) =>
     [...themes.values()].reduce((n, leaves) => n + leaves.length, 0);
+  const countVariations = (variations: VariationMap) =>
+    [...variations.values()].reduce((n, themes) => n + countThemes(themes), 0);
   // Light before dark, then anything else alphabetically.
   const modeRank = (m: string) => (m === 'light' ? 0 : m === 'dark' ? 1 : 2);
+  const byKey = ([a]: [string, unknown], [b]: [string, unknown]) => a.localeCompare(b);
 
   const sections: string[] = [];
-  for (const [framework, stories] of [...tree].sort(([a], [b]) => a.localeCompare(b))) {
-    const fwCount = [...stories.values()].reduce((n, themes) => n + countLeaves(themes), 0);
+  for (const [framework, components] of [...tree].sort(byKey)) {
+    const fwCount = [...components.values()].reduce((n, v) => n + countVariations(v), 0);
 
     const blocks: string[] = [];
-    for (const [story, themes] of [...stories].sort(([a], [b]) => a.localeCompare(b))) {
-      const lines = [`#### ${story} — ${countLeaves(themes)} combination(s)`];
-      for (const [theme, leaves] of [...themes].sort(([a], [b]) => a.localeCompare(b))) {
-        lines.push(`- \`${theme}\``);
-        for (const leaf of [...leaves].sort((a, b) => modeRank(a.mode) - modeRank(b.mode))) {
-          const detail = leaf.example ? `${leaf.example} — ` : '';
-          lines.push(`  - \`${leaf.mode}\` — ${detail}${leaf.rule}`);
+    for (const [component, variations] of [...components].sort(byKey)) {
+      const lines = [`#### ${component} — ${countVariations(variations)} combination(s)`];
+      for (const [variation, themes] of [...variations].sort(byKey)) {
+        lines.push('', `##### ${variation} — ${countThemes(themes)} combination(s)`);
+        for (const [theme, leaves] of [...themes].sort(byKey)) {
+          lines.push(`- \`${theme}\``);
+          for (const leaf of [...leaves].sort((a, b) => modeRank(a.mode) - modeRank(b.mode))) {
+            const detail = leaf.example ? `${leaf.example} — ` : '';
+            lines.push(`  - \`${leaf.mode}\` — ${detail}${leaf.rule}`);
+          }
         }
       }
       blocks.push(lines.join('\n'));
