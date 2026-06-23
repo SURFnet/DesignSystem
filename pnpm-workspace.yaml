@@ -29,3 +29,4 @@ allowBuilds:
   '@bundled-es-modules/glob': false
   style-dictionary: true
   sharp: true
+  unrs-resolver: true
