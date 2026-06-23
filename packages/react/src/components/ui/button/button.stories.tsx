@@ -1,6 +1,6 @@
+import { ArrowRightIcon, PlusIcon } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { buttonContract } from '@surfnet/contracts';
-import { IconArrowRight, IconPlus } from '@tabler/icons-react';
 
 import { Button } from './button';
 
@@ -74,23 +74,23 @@ export const Sizes: Story = {
 };
 
 /**
- * Square icon-only sizes. Drop a Tabler icon (`@tabler/icons-react`) inside the button —
+ * Square icon-only sizes. Drop a Phosphor icon (`@phosphor-icons/react`) inside the button —
  * the button's CSS auto-sizes the SVG per size, so no `size-*` class is needed.
  */
 export const IconSizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button size="icon-xs" aria-label="Add">
-        <IconPlus />
+        <PlusIcon />
       </Button>
       <Button size="icon-sm" aria-label="Add">
-        <IconPlus />
+        <PlusIcon />
       </Button>
       <Button size="icon" aria-label="Add">
-        <IconPlus />
+        <PlusIcon />
       </Button>
       <Button size="icon-lg" aria-label="Add">
-        <IconPlus />
+        <PlusIcon />
       </Button>
     </div>
   ),
@@ -104,12 +104,12 @@ export const WithIcon: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button>
-        <IconPlus data-icon="inline-start" />
+        <PlusIcon data-icon="inline-start" />
         Add item
       </Button>
       <Button variant="secondary">
         Continue
-        <IconArrowRight data-icon="inline-end" />
+        <ArrowRightIcon data-icon="inline-end" />
       </Button>
     </div>
   ),

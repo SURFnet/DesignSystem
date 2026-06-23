@@ -106,9 +106,10 @@ pnpm format
   imported by consuming apps.
 - Icons: use [ng-icons](https://ng-icons.github.io/ng-icons/)'s `NgIcon` directly; there is
   no vendored icon component. `@ng-icons/core` is an **optional peer dependency**; a glyph
-  set (we use `@ng-icons/tabler-icons`) is a `devDependency` for stories and an install the
-  consumer adds. Register glyphs with `provideIcons` and render a bare `<ng-icon name="…"
-  />`; inside a `<button hlmBtn>` omit `size` so the button auto-sizes it, with
+  set (we use `@ng-icons/phosphor-icons`) is a `devDependency` for stories and an install the
+  consumer adds. Phosphor exports are split by weight — import `phosphor*` glyphs from a weight
+  subpath such as `@ng-icons/phosphor-icons/regular`. Register glyphs with `provideIcons` and
+  render a bare `<ng-icon name="…" />`; inside a `<button hlmBtn>` omit `size` so the button auto-sizes it, with
   `data-icon="inline-start"`/`-end` tightening the padding next to text. For standalone
   icons use `NgIcon`'s own `size`/`color` inputs. See `hlm-button.stories.ts` (`IconSizes`,
   `WithIcon`). Don't re-vendor the Spartan `hlm-icon` directive — it pins `--ng-icon__size`

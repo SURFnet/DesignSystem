@@ -73,8 +73,8 @@ states). Start there to see what's available.
 
 shadcn components are **vendored** — copied into the package so you own and can edit
 them. The package is configured (in [`components.json`](packages/react/components.json))
-for **Base UI** primitives (`"style": "base-nova"`) and **Tabler** icons
-(`"iconLibrary": "tabler"` → `@tabler/icons-react`).
+for **Base UI** primitives (`"style": "base-nova"`) and **Phosphor** icons
+(`"iconLibrary": "phosphor"` → `@phosphor-icons/react`).
 
 We keep **one directory per component** (component + stories + future tests live
 together). Pass `--path` with a **trailing slash** so the CLI writes the component
@@ -104,28 +104,28 @@ src/components/ui/
     └── index.ts            # barrel → export * from './button'
 ```
 
-> shadcn pulls the Base UI variant and Tabler icon imports automatically from the
+> shadcn pulls the Base UI variant and Phosphor icon imports automatically from the
 > `style` and `iconLibrary` fields in `components.json` — don't switch `style` back to
 > a Radix style.
 
 #### Icons (React)
 
-Icons come from [`@tabler/icons-react`](https://tabler.io/icons), an **optional peer
+Icons come from [`@phosphor-icons/react`](https://phosphoricons.com), an **optional peer
 dependency** — install it alongside the package if you use icons:
 
 ```bash
-pnpm add @tabler/icons-react
+pnpm add @phosphor-icons/react
 ```
 
-Each icon is a tree-shaken component prefixed `Icon`:
+Each icon is a tree-shaken component suffixed `Icon`:
 
 ```tsx
-import { IconPlus } from '@tabler/icons-react';
+import { PlusIcon } from '@phosphor-icons/react';
 
-<IconPlus className="size-5" />        {/* size with a Tailwind size-* utility */}
+<PlusIcon className="size-5" />        {/* size with a Tailwind size-* utility */}
 
 <Button>
-  <IconPlus data-icon="inline-start" /> {/* inside a button, no size class needed */}
+  <PlusIcon data-icon="inline-start" /> {/* inside a button, no size class needed */}
   Add item
 </Button>
 ```
@@ -161,25 +161,25 @@ in `tsconfig.json`. Then:
 
 Angular uses [ng-icons](https://ng-icons.github.io/ng-icons/) for icons. Install
 `@ng-icons/core` (the `NgIcon` component, an **optional peer dependency**) plus a glyph
-set — we use the Tabler set, `@ng-icons/tabler-icons`:
+set — we use the Phosphor set, `@ng-icons/phosphor-icons`:
 
 ```bash
-pnpm add @ng-icons/core @ng-icons/tabler-icons
+pnpm add @ng-icons/core @ng-icons/phosphor-icons
 ```
 
-Register the glyphs you need with `provideIcons` (named exports like `tablerPlus`), then
-render them with `<ng-icon>`:
+Register the glyphs you need with `provideIcons` (named exports like `phosphorPlus`, imported
+from the weight you want — `/regular`, `/bold`, `/fill`, …), then render them with `<ng-icon>`:
 
 ```ts
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { tablerPlus } from '@ng-icons/tabler-icons';
+import { phosphorPlus } from '@ng-icons/phosphor-icons/regular';
 
 @Component({
   imports: [NgIcon],
-  providers: [provideIcons({ tablerPlus })],
+  providers: [provideIcons({ phosphorPlus })],
   template: `
-    <ng-icon name="tablerPlus" size="1.5rem" />              <!-- standalone: size with NgIcon's size input -->
-    <button hlmBtn><ng-icon name="tablerPlus" data-icon="inline-start" /> Add item</button>
+    <ng-icon name="phosphorPlus" size="1.5rem" />              <!-- standalone: size with NgIcon's size input -->
+    <button hlmBtn><ng-icon name="phosphorPlus" data-icon="inline-start" /> Add item</button>
   `,
 })
 ```
@@ -188,8 +188,9 @@ Inside a `<button hlmBtn>`, leave `size` off — the button auto-sizes the `<ng-
 button size, and `data-icon="inline-start"` / `data-icon="inline-end"` tighten the padding
 next to text. See the **Button** stories (`IconSizes`, `WithIcon`).
 
-> Same icon set as React, different package: React uses `@tabler/icons-react`
-> (`Icon*` components), Angular uses `@ng-icons/tabler-icons` (`tabler*` exports).
+> Same icon set as React, different package: React uses `@phosphor-icons/react`
+> (`*Icon` components), Angular uses `@ng-icons/phosphor-icons` (`phosphor*` exports,
+> imported from a weight subpath like `@ng-icons/phosphor-icons/regular`).
 
 ## AI assistants (MCP servers & skills)
 

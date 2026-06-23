@@ -4,7 +4,7 @@ Part of the **add-component** skill — see [`SKILL.md`](SKILL.md) for scope/par
 
 Components are **vendored** with the shadcn CLI — copied into the package so we own and
 edit them. The package is pre-configured (`packages/react/components.json`) for **Base
-UI** primitives (`"style": "base-nova"`) and **Tabler** icons (`"iconLibrary": "tabler"`).
+UI** primitives (`"style": "base-nova"`) and **Phosphor** icons (`"iconLibrary": "phosphor"`).
 Never hand-write a primitive or switch `style` to a Radix value.
 
 > **Available tooling:** the **`shadcn` skill** (`.agents/skills/shadcn/`) is the deep
@@ -29,7 +29,7 @@ Never hand-write a primitive or switch `style` to a Radix value.
    pnpm dlx shadcn@latest add card --path src/components/ui/card/
    ```
 
-   The CLI resolves Base UI source and Tabler icon imports automatically from
+   The CLI resolves Base UI source and Phosphor icon imports automatically from
    `components.json`. (A `--dry-run` preview _displays_ a flat path — ignore that; the
    real write nests correctly.)
 
@@ -110,9 +110,9 @@ pnpm format
 
 ## Notes
 
-- Icons: import from `@tabler/icons-react` (components are prefixed `Icon`, e.g.
-  `IconPlus`). The package is an **optional peer dependency** (kept as a devDependency so
-  stories build); never move it back to `dependencies`. Render icons directly (`<IconPlus
+- Icons: import from `@phosphor-icons/react` (components are suffixed `Icon`, e.g.
+  `PlusIcon`). The package is an **optional peer dependency** (kept as a devDependency so
+  stories build); never move it back to `dependencies`. Render icons directly (`<PlusIcon
   className="size-5" />`) or inside a button — the button auto-sizes the SVG per size, and
   `data-icon="inline-start"` / `data-icon="inline-end"` tightens the padding next to text.
   See `button.stories.tsx` (`IconSizes`, `WithIcon`) for the established pattern.
