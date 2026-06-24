@@ -15,7 +15,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/app/components/ui';
+} from '@surfnet/react';
 import { getApps, parseCategory, parsePage } from '@/app/lib/apps';
 import { buildHref } from '@/app/lib/url';
 
@@ -103,11 +103,9 @@ export default async function BrowseAppsPage({ searchParams }: { searchParams: S
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <Avatar size="sm" className="rounded-md">
+                        <Avatar size="sm">
                           <AvatarImage src={app.iconUrl} alt="" />
-                          <AvatarFallback className="rounded-md">
-                            {app.name.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
+                          <AvatarFallback>{app.name.slice(0, 2).toUpperCase()}</AvatarFallback>
                         </Avatar>
                         <span className="font-medium">{app.name}</span>
                       </div>

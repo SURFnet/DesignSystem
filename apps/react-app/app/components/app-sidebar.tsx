@@ -138,9 +138,9 @@ export function AppSidebar({ user }: { user: SessionUser }) {
               <DropdownMenuTrigger
                 render={
                   <SidebarMenuButton size="lg">
-                    <Avatar size="sm" className="rounded-lg">
+                    <Avatar size="sm">
                       <AvatarImage src={user.avatarUrl} alt={user.name} />
-                      <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+                      <AvatarFallback>{initials}</AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col gap-0.5 leading-none">
                       <span className="font-semibold">{user.name}</span>
