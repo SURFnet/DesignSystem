@@ -8,7 +8,6 @@ const workspaceRoot = join(__dirname, '..', '..');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@surfnet/react'],
   // Pin the workspace root so Next/Turbopack resolve from the monorepo root
   // and don't infer a stray parent lockfile.
   outputFileTracingRoot: workspaceRoot,
