@@ -17,6 +17,11 @@ const meta = {
     orientation: {
       control: 'inline-radio',
       options: separatorContract.orientations,
+      description: separatorContract.orientations
+        .map(
+          (orientation) => `\`${orientation}\` — ${separatorContract.orientationDocs[orientation]}`,
+        )
+        .join('\n\n'),
       table: {
         defaultValue: { summary: separatorContract.defaultOrientation },
       },

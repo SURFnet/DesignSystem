@@ -40,14 +40,19 @@ export const Default: Story = {
       <DropdownMenuContent align="start" className="w-48">
         <DropdownMenuGroup>
           <DropdownMenuLabel>My account</DropdownMenuLabel>
-          <DropdownMenuItem>
+          <DropdownMenuItem title={dropdownMenuContract.variantDocs.default}>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+        <DropdownMenuItem
+          variant="destructive"
+          title={dropdownMenuContract.variantDocs.destructive}
+        >
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ),

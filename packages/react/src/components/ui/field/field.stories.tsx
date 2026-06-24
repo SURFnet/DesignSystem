@@ -27,6 +27,9 @@ const meta = {
     orientation: {
       control: 'inline-radio',
       options: fieldContract.orientations,
+      description: fieldContract.orientations
+        .map((orientation) => `\`${orientation}\` — ${fieldContract.orientationDocs[orientation]}`)
+        .join('\n\n'),
       table: {
         defaultValue: { summary: fieldContract.defaultOrientation },
       },
