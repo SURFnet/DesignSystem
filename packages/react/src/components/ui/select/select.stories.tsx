@@ -83,7 +83,7 @@ export const Sizes: Story = {
     <div className="flex items-center gap-3">
       {selectContract.sizes.map((size) => (
         <Select key={size} defaultValue="all">
-          <SelectTrigger size={size} className="w-40">
+          <SelectTrigger size={size} className="w-40" title={selectContract.sizeDocs[size]}>
             <SelectValue placeholder="Category" />
           </SelectTrigger>
           <SelectContent>

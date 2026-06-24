@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { sidebarMenuButtonContract } from '@surfnet/contracts';
+import { sidebarContract, sidebarMenuButtonContract } from '@surfnet/contracts';
 import { SquaresFourIcon, GaugeIcon, GearIcon, UsersIcon } from '@phosphor-icons/react';
 
 import {
@@ -28,8 +28,7 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component:
-          'A composable application sidebar: header, scrollable content with grouped menus, and footer.',
+        component: sidebarContract.description,
       },
     },
   },
@@ -121,7 +120,10 @@ export const MenuButtonVariants: Story = {
               <SidebarMenu>
                 {sidebarMenuButtonContract.variants.map((variant) => (
                   <SidebarMenuItem key={variant}>
-                    <SidebarMenuButton variant={variant}>
+                    <SidebarMenuButton
+                      variant={variant}
+                      title={sidebarMenuButtonContract.variantDocs[variant]}
+                    >
                       <SquaresFourIcon />
                       <span>{variant}</span>
                     </SidebarMenuButton>
@@ -136,7 +138,7 @@ export const MenuButtonVariants: Story = {
               <SidebarMenu>
                 {sidebarMenuButtonContract.sizes.map((size) => (
                   <SidebarMenuItem key={size}>
-                    <SidebarMenuButton size={size}>
+                    <SidebarMenuButton size={size} title={sidebarMenuButtonContract.sizeDocs[size]}>
                       <SquaresFourIcon />
                       <span>{size}</span>
                     </SidebarMenuButton>

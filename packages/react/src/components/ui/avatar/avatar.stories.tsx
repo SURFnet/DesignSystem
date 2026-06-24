@@ -17,6 +17,9 @@ const meta = {
     size: {
       control: 'inline-radio',
       options: avatarContract.sizes,
+      description: avatarContract.sizes
+        .map((size) => `\`${size}\` — ${avatarContract.sizeDocs[size]}`)
+        .join('\n\n'),
       table: {
         defaultValue: { summary: avatarContract.defaultSize },
       },
