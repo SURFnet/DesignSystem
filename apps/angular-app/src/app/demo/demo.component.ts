@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HlmButton } from '@surfnet/angular/dist';
+import { HlmButton } from '@surfnet/angular';
 
 @Component({
   selector: 'app-demo',
