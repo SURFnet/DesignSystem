@@ -1,4 +1,3 @@
-import type { ComponentType } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { dataTableContract } from '@surfnet/contracts';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -15,8 +15,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
 
-import { DataTable, type DataTableProps } from './data-table';
+import { DataTableContent, DataTablePagination, DataTableToolbar } from './data-table';
+import { useDataTable } from './use-data-table';
+
+// ---------------------------------------------------------------------------
+// Shared fixtures
+// ---------------------------------------------------------------------------
 
 type Payment = {
   id: string;
@@ -116,12 +122,8 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-// DataTable is generic; pin the story typings to the Payment instantiation.
-const PaymentDataTable = DataTable as ComponentType<DataTableProps<Payment, unknown>>;
-
 const meta = {
   title: 'Components/DataTable',
-  component: PaymentDataTable,
   parameters: {
     docs: {
       description: {
@@ -129,31 +131,182 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof PaymentDataTable>;
+} satisfies Meta;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+// ---------------------------------------------------------------------------
+// Stories
+// ---------------------------------------------------------------------------
+
 /**
- * The full data table: a filter input, a column-visibility menu, row selection, a sortable
- * Email column, a right-aligned Amount, row actions, and Previous/Next pagination.
+ * Full table: filter input, column-visibility toggle, row selection, sortable Email
+ * column, right-aligned Amount, row actions, and Previous/Next pagination.
  */
 export const Default: Story = {
-  args: {
-    columns,
-    data,
-    filterColumn: 'email',
-    filterPlaceholder: 'Filter emails...',
+  parameters: {
+    docs: {
+      source: {
+        code: `function PaymentTable() {
+  const table = useDataTable({ data, columns });
+  const emailCol = table.getColumn('email');
+
+  return (
+    <div className="w-full">
+      <DataTableToolbar>
+        <Input
+          placeholder="Filter emails…"
+          value={(emailCol?.getFilterValue() as string) ?? ''}
+          onChange={(e) => emailCol?.setFilterValue(e.target.value)}
+          className="max-w-sm"
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline" className="ml-auto">
+                Columns
+              </Button>
+            }
+          />
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((col) => col.getCanHide())
+              .map((col) => (
+                <DropdownMenuCheckboxItem
+                  key={col.id}
+                  className="capitalize"
+                  checked={col.getIsVisible()}
+                  onCheckedChange={(value) => col.toggleVisibility(!!value)}
+                >
+                  {col.id}
+                </DropdownMenuCheckboxItem>
+              ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </DataTableToolbar>
+      <DataTableContent table={table} columns={columns} />
+      <DataTablePagination table={table} />
+    </div>
+  );
+}`,
+      },
+    },
+  },
+  render: () => {
+    function PaymentTable() {
+      const table = useDataTable({ data, columns });
+      const emailCol = table.getColumn('email');
+
+      return (
+        <div className="w-full">
+          <DataTableToolbar>
+            <Input
+              placeholder="Filter emails…"
+              value={(emailCol?.getFilterValue() as string) ?? ''}
+              onChange={(e) => emailCol?.setFilterValue(e.target.value)}
+              className="max-w-sm"
+            />
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button variant="outline" className="ml-auto">
+                    Columns
+                  </Button>
+                }
+              />
+              <DropdownMenuContent align="end">
+                {table
+                  .getAllColumns()
+                  .filter((col) => col.getCanHide())
+                  .map((col) => (
+                    <DropdownMenuCheckboxItem
+                      key={col.id}
+                      className="capitalize"
+                      checked={col.getIsVisible()}
+                      onCheckedChange={(value) => col.toggleVisibility(!!value)}
+                    >
+                      {col.id}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </DataTableToolbar>
+          <DataTableContent table={table} columns={columns} />
+          <DataTablePagination table={table} />
+        </div>
+      );
+    }
+    return <PaymentTable />;
   },
 };
 
-/** The empty state shown when there are no rows. */
+/** Empty state — no rows to display. */
 export const Empty: Story = {
-  args: {
-    columns,
-    data: [],
-    filterColumn: 'email',
-    filterPlaceholder: 'Filter emails...',
+  parameters: {
+    docs: {
+      source: {
+        code: `function EmptyTable() {
+  const table = useDataTable({ data: [], columns });
+  return (
+    <div className="w-full">
+      <DataTableContent table={table} columns={columns} noResultsLabel="No payments found." />
+    </div>
+  );
+}`,
+      },
+    },
+  },
+  render: () => {
+    function EmptyTable() {
+      const table = useDataTable({ data: [], columns });
+      return (
+        <div className="w-full">
+          <DataTableContent table={table} columns={columns} noResultsLabel="No payments found." />
+        </div>
+      );
+    }
+    return <EmptyTable />;
+  },
+};
+
+/** Custom toolbar layout: heading on the left, action button on the right. */
+export const CustomToolbar: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `function CustomTable() {
+  const table = useDataTable({ data, columns });
+  return (
+    <div className="w-full">
+      <DataTableToolbar className="justify-between">
+        <span className="font-medium">Recent payments</span>
+        <Button size="sm">Export</Button>
+      </DataTableToolbar>
+      <DataTableContent table={table} columns={columns} />
+      <DataTablePagination table={table} />
+    </div>
+  );
+}`,
+      },
+    },
+  },
+  render: () => {
+    function CustomTable() {
+      const table = useDataTable({ data, columns });
+      return (
+        <div className="w-full">
+          <DataTableToolbar className="justify-between">
+            <span className="font-medium">Recent payments</span>
+            <Button size="sm">Export</Button>
+          </DataTableToolbar>
+          <DataTableContent table={table} columns={columns} />
+          <DataTablePagination table={table} />
+        </div>
+      );
+    }
+    return <CustomTable />;
   },
 };
