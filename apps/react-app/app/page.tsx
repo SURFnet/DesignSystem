@@ -1,9 +1,8 @@
-import { Button } from '@surfnet/react';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <main className="grid min-h-screen place-items-center">
-      <Button>Hello from @surfnet/react</Button>
-    </main>
-  );
+import { getSessionUser } from '@/app/lib/session';
+
+export default async function Home() {
+  const user = await getSessionUser();
+  redirect(user ? '/browse-apps' : '/login');
 }
