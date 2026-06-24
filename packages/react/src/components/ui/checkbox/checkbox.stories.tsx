@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { checkboxContract } from '@surfnet/contracts';
 
@@ -16,7 +17,6 @@ const meta = {
     },
   },
   argTypes: {
-    checked: { control: 'boolean' },
     disabled: { control: 'boolean' },
   },
   args: {
@@ -28,8 +28,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The default checkbox — toggle it via the controls. */
-export const Default: Story = {};
+/** A controlled checkbox driven by React state — the typical usage pattern. */
+export const Default: Story = {
+  render: (args) => {
+    const [checked, setChecked] = useState(true);
+    return <Checkbox {...args} checked={checked} onCheckedChange={setChecked} />;
+  },
+};
 
 /** A checkbox paired with a clickable label. */
 export const WithLabel: Story = {
