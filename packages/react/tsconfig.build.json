@@ -1,0 +1,12 @@
+{
+  "extends": "@surfnet/typescript-config/react-library.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"]
+  },
+  "include": ["src"]
+}
