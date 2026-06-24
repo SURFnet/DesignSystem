@@ -14,10 +14,13 @@ export function CategoryFilter({ value }: { value: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  function onChange(next: string) {
+  function onChange(next: string | null) {
     // A new filter resets pagination back to the first page.
     router.replace(
-      buildHref(pathname, searchParams, { category: next === 'All' ? null : next, page: null }),
+      buildHref(pathname, searchParams, {
+        category: next && next !== 'All' ? next : null,
+        page: null,
+      }),
       { scroll: false },
     );
   }

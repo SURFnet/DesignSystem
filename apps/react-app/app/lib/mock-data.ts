@@ -56,14 +56,14 @@ const CATEGORIES: AppCategory[] = ['Education', 'Productivity', 'Security', 'Res
 // keeps server/client output in sync and the demo reproducible).
 function makeApps(count: number): AppRecord[] {
   return Array.from({ length: count }, (_, i) => {
-    const name = NAMES[i % NAMES.length];
-    const vendor = VENDORS[i % VENDORS.length];
+    const name = NAMES[i % NAMES.length]!;
+    const vendor = VENDORS[i % VENDORS.length]!;
     return {
       id: `app-${i + 1}`,
       name,
       vendor,
       revenue: 199,
-      category: CATEGORIES[i % CATEGORIES.length],
+      category: CATEGORIES[i % CATEGORIES.length]!,
       iconUrl: `https://picsum.photos/seed/surf-app-${i + 1}/48/48`,
     };
   });
