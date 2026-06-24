@@ -6,6 +6,13 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@surfnet/react-app", "dev"],
       "port": 3000
+    },
+    {
+      "name": "angular-app",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@surfnet/angular-app", "start"],
+      "port": 4200,
+      "autoPort": true
     }
   ]
 }
