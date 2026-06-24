@@ -10,6 +10,7 @@ export { labelContract } from './label.js';
 export { selectContract, type SelectTriggerSizeName } from './select.js';
 export { separatorContract, type SeparatorOrientationName } from './separator.js';
 export {
+  sidebarContract,
   sidebarMenuButtonContract,
   type SidebarMenuButtonVariantName,
   type SidebarMenuButtonSizeName,

@@ -1,3 +1,8 @@
+export const sidebarContract = {
+  description:
+    'A composable application sidebar: header, scrollable content with grouped menus, and footer.',
+} as const;
+
 export const sidebarMenuButtonContract = {
   variants: ['default', 'outline'],
   sizes: ['default', 'sm', 'lg'],
