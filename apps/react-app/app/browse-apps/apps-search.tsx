@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRef } from 'react';
 import { MagnifyingGlassIcon } from '@phosphor-icons/react';
-import { Input } from '@surfnet/react';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@surfnet/react';
 
 import { buildHref } from '@/app/lib/url';
 
@@ -29,15 +29,16 @@ export function AppsSearch({ defaultValue }: { defaultValue: string }) {
   }
 
   return (
-    <div className="relative w-full max-w-xs">
-      <MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-      <Input
+    <InputGroup className="w-full max-w-xs">
+      <InputGroupAddon>
+        <MagnifyingGlassIcon />
+      </InputGroupAddon>
+      <InputGroupInput
         defaultValue={defaultValue}
         placeholder="Search apps…"
         onChange={(event) => onChange(event.target.value)}
-        className="pl-9"
         aria-label="Search apps"
       />
-    </div>
+    </InputGroup>
   );
 }
