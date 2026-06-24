@@ -1,10 +1,19 @@
 {
   "name": "@surfnet/angular",
   "version": "0.0.0",
-  "private": true,
   "sideEffects": false,
+  "module": "./dist/fesm2022/surfnet-angular.mjs",
+  "types": "./dist/types/surfnet-angular.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/surfnet-angular.d.ts",
+      "default": "./dist/fesm2022/surfnet-angular.mjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
   "scripts": {
-    "build": "ng build angular",
+    "build": "ng build angular && pnpm build:css",
+    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
     "dev": "ng build angular --watch --configuration development",
     "lint": "ngc --noEmit -p tsconfig.json",
     "storybook": "ng run angular:storybook",
@@ -47,6 +56,7 @@
     "@surfnet/storybook-config": "workspace:*",
     "@surfnet/tokens": "workspace:*",
     "@surfnet/typescript-config": "workspace:*",
+    "@tailwindcss/cli": "4.3.1",
     "@tailwindcss/postcss": "4.3.1",
     "ng-packagr": "22.0.0",
     "rxjs": "7.8.2",

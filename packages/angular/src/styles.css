@@ -5,6 +5,10 @@
 
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 @import '@surfnet/tokens/tokens.css';
+
+/* Scan the library's component sources so a standalone Tailwind build (build:css)
+   emits every utility the components reference. Path is relative to this file. */
+@source '.';
 /* You can add global styles to this file, and also import other style files */
 
 :root {
