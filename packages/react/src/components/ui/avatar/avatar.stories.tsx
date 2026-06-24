@@ -45,7 +45,7 @@ export const Default: Story = {
 export const Fallback: Story = {
   render: () => (
     <Avatar>
-      <AvatarImage src="" alt="Grace Hopper" />
+      <AvatarImage src="https://example.com/does-not-exist.jpg" alt="Grace Hopper" />
       <AvatarFallback>GH</AvatarFallback>
     </Avatar>
   ),
