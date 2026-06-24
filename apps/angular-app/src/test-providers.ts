@@ -5,4 +5,5 @@ const testProviders: (Provider | EnvironmentProviders)[] = [
   provideHttpClientTesting(),
   provideZonelessChangeDetection(),
 ];
+
 export default testProviders;
