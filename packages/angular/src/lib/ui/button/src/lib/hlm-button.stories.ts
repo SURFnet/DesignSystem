@@ -76,12 +76,7 @@ export const Default: Story = {
   template: `
     <div class="flex flex-wrap items-center gap-3">
       @for (variant of buttonContract.variants; track variant) {
-        <button
-          hlmBtn
-          [key]="variant"
-          [variant]="variant"
-          [title]="buttonContract.variantDocs[variant]"
-        >
+        <button hlmBtn [variant]="variant" [title]="buttonContract.variantDocs[variant]">
           {{ variant.charAt(0).toUpperCase() + variant.slice(1) }}
         </button>
       }
