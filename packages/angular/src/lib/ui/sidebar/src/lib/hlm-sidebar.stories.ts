@@ -127,7 +127,7 @@ export const Default: Story = {
             <div hlmSidebarGroupContent>
               <ul hlmSidebarMenu>
                 @for (variant of contract.variants; track variant) {
-                  <li hlmSidebarMenuItem [key]="variant">
+                  <li hlmSidebarMenuItem>
                     <button
                       hlmSidebarMenuButton
                       [variant]="variant"
@@ -146,7 +146,7 @@ export const Default: Story = {
             <div hlmSidebarGroupContent>
               <ul hlmSidebarMenu>
                 @for (size of contract.sizes; track size) {
-                  <li hlmSidebarMenuItem [key]="size">
+                  <li hlmSidebarMenuItem>
                     <button hlmSidebarMenuButton [size]="size" [title]="contract.sizeDocs[size]">
                       <ng-icon name="phosphorSquaresFour" />
                       <span>{{ size }}</span>

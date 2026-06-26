@@ -43,7 +43,7 @@ const apps = [
         </thead>
         <tbody hlmTableBody>
           @for (app of apps; track app) {
-            <tr hlmTableRow [key]="app.name">
+            <tr hlmTableRow>
               <td hlmTableCell class="font-medium">{{ app.name }}</td>
               <td hlmTableCell>{{ app.category }}</td>
               <td hlmTableCell class="text-right">{{ app.status }}</td>
@@ -55,7 +55,7 @@ const apps = [
   `,
 })
 class SimpleTable {
-  @Input() apps!: { name: string; category: string; status: string };
+  @Input() apps!: { name: string; category: string; status: string }[];
 }
 
 /** A basic table with a header, body, and caption. */
