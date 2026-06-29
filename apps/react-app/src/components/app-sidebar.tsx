@@ -39,7 +39,7 @@ import {
   SidebarMenuItem,
 } from '@surfnet/react';
 
-import type { SessionUser } from '@/app/lib/mock-data';
+import type { SessionUser } from '@/lib/mock-data';
 
 const groups = [
   {
@@ -75,12 +75,6 @@ const groups = [
 
 export function AppSidebar({ user }: { user: SessionUser }) {
   const router = useRouter();
-
-  async function handleSignOut() {
-    await fetch('/api/logout', { method: 'POST' });
-    router.push('/login');
-    router.refresh();
-  }
 
   const initials = user.name
     .split(' ')
@@ -162,7 +156,7 @@ export function AppSidebar({ user }: { user: SessionUser }) {
                   </DropdownMenuLabel>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut}>
+                <DropdownMenuItem onClick={() => router.push('/login')}>
                   <SignOutIcon />
                   Sign out
                 </DropdownMenuItem>
