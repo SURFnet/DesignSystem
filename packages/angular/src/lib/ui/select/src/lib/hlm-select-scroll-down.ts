@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
+import { phosphorCaretDown } from '@ng-icons/phosphor-icons/regular';
 import { BrnSelectScrollDown } from '@spartan-ng/brain/select';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
   selector: 'hlm-select-scroll-down',
   imports: [NgIcon],
-  providers: [provideIcons({ lucideChevronDown })],
+  providers: [provideIcons({ phosphorCaretDown })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   hostDirectives: [BrnSelectScrollDown],
-  template: ` <ng-icon name="lucideChevronDown" /> `,
+  template: ` <ng-icon name="phosphorCaretDown" /> `,
 })
 export class HlmSelectScrollDown {
   constructor() {

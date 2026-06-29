@@ -90,7 +90,7 @@ importers:
       '@angular/router':
         specifier: '>=21.0.0 <23.0.0'
         version: 22.0.2(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
-      '@ng-icons/lucide':
+      '@ng-icons/phosphor-icons':
         specifier: '>=32.0.0 <34.0.0'
         version: 33.3.0
       '@spartan-ng/brain':
@@ -133,9 +133,6 @@ importers:
       '@ng-icons/core':
         specifier: 33.3.0
         version: 33.3.0(@angular-devkit/schematics@22.0.1(chokidar@5.0.0))(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2))(@schematics/angular@22.0.1(chokidar@5.0.0))(rxjs@7.8.2)
-      '@ng-icons/phosphor-icons':
-        specifier: 33.3.0
-        version: 33.3.0
       '@spartan-ng/cli':
         specifier: 0.0.1-alpha.715
         version: 0.0.1-alpha.715(9517f2af2029d563350bfeff4a11b8b9)
@@ -3086,9 +3083,6 @@ packages:
       '@angular/core': '>=21.0.0'
       '@schematics/angular': '>=21.0.0'
       rxjs: ^6.5.3 || ^7.4.0
-
-  '@ng-icons/lucide@33.3.0':
-    resolution: {integrity: sha512-glSPyLcuD4UjzjsIVqZscimcNRayuybvS4t92UfdkTKS70t/hlly1qCgLCiTBVtFOsnWY8XkOuslgX9Fnjlzyw==}
 
   '@ng-icons/phosphor-icons@33.3.0':
     resolution: {integrity: sha512-TOBHGDYn+insTLgJwcX0O2XasgoXBVLzYNtWWpadmaMzT8PTWQWwDmeALkXFKPHZJG/vzLulYgLjsX5yDnPn+Q==}
@@ -13894,10 +13888,6 @@ snapshots:
       '@angular/core': 22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.16.2)
       '@schematics/angular': 22.0.1(chokidar@5.0.0)
       rxjs: 7.8.2
-      tslib: 2.8.1
-
-  '@ng-icons/lucide@33.3.0':
-    dependencies:
       tslib: 2.8.1
 
   '@ng-icons/phosphor-icons@33.3.0':

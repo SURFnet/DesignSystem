@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCheck } from '@ng-icons/lucide';
+import { phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
   selector: 'hlm-dropdown-menu-checkbox-indicator',
   imports: [NgIcon],
-  providers: [provideIcons({ lucideCheck })],
+  providers: [provideIcons({ phosphorCheck })],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <ng-icon class="text-base" name="lucideCheck" /> `,
+  template: ` <ng-icon class="text-base" name="phosphorCheck" /> `,
 })
 export class HlmDropdownMenuCheckboxIndicator {
   constructor() {

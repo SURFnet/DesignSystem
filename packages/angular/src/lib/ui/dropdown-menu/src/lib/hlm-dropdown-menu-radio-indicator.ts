@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCircle } from '@ng-icons/lucide';
+import { phosphorCircle } from '@ng-icons/phosphor-icons/regular';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
   selector: 'hlm-dropdown-menu-radio-indicator',
   imports: [NgIcon],
-  providers: [provideIcons({ lucideCircle })],
+  providers: [provideIcons({ phosphorCircle })],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <ng-icon name="lucideCircle" class="text-[0.5rem] *:[svg]:fill-current" /> `,
+  template: ` <ng-icon name="phosphorCircle" class="text-[0.5rem] *:[svg]:fill-current" /> `,
 })
 export class HlmDropdownMenuRadioIndicator {
   constructor() {

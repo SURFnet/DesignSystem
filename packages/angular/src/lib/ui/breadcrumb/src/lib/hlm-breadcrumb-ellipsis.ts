@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideEllipsis } from '@ng-icons/lucide';
+import { phosphorDotsThree } from '@ng-icons/phosphor-icons/regular';
 import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
@@ -8,7 +8,7 @@ import type { ClassValue } from 'clsx';
 @Component({
   selector: 'hlm-breadcrumb-ellipsis',
   imports: [NgIcon, HlmIcon],
-  providers: [provideIcons({ lucideEllipsis })],
+  providers: [provideIcons({ phosphorDotsThree })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span
@@ -17,7 +17,7 @@ import type { ClassValue } from 'clsx';
       aria-hidden="true"
       [class]="_computedClass()"
     >
-      <ng-icon hlm size="sm" name="lucideEllipsis" />
+      <ng-icon hlm size="sm" name="phosphorDotsThree" />
       <span class="sr-only">{{ srOnlyText() }}</span>
     </span>
   `,
