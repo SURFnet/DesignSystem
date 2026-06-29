@@ -7,6 +7,47 @@
 @import '@surfnet/tokens/tokens.css';
 /* You can add global styles to this file, and also import other style files */
 
+/* Bridge the Spartan preset's utility names to the redesigned @surfnet/tokens
+   role-based taxonomy (overrides hlm-tailwind-preset.css, which still points at
+   the old flat token names). Keep in sync with packages/react/src/index.css:
+   muted → subtle, accent → item-hover, destructive → error, sidebar-* → alt. */
+@theme inline {
+  --color-sidebar-ring: var(--ring-alt);
+  --color-sidebar-border: var(--border-alt);
+  --color-sidebar-accent-foreground: var(--foreground-alt-item-hover);
+  --color-sidebar-accent: var(--background-alt-item-hover);
+  --color-sidebar-primary-foreground: var(--foreground-alt-primary);
+  --color-sidebar-primary: var(--background-alt-primary);
+  --color-sidebar-foreground: var(--foreground-alt);
+  --color-sidebar: var(--background-alt);
+  --color-chart-5: var(--charts-chart-5);
+  --color-chart-4: var(--charts-chart-4);
+  --color-chart-3: var(--charts-chart-3);
+  --color-chart-2: var(--charts-chart-2);
+  --color-chart-1: var(--charts-chart-1);
+  --color-ring: var(--ring-default);
+  --color-input: var(--border-default);
+  --color-border: var(--border-default);
+  --color-destructive-foreground: var(--foreground-error);
+  --color-destructive: var(--background-error);
+  --color-accent-foreground: var(--foreground-item-hover);
+  --color-accent: var(--background-item-hover);
+  --color-muted-foreground: var(--foreground-subtle);
+  --color-muted: var(--background-subtle);
+  --color-secondary-hover: var(--background-secondary-hover);
+  --color-secondary-foreground: var(--foreground-secondary);
+  --color-secondary: var(--background-secondary);
+  --color-primary-hover: var(--background-primary-hover);
+  --color-primary-foreground: var(--foreground-primary);
+  --color-primary: var(--background-primary);
+  --color-popover-foreground: var(--foreground-popover);
+  --color-popover: var(--background-popover);
+  --color-card-foreground: var(--foreground-card);
+  --color-card: var(--background-card);
+  --color-foreground: var(--foreground-default);
+  --color-background: var(--background-default);
+}
+
 :root {
   color-scheme: light;
 
