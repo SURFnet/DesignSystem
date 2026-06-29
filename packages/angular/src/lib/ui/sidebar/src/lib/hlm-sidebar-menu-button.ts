@@ -6,6 +6,7 @@ import {
   provideBrnTooltipDefaultOptions,
 } from '@spartan-ng/brain/tooltip';
 import { classes, hlm } from '@spartan-ng/helm/utils';
+import type { SidebarMenuButtonSizeName, SidebarMenuButtonVariantName } from '@surfnet/contracts';
 import { cva } from 'class-variance-authority';
 import { HlmSidebarService } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
@@ -23,12 +24,12 @@ const sidebarMenuButtonVariants = cva(
         default: 'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
         outline:
           'bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_var(--sidebar-border)] hover:shadow-[0_0_0_1px_var(--sidebar-accent)]',
-      },
+      } satisfies Record<SidebarMenuButtonVariantName, string>,
       size: {
         default: 'h-8 text-sm',
         sm: 'h-7 text-xs',
         lg: 'h-12 text-sm group-data-[collapsible=icon]:p-0!',
-      },
+      } satisfies Record<SidebarMenuButtonSizeName, string>,
     },
     defaultVariants: {
       variant: 'default',
@@ -68,8 +69,8 @@ export class HlmSidebarMenuButton {
   private readonly _sidebarService = inject(HlmSidebarService);
   private readonly _brnTooltip = inject(BrnTooltip);
 
-  public readonly variant = input<'default' | 'outline'>('default');
-  public readonly size = input<'default' | 'sm' | 'lg'>('default');
+  public readonly variant = input<SidebarMenuButtonVariantName>('default');
+  public readonly size = input<SidebarMenuButtonSizeName>('default');
   public readonly isActive = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
   public readonly closeMobileSidebarOnClick = input<boolean, BooleanInput>(
     this._config.closeMobileSidebarOnMenuButtonClick,

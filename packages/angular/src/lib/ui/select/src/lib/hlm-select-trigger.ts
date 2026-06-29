@@ -11,6 +11,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { hlm } from '@spartan-ng/helm/utils';
+import type { SelectTriggerSizeName } from '@surfnet/contracts';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -49,7 +50,7 @@ export class HlmSelectTrigger {
 
   public readonly buttonId = input<string>(`hlm-select-trigger-${HlmSelectTrigger._id++}`);
 
-  public readonly size = input<'default' | 'sm'>('default');
+  public readonly size = input<SelectTriggerSizeName>('default');
 
   /** Whether to force the trigger into an invalid state. */
   public readonly forceInvalid = input<boolean, BooleanInput>(false, {

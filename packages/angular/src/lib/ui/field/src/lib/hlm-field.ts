@@ -1,7 +1,9 @@
 import { Directive, input } from '@angular/core';
 import { BrnField } from '@spartan-ng/brain/field';
 import { classes } from '@spartan-ng/helm/utils';
+import type { FieldOrientationName } from '@surfnet/contracts';
 import { cva, VariantProps } from 'class-variance-authority';
+import type { ClassValue } from 'clsx';
 
 const fieldVariants = cva(
   'data-[matches-spartan-invalid=true]:text-destructive gap-3 group/field flex w-full',
@@ -19,7 +21,7 @@ const fieldVariants = cva(
           '@md/field-group:*:data-[slot=field-label]:flex-auto',
           '@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
         ],
-      },
+      } satisfies Record<FieldOrientationName, ClassValue>,
     },
     defaultVariants: {
       orientation: 'vertical',
