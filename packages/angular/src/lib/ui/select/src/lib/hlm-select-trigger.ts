@@ -7,7 +7,7 @@ import {
   input,
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
+import { phosphorCaretUpDown } from '@ng-icons/phosphor-icons/regular';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { hlm } from '@spartan-ng/helm/utils';
@@ -17,7 +17,7 @@ import type { ClassValue } from 'clsx';
 @Component({
   selector: 'hlm-select-trigger',
   imports: [NgIcon, BrnSelectTrigger, BrnFieldControlDescribedBy],
-  providers: [provideIcons({ lucideChevronDown })],
+  providers: [provideIcons({ phosphorCaretUpDown })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
@@ -31,7 +31,7 @@ import type { ClassValue } from 'clsx';
     >
       <ng-content />
       <ng-icon
-        name="lucideChevronDown"
+        name="phosphorCaretUpDown"
         class="text-muted-foreground text-[calc(var(--spacing)*4)] ms-auto"
       />
     </button>

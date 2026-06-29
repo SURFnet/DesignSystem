@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronRight } from '@ng-icons/lucide';
+import { phosphorCaretRight } from '@ng-icons/phosphor-icons/regular';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[hlmBreadcrumbSeparator]',
   imports: [NgIcon],
-  providers: [provideIcons({ lucideChevronRight })],
+  providers: [provideIcons({ phosphorCaretRight })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'data-slot': 'breadcrumb-separator',
@@ -16,7 +16,7 @@ import { classes } from '@spartan-ng/helm/utils';
   },
   template: `
     <ng-content>
-      <ng-icon name="lucideChevronRight" />
+      <ng-icon name="phosphorCaretRight" />
     </ng-content>
   `,
 })

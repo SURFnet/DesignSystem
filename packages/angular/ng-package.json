@@ -8,7 +8,7 @@
     "@angular/cdk",
     "@angular/forms",
     "@angular/router",
-    "@ng-icons/lucide",
+    "@ng-icons/phosphor-icons",
     "@spartan-ng/brain",
     "class-variance-authority",
     "clsx",

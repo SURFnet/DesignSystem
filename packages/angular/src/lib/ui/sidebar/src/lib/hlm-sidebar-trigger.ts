@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucidePanelLeft } from '@ng-icons/lucide';
+import { phosphorSidebarSimple } from '@ng-icons/phosphor-icons/regular';
 import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 import { HlmSidebarService } from './hlm-sidebar.service';
 
@@ -9,7 +9,7 @@ import { HlmSidebarService } from './hlm-sidebar.service';
   selector: 'button[hlmSidebarTrigger]',
   imports: [NgIcon],
   providers: [
-    provideIcons({ lucidePanelLeft }),
+    provideIcons({ phosphorSidebarSimple }),
     provideBrnButtonConfig({ variant: 'ghost', size: 'icon-sm' }),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +20,7 @@ import { HlmSidebarService } from './hlm-sidebar.service';
     '(click)': '_onClick()',
   },
   template: `
-    <ng-icon name="lucidePanelLeft" />
+    <ng-icon name="phosphorSidebarSimple" />
     <span class="sr-only">{{ srOnlyText() }}</span>
   `,
 })
