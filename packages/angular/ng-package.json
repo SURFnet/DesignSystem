@@ -10,7 +10,6 @@
     "@angular/router",
     "@ng-icons/lucide",
     "@spartan-ng/brain",
-    "@tanstack/angular-table",
     "class-variance-authority",
     "clsx",
     "tailwind-merge",
