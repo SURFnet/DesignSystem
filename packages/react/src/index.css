@@ -8,44 +8,52 @@
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: 'Geist Variable', sans-serif;
-  /* Tailwind utility names are kept stable (shadcn convention); they bridge to the
-     redesigned @surfnet/tokens role-based taxonomy. The sidebar utilities map to
-     the token set's "alt" surface, muted → subtle, accent → item-hover,
-     destructive → error. */
-  --color-sidebar-ring: var(--ring-alt);
-  --color-sidebar-border: var(--border-alt);
-  --color-sidebar-accent-foreground: var(--foreground-alt-item-hover);
-  --color-sidebar-accent: var(--background-alt-item-hover);
-  --color-sidebar-primary-foreground: var(--foreground-alt-primary);
-  --color-sidebar-primary: var(--background-alt-primary);
-  --color-sidebar-foreground: var(--foreground-alt);
-  --color-sidebar: var(--background-alt);
-  --color-chart-5: var(--charts-chart-5);
-  --color-chart-4: var(--charts-chart-4);
-  --color-chart-3: var(--charts-chart-3);
-  --color-chart-2: var(--charts-chart-2);
-  --color-chart-1: var(--charts-chart-1);
-  --color-ring: var(--ring-default);
-  --color-input: var(--border-default);
-  --color-border: var(--border-default);
-  --color-destructive-foreground: var(--foreground-error);
-  --color-destructive: var(--background-error);
-  --color-accent-foreground: var(--foreground-item-hover);
-  --color-accent: var(--background-item-hover);
-  --color-muted-foreground: var(--foreground-subtle);
-  --color-muted: var(--background-subtle);
-  --color-secondary-hover: var(--background-secondary-hover);
-  --color-secondary-foreground: var(--foreground-secondary);
-  --color-secondary: var(--background-secondary);
-  --color-primary-hover: var(--background-primary-hover);
-  --color-primary-foreground: var(--foreground-primary);
-  --color-primary: var(--background-primary);
-  --color-popover-foreground: var(--foreground-popover);
-  --color-popover: var(--background-popover);
-  --color-card-foreground: var(--foreground-card);
-  --color-card: var(--background-card);
-  --color-foreground: var(--foreground-default);
-  --color-background: var(--background-default);
+  /* Expose the @surfnet/tokens variables to Tailwind under their literal Figma
+     role names, so utilities read exactly like the tokens (e.g. bg-background-primary,
+     text-foreground-primary, hover:bg-background-item-hover). */
+  --color-background-default: var(--background-default);
+  --color-background-subtle: var(--background-subtle);
+  --color-background-primary: var(--background-primary);
+  --color-background-primary-hover: var(--background-primary-hover);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-secondary-hover: var(--background-secondary-hover);
+  --color-background-error: var(--background-error);
+  --color-background-error-subtle: var(--background-error-subtle);
+  --color-background-error-subtle-hover: var(--background-error-subtle-hover);
+  --color-background-card: var(--background-card);
+  --color-background-popover: var(--background-popover);
+  --color-background-item-hover: var(--background-item-hover);
+  --color-background-item-selected: var(--background-item-selected);
+  --color-background-alt: var(--background-alt);
+  --color-background-alt-primary: var(--background-alt-primary);
+  --color-background-alt-item-hover: var(--background-alt-item-hover);
+  --color-foreground-default: var(--foreground-default);
+  --color-foreground-default-primary: var(--foreground-default-primary);
+  --color-foreground-default-error: var(--foreground-default-error);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-primary: var(--foreground-primary);
+  --color-foreground-error: var(--foreground-error);
+  --color-foreground-card: var(--foreground-card);
+  --color-foreground-popover: var(--foreground-popover);
+  --color-foreground-item-hover: var(--foreground-item-hover);
+  --color-foreground-item-selected: var(--foreground-item-selected);
+  --color-foreground-alt: var(--foreground-alt);
+  --color-foreground-alt-primary: var(--foreground-alt-primary);
+  --color-foreground-alt-item-hover: var(--foreground-alt-item-hover);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-error: var(--border-error);
+  --color-border-alt: var(--border-alt);
+  --color-ring-default: var(--ring-default);
+  --color-ring-default-error: var(--ring-default-error);
+  --color-ring-alt: var(--ring-alt);
+  --color-ring-offset: var(--ring-offset);
+  --color-charts-chart-1: var(--charts-chart-1);
+  --color-charts-chart-2: var(--charts-chart-2);
+  --color-charts-chart-3: var(--charts-chart-3);
+  --color-charts-chart-4: var(--charts-chart-4);
+  --color-charts-chart-5: var(--charts-chart-5);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -63,10 +71,10 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border-default outline-ring-default/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background-default text-foreground-default;
   }
   html {
     @apply font-sans;
