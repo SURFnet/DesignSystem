@@ -22,12 +22,10 @@ export type SessionUser = {
   avatarUrl: string;
 };
 
-/** The single mock account the login form accepts. */
-export const MOCK_USER: SessionUser & { password: string } = {
+export const MOCK_USER: SessionUser = {
   name: 'Freek Vonk',
   organisation: 'Universiteit Leiden',
   email: 'freek.vonk@universiteitleiden.nl',
-  password: 'surf',
   avatarUrl: 'https://i.pravatar.cc/80?img=68',
 };
 
