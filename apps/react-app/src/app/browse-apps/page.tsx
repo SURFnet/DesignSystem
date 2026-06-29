@@ -16,14 +16,18 @@ import {
   TableHeader,
   TableRow,
 } from '@surfnet/react';
-import { getApps, parseCategory, parsePage } from '@/app/lib/apps';
-import { buildHref } from '@/app/lib/url';
+import { getApps, parseCategory, parsePage } from '@/lib/apps';
+import { buildHref } from '@/lib/url';
 
-import { AppsSearch } from './apps-search';
-import { CategoryFilter } from './category-filter';
-import { LoadMore } from './load-more';
-import { RowActions } from './row-actions';
-import { RowCheckbox, SelectAllCheckbox, SelectionProvider } from './selection';
+import { AppsSearch } from '@/components/browse-apps/apps-search';
+import { CategoryFilter } from '@/components/browse-apps/category-filter';
+import { LoadMore } from '@/components/browse-apps/load-more';
+import { RowActions } from '@/components/browse-apps/row-actions';
+import {
+  RowCheckbox,
+  SelectAllCheckbox,
+  SelectionProvider,
+} from '@/components/browse-apps/selection';
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 

@@ -3,8 +3,8 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@surfnet/react';
 
-import { APP_CATEGORIES } from '@/app/lib/mock-data';
-import { buildHref } from '@/app/lib/url';
+import { APP_CATEGORIES } from '@/lib/mock-data';
+import { buildHref } from '@/lib/url';
 
 /**
  * Category dropdown that writes the selection into the URL (`?category=`).

@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { MagnifyingGlassIcon } from '@phosphor-icons/react';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@surfnet/react';
 
-import { buildHref } from '@/app/lib/url';
+import { buildHref } from '@/lib/url';
 
 /**
  * Search box that writes the query into the URL (`?search=`). Only typing

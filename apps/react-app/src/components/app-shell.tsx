@@ -3,8 +3,8 @@
 import type { ReactNode } from 'react';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@surfnet/react';
 
-import { AppSidebar } from '@/app/components/app-sidebar';
-import type { SessionUser } from '@/app/lib/mock-data';
+import { AppSidebar } from '@/components/app-sidebar';
+import type { SessionUser } from '@/lib/mock-data';
 
 /**
  * Client shell for the authenticated area. Holds everything that pulls in
