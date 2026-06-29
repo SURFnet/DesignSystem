@@ -7,6 +7,56 @@
 @import '@surfnet/tokens/tokens.css';
 /* You can add global styles to this file, and also import other style files */
 
+/* Expose the @surfnet/tokens variables to Tailwind under their literal Figma role
+   names (e.g. bg-background-primary, text-foreground-primary). The @spartan-ng
+   preset still registers the old flat names; we don't use those. Keep in sync
+   with packages/react/src/index.css. */
+@theme inline {
+  --color-background-default: var(--background-default);
+  --color-background-subtle: var(--background-subtle);
+  --color-background-primary: var(--background-primary);
+  --color-background-primary-hover: var(--background-primary-hover);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-secondary-hover: var(--background-secondary-hover);
+  --color-background-error: var(--background-error);
+  --color-background-error-subtle: var(--background-error-subtle);
+  --color-background-error-subtle-hover: var(--background-error-subtle-hover);
+  --color-background-card: var(--background-card);
+  --color-background-popover: var(--background-popover);
+  --color-background-item-hover: var(--background-item-hover);
+  --color-background-item-selected: var(--background-item-selected);
+  --color-background-alt: var(--background-alt);
+  --color-background-alt-primary: var(--background-alt-primary);
+  --color-background-alt-item-hover: var(--background-alt-item-hover);
+  --color-foreground-default: var(--foreground-default);
+  --color-foreground-default-primary: var(--foreground-default-primary);
+  --color-foreground-default-error: var(--foreground-default-error);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-primary: var(--foreground-primary);
+  --color-foreground-error: var(--foreground-error);
+  --color-foreground-card: var(--foreground-card);
+  --color-foreground-popover: var(--foreground-popover);
+  --color-foreground-item-hover: var(--foreground-item-hover);
+  --color-foreground-item-selected: var(--foreground-item-selected);
+  --color-foreground-alt: var(--foreground-alt);
+  --color-foreground-alt-primary: var(--foreground-alt-primary);
+  --color-foreground-alt-item-hover: var(--foreground-alt-item-hover);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-error: var(--border-error);
+  --color-border-alt: var(--border-alt);
+  --color-ring-default: var(--ring-default);
+  --color-ring-default-error: var(--ring-default-error);
+  --color-ring-alt: var(--ring-alt);
+  --color-ring-offset: var(--ring-offset);
+  --color-charts-chart-1: var(--charts-chart-1);
+  --color-charts-chart-2: var(--charts-chart-2);
+  --color-charts-chart-3: var(--charts-chart-3);
+  --color-charts-chart-4: var(--charts-chart-4);
+  --color-charts-chart-5: var(--charts-chart-5);
+}
+
 :root {
   color-scheme: light;
 
@@ -23,9 +73,9 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border-default outline-ring-default/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background-default text-foreground-default;
   }
 }

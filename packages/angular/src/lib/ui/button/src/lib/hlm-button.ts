@@ -7,16 +7,16 @@ import type { ClassValue } from 'clsx';
 import { injectBrnButtonConfig } from './hlm-button.token';
 
 const variantClasses = {
-  default: 'bg-primary text-primary-foreground hover:bg-primary/80',
+  default: 'bg-background-primary text-foreground-primary hover:bg-background-primary-hover',
   outline:
-    'border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs',
+    'border-border-default bg-background-default hover:bg-background-item-hover hover:text-foreground-item-hover aria-expanded:bg-background-item-hover aria-expanded:text-foreground-item-hover shadow-xs',
   secondary:
-    'bg-secondary text-secondary-foreground aria-expanded:bg-secondary aria-expanded:text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]',
+    'bg-background-secondary text-foreground-secondary aria-expanded:bg-background-secondary aria-expanded:text-foreground-secondary hover:bg-background-secondary-hover',
   ghost:
-    'hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground',
+    'hover:bg-background-item-hover hover:text-foreground-item-hover aria-expanded:bg-background-item-hover aria-expanded:text-foreground-item-hover',
   destructive:
-    'bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30',
-  link: 'text-primary underline-offset-4 hover:underline',
+    'bg-background-error-subtle hover:bg-background-error-subtle-hover text-foreground-error focus-visible:border-border-error focus-visible:ring-ring-default-error/20',
+  link: 'text-background-primary underline-offset-4 hover:underline',
 } satisfies Record<ButtonVariantName, string>;
 
 const sizeClasses = {
@@ -33,7 +33,7 @@ const sizeClasses = {
 } satisfies Record<ButtonSizeName, string>;
 
 export const buttonVariants = cva(
-  "focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px data-[matches-spartan-invalid=true]:ring-3 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0",
+  "focus-visible:border-ring-default focus-visible:ring-ring-default/50 data-[matches-spartan-invalid=true]:ring-ring-default-error/20 data-[matches-spartan-invalid=true]:border-border-error rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px data-[matches-spartan-invalid=true]:ring-3 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0",
   {
     variants: {
       variant: variantClasses,
