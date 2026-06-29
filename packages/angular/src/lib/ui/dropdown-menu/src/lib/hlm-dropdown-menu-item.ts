@@ -2,6 +2,7 @@ import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItem } from '@angular/cdk/menu';
 import { booleanAttribute, Directive, HOST_TAG_NAME, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
+import type { DropdownMenuItemVariantName } from '@surfnet/contracts';
 
 @Directive({
   selector: '[hlmDropdownMenuItem],hlm-dropdown-menu-item',
@@ -25,7 +26,7 @@ export class HlmDropdownMenuItem {
 
   public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-  public readonly variant = input<'default' | 'destructive'>('default');
+  public readonly variant = input<DropdownMenuItemVariantName>('default');
 
   public readonly inset = input<boolean, BooleanInput>(false, {
     transform: booleanAttribute,
