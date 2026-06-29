@@ -23,8 +23,19 @@
       "name": "angular-app",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@surfnet/angular-app", "start"],
-      "port": 4200,
-      "autoPort": true
+      "port": 4200
+    },
+    {
+      "name": "react-storybook",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@surfnet/react", "storybook"],
+      "port": 6006
+    },
+    {
+      "name": "angular-storybook",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@surfnet/angular", "storybook"],
+      "port": 6007
     }
   ]
 }
