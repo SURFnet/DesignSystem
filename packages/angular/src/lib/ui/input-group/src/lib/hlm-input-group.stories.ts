@@ -78,23 +78,30 @@ export const WithTextPrefix: Story = {
   }),
 };
 
-/** Category select prefix — a dropdown trigger on the leading side. */
+/** Category select prefix — picking an option updates the leading trigger label. */
 export const WithLeadingDropdown: Story = {
   render: () => ({
+    props: {
+      category: 'All',
+      categories: ['All', 'Articles', 'Pages'],
+      select(this: { category: string }, value: string) {
+        this.category = value;
+      },
+    },
     template: `
 			<div class="w-full max-w-sm">
 				<div hlmInputGroup>
 					<div hlmInputGroupAddon>
-						<button hlmBtn variant="ghost" [hlmDropdownMenuTrigger]="menu">Category</button>
+						<button hlmBtn variant="ghost" [hlmDropdownMenuTrigger]="menu">{{ category }}</button>
 						<ng-template #menu>
 							<hlm-dropdown-menu>
-								<button hlmDropdownMenuItem>All</button>
-								<button hlmDropdownMenuItem>Articles</button>
-								<button hlmDropdownMenuItem>Pages</button>
+								@for (option of categories; track option) {
+									<button hlmDropdownMenuItem (click)="select(option)">{{ option }}</button>
+								}
 							</hlm-dropdown-menu>
 						</ng-template>
 					</div>
-					<input hlmInputGroupInput placeholder="Search…" />
+					<input hlmInputGroupInput [placeholder]="'Search ' + category.toLowerCase() + '…'" />
 				</div>
 			</div>
 		`,

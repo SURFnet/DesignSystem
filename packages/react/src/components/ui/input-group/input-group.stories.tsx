@@ -1,6 +1,7 @@
 import { MagnifyingGlassIcon, InfoIcon, PlusIcon, PaperPlaneTiltIcon } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { inputGroupContract } from '@surfnet/contracts';
+import { useState } from 'react';
 
 import {
   DropdownMenu,
@@ -67,27 +68,36 @@ export const WithTextPrefix: Story = {
   ),
 };
 
-/** Category select prefix — a dropdown trigger on the leading side. */
-export const WithLeadingDropdown: Story = {
-  render: () => (
+/** Category select prefix — picking an option updates the leading trigger label. */
+const CATEGORIES = ['All', 'Articles', 'Pages'] as const;
+
+function LeadingDropdownExample() {
+  const [category, setCategory] = useState<(typeof CATEGORIES)[number]>('All');
+  return (
     <div className="w-full max-w-sm">
       <InputGroup>
         <InputGroupAddon>
           <DropdownMenu>
             <DropdownMenuTrigger
-              render={<InputGroupButton variant="ghost">Category</InputGroupButton>}
+              render={<InputGroupButton variant="ghost">{category}</InputGroupButton>}
             />
             <DropdownMenuContent>
-              <DropdownMenuItem>All</DropdownMenuItem>
-              <DropdownMenuItem>Articles</DropdownMenuItem>
-              <DropdownMenuItem>Pages</DropdownMenuItem>
+              {CATEGORIES.map((option) => (
+                <DropdownMenuItem key={option} onClick={() => setCategory(option)}>
+                  {option}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </InputGroupAddon>
-        <InputGroupInput placeholder="Search…" />
+        <InputGroupInput placeholder={`Search ${category.toLowerCase()}…`} />
       </InputGroup>
     </div>
-  ),
+  );
+}
+
+export const WithLeadingDropdown: Story = {
+  render: () => <LeadingDropdownExample />,
 };
 
 /** Chat-style textarea with a block-end toolbar row. */
