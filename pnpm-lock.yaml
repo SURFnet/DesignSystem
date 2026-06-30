@@ -38,6 +38,9 @@ importers:
 
   apps/react-app:
     dependencies:
+      '@phosphor-icons/react':
+        specifier: ^2.0.0
+        version: 2.1.10(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@surfnet/react':
         specifier: workspace:*
         version: link:../../packages/react
