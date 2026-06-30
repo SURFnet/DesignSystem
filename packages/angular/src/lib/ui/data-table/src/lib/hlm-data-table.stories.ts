@@ -344,6 +344,71 @@ type Story = StoryObj;
  * right-aligned Amount, row actions, and Previous/Next pagination.
  */
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'typescript',
+        code: `@Component({
+  selector: 'payment-data-table',
+  imports: [
+    HlmDataTableContent,
+    HlmDataTablePagination,
+    HlmDataTableToolbar,
+    HlmButton,
+    HlmInput,
+    HlmDropdownMenuImports,
+  ],
+  host: { class: 'block w-full' },
+  template: \`
+    <div hlmDataTableToolbar>
+      <input
+        hlmInput
+        class="max-w-sm"
+        placeholder="Filter emails…"
+        [value]="emailFilter()"
+        (input)="setEmailFilter($event)"
+      />
+      <button hlmBtn variant="outline" class="ml-auto" [hlmDropdownMenuTrigger]="columnsMenu">
+        Columns
+      </button>
+      <ng-template #columnsMenu>
+        <hlm-dropdown-menu class="w-40">
+          @for (column of hideableColumns(); track column.id) {
+            <button
+              hlmDropdownMenuCheckbox
+              class="capitalize"
+              [checked]="column.getIsVisible()"
+              (triggered)="column.toggleVisibility(!column.getIsVisible())"
+            >
+              {{ column.id }}
+              <hlm-dropdown-menu-checkbox-indicator />
+            </button>
+          }
+        </hlm-dropdown-menu>
+      </ng-template>
+    </div>
+    <hlm-data-table-content [table]="table" [columns]="columns" />
+    <hlm-data-table-pagination [table]="table" />
+  \`,
+})
+class PaymentDataTable {
+  protected readonly columns = columns;
+  protected readonly table = injectDataTable(() => ({ data, columns: this.columns }));
+  protected readonly emailFilter = signal('');
+
+  protected hideableColumns() {
+    return this.table.getAllColumns().filter((column) => column.getCanHide());
+  }
+
+  protected setEmailFilter(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.emailFilter.set(value);
+    this.table.getColumn('email')?.setFilterValue(value);
+  }
+}`,
+      },
+    },
+  },
   render: () => ({
     moduleMetadata: { imports: [PaymentDataTable] },
     template: '<payment-data-table />',
@@ -352,6 +417,29 @@ export const Default: Story = {
 
 /** Empty state — no rows to display. */
 export const Empty: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'typescript',
+        code: `@Component({
+  selector: 'empty-data-table',
+  imports: [HlmDataTableContent],
+  host: { class: 'block w-full' },
+  template: \`
+    <hlm-data-table-content
+      [table]="table"
+      [columns]="columns"
+      noResultsLabel="No payments found."
+    />
+  \`,
+})
+class EmptyDataTable {
+  protected readonly columns = columns;
+  protected readonly table = injectDataTable<Payment>(() => ({ data: [], columns: this.columns }));
+}`,
+      },
+    },
+  },
   render: () => ({
     moduleMetadata: { imports: [EmptyDataTable] },
     template: '<empty-data-table />',
@@ -360,6 +448,30 @@ export const Empty: Story = {
 
 /** Custom toolbar layout: heading on the left, action button on the right. */
 export const CustomToolbar: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'typescript',
+        code: `@Component({
+  selector: 'custom-toolbar-data-table',
+  imports: [HlmDataTableContent, HlmDataTablePagination, HlmDataTableToolbar, HlmButton],
+  host: { class: 'block w-full' },
+  template: \`
+    <div hlmDataTableToolbar class="justify-between">
+      <span class="font-medium">Recent payments</span>
+      <button hlmBtn size="sm">Export</button>
+    </div>
+    <hlm-data-table-content [table]="table" [columns]="columns" />
+    <hlm-data-table-pagination [table]="table" />
+  \`,
+})
+class CustomToolbarDataTable {
+  protected readonly columns = columns;
+  protected readonly table = injectDataTable(() => ({ data, columns: this.columns }));
+}`,
+      },
+    },
+  },
   render: () => ({
     moduleMetadata: { imports: [CustomToolbarDataTable] },
     template: '<custom-toolbar-data-table />',
