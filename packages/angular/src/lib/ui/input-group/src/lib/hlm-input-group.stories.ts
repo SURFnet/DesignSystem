@@ -92,7 +92,7 @@ export const WithLeadingDropdown: Story = {
 			<div class="w-full max-w-sm">
 				<div hlmInputGroup>
 					<div hlmInputGroupAddon>
-						<button hlmBtn variant="ghost" [hlmDropdownMenuTrigger]="menu">{{ category }}</button>
+						<button hlmInputGroupButton variant="ghost" [hlmDropdownMenuTrigger]="menu">{{ category }}</button>
 						<ng-template #menu>
 							<hlm-dropdown-menu>
 								@for (option of categories; track option) {
