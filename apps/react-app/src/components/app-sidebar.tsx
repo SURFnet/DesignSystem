@@ -15,6 +15,7 @@ import {
   SquaresFourIcon,
   UsersIcon,
   UsersThreeIcon,
+  type Icon,
 } from '@phosphor-icons/react';
 import {
   Avatar,
@@ -32,7 +33,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -41,36 +41,26 @@ import {
 
 import type { SessionUser } from '@/lib/mock-data';
 
-const groups = [
-  {
-    label: null,
-    items: [{ title: 'Home', icon: HouseIcon }],
-  },
-  {
-    label: null,
-    items: [
-      { title: 'Our apps', icon: SquaresFourIcon },
-      { title: 'Enabled apps', icon: CheckCircleIcon },
-      { title: 'Browse apps', icon: AppWindowIcon, active: true },
-      { title: 'Roles', icon: ShieldCheckIcon },
-      { title: 'Collaborative groups', icon: UsersThreeIcon },
-    ],
-  },
-  {
-    label: null,
-    items: [
-      { title: 'My organisation', icon: BuildingsIcon },
-      { title: 'Users', icon: UsersIcon },
-      { title: 'Policies', icon: ScrollIcon },
-    ],
-  },
-  {
-    label: null,
-    items: [
-      { title: 'SURF Service desk', icon: LifebuoyIcon },
-      { title: 'Give us feedback', icon: ChatCircleDotsIcon },
-    ],
-  },
+type NavItem = { title: string; icon: Icon; active?: boolean };
+
+const groups: NavItem[][] = [
+  [{ title: 'Home', icon: HouseIcon }],
+  [
+    { title: 'Our apps', icon: SquaresFourIcon },
+    { title: 'Enabled apps', icon: CheckCircleIcon },
+    { title: 'Browse apps', icon: AppWindowIcon, active: true },
+    { title: 'Roles', icon: ShieldCheckIcon },
+    { title: 'Collaborative groups', icon: UsersThreeIcon },
+  ],
+  [
+    { title: 'My organisation', icon: BuildingsIcon },
+    { title: 'Users', icon: UsersIcon },
+    { title: 'Policies', icon: ScrollIcon },
+  ],
+  [
+    { title: 'SURF Service desk', icon: LifebuoyIcon },
+    { title: 'Give us feedback', icon: ChatCircleDotsIcon },
+  ],
 ];
 
 export function AppSidebar({ user }: { user: SessionUser }) {
@@ -103,17 +93,13 @@ export function AppSidebar({ user }: { user: SessionUser }) {
       </SidebarHeader>
 
       <SidebarContent>
-        {groups.map((group, index) => (
+        {groups.map((items, index) => (
           <SidebarGroup key={index}>
-            {group.label ? <SidebarGroupLabel>{group.label}</SidebarGroupLabel> : null}
             <SidebarGroupContent>
               <SidebarMenu>
-                {group.items.map((item) => (
+                {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      isActive={'active' in item && item.active}
-                      tooltip={item.title}
-                    >
+                    <SidebarMenuButton isActive={item.active} tooltip={item.title}>
                       <item.icon />
                       <span>{item.title}</span>
                     </SidebarMenuButton>
