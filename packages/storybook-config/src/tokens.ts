@@ -1,4 +1,4 @@
-import { tokenNames } from '@surfnet/tokens';
+import { themes, tokenNames } from '@surfnet/tokens';
 
 // Shared, framework-agnostic data for the "Foundations / Design Tokens" stories.
 // React and Angular both render from these helpers so the two Storybooks stay in
@@ -172,11 +172,13 @@ export function getTypographyScale(): TypeScaleEntry[] {
 }
 
 /**
- * Read the resolved value of a token for the theme/mode currently applied to
- * `<html>`. Browser-only (Storybook preview). Returns the computed custom
- * property, so it always matches what is painted and honours the CSS cascade.
+ * Resolve a token's value for a given theme/mode straight from the token map
+ * shipped by `@surfnet/tokens`. The map is fully resolved (every theme/mode holds
+ * all tokens with the cascade already baked in), so this is a plain lookup — no
+ * DOM, no `getComputedStyle`. Unknown theme/mode fall back to `default` / `light`.
  */
-export function readTokenValue(name: string): string {
-  if (typeof document === 'undefined') return '';
-  return getComputedStyle(document.documentElement).getPropertyValue(`--${name}`).trim();
+export function getTokenValue(theme: string, mode: string, name: string): string {
+  const byMode = themes[theme as keyof typeof themes] ?? themes.default;
+  const values = byMode[mode as keyof typeof byMode] ?? byMode.light;
+  return values[name as keyof typeof values] ?? '';
 }

@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   getTokenGroups,
+  getTokenValue,
   getTypographyScale,
-  readTokenValue,
   type TokenEntry,
   type TokenGroupWithTokens,
 } from '@surfnet/storybook-config';
-import { useSyncExternalStore } from 'react';
+import { createContext, useContext } from 'react';
+import { useGlobals } from 'storybook/preview-api';
 
 // A small checkerboard so translucent colours read correctly against it.
 const checker: React.CSSProperties = {
@@ -14,42 +15,18 @@ const checker: React.CSSProperties = {
   backgroundSize: '12px 12px',
 };
 
-// A single MutationObserver on <html> drives every swatch: the global
-// `themeSwitcher()` decorator toggles the `dark` / `theme-<key>` classes from the
-// toolbar, and that class mutation bumps a version every subscriber reads.
-let themeVersion = 0;
-const listeners = new Set<() => void>();
-let observer: MutationObserver | undefined;
+// The selected theme/mode is read once at the story level (where `useGlobals` is
+// valid) and handed down via context. Token values come straight from the
+// `@surfnet/tokens` map, so no DOM reads are needed; the swatch visuals still use
+// `var(--token)` to reflect the live painted theme.
+const ThemeContext = createContext<{ theme: string; mode: string }>({
+  theme: 'default',
+  mode: 'light',
+});
 
-function subscribeTheme(onChange: () => void): () => void {
-  listeners.add(onChange);
-  if (!observer && typeof document !== 'undefined') {
-    observer = new MutationObserver(() => {
-      themeVersion += 1;
-      listeners.forEach((l) => l());
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-  }
-  return () => {
-    listeners.delete(onChange);
-    if (listeners.size === 0) {
-      observer?.disconnect();
-      observer = undefined;
-    }
-  };
-}
-
-/**
- * Read a token's resolved value for the theme/mode currently applied to `<html>`.
- * Re-reads on every theme/mode change picked up by the shared observer.
- */
 function useTokenValue(name: string): string {
-  useSyncExternalStore(
-    subscribeTheme,
-    () => themeVersion,
-    () => 0,
-  );
-  return readTokenValue(name);
+  const { theme, mode } = useContext(ThemeContext);
+  return getTokenValue(theme, mode, name);
 }
 
 function ColorSwatch({ name, cssVar }: TokenEntry) {
@@ -213,7 +190,7 @@ function GroupSection(entry: TokenGroupWithTokens) {
   );
 }
 
-/** Render the named groups, in the order given. */
+/** Render the named groups, in the order given, for the selected theme/mode. */
 function Sections({ ids }: { ids: string[] }) {
   const byId = new Map(getTokenGroups().map((g) => [g.group.id, g]));
   return (
@@ -228,8 +205,19 @@ function Sections({ ids }: { ids: string[] }) {
   );
 }
 
+/** Reads the toolbar globals (valid in a decorator) and feeds them to the swatches. */
+function withThemeContext(Story: () => React.ReactElement) {
+  const [{ theme, mode }] = useGlobals();
+  return (
+    <ThemeContext.Provider value={{ theme: theme ?? 'default', mode: mode ?? 'light' }}>
+      <Story />
+    </ThemeContext.Provider>
+  );
+}
+
 const meta = {
   title: 'Foundations/Design Tokens',
+  decorators: [withThemeContext],
   parameters: {
     layout: 'padded',
     docs: {

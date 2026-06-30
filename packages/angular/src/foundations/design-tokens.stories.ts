@@ -1,17 +1,17 @@
-import { Component, Input, type OnDestroy, type OnInit, signal } from '@angular/core';
+import { Component, Input, type OnInit } from '@angular/core';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import {
   getTokenGroups,
+  getTokenValue,
   getTypographyScale,
-  readTokenValue,
   type TokenGroupWithTokens,
 } from '@surfnet/storybook-config';
 
 /**
- * Renders the named token groups with live swatches. Values are read from the
- * `<html>` computed style and refreshed whenever the theme/mode classes change
- * (the global `themeSwitcher()` decorator toggles them from the toolbar), so the
- * printed values always match the painted theme.
+ * Renders the named token groups. The selected `theme` / `mode` come in as inputs
+ * (read from the toolbar globals in the story), and values are looked up straight
+ * from the `@surfnet/tokens` map. Swatch visuals still use `var(--token)` so they
+ * reflect the live painted theme.
  */
 @Component({
   selector: 'surf-design-tokens',
@@ -125,8 +125,10 @@ import {
     </div>
   `,
 })
-export class DesignTokensComponent implements OnInit, OnDestroy {
+export class DesignTokensComponent implements OnInit {
   @Input({ required: true }) ids: string[] = [];
+  @Input() theme = 'default';
+  @Input() mode = 'light';
 
   protected groups: TokenGroupWithTokens[] = [];
   protected readonly typeScale = getTypographyScale();
@@ -135,29 +137,15 @@ export class DesignTokensComponent implements OnInit, OnDestroy {
     size: '12px 12px',
   };
 
-  private readonly values = signal<Record<string, string>>({});
-  private observer?: MutationObserver;
-
   ngOnInit(): void {
     const byId = new Map(getTokenGroups().map((g) => [g.group.id, g]));
     this.groups = this.ids
       .map((id) => byId.get(id))
       .filter((g): g is TokenGroupWithTokens => Boolean(g));
-
-    this.refresh();
-    this.observer = new MutationObserver(() => this.refresh());
-    this.observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.observer?.disconnect();
   }
 
   protected val(name: string): string {
-    return this.values()[name] ?? '';
+    return getTokenValue(this.theme, this.mode, name);
   }
 
   protected cssVar(name: string): string {
@@ -166,14 +154,6 @@ export class DesignTokensComponent implements OnInit, OnDestroy {
 
   protected weightLabel(name: string): string {
     return name.replace('font-weight-', '');
-  }
-
-  private refresh(): void {
-    const map: Record<string, string> = {};
-    for (const { tokens } of this.groups) {
-      for (const t of tokens) map[t.name] = readTokenValue(t.name);
-    }
-    this.values.set(map);
   }
 }
 
@@ -199,9 +179,9 @@ export default meta;
 type Story = StoryObj<DesignTokensComponent>;
 
 const story = (ids: string[]): Story => ({
-  render: () => ({
-    props: { ids },
-    template: `<surf-design-tokens [ids]="ids"></surf-design-tokens>`,
+  render: (_args, { globals }) => ({
+    props: { ids, theme: globals['theme'] ?? 'default', mode: globals['mode'] ?? 'light' },
+    template: `<surf-design-tokens [ids]="ids" [theme]="theme" [mode]="mode"></surf-design-tokens>`,
   }),
 });
 
