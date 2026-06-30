@@ -17,8 +17,9 @@ Never hand-write a primitive or switch `style` to a Radix value.
 ## Steps
 
 1. **Define the contract first.** Before vendoring, add `<name>Contract` to
-   `@surfnet/contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)).
-   This ensures the variant/size names are settled before the cva is written.
+   `@surfnet/contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
+   is required for **every** component, including structural primitives that get a
+   description-only contract. It settles the axis names before the component is written.
 
 2. **Vendor the component into its own directory.** Pass `--path` with a trailing slash
    so the file lands inside a folder named after the component:
@@ -33,9 +34,11 @@ Never hand-write a primitive or switch `style` to a Radix value.
    `components.json`. (A `--dry-run` preview _displays_ a flat path — ignore that; the
    real write nests correctly.)
 
-3. **Apply `satisfies` to the cva variant/size maps.** In the vendored component file,
-   import the name unions from `@surfnet/contracts` and annotate the variant and size
-   objects. The pattern (adapted from `button.tsx`):
+3. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
+   from `@surfnet/contracts` and wire them in. There are two wiring styles depending on how
+   the vendored component models the axis:
+
+   **a. `cva` map → `satisfies Record<…>`** (e.g. `button`, `field`):
 
    ```ts
    import type { CardVariantName, CardSizeName } from '@surfnet/contracts';
@@ -55,9 +58,21 @@ Never hand-write a primitive or switch `style` to a Radix value.
    });
    ```
 
-   If the component has no size prop, omit the size annotation. Confirm `pnpm lint`
-   passes — a name mismatch between the cva object and the contract type is a compile
-   error.
+   **b. inline-union prop (no `cva`) → type the prop** (e.g. `avatar` size,
+   `select` trigger size, `dropdown-menu` item variant). Replace the hand-written union with
+   the contract type:
+
+   ```ts
+   import type { AvatarSizeName } from '@surfnet/contracts';
+
+   function Avatar({ size = 'default', ...props }: AvatarPrimitive.Root.Props & {
+     size?: AvatarSizeName;   // was: 'default' | 'sm' | 'lg'
+   }) { /* … */ }
+   ```
+
+   A **description-only** contract has no axis, so there's nothing to wire here — skip to the
+   barrel. Confirm `pnpm lint` passes — a name mismatch between the component and the
+   contract type is a compile error.
 
 4. **Add a barrel** `src/components/ui/card/index.ts`:
 
@@ -75,9 +90,20 @@ Never hand-write a primitive or switch `style` to a Radix value.
 
 6. **Add a story** `src/components/ui/card/card.stories.tsx`. Mirror
    `src/components/ui/button/button.stories.tsx`: a `Playground` with `argTypes`/`args`,
-   plus stories covering every variant/size/state the component offers. Source variant/size
-   lists and docs from the contract object (`cardContract.variants`, `cardContract.variantDocs`,
-   etc.) instead of duplicating literals. Use `@storybook/react-vite` types (`Meta`, `StoryObj`).
+   plus stories covering every variant/size/state the component offers. Source the docs
+   description **and** any axis lists from the contract object (`cardContract.description`,
+   `cardContract.variants`, `cardContract.variantDocs`, etc.) instead of duplicating
+   literals — a description-only component still pulls its `docs.description.component` from
+   the contract. Use `@storybook/react-vite` types (`Meta`, `StoryObj`).
+
+   **Every control you declare must be live.** A control in `argTypes`/`args` only does
+   something if a story actually consumes those args — an args-driven Playground (`export
+   const Default: Story = {}`, or `render: (args) => <Card {...args} />`). If _every_ story
+   hardcodes its props in `render`, the control is dead: it shows in the panel but moving it
+   changes nothing. So keep one args-driven Playground per declared control, reserve
+   hardcoded `render` for static showcase stories (Variants, Sizes, …), and don't declare a
+   control no story consumes. (Storybook here only surfaces controls you declare explicitly —
+   it does not infer them from props — so an unused `argTypes` entry is always dead weight.)
 
 ## Target layout
 
@@ -101,11 +127,13 @@ pnpm format
 ## Definition of done
 
 - Component vendored via the shadcn CLI — never hand-written.
-- A `<name>Contract` entry exists in `@surfnet/contracts` and the cva variant/size maps
-  carry `satisfies Record<...>` against the contract types; `pnpm lint` fails if either
-  side adds or removes a name.
+- A `<name>Contract` entry exists in `@surfnet/contracts` (description-only if the component
+  has no axis). For every axis, the component is tied to the contract — `cva` maps carry
+  `satisfies Record<...>`, inline-union props are typed as the contract's `*Name`; `pnpm
+  lint` fails if either side adds or removes a name.
 - Barrel `index.ts` in place; component exported from `src/index.ts`.
-- Story covers full variant/size/state surface, sourcing lists from the contract object.
+- Story covers full variant/size/state surface, sourcing its description and axis lists from
+  the contract object.
 - `pnpm build`, `pnpm lint`, `pnpm format`, and `build-storybook` all pass.
 
 ## Notes

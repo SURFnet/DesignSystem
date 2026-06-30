@@ -17,5 +17,12 @@ export default {
   initialGlobals: { framework: 'react', ...themeInitialGlobals },
   globalTypes: { ...frameworkGlobalTypes, ...themeGlobalTypes },
   decorators: [frameworkSwitcher('react'), themeSwitcher()],
-  parameters: sharedParameters,
+  parameters: {
+    ...sharedParameters,
+    // Force the React jsxDecorator to always serialize the rendered JSX for the
+    // "Show code" panel. Without this, a story with `render: () => (...)` (no
+    // `args` param) is treated as a non-args story, so Storybook prints the whole
+    // story object instead of the JSX. See @storybook/react's `skipJsxRender`.
+    docs: { source: { type: 'dynamic' } },
+  },
 };

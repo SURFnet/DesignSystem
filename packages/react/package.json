@@ -8,14 +8,14 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/surfnet-react.css"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
@@ -35,19 +35,20 @@
   },
   "dependencies": {
     "@base-ui/react": "1.5.0",
+    "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
-    "@surfnet/contracts": "workspace:*",
-    "@surfnet/tokens": "workspace:*",
     "@fontsource-variable/geist": "5.2.9",
+    "@phosphor-icons/react": "2.1.10",
     "@storybook/addon-a11y": "10.4.5",
     "@storybook/addon-docs": "10.4.5",
-    "@phosphor-icons/react": "2.1.10",
     "@storybook/react-vite": "10.4.5",
+    "@surfnet/contracts": "workspace:*",
     "@surfnet/storybook-config": "workspace:*",
+    "@surfnet/tokens": "workspace:*",
     "@surfnet/typescript-config": "workspace:*",
     "@tailwindcss/vite": "4.3.1",
     "@types/node": "24.13.2",
@@ -56,6 +57,7 @@
     "@vitejs/plugin-react": "6.0.2",
     "react": "19.2.7",
     "react-dom": "19.2.7",
+    "rollup-plugin-preserve-directives": "^0.4.0",
     "shadcn": "4.11.0",
     "storybook": "10.4.5",
     "tailwindcss": "4.3.1",

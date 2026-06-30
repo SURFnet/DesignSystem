@@ -1,9 +1,10 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorArrowRight, phosphorPlus } from '@ng-icons/phosphor-icons/regular';
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { buttonContract } from '@surfnet/contracts';
 
-import { HlmButton } from './hlm-button';
+import { HlmButton, HlmButtonImports } from '..';
+import { Component, Input } from '@angular/core';
 
 // `disabled` is contributed by the BrnButton host directive rather than HlmButton
 // itself, so widen the story args to expose it as a control.
@@ -52,6 +53,7 @@ const meta: Meta<ButtonArgs> = {
   args: {
     variant: buttonContract.defaultVariant,
     size: buttonContract.defaultSize,
+    disabled: false,
   },
 };
 
@@ -64,45 +66,40 @@ export const Default: Story = {
   args: { disabled: false },
   render: (args) => ({
     props: args,
-    template: `<button hlmBtn [variant]="variant" [size]="size" [disabled]="disabled">Button</button>`,
+    template: `<button hlmBtn ${argsToTemplate(args)}>Button</button>`,
   }),
 };
 
+@Component({
+  selector: 'button-variants',
+  imports: [HlmButtonImports],
+  template: `
+    <div class="flex flex-wrap items-center gap-3">
+      @for (variant of buttonContract.variants; track variant) {
+        <button hlmBtn [variant]="variant" [title]="buttonContract.variantDocs[variant]">
+          {{ variant.charAt(0).toUpperCase() + variant.slice(1) }}
+        </button>
+      }
+    </div>
+  `,
+})
+class ButtonVariants {
+  @Input() buttonContract!: typeof buttonContract;
+}
+
 /** Every visual variant side by side. */
 export const Variants: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: Object.entries(buttonContract.variantDocs)
-          .map(([name, doc]) => `**${name}** — ${doc}`)
-          .join('\n\n'),
-      },
-    },
-  },
   render: () => ({
-    template: `
-      <div class="flex flex-wrap items-center gap-3">
-        <button hlmBtn variant="default">Default</button>
-        <button hlmBtn variant="secondary">Secondary</button>
-        <button hlmBtn variant="outline">Outline</button>
-        <button hlmBtn variant="ghost">Ghost</button>
-        <button hlmBtn variant="destructive">Destructive</button>
-        <button hlmBtn variant="link">Link</button>
-      </div>`,
+    moduleMetadata: {
+      imports: [ButtonVariants],
+    },
+    props: { buttonContract: buttonContract },
+    template: '<button-variants [buttonContract]="buttonContract"></button-variants>',
   }),
 };
 
 /** Text sizes from extra-small to large. */
 export const Sizes: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: Object.entries(buttonContract.sizeDocs)
-          .map(([name, doc]) => `**${name}** — ${doc}`)
-          .join('\n\n'),
-      },
-    },
-  },
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-3">
@@ -115,9 +112,8 @@ export const Sizes: Story = {
 };
 
 /**
- * Square icon-only sizes. Drop a bare `<ng-icon>` (from `@ng-icons/phosphor-icons`) inside
- * the button — the button's CSS auto-sizes it per size, so don't set `size` on the icon.
- * Provide an `aria-label` for accessibility.
+ * Square icon-only sizes. Drop a Phosphor icon (`@ng-icons/phosphor-icons/regular`) inside the button —
+ * the button's CSS auto-sizes the SVG per size, so no `size-*` class is needed.
  */
 export const IconSizes: Story = {
   render: () => ({
@@ -132,7 +128,7 @@ export const IconSizes: Story = {
 };
 
 /**
- * Icons alongside text. Tag the `<ng-icon>` with `data-icon="inline-start"` or
+ * Icons alongside text. Tag the icon with `data-icon="inline-start"` or
  * `data-icon="inline-end"` so the button tightens the padding on that side.
  */
 export const WithIcon: Story = {
@@ -163,7 +159,10 @@ export const Disabled: Story = {
   }),
 };
 
-/** The directive also styles anchors — handy for links that look like buttons. */
+/**
+ * Base UI's polymorphic `render` prop swaps the underlying element while keeping
+ * the button styling — here the button renders as an anchor.
+ */
 export const AsLink: Story = {
   render: () => ({
     template: `<a hlmBtn variant="link" href="https://www.surf.nl">Visit SURF</a>`,

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import dts from 'vite-plugin-dts';
+import preserveDirectives from 'rollup-plugin-preserve-directives';
 import { defineConfig } from 'vite';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
@@ -12,7 +13,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     dts({
-      tsconfigPath: './tsconfig.json',
+      tsconfigPath: './tsconfig.build.json',
       entryRoot: 'src',
       include: ['src'],
       exclude: ['src/**/*.stories.tsx'],
@@ -28,15 +29,18 @@ export default defineConfig({
     lib: {
       entry: resolve(rootDir, 'src/index.ts'),
       formats: ['es'],
-      fileName: 'index',
     },
     rollupOptions: {
       // Externalise bare imports (react, @base-ui/react, cva/clsx/...) so they
       // stay peer/runtime deps of the consumer. Relative imports, the `@/` alias
       // and absolute paths are bundled into the library.
       external: (id) => !id.startsWith('.') && !id.startsWith('@/') && !isAbsolute(id),
+      plugins: [preserveDirectives()],
       output: {
         assetFileNames: 'surfnet-react.[ext]',
+        entryFileNames: '[name].js',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
       },
     },
   },

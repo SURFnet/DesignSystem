@@ -73,60 +73,96 @@ states, and story coverage.
 
 ## Contract step
 
-Every component that uses `cva` (or an equivalent variant map in Angular) requires a
-companion entry in `@surfnet/contracts`. This creates a single source of truth for variant
-and size names and lets `pnpm lint` catch drift between the two frameworks.
+**Every vendored component gets a `<name>Contract` entry in `@surfnet/contracts` — no
+exceptions.** The contract is the single cross-framework source of truth for a component's
+description and for the names of any **axes** it exposes (variant, size, orientation, …).
+For components with an axis it also lets `pnpm lint` catch name drift between the two
+frameworks. There is no "this one has no variants, skip it" judgment call: a component with
+no axes still gets a description-only contract so the parity surface is explicit.
 
-1. **Create `packages/contracts/src/<name>.ts`:**
+### Pick the axis shape
+
+Capture the axes the component **actually** exposes. Use the real axis name — an
+`orientation` prop is `orientations`, not `variants`. The three shapes:
+
+1. **Variant / size axes** (e.g. `button`, `sidebar` menu button, `dropdown-menu` item,
+   `select` trigger, `avatar`). Include only the axes that exist (a size-only component omits
+   `variants`; a variant-only component omits `sizes`):
 
    ```ts
    export const cardContract = {
-     variants: ['default', 'outline'] as const,  // every allowed variant
-     sizes: ['default', 'sm', 'lg'] as const,    // every allowed size; omit if no size prop
+     variants: ['default', 'outline'],          // every allowed variant
+     sizes: ['default', 'sm', 'lg'],            // every allowed size; omit if no size prop
      defaultVariant: 'default',
      defaultSize: 'default',
      description: 'One-sentence description of the component.',
-     variantDocs: {
-       default: 'Description for consumers.',
-       outline: 'Description for consumers.',
-     },
-     sizeDocs: {
-       default: 'Standard size.',
-       sm: 'Compact size.',
-       lg: 'Large size.',
-     },
+     variantDocs: { default: 'For consumers.', outline: 'For consumers.' },
+     sizeDocs: { default: 'Standard size.', sm: 'Compact.', lg: 'Large.' },
    } as const;
 
    export type CardVariantName = (typeof cardContract.variants)[number];
    export type CardSizeName = (typeof cardContract.sizes)[number];
    ```
 
-   Model it on `packages/contracts/src/button.ts`. If the component has no size prop,
-   omit `sizes`, `defaultSize`, and `sizeDocs`.
+   Model it on `packages/contracts/src/button.ts`.
 
-2. **Export from `packages/contracts/src/index.ts`:**
+2. **Orientation axis** (e.g. `field`, `separator`). Same shape, named for the axis:
 
    ```ts
-   export * from './card';
+   export const fieldContract = {
+     orientations: ['vertical', 'horizontal', 'responsive'],
+     defaultOrientation: 'vertical',
+     description: 'A form-field wrapper that lays out a label, control, and description.',
+     orientationDocs: {
+       vertical: 'Label stacked above the control — the default.',
+       horizontal: 'Label beside the control.',
+       responsive: 'Stacks when narrow, horizontal when there is room.',
+     },
+   } as const;
+
+   export type FieldOrientationName = (typeof fieldContract.orientations)[number];
    ```
 
-3. **Verify the contracts package still type-checks:**
+3. **Description-only** (structural primitives with no axis — e.g. `input`, `label`,
+   `table`, `breadcrumb`, `checkbox`). No axis arrays, no exported `*Name` types:
 
-   ```bash
-   pnpm --filter @surfnet/contracts lint
+   ```ts
+   export const inputContract = {
+     description: 'A single-line text field for short free-form input.',
+   } as const;
    ```
 
-The per-framework playbooks (`react.md`, `angular.md`) each have a matching step that
-applies `satisfies Record<CardVariantName, string>` to the cva call so any name mismatch
-fails `pnpm lint` at compile time.
+Then:
+
+- **Export from `packages/contracts/src/index.ts`** — export the contract object plus any
+  `*Name` types the component has (description-only contracts export just the object):
+
+  ```ts
+  export { cardContract, type CardVariantName, type CardSizeName } from './card.js';
+  export { inputContract } from './input.js';
+  ```
+
+- **Verify the contracts package still type-checks:**
+
+  ```bash
+  pnpm --filter @surfnet/contracts lint
+  ```
+
+The per-framework playbooks (`react.md`, `angular.md`) each have a matching step that ties
+the component to the contract **for every axis it has**: a `cva` map carries
+`satisfies Record<CardVariantName, string>`; an inline-union prop (no `cva`) is typed as
+`size?: CardSizeName`. Either way a name mismatch fails `pnpm lint` at compile time. A
+description-only contract has nothing to enforce — wiring it into the story's docs is
+enough.
 
 ## Definition of done
 
 - Component vendored via the framework CLI(s) — never hand-write primitives.
-- A `<name>Contract` `as const` entry exists in `@surfnet/contracts` and is exported from
-  its `index.ts`.
-- The cva variant/size maps in both React and Angular carry `satisfies Record<...>` against
-  the contract types (see per-framework playbooks).
+- A `<name>Contract` `as const` entry exists in `@surfnet/contracts` for **every** component
+  (description-only when it has no axis) and is exported from its `index.ts`.
+- For each axis the component exposes, both frameworks are tied to the contract: `cva` maps
+  carry `satisfies Record<...>`, inline-union props are typed as the contract's `*Name`
+  (see per-framework playbooks). Description-only contracts have nothing to enforce.
 - Exported from each package's entry (`src/index.ts` / `src/public-api.ts`).
 - A Storybook story per package covering the component's full surface; when added to both,
   the story sets match.
