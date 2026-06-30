@@ -7,7 +7,7 @@ import {
   input,
 } from '@angular/core';
 import { BrnSelectContent } from '@spartan-ng/brain/select';
-import { classes, hlm } from '@spartan-ng/helm/utils';
+import { classes, hlm } from '../../../utils/src/lib/hlm';
 import { HlmSelectScrollDown } from './hlm-select-scroll-down';
 import { HlmSelectScrollUp } from './hlm-select-scroll-up';
 

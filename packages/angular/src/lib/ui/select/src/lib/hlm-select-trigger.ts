@@ -10,7 +10,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretUpDown } from '@ng-icons/phosphor-icons/regular';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
-import { hlm } from '@spartan-ng/helm/utils';
+import { hlm } from '../../../utils/src/lib/hlm';
 import type { SelectTriggerSizeName } from '@surfnet/contracts';
 import type { ClassValue } from 'clsx';
 

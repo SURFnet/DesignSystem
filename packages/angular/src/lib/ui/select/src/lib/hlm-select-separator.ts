@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnSelectSeparator } from '@spartan-ng/brain/select';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src/lib/hlm';
 
 @Directive({
   selector: '[hlmSelectSeparator],hlm-select-separator',

@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnInput } from '@spartan-ng/brain/input';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src/lib/hlm';
 
 @Directive({
   selector: '[hlmInput]',

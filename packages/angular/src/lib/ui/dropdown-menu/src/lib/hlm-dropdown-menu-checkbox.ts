@@ -1,7 +1,7 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItemCheckbox } from '@angular/cdk/menu';
 import { Directive, booleanAttribute, inject, input } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src/lib/hlm';
 
 @Directive({
   selector: '[hlmDropdownMenuCheckbox]',

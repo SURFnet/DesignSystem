@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretRight } from '@ng-icons/phosphor-icons/regular';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src/lib/hlm';
 
 @Component({
   selector: 'hlm-dropdown-menu-item-sub-indicator',

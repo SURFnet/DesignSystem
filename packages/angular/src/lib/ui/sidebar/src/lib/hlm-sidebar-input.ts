@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { HlmInput } from '@spartan-ng/helm/input';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src/lib/hlm';
+import { HlmInput } from '../../../input/src/lib/hlm-input';
 
 @Directive({
   selector: 'input[hlmSidebarInput]',

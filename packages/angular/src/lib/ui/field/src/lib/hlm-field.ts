@@ -1,6 +1,6 @@
 import { Directive, input } from '@angular/core';
 import { BrnField } from '@spartan-ng/brain/field';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src/lib/hlm';
 import type { FieldOrientationName } from '@surfnet/contracts';
 import { cva, VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
