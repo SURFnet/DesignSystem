@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorArrowsDownUp, phosphorDotsThreeVertical } from '@ng-icons/phosphor-icons/regular';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
@@ -137,6 +137,45 @@ class DataTableRowActions {
 }
 
 // ---------------------------------------------------------------------------
+// Presentational cell components (the Angular equivalent of React's JSX cells)
+// ---------------------------------------------------------------------------
+
+@Component({
+  selector: 'data-table-status-cell',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<span class="capitalize">{{ status() }}</span>`,
+})
+class DataTableStatusCell {
+  public readonly status = input.required<string>();
+}
+
+@Component({
+  selector: 'data-table-email-cell',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<span class="lowercase">{{ email() }}</span>`,
+})
+class DataTableEmailCell {
+  public readonly email = input.required<string>();
+}
+
+@Component({
+  selector: 'data-table-amount-header',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<div class="text-right">Amount</div>`,
+})
+class DataTableAmountHeader {}
+
+@Component({
+  selector: 'data-table-amount-cell',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<div class="text-right font-medium">{{ formatted() }}</div>`,
+})
+class DataTableAmountCell {
+  public readonly amount = input.required<number>();
+  protected readonly formatted = computed(() => currency.format(this.amount()));
+}
+
+// ---------------------------------------------------------------------------
 // Shared columns
 // ---------------------------------------------------------------------------
 
@@ -151,18 +190,24 @@ const columns: ColumnDef<Payment, unknown>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
-    cell: ({ row }) => `<span class="capitalize">${row.getValue('status')}</span>`,
+    cell: ({ row }) =>
+      flexRenderComponent(DataTableStatusCell, {
+        inputs: { status: row.getValue<string>('status') },
+      }),
   },
   {
     accessorKey: 'email',
     header: ({ column }) => flexRenderComponent(DataTableEmailHeader, { inputs: { column } }),
-    cell: ({ row }) => `<span class="lowercase">${row.getValue('email')}</span>`,
+    cell: ({ row }) =>
+      flexRenderComponent(DataTableEmailCell, { inputs: { email: row.getValue<string>('email') } }),
   },
   {
     accessorKey: 'amount',
-    header: () => `<div class="text-right">Amount</div>`,
+    header: () => flexRenderComponent(DataTableAmountHeader),
     cell: ({ row }) =>
-      `<div class="text-right font-medium">${currency.format(row.getValue('amount'))}</div>`,
+      flexRenderComponent(DataTableAmountCell, {
+        inputs: { amount: row.getValue<number>('amount') },
+      }),
   },
   {
     id: 'actions',
