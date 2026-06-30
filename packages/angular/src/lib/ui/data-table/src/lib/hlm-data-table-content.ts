@@ -7,8 +7,10 @@ import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angul
  * `DataTableContent`: header groups, body rows (with `data-state="selected"` per selected
  * row), and an empty-state row when there are no rows.
  *
- * String / HTML header and cell defs flow through `*flexRender` + `[innerHTML]`; component
- * cell defs created with `flexRenderComponent()` are mounted in place by `*flexRender`.
+ * String / primitive header and cell defs are rendered as inert escaped text by `*flexRender`
+ * (matching React's `flexRender` of a string node); component cell defs created with
+ * `flexRenderComponent()` are mounted in place. To render markup, return a
+ * `flexRenderComponent()` rather than an HTML string — raw strings are never parsed as HTML.
  */
 @Component({
   selector: 'hlm-data-table-content',
@@ -34,7 +36,7 @@ import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angul
                         let headerContent
                       "
                     >
-                      <span [innerHTML]="headerContent"></span>
+                      {{ headerContent }}
                     </ng-container>
                   }
                 </th>
@@ -55,7 +57,7 @@ import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angul
                         let cellContent
                       "
                     >
-                      <span [innerHTML]="cellContent"></span>
+                      {{ cellContent }}
                     </ng-container>
                   </td>
                 }
