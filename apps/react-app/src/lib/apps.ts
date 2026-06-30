@@ -1,20 +1,18 @@
-// Server-side data access for apps. Both the server page and the mock API route
-// (`app/api/apps`) call this, so the filtering/pagination logic lives in one place.
+// Server-side data access for apps: the server page reads this directly, so the
+// filtering/pagination logic lives in one place.
 import { APP_CATEGORIES, MOCK_APPS, type AppCategoryFilter, type AppRecord } from './mock-data';
 
 export const APPS_PAGE_SIZE = 8;
 
 export type AppsQuery = {
-  search?: string;
-  category?: string;
-  page?: number;
+  search: string;
+  category: AppCategoryFilter;
+  page: number;
 };
 
 export type AppsResult = {
   items: AppRecord[];
   total: number;
-  page: number;
-  pageSize: number;
   hasMore: boolean;
 };
 
@@ -31,26 +29,22 @@ export function parsePage(value: string | undefined | null): number {
 }
 
 export async function getApps({ search, category, page }: AppsQuery): Promise<AppsResult> {
-  const normalizedSearch = (search ?? '').trim().toLowerCase();
-  const normalizedCategory = parseCategory(category);
-  const currentPage = page && page > 0 ? page : 1;
+  const normalizedSearch = search.trim().toLowerCase();
 
   // Simulate backend latency so server-rendered loading is realistic.
   await new Promise((resolve) => setTimeout(resolve, 300));
 
   const filtered = MOCK_APPS.filter((app) => {
     const matchesSearch = !normalizedSearch || app.name.toLowerCase().includes(normalizedSearch);
-    const matchesCategory = normalizedCategory === 'All' || app.category === normalizedCategory;
+    const matchesCategory = category === 'All' || app.category === category;
     return matchesSearch && matchesCategory;
   });
 
-  const items = filtered.slice(0, currentPage * APPS_PAGE_SIZE);
+  const items = filtered.slice(0, page * APPS_PAGE_SIZE);
 
   return {
     items,
     total: filtered.length,
-    page: currentPage,
-    pageSize: APPS_PAGE_SIZE,
     hasMore: items.length < filtered.length,
   };
 }

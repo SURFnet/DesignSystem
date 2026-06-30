@@ -1,6 +1,5 @@
 // Mock backend data for the demo app. In a real consumer this would come from the
-// SURF Access API; here it lives in-memory and is served through the route handlers
-// under `app/api/*`.
+// SURF Access API; here it lives in-memory and is read directly by the server page.
 
 export type AppCategory = 'Education' | 'Productivity' | 'Security' | 'Research';
 

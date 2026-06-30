@@ -7,9 +7,8 @@ import { AppSidebar } from '@/components/app-sidebar';
 import type { SessionUser } from '@/lib/mock-data';
 
 /**
- * Client shell for the authenticated area. Holds everything that pulls in
- * `@surfnet/react` (which is a client-only bundle), so the surrounding layout
- * can stay a Server Component and do the auth check.
+ * Client shell for the app area. Holds everything that pulls in `@surfnet/react`
+ * (a client-only bundle), so the surrounding layout can stay a Server Component.
  */
 export function AppShell({ user, children }: { user: SessionUser; children: ReactNode }) {
   return (
