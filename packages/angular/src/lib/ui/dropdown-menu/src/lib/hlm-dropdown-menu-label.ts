@@ -1,6 +1,6 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, Directive, input } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmDropdownMenuLabel],hlm-dropdown-menu-label',

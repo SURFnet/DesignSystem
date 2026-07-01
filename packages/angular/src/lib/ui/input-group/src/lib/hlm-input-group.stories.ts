@@ -10,7 +10,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { inputGroupContract } from '@surfnet/contracts';
 import { HlmInputGroup, HlmInputGroupImports } from '..';
-import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 
 const meta: Meta<HlmInputGroup> = {
   title: 'Components/Input Group',

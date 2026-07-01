@@ -10,6 +10,7 @@ export * from './lib/ui/breadcrumb/src';
 export * from './lib/ui/button/src';
 export * from './lib/ui/card/src';
 export * from './lib/ui/checkbox/src';
+export * from './lib/ui/data-table/src';
 export * from './lib/ui/dropdown-menu/src';
 export * from './lib/ui/field/src';
 export * from './lib/ui/input/src';

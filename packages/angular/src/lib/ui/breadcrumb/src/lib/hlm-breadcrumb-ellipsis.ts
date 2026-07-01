@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorDotsThree } from '@ng-icons/phosphor-icons/regular';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { hlm } from '@spartan-ng/helm/utils';
+import { HlmIcon } from '../../../icon/src';
+import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
 
 @Component({

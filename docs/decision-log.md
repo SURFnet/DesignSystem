@@ -25,25 +25,26 @@ the replacement.
 
 ## Index
 
-| #   | Decision                                                                                  | Status   | Date       |
-| --- | ----------------------------------------------------------------------------------------- | -------- | ---------- |
-| 01  | [Monorepo structure](#adr-001--monorepo-structure)                                        | Accepted | 2026-06-30 |
-| 02  | [Base UI over Radix (React)](#adr-002--base-ui-over-radix-react)                          | Accepted | 2026-06-30 |
-| 03  | [Phosphor icons](#adr-003--phosphor-icons)                                                | Accepted | 2026-06-30 |
-| 04  | [Tokens as single source of truth](#adr-004--tokens-as-single-source-of-truth)            | Accepted | 2026-06-30 |
-| 05  | [Figma → code sync](#adr-005--figma--code-sync)                                           | Accepted | 2026-06-30 |
-| 06  | [Theming via a class on `<html>`](#adr-006--theming-via-a-class-on-html)                  | Accepted | 2026-06-30 |
-| 07  | [Token naming & roles](#adr-007--token-naming--roles)                                     | Accepted | 2026-06-29 |
-| 08  | [Explicit colors over opacity](#adr-008--explicit-colors-over-opacity)                    | Accepted | 2026-06-29 |
-| 09  | [Modes vs themes](#adr-009--modes-vs-themes)                                              | Accepted | 2026-06-29 |
-| 10  | [Deviating from shadcn is manageable](#adr-010--deviating-from-shadcn-is-manageable)      | Accepted | 2026-06-29 |
-| 11  | [Cross-framework parity via contracts](#adr-011--cross-framework-parity-via-contracts)    | Accepted | 2026-06-30 |
-| 12  | [Tailwind v4 for styling](#adr-012--tailwind-v4-for-styling)                              | Proposed | 2026-06-30 |
-| 13  | [Storybook + token docs](#adr-013--storybook--token-docs)                                 | Accepted | 2026-06-30 |
-| 14  | [Versioning & publishing via Changesets](#adr-014--versioning--publishing-via-changesets) | Accepted | 2026-06-30 |
-| 15  | [Tree-shakeable React build](#adr-015--tree-shakeable-react-build)                        | Accepted | 2026-06-30 |
-| 16  | [Component scope built in parity](#adr-016--component-scope-built-in-parity)              | Accepted | 2026-06-30 |
-| 17  | [Prove it in a real app](#adr-017--prove-it-in-a-real-app)                                | Proposed | 2026-06-30 |
+| #   | Decision                                                                                                             | Status   | Date       |
+| --- | -------------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
+| 01  | [Monorepo structure](#adr-001--monorepo-structure)                                                                   | Accepted | 2026-06-30 |
+| 02  | [Base UI over Radix (React)](#adr-002--base-ui-over-radix-react)                                                     | Accepted | 2026-06-30 |
+| 03  | [Phosphor icons](#adr-003--phosphor-icons)                                                                           | Accepted | 2026-06-30 |
+| 04  | [Tokens as single source of truth](#adr-004--tokens-as-single-source-of-truth)                                       | Accepted | 2026-06-30 |
+| 05  | [Figma → code sync](#adr-005--figma--code-sync)                                                                      | Accepted | 2026-06-30 |
+| 06  | [Theming via a class on `<html>`](#adr-006--theming-via-a-class-on-html)                                             | Accepted | 2026-06-30 |
+| 07  | [Token naming & roles](#adr-007--token-naming--roles)                                                                | Accepted | 2026-06-29 |
+| 08  | [Explicit colors over opacity](#adr-008--explicit-colors-over-opacity)                                               | Accepted | 2026-06-29 |
+| 09  | [Modes vs themes](#adr-009--modes-vs-themes)                                                                         | Accepted | 2026-06-29 |
+| 10  | [Deviating from shadcn is manageable](#adr-010--deviating-from-shadcn-is-manageable)                                 | Accepted | 2026-06-29 |
+| 11  | [Cross-framework parity via contracts](#adr-011--cross-framework-parity-via-contracts)                               | Accepted | 2026-06-30 |
+| 12  | [Tailwind v4 for styling](#adr-012--tailwind-v4-for-styling)                                                         | Proposed | 2026-06-30 |
+| 13  | [Storybook + token docs](#adr-013--storybook--token-docs)                                                            | Accepted | 2026-06-30 |
+| 14  | [Versioning & publishing via Changesets](#adr-014--versioning--publishing-via-changesets)                            | Accepted | 2026-06-30 |
+| 15  | [Tree-shakeable React build](#adr-015--tree-shakeable-react-build)                                                   | Accepted | 2026-06-30 |
+| 16  | [Component scope built in parity](#adr-016--component-scope-built-in-parity)                                         | Accepted | 2026-06-30 |
+| 17  | [Prove it in a real app](#adr-017--prove-it-in-a-real-app)                                                           | Proposed | 2026-06-30 |
+| 18  | [Relative imports for vendored helm cross-references](#adr-018--relative-imports-for-vendored-helm-cross-references) | Accepted | 2026-07-01 |
 
 ### Open questions (not yet decided)
 
@@ -370,3 +371,40 @@ Storybook.
 
 **Consequences.** Marked **Proposed** while the richer screens land. Apps stay consumers,
 not published packages; keep the demo simple. See [AGENTS.md](../AGENTS.md).
+
+---
+
+## ADR-018 — Relative imports for vendored helm cross-references
+
+**Status:** Accepted · **Date:** 2026-07-01
+
+**Context.** The Spartan CLI vendors `helm` components into `src/lib/ui/<name>/` and wires
+cross-component references through a `@spartan-ng/helm/<name>` tsconfig `paths` alias
+(`packages/angular/components.json` → `importAlias`). That alias isn't a real npm package
+— it only resolves when a consuming **app**'s own bundler reads the tsconfig mapping at
+build time. `@surfnet/angular` instead builds itself into a redistributable package via
+`ng-packagr`. `ng-packagr`'s rollup step hardcodes any bare (non-relative) import specifier
+as external unless it matches a registered secondary entry point
+(`node_modules/ng-packagr/.../flatten/rollup.js` → `isExternalDependency`) — it never
+consults tsconfig `paths`. With one entry point (`src/public-api.ts`), every alias-based
+cross-import leaked into the published bundle as an unresolved `@spartan-ng/helm/*` import,
+and in some cases duplicated the real symbol (once correctly inlined via a relative import
+path elsewhere, once left dangling as external).
+
+**Decision.** Rewrite all vendored cross-component imports from the
+`@spartan-ng/helm/<name>` alias to relative paths. Added
+`packages/angular/scripts/rewrite-helm-imports.ts` (run via
+`pnpm --filter @surfnet/angular fix-helm-imports`, `jiti`) as a codemod to re-apply this
+after every `ng g @spartan-ng/cli:ui <component>` run, since the CLI always writes the
+alias form.
+
+**Rationale.** No supported config exists to make `ng-packagr` inline the alias for a
+single-entry-point library — not `components.json`'s `importAlias`, not `ng-package.json`.
+Moving to per-component secondary entry points (matching how Spartan's own `@spartan-ng/helm`
+package ships subpath exports) would fix it too, but is a much larger structural change;
+relative imports are the minimal fix within the current single-entry-point architecture.
+
+**Consequences.** The `angular.md` add-component playbook's "don't rewrite to relative
+imports" guidance was reversed — see the **Notes** section there. Run
+`fix-helm-imports` after every future `ng g` run and verify with
+`grep -r "@spartan-ng/helm" packages/angular/dist` (should be empty) before publishing.

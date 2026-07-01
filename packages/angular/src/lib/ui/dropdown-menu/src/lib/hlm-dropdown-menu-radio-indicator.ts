@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCircle } from '@ng-icons/phosphor-icons/regular';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 
 @Component({
   selector: 'hlm-dropdown-menu-radio-indicator',

@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmSidebarGroup],hlm-sidebar-group',

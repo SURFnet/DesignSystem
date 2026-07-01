@@ -1,5 +1,5 @@
 import { Directive, input } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 import { HlmCardConfig, injectHlmCardConfig } from './hlm-card.token';
 
 @Directive({
