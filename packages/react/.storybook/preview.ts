@@ -24,5 +24,13 @@ export default {
     // `args` param) is treated as a non-args story, so Storybook prints the whole
     // story object instead of the JSX. See @storybook/react's `skipJsxRender`.
     docs: { source: { type: 'dynamic' } },
+    // Must be a literal (Storybook reads it via static analysis, not
+    // execution). Keep in sync with packages/angular/.storybook/preview.ts.
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: ['Foundations', 'Components'],
+      },
+    },
   },
 };

@@ -12,6 +12,10 @@ export type {
 
 // Shared preview parameters so every framework's Storybook renders stories the
 // same way.
+//
+// `options.storySort` isn't here: Storybook reads it via static analysis of
+// each preview.ts, not by executing this module, so it must be a literal in
+// every preview.ts instead (see those files for the actual value).
 export const sharedParameters = {
   layout: 'centered',
   controls: {
