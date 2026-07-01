@@ -24,5 +24,15 @@ export default {
     // `args` param) is treated as a non-args story, so Storybook prints the whole
     // story object instead of the JSX. See @storybook/react's `skipJsxRender`.
     docs: { source: { type: 'dynamic' } },
+    // Must be a literal here (not spread from @surfnet/storybook-config) —
+    // Storybook's index generator reads `options.storySort` via static AST
+    // analysis of this file, it never executes the module. Keep in sync with
+    // packages/angular/.storybook/preview.ts.
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: ['Foundations', 'Components'],
+      },
+    },
   },
 };
