@@ -8,6 +8,10 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    # The a11y step writes a PR comment.
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -37,3 +41,34 @@ jobs:
       - run: pnpm lint
 
       - run: pnpm build
+
+      # Scoped to @surfnet/storybook-config, which pins playwright, so both
+      # framework runs share one browser.
+      - name: Install Playwright Chromium
+        run: pnpm --filter @surfnet/storybook-config exec playwright install --with-deps chromium
+
+      # Report-only for now; flip to blocking by removing `continue-on-error`.
+      - name: Accessibility audit (WCAG 2.1 AA)
+        continue-on-error: true
+        run: pnpm test:a11y
+
+      - name: Upload a11y reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-reports
+          path: packages/*/.a11y-report/**
+          if-no-files-found: ignore
+
+      # Summarise the JSON reports into .a11y-report/comment.md.
+      - name: Summarise a11y findings
+        if: always()
+        run: pnpm a11y:comment
+
+      # One sticky comment, updated in place.
+      - name: Comment a11y findings on PR
+        if: always() && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: a11y-audit
+          path: .a11y-report/comment.md

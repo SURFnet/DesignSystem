@@ -10,6 +10,9 @@ node_modules
 dist
 storybook-static
 
+# accessibility audit reports
+.a11y-report
+
 # turbo
 .turbo
 
