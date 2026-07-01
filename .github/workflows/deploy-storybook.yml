@@ -1,0 +1,79 @@
+name: Deploy Storybooks
+
+# Builds both packages' Storybooks and publishes them to GitHub Pages under
+# /react/ and /angular/ on the same site (Pages only supports one deployment
+# per repo, so both live side by side rather than as separate sites).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - run: pnpm install --frozen-lockfile
+
+      # Builds both storybook-static outputs; turbo resolves ^build deps
+      # (@surfnet/tokens, @surfnet/contracts) automatically.
+      - run: pnpm build-storybook
+
+      - name: Assemble Pages site
+        run: |
+          mkdir -p site/react site/angular
+          cp -r packages/react/storybook-static/. site/react/
+          cp -r packages/angular/storybook-static/. site/angular/
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <title>SURF Design System — Storybooks</title>
+            </head>
+            <body>
+              <ul>
+                <li><a href="react/">React Storybook</a></li>
+                <li><a href="angular/">Angular Storybook</a></li>
+              </ul>
+            </body>
+          </html>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
