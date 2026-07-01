@@ -1,3 +1,160 @@
-<div class="grid min-h-screen place-items-center">
-  <button hlmBtn>Hello from @surfnet/angular</button>
+<div class="min-h-screen font-sans">
+  <div hlmSidebarWrapper class="min-w-screen">
+    <hlm-sidebar>
+      <div hlmSidebarHeader>
+        <div hlmSidebarMenu>
+          <div hlmSidebarMenuItem class="flex flex-row">
+            <div class="flex-initial flex w-[32px] h-[32px] m-auto bg-black rounded-lg">
+              <ng-icon name="phosphorSubtractSquare" class="m-auto" color="white" />
+            </div>
+            <div class="grow flex flex-col ml-2">
+              <span class="text-sm font-semibold">SURF Access</span>
+              <span class="text-xs">v1.0.1</span>
+            </div>
+            <div class="flex-initial flex">
+              <ng-icon name="phosphorCaretUpDown" class="m-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div hlmSidebarContent>
+        <div hlmSidebarGroup>
+          <div hlmSidebarGroupContent>
+            <ul hlmSidebarMenu>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Home</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hlm-sidebar-separator></hlm-sidebar-separator>
+        <div hlmSidebarGroup>
+          <div hlmSidebarGroupContent>
+            <ul hlmSidebarMenu>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Our apps</span>
+                </button>
+              </li>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Enabled apps</span>
+                </button>
+              </li>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton isActive="true">
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Browse apps</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hlm-sidebar-separator></hlm-sidebar-separator>
+        <div hlmSidebarGroup>
+          <div hlmSidebarGroupContent>
+            <ul hlmSidebarMenu>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Roles</span>
+                </button>
+              </li>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Collaborative groups</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hlm-sidebar-separator></hlm-sidebar-separator>
+        <div hlmSidebarGroup>
+          <div hlmSidebarGroupContent>
+            <ul hlmSidebarMenu>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>My organisation</span>
+                </button>
+              </li>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Users</span>
+                </button>
+              </li>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Policies</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hlm-sidebar-separator></hlm-sidebar-separator>
+        <div hlmSidebarGroup>
+          <div hlmSidebarGroupContent>
+            <ul hlmSidebarMenu>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton disabled>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>SURF Service desk</span>
+                </button>
+              </li>
+              <li hlmSidebarMenuItem>
+                <button hlmSidebarMenuButton disabled>
+                  <ng-icon name="phosphorTerminalWindow" />
+                  <span>Give us feedback</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div hlmSidebarFooter>
+        <div class="flex flex-row">
+          <div class="flex-initial flex w-[32px] h-[32px] m-auto bg-black rounded-lg">
+            <ng-icon name="phosphorSubtractSquare" class="m-auto" color="white" />
+          </div>
+          <div class="grow flex flex-col ml-2">
+            <span class="text-sm font-semibold">Freek Vonk</span>
+            <span class="text-xs">Universiteit Leiden</span>
+          </div>
+          <div class="flex-initial flex">
+            <ng-icon name="phosphorCaretUpDown" class="m-auto" />
+          </div>
+        </div>
+      </div>
+    </hlm-sidebar>
+    <div hlmSidebarInset class="p-6 w-full">
+      <nav hlmBreadcrumb>
+        <ol hlmBreadcrumbList class="text-base">
+          <li hlmBreadcrumbItem>
+            <a hlmBreadcrumbLink link="/home">Home</a>
+          </li>
+          <li hlmBreadcrumbSeparator></li>
+          <li hlmBreadcrumbItem>
+            <a hlmBreadcrumbLink link="/components">Settings</a>
+          </li>
+          <li hlmBreadcrumbSeparator></li>
+          <li hlmBreadcrumbItem>
+            <span hlmBreadcrumbPage>Profile details</span>
+          </li>
+        </ol>
+      </nav>
+      <h1 class="mt-4 text-3xl font-semibold leading-normal">Browse apps</h1>
+      <p class="mt-2 text-lg font-normal leading-normal text-gray-500">
+        Manage access to the apps that the Dummy IdP is connected to.
+      </p>
+      <hlm-separator class="my-6"></hlm-separator>
+    </div>
+  </div>
 </div>
