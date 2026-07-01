@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnAvatarFallback } from '@spartan-ng/brain/avatar';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmAvatarFallback]',

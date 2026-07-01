@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmButton } from '../../../button/src';
 import { type Table } from '@tanstack/angular-table';
 
 /**

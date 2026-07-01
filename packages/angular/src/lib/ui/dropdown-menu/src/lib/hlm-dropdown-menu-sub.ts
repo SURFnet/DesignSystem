@@ -1,7 +1,7 @@
 import { CdkMenu } from '@angular/cdk/menu';
 import { Directive, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmDropdownMenuSub],hlm-dropdown-menu-sub',

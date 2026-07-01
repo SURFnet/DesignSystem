@@ -13,9 +13,9 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { classes } from '@spartan-ng/helm/utils';
+import { HlmButton } from '../../../button/src';
+import { HlmIconImports } from '../../../icon/src';
+import { classes } from '../../../utils/src';
 import { HlmSheetClose } from './hlm-sheet-close';
 
 @Component({

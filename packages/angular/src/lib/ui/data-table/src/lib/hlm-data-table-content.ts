@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { HlmTableImports } from '@spartan-ng/helm/table';
+import { HlmTableImports } from '../../../table/src';
 import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angular-table';
 
 /**

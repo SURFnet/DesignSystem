@@ -163,6 +163,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: 4.3.1
         version: 4.3.1
+      jiti:
+        specifier: 2.7.0
+        version: 2.7.0
       ng-packagr:
         specifier: 22.0.0
         version: 22.0.0(@angular/compiler-cli@22.0.1(@angular/compiler@22.0.1)(typescript@6.0.3))(tailwindcss@4.3.1)(tslib@2.8.1)(typescript@6.0.3)

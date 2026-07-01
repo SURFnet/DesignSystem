@@ -1,6 +1,6 @@
 import { Directive, input, signal } from '@angular/core';
 import { BrnButton } from '@spartan-ng/brain/button';
-import { classes } from '@spartan-ng/helm/utils';
+import { classes } from '../../../utils/src';
 import type { ButtonSizeName, ButtonVariantName } from '@surfnet/contracts';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';

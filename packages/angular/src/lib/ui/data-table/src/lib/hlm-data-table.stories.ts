@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorArrowsDownUp, phosphorDotsThreeVertical } from '@ng-icons/phosphor-icons/regular';
-import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
-import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmButton, HlmButtonImports } from '../../../button/src';
+import { HlmCheckbox } from '../../../checkbox/src';
+import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
+import { HlmInput } from '../../../input/src';
 import { type Meta, type StoryObj } from '@storybook/angular';
 import { dataTableContract } from '@surfnet/contracts';
 import {
