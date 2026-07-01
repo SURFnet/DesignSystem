@@ -49,7 +49,7 @@
   },
   "accent": {
     "$type": "color",
-    "$value": "rgba(41, 37, 36, 1)"
+    "$value": "rgba(159, 74, 26, 1)"
   },
   "accent-foreground": {
     "$type": "color",
@@ -353,31 +353,31 @@
   },
   "text-xs-font-size": {
     "$type": "dimension",
-    "$value": "0.75rem"
+    "$value": "0.875rem"
   },
   "text-xs-line-height": {
     "$type": "dimension",
-    "$value": "1rem"
+    "$value": "1.25rem"
   },
   "text-sm-font-size": {
     "$type": "dimension",
-    "$value": "0.875rem"
+    "$value": "1rem"
   },
   "text-sm-line-height": {
     "$type": "dimension",
-    "$value": "1.25rem"
+    "$value": "1.5rem"
   },
   "text-base-font-size": {
     "$type": "dimension",
-    "$value": "1rem"
+    "$value": "1.125rem"
   },
   "text-base-line-height": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.75rem"
   },
   "text-lg-font-size": {
     "$type": "dimension",
-    "$value": "1.125rem"
+    "$value": "1.25rem"
   },
   "text-lg-line-height": {
     "$type": "dimension",
@@ -385,75 +385,75 @@
   },
   "text-xl-font-size": {
     "$type": "dimension",
-    "$value": "1.25rem"
+    "$value": "1.5rem"
   },
   "text-xl-line-height": {
     "$type": "dimension",
-    "$value": "1.75rem"
+    "$value": "2rem"
   },
   "text-2xl-font-size": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.875rem"
   },
   "text-2xl-line-height": {
     "$type": "dimension",
-    "$value": "2rem"
+    "$value": "2.25rem"
   },
   "text-3xl-font-size": {
     "$type": "dimension",
-    "$value": "1.875rem"
+    "$value": "2.25rem"
   },
   "text-3xl-line-height": {
     "$type": "dimension",
-    "$value": "2.25rem"
+    "$value": "2.5rem"
   },
   "text-4xl-font-size": {
     "$type": "dimension",
-    "$value": "2.25rem"
+    "$value": "3rem"
   },
   "text-4xl-line-height": {
     "$type": "dimension",
-    "$value": "2.5rem"
+    "$value": "3rem"
   },
   "text-5xl-font-size": {
     "$type": "dimension",
-    "$value": "3rem"
+    "$value": "3.75rem"
   },
   "text-5xl-line-height": {
     "$type": "dimension",
-    "$value": "3rem"
+    "$value": "3.75rem"
   },
   "text-6xl-font-size": {
     "$type": "dimension",
-    "$value": "3.75rem"
+    "$value": "4.5rem"
   },
   "text-6xl-line-height": {
     "$type": "dimension",
-    "$value": "3.75rem"
+    "$value": "4.5rem"
   },
   "text-7xl-font-size": {
     "$type": "dimension",
-    "$value": "4.5rem"
+    "$value": "6rem"
   },
   "text-7xl-line-height": {
     "$type": "dimension",
-    "$value": "4.5rem"
+    "$value": "6rem"
   },
   "text-8xl-font-size": {
     "$type": "dimension",
-    "$value": "6rem"
+    "$value": "8rem"
   },
   "text-8xl-line-height": {
     "$type": "dimension",
-    "$value": "6rem"
+    "$value": "8rem"
   },
   "text-9xl-font-size": {
     "$type": "dimension",
-    "$value": "8rem"
+    "$value": "10rem"
   },
   "text-9xl-line-height": {
     "$type": "dimension",
-    "$value": "8rem"
+    "$value": "10rem"
   },
   "container-2xs": {
     "$type": "dimension",
