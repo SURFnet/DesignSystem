@@ -59,6 +59,12 @@ importers:
       '@angular/router':
         specifier: 22.0.2
         version: 22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
+      '@ng-icons/core':
+        specifier: ^33.0.0
+        version: 33.3.0(@angular-devkit/schematics@22.0.3(chokidar@5.0.0))(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(@schematics/angular@22.0.3(chokidar@5.0.0))(rxjs@7.8.2)
+      '@ng-icons/phosphor-icons':
+        specifier: '>=32.0.0 <34.0.0'
+        version: 33.3.0
       '@spartan-ng/brain':
         specifier: ^0.0.1-alpha.720
         version: 0.0.1-alpha.720(469bb1258e2d2005fc9db5b694bb62ca)
