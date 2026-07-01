@@ -1,6 +1,6 @@
-// Inlined as a string (rather than an asset import) so it works identically
-// under both the Vite and webpack manager builds without extra loader config.
-const LOGO_SVG = `<svg width="236px" height="168px" viewBox="0 0 236 168" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+// Inlined as a string so it works under both the Vite and webpack manager
+// builds without extra loader config. Sized down from the 236x168 source.
+export const LOGO_SVG = `<svg width="30" height="21" viewBox="0 0 236 168" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="flex-shrink: 0;">
     <title>SURF</title>
     <g id="Frame-Copy" stroke="none" fill="none" fill-rule="evenodd" stroke-width="1">
         <g id="Laag_1" transform="translate(30, 30)">
@@ -9,5 +9,3 @@ const LOGO_SVG = `<svg width="236px" height="168px" viewBox="0 0 236 168" versio
         </g>
     </g>
 </svg>`;
-
-export const LOGO_DATA_URI = `data:image/svg+xml,${encodeURIComponent(LOGO_SVG)}`;

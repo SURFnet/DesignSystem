@@ -16,10 +16,8 @@ export default {
   decorators: [frameworkSwitcher('angular'), themeSwitcher()],
   parameters: {
     ...sharedParameters,
-    // Must be a literal here (not spread from @surfnet/storybook-config) —
-    // Storybook's index generator reads `options.storySort` via static AST
-    // analysis of this file, it never executes the module. Keep in sync with
-    // packages/react/.storybook/preview.ts.
+    // Must be a literal (Storybook reads it via static analysis, not
+    // execution). Keep in sync with packages/react/.storybook/preview.ts.
     options: {
       storySort: {
         method: 'alphabetical',
