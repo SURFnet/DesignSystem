@@ -2,7 +2,7 @@ import { type NumberInput } from '@angular/cdk/coercion';
 import { CdkMenu } from '@angular/cdk/menu';
 import { Directive, inject, input, numberAttribute, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmDropdownMenu],hlm-dropdown-menu',

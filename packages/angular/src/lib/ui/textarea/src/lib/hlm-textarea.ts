@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnTextarea } from '@spartan-ng/brain/textarea';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmTextarea]',

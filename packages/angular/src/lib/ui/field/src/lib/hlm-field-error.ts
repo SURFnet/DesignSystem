@@ -11,7 +11,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { BrnField, BrnFieldA11yService } from '@spartan-ng/brain/field';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Component({
   selector: 'hlm-field-error',

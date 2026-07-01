@@ -17,9 +17,9 @@ import { phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { BrnCheckbox } from '@spartan-ng/brain/checkbox';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import { hlm } from '../../../utils/src/lib/hlm';
+import { HlmIcon } from '../../../icon/src';
+import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
-import { HlmIcon } from '../../../icon/src/lib/hlm-icon';
 
 export const HLM_CHECKBOX_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,

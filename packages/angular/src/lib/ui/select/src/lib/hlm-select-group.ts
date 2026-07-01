@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnSelectGroup } from '@spartan-ng/brain/select';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmSelectGroup],hlm-select-group',

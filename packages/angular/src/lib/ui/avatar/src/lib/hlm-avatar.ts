@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { BrnAvatar } from '@spartan-ng/brain/avatar';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 import type { AvatarSizeName } from '@surfnet/contracts';
 
 @Component({

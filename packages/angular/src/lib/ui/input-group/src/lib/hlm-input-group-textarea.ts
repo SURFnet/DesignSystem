@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
-import { HlmTextarea } from '../../../textarea/src/lib/hlm-textarea';
+import { HlmTextarea } from '../../../textarea/src';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: 'textarea[hlmInputGroupTextarea]',

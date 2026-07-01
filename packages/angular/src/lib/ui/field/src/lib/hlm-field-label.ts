@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
-import { HlmLabel } from '../../../label/src/lib/hlm-label';
+import { HlmLabel } from '../../../label/src';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmFieldLabel],hlm-field-label',

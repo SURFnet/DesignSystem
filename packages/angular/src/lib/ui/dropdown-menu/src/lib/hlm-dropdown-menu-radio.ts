@@ -1,7 +1,7 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItemRadio } from '@angular/cdk/menu';
 import { Directive, booleanAttribute, inject, input } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmDropdownMenuRadio]',

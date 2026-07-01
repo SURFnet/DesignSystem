@@ -1,6 +1,6 @@
 import { Directive, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmBreadcrumbLink]',

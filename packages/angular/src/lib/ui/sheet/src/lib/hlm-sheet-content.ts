@@ -13,10 +13,10 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
-import { classes } from '../../../utils/src/lib/hlm';
+import { HlmButton } from '../../../button/src';
+import { HlmIconImports } from '../../../icon/src';
+import { classes } from '../../../utils/src';
 import { HlmSheetClose } from './hlm-sheet-close';
-import { HlmButton } from '../../../button/src/lib/hlm-button';
-import { HlmIconImports } from '../../../icon/src/index';
 
 @Component({
   selector: 'hlm-sheet-content',

@@ -63,11 +63,15 @@ pnpm format           # format everything with Prettier
 
 # Storybook (run per package)
 pnpm --filter @surfnet/react storybook     # http://localhost:6006
-pnpm --filter @surfnet/angular storybook   # http://localhost:6006
+pnpm --filter @surfnet/angular storybook   # http://localhost:6007
 ```
 
 Each component ships a Storybook story covering its full surface (variants, sizes,
-states). Start there to see what's available.
+states). Start there to see what's available. Both Storybooks are also deployed
+to GitHub Pages on every push to `main`:
+
+- **React** — https://surfnet.github.io/DesignSystem/react/
+- **Angular** — https://surfnet.github.io/DesignSystem/angular/
 
 ## Demo app
 

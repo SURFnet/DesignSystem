@@ -1,8 +1,7 @@
 import { Directive, input } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
+import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
+import { classes } from '../../../utils/src';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { HlmButton } from '../../../button/src/lib/hlm-button';
-import { provideBrnButtonConfig } from '../../../button/src/lib/hlm-button.token';
 
 const inputGroupAddonVariants = cva('gap-2 text-sm flex items-center shadow-none', {
   variants: {

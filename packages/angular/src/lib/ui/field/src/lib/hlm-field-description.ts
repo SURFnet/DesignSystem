@@ -1,6 +1,6 @@
 import { Directive, effect, EffectRef, inject, input, OnDestroy } from '@angular/core';
 import { BrnFieldA11yService } from '@spartan-ng/brain/field';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmFieldDescription],hlm-field-description',

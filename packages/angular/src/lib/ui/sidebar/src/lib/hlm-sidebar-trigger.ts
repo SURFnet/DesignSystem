@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorSidebarSimple } from '@ng-icons/phosphor-icons/regular';
+import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
 import { HlmSidebarService } from './hlm-sidebar.service';
-import { provideBrnButtonConfig } from '../../../button/src/lib/hlm-button.token';
-import { HlmButton } from '../../../button/src/lib/hlm-button';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretDown } from '@ng-icons/phosphor-icons/regular';
 import { BrnSelectScrollDown } from '@spartan-ng/brain/select';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Component({
   selector: 'hlm-select-scroll-down',

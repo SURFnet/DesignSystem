@@ -1,5 +1,5 @@
 import { Directive, input } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: 'legend[hlmFieldLegend]',

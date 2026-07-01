@@ -32,6 +32,9 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
    to `tsconfig.json`. The schematic is interactive unless `components.json` already
    exists (it does) — pass `--defaults` for non-interactive runs.
 
+   Immediately after generating, run `pnpm --filter @surfnet/angular fix-helm-imports` —
+   see the note below on why the alias must not survive into the vendored files.
+
 3. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
    from `@surfnet/contracts` and wire them in. Two styles, by how the helm code models the
    axis:
@@ -116,9 +119,17 @@ pnpm format
 
 ## Notes
 
-- Helm files import each other through the `@spartan-ng/helm/*` alias, which the tsconfig
-  paths resolve to local source; `ng-packagr` inlines them. Don't rewrite these to
-  relative imports — keeping the alias lets future `ng g` runs work unchanged.
+- The Spartan CLI always vendors cross-component imports through the `@spartan-ng/helm/*`
+  alias. `@spartan-ng/helm` isn't a real npm package — the alias only resolves when a
+  consuming *app*'s own bundler reads the tsconfig `paths` mapping at build time.
+  `@surfnet/angular` instead builds itself into a redistributable package via `ng-packagr`,
+  which does not consult tsconfig `paths`: it leaves the alias as an unresolved external
+  import in the published bundle (and can leave the real symbol duplicated wherever it's
+  also reached via a relative import elsewhere). Run
+  `pnpm --filter @surfnet/angular fix-helm-imports` (`packages/angular/scripts/rewrite-helm-imports.ts`)
+  after every `ng g` to rewrite the new alias imports to relative ones — verify with
+  `pnpm --filter @surfnet/angular build` and confirm `dist` has no `@spartan-ng/helm` left
+  (`grep -r "@spartan-ng/helm" packages/angular/dist`).
 - The library has no global stylesheet in its build output; the theme tokens in
   `src/styles.css` are loaded by Storybook (via the `styles` option) and are meant to be
   imported by consuming apps.

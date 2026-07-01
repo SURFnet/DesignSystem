@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
-import { HlmInput } from '../../../input/src/lib/hlm-input';
+import { HlmInput } from '../../../input/src';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: 'input[hlmInputGroupInput]',

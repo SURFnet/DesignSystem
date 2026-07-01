@@ -1,6 +1,6 @@
 import { Directive, inject } from '@angular/core';
 import { BrnAvatarImage } from '@spartan-ng/brain/avatar';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: 'img[hlmAvatarImage]',

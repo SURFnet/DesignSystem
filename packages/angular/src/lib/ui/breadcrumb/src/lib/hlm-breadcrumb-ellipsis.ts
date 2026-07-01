@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorDotsThree } from '@ng-icons/phosphor-icons/regular';
-import { hlm } from '../../../utils/src/lib/hlm';
+import { HlmIcon } from '../../../icon/src';
+import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
-import { HlmIcon } from '../../../icon/src/lib/hlm-icon';
 
 @Component({
   selector: 'hlm-breadcrumb-ellipsis',

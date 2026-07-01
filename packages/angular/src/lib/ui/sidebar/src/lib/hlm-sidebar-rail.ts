@@ -1,5 +1,5 @@
 import { Directive, inject, input } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
+import { classes } from '../../../utils/src';
 import { HlmSidebarService } from './hlm-sidebar.service';
 
 @Directive({

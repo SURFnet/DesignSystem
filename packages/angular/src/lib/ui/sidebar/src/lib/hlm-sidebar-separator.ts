@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
-import { classes } from '../../../utils/src/lib/hlm';
-import { HlmSeparator } from '../../../separator/src/lib/hlm-separator';
+import { HlmSeparator } from '../../../separator/src';
+import { classes } from '../../../utils/src';
 
 @Directive({
   selector: '[hlmSidebarSeparator],hlm-sidebar-separator',
