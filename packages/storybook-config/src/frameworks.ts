@@ -5,14 +5,31 @@ export type Framework = 'react' | 'angular';
 export interface FrameworkTarget {
   id: Framework;
   title: string;
-  url: string;
+  localPort: number;
 }
 
 // The Storybook deployments to switch between, keyed by framework id.
 export const FRAMEWORKS: FrameworkTarget[] = [
-  { id: 'react', title: 'React', url: 'http://localhost:6006' },
-  { id: 'angular', title: 'Angular', url: 'http://localhost:6007' },
+  { id: 'react', title: 'React', localPort: 6006 },
+  { id: 'angular', title: 'Angular', localPort: 6007 },
 ];
+
+// In dev, each Storybook runs on its own localhost port. Once deployed (e.g.
+// GitHub Pages, see .github/workflows/deploy-storybook.yml), both Storybooks
+// share one origin and live side by side under a `/<framework>/` path
+// instead, so the peer's base URL has to be derived from the current one
+// rather than hardcoded.
+function resolveFrameworkBaseUrl(target: FrameworkTarget, current: Framework): string {
+  const { hostname, protocol, origin, pathname } = window.location;
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return `${protocol}//${hostname}:${target.localPort}`;
+  }
+
+  const segment = `/${current}/`;
+  const index = pathname.indexOf(segment);
+  const prefix = index >= 0 ? pathname.slice(0, index) : '';
+  return `${origin}${prefix}/${target.id}`;
+}
 
 // The toolbar `select` that lets you jump to another framework's Storybook.
 export const frameworkGlobalTypes = {
@@ -53,9 +70,10 @@ export function frameworkSwitcher(current: Framework) {
         .filter(Boolean)
         .join('&');
 
-      // Navigating the top window across ports is allowed (only *reading* a
-      // cross-origin location is blocked).
-      (window.top || window).location.href = `${peer.url}/${query ? `?${query}` : ''}`;
+      // Navigating the top window across ports/paths is allowed (only
+      // *reading* a cross-origin location is blocked).
+      const base = resolveFrameworkBaseUrl(peer, current);
+      (window.top || window).location.href = `${base}/${query ? `?${query}` : ''}`;
     }, [framework]);
 
     return StoryFn();
