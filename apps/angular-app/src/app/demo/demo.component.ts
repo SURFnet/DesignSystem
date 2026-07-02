@@ -235,13 +235,13 @@ const columns: ColumnDef<App, unknown>[] = [
   ],
   providers: [
     provideIcons({
+      phosphorCaretUpDown,
       phosphorDotsThree,
       phosphorImage,
       phosphorMagnifyingGlass,
       phosphorPlus,
       phosphorSubtractSquare,
       phosphorTerminalWindow,
-      phosphorCaretUpDown,
     }),
   ],
 })
