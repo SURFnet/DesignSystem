@@ -134,7 +134,7 @@
         </div>
       </div>
     </hlm-sidebar>
-    <div hlmSidebarInset class="p-6 w-full">
+    <div hlmSidebarInset class="p-4 w-full">
       <nav hlmBreadcrumb>
         <ol hlmBreadcrumbList class="text-base">
           <li hlmBreadcrumbItem>
@@ -154,7 +154,39 @@
       <p class="mt-2 text-lg font-normal leading-normal text-gray-500">
         Manage access to the apps that the Dummy IdP is connected to.
       </p>
-      <hlm-separator class="my-6"></hlm-separator>
+      <hlm-separator class="mt-6 mb-2"></hlm-separator>
+      <div hlmDataTableToolbar>
+        <div hlmInputGroup class="max-w-xs">
+          <div hlmInputGroupAddon>
+            <ng-icon name="phosphorMagnifyingGlass" />
+            <input
+              hlmInputGroupInput
+              placeholder="Search apps…"
+              [value]="appFilter()"
+              (input)="setAppFilter($event)"
+            />
+          </div>
+        </div>
+
+        <button hlmBtn variant="outline" class="ml-auto" [hlmDropdownMenuTrigger]="columnsMenu">
+          Categorie: All
+        </button>
+        <ng-template #columnsMenu>
+          <hlm-dropdown-menu class="w-40">
+            <button hlmDropdownMenuCheckbox>
+              Categorie: All
+              <hlm-dropdown-menu-checkbox-indicator />
+            </button>
+          </hlm-dropdown-menu>
+        </ng-template>
+        <button hlmBtn class="ml-3 text-black bg-gray-100">
+          <ng-icon name="phosphorPlus" />
+          Create new application
+        </button>
+      </div>
+      <hlm-data-table-content [table]="table" [columns]="columns" />
+      <!-- <hlm-data-table-pagination [table]="table" /> -->
+      <button hlmBtn class="mt-3 text-black bg-gray-100">Load more apps…</button>
     </div>
   </div>
 </div>
