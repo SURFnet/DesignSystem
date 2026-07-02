@@ -71,6 +71,9 @@ importers:
       '@surfnet/angular':
         specifier: workspace:*
         version: link:../../packages/angular
+      '@tanstack/angular-table':
+        specifier: ^8.21.4
+        version: 8.21.4(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))
       postcss:
         specifier: ^8.5.15
         version: 8.5.15
