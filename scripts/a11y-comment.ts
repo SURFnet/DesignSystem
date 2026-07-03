@@ -112,7 +112,7 @@ for (const fw of frameworks) {
       for (const v of combo.violations ?? []) {
         const ref = WCAG_REF[v.id] ? `${v.id} (${WCAG_REF[v.id]})` : v.id;
         rows.push({
-          framework: `@surfnet/${fw.name}`,
+          framework: `@surfnet/curve-${fw.name}`,
           component,
           variation,
           theme: combo.theme,
@@ -145,7 +145,7 @@ function buildBody(): string {
   }
 
   if (rows.length === 0) {
-    const fwList = [...frameworksWithReports].map((f) => `\`@surfnet/${f}\``).join(', ');
+    const fwList = [...frameworksWithReports].map((f) => `\`@surfnet/curve-${f}\``).join(', ');
     return [
       HEADER,
       '',
