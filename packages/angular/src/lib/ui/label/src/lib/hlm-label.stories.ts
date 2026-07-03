@@ -1,5 +1,5 @@
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { labelContract } from '@surfnet/contracts';
+import { labelContract } from '@surfnet/curve-contracts';
 import { HlmLabel } from '..';
 import { HlmField, HlmInput } from '../../../../../public-api';
 

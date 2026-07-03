@@ -1,4 +1,4 @@
-# SURF design system — frictie & voorstellen
+# Curve — frictie & voorstellen
 
 **Doel:** Waar shadcn code + Figma kit tegenaan liepen, wat we aanpassen en waarom.  
 **Status:** Voorgesteld · **In detail:** [beslissingen.md](./beslissingen.md)

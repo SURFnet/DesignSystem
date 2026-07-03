@@ -2,7 +2,7 @@
 
 import { Button as ButtonPrimitive } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { ButtonSizeName, ButtonVariantName } from '@surfnet/contracts';
+import type { ButtonSizeName, ButtonVariantName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { HlmTextarea, HlmTextareaImports } from '..';
-import { textareaContract } from '@surfnet/contracts';
+import { textareaContract } from '@surfnet/curve-contracts';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<HlmTextarea> = {

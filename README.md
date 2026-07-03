@@ -1,37 +1,37 @@
-# surf-design-system
+# Curve
 
-The SURF design system: framework-native component packages in a single
+Curve is SURF's design system: framework-native component packages in a single
 Turborepo + pnpm monorepo. Each package builds on the "you own the code" UI
 library of its ecosystem.
 
-- **`@surfnet/react`** — React components built on [shadcn/ui](https://ui.shadcn.com)
+- **`@surfnet/curve-react`** — React components built on [shadcn/ui](https://ui.shadcn.com)
   with [Base UI](https://base-ui.com) primitives, bundled with Vite.
-- **`@surfnet/angular`** — Angular components built on [Spartan](https://spartan.ng)
+- **`@surfnet/curve-angular`** — Angular components built on [Spartan](https://spartan.ng)
   (`brain` primitives + `helm` styles), built with `ng-packagr`.
-- **`@surfnet/tokens`** — design tokens: DTCG JSON source built with Style Dictionary
+- **`@surfnet/curve-tokens`** — design tokens: DTCG JSON source built with Style Dictionary
   into `tokens.css` (`:root`/`.dark` custom properties) and a typed TS map. Published;
   both component packages import this CSS.
-- **`@surfnet/contracts`** — per-component `as const` specs (variant names, size names,
+- **`@surfnet/curve-contracts`** — per-component `as const` specs (variant names, size names,
   defaults, docs) used at build time to enforce cross-framework parity via `satisfies`.
   Private; leaves no trace in published `dist`.
-- **`@surfnet/typescript-config`** — shared base TypeScript configs the packages extend.
+- **`@surfnet/curve-typescript-config`** — shared base TypeScript configs the packages extend.
 
 ## Repository layout
 
 ```
-surf-design-system/
+curve-design-system/
 ├── package.json            # root scripts delegate to Turborepo
 ├── pnpm-workspace.yaml      # workspace = packages/* + apps/*
 ├── turbo.json              # task graph (build, dev, storybook, lint)
 ├── .prettierrc.json        # shared formatting
 ├── packages/
-│   ├── typescript-config/  # @surfnet/typescript-config — base.json + react-library.json
-│   ├── tokens/             # @surfnet/tokens — DTCG JSON -> Style Dictionary -> tokens.css (published)
-│   ├── contracts/          # @surfnet/contracts — component API specs, build-time only (private)
-│   ├── react/              # @surfnet/react — Vite library + Storybook (Vite)
-│   └── angular/            # @surfnet/angular — ng-packagr library + Storybook (webpack)
+│   ├── typescript-config/  # @surfnet/curve-typescript-config — base.json + react-library.json
+│   ├── tokens/             # @surfnet/curve-tokens — DTCG JSON -> Style Dictionary -> tokens.css (published)
+│   ├── contracts/          # @surfnet/curve-contracts — component API specs, build-time only (private)
+│   ├── react/              # @surfnet/curve-react — Vite library + Storybook (Vite)
+│   └── angular/            # @surfnet/curve-angular — ng-packagr library + Storybook (webpack)
 └── apps/
-    └── react-app/          # @surfnet/react-app — demo Next.js app for testing @surfnet/react
+    └── react-app/          # @surfnet/curve-react-app — demo Next.js app for testing @surfnet/curve-react
 ```
 
 ## Architecture
@@ -39,7 +39,7 @@ surf-design-system/
 - **Turborepo** runs tasks across the workspace. `pnpm build` at the root builds
   every package in dependency order (`^build` first) and caches the results.
 - **pnpm workspaces** link the packages locally. Both component packages depend on
-  `@surfnet/typescript-config` via `workspace:*` and extend its configs.
+  `@surfnet/curve-typescript-config` via `workspace:*` and extend its configs.
 - **Storybook builders differ by framework**, by design. React uses the stable Vite
   builder (`@storybook/react-vite`). Angular uses the stable webpack builder
   (`@storybook/angular`), because the official Angular + Vite Storybook framework is
@@ -62,8 +62,8 @@ pnpm lint             # type-check
 pnpm format           # format everything with Prettier
 
 # Storybook (run per package)
-pnpm --filter @surfnet/react storybook     # http://localhost:6006
-pnpm --filter @surfnet/angular storybook   # http://localhost:6007
+pnpm --filter @surfnet/curve-react storybook     # http://localhost:6006
+pnpm --filter @surfnet/curve-angular storybook   # http://localhost:6007
 ```
 
 Each component ships a Storybook story covering its full surface (variants, sizes,
@@ -75,27 +75,27 @@ to GitHub Pages on every push to `main`:
 
 ## Demo app
 
-[`apps/react-app`](apps/react-app) (`@surfnet/react-app`) is a minimal Next.js
-(App Router) **demo app for testing `@surfnet/react` components** as a real
+[`apps/react-app`](apps/react-app) (`@surfnet/curve-react-app`) is a minimal Next.js
+(App Router) **demo app for testing `@surfnet/curve-react` components** as a real
 workspace consumer — a smoke test that the package imports and renders outside
 Storybook.
 
 ```bash
-pnpm build                                # build @surfnet/react first (the app consumes its dist)
-pnpm --filter @surfnet/react-app dev      # http://localhost:3000
+pnpm build                                # build @surfnet/curve-react first (the app consumes its dist)
+pnpm --filter @surfnet/curve-react-app dev      # http://localhost:3000
 ```
 
-It imports the package's compiled stylesheet (`@surfnet/react/styles.css`) in
+It imports the package's compiled stylesheet (`@surfnet/curve-react/styles.css`) in
 [`app/layout.tsx`](apps/react-app/app/layout.tsx) and renders a `Button` in
-[`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/react`
+[`app/page.tsx`](apps/react-app/app/page.tsx). The app lists `@surfnet/curve-react`
 under `transpilePackages` so Next compiles the workspace source. Turborepo wires
-`@surfnet/react-app#build` to depend on `@surfnet/react#build` automatically via `^build`.
+`@surfnet/curve-react-app#build` to depend on `@surfnet/curve-react#build` automatically via `^build`.
 
 The app also runs its **own Tailwind v4** build (`@tailwindcss/postcss` +
 [`app/globals.css`](apps/react-app/app/globals.css)) so you can write Tailwind utilities in
 the app. To avoid a second preflight on top of the package's compiled CSS, `globals.css`
 imports Tailwind granularly (no `preflight.css`) and re-declares the token → color mapping,
-so app utilities like `bg-primary` resolve to the same `@surfnet/tokens` variables.
+so app utilities like `bg-primary` resolve to the same `@surfnet/curve-tokens` variables.
 
 ## Adding a component
 
@@ -249,7 +249,7 @@ Design tokens are defined once in [`packages/tokens/src/tokens.json`](packages/t
 using the [DTCG](https://design-tokens.github.io/community-group/format/) format and built
 with Style Dictionary into `packages/tokens/dist/tokens.css`. Both component packages import
 that CSS file — never hand-edit the `:root` or `.dark` blocks in a framework stylesheet.
-Change the DTCG JSON and rebuild `@surfnet/tokens` instead.
+Change the DTCG JSON and rebuild `@surfnet/curve-tokens` instead.
 
 Each package's stylesheet then adds its own framework-specific wiring on top: Tailwind
 `@theme inline` mappings, the radius scale, and the font stack (Geist for React, system
@@ -279,7 +279,7 @@ file under `.changeset/` — commit it with your code.
   internal tooling). CI does not fail without one, so use judgement.
 - Need a changeset that doesn't bump anything? Run `pnpm changeset` and pick no packages
   (an empty changeset), useful to record that you deliberately skipped a release.
-- Private packages (everything except `@surfnet/tokens` today) are versioned but never
+- Private packages (everything except `@surfnet/curve-tokens` today) are versioned but never
   published — Changesets skips publishing any package marked `"private": true`.
 
 ### How a release happens (automated)

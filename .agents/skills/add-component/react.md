@@ -1,4 +1,4 @@
-# Add a React component (`@surfnet/react`)
+# Add a React component (`@surfnet/curve-react`)
 
 Part of the **add-component** skill — see [`SKILL.md`](SKILL.md) for scope/parity.
 
@@ -17,7 +17,7 @@ Never hand-write a primitive or switch `style` to a Radix value.
 ## Steps
 
 1. **Define the contract first.** Before vendoring, add `<name>Contract` to
-   `@surfnet/contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
+   `@surfnet/curve-contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
    is required for **every** component, including structural primitives that get a
    description-only contract. It settles the axis names before the component is written.
 
@@ -35,13 +35,13 @@ Never hand-write a primitive or switch `style` to a Radix value.
    real write nests correctly.)
 
 3. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
-   from `@surfnet/contracts` and wire them in. There are two wiring styles depending on how
+   from `@surfnet/curve-contracts` and wire them in. There are two wiring styles depending on how
    the vendored component models the axis:
 
    **a. `cva` map → `satisfies Record<…>`** (e.g. `button`, `field`):
 
    ```ts
-   import type { CardVariantName, CardSizeName } from '@surfnet/contracts';
+   import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
 
    const cardVariants = cva('...', {
      variants: {
@@ -63,7 +63,7 @@ Never hand-write a primitive or switch `style` to a Radix value.
    the contract type:
 
    ```ts
-   import type { AvatarSizeName } from '@surfnet/contracts';
+   import type { AvatarSizeName } from '@surfnet/curve-contracts';
 
    function Avatar({ size = 'default', ...props }: AvatarPrimitive.Root.Props & {
      size?: AvatarSizeName;   // was: 'default' | 'sm' | 'lg'
@@ -117,17 +117,17 @@ src/components/ui/card/
 ## Verify
 
 ```bash
-pnpm --filter @surfnet/contracts lint       # contract types still compile
-pnpm --filter @surfnet/react lint           # tsc --noEmit (satisfies check runs here)
-pnpm --filter @surfnet/react build          # vite lib build + d.ts
-pnpm --filter @surfnet/react build-storybook
+pnpm --filter @surfnet/curve-contracts lint       # contract types still compile
+pnpm --filter @surfnet/curve-react lint           # tsc --noEmit (satisfies check runs here)
+pnpm --filter @surfnet/curve-react build          # vite lib build + d.ts
+pnpm --filter @surfnet/curve-react build-storybook
 pnpm format
 ```
 
 ## Definition of done
 
 - Component vendored via the shadcn CLI — never hand-written.
-- A `<name>Contract` entry exists in `@surfnet/contracts` (description-only if the component
+- A `<name>Contract` entry exists in `@surfnet/curve-contracts` (description-only if the component
   has no axis). For every axis, the component is tied to the contract — `cva` maps carry
   `satisfies Record<...>`, inline-union props are typed as the contract's `*Name`; `pnpm
   lint` fails if either side adds or removes a name.
@@ -146,6 +146,6 @@ pnpm format
   See `button.stories.tsx` (`IconSizes`, `WithIcon`) for the established pattern.
 - If the component pulls in sibling shadcn components, they're vendored flat by default;
   apply the same per-directory + barrel treatment to each if you want them nested.
-- The `@surfnet/contracts` import is a `devDependency` only — it must not appear in the
+- The `@surfnet/curve-contracts` import is a `devDependency` only — it must not appear in the
   published `dist`. The `satisfies` annotation is erased by TypeScript at compile time, so
   no import survives into the built output.

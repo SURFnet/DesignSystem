@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { FieldOrientationName } from '@surfnet/contracts';
+import type { FieldOrientationName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';

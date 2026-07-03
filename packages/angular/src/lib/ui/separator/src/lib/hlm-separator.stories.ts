@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
-import { separatorContract } from '@surfnet/contracts';
+import { separatorContract } from '@surfnet/curve-contracts';
 import { HlmSeparator, HlmSeparatorImports } from '..';
 
 const meta: Meta<HlmSeparator> = {
@@ -63,7 +63,7 @@ export const Horizontal: Story = {
   render: () => ({
     template: `
 			<div class="w-72">
-				<p class="text-sm">SURF Design System</p>
+				<p class="text-sm">Curve</p>
 				<hlm-separator orientation="horizontal" class="my-3" /> 
 				<p class="text-sm text-muted-foreground">Components for React and Angular.</p>
 			</div>

@@ -1,7 +1,7 @@
 /**
  * Pulls tokens from the Figma Variables API and writes them as DTCG JSON into
  * packages/tokens/src/ (tokens.json, tokens.dark.json, tokens.<class>[.dark].json
- * per extra theme). JSON only — the @surfnet/tokens build turns these into CSS.
+ * per extra theme). JSON only — the @surfnet/curve-tokens build turns these into CSS.
  * Needs FIGMA_TOKEN + FIGMA_FILE_ID in .env.
  *
  * Usage: pnpm sync:figma [--theme "SURF Blue"]
@@ -347,4 +347,4 @@ for (const { modeId, name } of allThemeModes) {
 }
 
 console.log(`\nSynced to ${outDir}`);
-console.log('Run `pnpm --filter @surfnet/tokens build` to regenerate CSS.');
+console.log('Run `pnpm --filter @surfnet/curve-tokens build` to regenerate CSS.');

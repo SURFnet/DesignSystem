@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { dropdownMenuContract } from '@surfnet/contracts';
+import { dropdownMenuContract } from '@surfnet/curve-contracts';
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';

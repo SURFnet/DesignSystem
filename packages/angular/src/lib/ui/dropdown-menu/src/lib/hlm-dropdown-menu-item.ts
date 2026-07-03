@@ -2,7 +2,7 @@ import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItem } from '@angular/cdk/menu';
 import { booleanAttribute, Directive, HOST_TAG_NAME, inject, input } from '@angular/core';
 import { classes } from '../../../utils/src';
-import type { DropdownMenuItemVariantName } from '@surfnet/contracts';
+import type { DropdownMenuItemVariantName } from '@surfnet/curve-contracts';
 
 @Directive({
   selector: '[hlmDropdownMenuItem],hlm-dropdown-menu-item',

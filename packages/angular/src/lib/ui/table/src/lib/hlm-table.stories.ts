@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/angular';
-import { tableContract } from '@surfnet/contracts';
+import { tableContract } from '@surfnet/curve-contracts';
 import { HlmTable } from './hlm-table';
 import { Component, Input } from '@angular/core';
 import { HlmTableImports } from '..';

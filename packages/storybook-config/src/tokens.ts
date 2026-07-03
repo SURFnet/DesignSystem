@@ -1,4 +1,4 @@
-import { themes, tokenNames } from '@surfnet/tokens';
+import { themes, tokenNames } from '@surfnet/curve-tokens';
 
 // Shared, framework-agnostic data for the "Foundations / Design Tokens" stories.
 // React and Angular both render from these helpers so the two Storybooks stay in
@@ -173,7 +173,7 @@ export function getTypographyScale(): TypeScaleEntry[] {
 
 /**
  * Resolve a token's value for a given theme/mode straight from the token map
- * shipped by `@surfnet/tokens`. The map is fully resolved (every theme/mode holds
+ * shipped by `@surfnet/curve-tokens`. The map is fully resolved (every theme/mode holds
  * all tokens with the cascade already baked in), so this is a plain lookup — no
  * DOM, no `getComputedStyle`. Unknown theme/mode fall back to `default` / `light`.
  */

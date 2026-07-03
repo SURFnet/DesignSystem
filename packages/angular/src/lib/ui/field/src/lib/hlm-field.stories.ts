@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
-import { fieldContract } from '@surfnet/contracts';
+import { fieldContract } from '@surfnet/curve-contracts';
 import { HlmField, HlmFieldImports } from '..';
 import { HlmCheckbox, HlmInputImports } from '../../../../../public-api';
 

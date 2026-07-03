@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fieldContract } from '@surfnet/contracts';
+import { fieldContract } from '@surfnet/curve-contracts';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';

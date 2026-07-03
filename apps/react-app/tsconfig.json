@@ -1,5 +1,5 @@
 {
-  "extends": "@surfnet/typescript-config/base.json",
+  "extends": "@surfnet/curve-typescript-config/base.json",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "target": "esnext",

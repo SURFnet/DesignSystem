@@ -1,6 +1,6 @@
 import { applicationConfig, moduleMetadata } from '@storybook/angular';
 import type { Meta, StoryObj } from '@storybook/angular';
-import { breadcrumbContract } from '@surfnet/contracts';
+import { breadcrumbContract } from '@surfnet/curve-contracts';
 import { HlmBreadcrumb, HlmBreadcrumbImports } from '..';
 import { provideRouter } from '@angular/router';
 import { provideLocationMocks } from '@angular/common/testing';

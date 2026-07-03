@@ -7,7 +7,7 @@ import {
   phosphorUser,
 } from '@ng-icons/phosphor-icons/regular';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
-import { sidebarContract, sidebarMenuButtonContract } from '@surfnet/contracts';
+import { sidebarContract, sidebarMenuButtonContract } from '@surfnet/curve-contracts';
 import { HlmSidebar, HlmSidebarImports } from '..';
 
 const meta: Meta<HlmSidebar> = {

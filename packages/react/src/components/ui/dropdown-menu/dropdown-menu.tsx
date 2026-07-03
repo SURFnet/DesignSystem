@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
-import type { DropdownMenuItemVariantName } from '@surfnet/contracts';
+import type { DropdownMenuItemVariantName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { CaretRightIcon, CheckIcon } from '@phosphor-icons/react';

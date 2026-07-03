@@ -4,7 +4,7 @@ import { phosphorDotsThreeVertical } from '@ng-icons/phosphor-icons/regular';
 import { HlmDropdownMenu, HlmDropdownMenuImports } from '..';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import { HlmButton, HlmButtonImports } from '../../../../../public-api';
-import { dropdownMenuContract } from '@surfnet/contracts';
+import { dropdownMenuContract } from '@surfnet/curve-contracts';
 
 const meta: Meta<HlmDropdownMenu> = {
   title: 'Components/Dropdown Menu',

@@ -1,6 +1,6 @@
-# Decision log — SURF Design System PoC
+# Decision log — Curve PoC
 
-Architecture and tooling decisions for the SURF Design System proof of concept. Each
+Architecture and tooling decisions for the Curve proof of concept. Each
 entry is a lightweight [ADR](https://adr.github.io/) (Architecture Decision Record,
 Michael Nygard style): a dated, status-bearing record of _what_ we chose, _why_, and
 _what follows from it_.
@@ -62,15 +62,15 @@ the replacement.
 **Context.** The design system ships React and Angular component libraries plus shared
 tokens, contracts, and config. These need to version and release together.
 
-**Decision.** One **Turborepo + pnpm** monorepo. Six packages: `@surfnet/react`,
-`@surfnet/angular`, `@surfnet/tokens`, `@surfnet/contracts`, `@surfnet/storybook-config`,
-`@surfnet/typescript-config`. One directory per component.
+**Decision.** One **Turborepo + pnpm** monorepo. Six packages: `@surfnet/curve-react`,
+`@surfnet/curve-angular`, `@surfnet/curve-tokens`, `@surfnet/curve-contracts`, `@surfnet/curve-storybook-config`,
+`@surfnet/curve-typescript-config`. One directory per component.
 
 **Rationale.** Shared tooling, atomic cross-package changes, and a single build graph
 (`turbo`) keep the two frameworks in lockstep without separate release pipelines.
 
 **Consequences.** Turbo wires inter-package build order via `^build`; contributors build
-`@surfnet/tokens` (and `@surfnet/react` before the demo app). See [AGENTS.md](../AGENTS.md).
+`@surfnet/curve-tokens` (and `@surfnet/curve-react` before the demo app). See [AGENTS.md](../AGENTS.md).
 
 ---
 
@@ -79,7 +79,7 @@ tokens, contracts, and config. These need to version and release together.
 **Status:** Accepted · **Date:** 2026-06-30
 
 **Context.** shadcn/ui defaults to Radix primitives. We evaluated Base UI as the
-underlying primitive layer for `@surfnet/react`.
+underlying primitive layer for `@surfnet/curve-react`.
 
 **Decision.** Configure shadcn with **Base UI** primitives — `packages/react/components.json`
 sets `"style": "base-vega"`. **Do not** switch `style` back to a Radix value.
@@ -118,7 +118,7 @@ per-framework icon drift.
 and any consumer.
 
 **Decision.** **DTCG JSON is the only place tokens live** (`packages/tokens/src/tokens*.json`).
-**Style Dictionary** builds it into `tokens.css` plus a typed TS map. `@surfnet/tokens` is
+**Style Dictionary** builds it into `tokens.css` plus a typed TS map. `@surfnet/curve-tokens` is
 published as the **only public package**.
 
 **Rationale.** A single typed source removes hand-edited drift between stylesheets and
@@ -256,7 +256,7 @@ our naming layer sits on top without forking the components.
 **Context.** React and Angular must expose the same variants, sizes, and defaults, but
 have separate codebases that can drift.
 
-**Decision.** `@surfnet/contracts` defines the canonical variant names, size names, and
+**Decision.** `@surfnet/curve-contracts` defines the canonical variant names, size names, and
 defaults as `as const` specs. Each framework enforces them at compile time with
 `satisfies` — a mismatch fails `pnpm lint`. Contracts are **build-time only, never published**.
 
@@ -300,7 +300,7 @@ Storybook is the living docs.
 used for Angular because the Vite builder isn't production-ready there.
 
 **Consequences.** Ports pinned so both run at once (React 6006, Angular 6007). Shared
-config in `@surfnet/storybook-config`. Keep `browserTarget: "angular:build"` and the
+config in `@surfnet/curve-storybook-config`. Keep `browserTarget: "angular:build"` and the
 Angular `.postcssrc.json` (see [AGENTS.md](../AGENTS.md)).
 
 ---
@@ -312,7 +312,7 @@ Angular `.postcssrc.json` (see [AGENTS.md](../AGENTS.md)).
 **Context.** Publishable packages need versioning, changelogs, and an npm release path.
 
 **Decision.** Use **Changesets** for versioning and changelog. Publish to public npm from
-**GitHub Actions**. Only `@surfnet/tokens` is public today.
+**GitHub Actions**. Only `@surfnet/curve-tokens` is public today.
 
 **Rationale.** Changesets ties each change to a semver bump and a consumer-facing
 changelog entry; CI owns version/publish so contributors only commit the changeset file.
@@ -363,7 +363,7 @@ Storybook story (ADR-013).
 **Context.** Components should be validated as a true external consumer, not only in
 Storybook.
 
-**Decision.** A demo **Next.js (App Router)** app consumes `@surfnet/react` via
+**Decision.** A demo **Next.js (App Router)** app consumes `@surfnet/curve-react` via
 `workspace:*`. Richer screens (browse-apps, login) are in progress on a branch.
 
 **Rationale.** Consuming the compiled package (with `transpilePackages` + the published
@@ -382,7 +382,7 @@ not published packages; keep the demo simple. See [AGENTS.md](../AGENTS.md).
 cross-component references through a `@spartan-ng/helm/<name>` tsconfig `paths` alias
 (`packages/angular/components.json` → `importAlias`). That alias isn't a real npm package
 — it only resolves when a consuming **app**'s own bundler reads the tsconfig mapping at
-build time. `@surfnet/angular` instead builds itself into a redistributable package via
+build time. `@surfnet/curve-angular` instead builds itself into a redistributable package via
 `ng-packagr`. `ng-packagr`'s rollup step hardcodes any bare (non-relative) import specifier
 as external unless it matches a registered secondary entry point
 (`node_modules/ng-packagr/.../flatten/rollup.js` → `isExternalDependency`) — it never
@@ -394,7 +394,7 @@ path elsewhere, once left dangling as external).
 **Decision.** Rewrite all vendored cross-component imports from the
 `@spartan-ng/helm/<name>` alias to relative paths. Added
 `packages/angular/scripts/rewrite-helm-imports.ts` (run via
-`pnpm --filter @surfnet/angular fix-helm-imports`, `jiti`) as a codemod to re-apply this
+`pnpm --filter @surfnet/curve-angular fix-helm-imports`, `jiti`) as a codemod to re-apply this
 after every `ng g @spartan-ng/cli:ui <component>` run, since the CLI always writes the
 alias form.
 

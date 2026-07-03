@@ -8,7 +8,7 @@ import {
 } from '@ng-icons/phosphor-icons/regular';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { inputGroupContract } from '@surfnet/contracts';
+import { inputGroupContract } from '@surfnet/curve-contracts';
 import { HlmInputGroup, HlmInputGroupImports } from '..';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 

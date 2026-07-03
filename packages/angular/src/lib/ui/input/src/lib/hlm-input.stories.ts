@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
-import { inputContract } from '@surfnet/contracts';
+import { inputContract } from '@surfnet/curve-contracts';
 import { HlmInput, HlmInputImports } from '..';
 import { HlmButton, HlmLabel } from '../../../../../public-api';
 

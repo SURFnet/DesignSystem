@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { checkboxContract } from '@surfnet/contracts';
+import { checkboxContract } from '@surfnet/curve-contracts';
 
 import { Label } from '@/components/ui/label';
 

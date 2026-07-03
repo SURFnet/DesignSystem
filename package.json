@@ -1,8 +1,8 @@
 {
-  "name": "surf-design-system",
+  "name": "curve",
   "version": "0.0.0",
   "private": true,
-  "description": "SURF design system — React (shadcn/Base UI) and Angular (Spartan) component packages in a Turborepo monorepo.",
+  "description": "Curve — React (shadcn/Base UI) and Angular (Spartan) component packages in a Turborepo monorepo.",
   "packageManager": "pnpm@11.7.0",
   "engines": {
     "node": "^22.0.0 || ^24.0.0"

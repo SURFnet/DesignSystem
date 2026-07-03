@@ -11,7 +11,7 @@ import { phosphorCaretUpDown } from '@ng-icons/phosphor-icons/regular';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { hlm } from '../../../utils/src';
-import type { SelectTriggerSizeName } from '@surfnet/contracts';
+import type { SelectTriggerSizeName } from '@surfnet/curve-contracts';
 import type { ClassValue } from 'clsx';
 
 @Component({

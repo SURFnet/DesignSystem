@@ -4,13 +4,13 @@
  * The Spartan CLI always vendors cross-component references through the
  * `@spartan-ng/helm/<name>` tsconfig path alias. That alias only resolves at
  * build time in a consuming *app* (whose own bundler reads tsconfig `paths`).
- * `@surfnet/angular` instead builds itself into a redistributable package via
+ * `@surfnet/curve-angular` instead builds itself into a redistributable package via
  * ng-packagr, which does not consult tsconfig `paths` and leaves the alias as
  * an unresolved external import in the published bundle. Run this after every
  * `ng g @spartan-ng/cli:ui <component>` to convert the new alias imports to
  * relative ones so ng-packagr inlines them correctly.
  *
- * Usage: pnpm --filter @surfnet/angular fix-helm-imports
+ * Usage: pnpm --filter @surfnet/curve-angular fix-helm-imports
  */
 
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';

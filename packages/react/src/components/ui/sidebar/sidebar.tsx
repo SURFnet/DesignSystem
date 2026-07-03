@@ -4,7 +4,10 @@ import * as React from 'react';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { SidebarMenuButtonSizeName, SidebarMenuButtonVariantName } from '@surfnet/contracts';
+import type {
+  SidebarMenuButtonSizeName,
+  SidebarMenuButtonVariantName,
+} from '@surfnet/curve-contracts';
 
 import { useIsMobile } from '@/components/ui/sidebar/use-mobile';
 import { cn } from '@/lib/utils';

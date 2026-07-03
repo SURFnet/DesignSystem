@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { textareaContract } from '@surfnet/contracts';
+import { textareaContract } from '@surfnet/curve-contracts';
 
 import { Textarea } from './textarea';
 

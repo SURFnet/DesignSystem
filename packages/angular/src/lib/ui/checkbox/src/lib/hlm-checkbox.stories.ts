@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { HlmCheckbox, HlmCheckboxImports } from '..';
 import { HlmLabel } from '../../../label/src/lib/hlm-label';
-import { checkboxContract } from '@surfnet/contracts';
+import { checkboxContract } from '@surfnet/curve-contracts';
 
 const meta: Meta<HlmCheckbox> = {
   title: 'Components/Checkbox',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { cardContract } from '@surfnet/contracts';
+import { cardContract } from '@surfnet/curve-contracts';
 
 import { Button } from '@/components/ui/button';
 import {

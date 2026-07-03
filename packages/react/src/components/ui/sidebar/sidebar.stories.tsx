@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { sidebarContract, sidebarMenuButtonContract } from '@surfnet/contracts';
+import { sidebarContract, sidebarMenuButtonContract } from '@surfnet/curve-contracts';
 import { SquaresFourIcon, GaugeIcon, GearIcon, UsersIcon } from '@phosphor-icons/react';
 
 import {

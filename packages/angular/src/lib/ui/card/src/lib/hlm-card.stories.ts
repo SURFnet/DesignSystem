@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { HlmCard, HlmCardImports } from '..';
 import { HlmButton } from '../../../button/src/lib/hlm-button';
-import { cardContract } from '@surfnet/contracts';
+import { cardContract } from '@surfnet/curve-contracts';
 
 const meta: Meta<HlmCard> = {
   title: 'Components/Card',

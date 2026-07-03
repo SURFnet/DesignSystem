@@ -5,7 +5,7 @@ import {
   themeGlobalTypes,
   themeInitialGlobals,
   themeSwitcher,
-} from '@surfnet/storybook-config';
+} from '@surfnet/curve-storybook-config';
 
 // Pull in Tailwind + the design tokens so stories render with the real styles.
 import '../src/index.css';

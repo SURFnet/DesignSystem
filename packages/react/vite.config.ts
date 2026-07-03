@@ -37,7 +37,7 @@ export default defineConfig({
       external: (id) => !id.startsWith('.') && !id.startsWith('@/') && !isAbsolute(id),
       plugins: [preserveDirectives()],
       output: {
-        assetFileNames: 'surfnet-react.[ext]',
+        assetFileNames: 'curve-react.[ext]',
         entryFileNames: '[name].js',
         preserveModules: true,
         preserveModulesRoot: 'src',

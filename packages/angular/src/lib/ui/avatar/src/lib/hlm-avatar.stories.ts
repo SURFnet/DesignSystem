@@ -1,5 +1,5 @@
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { avatarContract } from '@surfnet/contracts';
+import { avatarContract } from '@surfnet/curve-contracts';
 import { HlmAvatar, HlmAvatarImports } from '..';
 
 const meta: Meta<HlmAvatar> = {

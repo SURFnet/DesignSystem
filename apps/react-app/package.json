@@ -1,8 +1,8 @@
 {
-  "name": "@surfnet/react-app",
+  "name": "@surfnet/curve-react-app",
   "version": "0.0.0",
   "private": true,
-  "description": "Demo app for testing @surfnet/react components in a real Next.js consumer.",
+  "description": "Demo app for testing @surfnet/curve-react components in a real Next.js consumer.",
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3000",
@@ -11,13 +11,13 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@surfnet/react": "workspace:*",
+    "@surfnet/curve-react": "workspace:*",
     "next": "16.2.9",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@surfnet/typescript-config": "workspace:*",
+    "@surfnet/curve-typescript-config": "workspace:*",
     "@tailwindcss/postcss": "4.3.1",
     "@types/node": "24.13.2",
     "@types/react": "19.2.17",

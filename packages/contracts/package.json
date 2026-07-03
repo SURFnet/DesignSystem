@@ -1,5 +1,5 @@
 {
-  "name": "@surfnet/contracts",
+  "name": "@surfnet/curve-contracts",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -17,7 +17,7 @@
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
-    "@surfnet/typescript-config": "workspace:*",
+    "@surfnet/curve-typescript-config": "workspace:*",
     "typescript": "6.0.3"
   }
 }

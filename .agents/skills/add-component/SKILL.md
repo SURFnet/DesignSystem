@@ -1,6 +1,6 @@
 ---
 name: add-component
-description: Use when adding, scaffolding, or vendoring a component into the design system — for @surfnet/react (shadcn/ui + Base UI), @surfnet/angular (Spartan), or both packages in parity. This is the index; it routes to the per-framework playbooks in react.md and angular.md.
+description: Use when adding, scaffolding, or vendoring a component into the design system — for @surfnet/curve-react (shadcn/ui + Base UI), @surfnet/curve-angular (Spartan), or both packages in parity. This is the index; it routes to the per-framework playbooks in react.md and angular.md.
 ---
 
 # Add a component
@@ -8,8 +8,8 @@ description: Use when adding, scaffolding, or vendoring a component into the des
 The design system ships components per framework. Decide the scope first, then follow the
 matching playbook(s) in this skill's subfiles:
 
-- **React only** → follow [`react.md`](react.md) (shadcn/Base UI flow for `@surfnet/react`).
-- **Angular only** → follow [`angular.md`](angular.md) (Spartan flow for `@surfnet/angular`).
+- **React only** → follow [`react.md`](react.md) (shadcn/Base UI flow for `@surfnet/curve-react`).
+- **Angular only** → follow [`angular.md`](angular.md) (Spartan flow for `@surfnet/curve-angular`).
 - **Both (keep the design system in parity)** → do **both** playbooks, then run the
   alignment + verification steps below.
 
@@ -22,10 +22,10 @@ component's API or available variants:
   registries, presets, Base-vs-Radix) and **`spartan`** skill (spartan/ui, Brain/Helm
   layers, CLI, component APIs). Consult them for component-specific details.
 - **MCP servers** (configured in `.mcp.json` / `.vscode/mcp.json`):
-  - **`shadcn`** — browse/search/install Base UI components for `@surfnet/react`
+  - **`shadcn`** — browse/search/install Base UI components for `@surfnet/curve-react`
     (scoped to `packages/react`).
   - **`spartan-ui`** — look up Spartan docs, component APIs, and examples for
-    `@surfnet/angular` (read-only; install code via the Spartan CLI).
+    `@surfnet/curve-angular` (read-only; install code via the Spartan CLI).
 
 ## Adding to both frameworks (parity)
 
@@ -41,7 +41,7 @@ states, and story coverage.
    Pick the matching primitive in each. If one side has no equivalent, stop and flag it
    rather than hand-rolling a divergent component.
 
-2. **Define a contract in `@surfnet/contracts`** — see the [Contract step](#contract-step)
+2. **Define a contract in `@surfnet/curve-contracts`** — see the [Contract step](#contract-step)
    below. Do this before touching either framework so both can reference it.
 
 3. **Add the React version** — see [`react.md`](react.md).
@@ -64,8 +64,8 @@ states, and story coverage.
 
    ```bash
    pnpm build && pnpm lint && pnpm format
-   pnpm --filter @surfnet/react build-storybook
-   pnpm --filter @surfnet/angular build-storybook
+   pnpm --filter @surfnet/curve-react build-storybook
+   pnpm --filter @surfnet/curve-angular build-storybook
    # parity check — both should list the same story ids:
    node -e "console.log(Object.keys(require('./packages/react/storybook-static/index.json').entries))"
    node -e "console.log(Object.keys(require('./packages/angular/storybook-static/index.json').entries))"
@@ -73,7 +73,7 @@ states, and story coverage.
 
 ## Contract step
 
-**Every vendored component gets a `<name>Contract` entry in `@surfnet/contracts` — no
+**Every vendored component gets a `<name>Contract` entry in `@surfnet/curve-contracts` — no
 exceptions.** The contract is the single cross-framework source of truth for a component's
 description and for the names of any **axes** it exposes (variant, size, orientation, …).
 For components with an axis it also lets `pnpm lint` catch name drift between the two
@@ -145,7 +145,7 @@ Then:
 - **Verify the contracts package still type-checks:**
 
   ```bash
-  pnpm --filter @surfnet/contracts lint
+  pnpm --filter @surfnet/curve-contracts lint
   ```
 
 The per-framework playbooks (`react.md`, `angular.md`) each have a matching step that ties
@@ -158,7 +158,7 @@ enough.
 ## Definition of done
 
 - Component vendored via the framework CLI(s) — never hand-write primitives.
-- A `<name>Contract` `as const` entry exists in `@surfnet/contracts` for **every** component
+- A `<name>Contract` `as const` entry exists in `@surfnet/curve-contracts` for **every** component
   (description-only when it has no axis) and is exported from its `index.ts`.
 - For each axis the component exposes, both frameworks are tied to the contract: `cva` maps
   carry `satisfies Record<...>`, inline-union props are typed as the contract's `*Name`

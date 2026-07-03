@@ -1,5 +1,5 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { selectContract } from '@surfnet/contracts';
+import { selectContract } from '@surfnet/curve-contracts';
 import { HlmSelect } from './hlm-select';
 import { HlmSelectImports } from '..';
 
