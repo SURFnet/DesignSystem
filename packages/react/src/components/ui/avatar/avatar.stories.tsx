@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { avatarContract } from '@surfnet/contracts';
+import { avatarContract } from '@surfnet/curve-contracts';
 
 import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from './avatar';
 

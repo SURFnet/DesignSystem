@@ -1,6 +1,6 @@
 import { ArrowRightIcon, PlusIcon } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { buttonContract } from '@surfnet/contracts';
+import { buttonContract } from '@surfnet/curve-contracts';
 
 import { Button } from './button';
 

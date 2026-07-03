@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { dataTableContract } from '@surfnet/contracts';
+import { dataTableContract } from '@surfnet/curve-contracts';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowsDownUpIcon, DotsThreeIcon } from '@phosphor-icons/react';
 

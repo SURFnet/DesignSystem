@@ -1,6 +1,6 @@
 # Design system — beslissingen & suggesties
 
-Dit document is het **overzicht** van architectuur- en designkeuzes voor het SURF design system.
+Dit document is het **overzicht** van architectuur- en designkeuzes voor Curve.
 
 **Startpunt:** shadcn/ui component library + shadcndesign Figma kit (shadcn-default).  
 **Proces:** via de token library (`token-library.jsx`) leggen we de **gewenste** staat vast en passen we **parallel** component library én Figma library aan — geen volledige afhankelijkheid meer van de initiële shadcn-setups, wel een op elkaar afgestemde nieuwe waarheid.  

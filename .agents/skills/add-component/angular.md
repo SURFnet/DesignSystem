@@ -1,4 +1,4 @@
-# Add an Angular component (`@surfnet/angular`)
+# Add an Angular component (`@surfnet/curve-angular`)
 
 Part of the **add-component** skill — see [`SKILL.md`](SKILL.md) for scope/parity.
 
@@ -15,7 +15,7 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
 ## Steps
 
 1. **Define the contract first.** Before generating, add `<name>Contract` to
-   `@surfnet/contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
+   `@surfnet/curve-contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
    is required for **every** component, including structural primitives that get a
    description-only contract. It settles the axis names before the helm directive is written.
    When building for parity, the React side defines the contract; reuse the same one here.
@@ -32,17 +32,17 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
    to `tsconfig.json`. The schematic is interactive unless `components.json` already
    exists (it does) — pass `--defaults` for non-interactive runs.
 
-   Immediately after generating, run `pnpm --filter @surfnet/angular fix-helm-imports` —
+   Immediately after generating, run `pnpm --filter @surfnet/curve-angular fix-helm-imports` —
    see the note below on why the alias must not survive into the vendored files.
 
 3. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
-   from `@surfnet/contracts` and wire them in. Two styles, by how the helm code models the
+   from `@surfnet/curve-contracts` and wire them in. Two styles, by how the helm code models the
    axis:
 
    **a. `cva` map → `satisfies Record<…>`** (the common case; adapted from `hlm-button.ts`):
 
    ```ts
-   import type { CardVariantName, CardSizeName } from '@surfnet/contracts';
+   import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
 
    const cardVariants = cva('...', {
      variants: {
@@ -99,16 +99,16 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
 ## Verify
 
 ```bash
-pnpm --filter @surfnet/contracts lint       # contract types still compile
-pnpm --filter @surfnet/angular build        # ng-packagr (FESM + d.ts); satisfies check runs here
-pnpm --filter @surfnet/angular build-storybook
+pnpm --filter @surfnet/curve-contracts lint       # contract types still compile
+pnpm --filter @surfnet/curve-angular build        # ng-packagr (FESM + d.ts); satisfies check runs here
+pnpm --filter @surfnet/curve-angular build-storybook
 pnpm format
 ```
 
 ## Definition of done
 
 - Component generated via the Spartan CLI — never hand-written.
-- A `<name>Contract` entry exists in `@surfnet/contracts` (description-only if the component
+- A `<name>Contract` entry exists in `@surfnet/curve-contracts` (description-only if the component
   has no axis). For every axis, the component is tied to the contract — `cva` maps carry
   `satisfies Record<...>`, inline-union inputs are typed as the contract's `*Name`; `pnpm
   lint` (or the build) fails if either side adds or removes a name.
@@ -122,13 +122,13 @@ pnpm format
 - The Spartan CLI always vendors cross-component imports through the `@spartan-ng/helm/*`
   alias. `@spartan-ng/helm` isn't a real npm package — the alias only resolves when a
   consuming *app*'s own bundler reads the tsconfig `paths` mapping at build time.
-  `@surfnet/angular` instead builds itself into a redistributable package via `ng-packagr`,
+  `@surfnet/curve-angular` instead builds itself into a redistributable package via `ng-packagr`,
   which does not consult tsconfig `paths`: it leaves the alias as an unresolved external
   import in the published bundle (and can leave the real symbol duplicated wherever it's
   also reached via a relative import elsewhere). Run
-  `pnpm --filter @surfnet/angular fix-helm-imports` (`packages/angular/scripts/rewrite-helm-imports.ts`)
+  `pnpm --filter @surfnet/curve-angular fix-helm-imports` (`packages/angular/scripts/rewrite-helm-imports.ts`)
   after every `ng g` to rewrite the new alias imports to relative ones — verify with
-  `pnpm --filter @surfnet/angular build` and confirm `dist` has no `@spartan-ng/helm` left
+  `pnpm --filter @surfnet/curve-angular build` and confirm `dist` has no `@spartan-ng/helm` left
   (`grep -r "@spartan-ng/helm" packages/angular/dist`).
 - The library has no global stylesheet in its build output; the theme tokens in
   `src/styles.css` are loaded by Storybook (via the `styles` option) and are meant to be
@@ -144,6 +144,6 @@ pnpm format
   `WithIcon`). Don't re-vendor the Spartan `hlm-icon` directive — it pins `--ng-icon__size`
   and breaks the button's per-size auto-sizing (only re-add it if a future Spartan
   generator requires `@spartan-ng/helm/icon`).
-- The `@surfnet/contracts` import is a `devDependency` only — it must not appear in the
+- The `@surfnet/curve-contracts` import is a `devDependency` only — it must not appear in the
   published `dist`. The `satisfies` annotation is erased by TypeScript at compile time, so
   no import survives into the built output.

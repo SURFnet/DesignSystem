@@ -5,7 +5,7 @@ import {
   themeGlobalTypes,
   themeInitialGlobals,
   themeSwitcher,
-} from '@surfnet/storybook-config';
+} from '@surfnet/curve-storybook-config';
 
 // Keep this a literal object so Storybook's static analyzer can read `tags`
 // (project-level autodocs) — a factory call can't be parsed statically.

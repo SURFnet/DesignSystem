@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { separatorContract } from '@surfnet/contracts';
+import { separatorContract } from '@surfnet/curve-contracts';
 
 import { Separator } from './separator';
 
@@ -57,7 +57,7 @@ export const Default: Story = {
 export const Horizontal: Story = {
   render: () => (
     <div className="w-72">
-      <p className="text-sm">SURF Design System</p>
+      <p className="text-sm">Curve</p>
       <Separator className="my-3" />
       <p className="text-sm text-muted-foreground">Components for React and Angular.</p>
     </div>

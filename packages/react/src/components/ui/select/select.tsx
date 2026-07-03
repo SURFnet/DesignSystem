@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
-import type { SelectTriggerSizeName } from '@surfnet/contracts';
+import type { SelectTriggerSizeName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { CaretUpDownIcon, CheckIcon, CaretUpIcon, CaretDownIcon } from '@phosphor-icons/react';

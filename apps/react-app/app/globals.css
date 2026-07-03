@@ -1,7 +1,7 @@
 /*
  * App-level Tailwind v4 entry.
  *
- * The compiled @surfnet/react/styles.css (imported first in layout.tsx) already
+ * The compiled @surfnet/curve-react/styles.css (imported first in layout.tsx) already
  * ships Tailwind's preflight, the design-token CSS variables (:root / .dark /
  * .theme-*), and the component utilities. So here we pull in Tailwind WITHOUT
  * preflight (granular imports, no `tailwindcss/preflight.css`) to avoid a second

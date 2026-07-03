@@ -1,5 +1,5 @@
 /*
- * Public API surface of @surfnet/angular.
+ * Public API surface of @surfnet/curve-angular.
  * Re-export each helm component (and the shared utils) added via the Spartan CLI.
  * NOTE: there are a few components that we don't export: [icon, sheet, skeleton, tooltip],
  * because these are out of scope for now. They are included in the code because the

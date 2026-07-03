@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { breadcrumbContract } from '@surfnet/contracts';
+import { breadcrumbContract } from '@surfnet/curve-contracts';
 
 import {
   Breadcrumb,

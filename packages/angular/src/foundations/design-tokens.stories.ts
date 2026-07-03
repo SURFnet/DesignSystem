@@ -5,12 +5,12 @@ import {
   getTokenValue,
   getTypographyScale,
   type TokenGroupWithTokens,
-} from '@surfnet/storybook-config';
+} from '@surfnet/curve-storybook-config';
 
 /**
  * Renders the named token groups. The selected `theme` / `mode` come in as inputs
  * (read from the toolbar globals in the story), and values are looked up straight
- * from the `@surfnet/tokens` map. Swatch visuals still use `var(--token)` so they
+ * from the `@surfnet/curve-tokens` map. Swatch visuals still use `var(--token)` so they
  * reflect the live painted theme.
  */
 @Component({
@@ -166,7 +166,7 @@ const meta: Meta<DesignTokensComponent> = {
     docs: {
       description: {
         component:
-          'The design tokens shipped by `@surfnet/tokens`. Use the **Theme** and **Mode** ' +
+          'The design tokens shipped by `@surfnet/curve-tokens`. Use the **Theme** and **Mode** ' +
           'toolbar selectors to see each token’s resolved value in any theme or in light / dark mode.',
       },
     },

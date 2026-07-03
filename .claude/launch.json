@@ -4,19 +4,19 @@
     {
       "name": "react-app",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@surfnet/react-app", "dev"],
+      "runtimeArgs": ["--filter", "@surfnet/curve-react-app", "dev"],
       "port": 3000
     },
     {
       "name": "react-storybook",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@surfnet/react", "storybook"],
+      "runtimeArgs": ["--filter", "@surfnet/curve-react", "storybook"],
       "port": 6006
     },
     {
       "name": "angular-storybook",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@surfnet/angular", "storybook"],
+      "runtimeArgs": ["--filter", "@surfnet/curve-angular", "storybook"],
       "port": 6007
     }
   ]

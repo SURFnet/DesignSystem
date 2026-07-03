@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Operational guide for AI agents working in **surf-design-system**. Humans should read
+Operational guide for AI agents working in **Curve** (SURF's design system). Humans should read
 [README.md](README.md) first; this file captures the conventions and gotchas that are
 easy to get wrong.
 
@@ -8,26 +8,26 @@ easy to get wrong.
 
 A Turborepo + pnpm monorepo with five packages:
 
-| Package                      | What                                                                                            | Build                               | Storybook                      |
-| ---------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------ |
-| `@surfnet/react`             | React components on shadcn/ui + **Base UI**                                                     | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
-| `@surfnet/angular`           | Angular components on **Spartan** (`brain` + `helm`)                                            | `ng-packagr`                        | `@storybook/angular` (webpack) |
-| `@surfnet/tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_published_)                      | Style Dictionary                    | —                              |
-| `@surfnet/contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_) | `tsc --noEmit`                      | —                              |
-| `@surfnet/typescript-config` | Shared base `tsconfig`s                                                                         | —                                   | —                              |
+| Package                            | What                                                                                            | Build                               | Storybook                      |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------ |
+| `@surfnet/curve-react`             | React components on shadcn/ui + **Base UI**                                                     | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
+| `@surfnet/curve-angular`           | Angular components on **Spartan** (`brain` + `helm`)                                            | `ng-packagr`                        | `@storybook/angular` (webpack) |
+| `@surfnet/curve-tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_published_)                      | Style Dictionary                    | —                              |
+| `@surfnet/curve-contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_) | `tsc --noEmit`                      | —                              |
+| `@surfnet/curve-typescript-config` | Shared base `tsconfig`s                                                                         | —                                   | —                              |
 
-Both component packages style with **Tailwind CSS v4** and source their design tokens from `@surfnet/tokens`.
+Both component packages style with **Tailwind CSS v4** and source their design tokens from `@surfnet/curve-tokens`.
 
 The workspace also has an `apps/*` glob with one demo app:
 
-| App                  | What                                                                                     | Build        | Dev port |
-| -------------------- | ---------------------------------------------------------------------------------------- | ------------ | -------- |
-| `@surfnet/react-app` | Demo Next.js (App Router) app for testing `@surfnet/react` components in a real consumer | `next build` | 3000     |
+| App                        | What                                                                                           | Build        | Dev port |
+| -------------------------- | ---------------------------------------------------------------------------------------------- | ------------ | -------- |
+| `@surfnet/curve-react-app` | Demo Next.js (App Router) app for testing `@surfnet/curve-react` components in a real consumer | `next build` | 3000     |
 
-It depends on `@surfnet/react` via `workspace:*`, lists it under `transpilePackages` in
-`apps/react-app/next.config.mjs`, and imports the package's compiled `@surfnet/react/styles.css`.
-Turbo wires `@surfnet/react-app#build` after `@surfnet/react#build` via `^build` automatically, so
-build `@surfnet/react` before running the app. Apps are consumers, not published packages —
+It depends on `@surfnet/curve-react` via `workspace:*`, lists it under `transpilePackages` in
+`apps/react-app/next.config.mjs`, and imports the package's compiled `@surfnet/curve-react/styles.css`.
+Turbo wires `@surfnet/curve-react-app#build` after `@surfnet/curve-react#build` via `^build` automatically, so
+build `@surfnet/curve-react` before running the app. Apps are consumers, not published packages —
 keep library code in `packages/`.
 
 The app also runs its own **Tailwind v4** build (`@tailwindcss/postcss` +
@@ -35,7 +35,7 @@ The app also runs its own **Tailwind v4** build (`@tailwindcss/postcss` +
 compiled CSS already ships Tailwind preflight + the design tokens, `globals.css` imports Tailwind
 **granularly** (`tailwindcss/theme.css` + `tailwindcss/utilities.css`, no `preflight.css`) to avoid
 a second base reset, and re-declares the token → `--color-*` mapping via `@theme inline` so app
-utilities resolve to the same `@surfnet/tokens` variables as the components.
+utilities resolve to the same `@surfnet/curve-tokens` variables as the components.
 
 ## Environment
 
@@ -50,8 +50,8 @@ pnpm install                                   # whole workspace
 pnpm build                                     # turbo: build both libraries
 pnpm lint                                      # turbo: type-check
 pnpm format                                    # prettier --write across the repo
-pnpm --filter @surfnet/react storybook         # React Storybook (port 6006)
-pnpm --filter @surfnet/angular storybook       # Angular Storybook (port 6007)
+pnpm --filter @surfnet/curve-react storybook         # React Storybook (port 6006)
+pnpm --filter @surfnet/curve-angular storybook       # Angular Storybook (port 6007)
 ```
 
 Always run `pnpm lint` and `pnpm format` before considering a change done, and rebuild
@@ -62,14 +62,14 @@ the package you touched.
 The repo ships two MCP servers, configured in both `.mcp.json` (Claude Code, auto-detected)
 and `.vscode/mcp.json` (VS Code / GitHub Copilot — open it and click **Start**):
 
-- **`shadcn`** — browse/search/install shadcn + Base UI components for `@surfnet/react`.
+- **`shadcn`** — browse/search/install shadcn + Base UI components for `@surfnet/curve-react`.
   Runs `npx shadcn@latest mcp --cwd packages/react`, **scoped to the React package**
   (that's where `components.json` lives). The standard shadcn/ui registry needs no setup;
   add private/third-party registries under `registries` in `packages/react/components.json`.
   Note: MCP `add` drops components **flat** — to keep the one-directory-per-component
   layout, prefer the `add-component` skill's `--path .../<name>/` flow.
 - **`spartan-ui`** — read-only access to Spartan docs, component APIs, and examples for
-  `@surfnet/angular` (`npx -y @spartan-ng/mcp`). It fetches live from spartan.ng and caches
+  `@surfnet/curve-angular` (`npx -y @spartan-ng/mcp`). It fetches live from spartan.ng and caches
   on disk; it does not install code — use the Spartan CLI for that.
 
 In Claude Code, `/mcp` should list both as `Connected`. Other clients (Cursor, Codex,
@@ -78,7 +78,7 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 
 ## Conventions & gotchas (read before editing)
 
-### React (`@surfnet/react`)
+### React (`@surfnet/curve-react`)
 
 - Components are **vendored** via the shadcn CLI. The package is configured for **Base
   UI** primitives (`components.json` → `"style": "base-nova"`) and **Phosphor** icons
@@ -91,7 +91,7 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   (`vite.config.ts`). `.d.ts` files land under `dist/src/` — that's why `package.json`
   `types` points at `dist/src/index.d.ts`.
 
-### Angular (`@surfnet/angular`)
+### Angular (`@surfnet/curve-angular`)
 
 - Components are **vendored** via the Spartan CLI (`ng g @spartan-ng/cli:ui`): the `brain`
   primitive is installed from npm, the `helm` code is copied into `src/lib/ui/<name>/`.
@@ -119,11 +119,11 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   `storybook` script's `-p 6006` in `packages/react/package.json`), **Angular → 6007**
   (the `storybook` target's `"port": 6007` in `packages/angular/angular.json`).
 
-### Shared packages (`@surfnet/tokens` + `@surfnet/contracts`)
+### Shared packages (`@surfnet/curve-tokens` + `@surfnet/curve-contracts`)
 
 - **Token source of truth is DTCG JSON only.** All color and other semantic token values
   live in `packages/tokens/src/tokens*.json`. Never hand-edit `:root` or `.dark` blocks in
-  a framework stylesheet — change the DTCG JSON and rebuild `@surfnet/tokens` instead.
+  a framework stylesheet — change the DTCG JSON and rebuild `@surfnet/curve-tokens` instead.
 - **Figma sync:** `pnpm sync:figma` (`scripts/sync-figma.ts`, root, run via `jiti`) pulls variables from
   the Figma Variables API and (re)writes the DTCG JSON: `tokens.json` / `tokens.dark.json`
   for the default theme plus `tokens.<class>.json` / `tokens.<class>.dark.json` per extra
@@ -134,12 +134,12 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   `.dark.theme-<class>` per-theme diffs) + `dist/index.{js,d.ts}` (typed token map). Both
   component packages `@import` the CSS; Vite / PostCSS inlines it into each published
   `styles.css`. Switch themes by adding a class to `<html>` (e.g. `class="dark theme-surf-green"`).
-- **Parity mechanism:** `@surfnet/contracts` exports an `as const` spec (e.g.
+- **Parity mechanism:** `@surfnet/curve-contracts` exports an `as const` spec (e.g.
   `buttonContract`) that declares the canonical variant names, size names, defaults, and
   docs. Both frameworks enforce this at compile time with
   `satisfies Record<ButtonVariantName, string>` on their cva call. A mismatch (stray
   variant in one framework, missing size in another) fails `pnpm lint` immediately.
-- **Contracts are build-time only.** `@surfnet/contracts` is private and must not appear
+- **Contracts are build-time only.** `@surfnet/curve-contracts` is private and must not appear
   in any published `dist` — types erase after compilation. Each framework continues to
   export its own `VariantProps<typeof buttonVariants>`.
 - **Do not add runtime utils to the shared packages.** `cn` stays in React; `hlm` stays
@@ -169,12 +169,12 @@ Gotchas:
   `version` field or `CHANGELOG.md`. CI owns that: pending changesets on `main` open a
   "Version Packages" PR, and merging it builds + publishes. Your job ends at committing the
   changeset file.
-- **Only `@surfnet/tokens` is public today.** The other packages are `"private": true`, so
+- **Only `@surfnet/curve-tokens` is public today.** The other packages are `"private": true`, so
   Changesets versions them but never publishes them. Adding a changeset for a private
   package is fine (it bumps the version + changelog); it just won't reach npm.
 - **Non-publishing changes** (docs, CI, repo tooling) don't need a changeset. CI does not
   fail when one is missing, so use judgement rather than adding empty noise.
-- When a changeset bumps `@surfnet/tokens`, packages that depend on it get a `patch` bump
+- When a changeset bumps `@surfnet/curve-tokens`, packages that depend on it get a `patch` bump
   automatically (`updateInternalDependencies: "patch"`) — you don't list them yourself.
 
 ## Definition of done for a new component
@@ -189,8 +189,8 @@ Gotchas:
 
 Task-specific playbooks live in `.agents/skills/` (symlinked to `.claude/skills`):
 
-- **add-component** — (repo-authored) add a component to `@surfnet/react`,
-  `@surfnet/angular`, or both in parity. The `SKILL.md` index routes to the per-framework
+- **add-component** — (repo-authored) add a component to `@surfnet/curve-react`,
+  `@surfnet/curve-angular`, or both in parity. The `SKILL.md` index routes to the per-framework
   playbooks `react.md` and `angular.md`.
 - **shadcn** — (upstream, from `shadcn/ui`) deep reference for shadcn components, registries,
   presets, and Base-vs-Radix.

@@ -1,5 +1,5 @@
 {
-  "name": "@surfnet/tokens",
+  "name": "@surfnet/curve-tokens",
   "version": "0.0.0",
   "type": "module",
   "files": [
@@ -17,7 +17,7 @@
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
-    "@surfnet/typescript-config": "workspace:*",
+    "@surfnet/curve-typescript-config": "workspace:*",
     "@types/node": "^22.19.21",
     "jiti": "2.7.0",
     "style-dictionary": "4.3.3",

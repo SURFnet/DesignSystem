@@ -1,7 +1,7 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorArrowRight, phosphorPlus } from '@ng-icons/phosphor-icons/regular';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { buttonContract } from '@surfnet/contracts';
+import { buttonContract } from '@surfnet/curve-contracts';
 
 import { HlmButton, HlmButtonImports } from '..';
 import { Component, Input } from '@angular/core';

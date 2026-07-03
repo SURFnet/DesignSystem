@@ -40,7 +40,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       # Builds both storybook-static outputs; turbo resolves ^build deps
-      # (@surfnet/tokens, @surfnet/contracts) automatically.
+      # (@surfnet/curve-tokens, @surfnet/curve-contracts) automatically.
       - run: pnpm build-storybook
 
       - name: Assemble Pages site
@@ -53,7 +53,7 @@ jobs:
           <html lang="en">
             <head>
               <meta charset="utf-8" />
-              <title>SURF Design System — Storybooks</title>
+              <title>Curve — Storybooks</title>
             </head>
             <body>
               <ul>

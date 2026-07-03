@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon, InfoIcon, PlusIcon, PaperPlaneTiltIcon } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { inputGroupContract } from '@surfnet/contracts';
+import { inputGroupContract } from '@surfnet/curve-contracts';
 import { useState } from 'react';
 
 import {

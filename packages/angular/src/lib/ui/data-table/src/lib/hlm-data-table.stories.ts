@@ -6,7 +6,7 @@ import { HlmCheckbox } from '../../../checkbox/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import { HlmInput } from '../../../input/src';
 import { type Meta, type StoryObj } from '@storybook/angular';
-import { dataTableContract } from '@surfnet/contracts';
+import { dataTableContract } from '@surfnet/curve-contracts';
 import {
   flexRenderComponent,
   type Column,

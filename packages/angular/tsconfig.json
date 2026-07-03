@@ -1,5 +1,5 @@
 {
-  "extends": "@surfnet/typescript-config/base.json",
+  "extends": "@surfnet/curve-typescript-config/base.json",
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",

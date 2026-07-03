@@ -6,7 +6,10 @@ import {
   provideBrnTooltipDefaultOptions,
 } from '@spartan-ng/brain/tooltip';
 import { classes, hlm } from '../../../utils/src';
-import type { SidebarMenuButtonSizeName, SidebarMenuButtonVariantName } from '@surfnet/contracts';
+import type {
+  SidebarMenuButtonSizeName,
+  SidebarMenuButtonVariantName,
+} from '@surfnet/curve-contracts';
 import { cva } from 'class-variance-authority';
 import { HlmSidebarService } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';

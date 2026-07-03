@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { selectContract } from '@surfnet/contracts';
+import { selectContract } from '@surfnet/curve-contracts';
 
 import {
   Select,

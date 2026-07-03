@@ -25,7 +25,7 @@ Die twee zijn oorspronkelijk **los van elkaar synchroon** via shadcn-conventies 
 Met de **SURF token library** (`token-library.jsx`) leggen we besluiten vast, modelleren we de **gewenste** token-structuur, en valideren we contrast — als **coordinatie-instrument** tijdens de migratie. De tool is geen shadcn-plugin en geen export-pipeline; het is het werkblad waar de nieuwe waarheid wordt gedefinieerd vóórdat die in code én Figma landt.
 
 ```
-  STARTPUNT (shadcn-default)                    DOEL (SURF design system)
+  STARTPUNT (shadcn-default)                    DOEL (Curve)
   ─────────────────────────                    ───────────────────────────
   shadcn components          ──┐
   shadcndesign Figma kit     ──┼──►  token library  ──►  component library (aangepast)
@@ -52,7 +52,7 @@ De **doelstaat leunt niet meer volledig op de initiële shadcn-setups**. shadcn 
 | Component gedrag   | Stock shadcn classes                        | Aangepaste classes op gewenste tokens                |
 | shadcn CLI updates | Drop-in compatible                          | Bewust beoordeeld; niet blind overschrijven          |
 
-**Kort:** shadcn = fundering. SURF design system = wat we er nu van maken, met code en Figma als **twee implementaties van één specificatie**.
+**Kort:** shadcn = fundering. Curve = wat we er nu van maken, met code en Figma als **twee implementaties van één specificatie**.
 
 ---
 
@@ -60,7 +60,7 @@ De **doelstaat leunt niet meer volledig op de initiële shadcn-setups**. shadcn 
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│              SURF design system (doel — gedeelde specificatie)          │
+│              Curve (doel — gedeelde specificatie)                       │
 │   Zelfde token-namen, semantiek en states in code én Figma              │
 └─────────────────────────────────────────────────────────────────────────┘
          ▲                                          ▲
@@ -422,7 +422,7 @@ Voorbeeld: `--border-input`, `--border-input-error`, `--foreground-default-error
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│ SURF design system — gedeelde specificatie (token library + besluiten)   │
+│ Curve — gedeelde specificatie (token library + besluiten)                │
 └──────────────────────────────────────────────────────────────────────────┘
          ▲                                          ▲
          │                                          │

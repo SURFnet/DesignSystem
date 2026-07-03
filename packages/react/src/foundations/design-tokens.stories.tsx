@@ -5,7 +5,7 @@ import {
   getTypographyScale,
   type TokenEntry,
   type TokenGroupWithTokens,
-} from '@surfnet/storybook-config';
+} from '@surfnet/curve-storybook-config';
 import { createContext, useContext } from 'react';
 import { useGlobals } from 'storybook/preview-api';
 
@@ -17,7 +17,7 @@ const checker: React.CSSProperties = {
 
 // The selected theme/mode is read once at the story level (where `useGlobals` is
 // valid) and handed down via context. Token values come straight from the
-// `@surfnet/tokens` map, so no DOM reads are needed; the swatch visuals still use
+// `@surfnet/curve-tokens` map, so no DOM reads are needed; the swatch visuals still use
 // `var(--token)` to reflect the live painted theme.
 const ThemeContext = createContext<{ theme: string; mode: string }>({
   theme: 'default',
@@ -223,7 +223,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The design tokens shipped by `@surfnet/tokens`. Use the **Theme** and **Mode** ' +
+          'The design tokens shipped by `@surfnet/curve-tokens`. Use the **Theme** and **Mode** ' +
           'toolbar selectors to see each token’s resolved value in any theme or in light / dark mode.',
       },
     },

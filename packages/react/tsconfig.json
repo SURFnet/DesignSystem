@@ -1,5 +1,5 @@
 {
-  "extends": "@surfnet/typescript-config/react-library.json",
+  "extends": "@surfnet/curve-typescript-config/react-library.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]

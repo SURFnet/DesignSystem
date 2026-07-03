@@ -1,7 +1,7 @@
 import { Directive, input } from '@angular/core';
 import { BrnField } from '@spartan-ng/brain/field';
 import { classes } from '../../../utils/src';
-import type { FieldOrientationName } from '@surfnet/contracts';
+import type { FieldOrientationName } from '@surfnet/curve-contracts';
 import { cva, VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 

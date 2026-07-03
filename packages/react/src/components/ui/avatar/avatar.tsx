@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
-import type { AvatarSizeName } from '@surfnet/contracts';
+import type { AvatarSizeName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 
