@@ -47,7 +47,7 @@ interface ComboResult {
 
 /**
  * Audits the rendered story against WCAG 2.1 AA, once per theme/mode from
- * `@surfnet/tokens`. Writes a per-story JSON report and throws on violations.
+ * `@surfnet/curve-tokens`. Writes a per-story JSON report and throws on violations.
  */
 export async function runStoryA11yAudit(page: Page, context: TestContext): Promise<void> {
   const storyContext = await getStoryContext(page, context);
