@@ -1,4 +1,5 @@
 import {
+  a11yParameters,
   frameworkGlobalTypes,
   frameworkSwitcher,
   sharedParameters,
@@ -19,6 +20,7 @@ export default {
   decorators: [frameworkSwitcher('react'), themeSwitcher()],
   parameters: {
     ...sharedParameters,
+    ...a11yParameters,
     // Force the React jsxDecorator to always serialize the rendered JSX for the
     // "Show code" panel. Without this, a story with `render: () => (...)` (no
     // `args` param) is treated as a non-args story, so Storybook prints the whole
