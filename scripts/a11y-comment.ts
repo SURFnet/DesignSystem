@@ -57,6 +57,7 @@ const REPORT_DIR_NAME = '.a11y-report';
 const WCAG_REF: Record<string, string> = {
   'color-contrast': '1.4.3',
   'color-contrast-enhanced': '1.4.6',
+  'link-in-text-block': '1.4.1',
   'link-name': '4.1.2',
   'button-name': '4.1.2',
   'aria-required-attr': '4.1.2',
