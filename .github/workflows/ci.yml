@@ -47,12 +47,17 @@ jobs:
 
       - run: pnpm build
 
-      # Scoped to @surfnet/storybook-config, which pins playwright, so both
-      # framework runs share one browser.
+      # The audit runs @storybook/test-runner, which drives Playwright Chromium
+      # headless (no display needed on CI). Install it once, scoped to
+      # @surfnet/curve-storybook-config which pins playwright, so both framework
+      # runs share one browser.
       - name: Install Playwright Chromium
-        run: pnpm --filter @surfnet/storybook-config exec playwright install --with-deps chromium
+        run: pnpm --filter @surfnet/curve-storybook-config exec playwright install --with-deps chromium
 
-      # Report-only for now; flip to blocking by removing `continue-on-error`.
+      # Headless axe sweep of every story across all themes/modes. Fast: the
+      # test phase is a few seconds per framework once Storybook is built (the
+      # build-storybook step dominates). Report-only for now; flip to blocking by
+      # removing `continue-on-error`.
       - name: Accessibility audit (WCAG 2.1 AA)
         continue-on-error: true
         run: pnpm test:a11y

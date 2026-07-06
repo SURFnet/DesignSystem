@@ -1,6 +1,6 @@
 import type { TestRunnerConfig } from '@storybook/test-runner';
 
-import { runStoryA11yAudit } from '@surfnet/storybook-config/test-runner';
+import { runStoryA11yAudit } from '@surfnet/curve-storybook-config/test-runner';
 
 // Delegate to the shared audit so React and Angular stay in lockstep.
 const config: TestRunnerConfig = {
