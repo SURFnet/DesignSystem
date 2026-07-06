@@ -1,5 +1,6 @@
-// Server-side data access for apps: the server page reads this directly, so the
-// filtering/pagination logic lives in one place.
+// Data access for apps. The filtering/pagination logic lives in one place
+// (`selectApps`) so it can run on the server (`getApps`, with simulated latency)
+// or directly in the browser for the static-export build.
 import { APP_CATEGORIES, MOCK_APPS, type AppCategoryFilter, type AppRecord } from './mock-data';
 
 export const APPS_PAGE_SIZE = 8;
@@ -28,11 +29,13 @@ export function parsePage(value: string | undefined | null): number {
   return Math.max(1, Number(value ?? '1') || 1);
 }
 
-export async function getApps({ search, category, page }: AppsQuery): Promise<AppsResult> {
+/**
+ * Pure filtering + pagination — no latency, no I/O. Single source of truth for
+ * the query logic, shared by the server path (`getApps`) and, in the
+ * static-export build, the client path (`BrowseAppsClient`).
+ */
+export function selectApps({ search, category, page }: AppsQuery): AppsResult {
   const normalizedSearch = search.trim().toLowerCase();
-
-  // Simulate backend latency so server-rendered loading is realistic.
-  await new Promise((resolve) => setTimeout(resolve, 300));
 
   const filtered = MOCK_APPS.filter((app) => {
     const matchesSearch = !normalizedSearch || app.name.toLowerCase().includes(normalizedSearch);
@@ -47,4 +50,10 @@ export async function getApps({ search, category, page }: AppsQuery): Promise<Ap
     total: filtered.length,
     hasMore: items.length < filtered.length,
   };
+}
+
+export async function getApps(query: AppsQuery): Promise<AppsResult> {
+  // Simulate backend latency so server-rendered loading is realistic.
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return selectApps(query);
 }
