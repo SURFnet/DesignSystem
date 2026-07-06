@@ -36,77 +36,21 @@
     </div>
   </div>
 
-  <div class="overflow-hidden rounded-md border">
-    <div hlmTableContainer>
-      <table hlmTable>
-        <thead hlmTableHeader>
-          <tr hlmTableRow>
-            <th hlmTableHead class="w-10">
-              <hlm-checkbox
-                aria-label="Select all"
-                [checked]="isAllSelected()"
-                [indeterminate]="isSomeSelected()"
-                (checkedChange)="toggleAll($event)"
-              />
-            </th>
-            <th hlmTableHead>App</th>
-            <th hlmTableHead>Vendor</th>
-            <th hlmTableHead>Revenue</th>
-            <th hlmTableHead class="w-10"></th>
-          </tr>
-        </thead>
-        <tbody hlmTableBody>
-          @for (app of items(); track app.id) {
-          <tr hlmTableRow>
-            <td hlmTableCell>
-              <hlm-checkbox
-                aria-label="Select row"
-                [checked]="isSelected(app)"
-                (checkedChange)="toggleRow(app, $event)"
-              />
-            </td>
-            <td hlmTableCell>
-              <div class="flex items-center gap-3">
-                <hlm-avatar>
-                  <img hlmAvatarImage [src]="app.iconUrl" alt="" />
-                  <span hlmAvatarFallback>
-                    <ng-icon name="phosphorImage" />
-                  </span>
-                </hlm-avatar>
-                <span class="font-medium">{{ app.name }}</span>
-              </div>
-            </td>
-            <td hlmTableCell class="text-muted-foreground">{{ app.vendor }}</td>
-            <td hlmTableCell>{{ formatRevenue(app.revenue) }}</td>
-            <td hlmTableCell>
-              <app-row-actions [appName]="app.name" />
-            </td>
-          </tr>
-          } @empty {
-          <tr hlmTableRow>
-            <td hlmTableCell colspan="5" class="h-24 text-center text-muted-foreground">
-              No apps found.
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <hlm-data-table-content [table]="table" [columns]="columns" noResultsLabel="No apps found." />
 
   <div class="mt-4 flex items-center justify-between">
     @if (hasMore()) {
-    <a
-      hlmBtn
-      variant="outline"
-      [routerLink]="[]"
-      [queryParams]="{ page: nextPage() }"
-      queryParamsHandling="merge"
-    >
-      Load more apps…
-    </a>
+      <a
+        hlmBtn
+        variant="outline"
+        [routerLink]="[]"
+        [queryParams]="{ page: nextPage() }"
+        queryParamsHandling="merge"
+      >
+        Load more apps…
+      </a>
     } @else {
-    <span class="text-sm text-muted-foreground">No more apps.</span>
+      <span class="text-sm text-muted-foreground">No more apps.</span>
     }
 
     <span class="text-sm text-muted-foreground">Showing {{ items().length }} of {{ total() }}</span>
