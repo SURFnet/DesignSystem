@@ -8,6 +8,7 @@ import {
   type ColumnDef,
   type ColumnFiltersState,
   type PaginationState,
+  type Row,
   type RowSelectionState,
   type SortingState,
   type Table,
@@ -18,6 +19,8 @@ import {
 interface InjectDataTableOptions<TData> {
   data: TData[];
   columns: ColumnDef<TData, unknown>[];
+  /** Derive a stable row id (e.g. from a record's id) so row selection survives data changes. */
+  getRowId?: (originalRow: TData, index: number, parent?: Row<TData>) => string;
   initialSorting?: SortingState;
   initialColumnFilters?: ColumnFiltersState;
   initialColumnVisibility?: VisibilityState;
@@ -55,10 +58,11 @@ function injectDataTable<TData>(options: () => InjectDataTableOptions<TData>): T
   );
 
   return createAngularTable(() => {
-    const { data, columns } = options();
+    const { data, columns, getRowId } = options();
     return {
       data,
       columns,
+      getRowId,
       state: {
         sorting: sorting(),
         columnFilters: columnFilters(),
