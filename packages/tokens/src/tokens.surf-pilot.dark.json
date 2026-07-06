@@ -135,6 +135,10 @@
     "$type": "color",
     "$value": "rgba(254, 242, 242, 1)"
   },
+  "link": {
+    "$type": "color",
+    "$value": "rgba(12, 10, 9, 1)"
+  },
   "ring-offset": {
     "$type": "color",
     "$value": "rgba(10, 10, 10, 1)"
