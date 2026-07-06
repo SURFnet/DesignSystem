@@ -5,7 +5,7 @@
   </hlm-select-trigger>
   <hlm-select-content *hlmSelectPortal>
     @for (option of categories; track option) {
-    <hlm-select-item [value]="option">{{ option }}</hlm-select-item>
+      <hlm-select-item [value]="option">{{ option }}</hlm-select-item>
     }
   </hlm-select-content>
 </hlm-select>

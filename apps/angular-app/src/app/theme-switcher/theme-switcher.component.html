@@ -32,10 +32,10 @@
     <hlm-dropdown-menu-label>Theme</hlm-dropdown-menu-label>
     <hlm-dropdown-menu-group>
       @for (name of themeNames; track name) {
-      <button hlmDropdownMenuRadio [checked]="theme() === name" (triggered)="setTheme(name)">
-        <span>{{ titleCase(name) }}</span>
-        <hlm-dropdown-menu-radio-indicator />
-      </button>
+        <button hlmDropdownMenuRadio [checked]="theme() === name" (triggered)="setTheme(name)">
+          <span>{{ titleCase(name) }}</span>
+          <hlm-dropdown-menu-radio-indicator />
+        </button>
       }
     </hlm-dropdown-menu-group>
   </hlm-dropdown-menu>
