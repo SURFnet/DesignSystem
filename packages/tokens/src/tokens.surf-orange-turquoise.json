@@ -25,7 +25,7 @@
   },
   "primary": {
     "$type": "color",
-    "$value": "rgba(0, 211, 127, 1)"
+    "$value": "rgba(255, 136, 63, 1)"
   },
   "primary-foreground": {
     "$type": "color",
@@ -33,7 +33,7 @@
   },
   "secondary": {
     "$type": "color",
-    "$value": "rgba(184, 248, 220, 1)"
+    "$value": "rgba(189, 238, 233, 1)"
   },
   "secondary-foreground": {
     "$type": "color",
@@ -49,7 +49,7 @@
   },
   "accent": {
     "$type": "color",
-    "$value": "rgba(221, 253, 240, 1)"
+    "$value": "rgba(255, 233, 217, 1)"
   },
   "accent-foreground": {
     "$type": "color",
@@ -137,7 +137,7 @@
   },
   "link": {
     "$type": "color",
-    "$value": "rgba(2, 135, 82, 1)"
+    "$value": "rgba(201, 97, 35, 1)"
   },
   "ring-offset": {
     "$type": "color",
@@ -201,11 +201,11 @@
   },
   "custom-accent-dark-input50": {
     "$type": "color",
-    "$value": "rgba(221, 253, 240, 1)"
+    "$value": "rgba(255, 233, 217, 1)"
   },
   "custom-accent-dark-calendar50": {
     "$type": "color",
-    "$value": "rgba(221, 253, 240, 1)"
+    "$value": "rgba(255, 233, 217, 1)"
   },
   "custom-input-dark-input80": {
     "$type": "color",
