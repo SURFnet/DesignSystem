@@ -420,6 +420,9 @@ importers:
       http-server:
         specifier: 14.1.1
         version: 14.1.1
+      playwright:
+        specifier: 1.61.0
+        version: 1.61.0
       react:
         specifier: 19.2.7
         version: 19.2.7

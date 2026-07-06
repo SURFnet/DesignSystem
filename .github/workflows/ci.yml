@@ -13,6 +13,10 @@ concurrency:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    # Default token is read-only here; the a11y step needs to write a PR comment.
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -63,3 +67,18 @@ jobs:
           name: a11y-reports
           path: packages/*/a11y-report/**
           if-no-files-found: ignore
+
+      # Summarise the JSON reports (component / theme / mode / rule) into Markdown,
+      # written to the run summary and a file for the PR comment below.
+      - name: Summarise a11y findings
+        if: always()
+        run: pnpm a11y:comment a11y-comment.md
+
+      # Post (or update in place) one sticky PR comment with the findings, so
+      # reviewers see them inline instead of opening the artifact.
+      - name: Comment a11y findings on PR
+        if: always() && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: a11y-audit
+          path: a11y-comment.md
