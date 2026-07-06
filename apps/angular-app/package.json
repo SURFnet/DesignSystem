@@ -9,6 +9,7 @@
     "dev": "ng serve",
     "start": "ng serve",
     "build": "ng build",
+    "build:pages": "ng build --base-href /DesignSystem/angular-app/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ngc --noEmit -p tsconfig.app.json"

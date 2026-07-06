@@ -1,8 +1,12 @@
-name: Deploy Storybooks
+name: Deploy Storybooks & demo apps
 
-# Builds both packages' Storybooks and publishes them to GitHub Pages under
-# /react/ and /angular/ on the same site (Pages only supports one deployment
-# per repo, so both live side by side rather than as separate sites).
+# Builds both packages' Storybooks and both demo apps, and publishes them to
+# GitHub Pages as one site (Pages only supports one deployment per repo, so
+# everything lives side by side under sub-paths):
+#   /react/       React Storybook
+#   /angular/     Angular Storybook
+#   /react-app/   Next.js demo app (static export)
+#   /angular-app/ Angular demo app (SPA)
 on:
   push:
     branches: [main]
@@ -39,26 +43,49 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      # Builds both storybook-static outputs; turbo resolves ^build deps
-      # (@surfnet/curve-tokens, @surfnet/curve-contracts) automatically.
+      # Build the libraries first so both the Storybooks and the demo apps
+      # consume the compiled output; turbo resolves the ^build token/contract
+      # deps automatically.
+      - run: pnpm turbo run build --filter='./packages/*'
+
+      # Both storybook-static outputs.
       - run: pnpm build-storybook
+
+      # Demo apps, built for their Pages sub-paths (see each app's build:pages
+      # script). React is a static export under /react-app; Angular is a SPA
+      # served under --base-href /angular-app/.
+      - run: pnpm --filter @surfnet/curve-react-app build:pages
+      - run: pnpm --filter @surfnet/angular-app build:pages
 
       - name: Assemble Pages site
         run: |
-          mkdir -p site/react site/angular
+          mkdir -p site/react site/angular site/react-app site/angular-app
           cp -r packages/react/storybook-static/. site/react/
           cp -r packages/angular/storybook-static/. site/angular/
+          cp -r apps/react-app/out/. site/react-app/
+          cp -r apps/angular-app/dist/angular-app/browser/. site/angular-app/
+          # SPA fallback: Pages has no server rewrite, so deep-link refreshes on
+          # the Angular router must fall back to index.html. (Next's export
+          # already emits its own 404.html.)
+          cp site/angular-app/index.html site/angular-app/404.html
           cat > site/index.html <<'EOF'
           <!doctype html>
           <html lang="en">
             <head>
               <meta charset="utf-8" />
-              <title>Curve — Storybooks</title>
+              <title>Curve — Storybooks & demo apps</title>
             </head>
             <body>
+              <h1>Curve</h1>
+              <h2>Storybooks</h2>
               <ul>
                 <li><a href="react/">React Storybook</a></li>
                 <li><a href="angular/">Angular Storybook</a></li>
+              </ul>
+              <h2>Demo apps</h2>
+              <ul>
+                <li><a href="react-app/">React demo app</a></li>
+                <li><a href="angular-app/">Angular demo app</a></li>
               </ul>
             </body>
           </html>
