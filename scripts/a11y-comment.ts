@@ -1,11 +1,8 @@
 /**
- * Turns the per-story a11y JSON reports (packages/<fw>/.a11y-report/*.json,
- * written by runStoryA11yAudit) into a Markdown summary for a sticky PR comment
- * and the GitHub Actions job summary. No runtime deps — runs via jiti.
+ * Turns the per-story a11y JSON reports into a Markdown summary for the PR
+ * comment and the Actions job summary. Always exits 0.
  *
  * Usage: pnpm a11y:comment [outFile=.a11y-report/comment.md]
- *
- * Always exits 0 — reporting must never fail the build.
  */
 import {
   appendFileSync,
@@ -52,8 +49,7 @@ const OUT = process.argv[2] ?? '.a11y-report/comment.md';
 const PACKAGES_DIR = resolve('packages');
 const REPORT_DIR_NAME = '.a11y-report';
 
-// axe rule id -> WCAG success criterion, for the rules our audit can surface.
-// Falls back to the bare rule id for anything not listed.
+// axe rule id -> WCAG success criterion. Unlisted rules show the bare id.
 const WCAG_REF: Record<string, string> = {
   'color-contrast': '1.4.3',
   'color-contrast-enhanced': '1.4.6',
@@ -66,17 +62,15 @@ const WCAG_REF: Record<string, string> = {
   'duplicate-id-aria': '4.1.1',
 };
 
-// Axe rules whose outcome depends on resolved colors, i.e. the theme/mode. These
-// are reported per theme·mode; every other (DOM-structural) rule is identical
-// across themes, so it's collapsed to a single per-variation finding.
+// Color-dependent rules; reported per theme·mode. Others collapse to one entry.
 const THEME_DEPENDENT_RULES = new Set([
   'color-contrast',
   'color-contrast-enhanced',
   'link-in-text-block',
 ]);
 
-// Pull a human-readable example ("`#fff` on `#84cc16` · ratio 1.89") out of an
-// axe node's failureSummary for contrast failures; else fall back to help text.
+// Pull a readable example ("`#fff` on `#84cc16` · ratio 1.89") from a contrast
+// failure; else fall back to help text.
 function exampleFor(violation: AxeViolation): string {
   const summary = violation.nodes?.[0]?.failureSummary ?? '';
   const m = summary.match(
@@ -162,9 +156,8 @@ function buildBody(): string {
     ].join('\n');
   }
 
-  // Nest as framework -> component (h4) -> variation (h5). Each variation splits
-  // findings in two: `structural` (theme-independent rules, collapsed to one
-  // entry each) and `themed` (contrast rules, kept per theme -> mode).
+  // Nest framework -> component -> variation, splitting findings into structural
+  // (collapsed) and themed (kept per theme -> mode).
   interface Leaf {
     mode: string;
     rule: string;
@@ -260,7 +253,7 @@ function buildBody(): string {
   ].join('\n');
 }
 
-// Keep under GitHub's 65 536-char comment limit (leave headroom for the marker).
+// Keep under GitHub's 65 536-char comment limit.
 const MAX_LEN = 64000;
 const full = buildBody();
 const body =
@@ -272,7 +265,7 @@ const body =
 mkdirSync(dirname(resolve(OUT)), { recursive: true });
 writeFileSync(OUT, body + '\n', 'utf8');
 
-// Mirror into the Actions run summary when available (also covers push builds).
+// Mirror into the Actions run summary when available.
 const stepSummary = process.env.GITHUB_STEP_SUMMARY;
 if (stepSummary) appendFileSync(stepSummary, body + '\n');
 
