@@ -1,0 +1,114 @@
+<div class="mx-auto w-full max-w-6xl px-8 py-6">
+  <nav hlmBreadcrumb class="mb-6">
+    <ol hlmBreadcrumbList>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink link="/home">Home</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink link="/components">Settings</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>Profile details</span>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="mb-8 space-y-1">
+    <h1 class="text-3xl font-semibold tracking-tight">Browse apps</h1>
+    <p class="text-muted-foreground">
+      Manage access to the apps that the Dummy IdP is connected to.
+    </p>
+  </div>
+
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <app-apps-search [search]="search() ?? ''" (searchChange)="onSearchChange($event)" />
+    <div class="flex items-center gap-2">
+      <app-category-filter
+        [category]="categoryFilter()"
+        (categoryChange)="onCategoryChange($event)"
+      />
+      <button hlmBtn variant="outline">
+        <ng-icon name="phosphorPlus" />
+        Create new application
+      </button>
+    </div>
+  </div>
+
+  <div class="overflow-hidden rounded-md border">
+    <div hlmTableContainer>
+      <table hlmTable>
+        <thead hlmTableHeader>
+          <tr hlmTableRow>
+            <th hlmTableHead class="w-10">
+              <hlm-checkbox
+                aria-label="Select all"
+                [checked]="isAllSelected()"
+                [indeterminate]="isSomeSelected()"
+                (checkedChange)="toggleAll($event)"
+              />
+            </th>
+            <th hlmTableHead>App</th>
+            <th hlmTableHead>Vendor</th>
+            <th hlmTableHead>Revenue</th>
+            <th hlmTableHead class="w-10"></th>
+          </tr>
+        </thead>
+        <tbody hlmTableBody>
+          @for (app of items(); track app.id) {
+          <tr hlmTableRow>
+            <td hlmTableCell>
+              <hlm-checkbox
+                aria-label="Select row"
+                [checked]="isSelected(app)"
+                (checkedChange)="toggleRow(app, $event)"
+              />
+            </td>
+            <td hlmTableCell>
+              <div class="flex items-center gap-3">
+                <hlm-avatar>
+                  <img hlmAvatarImage [src]="app.iconUrl" alt="" />
+                  <span hlmAvatarFallback>
+                    <ng-icon name="phosphorImage" />
+                  </span>
+                </hlm-avatar>
+                <span class="font-medium">{{ app.name }}</span>
+              </div>
+            </td>
+            <td hlmTableCell class="text-muted-foreground">{{ app.vendor }}</td>
+            <td hlmTableCell>{{ formatRevenue(app.revenue) }}</td>
+            <td hlmTableCell>
+              <app-row-actions [appName]="app.name" />
+            </td>
+          </tr>
+          } @empty {
+          <tr hlmTableRow>
+            <td hlmTableCell colspan="5" class="h-24 text-center text-muted-foreground">
+              No apps found.
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mt-4 flex items-center justify-between">
+    @if (hasMore()) {
+    <a
+      hlmBtn
+      variant="outline"
+      [routerLink]="[]"
+      [queryParams]="{ page: nextPage() }"
+      queryParamsHandling="merge"
+    >
+      Load more apps…
+    </a>
+    } @else {
+    <span class="text-sm text-muted-foreground">No more apps.</span>
+    }
+
+    <span class="text-sm text-muted-foreground">Showing {{ items().length }} of {{ total() }}</span>
+  </div>
+</div>

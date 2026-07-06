@@ -1,0 +1,40 @@
+<main class="grid min-h-screen place-items-center bg-muted p-4">
+  <div hlmCard class="w-full max-w-sm">
+    <div hlmCardHeader>
+      <h2 hlmCardTitle>SURF Access</h2>
+      <p hlmCardDescription>Sign in to manage your apps.</p>
+    </div>
+    <div hlmCardContent>
+      <form class="space-y-4" (submit)="onSubmit($event)">
+        <div hlmField>
+          <label hlmFieldLabel for="email">Email</label>
+          <input
+            hlmInput
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="username"
+            value="freek.vonk@universiteitleiden.nl"
+          />
+        </div>
+        <div hlmField>
+          <label hlmFieldLabel for="password">Password</label>
+          <input
+            hlmInput
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            value="surf"
+          />
+        </div>
+        <button hlmBtn type="submit" class="w-full" [disabled]="pending()">
+          {{ pending() ? 'Signing in…' : 'Sign in' }}
+        </button>
+        <p hlmFieldDescription class="text-center">
+          Demo credentials: <code>freek.vonk@universiteitleiden.nl</code> / <code>surf</code>
+        </p>
+      </form>
+    </div>
+  </div>
+</main>

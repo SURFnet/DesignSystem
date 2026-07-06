@@ -8,6 +8,7 @@
     "@angular/cdk",
     "@angular/forms",
     "@angular/router",
+    "@fontsource-variable/geist",
     "@ng-icons/phosphor-icons",
     "@spartan-ng/brain",
     "@tanstack/angular-table",

@@ -1,0 +1,22 @@
+<button
+  hlmBtn
+  variant="ghost"
+  size="icon-sm"
+  [attr.aria-label]="ariaLabel()"
+  [hlmDropdownMenuTrigger]="menu"
+  align="end"
+>
+  <ng-icon name="phosphorDotsThreeBold" />
+</button>
+
+<ng-template #menu>
+  <hlm-dropdown-menu>
+    <hlm-dropdown-menu-group>
+      <hlm-dropdown-menu-label>Actions</hlm-dropdown-menu-label>
+      <button hlmDropdownMenuItem>View details</button>
+      <button hlmDropdownMenuItem>Manage access</button>
+    </hlm-dropdown-menu-group>
+    <hlm-dropdown-menu-separator />
+    <button hlmDropdownMenuItem variant="destructive">Remove</button>
+  </hlm-dropdown-menu>
+</ng-template>

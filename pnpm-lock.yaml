@@ -71,6 +71,9 @@ importers:
       '@surfnet/curve-angular':
         specifier: workspace:*
         version: link:../../packages/angular
+      '@surfnet/curve-tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       '@tanstack/angular-table':
         specifier: ^8.21.4
         version: 8.21.4(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))
@@ -178,6 +181,9 @@ importers:
       '@angular/router':
         specifier: '>=21.0.0 <23.0.0'
         version: 22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
+      '@fontsource-variable/geist':
+        specifier: 5.2.9
+        version: 5.2.9
       '@ng-icons/phosphor-icons':
         specifier: '>=32.0.0 <34.0.0'
         version: 33.3.0
