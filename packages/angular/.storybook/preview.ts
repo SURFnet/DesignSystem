@@ -1,4 +1,5 @@
 import {
+  a11yParameters,
   frameworkGlobalTypes,
   frameworkSwitcher,
   sharedParameters,
@@ -16,6 +17,7 @@ export default {
   decorators: [frameworkSwitcher('angular'), themeSwitcher()],
   parameters: {
     ...sharedParameters,
+    ...a11yParameters,
     // Must be a literal (Storybook reads it via static analysis, not
     // execution). Keep in sync with packages/react/.storybook/preview.ts.
     options: {
