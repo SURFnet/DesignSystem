@@ -194,7 +194,7 @@ function buildBody(): string {
   // real URL — this stays undefined outside the "Publish a11y screenshots" CI
   // step, and callers just render without an image in that case.
   const img = (url: string | undefined, alt: string): string =>
-    url ? `<img src="${url}" width="360" alt="${alt.replace(/"/g, '')}">` : '';
+    url ? `<img src="${url}" alt="${alt.replace(/"/g, '')}">` : '';
 
   const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
