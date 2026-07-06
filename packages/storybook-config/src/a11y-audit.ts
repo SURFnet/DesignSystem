@@ -1,7 +1,5 @@
-// Node-only WCAG 2.1 AA audit, run by `@storybook/test-runner`'s `postVisit`
-// hook. Kept OUT of the browser preview bundle (it imports Node built-ins,
-// Playwright and the test-runner) — consumers reach it via the package's
-// `./test-runner` subpath, never the main entry.
+// WCAG 2.1 AA audit run by the test-runner's `postVisit` hook. Reached via the
+// package's `./test-runner` subpath, never the main entry.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -15,29 +13,18 @@ import { WCAG_21_AA_TAGS } from './a11y.js';
 import { THEME_NAMES } from './themes.js';
 
 const RUN_ONLY: RunOptions['runOnly'] = { type: 'tag', values: WCAG_21_AA_TAGS };
-
-// Only compute violations (skip building passes/incomplete/inapplicable node
-// lists) — the sweep runs axe once per theme/mode, so this keeps each run fast.
 const RESULT_TYPES: RunOptions['resultTypes'] = ['violations'];
 
-// Scope axe to the rendered story rather than the whole Storybook chrome. Colors
-// still resolve up the real DOM tree, so contrast checks stay accurate.
+// Scope axe to the rendered story, not the Storybook chrome.
 const STORY_ROOT = '#storybook-root';
 
-// Every theme/mode combination the tokens package ships, so the audit exercises
-// the full cascade (`@surfnet/tokens` keys colors on `dark` + `theme-<name>`
-// classes on <html>). Contrast-sensitive rules differ per theme, so each combo
-// is a distinct audit surface.
 const MODES = ['light', 'dark'] as const;
 type Mode = (typeof MODES)[number];
 
-// Report directory (one JSON file per story keeps concurrent test-runner
-// workers from clobbering a shared file). Dot-prefixed and git-ignored.
-// Override with A11Y_REPORT_DIR.
+// One file per story so concurrent workers don't clobber a shared report.
 const REPORT_DIR = resolve(process.env.A11Y_REPORT_DIR ?? '.a11y-report');
 
-// Reflect a theme/mode onto <html> exactly like the `themeSwitcher` decorator,
-// so axe sees the same resolved CSS variables a real user would.
+// Reflect theme/mode onto <html> like the `themeSwitcher` decorator does.
 async function applyTheme(page: Page, theme: string, mode: Mode): Promise<void> {
   await page.evaluate(
     ({ theme, mode }) => {
@@ -59,10 +46,8 @@ interface ComboResult {
 }
 
 /**
- * `postVisit` hook for `@storybook/test-runner`: audits the just-rendered story
- * against WCAG 2.1 AA with axe, once per theme/mode combination from
- * `@surfnet/tokens`. Writes a per-story JSON report and throws if any
- * combination has violations (so `test:a11y` exits non-zero).
+ * Audits the rendered story against WCAG 2.1 AA, once per theme/mode from
+ * `@surfnet/tokens`. Writes a per-story JSON report and throws on violations.
  */
 export async function runStoryA11yAudit(page: Page, context: TestContext): Promise<void> {
   const storyContext = await getStoryContext(page, context);
@@ -70,13 +55,17 @@ export async function runStoryA11yAudit(page: Page, context: TestContext): Promi
     | { disable?: boolean; options?: RunOptions }
     | undefined;
 
-  // Respect per-story opt-out (`parameters: { a11y: { disable: true } }`).
   if (a11y?.disable) return;
 
   await injectAxe(page);
 
-  // Story-level axe options win over the WCAG 2.1 AA default, so a story can
-  // waive a specific rule while staying scoped to the same level.
+  // Stop color transitions/animations mid-flight so contrast reads the settled
+  // value, and wait for fonts so large-text thresholds use real metrics.
+  await page.addStyleTag({
+    content: '*,*::before,*::after{transition:none!important;animation:none!important}',
+  });
+  await page.evaluate(() => document.fonts?.ready);
+
   const runOptions: RunOptions = {
     resultTypes: RESULT_TYPES,
     ...(a11y?.options ?? { runOnly: RUN_ONLY }),
@@ -91,7 +80,7 @@ export async function runStoryA11yAudit(page: Page, context: TestContext): Promi
     }
   }
 
-  // Restore the story's default look for any later hooks / screenshots.
+  // Restore the default look for later hooks.
   await applyTheme(page, 'default', 'light');
 
   const total = results.reduce((n, r) => n + r.violations.length, 0);

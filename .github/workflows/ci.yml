@@ -13,7 +13,7 @@ concurrency:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    # Default token is read-only here; the a11y step needs to write a PR comment.
+    # The a11y step writes a PR comment.
     permissions:
       contents: read
       pull-requests: write
@@ -47,19 +47,12 @@ jobs:
 
       - run: pnpm build
 
-      # Automated WCAG 2.1 AA sweep of every Storybook story (all themes/modes),
-      # via @storybook/test-runner + axe. Reports cover ~30-50% of WCAG; the
-      # residual manual checklist lives in docs/accessibility/.
-      #
-      # Install the Chromium binary the audit drives. Scoped to
-      # @surfnet/storybook-config — the package that owns the audit and pins
-      # `playwright` — so both framework runs share one machine-global browser.
+      # Scoped to @surfnet/storybook-config, which pins playwright, so both
+      # framework runs share one browser.
       - name: Install Playwright Chromium
         run: pnpm --filter @surfnet/storybook-config exec playwright install --with-deps chromium
 
-      # Report-only for now: surfaces violations without blocking PRs while the
-      # backlog is triaged. Flip to blocking by removing `continue-on-error`
-      # once findings are at zero.
+      # Report-only for now; flip to blocking by removing `continue-on-error`.
       - name: Accessibility audit (WCAG 2.1 AA)
         continue-on-error: true
         run: pnpm test:a11y
@@ -72,14 +65,12 @@ jobs:
           path: packages/*/.a11y-report/**
           if-no-files-found: ignore
 
-      # Summarise the JSON reports (component / theme / mode / rule) into Markdown,
-      # written to the run summary and .a11y-report/comment.md for the PR comment.
+      # Summarise the JSON reports into .a11y-report/comment.md.
       - name: Summarise a11y findings
         if: always()
         run: pnpm a11y:comment
 
-      # Post (or update in place) one sticky PR comment with the findings, so
-      # reviewers see them inline instead of opening the artifact.
+      # One sticky comment, updated in place.
       - name: Comment a11y findings on PR
         if: always() && github.event_name == 'pull_request'
         uses: marocchino/sticky-pull-request-comment@v2

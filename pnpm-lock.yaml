@@ -371,7 +371,7 @@ importers:
         version: 6.0.2(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(less@4.6.6)(sass-embedded@1.100.0)(sass@1.101.0)(terser@5.48.0)(yaml@2.9.0))
       axe-playwright:
         specifier: 2.2.2
-        version: 2.2.2(playwright@1.61.0)
+        version: 2.2.2(playwright@1.61.1)
       http-server:
         specifier: 14.1.1
         version: 14.1.1
@@ -416,7 +416,7 @@ importers:
         version: link:../tokens
       axe-playwright:
         specifier: 2.2.2
-        version: 2.2.2(playwright@1.61.1)
+        version: 2.2.2(playwright@1.61.0)
     devDependencies:
       '@storybook/test-runner':
         specifier: 0.24.4
