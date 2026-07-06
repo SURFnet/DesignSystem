@@ -371,10 +371,13 @@ importers:
         version: 6.0.2(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(less@4.6.6)(sass-embedded@1.100.0)(sass@1.101.0)(terser@5.48.0)(yaml@2.9.0))
       axe-playwright:
         specifier: 2.2.2
-        version: 2.2.2(playwright@1.61.1)
+        version: 2.2.2(playwright@1.61.0)
       http-server:
         specifier: 14.1.1
         version: 14.1.1
+      playwright:
+        specifier: 1.61.0
+        version: 1.61.0
       react:
         specifier: 19.2.7
         version: 19.2.7
@@ -9620,6 +9623,11 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  playwright@1.61.0:
+    resolution: {integrity: sha512-Z+7BeeqQPRRzklHsVFP4KTGIyMxKUmfeRA4WisM6G3/XW6nwGeX6fX9qYaDa+CiUqpOkb2f6X3nar05R3kSuJQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   playwright@1.61.1:
     resolution: {integrity: sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==}
     engines: {node: '>=18'}
@@ -18496,6 +18504,15 @@ snapshots:
       axe-core: 4.12.1
       mustache: 4.2.0
 
+  axe-playwright@2.2.2(playwright@1.61.0):
+    dependencies:
+      '@types/junit-report-builder': 3.0.2
+      axe-core: 4.12.1
+      axe-html-reporter: 2.2.11(axe-core@4.12.1)
+      junit-report-builder: 5.1.2
+      picocolors: 1.1.1
+      playwright: 1.61.0
+
   axe-playwright@2.2.2(playwright@1.61.1):
     dependencies:
       '@types/junit-report-builder': 3.0.2
@@ -23124,6 +23141,12 @@ snapshots:
   playwright-core@1.61.0: {}
 
   playwright-core@1.61.1: {}
+
+  playwright@1.61.0:
+    dependencies:
+      playwright-core: 1.61.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   playwright@1.61.1:
     dependencies:
