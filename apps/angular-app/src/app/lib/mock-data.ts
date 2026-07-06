@@ -1,16 +1,11 @@
-// Mock backend data for the demo app. In a real consumer this would come from the
-// SURF Access API; here it lives in-memory and is read directly by the server page.
-
 export type AppCategory = 'Education' | 'Productivity' | 'Security' | 'Research';
 
 export type AppRecord = {
   id: string;
   name: string;
   vendor: string;
-  /** Monthly revenue in USD. */
   revenue: number;
   category: AppCategory;
-  /** Icon image for the app; omitted for apps that haven't uploaded one. */
   iconUrl?: string;
 };
 
@@ -49,8 +44,6 @@ const NAMES = [
 
 const CATEGORIES: AppCategory[] = ['Education', 'Productivity', 'Security', 'Research'];
 
-// Deterministic generator so the list is stable across requests (no Math.random:
-// keeps server/client output in sync and the demo reproducible).
 function makeApps(count: number): AppRecord[] {
   return Array.from({ length: count }, (_, i) => {
     const name = NAMES[i % NAMES.length]!;
@@ -69,4 +62,5 @@ function makeApps(count: number): AppRecord[] {
 export const MOCK_APPS: AppRecord[] = makeApps(42);
 
 export const APP_CATEGORIES = ['All', ...CATEGORIES] as const;
+
 export type AppCategoryFilter = (typeof APP_CATEGORIES)[number];

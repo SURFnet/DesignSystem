@@ -1,0 +1,11 @@
+<hlm-select [value]="category()" (valueChange)="onValueChange($event)">
+  <hlm-select-trigger class="w-auto gap-2">
+    <span class="text-muted-foreground">Categorie:</span>
+    <span>{{ category() }}</span>
+  </hlm-select-trigger>
+  <hlm-select-content *hlmSelectPortal>
+    @for (option of categories; track option) {
+      <hlm-select-item [value]="option">{{ option }}</hlm-select-item>
+    }
+  </hlm-select-content>
+</hlm-select>

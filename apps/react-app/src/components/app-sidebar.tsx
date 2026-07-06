@@ -1,22 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import {
-  AppWindowIcon,
-  BuildingsIcon,
-  CaretUpDownIcon,
-  ChatCircleDotsIcon,
-  CheckCircleIcon,
-  HouseIcon,
-  LifebuoyIcon,
-  ScrollIcon,
-  ShieldCheckIcon,
-  SignOutIcon,
-  SquaresFourIcon,
-  UsersIcon,
-  UsersThreeIcon,
-  type Icon,
-} from '@phosphor-icons/react';
+import { CaretUpDownIcon, SignOutIcon, TerminalWindowIcon } from '@phosphor-icons/react';
 import {
   Avatar,
   AvatarFallback,
@@ -33,46 +18,36 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from '@surfnet/curve-react';
 
 import type { SessionUser } from '@/lib/mock-data';
 
-type NavItem = { title: string; icon: Icon; active?: boolean };
-type NavGroup = { label?: string; items: NavItem[] };
+type NavItem = { title: string; active?: boolean };
+type NavGroup = { items: NavItem[] };
 
 const groups: NavGroup[] = [
   {
-    items: [{ title: 'Home', icon: HouseIcon }],
+    items: [{ title: 'Home' }],
   },
   {
-    label: 'Apps',
     items: [
-      { title: 'Our apps', icon: SquaresFourIcon },
-      { title: 'Enabled apps', icon: CheckCircleIcon },
-      { title: 'Browse apps', icon: AppWindowIcon, active: true },
-      { title: 'Roles', icon: ShieldCheckIcon },
-      { title: 'Collaborative groups', icon: UsersThreeIcon },
+      { title: 'Our apps' },
+      { title: 'Enabled apps' },
+      { title: 'Browse apps', active: true },
+      { title: 'Roles' },
+      { title: 'Collaborative groups' },
     ],
   },
   {
-    label: 'Organisation',
-    items: [
-      { title: 'My organisation', icon: BuildingsIcon },
-      { title: 'Users', icon: UsersIcon },
-      { title: 'Policies', icon: ScrollIcon },
-    ],
+    items: [{ title: 'My organisation' }, { title: 'Users' }, { title: 'Policies' }],
   },
   {
-    label: 'Support',
-    items: [
-      { title: 'SURF Service desk', icon: LifebuoyIcon },
-      { title: 'Give us feedback', icon: ChatCircleDotsIcon },
-    ],
+    items: [{ title: 'SURF Service desk' }, { title: 'Give us feedback' }],
   },
 ];
 
@@ -93,7 +68,7 @@ export function AppSidebar({ user }: { user: SessionUser }) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg">
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <SquaresFourIcon className="size-4" weight="fill" />
+                <TerminalWindowIcon className="size-4" />
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
                 <span className="font-semibold">SURF Access</span>
@@ -106,23 +81,23 @@ export function AppSidebar({ user }: { user: SessionUser }) {
       </SidebarHeader>
 
       <SidebarContent>
-        {groups.map((group, index) => (
+        {groups.flatMap((group, index) => [
           <SidebarGroup key={index}>
-            {group.label ? <SidebarGroupLabel>{group.label}</SidebarGroupLabel> : null}
             <SidebarGroupContent>
               <SidebarMenu>
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton isActive={item.active} tooltip={item.title}>
-                      <item.icon />
+                      <TerminalWindowIcon />
                       <span>{item.title}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
             </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+          </SidebarGroup>,
+          index < groups.length - 1 ? <SidebarSeparator key={`sep-${index}`} /> : null,
+        ])}
       </SidebarContent>
 
       <SidebarFooter>

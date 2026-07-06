@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "ng build angular && pnpm build:css",
-    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
+    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify && rm -rf ./dist/files && cp -RL ./node_modules/@fontsource-variable/geist/files ./dist/files",
     "dev": "ng build angular --watch --configuration development",
     "lint": "ngc --noEmit -p tsconfig.json",
     "storybook": "ng run angular:storybook",
@@ -35,6 +35,7 @@
     "@angular/cdk": "22.0.0",
     "@angular/forms": ">=21.0.0 <23.0.0",
     "@angular/router": ">=21.0.0 <23.0.0",
+    "@fontsource-variable/geist": "5.2.9",
     "@ng-icons/phosphor-icons": ">=32.0.0 <34.0.0",
     "@spartan-ng/brain": "0.0.1-alpha.715",
     "@tanstack/angular-table": "^8.21.4",

@@ -1,0 +1,169 @@
+<hlm-sidebar collapsible="icon">
+  <div hlmSidebarHeader>
+    <ul hlmSidebarMenu>
+      <li hlmSidebarMenuItem>
+        <button hlmSidebarMenuButton size="lg">
+          <div
+            class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+          >
+            <ng-icon name="phosphorTerminalWindow" size="16" />
+          </div>
+          <div class="flex flex-col gap-0.5 leading-none">
+            <span class="font-semibold">SURF Access</span>
+            <span class="text-xs text-muted-foreground">v1.0.1</span>
+          </div>
+          <ng-icon name="phosphorCaretUpDown" class="ml-auto" />
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div hlmSidebarContent>
+    <div hlmSidebarGroup>
+      <div hlmSidebarGroupContent>
+        <ul hlmSidebarMenu>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Home</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hlm-sidebar-separator />
+
+    <div hlmSidebarGroup>
+      <div hlmSidebarGroupContent>
+        <ul hlmSidebarMenu>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Our apps</span>
+            </button>
+          </li>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Enabled apps</span>
+            </button>
+          </li>
+          <li hlmSidebarMenuItem>
+            <a
+              hlmSidebarMenuButton
+              routerLink="/browse-apps"
+              routerLinkActive
+              #browseAppsLink="routerLinkActive"
+              [isActive]="browseAppsLink.isActive"
+            >
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Browse apps</span>
+            </a>
+          </li>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Roles</span>
+            </button>
+          </li>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Collaborative groups</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hlm-sidebar-separator />
+
+    <div hlmSidebarGroup>
+      <div hlmSidebarGroupContent>
+        <ul hlmSidebarMenu>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>My organisation</span>
+            </button>
+          </li>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Users</span>
+            </button>
+          </li>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Policies</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hlm-sidebar-separator />
+
+    <div hlmSidebarGroup>
+      <div hlmSidebarGroupContent>
+        <ul hlmSidebarMenu>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>SURF Service desk</span>
+            </button>
+          </li>
+          <li hlmSidebarMenuItem>
+            <button hlmSidebarMenuButton>
+              <ng-icon name="phosphorTerminalWindow" />
+              <span>Give us feedback</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div hlmSidebarFooter>
+    <ul hlmSidebarMenu>
+      <li hlmSidebarMenuItem>
+        <button
+          hlmSidebarMenuButton
+          size="lg"
+          [hlmDropdownMenuTrigger]="userMenu"
+          side="top"
+          align="start"
+        >
+          <hlm-avatar size="sm">
+            <img hlmAvatarImage [src]="user.avatarUrl" [alt]="user.name" />
+            <span hlmAvatarFallback>{{ userInitials }}</span>
+          </hlm-avatar>
+          <div class="flex flex-col gap-0.5 leading-none">
+            <span class="font-semibold">{{ user.name }}</span>
+            <span class="text-xs text-muted-foreground">{{ user.organisation }}</span>
+          </div>
+          <ng-icon name="phosphorCaretUpDown" class="ml-auto" />
+        </button>
+        <ng-template #userMenu>
+          <hlm-dropdown-menu class="w-56">
+            <hlm-dropdown-menu-group>
+              <hlm-dropdown-menu-label>
+                <div class="flex flex-col">
+                  <span class="font-medium">{{ user.name }}</span>
+                  <span class="text-xs font-normal text-muted-foreground">{{ user.email }}</span>
+                </div>
+              </hlm-dropdown-menu-label>
+            </hlm-dropdown-menu-group>
+            <hlm-dropdown-menu-separator />
+            <button hlmDropdownMenuItem (triggered)="signOut()">
+              <ng-icon name="phosphorSignOut" />
+              <span>Sign out</span>
+            </button>
+          </hlm-dropdown-menu>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+</hlm-sidebar>

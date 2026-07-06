@@ -16,6 +16,8 @@ import {
   TableHeader,
   TableRow,
 } from '@surfnet/curve-react';
+import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
+
 import type { AppRecord } from '@/lib/mock-data';
 
 import { AppsSearch } from '@/components/browse-apps/apps-search';
@@ -85,7 +87,10 @@ export function BrowseAppsView({
         <AppsSearch defaultValue={search} />
         <div className="flex items-center gap-2">
           <CategoryFilter value={category} />
-          <Button>Create new application</Button>
+          <Button variant="secondary">
+            <PlusIcon />
+            Create new application
+          </Button>
         </div>
       </div>
 

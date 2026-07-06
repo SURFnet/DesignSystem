@@ -22,7 +22,7 @@
     {
       "name": "angular-app",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@surfnet/angular-app", "start"],
+      "runtimeArgs": ["--filter", "@surfnet/curve-angular-app", "start"],
       "port": 4200,
       "autoPort": true
     }

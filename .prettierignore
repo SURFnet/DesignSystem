@@ -2,6 +2,7 @@ node_modules
 dist
 storybook-static
 .turbo
+.next
 pnpm-lock.yaml
 
 # vendored upstream skills — keep them byte-for-byte as fetched
