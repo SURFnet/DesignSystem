@@ -8,10 +8,13 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    # The a11y step writes a PR comment.
+    # The a11y steps write a PR comment and push violation screenshots to the
+    # a11y-screenshots branch.
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
     steps:
       - uses: actions/checkout@v4
 
@@ -64,6 +67,13 @@ jobs:
           name: a11y-reports
           path: packages/*/.a11y-report/**
           if-no-files-found: ignore
+
+      # Pushes violating-element screenshots to the `a11y-screenshots` branch
+      # so the PR comment below can embed them by raw.githubusercontent.com
+      # URL. PR-only: there's no PR to attach screenshots to on a push build.
+      - name: Publish a11y screenshots
+        if: always() && github.event_name == 'pull_request'
+        run: ./scripts/publish-a11y-screenshots.sh
 
       # Summarise the JSON reports into .a11y-report/comment.md.
       - name: Summarise a11y findings

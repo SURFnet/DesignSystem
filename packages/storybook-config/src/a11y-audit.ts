@@ -39,10 +39,47 @@ async function applyTheme(page: Page, theme: string, mode: Mode): Promise<void> 
   );
 }
 
+type ViolationWithScreenshot = Result & { screenshot?: string };
+
 interface ComboResult {
   theme: string;
   mode: Mode;
-  violations: Result[];
+  violations: ViolationWithScreenshot[];
+}
+
+const SCREENSHOT_DIR = resolve(REPORT_DIR, 'screenshots');
+
+// Screenshots the first offending element of a violation, for the PR comment.
+// Best-effort: axe targets aren't guaranteed to resolve to a single visible
+// element (off-screen, zero-size, or inside a nested frame), so failures here
+// must never break the audit itself.
+async function captureViolationScreenshot(
+  page: Page,
+  storyId: string,
+  theme: string,
+  mode: Mode,
+  violation: Result,
+): Promise<string | undefined> {
+  // Only handle the plain, single-selector case; skip cross-frame/shadow-dom
+  // targets (arrays-within-the-array) rather than guess at a locator for them.
+  const target = violation.nodes?.[0]?.target;
+  const selector = target?.length === 1 && typeof target[0] === 'string' ? target[0] : undefined;
+  if (!selector) return undefined;
+
+  try {
+    const locator = page.locator(selector).first();
+    if ((await locator.count()) === 0) return undefined;
+    await locator.scrollIntoViewIfNeeded({ timeout: 2000 });
+    const file = `${storyId}__${theme}-${mode}__${violation.id}.png`.replace(
+      /[^a-z0-9._-]+/gi,
+      '_',
+    );
+    mkdirSync(SCREENSHOT_DIR, { recursive: true });
+    await locator.screenshot({ path: resolve(SCREENSHOT_DIR, file), timeout: 5000 });
+    return file;
+  } catch {
+    return undefined;
+  }
 }
 
 /**
@@ -75,7 +112,20 @@ export async function runStoryA11yAudit(page: Page, context: TestContext): Promi
   for (const theme of THEME_NAMES) {
     for (const mode of MODES) {
       await applyTheme(page, theme, mode);
-      const violations = await getViolations(page, STORY_ROOT, runOptions);
+      const violations: ViolationWithScreenshot[] = await getViolations(
+        page,
+        STORY_ROOT,
+        runOptions,
+      );
+      for (const violation of violations) {
+        violation.screenshot = await captureViolationScreenshot(
+          page,
+          context.id,
+          theme,
+          mode,
+          violation,
+        );
+      }
       results.push({ theme, mode, violations });
     }
   }
