@@ -2,12 +2,12 @@
   "name": "@surfnet/curve-angular",
   "version": "0.0.0",
   "sideEffects": false,
-  "module": "./dist/fesm2022/surfnet-angular.mjs",
-  "types": "./dist/types/surfnet-angular.d.ts",
+  "module": "./dist/fesm2022/surfnet-curve-angular.mjs",
+  "types": "./dist/types/surfnet-curve-angular.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/surfnet-angular.d.ts",
-      "default": "./dist/fesm2022/surfnet-angular.mjs"
+      "types": "./dist/types/surfnet-curve-angular.d.ts",
+      "default": "./dist/fesm2022/surfnet-curve-angular.mjs"
     },
     "./styles.css": "./dist/styles.css"
   },
