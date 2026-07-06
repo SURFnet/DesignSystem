@@ -20,7 +20,7 @@ import {
   HlmDropdownMenuImports,
   HlmCheckbox,
   injectDataTable,
-} from '@surfnet/angular';
+} from '@surfnet/curve-angular';
 import { flexRenderComponent, type ColumnDef, type Row, type Table } from '@tanstack/angular-table';
 
 type App = {
