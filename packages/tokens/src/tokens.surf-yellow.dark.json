@@ -33,7 +33,7 @@
   },
   "secondary": {
     "$type": "color",
-    "$value": "rgba(255, 232, 74, 1)"
+    "$value": "rgba(97, 84, 0, 1)"
   },
   "secondary-foreground": {
     "$type": "color",
@@ -134,6 +134,10 @@
   "destructive-foreground": {
     "$type": "color",
     "$value": "rgba(254, 242, 242, 1)"
+  },
+  "link": {
+    "$type": "color",
+    "$value": "rgba(255, 229, 0, 1)"
   },
   "ring-offset": {
     "$type": "color",
