@@ -9,8 +9,7 @@ export type {
   TokenKind,
   TypeScaleEntry,
 } from './tokens.js';
-// Browser-safe a11y config only. The Node-only audit (`runStoryA11yAudit`)
-// lives behind the `./test-runner` subpath so it never reaches a preview bundle.
+// Browser-safe a11y config; the audit lives behind the `./test-runner` subpath.
 export { WCAG_21_AA_TAGS, a11yParameters } from './a11y.js';
 
 // Shared preview parameters so every framework's Storybook renders stories the
