@@ -1,0 +1,8 @@
+/* Components, design tokens and preflight, fully compiled by @surfnet/curve-angular.
+   No Tailwind setup required to consume the design system. */
+@import '@surfnet/curve-angular/styles.css';
+
+/* The app's own Tailwind, for utilities used in app templates (e.g. layout).
+   Skip preflight here, it already ships in the package stylesheet above. */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css';

@@ -18,6 +18,13 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@surfnet/curve-angular", "storybook"],
       "port": 6007
+    },
+    {
+      "name": "angular-app",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@surfnet/angular-app", "start"],
+      "port": 4200,
+      "autoPort": true
     }
   ]
 }
