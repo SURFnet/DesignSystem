@@ -26,9 +26,9 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: .turbo
-          key: turbo-${{ runner.os }}-${{ github.sha }}
+          key: turbo-${{ runner.os }}-ci-${{ github.sha }}
           restore-keys: |
-            turbo-${{ runner.os }}-
+            turbo-${{ runner.os }}-ci-
 
       - run: pnpm install --frozen-lockfile
 

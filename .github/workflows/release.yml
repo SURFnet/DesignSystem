@@ -28,6 +28,16 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
 
+      # Replays unchanged Turborepo task outputs (e.g. the publish `build`) from
+      # the GitHub Actions cache instead of re-running them. Local cache only —
+      # no remote caching.
+      - uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-release-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-release-
+
       - run: pnpm install --frozen-lockfile
 
       - name: Create version PR or publish
