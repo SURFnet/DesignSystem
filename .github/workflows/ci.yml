@@ -73,7 +73,7 @@ jobs:
       # Summarise the JSON reports into .a11y-report/comment.md.
       - name: Summarise a11y findings
         if: always()
-        run: pnpm a11y:comment
+        run: pnpm exec jiti scripts/a11y-comment.ts
 
       # One sticky comment, updated in place.
       - name: Comment a11y findings on PR
