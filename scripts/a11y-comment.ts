@@ -23,6 +23,7 @@ interface AxeViolation {
   id: string;
   help?: string;
   nodes?: AxeNode[];
+  screenshot?: string;
 }
 interface ComboResult {
   theme: string;
@@ -43,11 +44,24 @@ interface Row {
   rule: string;
   example: string;
   themeDependent: boolean;
+  screenshotUrl?: string;
 }
 
 const OUT = process.argv[2] ?? '.a11y-report/comment.md';
 const PACKAGES_DIR = resolve('packages');
 const REPORT_DIR_NAME = '.a11y-report';
+
+// The "Publish a11y screenshots" CI step pushes screenshots to this branch,
+// under `pr-<number>/<package>/<file>.png`, giving each one a stable raw URL.
+// Only set for pull_request runs — local/push runs skip image embeds.
+const SCREENSHOTS_BRANCH = 'a11y-screenshots';
+const PR_NUMBER = process.env.PR_NUMBER;
+const REPO = process.env.GITHUB_REPOSITORY;
+
+function screenshotUrl(pkgName: string, file?: string): string | undefined {
+  if (!file || !PR_NUMBER || !REPO) return undefined;
+  return `https://raw.githubusercontent.com/${REPO}/${SCREENSHOTS_BRANCH}/pr-${PR_NUMBER}/${pkgName}/${file}`;
+}
 
 // axe rule id -> WCAG success criterion. Unlisted rules show the bare id.
 const WCAG_REF: Record<string, string> = {
@@ -120,6 +134,7 @@ for (const fw of frameworks) {
           rule: ref,
           example: exampleFor(v),
           themeDependent: THEME_DEPENDENT_RULES.has(v.id),
+          screenshotUrl: screenshotUrl(fw.name, v.screenshot),
         });
       }
     }
@@ -162,13 +177,24 @@ function buildBody(): string {
     mode: string;
     rule: string;
     example: string;
+    screenshotUrl?: string;
+  }
+  interface StructuralEntry {
+    desc: string;
+    screenshotUrl?: string;
   }
   interface VariationData {
-    structural: Map<string, string>; // rule -> short description (deduped)
+    structural: Map<string, StructuralEntry>; // rule -> short description (deduped)
     themed: Map<string, Leaf[]>; // theme -> failing modes
   }
   type VariationMap = Map<string, VariationData>;
   type ComponentMap = Map<string, VariationMap>;
+
+  // GitHub strips `data:` URIs from comment markdown, so thumbnails need a
+  // real URL — this stays undefined outside the "Publish a11y screenshots" CI
+  // step, and callers just render without an image in that case.
+  const img = (url: string | undefined, alt: string): string =>
+    url ? `<img src="${url}" width="360" alt="${alt.replace(/"/g, '')}">` : '';
 
   const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
@@ -180,11 +206,16 @@ function buildBody(): string {
     };
     if (r.themeDependent) {
       const leaves = data.themed.get(r.theme) ?? [];
-      leaves.push({ mode: r.mode, rule: r.rule, example: r.example });
+      leaves.push({
+        mode: r.mode,
+        rule: r.rule,
+        example: r.example,
+        screenshotUrl: r.screenshotUrl,
+      });
       data.themed.set(r.theme, leaves);
     } else {
       // Same finding in every theme/mode — keep one entry per rule.
-      data.structural.set(r.rule, r.example);
+      data.structural.set(r.rule, { desc: r.example, screenshotUrl: r.screenshotUrl });
     }
     variations.set(r.variation, data);
     components.set(r.component, variations);
@@ -213,10 +244,12 @@ function buildBody(): string {
         lines.push('', `##### ${variation} — ${findingCount(data)} finding(s)`);
 
         // Theme-independent findings: one line each, flagged as such.
-        for (const [rule, desc] of [...data.structural].sort(byKey)) {
+        for (const [rule, entry] of [...data.structural].sort(byKey)) {
           structuralTotal += 1;
-          const detail = desc ? `${desc} — ` : '';
+          const detail = entry.desc ? `${entry.desc} — ` : '';
           lines.push(`- ${detail}${rule} · _all themes/modes_`);
+          const thumb = img(entry.screenshotUrl, `${rule} violation`);
+          if (thumb) lines.push(`  ${thumb}`);
         }
 
         // Contrast findings: grouped theme -> mode.
@@ -226,6 +259,8 @@ function buildBody(): string {
           for (const leaf of [...leaves].sort((a, b) => modeRank(a.mode) - modeRank(b.mode))) {
             const detail = leaf.example ? `${leaf.example} — ` : '';
             lines.push(`  - \`${leaf.mode}\` — ${detail}${leaf.rule}`);
+            const thumb = img(leaf.screenshotUrl, `${leaf.rule} violation (${theme}/${leaf.mode})`);
+            if (thumb) lines.push(`    ${thumb}`);
           }
         }
       }
