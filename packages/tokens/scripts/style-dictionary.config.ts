@@ -68,17 +68,25 @@ function diff(base: TokenMap, next: TokenMap): TokenMap {
 }
 
 const darkDiff = diff(defaultLight, defaultDark);
-const themeBlocks = themes.map(({ cls, light, dark }) => ({
-  cls,
-  lightDiff: diff(defaultLight, light),
-  darkDiff: diff(defaultDark, dark),
-}));
+const fullDark = { ...defaultLight, ...defaultDark };
+
+const themeBlocks = themes.map(({ cls, light, dark }) => {
+  const lightDiff = diff(defaultLight, light);
+  // `.theme-<cls>` is emitted after `.dark` and has equal specificity, so by the
+  // time `.dark.theme-<cls>` applies, the cascade already resolved to `:root` +
+  // `.dark` + `.theme-<cls>` (i.e. defaultLight, overridden by darkDiff, then by
+  // lightDiff). Diff the fully-resolved dark theme against *that*, not against
+  // defaultDark, or any token whose theme-dark value matches the default-dark
+  // value gets omitted here and the theme's light override leaks into dark mode.
+  const cascadeBeforeThemeDark = { ...defaultLight, ...darkDiff, ...lightDiff };
+  const fullResolvedDark = { ...fullDark, ...light, ...dark };
+  return { cls, lightDiff, darkDiff: diff(cascadeBeforeThemeDark, fullResolvedDark) };
+});
 
 // Full resolved value sets per theme/mode, mirroring how the CSS cascade resolves
 // (theme + mode layered over the default :root). Keyed by theme class; the default
 // theme is keyed `default`. Keys drop the leading `--`.
 const themeModes = ['light', 'dark'] as const;
-const fullDark = { ...defaultLight, ...defaultDark };
 const themeValues: Record<string, { light: TokenMap; dark: TokenMap }> = {
   default: { light: defaultLight, dark: fullDark },
 };
