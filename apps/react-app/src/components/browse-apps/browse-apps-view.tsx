@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Avatar,
   AvatarFallback,
@@ -9,13 +11,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Checkbox,
+  DataTableContent,
+  useDataTable,
 } from '@surfnet/curve-react';
+import type { ColumnDef } from '@tanstack/react-table';
 import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 
 import type { AppRecord } from '@/lib/mock-data';
@@ -24,13 +24,59 @@ import { AppsSearch } from '@/components/browse-apps/apps-search';
 import { CategoryFilter } from '@/components/browse-apps/category-filter';
 import { LoadMore } from '@/components/browse-apps/load-more';
 import { RowActions } from '@/components/browse-apps/row-actions';
-import {
-  RowCheckbox,
-  SelectAllCheckbox,
-  SelectionProvider,
-} from '@/components/browse-apps/selection';
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+const columns: ColumnDef<AppRecord, unknown>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        indeterminate={table.getIsSomePageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label={`Select ${row.original.name}`}
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: 'name',
+    header: 'App',
+    cell: ({ row }) => (
+      <div className="flex items-center gap-3">
+        <Avatar size="sm">
+          <AvatarImage src={row.original.iconUrl} alt="" />
+          <AvatarFallback>{row.original.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+        </Avatar>
+        <span className="font-medium">{row.original.name}</span>
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'vendor',
+    header: 'Vendor',
+    cell: ({ row }) => <span className="text-muted-foreground">{row.original.vendor}</span>,
+  },
+  {
+    accessorKey: 'revenue',
+    header: 'Revenue',
+    cell: ({ row }) => currency.format(row.original.revenue),
+  },
+  {
+    id: 'actions',
+    enableHiding: false,
+    cell: ({ row }) => <RowActions appName={row.original.name} />,
+  },
+];
 
 export type BrowseAppsViewProps = {
   search: string;
@@ -56,7 +102,14 @@ export function BrowseAppsView({
   hasMore,
   nextHref,
 }: BrowseAppsViewProps) {
-  const ids = items.map((app) => app.id);
+  // Each page navigation replaces `items` wholesale (pagination is server-driven
+  // via `nextHref`, not client-side), so the table doesn't need real pagination —
+  // a page size larger than any single page's item count just disables it.
+  const table = useDataTable({
+    data: items,
+    columns,
+    initialPagination: { pageIndex: 0, pageSize: 1000 },
+  });
 
   return (
     <div className="mx-auto w-full max-w-6xl px-8 py-6">
@@ -94,54 +147,7 @@ export function BrowseAppsView({
         </div>
       </div>
 
-      <SelectionProvider>
-        <div className="overflow-hidden rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-10">
-                  <SelectAllCheckbox ids={ids} />
-                </TableHead>
-                <TableHead>App</TableHead>
-                <TableHead>Vendor</TableHead>
-                <TableHead>Revenue</TableHead>
-                <TableHead className="w-10" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
-                    No apps found.
-                  </TableCell>
-                </TableRow>
-              ) : (
-                items.map((app) => (
-                  <TableRow key={app.id}>
-                    <TableCell>
-                      <RowCheckbox id={app.id} label={app.name} />
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Avatar size="sm">
-                          <AvatarImage src={app.iconUrl} alt="" />
-                          <AvatarFallback>{app.name.slice(0, 2).toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <span className="font-medium">{app.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">{app.vendor}</TableCell>
-                    <TableCell>{currency.format(app.revenue)}</TableCell>
-                    <TableCell>
-                      <RowActions appName={app.name} />
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
-      </SelectionProvider>
+      <DataTableContent table={table} columns={columns} noResultsLabel="No apps found." />
 
       <div className="mt-4 flex items-center justify-between">
         {hasMore ? (

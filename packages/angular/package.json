@@ -1,6 +1,7 @@
 {
   "name": "@surfnet/curve-angular",
   "version": "0.0.0",
+  "private": true,
   "sideEffects": false,
   "module": "./dist/fesm2022/surfnet-curve-angular.mjs",
   "types": "./dist/types/surfnet-curve-angular.d.ts",
@@ -25,11 +26,6 @@
     "@angular/core": "^22.0.0",
     "@ng-icons/core": "^33.0.0",
     "rxjs": "^7.8.0"
-  },
-  "peerDependenciesMeta": {
-    "@ng-icons/core": {
-      "optional": true
-    }
   },
   "dependencies": {
     "@angular/cdk": "22.0.0",
