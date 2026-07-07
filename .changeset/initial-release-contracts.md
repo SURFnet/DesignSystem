@@ -19,4 +19,7 @@ Initial release of the cross-framework contracts package (private, build-time on
 - `@surfnet/curve-react` and `@surfnet/curve-angular` each enforce a contract's `props`
   at compile time via `satisfies Record<AxisName, string>` on their `cva` calls, so a
   variant added to one framework and missed in the other fails `pnpm lint`.
-- Types only, erased at compile time; never present in a published `dist`.
+- Contracts carry real runtime values (`defaults`, `docs`), not just types — Storybook
+  stories import them directly to drive controls and autodocs. Component source only
+  ever `import type`s the derived names, and stories are excluded from both packages'
+  library builds, so none of it, types or values, reaches a published `dist`.
