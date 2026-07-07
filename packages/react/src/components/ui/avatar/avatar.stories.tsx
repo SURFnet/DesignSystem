@@ -9,24 +9,24 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: avatarContract.description,
+        component: avatarContract.docs.description,
       },
     },
   },
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: avatarContract.sizes,
-      description: avatarContract.sizes
-        .map((size) => `\`${size}\` — ${avatarContract.sizeDocs[size]}`)
+      options: avatarContract.props.sizes,
+      description: avatarContract.props.sizes
+        .map((size) => `\`${size}\` — ${avatarContract.docs.sizes[size]}`)
         .join('\n\n'),
       table: {
-        defaultValue: { summary: avatarContract.defaultSize },
+        defaultValue: { summary: avatarContract.defaults.sizes },
       },
     },
   },
   args: {
-    size: avatarContract.defaultSize,
+    size: avatarContract.defaults.sizes,
   },
 } satisfies Meta<typeof Avatar>;
 
@@ -58,8 +58,8 @@ export const Fallback: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-3">
-      {avatarContract.sizes.map((size) => (
-        <Avatar key={size} size={size} title={avatarContract.sizeDocs[size]}>
+      {avatarContract.props.sizes.map((size) => (
+        <Avatar key={size} size={size} title={avatarContract.docs.sizes[size]}>
           <AvatarFallback>{size.slice(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>
       ))}

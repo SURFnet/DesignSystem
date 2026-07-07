@@ -22,7 +22,7 @@ const meta: Meta<HlmSidebar> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: sidebarContract.description,
+        component: sidebarContract.docs.description,
       },
     },
   },
@@ -126,12 +126,12 @@ export const Default: Story = {
             <div hlmSidebarGroupLabel>Variants</div>
             <div hlmSidebarGroupContent>
               <ul hlmSidebarMenu>
-                @for (variant of contract.variants; track variant) {
+                @for (variant of contract.props.variants; track variant) {
                   <li hlmSidebarMenuItem>
                     <button
                       hlmSidebarMenuButton
                       [variant]="variant"
-                      [title]="contract.variantDocs[variant]"
+                      [title]="contract.docs.variants[variant]"
                     >
                       <ng-icon name="phosphorSquaresFour" />
                       <span>{{ variant }}</span>
@@ -145,9 +145,9 @@ export const Default: Story = {
             <div hlmSidebarGroupLabel>Sizes</div>
             <div hlmSidebarGroupContent>
               <ul hlmSidebarMenu>
-                @for (size of contract.sizes; track size) {
+                @for (size of contract.props.sizes; track size) {
                   <li hlmSidebarMenuItem>
-                    <button hlmSidebarMenuButton [size]="size" [title]="contract.sizeDocs[size]">
+                    <button hlmSidebarMenuButton [size]="size" [title]="contract.docs.sizes[size]">
                       <ng-icon name="phosphorSquaresFour" />
                       <span>{{ size }}</span>
                     </button>

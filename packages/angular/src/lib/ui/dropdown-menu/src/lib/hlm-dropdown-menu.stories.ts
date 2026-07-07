@@ -18,7 +18,7 @@ const meta: Meta<HlmDropdownMenu> = {
   parameters: {
     docs: {
       description: {
-        component: dropdownMenuContract.description,
+        component: dropdownMenuContract.docs.description,
       },
     },
   },

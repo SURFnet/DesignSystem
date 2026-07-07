@@ -12,7 +12,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: checkboxContract.description,
+        component: checkboxContract.docs.description,
       },
     },
   },

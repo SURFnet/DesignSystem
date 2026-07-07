@@ -127,7 +127,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: dataTableContract.description,
+        component: dataTableContract.docs.description,
       },
     },
   },

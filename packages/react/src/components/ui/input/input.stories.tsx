@@ -9,7 +9,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: inputContract.description,
+        component: inputContract.docs.description,
       },
     },
   },

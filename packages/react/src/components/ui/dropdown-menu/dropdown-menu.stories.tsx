@@ -22,7 +22,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: dropdownMenuContract.description,
+        component: dropdownMenuContract.docs.description,
       },
     },
   },
@@ -40,7 +40,7 @@ export const Default: Story = {
       <DropdownMenuContent align="start" className="w-48">
         <DropdownMenuGroup>
           <DropdownMenuLabel>My account</DropdownMenuLabel>
-          <DropdownMenuItem title={dropdownMenuContract.variantDocs.default}>
+          <DropdownMenuItem title={dropdownMenuContract.docs.variants.default}>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -49,7 +49,7 @@ export const Default: Story = {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           variant="destructive"
-          title={dropdownMenuContract.variantDocs.destructive}
+          title={dropdownMenuContract.docs.variants.destructive}
         >
           Delete
         </DropdownMenuItem>

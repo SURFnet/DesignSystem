@@ -28,7 +28,7 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: sidebarContract.description,
+        component: sidebarContract.docs.description,
       },
     },
   },
@@ -118,11 +118,11 @@ export const MenuButtonVariants: Story = {
             <SidebarGroupLabel>Variants</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {sidebarMenuButtonContract.variants.map((variant) => (
+                {sidebarMenuButtonContract.props.variants.map((variant) => (
                   <SidebarMenuItem key={variant}>
                     <SidebarMenuButton
                       variant={variant}
-                      title={sidebarMenuButtonContract.variantDocs[variant]}
+                      title={sidebarMenuButtonContract.docs.variants[variant]}
                     >
                       <SquaresFourIcon />
                       <span>{variant}</span>
@@ -136,9 +136,12 @@ export const MenuButtonVariants: Story = {
             <SidebarGroupLabel>Sizes</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {sidebarMenuButtonContract.sizes.map((size) => (
+                {sidebarMenuButtonContract.props.sizes.map((size) => (
                   <SidebarMenuItem key={size}>
-                    <SidebarMenuButton size={size} title={sidebarMenuButtonContract.sizeDocs[size]}>
+                    <SidebarMenuButton
+                      size={size}
+                      title={sidebarMenuButtonContract.docs.sizes[size]}
+                    >
                       <SquaresFourIcon />
                       <span>{size}</span>
                     </SidebarMenuButton>

@@ -11,7 +11,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: labelContract.description,
+        component: labelContract.docs.description,
       },
     },
   },

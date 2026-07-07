@@ -15,7 +15,7 @@ const meta: Meta<HlmCheckbox> = {
   parameters: {
     docs: {
       description: {
-        component: checkboxContract.description,
+        component: checkboxContract.docs.description,
       },
     },
   },
