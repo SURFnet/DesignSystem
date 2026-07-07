@@ -1,5 +1,5 @@
 ---
-'@surfnet/curve-storybook-config': major
+'@surfnet/curve-storybook-config': minor
 ---
 
 Initial release of the shared Storybook configuration package (private).

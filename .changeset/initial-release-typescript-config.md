@@ -1,5 +1,5 @@
 ---
-'@surfnet/curve-typescript-config': major
+'@surfnet/curve-typescript-config': minor
 ---
 
 Initial release of the shared TypeScript configuration package (private).

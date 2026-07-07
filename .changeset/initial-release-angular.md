@@ -1,5 +1,5 @@
 ---
-'@surfnet/curve-angular': major
+'@surfnet/curve-angular': minor
 ---
 
 Initial release of the Angular component library.

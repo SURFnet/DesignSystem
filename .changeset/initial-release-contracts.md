@@ -1,5 +1,5 @@
 ---
-'@surfnet/curve-contracts': major
+'@surfnet/curve-contracts': minor
 ---
 
 Initial release of the cross-framework contracts package (private, build-time only).

@@ -1,5 +1,5 @@
 ---
-'@surfnet/curve-react': major
+'@surfnet/curve-react': minor
 ---
 
 Initial release of the React component library (private for now; not yet published

@@ -1,5 +1,5 @@
 ---
-'@surfnet/curve-tokens': major
+'@surfnet/curve-tokens': minor
 ---
 
 Initial release of the shared design tokens package.
