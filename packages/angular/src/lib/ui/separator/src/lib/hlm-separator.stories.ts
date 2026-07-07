@@ -13,26 +13,27 @@ const meta: Meta<HlmSeparator> = {
   parameters: {
     docs: {
       description: {
-        component: separatorContract.description,
+        component: separatorContract.docs.description,
       },
     },
   },
   argTypes: {
     orientation: {
       control: 'inline-radio',
-      options: separatorContract.orientations,
-      description: separatorContract.orientations
+      options: separatorContract.props.orientations,
+      description: separatorContract.props.orientations
         .map(
-          (orientation) => `\`${orientation}\` — ${separatorContract.orientationDocs[orientation]}`,
+          (orientation) =>
+            `\`${orientation}\` — ${separatorContract.docs.orientations[orientation]}`,
         )
         .join('\n\n'),
       table: {
-        defaultValue: { summary: separatorContract.defaultOrientation },
+        defaultValue: { summary: separatorContract.defaults.orientations },
       },
     },
   },
   args: {
-    orientation: separatorContract.defaultOrientation,
+    orientation: separatorContract.defaults.orientations,
   },
 };
 

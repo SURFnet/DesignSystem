@@ -1,11 +1,19 @@
-export const separatorContract = {
-  orientations: ['horizontal', 'vertical'],
-  defaultOrientation: 'horizontal',
-  description: 'A thin rule that visually or semantically divides content.',
-  orientationDocs: {
-    horizontal: 'A full-width rule between stacked blocks.',
-    vertical: 'A full-height rule between inline items.',
-  },
-} as const;
+import { defineContract } from './define-contract.js';
 
-export type SeparatorOrientationName = (typeof separatorContract.orientations)[number];
+export const separatorContract = defineContract({
+  props: {
+    orientations: ['horizontal', 'vertical'],
+  },
+  defaults: {
+    orientations: 'horizontal',
+  },
+  docs: {
+    description: 'A thin rule that visually or semantically divides content.',
+    orientations: {
+      horizontal: 'A full-width rule between stacked blocks.',
+      vertical: 'A full-height rule between inline items.',
+    },
+  },
+});
+
+export type SeparatorOrientationName = (typeof separatorContract.props.orientations)[number];

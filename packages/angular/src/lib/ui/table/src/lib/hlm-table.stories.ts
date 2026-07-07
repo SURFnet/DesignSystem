@@ -10,7 +10,7 @@ const meta: Meta<HlmTable> = {
   parameters: {
     docs: {
       description: {
-        component: tableContract.description,
+        component: tableContract.docs.description,
       },
     },
   },

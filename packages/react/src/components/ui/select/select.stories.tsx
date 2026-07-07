@@ -17,7 +17,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: selectContract.description,
+        component: selectContract.docs.description,
       },
     },
   },
@@ -81,9 +81,9 @@ export const Disabled: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-3">
-      {selectContract.sizes.map((size) => (
+      {selectContract.props.sizes.map((size) => (
         <Select key={size} defaultValue="all">
-          <SelectTrigger size={size} className="w-40" title={selectContract.sizeDocs[size]}>
+          <SelectTrigger size={size} className="w-40" title={selectContract.docs.sizes[size]}>
             <SelectValue placeholder="Category" />
           </SelectTrigger>
           <SelectContent>

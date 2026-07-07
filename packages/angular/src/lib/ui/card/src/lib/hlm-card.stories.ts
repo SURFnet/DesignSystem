@@ -15,7 +15,7 @@ const meta: Meta<HlmCard> = {
   parameters: {
     docs: {
       description: {
-        component: cardContract.description,
+        component: cardContract.docs.description,
       },
     },
   },

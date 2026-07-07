@@ -21,7 +21,7 @@ const meta: Meta<HlmInput> = {
   parameters: {
     docs: {
       description: {
-        component: inputContract.description,
+        component: inputContract.docs.description,
       },
     },
   },

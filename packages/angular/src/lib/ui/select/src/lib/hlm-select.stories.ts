@@ -14,7 +14,7 @@ const meta: Meta<HlmSelect> = {
   parameters: {
     docs: {
       description: {
-        component: selectContract.description,
+        component: selectContract.docs.description,
       },
     },
   },
@@ -84,7 +84,7 @@ export const Sizes: Story = {
   render: () => ({
     template: `
 			<div class="flex items-center gap-3">
-				${selectContract.sizes
+				${selectContract.props.sizes
           .map(
             (size) => `
 							<hlm-select key="${size}" value="all">

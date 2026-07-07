@@ -25,7 +25,7 @@ const meta: Meta<HlmBreadcrumb> = {
   parameters: {
     docs: {
       description: {
-        component: breadcrumbContract.description,
+        component: breadcrumbContract.docs.description,
       },
     },
   },

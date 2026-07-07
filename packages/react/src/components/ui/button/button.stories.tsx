@@ -10,33 +10,33 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: buttonContract.description,
+        component: buttonContract.docs.description,
       },
     },
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: buttonContract.variants,
+      options: buttonContract.props.variants,
       description: 'Visual style of the button.',
       table: {
-        defaultValue: { summary: buttonContract.defaultVariant },
+        defaultValue: { summary: buttonContract.defaults.variants },
       },
     },
     size: {
       control: 'select',
-      options: buttonContract.sizes,
+      options: buttonContract.props.sizes,
       description: 'Size of the button.',
       table: {
-        defaultValue: { summary: buttonContract.defaultSize },
+        defaultValue: { summary: buttonContract.defaults.sizes },
       },
     },
     disabled: { control: 'boolean' },
   },
   args: {
     children: 'Button',
-    variant: buttonContract.defaultVariant,
-    size: buttonContract.defaultSize,
+    variant: buttonContract.defaults.variants,
+    size: buttonContract.defaults.sizes,
     disabled: false,
   },
 } satisfies Meta<typeof Button>;
@@ -52,8 +52,8 @@ export const Default: Story = {};
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      {buttonContract.variants.map((variant) => (
-        <Button key={variant} variant={variant} title={buttonContract.variantDocs[variant]}>
+      {buttonContract.props.variants.map((variant) => (
+        <Button key={variant} variant={variant} title={buttonContract.docs.variants[variant]}>
           {variant.charAt(0).toUpperCase() + variant.slice(1)}
         </Button>
       ))}

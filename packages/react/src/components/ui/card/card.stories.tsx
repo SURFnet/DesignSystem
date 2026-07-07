@@ -18,7 +18,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: cardContract.description,
+        component: cardContract.docs.description,
       },
     },
   },

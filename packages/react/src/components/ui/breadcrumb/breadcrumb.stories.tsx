@@ -17,7 +17,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: breadcrumbContract.description,
+        component: breadcrumbContract.docs.description,
       },
     },
   },

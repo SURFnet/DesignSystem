@@ -14,7 +14,7 @@ const meta: Meta<HlmLabel> = {
   parameters: {
     docs: {
       description: {
-        component: labelContract.description,
+        component: labelContract.docs.description,
       },
     },
   },

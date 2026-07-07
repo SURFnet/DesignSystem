@@ -16,24 +16,26 @@ const meta: Meta<HlmField> = {
   parameters: {
     docs: {
       description: {
-        component: fieldContract.description,
+        component: fieldContract.docs.description,
       },
     },
   },
   argTypes: {
     orientation: {
       control: 'inline-radio',
-      options: fieldContract.orientations,
-      description: fieldContract.orientations
-        .map((orientation) => `\`${orientation}\` — ${fieldContract.orientationDocs[orientation]}`)
+      options: fieldContract.props.orientations,
+      description: fieldContract.props.orientations
+        .map(
+          (orientation) => `\`${orientation}\` — ${fieldContract.docs.orientations[orientation]}`,
+        )
         .join('\n\n'),
       table: {
-        defaultValue: { summary: fieldContract.defaultOrientation },
+        defaultValue: { summary: fieldContract.defaults.orientations },
       },
     },
   },
   args: {
-    orientation: fieldContract.defaultOrientation,
+    orientation: fieldContract.defaults.orientations,
   },
 };
 

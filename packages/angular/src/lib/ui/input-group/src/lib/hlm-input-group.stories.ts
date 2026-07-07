@@ -31,7 +31,7 @@ const meta: Meta<HlmInputGroup> = {
   parameters: {
     docs: {
       description: {
-        component: inputGroupContract.description,
+        component: inputGroupContract.docs.description,
       },
     },
   },
