@@ -55,7 +55,7 @@ jobs:
       # script). React is a static export under /react-app; Angular is a SPA
       # served under --base-href /angular-app/.
       - run: pnpm --filter @surfnet/curve-react-app build:pages
-      - run: pnpm --filter @surfnet/angular-app build:pages
+      - run: pnpm --filter @surfnet/curve-angular-app build:pages
 
       - name: Assemble Pages site
         run: |
