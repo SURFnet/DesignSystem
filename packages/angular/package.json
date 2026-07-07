@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "ng build angular && pnpm build:css",
-    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify && rm -rf ./dist/files && cp -RL ./node_modules/@fontsource-variable/geist/files ./dist/files",
+    "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify && jiti scripts/copy-font-files.ts",
     "dev": "ng build angular --watch --configuration development",
     "lint": "ngc --noEmit -p tsconfig.json",
     "storybook": "ng run angular:storybook",
