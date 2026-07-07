@@ -1,6 +1,6 @@
 {
-  "name": "@surfnet/angular-app",
-  "version": "0.0.0",
+  "name": "@surfnet/curve-angular-app",
+  "version": "0.1.0",
   "private": true,
   "description": "Demo app for testing @surfnet/curve-angular components.",
   "type": "module",
@@ -9,6 +9,7 @@
     "dev": "ng serve",
     "start": "ng serve",
     "build": "ng build",
+    "build:pages": "ng build --base-href /DesignSystem/angular-app/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ngc --noEmit -p tsconfig.app.json"
@@ -25,6 +26,7 @@
     "@ng-icons/phosphor-icons": ">=32.0.0 <34.0.0",
     "@spartan-ng/brain": "^0.0.1-alpha.720",
     "@surfnet/curve-angular": "workspace:*",
+    "@surfnet/curve-tokens": "workspace:*",
     "@tanstack/angular-table": "^8.21.4",
     "postcss": "^8.5.15",
     "rxjs": "~7.8.2",

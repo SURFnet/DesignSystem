@@ -1,17 +1,28 @@
 import { Routes } from '@angular/router';
-import { DemoComponent } from './demo/demo.component';
+import { LoginComponent } from './login/login.component';
+import { AppShellComponent } from './shell/app-shell.component';
+import { BrowseAppsComponent } from './browse-apps/browse-apps.component';
 import { CustomDataTableComponent } from './custom-data-table/custom-data-table.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'demo',
+    redirectTo: 'browse-apps',
   },
   {
-    path: 'demo',
-    pathMatch: 'full',
-    component: DemoComponent,
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: '',
+    component: AppShellComponent,
+    children: [
+      {
+        path: 'browse-apps',
+        component: BrowseAppsComponent,
+      },
+    ],
   },
   {
     path: 'table',

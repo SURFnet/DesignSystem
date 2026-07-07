@@ -15,7 +15,7 @@ const meta: Meta<HlmTextarea> = {
   parameters: {
     docs: {
       description: {
-        component: textareaContract.description,
+        component: textareaContract.docs.description,
       },
     },
   },

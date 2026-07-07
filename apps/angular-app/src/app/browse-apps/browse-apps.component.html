@@ -1,0 +1,58 @@
+<div class="mx-auto w-full max-w-6xl px-8 py-6">
+  <nav hlmBreadcrumb class="mb-6">
+    <ol hlmBreadcrumbList>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink link="/home">Home</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <a hlmBreadcrumbLink link="/components">Settings</a>
+      </li>
+      <li hlmBreadcrumbSeparator></li>
+      <li hlmBreadcrumbItem>
+        <span hlmBreadcrumbPage>Profile details</span>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="mb-8 space-y-1">
+    <h1 class="text-3xl font-semibold tracking-tight">Browse apps</h1>
+    <p class="text-muted-foreground">
+      Manage access to the apps that the Dummy IdP is connected to.
+    </p>
+  </div>
+
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <app-apps-search [search]="search() ?? ''" (searchChange)="onSearchChange($event)" />
+    <div class="flex items-center gap-2">
+      <app-category-filter
+        [category]="categoryFilter()"
+        (categoryChange)="onCategoryChange($event)"
+      />
+      <button hlmBtn variant="secondary">
+        <ng-icon name="phosphorPlus" />
+        Create new application
+      </button>
+    </div>
+  </div>
+
+  <hlm-data-table-content [table]="table" [columns]="columns" noResultsLabel="No apps found." />
+
+  <div class="mt-4 flex items-center justify-between">
+    @if (hasMore()) {
+      <a
+        hlmBtn
+        variant="outline"
+        [routerLink]="[]"
+        [queryParams]="{ page: nextPage() }"
+        queryParamsHandling="merge"
+      >
+        Load more apps…
+      </a>
+    } @else {
+      <span class="text-sm text-muted-foreground">No more apps.</span>
+    }
+
+    <span class="text-sm text-muted-foreground">Showing {{ items().length }} of {{ total() }}</span>
+  </div>
+</div>

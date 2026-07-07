@@ -17,7 +17,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: tableContract.description,
+        component: tableContract.docs.description,
       },
     },
   },

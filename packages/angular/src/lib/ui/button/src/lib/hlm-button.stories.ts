@@ -22,37 +22,37 @@ const meta: Meta<ButtonArgs> = {
   parameters: {
     docs: {
       description: {
-        component: buttonContract.description,
+        component: buttonContract.docs.description,
       },
     },
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: [...buttonContract.variants],
+      options: [...buttonContract.props.variants],
       description: 'Visual style of the button.',
       table: {
         type: {
-          summary: buttonContract.variants.join(' | '),
+          summary: buttonContract.props.variants.join(' | '),
         },
-        defaultValue: { summary: buttonContract.defaultVariant },
+        defaultValue: { summary: buttonContract.defaults.variants },
       },
     },
     size: {
       control: 'select',
-      options: [...buttonContract.sizes],
+      options: [...buttonContract.props.sizes],
       description: 'Size of the button.',
       table: {
         type: {
-          summary: buttonContract.sizes.join(' | '),
+          summary: buttonContract.props.sizes.join(' | '),
         },
-        defaultValue: { summary: buttonContract.defaultSize },
+        defaultValue: { summary: buttonContract.defaults.sizes },
       },
     },
   },
   args: {
-    variant: buttonContract.defaultVariant,
-    size: buttonContract.defaultSize,
+    variant: buttonContract.defaults.variants,
+    size: buttonContract.defaults.sizes,
     disabled: false,
   },
 };
@@ -75,8 +75,8 @@ export const Default: Story = {
   imports: [HlmButtonImports],
   template: `
     <div class="flex flex-wrap items-center gap-3">
-      @for (variant of buttonContract.variants; track variant) {
-        <button hlmBtn [variant]="variant" [title]="buttonContract.variantDocs[variant]">
+      @for (variant of buttonContract.props.variants; track variant) {
+        <button hlmBtn [variant]="variant" [title]="buttonContract.docs.variants[variant]">
           {{ variant.charAt(0).toUpperCase() + variant.slice(1) }}
         </button>
       }

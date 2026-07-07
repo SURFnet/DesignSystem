@@ -7,6 +7,10 @@
     "spartan-ui": {
       "command": "npx",
       "args": ["-y", "@spartan-ng/mcp"]
+    },
+    "figma": {
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
     }
   }
 }

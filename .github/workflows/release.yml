@@ -36,6 +36,9 @@ jobs:
           # Opens/updates the "Version Packages" PR.
           version: pnpm version-packages
           # Runs once the version PR is merged: builds, then `changeset publish`.
+          # Must be a single command (no shell operators) — changesets/action execs
+          # this string directly without a shell, so `&&` chaining has to live
+          # inside the `release` script itself, not here.
           publish: pnpm release
           commit: 'chore: version packages'
           title: 'chore: version packages'
@@ -43,3 +46,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

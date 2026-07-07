@@ -1,0 +1,12 @@
+<div hlmInputGroup class="w-full max-w-xs">
+  <div hlmInputGroupAddon>
+    <ng-icon name="phosphorMagnifyingGlass" />
+  </div>
+  <input
+    hlmInputGroupInput
+    placeholder="Search apps…"
+    aria-label="Search apps"
+    [value]="search()"
+    (input)="onInput($event)"
+  />
+</div>
