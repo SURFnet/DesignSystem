@@ -36,7 +36,10 @@ jobs:
           # Opens/updates the "Version Packages" PR.
           version: pnpm version-packages
           # Runs once the version PR is merged: builds, then `changeset publish`.
-          publish: pnpm build && pnpm release
+          # Must be a single command (no shell operators) — changesets/action execs
+          # this string directly without a shell, so `&&` chaining has to live
+          # inside the `release` script itself, not here.
+          publish: pnpm release
           commit: 'chore: version packages'
           title: 'chore: version packages'
         env:
