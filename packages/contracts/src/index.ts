@@ -4,6 +4,7 @@ export { breadcrumbContract } from './breadcrumb.js';
 export { buttonContract, type ButtonVariantName, type ButtonSizeName } from './button.js';
 export { checkboxContract } from './checkbox.js';
 export { dataTableContract } from './data-table.js';
+export { curveDataTableContract } from './curve-data-table.js';
 export { dropdownMenuContract, type DropdownMenuItemVariantName } from './dropdown-menu.js';
 export { fieldContract, type FieldOrientationName } from './field.js';
 export { inputContract } from './input.js';
