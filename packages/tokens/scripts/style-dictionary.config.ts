@@ -72,12 +72,10 @@ const fullDark = { ...defaultLight, ...defaultDark };
 
 const themeBlocks = themes.map(({ cls, light, dark }) => {
   const lightDiff = diff(defaultLight, light);
-  // `.theme-<cls>` is emitted after `.dark` and has equal specificity, so by the
-  // time `.dark.theme-<cls>` applies, the cascade already resolved to `:root` +
-  // `.dark` + `.theme-<cls>` (i.e. defaultLight, overridden by darkDiff, then by
-  // lightDiff). Diff the fully-resolved dark theme against *that*, not against
-  // defaultDark, or any token whose theme-dark value matches the default-dark
-  // value gets omitted here and the theme's light override leaks into dark mode.
+  // `.theme-<cls>` beats `.dark` (same specificity, later in source), so diff
+  // against what the cascade resolves to *before* `.dark.theme-<cls>` applies —
+  // not against defaultDark — or matching tokens get omitted and the theme's
+  // light override leaks into dark mode.
   const cascadeBeforeThemeDark = { ...defaultLight, ...darkDiff, ...lightDiff };
   const fullResolvedDark = { ...fullDark, ...light, ...dark };
   return { cls, lightDiff, darkDiff: diff(cascadeBeforeThemeDark, fullResolvedDark) };
