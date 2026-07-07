@@ -1,10 +1,10 @@
 ---
-'@surfnet/curve-tokens': major
-'@surfnet/curve-contracts': major
-'@surfnet/curve-react': major
-'@surfnet/curve-angular': major
-'@surfnet/curve-typescript-config': major
-'@surfnet/curve-storybook-config': major
+'@surfnet/curve-tokens': minor
+'@surfnet/curve-contracts': minor
+'@surfnet/curve-react': minor
+'@surfnet/curve-angular': minor
+'@surfnet/curve-typescript-config': minor
+'@surfnet/curve-storybook-config': minor
 ---
 
 Renamed the design system to **Curve**. All packages moved from `@surfnet/<name>` to
