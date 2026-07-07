@@ -81,7 +81,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: curveDataTableContract.description,
+        component: curveDataTableContract.docs.description,
       },
     },
   },
