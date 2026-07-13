@@ -1,5 +1,11 @@
 # @surfnet/curve-react
 
+## 0.2.1
+
+### Patch Changes
+
+- d6ef476: Add a package README covering install, peer deps, usage, theming, and a Storybook link, so the npm/GitHub package pages have content.
+
 ## 0.2.0
 
 ### Minor Changes
