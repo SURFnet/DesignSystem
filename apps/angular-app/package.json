@@ -1,6 +1,6 @@
 {
   "name": "@surfnet/curve-angular-app",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "Demo app for testing @surfnet/curve-angular components.",
   "type": "module",

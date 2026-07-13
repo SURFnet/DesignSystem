@@ -1,5 +1,12 @@
 # @surfnet/curve-angular-app
 
+## 0.2.2
+
+### Patch Changes
+
+- @surfnet/curve-angular@0.2.2
+- @surfnet/curve-tokens@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

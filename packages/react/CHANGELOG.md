@@ -1,5 +1,14 @@
 # @surfnet/curve-react
 
+## 0.2.2
+
+### Patch Changes
+
+- f08b7f9: Rename the compiled stylesheet from `curve-react.css` to `styles.css` in `dist`, matching
+  `@surfnet/curve-angular`. The public `./styles.css` export path is unchanged, so consumers
+  importing it as documented are unaffected; only code importing the internal filename
+  directly needs to switch to the `styles.css` export.
+
 ## 0.2.1
 
 ### Patch Changes
