@@ -108,7 +108,7 @@ type Story = StoryObj;
  * NOTE:
  * - Filtering on amount currenty does not work. This interactive option is not present in the other data-table component.
  * - This component does currently not support passing CSS classes to cells, for example tailing utility classes for rendering uppercase or lowercase. Right-alignment of numbers is currently automatic.
- * - For simplicity, the image column is a separate column, whereas in the other data-table component it is in the 'App' column.
+ * - For simplicity there are only single-typed column, so making a column with an image and text is not supported currently.
  */
 export const Default: Story = {
   render: (args) => ({
