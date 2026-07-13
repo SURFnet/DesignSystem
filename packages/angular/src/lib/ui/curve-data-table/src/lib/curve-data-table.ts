@@ -1,12 +1,6 @@
-import { Component, input, OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, output, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-  phosphorCaretUpDown,
-  phosphorDotsThree,
-  phosphorImage,
-  phosphorMagnifyingGlass,
-  phosphorPlus,
-} from '@ng-icons/phosphor-icons/regular';
+import { phosphorMagnifyingGlass } from '@ng-icons/phosphor-icons/regular';
 import { flexRenderComponent, type ColumnDef, type Table } from '@tanstack/angular-table';
 import { DataTableActionCell } from './curve-data-table-action-cell';
 import { DataTableImageCell } from './curve-data-table-image-cell';
@@ -22,7 +16,7 @@ import {
   CurveDataTableSelectionColumn,
   CurveDataTableStringColumn,
   ICurveDataTableColumn,
-} from '../../../curve-data-table/src';
+} from '..';
 import { HlmDataTableImports, injectDataTable } from '../../../data-table/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import { HlmInputImports } from '../../../input/src';
@@ -31,6 +25,7 @@ import { HlmInputGroupImports } from '../../../input-group/src';
 @Component({
   selector: 'curve-data-table',
   templateUrl: './curve-data-table.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HlmButtonImports,
     HlmDataTableImports,
@@ -41,11 +36,7 @@ import { HlmInputGroupImports } from '../../../input-group/src';
   ],
   providers: [
     provideIcons({
-      phosphorCaretUpDown,
-      phosphorDotsThree,
-      phosphorImage,
       phosphorMagnifyingGlass,
-      phosphorPlus,
     }),
   ],
 })
@@ -77,7 +68,7 @@ export class CurveDataTableComponent<TData> implements OnInit {
   }
 
   private createColumns(): ColumnDef<TData, unknown>[] {
-    let columns: ColumnDef<TData, unknown>[] = [];
+    const columns: ColumnDef<TData, unknown>[] = [];
 
     this.columns().forEach((column) => {
       if (column instanceof CurveDataTableSelectionColumn) {

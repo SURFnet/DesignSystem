@@ -5,7 +5,7 @@ import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
 
 @Component({
-  selector: 'data-table-icon-cell',
+  selector: 'data-table-action-cell',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HlmDropdownMenuImports, NgIcon],
   providers: [provideIcons({ phosphorDotsThree })],
