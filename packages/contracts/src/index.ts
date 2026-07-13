@@ -10,7 +10,6 @@ export { buttonContract, type ButtonVariantName, type ButtonSizeName } from './b
 export { buttonGroupContract, type ButtonGroupOrientationName } from './button-group.js';
 export { calendarContract } from './calendar.js';
 export { carouselContract, type CarouselOrientationName } from './carousel.js';
-export { chartContract } from './chart.js';
 export { checkboxContract } from './checkbox.js';
 export { comboboxContract } from './combobox.js';
 export { commandContract } from './command.js';
@@ -18,7 +17,6 @@ export { contextMenuContract } from './context-menu.js';
 export { dataTableContract } from './data-table.js';
 export { datePickerContract } from './date-picker.js';
 export { dialogContract } from './dialog.js';
-export { drawerContract } from './drawer.js';
 export { dropdownMenuContract, type DropdownMenuItemVariantName } from './dropdown-menu.js';
 export { emptyContract, type EmptyMediaVariantName } from './empty.js';
 export { fieldContract, type FieldOrientationName } from './field.js';
