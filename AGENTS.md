@@ -10,9 +10,9 @@ A Turborepo + pnpm monorepo with five packages:
 
 | Package                            | What                                                                                            | Build                               | Storybook                      |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------ |
-| `@surfnet/curve-react`             | React components on shadcn/ui + **Base UI**                                                     | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
-| `@surfnet/curve-angular`           | Angular components on **Spartan** (`brain` + `helm`)                                            | `ng-packagr`                        | `@storybook/angular` (webpack) |
-| `@surfnet/curve-tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_published_)                      | Style Dictionary                    | —                              |
+| `@surfnet/curve-react`             | React components on shadcn/ui + **Base UI** (_published_)                                       | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
+| `@surfnet/curve-angular`           | Angular components on **Spartan** (`brain` + `helm`) (_published_)                              | `ng-packagr`                        | `@storybook/angular` (webpack) |
+| `@surfnet/curve-tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_private_)                        | Style Dictionary                    | —                              |
 | `@surfnet/curve-contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_) | `tsc --noEmit`                      | —                              |
 | `@surfnet/curve-typescript-config` | Shared base `tsconfig`s                                                                         | —                                   | —                              |
 
@@ -169,9 +169,11 @@ Gotchas:
   `version` field or `CHANGELOG.md`. CI owns that: pending changesets on `main` open a
   "Version Packages" PR, and merging it builds + publishes. Your job ends at committing the
   changeset file.
-- **Only `@surfnet/curve-tokens` is public today.** The other packages are `"private": true`, so
-  Changesets versions them but never publishes them. Adding a changeset for a private
-  package is fine (it bumps the version + changelog); it just won't reach npm.
+- **`@surfnet/curve-react` and `@surfnet/curve-angular` are the public packages today.** The
+  rest (`@surfnet/curve-tokens`, `@surfnet/curve-contracts`, `@surfnet/curve-storybook-config`,
+  `@surfnet/curve-typescript-config`) are `"private": true`, so Changesets versions them but
+  never publishes them. Adding a changeset for a private package is fine (it bumps the
+  version + changelog); it just won't reach npm.
 - **Non-publishing changes** (docs, CI, repo tooling) don't need a changeset. CI does not
   fail when one is missing, so use judgement rather than adding empty noise.
 - When a changeset bumps `@surfnet/curve-tokens`, packages that depend on it get a `patch` bump
