@@ -5,12 +5,12 @@ Turborepo + pnpm monorepo. Each package builds on the "you own the code" UI
 library of its ecosystem.
 
 - **`@surfnet/curve-react`** — React components built on [shadcn/ui](https://ui.shadcn.com)
-  with [Base UI](https://base-ui.com) primitives, bundled with Vite.
+  with [Base UI](https://base-ui.com) primitives, bundled with Vite. Published.
 - **`@surfnet/curve-angular`** — Angular components built on [Spartan](https://spartan.ng)
-  (`brain` primitives + `helm` styles), built with `ng-packagr`.
+  (`brain` primitives + `helm` styles), built with `ng-packagr`. Published.
 - **`@surfnet/curve-tokens`** — design tokens: DTCG JSON source built with Style Dictionary
-  into `tokens.css` (`:root`/`.dark` custom properties) and a typed TS map. Published;
-  both component packages import this CSS.
+  into `tokens.css` (`:root`/`.dark` custom properties) and a typed TS map. Private;
+  both component packages import this CSS at build time.
 - **`@surfnet/curve-contracts`** — per-component `as const` specs (variant names, size names,
   defaults, docs) used at build time to enforce cross-framework parity via `satisfies`.
   Private; leaves no trace in published `dist`.
@@ -26,10 +26,10 @@ curve-design-system/
 ├── .prettierrc.json        # shared formatting
 ├── packages/
 │   ├── typescript-config/  # @surfnet/curve-typescript-config — base.json + react-library.json
-│   ├── tokens/             # @surfnet/curve-tokens — DTCG JSON -> Style Dictionary -> tokens.css (published)
+│   ├── tokens/             # @surfnet/curve-tokens — DTCG JSON -> Style Dictionary -> tokens.css (private)
 │   ├── contracts/          # @surfnet/curve-contracts — component API specs, build-time only (private)
-│   ├── react/              # @surfnet/curve-react — Vite library + Storybook (Vite)
-│   └── angular/            # @surfnet/curve-angular — ng-packagr library + Storybook (webpack)
+│   ├── react/              # @surfnet/curve-react — Vite library + Storybook (Vite) (published)
+│   └── angular/            # @surfnet/curve-angular — ng-packagr library + Storybook (webpack) (published)
 └── apps/
     └── react-app/          # @surfnet/curve-react-app — demo Next.js app for testing @surfnet/curve-react
 ```
@@ -279,8 +279,9 @@ file under `.changeset/` — commit it with your code.
   internal tooling). CI does not fail without one, so use judgement.
 - Need a changeset that doesn't bump anything? Run `pnpm changeset` and pick no packages
   (an empty changeset), useful to record that you deliberately skipped a release.
-- Private packages (everything except `@surfnet/curve-tokens` today) are versioned but never
-  published — Changesets skips publishing any package marked `"private": true`.
+- Private packages (`@surfnet/curve-tokens`, `@surfnet/curve-contracts`,
+  `@surfnet/curve-storybook-config`, `@surfnet/curve-typescript-config`) are versioned but
+  never published — Changesets skips publishing any package marked `"private": true`.
 
 ### How a release happens (automated)
 
