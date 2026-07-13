@@ -37,13 +37,13 @@ export default defineConfig({
       external: (id) => !id.startsWith('.') && !id.startsWith('@/') && !isAbsolute(id),
       plugins: [preserveDirectives()],
       output: {
-        // The built stylesheet is always `curve-react.css` (referenced by the
+        // The built stylesheet is always `styles.css` (referenced by the
         // `./styles.css` export), but other assets (e.g. the Geist font files
         // pulled in via @import) must each keep a distinct name or they
         // overwrite one another.
         assetFileNames: (asset) =>
           (asset.names ?? [asset.name]).some((name) => name?.endsWith('.css'))
-            ? 'curve-react.[ext]'
+            ? 'styles.[ext]'
             : '[name]-[hash][extname]',
         entryFileNames: '[name].js',
         preserveModules: true,
