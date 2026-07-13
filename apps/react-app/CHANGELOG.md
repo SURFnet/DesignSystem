@@ -1,5 +1,13 @@
 # @surfnet/curve-react-app
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [f08b7f9]
+  - @surfnet/curve-react@0.2.2
+  - @surfnet/curve-tokens@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@surfnet/curve-react",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -13,7 +13,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/curve-react.css"
+    "./styles.css": "./dist/styles.css"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
