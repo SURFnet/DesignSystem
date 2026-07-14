@@ -27,10 +27,13 @@
     "storybook": "10.4.5"
   },
   "dependencies": {
+    "@storybook/icons": "2.0.2",
     "@surfnet/curve-tokens": "workspace:*"
   },
   "devDependencies": {
     "@surfnet/curve-typescript-config": "workspace:*",
+    "@types/react": "19.2.17",
+    "react": "19.2.7",
     "storybook": "10.4.5",
     "typescript": "6.0.3"
   }

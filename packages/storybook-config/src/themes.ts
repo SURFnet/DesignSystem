@@ -13,7 +13,8 @@ const titleCase = (key: string) =>
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
 
-// Toolbar selects: one for the theme, one for light/dark mode.
+// `mode` has no globalType on purpose: it's driven by the toolbar toggle in
+// `mode-toggle.tsx`, not a dropdown.
 export const themeGlobalTypes = {
   theme: {
     description: 'Design system theme',
@@ -21,18 +22,6 @@ export const themeGlobalTypes = {
       title: 'Theme',
       icon: 'paintbrush',
       items: THEME_NAMES.map((t) => ({ value: t, title: titleCase(t) })),
-      dynamicTitle: true,
-    },
-  },
-  mode: {
-    description: 'Light / dark mode',
-    toolbar: {
-      title: 'Mode',
-      icon: 'mirror',
-      items: [
-        { value: 'light', title: 'Light', icon: 'sun' },
-        { value: 'dark', title: 'Dark', icon: 'moon' },
-      ],
       dynamicTitle: true,
     },
   },
