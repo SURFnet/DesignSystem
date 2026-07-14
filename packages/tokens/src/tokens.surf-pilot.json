@@ -113,7 +113,7 @@
   },
   "sidebar-accent-foreground": {
     "$type": "color",
-    "$value": "rgba(28, 25, 23, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "sidebar-border": {
     "$type": "color",

@@ -109,7 +109,7 @@
   },
   "sidebar-accent": {
     "$type": "color",
-    "$value": "rgba(38, 38, 38, 1)"
+    "$value": "rgba(1, 101, 61, 1)"
   },
   "sidebar-accent-foreground": {
     "$type": "color",
