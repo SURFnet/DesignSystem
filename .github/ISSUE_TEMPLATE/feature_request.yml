@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a new component, variant, token, or capability
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Affected package
+      options:
+        - "@surfnet/curve-react"
+        - "@surfnet/curve-angular"
+        - "@surfnet/curve-tokens"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What's missing or awkward today, and for whom?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: The component/variant/token/API you'd like to see, and how it should behave.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Figma links, design references, related issues, etc.
+    validations:
+      required: false

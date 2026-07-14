@@ -1,0 +1,48 @@
+name: New component request
+description: Request a new component be added to the design system
+labels: ["new component"]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - "@surfnet/curve-react"
+        - "@surfnet/curve-angular"
+        - "@surfnet/curve-tokens"
+    validations:
+      required: true
+  - type: input
+    id: component-name
+    attributes:
+      label: Component name
+      placeholder: e.g. Tooltip, Combobox, Pagination
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: Where is this needed, and what problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: design-reference
+    attributes:
+      label: Design reference
+      description: Figma link, screenshot, or reference to an equivalent component elsewhere.
+    validations:
+      required: false
+  - type: textarea
+    id: variants
+    attributes:
+      label: Variants, sizes, and states needed
+      description: The full surface this component should cover (e.g. primary/secondary, sm/md/lg, disabled/loading).
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+    validations:
+      required: false
