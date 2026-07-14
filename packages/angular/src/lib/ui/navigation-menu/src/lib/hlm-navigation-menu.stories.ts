@@ -122,6 +122,12 @@ class NavigationMenuDemo {
  * A composed menu with a featured item, a grid of links, and a plain link item — the
  * `nav`/`ul`/`li`/`button`/`hlm-navigation-menu-content`/`a` structure every navigation
  * menu is built from.
+ *
+ * Spartan's vendored `hlm-navigation-menu-content` is a styling-only directive and does
+ * not expose the `align`/`navOffset` positioning inputs that upstream Spartan docs now
+ * list — unlike React's `NavigationMenuContent`, which wraps a Base UI positioner and
+ * takes `align`/`alignOffset` explicitly. Content anchors with the helm's built-in
+ * offsets; there is no per-menu positioning override here.
  */
 export const Default: Story = {
   render: () => ({
