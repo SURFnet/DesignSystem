@@ -1,5 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
+import type { AlertDialogSizeName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -34,7 +37,7 @@ function AlertDialogContent({
   size = 'default',
   ...props
 }: AlertDialogPrimitive.Popup.Props & {
-  size?: 'default' | 'sm';
+  size?: AlertDialogSizeName;
 }) {
   return (
     <AlertDialogPortal>

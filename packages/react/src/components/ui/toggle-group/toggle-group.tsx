@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group';
 import { type VariantProps } from 'class-variance-authority';
+import type { ToggleGroupOrientationName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { toggleVariants } from '@/components/ui/toggle';
@@ -11,7 +12,7 @@ import { toggleVariants } from '@/components/ui/toggle';
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants> & {
     spacing?: number;
-    orientation?: 'horizontal' | 'vertical';
+    orientation?: ToggleGroupOrientationName;
   }
 >({
   size: 'default',
@@ -31,7 +32,7 @@ function ToggleGroup({
 }: ToggleGroupPrimitive.Props &
   VariantProps<typeof toggleVariants> & {
     spacing?: number;
-    orientation?: 'horizontal' | 'vertical';
+    orientation?: ToggleGroupOrientationName;
   }) {
   return (
     <ToggleGroupPrimitive

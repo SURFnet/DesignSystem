@@ -1,6 +1,6 @@
 export { accordionContract } from './accordion.js';
 export { alertContract, type AlertVariantName } from './alert.js';
-export { alertDialogContract } from './alert-dialog.js';
+export { alertDialogContract, type AlertDialogSizeName } from './alert-dialog.js';
 export { aspectRatioContract } from './aspect-ratio.js';
 export { avatarContract, type AvatarSizeName } from './avatar.js';
 export { badgeContract, type BadgeVariantName } from './badge.js';
@@ -13,7 +13,7 @@ export { carouselContract, type CarouselOrientationName } from './carousel.js';
 export { checkboxContract } from './checkbox.js';
 export { comboboxContract } from './combobox.js';
 export { commandContract } from './command.js';
-export { contextMenuContract } from './context-menu.js';
+export { contextMenuContract, type ContextMenuItemVariantName } from './context-menu.js';
 export { dataTableContract } from './data-table.js';
 export { datePickerContract } from './date-picker.js';
 export { dialogContract } from './dialog.js';
@@ -42,7 +42,7 @@ export { resizableContract, type ResizableDirectionName } from './resizable.js';
 export { scrollAreaContract } from './scroll-area.js';
 export { selectContract, type SelectTriggerSizeName } from './select.js';
 export { separatorContract, type SeparatorOrientationName } from './separator.js';
-export { sheetContract } from './sheet.js';
+export { sheetContract, type SheetSideName } from './sheet.js';
 export {
   sidebarContract,
   sidebarMenuButtonContract,
@@ -58,5 +58,5 @@ export { tableContract } from './table.js';
 export { tabsContract, type TabsVariantName } from './tabs.js';
 export { textareaContract } from './textarea.js';
 export { toggleContract, type ToggleVariantName, type ToggleSizeName } from './toggle.js';
-export { toggleGroupContract } from './toggle-group.js';
+export { toggleGroupContract, type ToggleGroupOrientationName } from './toggle-group.js';
 export { tooltipContract } from './tooltip.js';

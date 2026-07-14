@@ -1,5 +1,6 @@
 import { Directive, input, signal } from '@angular/core';
 import { injectExposesStateProvider } from '@spartan-ng/brain/core';
+import type { AlertDialogSizeName } from '@surfnet/curve-contracts';
 import { classes } from '../../../utils/src';
 
 @Directive({
@@ -14,7 +15,7 @@ export class HlmAlertDialogContent {
   private readonly _stateProvider = injectExposesStateProvider({ optional: true, host: true });
   public readonly state = this._stateProvider?.state ?? signal('closed');
 
-  public readonly size = input<'sm' | 'default'>('default');
+  public readonly size = input<AlertDialogSizeName>('default');
 
   constructor() {
     classes(

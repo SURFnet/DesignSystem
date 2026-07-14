@@ -1,3 +1,5 @@
+'use client';
+
 import * as ResizablePrimitive from 'react-resizable-panels';
 import type { ResizableDirectionName } from '@surfnet/curve-contracts';
 

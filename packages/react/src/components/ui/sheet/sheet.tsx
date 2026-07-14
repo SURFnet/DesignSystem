@@ -1,5 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { Dialog as SheetPrimitive } from '@base-ui/react/dialog';
+import type { SheetSideName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -41,7 +44,7 @@ function SheetContent({
   showCloseButton = true,
   ...props
 }: SheetPrimitive.Popup.Props & {
-  side?: 'top' | 'right' | 'bottom' | 'left';
+  side?: SheetSideName;
   showCloseButton?: boolean;
 }) {
   return (

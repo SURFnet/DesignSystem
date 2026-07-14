@@ -1,6 +1,7 @@
 import { NumberInput } from '@angular/cdk/coercion';
 import { Directive, input, numberAttribute } from '@angular/core';
 import { BrnToggleGroup } from '@spartan-ng/brain/toggle-group';
+import type { ToggleGroupOrientationName } from '@surfnet/curve-contracts';
 import { ToggleVariants } from '../../../toggle/src';
 import { classes } from '../../../utils/src';
 import { provideHlmToggleGroup } from './hlm-toggle-group.token';
@@ -28,7 +29,7 @@ export class HlmToggleGroup {
   public readonly variant = input<ToggleVariants['variant']>('default');
   public readonly size = input<ToggleVariants['size']>('default');
   public readonly spacing = input<number, NumberInput>(0, { transform: numberAttribute });
-  public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+  public readonly orientation = input<ToggleGroupOrientationName>('horizontal');
 
   constructor() {
     classes(

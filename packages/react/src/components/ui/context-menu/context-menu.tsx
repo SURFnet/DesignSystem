@@ -1,5 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu';
+import type { ContextMenuItemVariantName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { CaretRightIcon, CheckIcon } from '@phosphor-icons/react';
@@ -84,7 +87,7 @@ function ContextMenuItem({
   ...props
 }: ContextMenuPrimitive.Item.Props & {
   inset?: boolean;
-  variant?: 'default' | 'destructive';
+  variant?: ContextMenuItemVariantName;
 }) {
   return (
     <ContextMenuPrimitive.Item
