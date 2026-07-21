@@ -13,6 +13,10 @@
     "./manager": {
       "types": "./dist/manager.d.ts",
       "default": "./dist/manager.js"
+    },
+    "./test-runner": {
+      "types": "./dist/a11y-audit.d.ts",
+      "default": "./dist/a11y-audit.js"
     }
   },
   "files": [
@@ -28,11 +32,16 @@
   },
   "dependencies": {
     "@storybook/icons": "2.0.2",
-    "@surfnet/curve-tokens": "workspace:*"
+    "@surfnet/curve-tokens": "workspace:*",
+    "axe-playwright": "2.2.2"
   },
   "devDependencies": {
+    "@storybook/test-runner": "0.24.4",
     "@surfnet/curve-typescript-config": "workspace:*",
     "@types/react": "19.2.17",
+    "axe-core": "4.12.1",
+    "playwright": "1.61.1",
+    "playwright-core": "1.61.1",
     "react": "19.2.7",
     "storybook": "10.4.5",
     "typescript": "6.0.3"
