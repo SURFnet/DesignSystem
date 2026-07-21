@@ -1,0 +1,4 @@
+To keep track of all minor and major issues we find during the first stage of using the design system:
+
+- Solid color background: for creating visually differentiated pages (such as a login page) it might be nice to have a solid color instead of a grey to use for a background. The --primary might be too bright for this purpose?
+- Condensed list: it might be nice to have not only an 'Item Group', but also a list without spacing in between for a more condensed view?
