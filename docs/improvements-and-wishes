@@ -4,3 +4,4 @@ To keep track of all minor and major issues we find during the first stage of us
 - Condensed list: it might be nice to have not only an 'Item Group', but also a list without spacing in between for a more condensed view?
 - Change default focus styles from grey to blue?
 - Add a leading icon to the dialog header?
+- Rethink Collapsible component. Or create a collapsible version of Item?
