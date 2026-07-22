@@ -8,3 +8,4 @@ To keep track of all minor and major issues we find during the first stage of us
 - Do we need a Destructive Link variant of the Button?
 - Support multiple widths for dialogs?
 - Dialog and Alert Dialog heading font-sizes seem random in the Figma file. Find out why and if it needs adjustment.
+- Dialog footers aren't aligned between Figma and ui.shadcn.com (background color)
