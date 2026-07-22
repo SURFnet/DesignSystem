@@ -7,3 +7,4 @@ To keep track of all minor and major issues we find during the first stage of us
 - Rethink Collapsible component. Or create a collapsible variant of Item?
 - Do we need a Destructive Link variant of the Button?
 - Support multiple widths for dialogs?
+- Dialog and Alert Dialog heading font-sizes seem random in the Figma file. Find out why and if it needs adjustment.
