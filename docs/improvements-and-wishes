@@ -6,3 +6,4 @@ To keep track of all minor and major issues we find during the first stage of us
 - Add a leading icon to the dialog header?
 - Rethink Collapsible component. Or create a collapsible variant of Item?
 - Do we need a Destructive Link variant of the Button?
+- Support multiple widths for dialogs?
