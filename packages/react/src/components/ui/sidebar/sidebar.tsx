@@ -20,9 +20,9 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/sidebar/sheet';
-import { Skeleton } from '@/components/ui/sidebar/skeleton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/sidebar/tooltip';
+} from '@/components/ui/sheet';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { SidebarSimpleIcon } from '@phosphor-icons/react';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';

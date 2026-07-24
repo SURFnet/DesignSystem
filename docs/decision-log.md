@@ -45,6 +45,7 @@ the replacement.
 | 16  | [Component scope built in parity](#adr-016--component-scope-built-in-parity)                                         | Accepted | 2026-06-30 |
 | 17  | [Prove it in a real app](#adr-017--prove-it-in-a-real-app)                                                           | Proposed | 2026-06-30 |
 | 18  | [Relative imports for vendored helm cross-references](#adr-018--relative-imports-for-vendored-helm-cross-references) | Accepted | 2026-07-01 |
+| 19  | [Only add components available in both frameworks](#adr-019--only-add-components-available-in-both-frameworks)       | Accepted | 2026-07-13 |
 
 ### Open questions (not yet decided)
 
@@ -408,3 +409,46 @@ relative imports are the minimal fix within the current single-entry-point archi
 imports" guidance was reversed — see the **Notes** section there. Run
 `fix-helm-imports` after every future `ng g` run and verify with
 `grep -r "@spartan-ng/helm" packages/angular/dist` (should be empty) before publishing.
+
+---
+
+## ADR-019 — Only add components available in both frameworks
+
+**Status:** Accepted · **Date:** 2026-07-13
+
+**Context.** A gap analysis against the Figma component library (41 missing components)
+was worked through by vendoring each one from shadcn (React) and Spartan (Angular). Two
+of them — **Chart** and **Drawer** — have a shadcn/Base UI implementation but no Spartan
+equivalent: Spartan ships no `chart` generator at all, and its closest primitive to Drawer
+is `sheet` (a side panel), which is a different pattern and already vendored as its own
+component. Three more from the original gap list — **Login** (full custom flow), **Top
+navigation**, and **Typography** — aren't vendorable primitives in either registry at all:
+Login/Top navigation need bespoke composition, and Typography is prose styling, not a
+shadcn/Spartan component.
+
+**Decision.** Ship only components that land in **both** `@surfnet/curve-react` and
+`@surfnet/curve-angular`. Chart and Drawer are removed from `@surfnet/curve-react` (they were
+briefly added React-only) rather than kept as a one-sided addition. Login, Top navigation,
+and Typography stay out of scope entirely for now — none of the three were ever vendored.
+
+**Rationale.** ADR-016 already set the precedent that this system is built **in parity**;
+a component that exists in only one framework quietly breaks that contract and forces
+consumers of the other framework to special-case it. Better to track the gap explicitly
+here than let per-framework drift creep in one component at a time.
+
+**Consequences.** Follow-up work, to be picked up when the blocker clears:
+
+- **Chart** — re-add to `@surfnet/curve-react` once Spartan ships a chart component, or
+  scope a custom Angular chart wrapper (e.g. over `ngx-charts` or a direct `recharts`-equivalent)
+  if Spartan support doesn't materialize.
+- **Drawer** — re-add to `@surfnet/curve-react` once Spartan ships a distinct
+  bottom/edge-drawer primitive (not just `sheet`), or build a custom Angular equivalent on top
+  of `@spartan-ng/brain/dialog` (the primitive `sheet` already uses). Re-check
+  spartan.ng/components periodically — this is exactly the kind of gap that closes silently.
+- **Login** — needs a custom, hand-composed full flow (form, validation, provider hooks) in
+  both frameworks; not something a CLI vendors. Design input needed before scoping.
+- **Top navigation** — same: a bespoke composition (likely built from `NavigationMenu` +
+  `Avatar` + `DropdownMenu`), not a registry component.
+- **Typography** — decide whether this becomes a real component (e.g. `Heading`/`Text`
+  wrapper components with contract-enforced size/weight scales) or stays documentation-only
+  (a Storybook foundations page, like the existing Design Tokens stories) before building it.
