@@ -62,7 +62,7 @@ export const Values: Story = {
     <div className="flex w-72 flex-col gap-4">
       {[10, 40, 75, 100].map((value) => (
         <Progress key={value} value={value}>
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm">
             <ProgressLabel>Task {value}</ProgressLabel>
             <ProgressValue />
           </div>

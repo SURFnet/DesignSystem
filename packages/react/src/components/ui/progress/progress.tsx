@@ -9,7 +9,7 @@ function Progress({ className, children, value, ...props }: ProgressPrimitive.Ro
     <ProgressPrimitive.Root
       value={value}
       data-slot="progress"
-      className={cn('flex flex-wrap gap-3', className)}
+      className={cn('flex flex-col gap-1.5', className)}
       {...props}
     >
       {children}
