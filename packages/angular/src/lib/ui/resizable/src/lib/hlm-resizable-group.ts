@@ -17,6 +17,9 @@ import { classes } from '../../../utils/src';
 })
 export class HlmResizableGroup {
   constructor() {
-    classes(() => 'group flex h-full w-full data-[panel-group-direction=vertical]:flex-col');
+    classes(
+      () =>
+        'group flex h-full w-full overflow-hidden data-[panel-group-direction=vertical]:flex-col',
+    );
   }
 }

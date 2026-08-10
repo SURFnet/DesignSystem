@@ -49,7 +49,8 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-			<div hlmResizableGroup ${argsToTemplate(args)} class="h-64 w-full max-w-md rounded-lg border">
+			<div class="h-64 w-full max-w-md">
+				<div hlmResizableGroup ${argsToTemplate(args)} class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">One</span>
@@ -61,6 +62,7 @@ export const Default: Story = {
 						<span class="font-mono text-sm">Two</span>
 					</div>
 				</div>
+				</div>
 			</div>
 		`,
   }),
@@ -70,7 +72,8 @@ export const Default: Story = {
 export const Vertical: Story = {
   render: () => ({
     template: `
-			<div hlmResizableGroup direction="vertical" class="h-64 w-full max-w-md rounded-lg border">
+			<div class="h-64 w-full max-w-md">
+				<div hlmResizableGroup direction="vertical" class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">Top</span>
@@ -81,6 +84,7 @@ export const Vertical: Story = {
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">Bottom</span>
 					</div>
+				</div>
 				</div>
 			</div>
 		`,
@@ -94,7 +98,8 @@ export const Vertical: Story = {
 export const ComposedLayout: Story = {
   render: () => ({
     template: `
-			<div hlmResizableGroup class="h-80 w-full max-w-3xl rounded-lg border">
+			<div class="h-80 w-full max-w-3xl">
+				<div hlmResizableGroup class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="20" [minSize]="15">
 					<div class="flex h-full flex-col gap-1 p-4">
 						<span class="text-sm font-medium">Sidebar</span>
@@ -124,6 +129,7 @@ export const ComposedLayout: Story = {
 						<span class="text-xs text-muted-foreground">Properties</span>
 					</div>
 				</div>
+				</div>
 			</div>
 		`,
   }),
@@ -133,7 +139,8 @@ export const ComposedLayout: Story = {
 export const WithoutHandleGrip: Story = {
   render: () => ({
     template: `
-			<div hlmResizableGroup class="h-64 w-full max-w-md rounded-lg border">
+			<div class="h-64 w-full max-w-md">
+				<div hlmResizableGroup class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">One</span>
@@ -144,6 +151,7 @@ export const WithoutHandleGrip: Story = {
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">Two</span>
 					</div>
+				</div>
 				</div>
 			</div>
 		`,
