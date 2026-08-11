@@ -64,10 +64,12 @@ export const WithCheckboxItems: Story = {
     <ContextMenu>
       <ContextMenuTrigger className={triggerAreaClassName}>Right click here</ContextMenuTrigger>
       <ContextMenuContent className="w-44">
-        <ContextMenuLabel>Toggle columns</ContextMenuLabel>
-        <ContextMenuCheckboxItem checked>Name</ContextMenuCheckboxItem>
-        <ContextMenuCheckboxItem checked>Category</ContextMenuCheckboxItem>
-        <ContextMenuCheckboxItem>Status</ContextMenuCheckboxItem>
+        <ContextMenuGroup>
+          <ContextMenuLabel>Toggle columns</ContextMenuLabel>
+          <ContextMenuCheckboxItem checked>Name</ContextMenuCheckboxItem>
+          <ContextMenuCheckboxItem checked>Category</ContextMenuCheckboxItem>
+          <ContextMenuCheckboxItem>Status</ContextMenuCheckboxItem>
+        </ContextMenuGroup>
       </ContextMenuContent>
     </ContextMenu>
   ),
@@ -79,8 +81,8 @@ export const WithRadioItems: Story = {
     <ContextMenu>
       <ContextMenuTrigger className={triggerAreaClassName}>Right click here</ContextMenuTrigger>
       <ContextMenuContent className="w-44">
-        <ContextMenuLabel>View</ContextMenuLabel>
         <ContextMenuRadioGroup defaultValue="list">
+          <ContextMenuLabel>View</ContextMenuLabel>
           <ContextMenuRadioItem value="list">List</ContextMenuRadioItem>
           <ContextMenuRadioItem value="grid">Grid</ContextMenuRadioItem>
           <ContextMenuRadioItem value="board">Board</ContextMenuRadioItem>
