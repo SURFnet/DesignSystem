@@ -19,12 +19,10 @@ const meta = {
       description: 'Whether multiple items can be expanded at the same time.',
       table: { defaultValue: { summary: 'false' } },
     },
+    // Keyboard-only on the Base UI primitive; not a visual layout mode — hide from docs.
     orientation: {
-      control: 'radio',
-      options: ['vertical', 'horizontal'],
-      description:
-        "The accordion's visual orientation; controls whether roving focus uses the up/down or left/right arrow keys.",
-      table: { defaultValue: { summary: 'vertical' } },
+      control: false,
+      table: { disable: true },
     },
     disabled: {
       control: 'boolean',
@@ -34,7 +32,6 @@ const meta = {
   },
   args: {
     multiple: false,
-    orientation: 'vertical',
     disabled: false,
   },
 } satisfies Meta<typeof Accordion>;
@@ -61,7 +58,7 @@ const faqItems = [
   },
 ];
 
-/** The default accordion — tweak `multiple`, `orientation`, and `disabled` via the controls. */
+/** The default accordion — tweak `multiple` and `disabled` via the controls. */
 export const Default: Story = {
   render: (args) => (
     <Accordion {...args} defaultValue={['item-1']} className="w-96">
@@ -103,20 +100,6 @@ export const DisabledItem: Story = {
         <AccordionTrigger>Disabled item</AccordionTrigger>
         <AccordionContent>This content is unreachable while the item is disabled.</AccordionContent>
       </AccordionItem>
-    </Accordion>
-  ),
-};
-
-/** Horizontal orientation moves roving focus to the left/right arrow keys. */
-export const Horizontal: Story = {
-  render: () => (
-    <Accordion orientation="horizontal" defaultValue={['item-1']} className="w-96">
-      {faqItems.map(({ value, question, answer }) => (
-        <AccordionItem key={value} value={value}>
-          <AccordionTrigger>{question}</AccordionTrigger>
-          <AccordionContent>{answer}</AccordionContent>
-        </AccordionItem>
-      ))}
     </Accordion>
   ),
 };
