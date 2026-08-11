@@ -10,11 +10,14 @@ function NavigationMenu({
   align = 'start',
   className,
   children,
+  orientation = 'horizontal',
   ...props
 }: NavigationMenuPrimitive.Root.Props & Pick<NavigationMenuPrimitive.Positioner.Props, 'align'>) {
   return (
     <NavigationMenuPrimitive.Root
       data-slot="navigation-menu"
+      data-orientation={orientation}
+      orientation={orientation}
       className={cn(
         'group/navigation-menu relative flex max-w-max flex-1 items-center justify-center',
         className,
@@ -22,7 +25,10 @@ function NavigationMenu({
       {...props}
     >
       {children}
-      <NavigationMenuPositioner align={align} />
+      <NavigationMenuPositioner
+        align={align}
+        side={orientation === 'vertical' ? 'right' : 'bottom'}
+      />
     </NavigationMenuPrimitive.Root>
   );
 }
@@ -34,7 +40,10 @@ function NavigationMenuList({
   return (
     <NavigationMenuPrimitive.List
       data-slot="navigation-menu-list"
-      className={cn('group flex flex-1 list-none items-center justify-center gap-0', className)}
+      className={cn(
+        'group flex flex-1 list-none items-center justify-center gap-0 group-data-[orientation=vertical]/navigation-menu:flex-col group-data-[orientation=vertical]/navigation-menu:items-stretch group-data-[orientation=vertical]/navigation-menu:text-center',
+        className,
+      )}
       {...props}
     />
   );
@@ -124,7 +133,7 @@ function NavigationMenuLink({ className, ...props }: NavigationMenuPrimitive.Lin
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "flex items-center gap-1.5 rounded-md p-2 text-sm transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-sm data-[active=true]:bg-muted/50 data-[active=true]:hover:bg-muted data-[active=true]:focus:bg-muted [&_svg:not([class*='size-'])]:size-4",
+        "flex flex-col gap-1 rounded-md p-2 text-sm transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-sm data-[active=true]:bg-muted/50 data-[active=true]:hover:bg-muted data-[active=true]:focus:bg-muted [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

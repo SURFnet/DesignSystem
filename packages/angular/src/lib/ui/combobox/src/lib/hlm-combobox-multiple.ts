@@ -35,12 +35,10 @@ import { classes } from '../../../utils/src';
       inputs: [
         'align',
         'autoFocus',
-        'closeDelay',
         'closeOnOutsidePointerEvents',
         'sideOffset',
         'state',
         'offsetX',
-        'restoreFocus',
       ],
       outputs: ['stateChanged', 'closed'],
     },

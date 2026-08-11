@@ -122,12 +122,6 @@ class NavigationMenuDemo {
  * A composed menu with a featured item, a grid of links, and a plain link item — the
  * `nav`/`ul`/`li`/`button`/`hlm-navigation-menu-content`/`a` structure every navigation
  * menu is built from.
- *
- * Spartan's vendored `hlm-navigation-menu-content` is a styling-only directive and does
- * not expose the `align`/`navOffset` positioning inputs that upstream Spartan docs now
- * list — unlike React's `NavigationMenuContent`, which wraps a Base UI positioner and
- * takes `align`/`alignOffset` explicitly. Content anchors with the helm's built-in
- * offsets; there is no per-menu positioning override here.
  */
 export const Default: Story = {
   render: () => ({
@@ -191,6 +185,39 @@ export const SimpleLinks: Story = {
         </ul>
       </nav>
     `,
+  }),
+};
+
+/** The `align` input on the trigger controls where the popup is anchored relative to it. */
+export const Alignment: Story = {
+  render: () => ({
+    template: `
+      <div class="flex flex-col gap-10">
+        @for (align of aligns; track align) {
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-xs text-muted-foreground">align="{{ align }}"</span>
+            <nav hlmNavigationMenu>
+              <ul hlmNavigationMenuList>
+                <li hlmNavigationMenuItem>
+                  <button hlmNavigationMenuTrigger [align]="align">Menu</button>
+                  <hlm-navigation-menu-content *hlmNavigationMenuPortal>
+                    <ul class="grid w-[200px] gap-4">
+                      <li>
+                        <a hlmNavigationMenuLink href="#">Components</a>
+                        <a hlmNavigationMenuLink href="#">Documentation</a>
+                      </li>
+                    </ul>
+                  </hlm-navigation-menu-content>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        }
+      </div>
+    `,
+    props: {
+      aligns: ['start', 'center', 'end'] as const,
+    },
   }),
 };
 

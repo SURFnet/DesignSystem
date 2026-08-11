@@ -5,10 +5,7 @@ import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
 @Directive({
   selector: 'button[hlmAlertDialogCancel]',
   providers: [provideBrnButtonConfig({ variant: 'outline' })],
-  hostDirectives: [
-    { directive: BrnDialogClose, inputs: ['delay'] },
-    { directive: HlmButton, inputs: ['variant', 'size'] },
-  ],
+  hostDirectives: [BrnDialogClose, { directive: HlmButton, inputs: ['variant', 'size'] }],
   host: { 'data-slot': 'alert-dialog-cancel', '[type]': 'type()' },
 })
 export class HlmAlertDialogCancel {

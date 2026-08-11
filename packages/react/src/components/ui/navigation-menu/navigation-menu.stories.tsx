@@ -213,3 +213,29 @@ export const Alignment: Story = {
     </div>
   ),
 };
+
+/** The `orientation` prop switches roving focus to the up/down arrow keys and stacks the list. */
+export const Vertical: Story = {
+  render: () => (
+    <NavigationMenu orientation="vertical">
+      <NavigationMenuList className="w-40">
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="w-full">Menu</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="w-[200px]">
+              <li>
+                <NavigationMenuLink href="#">Components</NavigationMenuLink>
+                <NavigationMenuLink href="#">Documentation</NavigationMenuLink>
+              </li>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink href="#" className="w-full">
+            Docs
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  ),
+};
