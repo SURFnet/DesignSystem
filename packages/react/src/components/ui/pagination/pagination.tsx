@@ -59,17 +59,19 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
 function PaginationPrevious({
   className,
   text = 'Previous',
+  iconOnly = false,
+  'aria-label': ariaLabel = 'Go to previous page',
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+}: React.ComponentProps<typeof PaginationLink> & { text?: string; iconOnly?: boolean }) {
   return (
     <PaginationLink
-      aria-label="Go to previous page"
-      size="default"
-      className={cn('pl-2!', className)}
+      aria-label={ariaLabel}
+      size={iconOnly ? 'icon' : 'default'}
+      className={cn(!iconOnly && 'ps-2!', className)}
       {...props}
     >
-      <CaretLeftIcon data-icon="inline-start" />
-      <span className="hidden sm:block">{text}</span>
+      <CaretLeftIcon data-icon="inline-start" className="rtl:rotate-180" />
+      <span className={iconOnly ? 'sr-only' : 'hidden sm:block'}>{text}</span>
     </PaginationLink>
   );
 }
@@ -77,25 +79,30 @@ function PaginationPrevious({
 function PaginationNext({
   className,
   text = 'Next',
+  iconOnly = false,
+  'aria-label': ariaLabel = 'Go to next page',
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+}: React.ComponentProps<typeof PaginationLink> & { text?: string; iconOnly?: boolean }) {
   return (
     <PaginationLink
-      aria-label="Go to next page"
-      size="default"
-      className={cn('pr-2!', className)}
+      aria-label={ariaLabel}
+      size={iconOnly ? 'icon' : 'default'}
+      className={cn(!iconOnly && 'pe-2!', className)}
       {...props}
     >
-      <span className="hidden sm:block">{text}</span>
-      <CaretRightIcon data-icon="inline-end" />
+      <span className={iconOnly ? 'sr-only' : 'hidden sm:block'}>{text}</span>
+      <CaretRightIcon data-icon="inline-end" className="rtl:rotate-180" />
     </PaginationLink>
   );
 }
 
-function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'>) {
+function PaginationEllipsis({
+  className,
+  srOnlyText = 'More pages',
+  ...props
+}: React.ComponentProps<'span'> & { srOnlyText?: string }) {
   return (
     <span
-      aria-hidden
       data-slot="pagination-ellipsis"
       className={cn(
         "flex size-9 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
@@ -103,8 +110,8 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
       )}
       {...props}
     >
-      <DotsThreeIcon />
-      <span className="sr-only">More pages</span>
+      <DotsThreeIcon aria-hidden />
+      <span className="sr-only">{srOnlyText}</span>
     </span>
   );
 }

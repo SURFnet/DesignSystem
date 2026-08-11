@@ -104,6 +104,72 @@ export const ManyPages: Story = {
 };
 
 @Component({
+  selector: 'pagination-interactive-demo',
+  imports: [HlmPaginationImports],
+  template: `
+    <nav hlmPagination>
+      <ul hlmPaginationContent>
+        <li hlmPaginationItem>
+          <hlm-pagination-previous
+            [attr.aria-disabled]="page === 1 || null"
+            [class]="page === 1 ? 'pointer-events-none opacity-50' : ''"
+            (click)="goToPrevious($event)"
+          />
+        </li>
+        @for (pageNumber of pages; track pageNumber) {
+          <li hlmPaginationItem>
+            <a
+              hlmPaginationLink
+              [isActive]="pageNumber === page"
+              (click)="goToPage($event, pageNumber)"
+            >
+              {{ pageNumber }}
+            </a>
+          </li>
+        }
+        <li hlmPaginationItem>
+          <hlm-pagination-next
+            [attr.aria-disabled]="page === totalPages || null"
+            [class]="page === totalPages ? 'pointer-events-none opacity-50' : ''"
+            (click)="goToNext($event)"
+          />
+        </li>
+      </ul>
+    </nav>
+  `,
+})
+class PaginationInteractiveDemo {
+  readonly totalPages = 5;
+  readonly pages = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+  page = 1;
+
+  goToPrevious(event: Event): void {
+    event.preventDefault();
+    this.page = Math.max(1, this.page - 1);
+  }
+
+  goToNext(event: Event): void {
+    event.preventDefault();
+    this.page = Math.min(this.totalPages, this.page + 1);
+  }
+
+  goToPage(event: Event, pageNumber: number): void {
+    event.preventDefault();
+    this.page = pageNumber;
+  }
+}
+
+/** A stateful trail — clicking a page or the previous/next controls updates the active page. */
+export const Interactive: Story = {
+  render: () => ({
+    moduleMetadata: {
+      imports: [PaginationInteractiveDemo],
+    },
+    template: `<pagination-interactive-demo />`,
+  }),
+};
+
+@Component({
   selector: 'pagination-numbered-demo',
   imports: [HlmNumberedPagination],
   template: `

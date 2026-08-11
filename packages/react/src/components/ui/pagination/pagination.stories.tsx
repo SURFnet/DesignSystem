@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { paginationContract } from '@surfnet/curve-contracts';
 
+import { NumberedPagination } from './numbered-pagination';
 import {
   Pagination,
   PaginationContent,
@@ -144,6 +145,28 @@ export const Interactive: Story = {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+    );
+  },
+};
+
+/**
+ * The composed numbered-pagination block: page links, previous/next controls, and a
+ * page-size selector, driven by `currentPage` / `itemsPerPage` state.
+ */
+export const NumberedPaginationStory: Story = {
+  name: 'NumberedPagination',
+  render: () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+
+    return (
+      <NumberedPagination
+        currentPage={currentPage}
+        onCurrentPageChange={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+        onItemsPerPageChange={setItemsPerPage}
+        totalItems={237}
+      />
     );
   },
 };

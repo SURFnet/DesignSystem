@@ -10,7 +10,7 @@ import { classes } from '../../../utils/src';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'data-slot': 'pagination-ellipsis' },
   template: `
-    <ng-icon name="phosphorDotsThree" />
+    <ng-icon name="phosphorDotsThree" aria-hidden="true" />
     <span class="sr-only">{{ srOnlyText() }}</span>
   `,
 })
