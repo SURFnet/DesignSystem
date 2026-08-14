@@ -11,3 +11,5 @@ To keep track of all minor and major issues we find during the first stage of us
 - Dialog footers aren't aligned between Figma and ui.shadcn.com (background color)
 - InputOTP component: filled + another state is not possible in Figma. Worth the change?
 - How to handle loading states of entire forms/dialogs? Where to show spinner? To disable all elements?
+- In need of signal colours for the Badge component
+- Alert component: highlight variant uses primary, primary can be green. Really confusing
