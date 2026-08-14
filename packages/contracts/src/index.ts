@@ -15,6 +15,7 @@ export { comboboxContract } from './combobox.js';
 export { commandContract } from './command.js';
 export { contextMenuContract, type ContextMenuItemVariantName } from './context-menu.js';
 export { dataTableContract } from './data-table.js';
+export { curveDataTableContract } from './curve-data-table.js';
 export { datePickerContract } from './date-picker.js';
 export { dialogContract } from './dialog.js';
 export { dropdownMenuContract, type DropdownMenuItemVariantName } from './dropdown-menu.js';

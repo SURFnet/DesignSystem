@@ -22,6 +22,7 @@ export * from './lib/ui/combobox/src';
 export * from './lib/ui/command/src';
 export * from './lib/ui/context-menu/src';
 export * from './lib/ui/data-table/src';
+export * from './lib/ui/curve-data-table/src';
 export * from './lib/ui/date-picker/src';
 export * from './lib/ui/dialog/src';
 export * from './lib/ui/dropdown-menu/src';

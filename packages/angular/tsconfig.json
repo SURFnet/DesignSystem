@@ -19,6 +19,7 @@
       "@spartan-ng/helm/card": ["./src/lib/ui/card/src/index.ts"],
       "@spartan-ng/helm/checkbox": ["./src/lib/ui/checkbox/src/index.ts"],
       "@spartan-ng/helm/data-table": ["./src/lib/ui/data-table/src/index.ts"],
+      "@spartan-ng/helm/curve-data-table": ["./src/lib/ui/curve-data-table/src/index.ts"],
       "@spartan-ng/helm/dropdown-menu": ["./src/lib/ui/dropdown-menu/src/index.ts"],
       "@spartan-ng/helm/field": ["./src/lib/ui/field/src/index.ts"],
       "@spartan-ng/helm/input": ["./src/lib/ui/input/src/index.ts"],

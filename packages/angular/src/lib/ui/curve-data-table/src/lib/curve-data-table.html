@@ -1,0 +1,38 @@
+@if (searchColumn() || hasColumnFilter()) {
+<div hlmDataTableToolbar>
+  @if (searchColumn()) {
+  <div hlmInputGroup class="max-w-xs">
+    <div hlmInputGroupAddon>
+      <ng-icon name="phosphorMagnifyingGlass" />
+      <input
+        hlmInputGroupInput
+        [placeholder]="`Search ${searchColumn()}...`"
+        [value]="appFilter()"
+        (input)="setAppFilter($event)"
+      />
+    </div>
+  </div>
+  } @if (hasColumnFilter()) {
+  <button hlmBtn variant="outline" class="ml-auto" [hlmDropdownMenuTrigger]="columnsMenu">
+    Columns
+  </button>
+  <ng-template #columnsMenu>
+    <hlm-dropdown-menu class="w-40">
+      @for (column of hideableColumns(); track column.id) {
+      <button
+        hlmDropdownMenuCheckbox
+        class="capitalize"
+        [checked]="column.getIsVisible()"
+        (triggered)="column.toggleVisibility(!column.getIsVisible())"
+      >
+        {{ column.id }}
+        <hlm-dropdown-menu-checkbox-indicator />
+      </button>
+      }
+    </hlm-dropdown-menu>
+  </ng-template>
+  }
+</div>
+}
+<hlm-data-table-content [table]="table" [columns]="tanstackColumns" />
+<hlm-data-table-pagination [table]="table" />

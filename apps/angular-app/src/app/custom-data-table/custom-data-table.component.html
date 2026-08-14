@@ -1,0 +1,15 @@
+<p>
+  Dit is bijna dezelfde tabel, maar deze gebruikt een wrapper component die tabelconfiguratie
+  grotendeels standaardiseert, waardoor het gebruik er van een stuk eenvoudiger is. Het wordt
+  daarmee ook opinionated, maar dat wil je tot op zekere hoogte ook om consistentie af te dwingen.
+</p>
+
+<curve-data-table
+  [data]="data"
+  [columns]="columns"
+  searchColumn="app"
+  (rowActionTriggered)="rowActionTriggered($event)"
+></curve-data-table>
+
+<br /><br />
+<p>Laatst uitgevoerde actie: {{ lastActionDisplay }}</p>
