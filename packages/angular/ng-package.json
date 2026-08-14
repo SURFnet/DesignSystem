@@ -14,6 +14,9 @@
     "@tanstack/angular-table",
     "class-variance-authority",
     "clsx",
+    "embla-carousel",
+    "embla-carousel-angular",
+    "ngx-scrollbar",
     "tailwind-merge",
     "tslib"
   ]
