@@ -1,0 +1,13 @@
+To keep track of all minor and major issues we find during the first stage of using the design system:
+
+- Solid color background: for creating visually differentiated pages (such as a login page) it might be nice to have a solid color instead of a grey to use for a background. The --primary might be too bright for this purpose?
+- Condensed list: it might be nice to have not only an 'Item Group', but also a list without spacing in between for a more condensed view?
+- Change default focus styles from grey to blue?
+- Add a leading icon to the dialog header?
+- Rethink Collapsible component. Or create a collapsible variant of Item?
+- Do we need a Destructive Link variant of the Button?
+- Support multiple widths for dialogs?
+- Dialog and Alert Dialog heading font-sizes seem random in the Figma file. Find out why and if it needs adjustment.
+- Dialog footers aren't aligned between Figma and ui.shadcn.com (background color)
+- InputOTP component: filled + another state is not possible in Figma. Worth the change?
+- How to handle loading states of entire forms/dialogs? Where to show spinner? To disable all elements?
