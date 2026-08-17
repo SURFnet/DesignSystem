@@ -14,3 +14,4 @@ To keep track of all minor and major issues we find during the first stage of us
 - In need of signal colours for the Badge component
 - Alert component: highlight variant uses primary, primary can be green. Really confusing
 - Select component is 40px high, rest of the controls 36. Needs adjustment
+- Add aggregations to checkbox component for filtering?
