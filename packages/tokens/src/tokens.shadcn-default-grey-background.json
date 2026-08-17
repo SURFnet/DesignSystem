@@ -1,107 +1,107 @@
 {
   "background": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "card": {
     "$type": "color",
-    "$value": "rgba(23, 23, 23, 1)"
+    "$value": "rgba(255, 255, 255, 1)"
   },
   "card-foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "popover": {
     "$type": "color",
-    "$value": "rgba(23, 23, 23, 1)"
+    "$value": "rgba(255, 255, 255, 1)"
   },
   "popover-foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "primary": {
     "$type": "color",
-    "$value": "rgba(5, 62, 170, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "primary-foreground": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 1)"
+    "$value": "rgba(250, 250, 250, 1)"
   },
   "secondary": {
     "$type": "color",
-    "$value": "rgba(3, 37, 97, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "secondary-foreground": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "muted": {
     "$type": "color",
-    "$value": "rgba(38, 38, 38, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "muted-foreground": {
     "$type": "color",
-    "$value": "rgba(212, 212, 212, 1)"
+    "$value": "rgba(82, 82, 82, 1)"
   },
   "accent": {
     "$type": "color",
-    "$value": "rgba(3, 37, 97, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "accent-foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "destructive": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 1)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "border": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.1)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "input": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "ring": {
     "$type": "color",
-    "$value": "rgba(115, 115, 115, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "chart-1": {
     "$type": "color",
-    "$value": "rgba(29, 78, 216, 1)"
+    "$value": "rgba(234, 88, 12, 1)"
   },
   "chart-2": {
     "$type": "color",
-    "$value": "rgba(16, 185, 129, 1)"
+    "$value": "rgba(13, 148, 136, 1)"
   },
   "chart-3": {
     "$type": "color",
-    "$value": "rgba(245, 158, 11, 1)"
+    "$value": "rgba(22, 78, 99, 1)"
   },
   "chart-4": {
     "$type": "color",
-    "$value": "rgba(168, 85, 247, 1)"
+    "$value": "rgba(251, 191, 36, 1)"
   },
   "chart-5": {
     "$type": "color",
-    "$value": "rgba(244, 63, 94, 1)"
+    "$value": "rgba(245, 158, 11, 1)"
   },
   "sidebar": {
     "$type": "color",
-    "$value": "rgba(23, 23, 23, 1)"
+    "$value": "rgba(250, 250, 250, 1)"
   },
   "sidebar-foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "sidebar-primary": {
     "$type": "color",
-    "$value": "rgba(29, 78, 216, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "sidebar-primary-foreground": {
     "$type": "color",
@@ -109,23 +109,23 @@
   },
   "sidebar-accent": {
     "$type": "color",
-    "$value": "rgba(3, 37, 97, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "sidebar-accent-foreground": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "sidebar-border": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.1)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "sidebar-ring": {
     "$type": "color",
-    "$value": "rgba(82, 82, 82, 1)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "font-sans": {
     "$type": "fontFamily",
-    "$value": "Source Sans 3, sans-serif"
+    "$value": "Inter, sans-serif"
   },
   "font-mono": {
     "$type": "fontFamily",
@@ -133,67 +133,67 @@
   },
   "warning": {
     "$type": "color",
-    "$value": "rgba(250, 204, 21, 1)"
+    "$value": "rgba(202, 138, 4, 1)"
   },
   "destructive-foreground": {
     "$type": "color",
-    "$value": "rgba(69, 10, 10, 1)"
+    "$value": "rgba(254, 242, 242, 1)"
   },
   "primary-strong": {
     "$type": "color",
-    "$value": "rgba(110, 154, 232, 1)"
+    "$value": "rgba(10, 10, 10, 1)"
   },
   "ring-offset": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 1)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "alpha-5": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.95)"
+    "$value": "rgba(255, 255, 255, 0.95)"
   },
   "alpha-10": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.9)"
+    "$value": "rgba(255, 255, 255, 0.9)"
   },
   "alpha-20": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.8)"
+    "$value": "rgba(255, 255, 255, 0.8)"
   },
   "alpha-30": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.7)"
+    "$value": "rgba(255, 255, 255, 0.7)"
   },
   "alpha-40": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.6)"
+    "$value": "rgba(255, 255, 255, 0.6)"
   },
   "alpha-50": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.5)"
+    "$value": "rgba(255, 255, 255, 0.5)"
   },
   "alpha-60": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.4)"
+    "$value": "rgba(255, 255, 255, 0.4)"
   },
   "alpha-70": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.3)"
+    "$value": "rgba(255, 255, 255, 0.3)"
   },
   "alpha-80": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.2)"
+    "$value": "rgba(255, 255, 255, 0.2)"
   },
   "alpha-90": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.1)"
+    "$value": "rgba(255, 255, 255, 0.1)"
   },
   "custom-background-dark-input30": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.05)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-transparent-dark-input30": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.05)"
+    "$value": "rgba(255, 255, 255, 0)"
   },
   "custom-transparent": {
     "$type": "color",
@@ -201,143 +201,143 @@
   },
   "custom-background-dark-calendar30": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.05)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-accent-dark-input50": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.08)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-accent-dark-calendar50": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.08)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-input-dark-input80": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.12)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "custom-input-dark-input30": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "custom-input50-dark-input80": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(229, 229, 229, 0.5)"
   },
   "custom-input30-dark-transparent": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0)"
+    "$value": "rgba(229, 229, 229, 0.3)"
   },
   "custom-input30-dark-input30": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(229, 229, 229, 0.3)"
   },
   "custom-muted-dark-input50": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.08)"
+    "$value": "rgba(245, 245, 245, 1)"
   },
   "custom-destructive-dark-destructive60": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.6)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "custom-destructive-dark-destructive70": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.7)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "custom-destructive-dark-destructive90": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.9)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "custom-destructive10-dark-destructive20": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.2)"
+    "$value": "rgba(220, 38, 38, 0.1)"
   },
   "custom-warning6-dark-warning16": {
     "$type": "color",
-    "$value": "rgba(250, 204, 21, 0.16)"
+    "$value": "rgba(202, 138, 4, 0.06)"
   },
   "custom-destructive20-dark-destructive40": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.4)"
+    "$value": "rgba(220, 38, 38, 0.2)"
   },
   "custom-destructive20-dark-destructive30": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.3)"
+    "$value": "rgba(220, 38, 38, 0.2)"
   },
   "custom-destructive40-dark-destructive60": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.6)"
+    "$value": "rgba(220, 38, 38, 0.4)"
   },
   "custom-destructive40-dark-destructive40": {
     "$type": "color",
-    "$value": "rgba(248, 113, 113, 0.4)"
+    "$value": "rgba(220, 38, 38, 0.4)"
   },
   "custom-amber900-dark-amber50": {
     "$type": "color",
-    "$value": "rgba(255, 251, 235, 1)"
+    "$value": "rgba(120, 53, 15, 1)"
   },
   "custom-amber50-dark-amber950": {
     "$type": "color",
-    "$value": "rgba(69, 26, 3, 1)"
+    "$value": "rgba(255, 251, 235, 1)"
   },
   "custom-amber200-dark-amber900": {
     "$type": "color",
-    "$value": "rgba(120, 53, 15, 1)"
+    "$value": "rgba(253, 230, 138, 1)"
   },
   "custom-neutral800-dark-neutral300": {
     "$type": "color",
-    "$value": "rgba(212, 212, 212, 1)"
+    "$value": "rgba(38, 38, 38, 1)"
   },
   "custom-dark-input": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(255, 255, 255, 0)"
   },
   "custom-outline": {
     "$type": "color",
-    "$value": "rgba(115, 115, 115, 0.5)"
+    "$value": "rgba(163, 163, 163, 0.5)"
   },
   "custom-outline10-dark-outline20": {
     "$type": "color",
-    "$value": "rgba(115, 115, 115, 0.2)"
+    "$value": "rgba(163, 163, 163, 0.1)"
   },
   "custom-blue-500-dark-blue-600": {
     "$type": "color",
-    "$value": "rgba(37, 99, 235, 1)"
+    "$value": "rgba(59, 130, 246, 1)"
   },
   "custom-border-dark-input-dark": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(229, 229, 229, 1)"
   },
   "custom-ring-dark-input-dark": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "custom-ring-dark-input-dark-2": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "custom-popover70": {
     "$type": "color",
-    "$value": "rgba(38, 38, 38, 0.7)"
+    "$value": "rgba(255, 255, 255, 0.7)"
   },
   "custom-foreground10": {
     "$type": "color",
-    "$value": "rgba(250, 250, 250, 0.1)"
+    "$value": "rgba(10, 10, 10, 0.1)"
   },
   "custom-ring-dark-input-dark-3": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(163, 163, 163, 1)"
   },
   "custom-bg-background20-dark-bg-background10": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.1)"
+    "$value": "rgba(255, 255, 255, 0.2)"
   },
   "custom-bg-primary5-dark-bg-primary10": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.1)"
+    "$value": "rgba(23, 23, 23, 0.05)"
   },
   "custom-alpha-30-dark-alpha-20": {
     "$type": "color",
-    "$value": "rgba(10, 10, 10, 0.8)"
+    "$value": "rgba(255, 255, 255, 0.7)"
   },
   "breakpoint-sm": {
     "$type": "dimension",
@@ -365,31 +365,31 @@
   },
   "text-xs-font-size": {
     "$type": "dimension",
-    "$value": "0.875rem"
+    "$value": "0.75rem"
   },
   "text-xs-line-height": {
     "$type": "dimension",
-    "$value": "1.25rem"
+    "$value": "1rem"
   },
   "text-sm-font-size": {
     "$type": "dimension",
-    "$value": "1rem"
+    "$value": "0.875rem"
   },
   "text-sm-line-height": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.25rem"
   },
   "text-base-font-size": {
     "$type": "dimension",
-    "$value": "1.125rem"
+    "$value": "1rem"
   },
   "text-base-line-height": {
     "$type": "dimension",
-    "$value": "1.75rem"
+    "$value": "1.5rem"
   },
   "text-lg-font-size": {
     "$type": "dimension",
-    "$value": "1.25rem"
+    "$value": "1.125rem"
   },
   "text-lg-line-height": {
     "$type": "dimension",
@@ -397,75 +397,75 @@
   },
   "text-xl-font-size": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.25rem"
   },
   "text-xl-line-height": {
     "$type": "dimension",
-    "$value": "2rem"
+    "$value": "1.75rem"
   },
   "text-2xl-font-size": {
     "$type": "dimension",
-    "$value": "1.875rem"
+    "$value": "1.5rem"
   },
   "text-2xl-line-height": {
     "$type": "dimension",
-    "$value": "2.25rem"
+    "$value": "2rem"
   },
   "text-3xl-font-size": {
     "$type": "dimension",
-    "$value": "2.25rem"
+    "$value": "1.875rem"
   },
   "text-3xl-line-height": {
     "$type": "dimension",
-    "$value": "2.5rem"
+    "$value": "2.25rem"
   },
   "text-4xl-font-size": {
     "$type": "dimension",
-    "$value": "3rem"
+    "$value": "2.25rem"
   },
   "text-4xl-line-height": {
     "$type": "dimension",
-    "$value": "3rem"
+    "$value": "2.5rem"
   },
   "text-5xl-font-size": {
     "$type": "dimension",
-    "$value": "3.75rem"
+    "$value": "3rem"
   },
   "text-5xl-line-height": {
     "$type": "dimension",
-    "$value": "3.75rem"
+    "$value": "3rem"
   },
   "text-6xl-font-size": {
     "$type": "dimension",
-    "$value": "4.5rem"
+    "$value": "3.75rem"
   },
   "text-6xl-line-height": {
     "$type": "dimension",
-    "$value": "4.5rem"
+    "$value": "3.75rem"
   },
   "text-7xl-font-size": {
     "$type": "dimension",
-    "$value": "6rem"
+    "$value": "4.5rem"
   },
   "text-7xl-line-height": {
     "$type": "dimension",
-    "$value": "6rem"
+    "$value": "4.5rem"
   },
   "text-8xl-font-size": {
     "$type": "dimension",
-    "$value": "8rem"
+    "$value": "6rem"
   },
   "text-8xl-line-height": {
     "$type": "dimension",
-    "$value": "8rem"
+    "$value": "6rem"
   },
   "text-9xl-font-size": {
     "$type": "dimension",
-    "$value": "10rem"
+    "$value": "8rem"
   },
   "text-9xl-line-height": {
     "$type": "dimension",
-    "$value": "10rem"
+    "$value": "8rem"
   },
   "container-2xs": {
     "$type": "dimension",
