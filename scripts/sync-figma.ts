@@ -7,7 +7,7 @@
  * Usage: pnpm sync:figma [--theme "SURF Blue"]
  */
 
-import 'dotenv/config';
+import { config as loadEnv } from 'dotenv';
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -24,6 +24,11 @@ type ModeValue = boolean | number | string | RGBA | VariableAlias;
 type TokenMap = Record<string, string>;
 type DtcgType = 'color' | 'number' | 'fontFamily' | 'dimension' | 'other';
 
+const repoRoot = resolve(fileURLToPath(import.meta.url), '..', '..');
+const envPath = resolve(repoRoot, '.env');
+// override: true so empty/stale FIGMA_* already in the shell cannot mask .env
+loadEnv({ path: envPath, override: true });
+
 const { values: args } = parseArgs({
   options: { theme: { type: 'string', default: 'SURF Blue' } },
   strict: false,
@@ -34,11 +39,11 @@ const FIGMA_TOKEN = process.env.FIGMA_TOKEN;
 const FIGMA_FILE_ID = process.env.FIGMA_FILE_ID;
 
 if (!FIGMA_TOKEN || !FIGMA_FILE_ID) {
-  console.error('ERROR: set FIGMA_TOKEN and FIGMA_FILE_ID in .env');
+  console.error(`ERROR: set FIGMA_TOKEN and FIGMA_FILE_ID in ${envPath}`);
   process.exit(1);
 }
 
-const outDir = resolve(fileURLToPath(import.meta.url), '..', '..', 'packages/tokens/src');
+const outDir = resolve(repoRoot, 'packages/tokens/src');
 
 console.log(`\nFetching variables from Figma file ${FIGMA_FILE_ID}…`);
 
