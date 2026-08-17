@@ -13,3 +13,4 @@ To keep track of all minor and major issues we find during the first stage of us
 - How to handle loading states of entire forms/dialogs? Where to show spinner? To disable all elements?
 - In need of signal colours for the Badge component
 - Alert component: highlight variant uses primary, primary can be green. Really confusing
+- Select component is 40px high, rest of the controls 36. Needs adjustment
