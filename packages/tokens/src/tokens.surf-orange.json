@@ -57,7 +57,7 @@
   },
   "destructive": {
     "$type": "color",
-    "$value": "rgba(220, 38, 38, 1)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "border": {
     "$type": "color",
@@ -109,11 +109,11 @@
   },
   "sidebar-accent": {
     "$type": "color",
-    "$value": "rgba(245, 245, 244, 1)"
+    "$value": "rgba(255, 233, 217, 1)"
   },
   "sidebar-accent-foreground": {
     "$type": "color",
-    "$value": "rgba(28, 25, 23, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "sidebar-border": {
     "$type": "color",
@@ -131,13 +131,17 @@
     "$type": "fontFamily",
     "$value": "Geist Mono, monospace"
   },
+  "warning": {
+    "$type": "color",
+    "$value": "rgba(202, 138, 4, 1)"
+  },
   "destructive-foreground": {
     "$type": "color",
     "$value": "rgba(254, 242, 242, 1)"
   },
-  "link": {
+  "primary-strong": {
     "$type": "color",
-    "$value": "rgba(201, 97, 35, 1)"
+    "$value": "rgba(159, 74, 26, 1)"
   },
   "ring-offset": {
     "$type": "color",
@@ -233,19 +237,23 @@
   },
   "custom-destructive-dark-destructive60": {
     "$type": "color",
-    "$value": "rgba(220, 38, 38, 1)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "custom-destructive-dark-destructive70": {
     "$type": "color",
-    "$value": "rgba(220, 38, 38, 1)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "custom-destructive-dark-destructive90": {
     "$type": "color",
-    "$value": "rgba(220, 38, 38, 1)"
+    "$value": "rgba(185, 28, 28, 1)"
   },
   "custom-destructive10-dark-destructive20": {
     "$type": "color",
     "$value": "rgba(220, 38, 38, 0.1)"
+  },
+  "custom-warning6-dark-warning16": {
+    "$type": "color",
+    "$value": "rgba(202, 138, 4, 0.06)"
   },
   "custom-destructive20-dark-destructive40": {
     "$type": "color",
