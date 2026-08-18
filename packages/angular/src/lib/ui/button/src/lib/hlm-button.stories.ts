@@ -98,12 +98,11 @@ export const Variants: Story = {
   }),
 };
 
-/** Text sizes from extra-small to large. */
+/** Text sizes from small to large. */
 export const Sizes: Story = {
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-3">
-        <button hlmBtn size="xs">Extra small</button>
         <button hlmBtn size="sm">Small</button>
         <button hlmBtn size="default">Default</button>
         <button hlmBtn size="lg">Large</button>
@@ -143,6 +142,22 @@ export const WithIcon: Story = {
           Continue
           <ng-icon name="phosphorArrowRight" data-icon="inline-end" />
         </button>
+      </div>`,
+  }),
+};
+
+/**
+ * The destructive variant is a solid `--destructive` fill with `--destructive-foreground`
+ * text. Hover darkens it with the same alpha layer the primary button uses. The middle
+ * button hard-codes that hover layer so the state is visible without a pointer.
+ */
+export const DestructiveStates: Story = {
+  render: () => ({
+    template: `
+      <div class="flex flex-wrap items-center gap-3">
+        <button hlmBtn variant="destructive">Delete</button>
+        <button hlmBtn variant="destructive" class="bg-destructive/90!">Delete (hover)</button>
+        <button hlmBtn variant="destructive" disabled>Delete (disabled)</button>
       </div>`,
   }),
 };

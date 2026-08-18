@@ -61,11 +61,10 @@ export const Variants: Story = {
   ),
 };
 
-/** Text sizes from extra-small to large. */
+/** Text sizes from small to large. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button size="xs">Extra small</Button>
       <Button size="sm">Small</Button>
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
@@ -110,6 +109,25 @@ export const WithIcon: Story = {
       <Button variant="secondary">
         Continue
         <ArrowRightIcon data-icon="inline-end" />
+      </Button>
+    </div>
+  ),
+};
+
+/**
+ * The destructive variant is a solid `--destructive` fill with `--destructive-foreground`
+ * text. Hover darkens it with the same alpha layer the primary button uses. The middle
+ * button hard-codes that hover layer so the state is visible without a pointer.
+ */
+export const DestructiveStates: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button variant="destructive">Delete</Button>
+      <Button variant="destructive" className="bg-destructive/90">
+        Delete (hover)
+      </Button>
+      <Button variant="destructive" disabled>
+        Delete (disabled)
       </Button>
     </div>
   ),

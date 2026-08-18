@@ -3,7 +3,7 @@ import { defineContract } from './define-contract.js';
 export const buttonContract = defineContract({
   props: {
     variants: ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'],
-    sizes: ['default', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
+    sizes: ['default', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
   },
   defaults: {
     variants: 'default',
@@ -16,12 +16,11 @@ export const buttonContract = defineContract({
       outline: 'Bordered, transparent fill — secondary actions beside a primary button.',
       secondary: 'Muted fill — general-purpose secondary action.',
       ghost: 'No background or border — tertiary actions and icon toolbars.',
-      destructive: 'Danger tint — destructive or irreversible actions.',
+      destructive: 'Solid danger fill — destructive or irreversible actions.',
       link: 'Looks like a hyperlink — inline or contextual navigation actions.',
     },
     sizes: {
       default: 'Standard height for most UI contexts.',
-      xs: 'Extra-small — dense UIs, compact toolbars.',
       sm: 'Small — secondary controls, filter bars.',
       lg: 'Large — prominent calls to action.',
       icon: 'Square icon-only button at the default size.',
