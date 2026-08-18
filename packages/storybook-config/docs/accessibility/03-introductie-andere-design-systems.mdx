@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Introductie" name="Toegankelijkheid in andere design systems" />
+
+# Toegankelijkheid in andere design systems
+
+Elk volwassen design system heeft dezelfde vraag moeten beantwoorden: hoe voorkom je dat kennis over
+toegankelijkheid in het hoofd van één specialist blijft zitten? Hun antwoorden zijn openbaar, en het is
+verstandiger om ervan te lenen dan het opnieuw te bedenken.
+
+| Design system                | Hoe toegankelijkheid er terugkomt                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------- |
+| GOV.UK Design System         | Acceptatiecriteria per component, gepubliceerd gebruikersonderzoek, openlijk vermelde bekende problemen |
+| NL Design System             | Door de community onderhouden richtlijnen per component, met het WCAG-criterium erbij vermeld           |
+| U.S. Web Design System       | Een toegankelijkheidsparagraaf bij elk component, gekoppeld aan de verplichtingen uit Section 508       |
+| IBM Carbon                   | Een apart tabblad per component met volledige tabellen voor toetsenbordbediening                        |
+| Adobe Spectrum / React Aria  | Gedrag ondergebracht in getoetste headless hooks, getest op een matrix van echte screenreaders          |
+| Atlassian Design System      | Richtlijnen per component plus een definition of done op teamniveau                                     |
+| Shopify Polaris              | Toegankelijkheid als expliciet fundament, met do's en don'ts per component                              |
+| W3C ARIA Authoring Practices | Geen design system: de referentie-implementatie voor elk widgetpatroon                                  |
+
+## Wat de moeite waard is om over te nemen
+
+**Leg de criteria per component vast, niet per systeem.** Het sterkste idee van GOV.UK zijn de
+acceptatiecriteria voor toegankelijkheid: een korte lijst, gekoppeld aan het component, van wat waar
+moet zijn voordat het af is. Daarmee wordt "is dit toegankelijk?" van een inschatting een checklist die
+iemand zonder specialistische kennis kan aflopen.
+
+**Documenteer het toetsenbordcontract.** Zowel Carbon als de ARIA Authoring Practices Guide publiceren
+een tabel met elke toets waarop een component reageert. Dat is het nuttigste dat de documentatie van een
+component kan bevatten: het is in tien seconden te testen, en het is het eerste dat misgaat wanneer
+iemand het component zelf namaakt.
+
+**Publiceer bekende problemen in plaats van ze te verbergen.** GOV.UK vermeldt per component welke
+toegankelijkheidsproblemen nog niet zijn opgelost. Dat is ongemakkelijk en enorm bruikbaar: gebruikers
+kunnen een geïnformeerde keuze maken in plaats van aan te nemen dat het systeem alles heeft afgedekt.
+
+**Stop gedrag in een getoetste laag.** React Aria van Adobe en de Brain-laag van Spartan delen hetzelfde
+uitgangspunt: interactielogica is te subtiel om per product opnieuw te bouwen, dus hoort die in een
+primitief dat tegen echte hulpsoftware is getest. Curve maakt dezelfde scheiding — Base UI in React,
+Brain in Angular — en daarom gaan deze richtlijnen vooral over samenstellen en niet over het bouwen van
+widgets.
+
+**Noem het WCAG-criterium waar een regel bij hoort.** Het NL Design System is hier goed in, en het
+verandert hoe richtlijnen overkomen: "geef het invoerveld een label" is een mening, terwijl "1.3.1 Info
+en relaties" een eis is met een bijbehorende test.
+
+## Waar Curve nu staat
+
+Curve erft zijn componentgedrag van Base UI en Spartan Brain, en zijn kleurcombinaties van design
+tokens waarvan het contrast is gecontroleerd. Wat nog ontbreekt is de laag per component waar de
+systemen hierboven naartoe zijn gegroeid: toetsenbordtabellen, acceptatiecriteria voor toegankelijkheid,
+en een eerlijke lijst met bekende problemen op de documentatiepagina van elk component.
+
+Voeg je een component toe of beoordeel je er een, dan is dat de waardevolste documentatie die je kunt
+achterlaten — waardevoller dan nog een gebruiksvoorbeeld.

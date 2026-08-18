@@ -3,14 +3,14 @@ name: accessibility
 description: >-
   Guides frontend accessibility: semantic HTML, heading structure, links vs
   buttons, form labels and accessible names, keyboard Tab order, skip links,
-  and hover/focus styles. Use when writing or reviewing React, Angular, Vue,
+  and hover/focus styles. Use when writing or reviewing React, Angular, 
   HTML, or CSS UI, or when the user mentions a11y, accessibility, WCAG,
   keyboard navigation, skip links, headings, outline, or accessible names.
 ---
 
 # Web accessibility
 
-Apply this skill whenever you **write, edit, or review** UI (React, Angular, Vue, HTML, CSS). Do not wait for the user to mention a11y.
+Apply this skill whenever you **write, edit, or review** UI (React, Angular,HTML, CSS). Do not wait for the user to mention a11y.
 
 Prefer native HTML before ARIA. Do not "fix" accessibility with `role="button"` + `tabindex="0"` + a click handler on a `div` when a native `<button>` or `<a href>` works.
 
@@ -43,7 +43,6 @@ Rules:
 - The router helper must still render a real `<a href>`:
   - **React:** `<Link>` / `<NavLink>` (React Router, Next.js). Do not replace the anchor with a `<span>` or `<div>`.
   - **Angular:** `routerLink` on an `<a>`, not on a `<div>` or `<button>`.
-  - **Vue:** `RouterLink` that renders `<a href>`. Prefer `custom` + `<a :href="href">` when you style the node yourself. Never replace the `<a>` with a `<span>` or `<div>`.
 - Mark the current page with `aria-current="page"` on the **link**, not on a wrapper.
 - A button that looks like a link is still a `<button>`.
 - A link that looks like a button is still an `<a href>`.

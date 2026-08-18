@@ -1,0 +1,18 @@
+/* Restore list markers inside docs prose; Tailwind preflight strips them globally. */
+.sbdocs-content ul,
+.sbdocs-content ol {
+  list-style: revert;
+  padding-inline-start: 1.5rem;
+}
+.sbdocs-content ul {
+  list-style-type: disc;
+}
+.sbdocs-content ol {
+  list-style-type: decimal;
+}
+.sbdocs-content ul ul {
+  list-style-type: circle;
+}
+.sbdocs-content ul ul ul {
+  list-style-type: square;
+}

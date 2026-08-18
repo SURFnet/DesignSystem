@@ -1,0 +1,154 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve" name="Voor developers" />
+
+# Voor developers
+
+Van niets naar een werkende Curve-knop, stap voor stap. Kies onderweg de blokken van jouw framework en
+negeer de andere.
+
+## Stap 1 — Kies je package
+
+| Jouw project | Installeer               |
+| ------------ | ------------------------ |
+| React        | `@surfnet/curve-react`   |
+| Angular      | `@surfnet/curve-angular` |
+
+Beide bevatten dezelfde componenten met dezelfde namen en varianten. Je hebt er dus maar één nodig.
+
+## Stap 2 — Installeren
+
+**React:**
+
+```bash
+pnpm add @surfnet/curve-react
+pnpm add @phosphor-icons/react   # alleen als je iconen gebruikt
+```
+
+**Angular:**
+
+```bash
+pnpm add @surfnet/curve-angular
+pnpm add @ng-icons/core @ng-icons/phosphor-icons   # alleen als je iconen gebruikt
+```
+
+De iconen zijn een aparte installatie omdat niet elk project ze nodig heeft. Laat je ze weg en gebruik
+je toch een icoon, dan krijg je een foutmelding dat het package ontbreekt.
+
+## Stap 3 — Importeer de stylesheet, één keer
+
+Zonder deze regel heb je componenten zonder opmaak. Zet hem op de hoogste plek in je applicatie, en
+importeer hem precies één keer.
+
+**React** (bijvoorbeeld in `main.tsx`, of in `app/layout.tsx` bij Next.js):
+
+```ts
+import '@surfnet/curve-react/styles.css';
+```
+
+**Angular** (in `angular.json` onder `styles`, of in je globale `styles.css`):
+
+```css
+@import '@surfnet/curve-angular/styles.css';
+```
+
+In dit bestand zitten drie dingen: de basisopmaak, alle design tokens als CSS-variabelen, en de
+opmaak van de componenten zelf.
+
+## Stap 4 — Je eerste component
+
+**React:**
+
+```tsx
+import { Button } from '@surfnet/curve-react';
+
+export function Voorbeeld() {
+  return (
+    <>
+      <Button>Opslaan</Button>
+      <Button variant="outline">Annuleren</Button>
+    </>
+  );
+}
+```
+
+**Angular:**
+
+```ts
+import { Component } from '@angular/core';
+import { HlmButton } from '@surfnet/curve-angular';
+
+@Component({
+  selector: 'app-voorbeeld',
+  imports: [HlmButton],
+  template: `
+    <button hlmBtn>Opslaan</button>
+    <button hlmBtn variant="outline">Annuleren</button>
+  `,
+})
+export class VoorbeeldComponent {}
+```
+
+De knop heeft zes varianten — `default`, `outline`, `secondary`, `ghost`, `destructive` en `link` — en
+acht maten. Laat je `variant` weg, dan krijg je `default`.
+
+Twee dingen om te weten over Angular: componenten zijn _standalone_, dus je zet ze in `imports` van je
+eigen component in plaats van in een module. En de meeste Curve-componenten zijn directives — je zet
+`hlmBtn` op een echt `<button>`-element in plaats van een eigen tag te gebruiken.
+
+Welke varianten en maten een component heeft, staat op zijn eigen pagina onder **Components**. Open
+daar het tabblad **Docs** en scroll naar de tabel met eigenschappen.
+
+## Stap 5 — Donkere modus en thema's
+
+Thema's zet je aan met een class op het `<html>`-element. Er is niets te importeren en niets te
+configureren.
+
+```html
+<html class="dark">
+  <!-- alles binnen de pagina gebruikt nu de donkere kleuren -->
+</html>
+
+<html class="dark theme-surf-green">
+  <!-- donker, met een andere accentkleur -->
+</html>
+```
+
+Wil je een schakelaar bouwen, dan zet of haal je die class weg met JavaScript. De componenten hebben
+verder geen instelling nodig: ze gebruiken de CSS-variabelen die bij de actieve class horen.
+
+## Stap 6 — Eigen styling
+
+De componenten zijn met Tailwind opgemaakt en gebruiken de design tokens. Je kunt ze aanvullen:
+
+```tsx
+<Button className="w-full">Opslaan</Button>
+```
+
+Houd je daarbij aan twee regels:
+
+- **Gebruik tokens, geen vaste kleurcodes.** Schrijf `bg-primary` of `text-muted-foreground` in plaats
+  van `bg-[#1a73e8]`. Alleen dan blijft je werk goed in alle thema's.
+- **Vecht niet met een component.** Moet je met `!important` of hele hoge specificiteit werken om iets
+  voor elkaar te krijgen, dan is dat een signaal. Vaak bestaat er een variant voor, en anders is het
+  een goed onderwerp voor een issue.
+
+## Stap 7 — Zo vind je je weg in deze Storybook
+
+- **Curve** — documentatie over het Curve design system.
+- **Accessibility** — wat je zelf nog moet doen om toegankelijk te bouwen.
+- **Components** — elk component, met een voorbeeld per variant en state.
+- Het tabblad **Docs** van een component — alle eigenschappen met hun standaardwaarden.
+- **Foundations → Design Tokens** — welke kleuren, tekststijlen en maten er zijn.
+- De **Framework**-schakelaar in de werkbalk — springt naar hetzelfde component in het andere
+  framework.
+
+## Stap 8 — Iets missen of iets stuk?
+
+Meld het, ook als je het zelf omzeilt: iemand anders loopt tegen hetzelfde aan. Zet erbij welke versie
+je gebruikt, welk framework, en wat je verwachtte. Zie
+[Changelog en beslissingen](?path=/docs/curve--changelog-en-beslissingen) voor waar dat heen gaat.
+
+Wil je zelf een component toevoegen, doe dat dan niet met de hand: er is een generator per framework
+en een vaste plek in de mappenstructuur. Vraag ernaar voordat je begint, dan hoeft het achteraf niet
+opnieuw.

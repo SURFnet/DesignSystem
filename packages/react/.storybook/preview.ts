@@ -9,6 +9,7 @@ import {
 
 // Pull in Tailwind + the design tokens so stories render with the real styles.
 import '../src/index.css';
+import './storybook-docs.css';
 
 // Keep this a literal object so Storybook's static analyzer can read `tags`
 // (project-level autodocs) — a factory call can't be parsed statically.
@@ -28,8 +29,44 @@ export default {
     // execution). Keep in sync with packages/angular/.storybook/preview.ts.
     options: {
       storySort: {
-        method: 'alphabetical',
-        order: ['Foundations', 'Components'],
+        // `includeNames` is required: without it Storybook sorts on title only,
+        // so a page whose title has no subgroup (e.g. Toegankelijkheid / Meer
+        // leren) always sorts before the groups, whatever `order` says.
+        // `configure` leaves anything not listed below in file order, which
+        // keeps each component's stories in the sequence they were authored.
+        method: 'configure',
+        includeNames: true,
+        order: [
+          'Curve',
+          [
+            'Overzicht',
+            'Voor designers',
+            'Voor developers',
+            'Updates en releases',
+            'Changelog en beslissingen',
+          ],
+          'Toegankelijkheid',
+          [
+            'Introductie',
+            [
+              'Overzicht',
+              "Verschillende beperkingen (persona's)",
+              'Toegankelijkheid in andere design systems',
+            ],
+            'Je werk testen',
+            ['Overzicht', 'Handmatig testen', 'Geautomatiseerd testen'],
+            "Do's en don'ts",
+            [
+              'Overzicht',
+              'De eerste regel van ARIA',
+              'ARIA correct gebruiken',
+              'Wanneer je gebruik maakt van AI',
+            ],
+            'Meer leren',
+          ],
+          'Foundations',
+          'Components',
+        ],
       },
     },
   },

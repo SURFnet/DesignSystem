@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve" name="Voor designers" />
+
+# Voor designers
+
+Deze pagina beschrijft hoe een ontwerpwijziging in Curve terechtkomt: waar je hem maakt, hoe hij in de
+code belandt en wat er van je verwacht wordt zodat een developer er direct mee verder kan.
+
+## Figma is de bron
+
+Alle kleuren, typografie, spacing en hoekafrondingen staan als **variabelen in Figma**. Die variabelen
+zijn de officiële bron: de code haalt de waarden daaruit op, niet omgekeerd.
+
+Dat betekent één belangrijke afspraak: **pas kleuren nooit direct in de code aan.** Wijzig je een
+kleur alleen in de code, dan verdwijnt die wijziging bij de volgende synchronisatie met Figma. Wijzig
+je hem in Figma, dan komt hij overal terecht.
+
+## Van Figma naar code, stap voor stap
+
+1. Je past een variabele aan in Figma, of voegt een nieuwe toe.
+2. Een developer haalt de variabelen op met één commando (`pnpm sync:figma`). De waarden worden
+   opgeslagen als tekstbestanden in de repository.
+3. Uit die bestanden wordt automatisch de stylesheet gebouwd die de componenten gebruiken.
+4. De wijziging krijgt een versienummer en wordt gepubliceerd — zie
+   [Updates en releases](?path=/docs/curve--updates-en-releases).
+5. Projecten die de nieuwe versie installeren, hebben je wijziging binnen.
+
+Stap 2 en 3 gebeuren niet automatisch bij elke Figma-wijziging. Laat dus even weten dat er iets klaar
+staat, anders blijft het in Figma hangen.
+
+## Wat loopt via tokens en wat niet
+
+| Wat je wijzigt                                      | Hoe het werkt                                      |
+| --------------------------------------------------- | -------------------------------------------------- |
+| Kleur, typografie, spacing, hoekafronding, schaduw  | Via een Figma-variabele: synchroniseren en klaar   |
+| Een nieuwe variant van een bestaand component       | Kleine codewijziging, in overleg met een developer |
+| Gedrag: wat gebeurt er bij klikken, openen, sluiten | Altijd code, niet in te stellen via tokens         |
+| Een compleet nieuw component                        | Ontwerp plus afstemming, zie hieronder             |
+
+Vuistregel: **hoe iets eruitziet** loopt meestal via tokens, **wat iets doet** is altijd code.
+
+## Thema's
+
+Curve ondersteunt meerdere thema's (bijvoorbeeld een donkere modus en varianten met een andere
+accentkleur). Een thema is een set variabelen die bepaalde waarden overschrijft.
+
+Ontwerp je iets nieuws, controleer het dan in minimaal licht én donker. Gebruik daarvoor de
+**Theme**-schakelaar in de werkbalk van deze Storybook. Kies altijd een token in plaats van een vaste
+kleurcode, dan werkt je ontwerp automatisch in alle thema's.
+
+## Een nieuw component of variant voorstellen
+
+1. **Kijk eerst of het al bestaat.** Zoek in **Components**. Vaak is wat je nodig hebt een bestaand
+   component met andere inhoud, of een combinatie van twee componenten.
+2. **Beschrijf waarvoor het is.** In welk product, welke taak van de gebruiker, hoe vaak. Componenten
+   die maar op één plek voorkomen horen meestal niet in het design system.
+3. **Lever alle states.** Standaard, hover, focus, actief, uitgeschakeld, met foutmelding, leeg, en aan
+   het laden. Een ontwerp zonder states wordt door iemand anders verzonnen.
+4. **Geef aan wat er gebeurt bij weinig en veel inhoud.** Lange labels, twee regels tekst, een lege
+   lijst.
+5. **Gebruik bestaande tokens.** Heb je echt een nieuwe waarde nodig, benoem dat expliciet — het is
+   een beslissing, geen detail.
+
+## Checklist: is dit ontwerp klaar voor implementatie?
+
+- Alle states zijn getekend.
+- Kleuren komen uit variabelen, niet uit losse hex-codes.
+- Getest in licht en donker.
+- Tekstcontrast is minimaal 4,5:1 voor normale tekst en 3:1 voor iconen en randen.
+- De focus-indicator is zichtbaar en niet weggehaald.
+- Duidelijk welke elementen aanklikbaar zijn, ook zonder kleurverschil.
+- Interactieve elementen zijn minimaal 24×24 pixels (44×44 is comfortabel).
+- Betekenis zit nooit alleen in kleur — zie
+  [Verschillende beperkingen](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s).
+
+## Waar beslissingen worden vastgelegd
+
+Grotere keuzes — waarom een component zo werkt, waarom een token zo heet — worden apart
+gedocumenteerd. Zie [Changelog en beslissingen](?path=/docs/curve--changelog-en-beslissingen).

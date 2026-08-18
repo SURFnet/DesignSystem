@@ -1,0 +1,90 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Je werk testen" name="Handmatig testen" />
+
+# Handmatig testen
+
+axe en linters weten niet of een kopstructuur ergens op slaat, of iets een link had moeten zijn, of de
+tabvolgorde overeenkomt met wat je ziet. Loop een scherm daarom zelf na nadat je het gebouwd hebt. De
+hele ronde hieronder duurt ongeveer tien minuten en vraagt geen software die je nog niet hebt.
+
+## De toetsenbordronde
+
+Laat de muis los. Klik één keer in de adresbalk en druk op <kbd>Tab</kbd>.
+
+- Elk bedienbaar element is bereikbaar, en verder niets.
+- De volgorde volgt de opmaak. Springt de focus van de header naar een link in de footer en weer terug,
+  dan lopen de DOM-volgorde en de visuele volgorde uiteen.
+- De focus is **altijd zichtbaar**. Raak jij het spoor kwijt, dan iedereen.
+- <kbd>Shift</kbd> + <kbd>Tab</kbd> loopt dezelfde route terug.
+- <kbd>Enter</kbd> activeert links en knoppen; <kbd>Spatie</kbd> activeert knoppen en schakelaars.
+- Binnen een samengesteld component — tabs, menu, keuzelijst, radiogroep — verplaatsen de pijltoetsen de
+  selectie en verlaat <kbd>Tab</kbd> het geheel. Eén stop voor het hele component, niet één per item.
+- <kbd>Esc</kbd> sluit elke dialoog, popover of menu, en de focus keert terug naar het element dat
+  het opende.
+- Je kunt nergens vast komen te zitten. Blijft <kbd>Tab</kbd> eindeloos rondgaan in iets dat geen modale
+  dialoog is, dan heb je een focusval.
+- De skiplink verschijnt bij de eerste <kbd>Tab</kbd> en verplaatst de focus daadwerkelijk naar de
+  hoofdinhoud.
+
+## Zoomen en meebewegen
+
+- Zoom naar **200%**. Niets overlapt, niets valt weg, geen tekst wordt onleesbaar.
+- Zoom naar **400%** (of maak het venster 320px smal). De opmaak vouwt terug naar één kolom en scrollt
+  alleen verticaal. Horizontaal scrollen is hier een Reflow-fout.
+- Vergroot alleen de tekst (Firefox doet dat netjes). Containers met een vaste hoogte die hun tekst
+  afknippen, vallen meteen op.
+
+## Structuur en namen
+
+Open DevTools → **Elements** → het paneel **Accessibility**, of gebruik een browserextensie die de
+structuur toont.
+
+- **Koppen**: precies één `h1`, geen overgeslagen niveaus, en als je alleen de koppen leest krijg je een
+  inhoudsopgave die klopt. Een kopniveau is structuur, nooit een keuze voor lettergrootte.
+- **Toegankelijke namen**: elk invoerveld, elke knop en elke link heeft er één. Een placeholder is geen
+  naam — die verdwijnt zodra iemand begint te typen. Een icoonknop heeft een label nodig. Zes keer "Lees
+  meer" op één pagina zegt een screenreadergebruiker niets.
+- **Landmarks**: `header`, `nav`, `main` en `footer` bestaan, en er is precies één `main`.
+- **Afbeeldingen**: decoratieve hebben `alt=""` zodat ze worden overgeslagen; betekenisvolle beschrijven
+  wat ze overbrengen, niet hoe ze eruitzien.
+
+## Kleur en beweging
+
+- Controleer het contrast van tekst én interface-elementen: 4,5:1 voor lopende tekst, 3:1 voor grote
+  tekst, iconen en randen. Elke kleurkiezer in DevTools laat dit zien.
+- Maak een schermafbeelding en bekijk hem in grijstinten. Alles wat je dan niet meer kunt onderscheiden,
+  leunde op kleur alleen.
+- Zet **Verminder beweging** aan in je systeeminstellingen en herlaad. Animaties horen korter te worden
+  of te stoppen, niet gewoon door te gaan.
+
+## Formulieren in het bijzonder
+
+Bij formulieren kost een toegankelijkheidsfout echt geld, dus loop die een tweede keer na.
+
+- Klikken op het label zet de focus in het veld (dat bewijst dat het label gekoppeld is en niet alleen
+  ernaast staat).
+- Fouten worden voorgelezen, niet alleen gekleurd. Na een mislukte verzending gaat de focus naar een
+  zinnige plek en is de melding bereikbaar vanaf het veld waar hij bij hoort.
+- De fouttekst zegt wat je moet doen: "Vul een datum in als DD-MM-JJJJ", niet "Ongeldige invoer".
+- Verplichte velden zijn in tekst gemarkeerd, niet met kleur of een onverklaarde asterisk.
+- Niets hangt af van hoveren, en er gaat niets verloren als iemand er twintig minuten over doet.
+
+## Een steekproef met een screenreader
+
+Je hoeft er niet vloeiend in te zijn. Vijf minuten luisteren zegt meer dan een uur opmaak lezen, omdat
+je hoort wat de browser werkelijk doorgeeft in plaats van wat jij bedoelde.
+
+| Screenreader           | Starten                                     | Basis                                                                                                  |
+| ---------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| VoiceOver (macOS)      | <kbd>Cmd</kbd> + <kbd>F5</kbd>              | <kbd>Ctrl</kbd>+<kbd>Option</kbd>+pijltjes om te lezen, +<kbd>U</kbd> voor de rotor                    |
+| NVDA (Windows, gratis) | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>N</kbd> | Pijltjes om te lezen, <kbd>H</kbd> voor koppen, <kbd>Insert</kbd>+<kbd>F7</kbd> voor de elementenlijst |
+| TalkBack (Android)     | Instellingen voor toegankelijkheid          | Veeg naar rechts om verder te gaan, dubbeltik om te activeren                                          |
+
+Waar je op let: noemt elk element een naam, een rol en zijn status ("Filters, knop, ingeklapt")? Komt de
+koppenlijst overeen met de pagina? Wordt er bij het openen van een dialoog gezegd dat het een dialoog is,
+en gaat de focus naar binnen? Word je op de hoogte gebracht als er iets verandert zonder dat de pagina
+herlaadt?
+
+Zet hem uit met dezelfde toetsencombinatie. Doe dit één keer per nieuw scherm en je vindt dingen die geen
+enkele tool meldt.

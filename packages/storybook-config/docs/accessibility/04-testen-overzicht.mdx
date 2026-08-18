@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Je werk testen" name="Overzicht" />
+
+# Je werk testen
+
+Eén tool dekt toegankelijkheid niet af. Afhankelijk van welk onderzoek je gelooft, vindt automatische
+controle tussen een derde en de helft van de echte WCAG-fouten — en in de helft die wordt gemist zitten
+de meeste problemen die iemand daadwerkelijk tegenhouden. Een pagina kan nul axe-meldingen geven en toch
+onbruikbaar zijn.
+
+Het doel is dus niet om één tool te vinden. Het is om goedkope controles vroeg te stapelen, en de dure,
+menselijke controles klein genoeg te houden dat ze ook echt gebeuren.
+
+## Een gelaagde aanpak
+
+| Laag                        | Wanneer                                  | Wat het opmerkt                                                                   |
+| --------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------- |
+| Agent skill                 | Tijdens het schrijven en reviewen        | Verkeerd element, ontbrekende naam, overgeslagen koppen, weggehaalde focusstijlen |
+| Linter                      | Bij opslaan en in pull requests          | Ontbrekende labels en alt-teksten, klikafhandelaars op niet-knoppen, ARIA-fouten  |
+| Storybook a11y-addon        | Bij het visueel beoordelen van een story | axe-core-meldingen: contrast, namen, ARIA, dubbele id's                           |
+| Geautomatiseerde tests + CI | Bij elke pull request                    | Terugval op belangrijke flows (formulieren, navigatie, dialogen)                  |
+| Toetsenbord en screenreader | Vlak voor je een nieuw scherm oplevert   | Focusvolgorde, skiplinks, koplogica, echt gebruik — dingen die axe niet ziet      |
+
+Elke laag is goedkoper dan de laag eronder en vindt minder. Dat is precies de bedoeling: tegen de tijd
+dat je aan de handmatige controle toekomt, zijn de mechanische problemen al weg en houd je aandacht over
+voor de afwegingen.
+
+## Waar je begint als je nog geen werkwijze hebt
+
+1. Installeer
+   [de agent skill](?path=/docs/toegankelijkheid-do-s-en-don-ts--wanneer-je-gebruik-maakt-van-ai) zodat nieuwe
+   code dichter bij goed begint.
+2. Zet de toegankelijkheidsregels van je linter aan — één middag werk, blijvend resultaat.
+3. Open het **Accessibility**-paneel in Storybook bij het component waar je nu aan werkt, en los op wat
+   er staat.
+4. Loop je belangrijkste scherm één keer met het toetsenbord door. Je vindt gegarandeerd iets.
+5. Hang axe pas daarna in CI, zodat je niet begint met een muur aan bestaande meldingen.
+
+Alle vijf tegelijk invoeren op een bestaand product levert een lijst op die niemand leest. In deze
+volgorde toevoegen betekent dat elke nieuwe pull request iets beter is dan de vorige.
+
+## Twee regels om het eerlijk te houden
+
+**Behandel meldingen als bugs, niet als ruis.** Een toegankelijkheidspaneel dat altijd rood staat, leert
+het team om het te negeren. Dat is erger dan het niet hebben.
+
+**Laat de build niet struikelen over je bestaande achterstand.** Laat hem falen op nieuwe fouten in de
+code die wordt aangeraakt, en houd bekende problemen apart bij. Een geblokkeerde pipeline die iedereen
+omzeilt, beschermt niemand.

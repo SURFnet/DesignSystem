@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Do's en don'ts" name="Overzicht" />
+
+# Do's en don'ts
+
+De meeste toegankelijkheidsfouten zijn niet bijzonder. Een handvol terugkerende missers verklaart het
+overgrote deel van wat audits vinden, en ze zijn allemaal goedkoop te voorkomen als je weet waar je op
+moet letten.
+
+## Pak eerst een component uit het design system
+
+Voordat je een `div` gaat opmaken: kijk of Curve het al heeft. Knoppen, invoervelden, dialogen en menu's
+hebben de juiste rol, toetsenbordbediening en focusring al, omdat hun gedrag uit een getoetst primitief
+komt — Base UI in React, de Brain-laag van Spartan in Angular.
+
+Ze verkeerd samenstellen is hoe toegankelijkheid alsnog wegglijdt, ook als de primitieven kloppen: een
+knop in een knop, een dialoog zonder titel, een link vervangen door een klikbare kaart, of een kopniveau
+kiezen op lettergrootte.
+
+## De korte lijst
+
+| Wel                                                            | Niet                                                  |
+| -------------------------------------------------------------- | ----------------------------------------------------- |
+| `button` voor acties, `a href` voor navigatie                  | Een klikafhandelaar op een `div` of `span`            |
+| Elk element een zichtbaar tekstlabel geven                     | Een placeholder of `title` als label gebruiken        |
+| De focusring behouden, of een betere ontwerpen                 | `outline: none` zonder vervanging                     |
+| Linkteksten die los van hun context kloppen                    | Acht keer "Lees meer" of "Klik hier" op één pagina    |
+| Kopniveaus kiezen op basis van structuur                       | `h4` kiezen omdat dat het beste formaat is            |
+| Kleur combineren met tekst, een icoon of een patroon           | Status alleen met kleur aangeven                      |
+| Beschrijven wat een afbeelding overbrengt                      | `alt="afbeelding"`, `alt="icoon"` of een bestandsnaam |
+| Vertellen wat er misging én hoe je het oplost                  | "Ongeldige invoer"                                    |
+| Inhoud laten meebewegen bij 400% zoom                          | Breedtes vastzetten in `px` en hopen                  |
+| Een native `dialog`/`details` of een Curve-component gebruiken | Een modaal venster namaken met `div`s en `z-index`    |
+| Tabvolgorde gelijk houden aan de visuele volgorde              | Visueel herschikken met CSS en de DOM laten staan     |
+| Hover-inhoud ook bij focus tonen                               | Essentiële informatie achter `:hover` verstoppen      |
+
+## De drie die het meest kosten
+
+**Niet-semantische elementen.** `<div onClick>` is geen knop. Hij is niet focusbaar, reageert niet op
+
+<kbd>Enter</kbd> of <kbd>Spatie</kbd>, kondigt niets aan, en wordt niet gevonden door een screenreader die
+naar knoppen zoekt. Elke poging om dat te repareren met `tabindex`, `role` en toetsafhandelaars komt neer
+op het opnieuw bouwen van `<button>` — maar slechter. Dit is ook veruit het meest voorkomende dat een
+AI-agent je aanreikt.
+
+**Ontbrekende toegankelijke namen.** De icoonknop is het klassieke voorbeeld: visueel volstrekt duidelijk,
+en voorgelezen als "knop". Geef hem een visueel verborgen label of een `aria-label`, en zet
+`aria-hidden="true"` op het icoon zodat dat niet als decoratie wordt voorgelezen.
+
+**Onzichtbare focus.** De focusring weghalen omdat hij niet bij het ontwerp past, maakt het product
+onbruikbaar voor iedereen die met het toetsenbord navigeert, en het is de makkelijkste fout om in een
+review te vinden: druk op <kbd>Tab</kbd>. Gebruik `:focus-visible`, dan zien muisgebruikers nooit een ring
+die je lelijk vindt en toetsenbordgebruikers altijd.
+
+## `disabled` is meestal het verkeerde gereedschap
+
+Een uitgeschakelde knop verdwijnt uit de tabvolgorde en geeft geen uitleg, dus een toetsenbordgebruiker
+vindt een formulier dat hij niet kan versturen zonder te weten waarom. Houd het element liever bruikbaar
+en meld bij verzenden wat er ontbreekt. Moet iets echt uitgeschakeld zijn, zet er dan in tekst bij waarom.
+
+## En dan pas ARIA
+
+Als je bovenstaande volgt, heb je heel weinig ARIA nodig. Wat je wél nodig hebt, heeft zijn eigen regels —
+begin bij
+[De eerste regel van ARIA](?path=/docs/toegankelijkheid-do-s-en-don-ts--de-eerste-regel-van-aria).

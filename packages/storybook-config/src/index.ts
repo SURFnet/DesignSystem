@@ -1,17 +1,6 @@
-export {
-  ACCESSIBILITY_LAYERS,
-  ACCESSIBILITY_PAGE_INTRO,
-  ACCESSIBILITY_SECTIONS,
-  ACCESSIBILITY_SKILL_FILE,
-  ACCESSIBILITY_SKILL_INSTALL,
-  ACCESSIBILITY_SKILL_SUMMARY,
-} from './accessibility.js';
-export type {
-  AccessibilityDocLink,
-  AccessibilityDocSection,
-  AccessibilityInstallTarget,
-  AccessibilityLayer,
-} from './accessibility.js';
+// The Foundations / Accessibility pages are framework-agnostic prose, so they
+// live as shared MDX in `docs/accessibility/` and are pulled into both
+// Storybooks via their `stories` globs — no copy is exported from here.
 export { FRAMEWORKS, frameworkGlobalTypes, frameworkSwitcher } from './frameworks.js';
 export type { Framework, FrameworkTarget } from './frameworks.js';
 export { THEME_NAMES, themeGlobalTypes, themeInitialGlobals, themeSwitcher } from './themes.js';

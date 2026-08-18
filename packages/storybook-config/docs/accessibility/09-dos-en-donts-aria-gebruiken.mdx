@@ -1,0 +1,120 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Do's en don'ts" name="ARIA correct gebruiken" />
+
+# ARIA correct gebruiken
+
+Als je native HTML echt hebt uitgeput, is ARIA het juiste gereedschap. Er zijn vier taken die het goed
+doet: dingen benoemen, dingen beschrijven, status doorgeven en verandering aankondigen. Alles hieronder
+valt onder een van die vier.
+
+## Benoemen
+
+Een toegankelijke naam is wat een screenreader voorleest bij een element. HTML biedt meerdere manieren om
+die te zetten, en ze verdringen elkaar in een vaste volgorde:
+
+**`aria-labelledby` → `aria-label` → de eigen inhoud → `title`**
+
+`aria-labelledby` wint van alles, ook van zichtbare tekst — en dat is de meest voorkomende oorzaak van
+"er staat Opslaan maar hij zegt Annuleren". Gebruik bij voorkeur zichtbare tekst die je niet hoefde te
+verdubbelen:
+
+```html
+<!-- Het beste: de zichtbare tekst ís de naam -->
+<button>Factuur verwijderen</button>
+
+<!-- Alleen een icoon: benoem de knop, verberg de decoratie -->
+<button aria-label="Factuur verwijderen">
+  <svg aria-hidden="true" focusable="false">...</svg>
+</button>
+
+<!-- Verwijs naar tekst die al op het scherm staat -->
+<section aria-labelledby="totalen-kop">
+  <h2 id="totalen-kop">Totalen</h2>
+</section>
+```
+
+Twee regels die veel zoekwerk schelen: `aria-label` wordt genegeerd op elementen zonder rol — op een `div`
+of `span` doet het niets — en de tekst van een zichtbaar label moet in de toegankelijke naam voorkomen,
+anders kunnen gebruikers van spraakbesturing niet uitspreken wat ze zien.
+
+Bij formuliervelden wint een echt `<label>` van dit alles. Dat geeft je de naam én een groter klikgebied.
+
+## Beschrijven
+
+`aria-describedby` voegt aanvullende informatie toe die ná de naam wordt voorgelezen: hulptekst,
+formaateisen, foutmeldingen. Anders dan bij benoemen mag je hier meerdere id's opgeven.
+
+```html
+<label for="ww">Wachtwoord</label>
+<input id="ww" type="password" aria-describedby="ww-hint ww-fout" aria-invalid="true" />
+<p id="ww-hint">Minimaal 12 tekens.</p>
+<p id="ww-fout">Dit wachtwoord is te kort.</p>
+```
+
+`aria-invalid` markeert het veld als afgekeurd; de melding zelf moet nog steeds echte tekst zijn,
+gekoppeld aan het veld, en zichtbaar.
+
+## Status
+
+Statusattributen vertellen hulpsoftware wat je CSS visueel al laat zien. Je werkt ze bij op dezelfde plek
+waar je de class bijwerkt.
+
+| Attribuut       | Waarvoor                                            | Let op                                                |
+| --------------- | --------------------------------------------------- | ----------------------------------------------------- |
+| `aria-expanded` | Uitklappers, accordions, comboboxen, menu's         | Hoort op de **knop**, niet op het paneel              |
+| `aria-current`  | De actieve pagina in een navigatie, de huidige stap | `aria-current="page"` — niet `aria-selected`          |
+| `aria-selected` | Tabs, opties in een listbox                         | Alleen geldig binnen die patronen                     |
+| `aria-checked`  | Eigen checkboxen, radio's, switches                 | Native invoervelden regelen dit zelf                  |
+| `aria-disabled` | Elementen die focusbaar moeten blijven              | Je moet de actie zelf blokkeren                       |
+| `aria-pressed`  | Schakelknoppen                                      | Een knop die aan blijft staan, niet een die navigeert |
+
+De fout is altijd dezelfde: de visuele status verandert en het attribuut niet. Betrap je jezelf erop dat je
+`aria-expanded` met de hand op een Curve-component zet, dan beheert het component dat allang.
+
+## Verandering aankondigen
+
+Verandert er iets zonder dat de pagina herlaadt — een aantal zoekresultaten, een opgeslagen-melding, een
+foutsamenvatting — dan ziet een ziende gebruiker dat en hoort een screenreadergebruiker niets. Live regions
+lossen dat op.
+
+```html
+<!-- Moet in de DOM staan vóórdat de tekst verandert -->
+<p role="status" aria-live="polite">3 resultaten</p>
+```
+
+- `role="status"` (impliciet `aria-live="polite"`) wacht op een pauze. Gebruik dit vrijwel altijd.
+- `role="alert"` (impliciet `assertive`) onderbreekt meteen. Bewaar dat voor fouten die je tegenhouden;
+  meer dan dat is vijandig.
+- De container moet aanwezig en leeg zijn _voordat_ je hem vult. Een element toevoegen dat de melding al
+  bevat, kondigt meestal niets aan.
+- Houd het kort, en zet nooit een live region op iets dat continu verandert.
+
+## Dingen verbergen
+
+`aria-hidden="true"` haalt een element uit de toegankelijkheidsboom terwijl het zichtbaar blijft. Dat klopt
+voor decoratieve iconen en gedupliceerde tekst; het is een fout op alles wat focusbaar is, of op de enige
+versie van een stuk informatie.
+
+Voor het omgekeerde — wel voor screenreaders, niet op het scherm — gebruik je een utility-class die het
+element visueel verbergt, en niet `display: none`, want dat verbergt het voor iedereen.
+
+## Controleer het in de toegankelijkheidsboom
+
+Je eigen opmaak lezen bewijst niets, want browsers berekenen namen en rollen met regels die makkelijk
+tegenvallen. Open DevTools → **Elements** → **Accessibility** en lees de berekende naam, rol en status.
+Of schrijf de assertie:
+
+```ts
+// Faalt als de toegankelijke naam ontbreekt, fout is of overschreven wordt
+screen.getByRole('button', { name: 'Factuur verwijderen' });
+```
+
+Kan een zoekopdracht op rol en naam jouw element niet vinden, dan vindt geen enkele screenreadergebruiker
+het.
+
+## Als je iets nieuws bouwt
+
+Gebruik de [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/). Elk patroon
+vermeldt de rollen, de statussen en het volledige toetsenbordcontract — en lijkt dat veel werk, dan is dat
+de eerlijke prijs van het component, en een goed argument om bestaande Curve-componenten te combineren.

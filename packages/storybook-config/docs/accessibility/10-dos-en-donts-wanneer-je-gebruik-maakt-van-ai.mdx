@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Do's en don'ts" name="Wanneer je gebruik maakt van AI" />
+
+# Wanneer je gebruik maakt van AI
+
+Coding agents produceren opmaak die er goed uitziet en verkeerd wordt voorgelezen: een `div` met een
+klikafhandelaar in plaats van een knop, een placeholder in plaats van een label, `aria-label`
+uitgestrooid over elementen die helemaal geen rol hebben om te benoemen. De code compileert, rendert en
+komt door de review, want het gebrek is onzichtbaar totdat iemand er met een toetsenbord of een
+screenreader langskomt.
+
+De goedkoopste oplossing is de agent de regels vooraf meegeven. Feedback over toegankelijkheid op het
+moment dat de code geschreven wordt kost een zin; dezelfde feedback in een pull request kost een
+herschrijving.
+
+## De accessibility skill
+
+Een markdown-bestand dat je in Cursor, Claude Code of een andere agent kunt zetten. Het leert de agent
+om semantische HTML, toegankelijke namen, een kloppende kopstructuur, toetsenbordtoegang, skiplinks en
+focusstijlen toe te passen zodra hij UI schrijft of beoordeelt.
+
+<p>
+  <a href="./downloads/accessibility.skill.md" download="accessibility.skill.md">
+    Download de accessibility skill (accessibility.skill.md)
+  </a>
+</p>
+
+Hernoem het bestand naar `SKILL.md` en zet het in een map `accessibility` binnen de skills-map van je
+agent. De YAML-frontmatter is verplicht — agents lezen `name` en `description` om te bepalen wanneer ze
+de skill laden.
+
+| Tool                  | Opslaan als                             |
+| --------------------- | --------------------------------------- |
+| Cursor                | `.cursor/skills/accessibility/SKILL.md` |
+| Claude Code           | `.claude/skills/accessibility/SKILL.md` |
+| Codex / andere agents | `.agents/skills/accessibility/SKILL.md` |
+
+Zodra de skill geïnstalleerd is, geldt hij telkens wanneer de agent UI schrijft of beoordeelt. Wijs hem
+op een component met "beoordeel dit op toegankelijkheid", of laat het bestand in het project staan zodat
+het vanzelf meedoet.
+
+## Hoe je bruikbaar werk uit een agent krijgt
+
+**Vraag naar het mechanisme, niet naar het oordeel.** "Is dit toegankelijk?" nodigt uit tot een
+zelfverzekerd ja. "Welk element krijgt focus als dit opengaat, en wat leest een screenreader voor?"
+levert iets op dat je kunt controleren.
+
+**Laat ARIA verantwoorden.** Agents grijpen uit gewoonte naar ARIA-attributen. Vraag welk native element
+het attribuut overbodig zou maken, en het meeste verdwijnt — zie
+[De eerste regel van ARIA](?path=/docs/toegankelijkheid-do-s-en-don-ts--de-eerste-regel-van-aria).
+
+**Geef het component mee, niet de klassenaam.** Een agent die weet dat Curve bestaat, stelt Button,
+Dialog en Field samen. Een agent die vanaf een screenshot werkt, bouwt ze na uit `div`s en verliest elke
+garantie die die primitieven bieden.
+
+**Laat hem de toetsenbordtest schrijven.** Agents zijn goed in het omzetten van een interactie naar een
+Playwright- of Vitest-assertie. Focusvolgorde, Escape die een dialoog sluit, focus die terugkeert naar
+de knop — precies de controles die zonder test langzaam wegroesten.
+
+## Wat een agent niet voor je kan doen
+
+Hij kan niet beoordelen of een kopstructuur klopt voor iemand die hem voor het eerst hoort, of iets een
+link had moeten zijn in plaats van een knop, of jouw foutmelding iets uitlegt, of de flow werkt met
+VoiceOver. Hij heeft jouw product nog nooit met een screenreader gebruikt.
+
+Behandel de output van een agent zoals je een linter behandelt: snel, onvermoeibaar, beperkt, en vaak
+genoeg zelfverzekerd fout om
+[de handmatige controle](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen)
+niet te vervangen.

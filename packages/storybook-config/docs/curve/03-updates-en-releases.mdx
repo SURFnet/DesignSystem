@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve" name="Updates en releases" />
+
+# Updates en releases
+
+Curve wordt gepubliceerd als npm-package. Elke wijziging krijgt een versienummer, en projecten bepalen
+zelf wanneer ze meegaan naar een nieuwe versie. Deze pagina legt uit hoe dat werkt — zowel als je aan
+Curve meewerkt als wanneer je Curve gebruikt.
+
+## Versienummers lezen
+
+Een versie bestaat uit drie getallen, bijvoorbeeld `0.2.2`. Van rechts naar links:
+
+| Verandert         | Heet  | Wat het betekent                                                   | Wat jij moet doen                       |
+| ----------------- | ----- | ------------------------------------------------------------------ | --------------------------------------- |
+| `0.2.2` → `0.2.3` | patch | Een reparatie. Gedrag blijft gelijk, er is iets stuk dat nu werkt. | Bijwerken, verder niets                 |
+| `0.2.2` → `0.3.0` | minor | Iets nieuws: een component, een variant, een extra instelling.     | Bijwerken; bestaande code blijft werken |
+| `0.2.2` → `1.0.0` | major | Iets is veranderd op een manier die je code kan breken.            | Changelog lezen vóór je bijwerkt        |
+
+Deze afspraak heet [semver](https://semver.org). De belangrijkste regel: alleen bij een **major**
+kan er iets omvallen. Patch en minor zijn veilig.
+
+## Hoe een wijziging een release wordt
+
+Wij publiceren niet met de hand. Het gaat zo:
+
+1. **Iemand maakt een wijziging** en beschrijft in de pull request wat er verandert en of het een
+   patch, minor of major is. Die beschrijving is de latere changelog-tekst, dus die wordt geschreven
+   voor de mensen die Curve gebruiken.
+2. **De pull request wordt gemerged** naar `main`. Er is dan nog niets gepubliceerd.
+3. **Automatisch verschijnt een "Version Packages" pull request.** Daarin staan de nieuwe
+   versienummers en de bijgewerkte changelog, verzameld uit alle wijzigingen die nog niet uit zijn.
+4. **Die pull request mergen is het moment van publiceren.** Dan pas gaat de nieuwe versie naar npm.
+
+Stap 3 en 4 betekenen dat je kunt sparen: meerdere wijzigingen komen samen in één release, en je kiest
+zelf wanneer dat is.
+
+> Werk je mee aan Curve? Voer `pnpm version-packages` en `pnpm release` nooit zelf uit, en pas geen
+> versienummers of changelog-bestanden met de hand aan. Dat doet de automatisering.
+
+## Curve bijwerken in je eigen project
+
+```bash
+# kijk eerst wat er nieuw is
+pnpm outdated @surfnet/curve-react
+
+# werk bij naar de nieuwste versie
+pnpm update @surfnet/curve-react
+```
+
+Vervang `curve-react` door `curve-angular` als je Angular gebruikt.
+
+Praktische tips:
+
+- **Lees de changelog voordat je een major installeert.** Daar staat precies wat er is veranderd en wat
+  je moet aanpassen.
+- **Werk bij in een aparte pull request**, los van je eigen functionaliteit. Gaat er iets mis, dan weet
+  je direct waar het aan ligt.
+- **Kijk daarna naar je eigen aanpassingen.** Heb je componenten overschreven met eigen CSS, dan is dat
+  het eerste dat na een update opvalt.
+- **Vergeet de stylesheet niet.** Die zit in dezelfde package en wordt automatisch meegenomen, maar
+  controleer of je hem nog importeert zoals beschreven bij
+  [Voor developers](?path=/docs/curve--voor-developers).
+
+## Wat wel en niet wordt gepubliceerd
+
+De twee component-packages (`@surfnet/curve-react` en `@surfnet/curve-angular`) staan op npm en kun je
+installeren. De onderdelen daarachter — de design tokens, de interne afspraken over varianten en de
+gedeelde configuratie — zijn intern. Ze krijgen wel een versienummer, maar worden niet gepubliceerd:
+hun inhoud zit al ingebakken in de twee packages die je installeert.
+
+Je hebt ze dus niet nodig, en je hoeft er ook niets voor te installeren.
