@@ -17,7 +17,7 @@
   },
   "popover": {
     "$type": "color",
-    "$value": "rgba(41, 37, 36, 1)"
+    "$value": "rgba(23, 23, 23, 1)"
   },
   "popover-foreground": {
     "$type": "color",
