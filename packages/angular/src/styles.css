@@ -13,9 +13,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* The Spartan preset maps the standard token set to --color-* utilities but not
-   --primary-strong, so expose it here (matches the React package's mapping). */
+   --primary-strong or --destructive-foreground, so expose them here (matches the
+   React package's mapping). */
 @theme inline {
   --color-primary-strong: var(--primary-strong);
+  --color-destructive-foreground: var(--destructive-foreground);
 }
 
 :root {
