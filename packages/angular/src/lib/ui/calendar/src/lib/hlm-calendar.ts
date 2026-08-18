@@ -99,14 +99,14 @@ import type { ClassValue } from 'clsx';
             <div class="flex items-center space-x-1">
               <button
                 brnCalendarPreviousButton
-                class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute left-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                class="focus-visible:ring-ring hover:bg-muted hover:text-foreground text-popover-foreground absolute left-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
               >
                 <ng-icon hlm name="phosphorCaretLeft" size="sm" />
               </button>
 
               <button
                 brnCalendarNextButton
-                class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute right-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                class="focus-visible:ring-ring hover:bg-muted hover:text-foreground text-popover-foreground absolute right-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
               >
                 <ng-icon hlm name="phosphorCaretRight" size="sm" />
               </button>
@@ -133,7 +133,7 @@ import type { ClassValue } from 'clsx';
               @for (date of week; track _dateAdapter.getTime(date)) {
                 <td
                   brnCalendarCell
-                  class="data-[selected]:data-[outside]:bg-accent/50 data-[selected]:bg-accent relative size-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:data-[selected]:rounded-l-md last:data-[selected]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md"
+                  class="data-[selected]:data-[outside]:bg-muted/50 data-[selected]:bg-muted relative size-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:data-[selected]:rounded-l-md last:data-[selected]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md"
                 >
                   <button brnCalendarCellButton [date]="date" [class]="_btnClass">
                     {{ _dateAdapter.getDate(date) }}
@@ -214,11 +214,11 @@ export class HlmCalendar<T> {
   protected readonly _btnClass = hlm(
     buttonVariants({ variant: 'ghost' }),
     'size-8 p-0 font-normal aria-selected:opacity-100',
-    'data-[outside]:text-muted-foreground data-[outside]:aria-selected:bg-accent/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:opacity-30',
-    'data-[today]:bg-accent data-[today]:text-accent-foreground',
-    'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary dark:hover:text-accent-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
+    'data-[outside]:text-muted-foreground data-[outside]:aria-selected:bg-muted/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:opacity-30',
+    'data-[today]:bg-muted data-[today]:text-foreground',
+    'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary dark:hover:text-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
     'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
-    'dark:hover:text-accent-foreground',
+    'dark:hover:text-foreground',
     "data-[highlighted]:before:content-['']",
     'data-[highlighted]:before:absolute',
     'data-[highlighted]:before:bottom-1',

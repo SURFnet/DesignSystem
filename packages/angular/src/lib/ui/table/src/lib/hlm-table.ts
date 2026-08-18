@@ -78,7 +78,7 @@ export class HlmTr {
   constructor() {
     classes(
       () =>
-        'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors has-aria-expanded:bg-muted/50',
+        'hover:bg-muted/50 data-[state=selected]:bg-secondary data-[state=selected]:text-secondary-foreground border-b transition-colors has-aria-expanded:bg-muted/50',
     );
   }
 }
