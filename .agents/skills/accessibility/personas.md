@@ -1,13 +1,8 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-
-<Meta title="Toegankelijkheid/Introductie" name="Verschillende beperkingen (persona's)" />
-
-# Verschillende beperkingen (persona's)
+# Accessibility personas (Curve)
 
 "Toegankelijk" gaat niet over één doelgroep. De persona's hieronder dekken de behoeften die de
-WCAG-criteria daadwerkelijk sturen, en ze lopen elk op andere fouten vast. Eén keer doorlezen zorgt
-ervoor dat de regels niet langer willekeurig aanvoelen: je kunt meestal voorspellen welk criterium een
-ontwerp breekt door je voor te stellen wie er niet langs komt.
+WCAG-criteria daadwerkelijk sturen, en ze lopen elk op andere fouten vast. Gebruik ze om te
+voorspellen welk criterium een ontwerp breekt door je voor te stellen wie er niet langs komt.
 
 | Persona                      | Hoe diegene een scherm gebruikt                        | Waar het misgaat                                                      |
 | ---------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------- |
@@ -25,10 +20,16 @@ Gebruikt NVDA, JAWS, VoiceOver of TalkBack en ziet de opmaak nooit. De pagina wo
 opgenomen: een lijst met koppen, een lijst met links, landmarks, en dan pas inhoud. Visuele groepering
 betekent niets als die niet in de opmaak zit.
 
-Wat dit van je vraagt: echte koppen in de juiste volgorde, één `h1`, landmarks (`main`, `nav`,
+**Wat dit van je vraagt:** echte koppen in de juiste volgorde, één `h1`, landmarks (`main`, `nav`,
 `header`) in plaats van anonieme `div`s, een toegankelijke naam op elk bedienbaar element, en
 alternatieve tekst die vertelt wat een afbeelding overbrengt in plaats van wat erop staat. Een
 icoonknop die wordt voorgelezen als "knop" is een doodlopende weg.
+
+**Review-vragen:**
+
+- Wat leest een screenreader voor elk interactief element?
+- Is de kopstructuur een logische inhoudsopgave?
+- Zit essentiële informatie alleen in visuele opmaak (kleur, positie, icoon zonder label)?
 
 ## Slechtziend, vergroting
 
@@ -36,36 +37,58 @@ Zoomt tot 200% of verder, of zet het besturingssysteem op grote letters. Bij 400
 van 1280px is jouw desktoplayout nog ongeveer 320px breed — het WCAG-criterium Reflow zegt dat de
 inhoud daar moet blijven werken, in één scrollrichting, zonder dat er iets wegvalt.
 
-Wat dit van je vraagt: layouts die meebewegen in plaats van horizontaal scrollen, tekst die 200%
+**Wat dit van je vraagt:** layouts die meebewegen in plaats van horizontaal scrollen, tekst die 200%
 vergroting overleeft zonder over elkaar te vallen, contrast van minimaal 4,5:1 voor lopende tekst en
 3:1 voor interface-elementen en iconen, en geen essentiële tekst die in een afbeelding zit.
+
+**Review-vragen:**
+
+- Blijft de layout bruikbaar bij 200–400% zoom?
+- Is contrast voldoende voor tekst én UI-elementen?
+- Val essential content weg of wordt afgesneden?
 
 ## Kleurenblind
 
 Ongeveer 8% van de mannen en 0,5% van de vrouwen heeft een vorm van kleurenblindheid, meestal
 rood/groen. Zij zien jouw opmaak prima; wat wegvalt is het onderscheid dat je in kleur hebt gestopt.
 
-Wat dit van je vraagt: laat kleur nooit het enige signaal zijn. Combineer het met een icoon, een label,
+**Wat dit van je vraagt:** laat kleur nooit het enige signaal zijn. Combineer het met een icoon, een label,
 een patroon of een positie. Een invoerveld dat rood kleurt is onzichtbaar; een veld dat rood kleurt,
 een waarschuwingsicoon krijgt en de zin "Vul een geldig e-mailadres in" toont, werkt voor iedereen.
+
+**Review-vragen:**
+
+- Kun je status (fout, succes, geselecteerd) begrijpen zonder kleur te zien?
+- Zijn grafieken en diagrammen ook zonder kleur te onderscheiden?
 
 ## Doof of slechthorend
 
 Leest in plaats van luistert. Beschrijft ook iedereen in een kantoortuin zonder koptelefoon.
 
-Wat dit van je vraagt: ondertiteling bij alles waarin gesproken wordt, transcripten bij audio, en geen
+**Wat dit van je vraagt:** ondertiteling bij alles waarin gesproken wordt, transcripten bij audio, en geen
 statuswijziging die alleen met geluid wordt aangekondigd.
+
+**Review-vragen:**
+
+- Is alle audio/video-inhoud ook leesbaar?
+- Worden statuswijzigingen ook visueel of tekstueel aangekondigd?
 
 ## Beperkte motoriek
 
 Een brede groep: tremor, RSI, bediening met één hand, een switch, spraakbesturing, oogbesturing. Wat ze
 delen is dat nauwkeurig aanwijzen duur of onmogelijk is.
 
-Wat dit van je vraagt: alles moet bereikbaar en bedienbaar zijn met het toetsenbord, in een volgorde
+**Wat dit van je vraagt:** alles moet bereikbaar en bedienbaar zijn met het toetsenbord, in een volgorde
 die overeenkomt met de opmaak, met focus die altijd zichtbaar is. Klikdoelen zijn minimaal 24×24
 CSS-pixels (44×44 is comfortabel). Alles wat je met slepen kunt doen, moet ook met één klik of met het
 toetsenbord kunnen. Inhoud die alleen bij hover verschijnt is onbereikbaar — koppel die ook aan focus,
 en zorg dat je hem kunt wegklikken zonder de muis te verplaatsen.
+
+**Review-vragen:**
+
+- Is elke actie bereikbaar met Tab/Enter/Spatie?
+- Zijn klikdoelen groot genoeg?
+- Zijn er hover-only of drag-only interacties?
 
 ## Cognitief of neurodivergent
 
@@ -73,10 +96,16 @@ Dyslexie, ADHD, autisme, verschillen in geheugen of verwerkingssnelheid, angst �
 druk. Dit is de grootste groep en de groep die het minst geholpen wordt door automatische controles,
 omdat niets ervan in de opmaak te zien is.
 
-Wat dit van je vraagt: gewone taal in plaats van slimme taal, navigatie en knoppen die steeds op
+**Wat dit van je vraagt:** gewone taal in plaats of slimme taal, navigatie en knoppen die steeds op
 dezelfde plek staan, geen onverwachte beweging of automatisch afspelen, respect voor
 `prefers-reduced-motion`, ruime of verlengbare tijdslimieten, foutmeldingen die het probleem én de
 oplossing noemen, en niets dat afhangt van wat iemand zich uit een vorige stap herinnert.
+
+**Review-vragen:**
+
+- Zijn foutmeldingen concreet en oplossingsgericht?
+- Is de flow voorspelbaar, zonder verrassende animaties of time-outs?
+- Is de taal eenvoudig genoeg?
 
 ## Tijdelijk of situationeel
 
@@ -87,8 +116,7 @@ Dit is het curb-cut-effect: ondertiteling wordt gebruikt in stille kantoren, sne
 gebruikers, hoog contrast door mensen buiten. Werk dat je voor de persona's hierboven doet, is zelden
 alleen voor hen.
 
-## Gebruik met een coding agent
+**Review-vragen:**
 
-Deze persona's zitten ook in de [accessibility skill voor AI](?path=/docs/toegankelijkheid-do-s-en-don-ts--wanneer-je-gebruik-maakt-van-ai).
-Download de skill en vraag je agent om UI te beoordelen vanuit elk perspectief — bijvoorbeeld: "Wat zou een
-screenreadergebruiker missen in dit component?"
+- Welke persona's raken het hardst getroffen door dit ontwerp?
+- Lost een fix voor één persona vaak meerdere problemen tegelijk op?

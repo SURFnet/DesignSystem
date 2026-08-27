@@ -16,29 +16,44 @@ herschrijving.
 
 ## De accessibility skill
 
-Een markdown-bestand dat je in Cursor, Claude Code of een andere agent kunt zetten. Het leert de agent
-om semantische HTML, toegankelijke namen, een kloppende kopstructuur, toetsenbordtoegang, skiplinks en
-focusstijlen toe te passen zodra hij UI schrijft of beoordeelt.
+Een map met markdown-bestanden die je in Cursor, Claude Code of een andere agent zet. De skill leert de
+agent semantische HTML, toegankelijke namen, toetsenbordtoegang en focusstijlen toe te passen — en
+beoordeelt UI vanuit de [zeven persona's](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s)
+(blind/screenreader, slechtziend, kleurenblind, doof, beperkte motoriek, cognitief, situationeel).
+
+### Download
 
 <p>
-  <a href="./downloads/accessibility.skill.md" download="accessibility.skill.md">
-    Download de accessibility skill (accessibility.skill.md)
+  <a href="./downloads/accessibility.zip" download="accessibility.zip">
+    Download de accessibility skill (accessibility.zip)
   </a>
 </p>
 
-Hernoem het bestand naar `SKILL.md` en zet het in een map `accessibility` binnen de skills-map van je
-agent. De YAML-frontmatter is verplicht — agents lezen `name` en `description` om te bepalen wanneer ze
-de skill laden.
+Of download losse bestanden:
 
-| Tool                  | Opslaan als                             |
-| --------------------- | --------------------------------------- |
-| Cursor                | `.cursor/skills/accessibility/SKILL.md` |
-| Claude Code           | `.claude/skills/accessibility/SKILL.md` |
-| Codex / andere agents | `.agents/skills/accessibility/SKILL.md` |
+| Bestand                                                | Doel                                         |
+| ------------------------------------------------------ | -------------------------------------------- |
+| [SKILL.md](./downloads/accessibility/SKILL.md)         | Workflow, persona-review, output-sjabloon    |
+| [personas.md](./downloads/accessibility/personas.md)   | Persona-definities en review-vragen          |
+| [reference.md](./downloads/accessibility/reference.md) | Semantische HTML, toetsenbord, labels, focus |
 
-Zodra de skill geïnstalleerd is, geldt hij telkens wanneer de agent UI schrijft of beoordeelt. Wijs hem
-op een component met "beoordeel dit op toegankelijkheid", of laat het bestand in het project staan zodat
-het vanzelf meedoet.
+### Installeren
+
+Pak `accessibility.zip` uit in de skills-map van je agent. De map moet `accessibility/` heten en
+`SKILL.md` plus de andere bestanden bevatten. De YAML-frontmatter in `SKILL.md` is verplicht — agents
+lezen `name` en `description` om te bepalen wanneer ze de skill laden.
+
+| Tool                  | Opslaan als                     |
+| --------------------- | ------------------------------- |
+| Cursor                | `.cursor/skills/accessibility/` |
+| Claude Code           | `.claude/skills/accessibility/` |
+| Codex / andere agents | `.agents/skills/accessibility/` |
+
+Zodra de skill geïnstalleerd is, geldt hij telkens wanneer de agent UI schrijft of beoordeelt. Voorbeelden:
+
+- "Beoordeel dit component op toegankelijkheid vanuit elke persona"
+- "Wat zou een screenreadergebruiker missen in deze dialoog?"
+- "Welk element krijgt focus als dit opengaat?"
 
 ## Hoe je bruikbaar werk uit een agent krijgt
 

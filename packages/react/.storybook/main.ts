@@ -24,7 +24,11 @@ const config: StorybookConfig = {
       },
     },
   ],
-  staticDirs: [{ from: '../../storybook-config/static', to: 'downloads' }],
+  staticDirs: [
+    { from: '../../storybook-config/static', to: 'downloads' },
+    // Persona-based accessibility skill — canonical source in .agents/skills/accessibility
+    { from: '../../.agents/skills/accessibility', to: 'downloads/accessibility' },
+  ],
   framework: {
     name: '@storybook/react-vite',
     options: {},
