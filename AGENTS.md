@@ -86,7 +86,11 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - **One directory per component**: `src/components/ui/<name>/` holds `<name>.tsx`, its
   story, an `index.ts` barrel, and (later) tests. The barrel keeps `@/components/ui/<name>`
   imports resolving for other shadcn components.
-- See the **add-component** skill (`react.md`) for the exact flow.
+- See the **add-component** skill (`react.md`) for the exact flow. To refresh an
+  already-vendored component from shadcn, see **update-component** (`react.md`) —
+  never `shadcn add --overwrite`. To refresh an
+  already-vendored component from shadcn, see **update-component** (`react.md`) —
+  never `shadcn add --overwrite`.
 - Library build externalises bare imports; relative + `@/` aliased imports are bundled
   (`vite.config.ts`). `.d.ts` files land under `dist/src/` — that's why `package.json`
   `types` points at `dist/src/index.d.ts`.
@@ -99,7 +103,11 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   import each other through it, and `ng-packagr` inlines those into the build.
 - Runtime deps of the library must be listed in `ng-package.json` →
   `allowedNonPeerDependencies`, or `ng-packagr` fails the build.
-- See the **add-component** skill (`angular.md`) for the exact flow.
+- See the **add-component** skill (`angular.md`) for the exact flow. To refresh an
+  already-vendored helm component, see **update-component** (`angular.md`) — never
+  re-run `ng g @spartan-ng/cli:ui` as an overwrite. To refresh an
+  already-vendored helm component, see **update-component** (`angular.md`) — never
+  re-run `ng g @spartan-ng/cli:ui` as an overwrite.
 
 ### Storybook
 
@@ -194,12 +202,15 @@ Task-specific playbooks live in `.agents/skills/` (symlinked to `.claude/skills`
 - **add-component** — (repo-authored) add a component to `@surfnet/curve-react`,
   `@surfnet/curve-angular`, or both in parity. The `SKILL.md` index routes to the per-framework
   playbooks `react.md` and `angular.md`.
+- **update-component** — (repo-authored) merge upstream shadcn / Spartan changes into an
+  already-vendored component without overwriting Curve design or accessibility edits.
+  Routes to `react.md` and `angular.md`. Never re-run the add CLIs as a refresh.
 - **shadcn** — (upstream, from `shadcn/ui`) deep reference for shadcn components, registries,
   presets, and Base-vs-Radix.
 - **spartan** — (upstream, from `spartan-ng/spartan`) deep reference for spartan/ui, the
   Brain/Helm layers, the CLI generators, and component APIs.
 
 The two upstream skills are vendored as plain files in `.agents/skills/` (the same place as
-our own skill); they reach Claude Code through the `.claude/skills` symlink. To refresh them,
+our own skills); they reach Claude Code through the `.claude/skills` symlink. To refresh them,
 re-fetch from their repos — do **not** use `skills add` without scoping it, as it scatters
 copies into ~20 unrelated agent directories.

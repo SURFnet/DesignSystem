@@ -117,6 +117,13 @@ pnpm format
   the contract object.
 - `pnpm build`, `pnpm format`, and `build-storybook` all pass.
 
+## Updating an existing component
+
+Do not re-run `ng g @spartan-ng/cli:ui` on a component that is already vendored
+— the generator overwrites helm. Follow
+[`update-component/angular.md`](../update-component/angular.md). Restyling or
+merging upstream can have an effect on accessibility.
+
 ## Notes
 
 - The Spartan CLI always vendors cross-component imports through the `@spartan-ng/helm/*`

@@ -240,8 +240,28 @@ In Claude Code, run `/mcp` to confirm both show `Connected`. For Cursor/Codex/Op
 above.
 
 The repo also vendors the upstream **`shadcn`** and **`spartan`** agent skills (deep
-component/API references) in `.agents/skills/`, alongside the repo's own `add-component`
-skill. They're exposed to Claude Code through the `.claude/skills` symlink.
+component/API references) in `.agents/skills/`, alongside the repo's own
+`add-component` and `update-component` skills. They're exposed to Claude Code
+through the `.claude/skills` symlink.
+
+## Customizing and updating components
+
+Vendored shadcn (React) and Spartan helm (Angular) files are **source we own**.
+The add CLIs copy them in once; running those CLIs again on an existing
+component can overwrite local design and accessibility work.
+
+**Changes can have an effect on accessibility.** Restyling a component, hiding a
+label, changing a focus ring, or merging upstream can break keyboard use, screen
+readers, names, or contrast — including on stories tagged `a11y-gap` /
+`a11y-minor` in Storybook. Check the Accessibility addon before you consider an
+edit done.
+
+To refresh a component from upstream, follow
+[`.agents/skills/update-component/SKILL.md`](.agents/skills/update-component/SKILL.md)
+(React: `react.md`, Angular: `angular.md`): diff, merge, keep `CURVE:` markers.
+Do not `shadcn add --overwrite` or re-run `ng g @spartan-ng/cli:ui` as a
+shortcut. New components still use
+[`.agents/skills/add-component/SKILL.md`](.agents/skills/add-component/SKILL.md).
 
 ## Theming
 
