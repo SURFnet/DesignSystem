@@ -1,6 +1,7 @@
 // Shared MDX docs (Curve, accessibility) are framework-agnostic prose, so they
 // live in `docs/` and are pulled into both Storybooks via their `stories`
 // globs — no copy is exported from here.
+export { A11Y_GAP_TAG, A11Y_MINOR_TAG, a11yTagConfig } from './a11y-tags.js';
 export { FRAMEWORKS, frameworkGlobalTypes, frameworkSwitcher } from './frameworks.js';
 export type { Framework, FrameworkTarget } from './frameworks.js';
 export { THEME_NAMES, themeGlobalTypes, themeInitialGlobals, themeSwitcher } from './themes.js';

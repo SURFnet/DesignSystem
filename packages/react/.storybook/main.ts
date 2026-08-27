@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import remarkGfm from 'remark-gfm';
+import { a11yTagConfig } from '@surfnet/curve-storybook-config';
 
 const config: StorybookConfig = {
   stories: [
@@ -33,6 +34,7 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
+  tags: a11yTagConfig,
 };
 
 export default config;

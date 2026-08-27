@@ -5,6 +5,8 @@ import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 
 const meta: Meta<HlmContextMenuTrigger> = {
   title: 'Components/ContextMenu',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: HlmContextMenuTrigger,
   decorators: [
     moduleMetadata({

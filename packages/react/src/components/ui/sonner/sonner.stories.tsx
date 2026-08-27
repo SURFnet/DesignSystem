@@ -8,6 +8,8 @@ import { Toaster } from './sonner';
 
 const meta = {
   title: 'Components/Sonner',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Toaster,
   parameters: {
     docs: {

@@ -20,6 +20,8 @@ import {
 
 const meta = {
   title: 'Components/ContextMenu',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: ContextMenu,
   parameters: {
     docs: {
