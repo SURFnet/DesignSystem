@@ -8,6 +8,8 @@ import { HlmToaster, HlmToasterImports } from '..';
 
 const meta: Meta<HlmToaster> = {
   title: 'Components/Sonner',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: HlmToaster,
   decorators: [
     moduleMetadata({

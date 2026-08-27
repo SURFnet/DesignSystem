@@ -2,6 +2,7 @@ import React from 'react';
 import { addons, types } from 'storybook/manager-api';
 import { create } from 'storybook/theming/create';
 
+import { registerA11yStatus } from './a11y-status.js';
 import type { Framework } from './frameworks.js';
 import { LOGO_SVG } from './logo.js';
 import { MODE_TOGGLE_ID, ModeToggle } from './mode-toggle.js';
@@ -33,6 +34,8 @@ export function registerManager(framework: Framework): void {
   });
 
   addons.setConfig({ theme });
+
+  registerA11yStatus();
 
   addons.register(MODE_TOGGLE_ID, () => {
     addons.add(MODE_TOGGLE_ID, {

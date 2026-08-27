@@ -5,6 +5,8 @@ import { Input } from './input';
 
 const meta = {
   title: 'Components/Input',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Input,
   parameters: {
     docs: {

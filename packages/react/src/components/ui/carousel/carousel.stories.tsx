@@ -13,6 +13,8 @@ import {
 
 const meta = {
   title: 'Components/Carousel',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Carousel,
   parameters: {
     docs: {

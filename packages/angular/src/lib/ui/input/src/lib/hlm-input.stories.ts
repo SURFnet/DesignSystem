@@ -12,6 +12,8 @@ import { HlmButton, HlmLabel } from '../../../../../public-api';
 
 const meta: Meta<HlmInput> = {
   title: 'Components/Input',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: HlmInput,
   decorators: [
     moduleMetadata({

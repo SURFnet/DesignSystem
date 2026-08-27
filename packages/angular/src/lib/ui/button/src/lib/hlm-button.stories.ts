@@ -12,6 +12,8 @@ type ButtonArgs = HlmButton & { disabled: boolean };
 
 const meta: Meta<ButtonArgs> = {
   title: 'Components/Button',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: HlmButton,
   decorators: [
     moduleMetadata({

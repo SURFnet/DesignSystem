@@ -27,6 +27,8 @@ import {
 
 const meta = {
   title: 'Components/Command',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Command,
   parameters: {
     docs: {

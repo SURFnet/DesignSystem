@@ -42,6 +42,8 @@ const languages = ['TypeScript', 'JavaScript', 'Python', 'Rust', 'Go'];
 
 const meta = {
   title: 'Components/Combobox',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: Combobox,
   parameters: {
     docs: {

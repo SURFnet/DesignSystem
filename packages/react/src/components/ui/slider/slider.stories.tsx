@@ -7,6 +7,8 @@ import { Slider } from './slider';
 
 const meta = {
   title: 'Components/Slider',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Slider,
   parameters: {
     docs: {

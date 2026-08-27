@@ -124,6 +124,8 @@ const columns: ColumnDef<Payment>[] = [
 
 const meta = {
   title: 'Components/DataTable',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   parameters: {
     docs: {
       description: {

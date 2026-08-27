@@ -12,6 +12,8 @@ type InputOtpArgs = HlmInputOtp & { maxLength: number; disabled: boolean };
 
 const meta: Meta<InputOtpArgs> = {
   title: 'Components/InputOTP',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: HlmInputOtp,
   decorators: [
     moduleMetadata({

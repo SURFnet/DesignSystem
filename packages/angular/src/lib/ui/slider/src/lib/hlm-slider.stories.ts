@@ -13,6 +13,8 @@ type SliderArgs = HlmSlider & {
 
 const meta: Meta<SliderArgs> = {
   title: 'Components/Slider',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: HlmSlider,
   decorators: [
     moduleMetadata({
