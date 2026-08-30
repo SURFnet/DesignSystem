@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Toegankelijkheid/Inhoud en bediening" name="Skiplinks" />
+
+# Skiplinks
+
+Een skiplink is de eerste focusbare link op een pagina. Hij slaat de herhaalde schil over — logo,
+navigatie, zoekveld — en zet de focus op de hoofdinhoud. Zonder die sprong tabt iemand die geen
+muis gebruikt op iedere pagina opnieuw door hetzelfde menu.
+
+Dat is WCAG 2.4.1 (Blokken omzeilen). Het is ook gewoon beleefd: de chrome is voor wie hem nodig
+heeft, niet voor wie hem al twintig keer is gepasseerd.
+
+## Voor wie het verschil maakt
+
+- **Toetsenbord.** Elke <kbd>Tab</kbd> is werk. Twintig stops vóór het artikel is twintig stops te
+  veel, op elke pagina opnieuw.
+- **Screenreader.** Landmarks (`main`, `nav`) helpen, maar een skiplink is de kortste route en
+  werkt ook als de landmarks ontbreken of dubbel zijn.
+- **Beperkte motoriek.** Minder toetsaanslagen is minder pijn, minder tremor, minder tijd.
+
+Op een component in isolatie — een knop, een veld, een dialoog — heb je geen skiplink nodig. Op
+een volledige pagina of applicatiescherm met herhaalde navigatie wel. Curve levert hem niet: hij
+hoort in de schil van het product.
+
+## Hoe je hem maakt
+
+```html
+<a class="skip-link" href="#main">Ga naar de inhoud</a>
+<header>…logo, navigatie, zoekveld…</header>
+<main id="main" tabindex="-1">
+  <!-- de unieke inhoud van deze pagina -->
+</main>
+```
+
+Vier regels, allemaal nodig:
+
+1. **Eerste focusbare element.** Zet de link bovenaan in de DOM, vóór de navigatie. Niet visueel
+   "ergens links", terwijl er al drie andere links aan voorafgaan.
+2. **Een echt doel.** `href="#main"` wijst naar een `id` die bestaat. Een dode anker is erger dan
+   geen skiplink: de focus blijft waar hij was en de gebruiker denkt dat het product kapot is.
+3. **Het doel kan focus krijgen.** `<main>` is van nature niet focusbaar. Zonder
+   `tabindex="-1"` springt de pagina wel, maar de volgende <kbd>Tab</kbd> begint opnieuw bovenin,
+   of de screenreader leest niet vanaf de inhoud. `tabindex="-1"` maakt het doel programmeerbaar
+   focusbaar zonder het in de tabvolgorde te zetten.
+4. **Verberg hem tot hij focus heeft.** `display: none` of `visibility: hidden` haalt hem uit de
+   tabvolgorde — dan bestaat hij niet. Gebruik een visueel-verborgen patroon dat bij `:focus`
+   weer zichtbaar wordt (een utility als `sr-only` die je bij focus ongedaan maakt), of laat hem
+   altijd staan.
+
+```css
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+```
+
+De zichtbare tekst is gewoon Nederlands: "Ga naar de inhoud". Niet "Skip to main content" op een
+Nederlandse pagina, en niet "Klik hier".
+
+## Meer dan één
+
+Eén skiplink naar `main` is het minimum. Heeft de pagina een groot zoekveld of een tweede
+navigatie die op iedere view terugkomt, dan mag je er twee of drie zetten — naar de inhoud, naar
+de zoekfunctie, naar het menu — zolang ze vooraan staan en hun doel halen.
+
+Zet geen skiplink naar iets dat niet herhaald wordt. Een sprong naar "paragraaf 4" is geen
+skiplink, dat is een inhoudsopgave.
+
+## Hoe je hem test
+
+De test staat ook in de
+[toetsenbordronde](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen). Hij duurt tien
+seconden:
+
+1. Herlaad de pagina.
+2. Klik in de adresbalk en druk op <kbd>Tab</kbd>.
+3. De skiplink is het eerste wat focus krijgt, en hij is nu zichtbaar.
+4. Druk op <kbd>Enter</kbd>. De focus staat in de hoofdinhoud; de volgende <kbd>Tab</kbd> landt op
+   het eerste bedienbare element _in_ die inhoud, niet opnieuw in de header.
+
+Faalt stap 3, dan is hij te laat in de DOM of met `display: none` weggestopt. Faalt stap 4, dan
+mist het doel een `id` of `tabindex="-1"`.
