@@ -2,6 +2,11 @@
   "name": "@surfnet/curve-react",
   "version": "0.3.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SURFnet/DesignSystem.git",
+    "directory": "packages/react"
+  },
   "publishConfig": {
     "access": "public"
   },
