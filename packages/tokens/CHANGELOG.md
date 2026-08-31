@@ -1,5 +1,18 @@
 # @surfnet/curve-tokens
 
+## 0.3.0
+
+### Minor Changes
+
+- 0468c9a: Rename the `--link` design token to `--primary-strong` so it can be used beyond hyperlinks. Tailwind utilities follow (`text-primary-strong`, `bg-primary-strong`, `border-primary-strong`); the `link` button variant now uses `text-primary-strong`.
+
+### Patch Changes
+
+- a2792df: Align hover and selected interaction states with Figma: item hover uses `--muted`, selected/open/active states use `--secondary`, and dark-mode `--popover` uses neutral/900 instead of stone/800.
+- f511046: Update design tokens from the latest Figma sync. Refreshes `sidebar-accent`,
+  `sidebar-accent-foreground`, and `accent` color values across the default and
+  per-theme token sets.
+
 ## 0.2.2
 
 ## 0.2.1
