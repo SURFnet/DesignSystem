@@ -1,13 +1,13 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta
-  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Blind, screenreadergebruiker"
+  title="Toegankelijkheid/Do's en don'ts/Wat vaak mis gaat"
   name="Afbeeldingen zonder beschrijving"
 />
 
 # Afbeeldingen zonder beschrijving
 
-Wie de pagina [beluistert](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+Wie de pagina [beluistert](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s)
 ziet de afbeelding nooit. De alt-tekst ís de afbeelding.
 
 ## Het probleem
@@ -29,10 +29,7 @@ dan is de afbeelding decoratief.
 <img src="golf.svg" alt="" />
 
 <!-- Informatief: de conclusie, niet de kleuren -->
-<img
-  src="aanmeldingen.svg"
-  alt="Aanmeldingen stegen van 120 in januari naar 340 in juni"
-/>
+<img src="aanmeldingen.svg" alt="Aanmeldingen stegen van 120 in januari naar 340 in juni" />
 
 <!-- Icoonknop: de actie, niet het icoon -->
 <button type="button" aria-label="Factuur verwijderen">
@@ -40,12 +37,12 @@ dan is de afbeelding decoratief.
 </button>
 ```
 
-| Situatie                         | Alt-tekst                                           |
-| -------------------------------- | --------------------------------------------------- |
-| Sfeer, scheiding, herhaald icoon | Leeg: `alt=""`                                      |
-| Grafiek of infographic           | De conclusie in één zin                             |
-| Screenshot in een handleiding    | Wat je eruit moet halen                             |
-| Logo in de header                | De organisatienaam, één keer                        |
+| Situatie                         | Alt-tekst                    |
+| -------------------------------- | ---------------------------- |
+| Sfeer, scheiding, herhaald icoon | Leeg: `alt=""`               |
+| Grafiek of infographic           | De conclusie in één zin      |
+| Screenshot in een handleiding    | Wat je eruit moet halen      |
+| Logo in de header                | De organisatienaam, één keer |
 
 Niet doen: `alt="afbeelding"`, een bestandsnaam, of de alinea ernaast herhalen. Meer voorbeelden
 staan bij

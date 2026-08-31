@@ -1,14 +1,11 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta
-  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Beperkte motoriek"
-  name="Hover-menu's"
-/>
+<Meta title="Toegankelijkheid/Do's en don'ts/Wat vaak mis gaat" name="Hover-menu's" />
 
 # Hover-menu's
 
 Inhoud die alleen verschijnt als de muis erop blijft staan, is onbereikbaar voor wie
-[geen muis gebruikt](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht):
+[geen muis gebruikt](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s):
 toetsenbord, switch, touch, spraak.
 
 ## Het probleem
@@ -20,6 +17,7 @@ aanwijzer een pixel wegglijdt.
 
 WCAG 1.4.13 (Content on Hover or Focus) eist: de inhoud is ook bij toetsenbordfocus te zien, blijft
 staan tot je hem wegstuurt, en is weg te klikken zonder de muis te verplaatsen (meestal
+
 <kbd>Esc</kbd>).
 
 ## De oplossing
@@ -35,9 +33,7 @@ Koppel dezelfde inhoud aan een klik of aan focus, en laat hem bewust sluiten.
 </style>
 
 <!-- Wel doen: openen met knop, sluiten met Esc of een tweede klik -->
-<button type="button" aria-expanded="false" aria-controls="submenu">
-  Producten
-</button>
+<button type="button" aria-expanded="false" aria-controls="submenu">Producten</button>
 <ul id="submenu" hidden>
   <li><a href="/curve">Curve</a></li>
 </ul>

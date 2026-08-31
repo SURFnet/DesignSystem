@@ -59,3 +59,6 @@
 .sbdocs-content.sbdocs-content h5 {
   margin-block-start: 0.5rem;
 }
+.sbdocs-a.sbdocs-a {
+  color: rgb(0 85 182);
+}

@@ -1,13 +1,10 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta
-  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Blind, screenreadergebruiker"
-  name="Naamloze knoppen"
-/>
+<Meta title="Toegankelijkheid/Do's en don'ts/Wat vaak mis gaat" name="Naamloze knoppen" />
 
 # Naamloze knoppen
 
-Een [screenreadergebruiker](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+Een [screenreadergebruiker](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s)
 navigeert onder meer via een lijst met knoppen. Zonder toegankelijke naam blijft daar alleen de rol
 over: "knop".
 
@@ -30,7 +27,9 @@ niet is, voeg je er een toe.
 
 ```html
 <!-- Niet doen: voorgelezen als "knop" -->
-<button><svg><!-- prullenbak --></svg></button>
+<button>
+  <svg><!-- prullenbak --></svg>
+</button>
 
 <!-- Wel doen: benoem de knop, verberg de decoratie -->
 <button type="button" aria-label="Factuur verwijderen">

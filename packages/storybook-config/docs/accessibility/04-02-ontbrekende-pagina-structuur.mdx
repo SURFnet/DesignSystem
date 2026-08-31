@@ -1,24 +1,22 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta
-  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Blind, screenreadergebruiker"
+  title="Toegankelijkheid/Do's en don'ts/Wat vaak mis gaat"
   name="Ontbrekende pagina-structuur"
 />
 
 # Ontbrekende pagina-structuur
 
-Een [screenreadergebruiker](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
-leest de pagina niet van boven naar beneden. Eerst de koppen, dan de landmarks, dan de links. Zonder
-die structuur is er alleen een ononderbroken stroom tekst.
+Een [screenreadergebruiker](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s)
+leest de pagina niet van boven naar beneden. Eerst de koppen, dan de landmarks, dan de links. Als ziende gebruiker doe je dit tenslotte ook: je kijkt eerst naar de koppen, dan naar de inhoud. 
+
+Als je een screenreader gebruikt, kun je dit ook doen, als de structuur van de pagina goed is opgezet. Een beetje op dezelfde manier als wanneer je een Word-document maakt en automatisch een inhoudsopgave aanmaakt. Als je de juiste kopjes hebt gebruikt, krijg je een inhoudsopgave die klopt.
 
 ## Het probleem
 
-Visuele groepering: een vette regel, witruimte, een kaart: betekent niets als die niet in de opmaak
-zit. Een `div` die eruitziet als een kop is geen kop. Een pagina zonder `main` heeft geen
-hoofdinhoud om naartoe te springen. Overgeslagen kopniveaus (`h1` → `h3`) suggereren een sectie die
-er niet is.
+Wanneer je een pagina maakt, kijk je vooral naar de visuele structuur. Een vette regel, witruimte, een kaart: betekent niets als die niet in de opmaak zit. Een `div` die eruitziet als een kop is geen kop. Een pagina zonder `main` heeft geen hoofdinhoud om naartoe te springen. Overgeslagen kopniveaus (`h1` → `h3`) suggereren een onderdeel (met een `h2` als kopniveau) dat er niet is.
 
-Wie de rotor of de elementenlijst opent, krijgt dan geen inhoudsopgave maar een lijst die nergens op
+Wie de rotor (die 'inhoudsopgave' die een screenreader aanmaakt) of de elementenlijst opent, krijgt dan geen inhoudsopgave maar een lijst die nergens op
 slaat, of helemaal geen koppen. De enige route die overblijft is lineair luisteren: onbruikbaar op
 een lange pagina.
 
@@ -44,4 +42,4 @@ Controleer in DevTools → **Elements** → **Accessibility** → **Headings**. 
 een inhoudsopgave. De stappen staan bij
 [Handmatig testen](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen).
 Op een volledige pagina hoort daar een
-[skiplink](?path=/docs/toegankelijkheid-inhoud-en-bediening--skiplinks) bij.
+[skiplink](?path=/docs/toegankelijkheid-do-s-en-don-ts-wat-vaak-mis-gaat--skiplinks) bij.

@@ -1,14 +1,11 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta
-  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Kleurenblind"
-  name="Ongelabelde grafieken"
-/>
+<Meta title="Toegankelijkheid/Do's en don'ts/Wat vaak mis gaat" name="Ongelabelde grafieken" />
 
 # Ongelabelde grafieken
 
 Een grafiek die series alleen in kleur onderscheidt, is voor
-[wie geen kleurverschil ziet](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+[wie geen kleurverschil ziet](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s)
 één lijn. Voor wie de pagina beluistert, is er helemaal geen grafiek.
 
 ## Het probleem
@@ -18,9 +15,9 @@ de betekenis zit in de tint. In grijstinten vallen de series samen. Een screenre
 hooguit `alt="grafiek"` of de bestandsnaam, niet de conclusie.
 
 Dat is twee persona's tegelijk: kleurenblind én
-[blind](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-blind-screenreadergebruiker--afbeeldingen-zonder-beschrijving).
+[blind](?path=/docs/toegankelijkheid-do-s-en-don-ts-wat-vaak-mis-gaat--afbeeldingen-zonder-beschrijving).
 Wie vergroot, loopt bovendien tegen
-[tekst in de afbeelding](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-slechtziend-vergroting--tekst-in-afbeeldingen)
+[tekst in de afbeelding](?path=/docs/toegankelijkheid-do-s-en-don-ts-wat-vaak-mis-gaat--tekst-in-afbeeldingen)
 aan als de assen in pixels zitten.
 
 ## De oplossing
@@ -35,10 +32,7 @@ Maak de grafiek leesbaar zonder kleur, en geef de boodschap ook als tekst.
 
 ```html
 <figure>
-  <img
-    src="aanmeldingen.svg"
-    alt="Aanmeldingen stegen van 120 in januari naar 340 in juni"
-  />
+  <img src="aanmeldingen.svg" alt="Aanmeldingen stegen van 120 in januari naar 340 in juni" />
   <figcaption>
     Aanmeldingen 2026, per maand. WO steeg het sterkst; HBO bleef nagenoeg gelijk.
   </figcaption>
@@ -47,4 +41,4 @@ Maak de grafiek leesbaar zonder kleur, en geef de boodschap ook als tekst.
 
 Een interactieve grafiek (SVG, canvas) heeft dezelfde eisen: elke serie een naam, toetsenbordtoegang
 tot datapunt of tabel, geen betekenis alleen in kleur. Zie ook
-[Status alleen in kleur](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-kleurenblind--status-alleen-in-kleur).
+[Status alleen in kleur](?path=/docs/toegankelijkheid-do-s-en-don-ts-wat-vaak-mis-gaat--status-alleen-in-kleur).
