@@ -61,9 +61,10 @@ pnpm build            # build both libraries (Turborepo)
 pnpm lint             # type-check
 pnpm format           # format everything with Prettier
 
-# Storybook (run per package)
-pnpm --filter @surfnet/curve-react storybook     # http://localhost:6006
-pnpm --filter @surfnet/curve-angular storybook   # http://localhost:6007
+# Storybook
+pnpm storybook              # both (React :6006, Angular :6007)
+pnpm storybook:react        # http://localhost:6006
+pnpm storybook:angular      # http://localhost:6007
 ```
 
 Each component ships a Storybook story covering its full surface (variants, sizes,

@@ -8,7 +8,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 Die zin opent de ARIA-richtlijnen van het W3C zelf, en dat is geen bescheidenheid. Grootschalige scans
 laten stelselmatig zien dat pagina's mét ARIA gemiddeld _méér_ aantoonbare toegankelijkheidsfouten
-bevatten dan pagina's zonder — niet omdat de attributen op zichzelf schadelijk zijn, maar omdat ernaar
+bevatten dan pagina's zonder: niet omdat de attributen op zichzelf schadelijk zijn, maar omdat ernaar
 grijpen een symptoom is van het verkeerde element bouwen.
 
 ## Wat ARIA werkelijk doet
@@ -61,7 +61,7 @@ ben je pijltoetsen, <kbd>Home</kbd> en <kbd>End</kbd> verschuldigd. Een rol zond
 toetsenbordcontract is een leugen tegen een screenreadergebruiker, die nu gedrag verwacht dat er niet is.
 
 **4. Zet nooit `role="presentation"` of `aria-hidden="true"` op een focusbaar element.** Dat levert een
-element op dat een toetsenbordgebruiker wel kan bereiken en een screenreader niet kan beschrijven — de
+element op dat een toetsenbordgebruiker wel kan bereiken en een screenreader niet kan beschrijven: de
 focus landt op niets.
 
 ```html
@@ -84,12 +84,12 @@ toetsenbordcontract en het focusbeheer.
 Twee praktische gevolgen:
 
 - Betrap je jezelf erop dat je `role`, `aria-expanded` of `aria-selected` aan een Curve-component
-  toevoegt, stop dan — of het component zet het al (en je zit er nu tegenin te werken), of je gebruikt het
+  toevoegt, stop dan: of het component zet het al (en je zit er nu tegenin te werken), of je gebruikt het
   verkeerde component.
 - Bouw je iets dat Curve niet heeft, gebruik dan het patroon uit de
   [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/) in plaats van zelf een set
   attributen te verzinnen. De APG vermeldt ook het toetsenbordcontract waar je je aan verbindt.
 
-Wat er legitiem overblijft — benoemen, beschrijven, live regions en status op werkelijk eigen componenten —
+Wat er legitiem overblijft: benoemen, beschrijven, live regions en status op werkelijk eigen componenten —
 staat in
 [ARIA correct gebruiken](?path=/docs/toegankelijkheid-do-s-en-don-ts--aria-correct-gebruiken).

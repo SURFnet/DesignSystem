@@ -17,8 +17,8 @@ herschrijving.
 ## De accessibility skill
 
 Een map met markdown-bestanden die je in Cursor, Claude Code of een andere agent zet. De skill leert de
-agent semantische HTML, toegankelijke namen, toetsenbordtoegang en focusstijlen toe te passen — en
-beoordeelt UI vanuit de [zeven persona's](?path=/docs/toegankelijkheid-introductie--verschillende-beperkingen-persona-s)
+agent semantische HTML, toegankelijke namen, toetsenbordtoegang en focusstijlen toe te passen: en
+beoordeelt UI vanuit de [zeven persona's](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
 (blind/screenreader, slechtziend, kleurenblind, doof, beperkte motoriek, cognitief, situationeel).
 
 ### Download
@@ -40,7 +40,7 @@ Of download losse bestanden:
 ### Installeren
 
 Pak `accessibility.zip` uit in de skills-map van je agent. De map moet `accessibility/` heten en
-`SKILL.md` plus de andere bestanden bevatten. De YAML-frontmatter in `SKILL.md` is verplicht — agents
+`SKILL.md` plus de andere bestanden bevatten. De YAML-frontmatter in `SKILL.md` is verplicht: agents
 lezen `name` en `description` om te bepalen wanneer ze de skill laden.
 
 | Tool                  | Opslaan als                     |
@@ -62,7 +62,7 @@ zelfverzekerd ja. "Welk element krijgt focus als dit opengaat, en wat leest een 
 levert iets op dat je kunt controleren.
 
 **Laat ARIA verantwoorden.** Agents grijpen uit gewoonte naar ARIA-attributen. Vraag welk native element
-het attribuut overbodig zou maken, en het meeste verdwijnt — zie
+het attribuut overbodig zou maken, en het meeste verdwijnt: zie
 [De eerste regel van ARIA](?path=/docs/toegankelijkheid-do-s-en-don-ts--de-eerste-regel-van-aria).
 
 **Geef het component mee, niet de klassenaam.** Een agent die weet dat Curve bestaat, stelt Button,
@@ -71,7 +71,7 @@ garantie die die primitieven bieden.
 
 **Laat hem de toetsenbordtest schrijven.** Agents zijn goed in het omzetten van een interactie naar een
 Playwright- of Vitest-assertie. Focusvolgorde, Escape die een dialoog sluit, focus die terugkeert naar
-de knop — precies de controles die zonder test langzaam wegroesten.
+de knop: precies de controles die zonder test langzaam wegroesten.
 
 ## Wat een agent niet voor je kan doen
 

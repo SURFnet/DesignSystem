@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Doof of slechthorend"
+  name="Video zonder ondertiteling"
+/>
+
+# Video zonder ondertiteling
+
+Wie [doof of slechthorend is](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+leest in plaats van luistert. Zonder ondertiteling valt het gesproken woord weg, en daarmee vaak de
+hele inhoud.
+
+## Het probleem
+
+Een uitlegvideo, een opname van een webinar, een producttour: alles waarin iemand praat, is zonder
+ondertiteling ontoegankelijk. Dat geldt ook voor wie in een stille trein zit, in een kantoortuin
+zonder koptelefoon, of het geluid niet aan mag.
+
+Automatische ondertiteling is een concept, geen oplevering: namen, vaktaal en wie-spreekt-wanneer
+gaan stelselmatig mis. Ingebrande tekst in het beeld schaalt niet mee en kan niet uit: dat raakt
+ook wie [vergroot](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-slechtziend-vergroting--tekst-in-afbeeldingen).
+
+WCAG 1.2.2 eist ondertiteling bij vooraf opgenomen video met geluid.
+
+## De oplossing
+
+Lever dovenondertiteling als apart bestand (WebVTT of wat jouw speler eist), niet ingebrand.
+
+Dovenondertiteling is meer dan de vertaling van het gesproken woord. Je neemt ook de geluiden mee
+die je nodig hebt om het filmpje te volgen: wie er praat als dat niet zichtbaar is, applaus, een
+deurbel. `(Applaus.)` hoort erbij; de songtekst van de achtergrond meestal niet.
+
+```html
+<video src="uitleg.mp4" controls>
+  <track kind="captions" src="uitleg.nl.vtt" srclang="nl" label="Nederlands" default />
+</video>
+```
+
+Zet het geluid uit en kijk het filmpje. Mis je een grap, een instructie of een wending, dan is de
+ondertiteling te dun. De rest van media (transcript, audiodescriptie, geen autoplay) staat bij
+[Video en audio](?path=/docs/toegankelijkheid-inhoud-en-bediening--video-en-audio).

@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Kleurenblind"
+  name="Status alleen in kleur"
+/>
+
+# Status alleen in kleur
+
+Wie [geen kleurverschil ziet](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+ziet jouw opmaak prima. Wat wegvalt is het onderscheid dat je in kleur hebt gestopt.
+
+## Het probleem
+
+Een invoerveld dat rood omrand wordt bij een fout, een groene stip voor "beschikbaar", een geselecteerde
+tab die alleen een andere kleur krijgt: in grijstinten is dat hetzelfde element. Ongeveer 8% van de
+mannen heeft een vorm van kleurenblindheid. WCAG 1.4.1 (Use of Color) verbiedt kleur als enig
+signaal.
+
+Dit is niet hetzelfde als
+[te licht contrast](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-slechtziend-vergroting--te-licht-contrast).
+Het contrast kan prima zijn, en de betekenis toch alleen in de tint zitten.
+
+## De oplossing
+
+Combineer kleur altijd met iets dat zonder kleur overeind blijft: tekst, een icoon met naam, een
+patroon, of een positie.
+
+```html
+<!-- Niet doen: alleen een rode rand -->
+<input type="email" aria-invalid="true" class="border-red-600" />
+
+<!-- Wel doen: kleur + icoon + zin -->
+<label for="email">E-mailadres</label>
+<input id="email" type="email" aria-invalid="true" aria-describedby="email-fout" />
+<p id="email-fout">
+  <span aria-hidden="true">⚠</span>
+  Vul een geldig e-mailadres in, bijvoorbeeld naam@instelling.nl
+</p>
+```
+
+Maak een schermafbeelding en bekijk hem in grijstinten. Alles wat je dan niet meer kunt
+onderscheiden, leunde op kleur alleen. Foutteksten zelf staan bij
+[Vage foutmeldingen](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-cognitief-of-neurodivergent--vage-foutmeldingen)
+en
+[Voor tekstschrijvers](?path=/docs/toegankelijkheid-inhoud-en-bediening--voor-tekstschrijvers).

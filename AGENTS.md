@@ -50,8 +50,9 @@ pnpm install                                   # whole workspace
 pnpm build                                     # turbo: build both libraries
 pnpm lint                                      # turbo: type-check
 pnpm format                                    # prettier --write across the repo
-pnpm --filter @surfnet/curve-react storybook         # React Storybook (port 6006)
-pnpm --filter @surfnet/curve-angular storybook       # Angular Storybook (port 6007)
+pnpm storybook                                       # both Storybooks (React :6006, Angular :6007)
+pnpm storybook:react                                 # React Storybook (port 6006)
+pnpm storybook:angular                               # Angular Storybook (port 6007)
 ```
 
 Always run `pnpm lint` and `pnpm format` before considering a change done, and rebuild

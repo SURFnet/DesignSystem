@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Beperkte motoriek"
+  name="Alleen slepen"
+/>
+
+# Alleen slepen
+
+Slepen vraagt aanhoudend contact, een stabiele hand, en een muis of precisie-gebaar. Voor wie
+[beperkte motoriek heeft](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+is dat vaak de ene route die niet werkt.
+
+## Het probleem
+
+Een slider die je alleen kunt slepen, een kanban-bord zonder knoppen, "sleep om te rangschikken",
+swipe-om-te-verwijderen: wie met het toetsenbord, een switch of spraak werkt, komt er niet in.
+Ook een gebroken arm of een trackpad in een hobbelige trein maakt slepen onbruikbaar.
+
+WCAG 2.5.7 (Dragging Movements) eist dat alles wat je sleept, ook met één klik of met het
+toetsenbord kan.
+
+## De oplossing
+
+Slepen mag een versnelling zijn, nooit de enige weg.
+
+- Een slider: ook klikken op de balk, pijltoetsen, en bij voorkeur een getalveld ernaast.
+- Rangschikken: "Omhoog" / "Omlaag"-knoppen per item, of een keuzelijst met positie.
+- Swipe-om-te-verwijderen: een zichtbare knop "Verwijderen" die hetzelfde doet.
+- Kaarten verslepen: een menu "Verplaats naar…" met dezelfde bestemmingen.
+
+```html
+<label for="volume">Volume</label>
+<input id="volume" type="range" min="0" max="100" value="40" />
+<input type="number" min="0" max="100" value="40" aria-label="Volume in procenten" />
+```
+
+De native `<input type="range">` is al met pijltoetsen te bedienen. Bouw je zelf een slider,
+dan ben je dat contract plus een niet-sleep-alternatief verschuldigd. Zelfde regel als bij
+[Hover-menu's](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-beperkte-motoriek--hover-menu-s):
+een gebaar is extra, geen poort.

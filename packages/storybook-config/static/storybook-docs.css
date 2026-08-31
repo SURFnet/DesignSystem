@@ -1,7 +1,11 @@
 /* Restore list markers inside docs prose; Tailwind preflight strips them globally. */
+.sbdocs-wrapper.sbdocs-wrapper {
+  padding: 1rem;
+}
 .sbdocs-content ul,
 .sbdocs-content ol {
   list-style: revert;
+  font-size: inherit;
   padding-inline-start: 1.5rem;
 }
 .sbdocs-content ul {
@@ -15,4 +19,43 @@
 }
 .sbdocs-content ul ul ul {
   list-style-type: square;
+}
+.sbdocs-content ol li,
+.sbdocs-content ul li {
+  font-size: inherit;
+}
+.sbdocs-content.sbdocs-content dl {
+  margin-block: 1em;
+}
+.sbdocs-content.sbdocs-content dt {
+  font-weight: 600;
+  font-size: inherit;
+}
+.sbdocs-content.sbdocs-content dd {
+  margin-inline-start: 1.5rem;
+  margin-block-end: 0.75em;
+  font-size: inherit;
+}
+.sbdocs-content dd:last-child {
+  margin-block-end: 0;
+}
+.sbdocs-content,
+.sbdocs-content p {
+  font-size: 1rem;
+}
+.sbdocs-content table :where(th, td) {
+  font-size: 1rem;
+  vertical-align: top;
+}
+.sbdocs-content.sbdocs-content h2 {
+  margin-block-start: 2rem;
+}
+.sbdocs-content.sbdocs-content h3 {
+  margin-block-start: 1.5rem;
+}
+.sbdocs-content.sbdocs-content h4 {
+  margin-block-start: 1rem;
+}
+.sbdocs-content.sbdocs-content h5 {
+  margin-block-start: 0.5rem;
 }

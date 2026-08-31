@@ -4,64 +4,127 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Toegankelijkheid
 
-Curve-componenten zijn gebouwd op toegankelijke primitieven: de juiste rollen, werkende
-toetsenbordbediening en een zichtbare focusring. Dat is noodzakelijk, maar niet genoeg. De schermen die
-jij daarmee samenstelt hebben nog steeds een logische structuur nodig, toegankelijke namen, en een
-werkwijze die fouten opmerkt vóórdat ze in productie staan.
-
-## Waarom het ertoe doet
-
-Ongeveer één op de zes mensen leeft met een beperking, en veel meer mensen hebben er tijdelijk of
-situationeel mee te maken — een gebroken pols, een ooginfectie, fel zonlicht op een perron. Werken aan
+Ongeveer één op de zes mensen heeft een beperking, en veel meer mensen hebben er tijdelijk of
+situationeel mee te maken: een gebroken pols, een ooginfectie, fel zonlicht op een perron. Werken aan
 toegankelijkheid is zelden werk voor een kleine minderheid: het is hetzelfde werk dat een interface
 bruikbaar maakt met één hand, op een slechte verbinding, of aan het eind van een lange dag.
 
-Voor de organisaties waarvoor Curve gemaakt is, is het bovendien niet vrijblijvend. Nederlandse
-overheidsinstellingen en publiek gefinancierd onderwijs vallen onder de Europese norm EN 301 549, die
-de WCAG-succescriteria integraal overneemt en een gepubliceerde toegankelijkheidsverklaring vereist. De
-European Accessibility Act legt vergelijkbare verplichtingen op aan veel private diensten. In de
-praktijk komt iedereen op dezelfde plek uit: **WCAG 2.2 niveau AA is de norm**, en niveau A is geen
-mijlpaal om trots op te zijn.
+Jij maakt als designer of developer dagelijks keuzes die grote invloed hebben op het leven en werk van andere mensen. Door je bewust te zijn van de [grote verscheidenheid van mensen](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht) die straks gebruik maken van wat je bouwt, kun je er voor zorgen dat zo min mogelijk mensen worden buitengesloten.
 
-Het gat tussen bedoeling en werkelijkheid is groot. WebAIM scant jaarlijks de homepages van een miljoen
-websites en vindt op ongeveer 95% daarvan aantoonbare WCAG-fouten — en dat zijn alleen de fouten die
-een machine kan zien.
+Om dat makkelijker te maken, hebben we Curve ontworpen. Curve is een design systeem dat componenten aanbiedt, die zoveel mogelijk out-of-the-box rekening houden met de toegankelijkheidsnormen.
 
-## De vier principes
+## Hoe helpt Curve ervoor zorgen dat SURF toegankelijke websites bouwt?
 
-WCAG ordent alles onder vier begrippen, samen POUR genoemd. Ze zijn een bruikbare toets wanneer een
-specifiek succescriterium niet direct van toepassing lijkt:
+Curve is een design systeem dat componenten aanbiedt, die gebouwd zijn op toegankelijke principes. Door met Curve te werken, kun je er voor zorgen dat je componenten op zichzelf toegankelijk zijn, mits goed gebruikt.
 
-- **Perceivable (waarneembaar)** — de informatie komt aan, wat iemand ook kan zien of horen.
-  Tekstalternatieven, ondertiteling, voldoende contrast, en betekenis die nooit alleen in kleur zit.
-- **Operable (bedienbaar)** — de interface is te bedienen, hoe iemand dat ook doet. Toetsenbordtoegang,
-  voldoende grote klikdoelen, geen tijdslimieten die je klemzetten, geen beweging die je niet kunt
-  stoppen.
-- **Understandable (begrijpelijk)** — gedrag en taal zijn voorspelbaar. Consistente navigatie, duidelijke
-  labels, en foutmeldingen die uitleggen hoe je verder komt.
-- **Robust (robuust)** — hulpsoftware kan het resultaat interpreteren. Geldige, semantische opmaak met
-  kloppende namen, rollen en statussen.
+### Pas op!
 
-## Wat Curve je geeft, en wat niet
+De juiste rollen, werkende toetsenbordbediening en een zichtbare focusring. Die zijn noodzakelijk, maar niet genoeg. De schermen die jij als designer of developer samenstelt hebben nog steeds een logische structuur nodig, toegankelijke namen, en een werkwijze die fouten opmerkt vóórdat ze in productie staan. Om daar bij te helpen, geven we je een aantal tips en trucs in deze documentatie!
 
-Elk Curve-component is gebouwd op een headless primitief — Base UI in React, de Brain-laag van Spartan
-in Angular — dat het WAI-ARIA-patroon voor dat component implementeert: rollen, toetsenbordbediening,
-focusbeheer en status. De design tokens leveren kleurcombinaties met gecontroleerd contrast en een
-zichtbare `focus-visible`-ring.
+## Inhoudsopgave
 
-Niets daarvan overleeft slordig samenstellen. Een knop in een knop, een dialoog zonder titel, een
-icoonknop zonder toegankelijke naam, een kopniveau gekozen op lettergrootte — dat zijn allemaal fouten
-die je bovenop correcte primitieven kunt introduceren. Over die categorie problemen gaat de rest van
-deze sectie.
-
-## Hoe deze sectie is opgebouwd
-
-- **Introductie** — deze pagina, plus voor wie je bouwt en hoe andere design systems hetzelfde probleem
-  aanpakken.
-- **Je werk testen** — de gelaagde aanpak, opgesplitst in wat je met de hand controleert en wat je
-  automatiseert.
-- **Do's en don'ts** — de terugkerende fouten, ARIA in het bijzonder, en waar je op moet letten wanneer
-  je met AI werkt.
-- **Inhoud en bediening** — tekst, media, skiplinks, touch en vergroting: wat het product zet, niet wat
-  het component al doet.
-- **Meer leren** — normen, gereedschap en leesvoer die de moeite waard zijn.
+<dl>
+  <dt>Introductie</dt>
+  <dd>
+    Deze pagina, plus regelgeving en WCAG, en de persona's voor wie je bouwt.
+    <ul>
+      <li>Overzicht (deze pagina)</li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-introductie--regelgeving">Regelgeving</a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht">
+          Verschillende beperkingen (persona's)
+        </a>
+        — overzicht, plus een pagina per voorbeeld onder "waar het misgaat"
+      </li>
+    </ul>
+  </dd>
+  <dt>Je werk testen</dt>
+  <dd>
+    De gelaagde aanpak, opgesplitst in wat je met de hand controleert en wat je automatiseert.
+    <ul>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-je-werk-testen--overzicht">Overzicht</a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen">
+          Handmatig testen
+        </a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-je-werk-testen--geautomatiseerd-testen">
+          Geautomatiseerd testen
+        </a>
+      </li>
+    </ul>
+  </dd>
+  <dt>Do's en don'ts</dt>
+  <dd>
+    Vaak terugkerende fouten, ARIA in het bijzonder, en waar je op moet letten wanneer je met AI
+    werkt.
+    <ul>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-do-s-en-don-ts--overzicht">Overzicht</a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-do-s-en-don-ts--de-eerste-regel-van-aria">
+          De eerste regel van ARIA
+        </a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-do-s-en-don-ts--aria-correct-gebruiken">
+          ARIA correct gebruiken
+        </a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-do-s-en-don-ts--wanneer-je-gebruik-maakt-van-ai">
+          Wanneer je gebruik maakt van AI
+        </a>
+      </li>
+    </ul>
+  </dd>
+  <dt>Inhoud en bediening</dt>
+  <dd>
+    Tekst, media, skiplinks, touch en vergroting: wat het product zet, niet wat het component al
+    doet.
+    <ul>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-inhoud-en-bediening--overzicht">Overzicht</a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-inhoud-en-bediening--voor-tekstschrijvers">
+          Voor tekstschrijvers
+        </a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-inhoud-en-bediening--video-en-audio">
+          Video en audio
+        </a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-inhoud-en-bediening--skiplinks">Skiplinks</a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-inhoud-en-bediening--touch-en-vergroting">
+          Touch en vergroting
+        </a>
+      </li>
+    </ul>
+  </dd>
+  <dt>Meer leren</dt>
+  <dd>
+    Normen, gereedschap en leesvoer die de moeite waard zijn, en hoe andere design systems hetzelfde
+    probleem aanpakken.
+    <ul>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-meer-leren--overzicht">Overzicht</a>
+      </li>
+      <li>
+        <a href="?path=/docs/toegankelijkheid-meer-leren--toegankelijkheid-in-andere-design-systems">
+          Toegankelijkheid in andere design systems
+        </a>
+      </li>
+    </ul>
+  </dd>
+</dl>

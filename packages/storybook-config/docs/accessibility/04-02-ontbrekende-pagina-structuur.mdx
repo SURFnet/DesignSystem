@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Blind, screenreadergebruiker"
+  name="Ontbrekende pagina-structuur"
+/>
+
+# Ontbrekende pagina-structuur
+
+Een [screenreadergebruiker](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+leest de pagina niet van boven naar beneden. Eerst de koppen, dan de landmarks, dan de links. Zonder
+die structuur is er alleen een ononderbroken stroom tekst.
+
+## Het probleem
+
+Visuele groepering: een vette regel, witruimte, een kaart: betekent niets als die niet in de opmaak
+zit. Een `div` die eruitziet als een kop is geen kop. Een pagina zonder `main` heeft geen
+hoofdinhoud om naartoe te springen. Overgeslagen kopniveaus (`h1` → `h3`) suggereren een sectie die
+er niet is.
+
+Wie de rotor of de elementenlijst opent, krijgt dan geen inhoudsopgave maar een lijst die nergens op
+slaat, of helemaal geen koppen. De enige route die overblijft is lineair luisteren: onbruikbaar op
+een lange pagina.
+
+## De oplossing
+
+Bouw de structuur in HTML, niet in CSS.
+
+- Precies één `h1` per weergave.
+- Kopniveaus volgen de documentstructuur, nooit de lettergrootte. Style met CSS.
+- Sla geen niveaus over.
+- Gebruik landmarks: `header`, `nav`, `main`, `footer`. Precies één `main`.
+- Lijsten van links of bevindingen zijn een `ul` of `ol`, geen reeks `div`s.
+
+```html
+<!-- Niet doen: visueel een kop, voor een screenreader een zin -->
+<div class="text-2xl font-bold">Facturen</div>
+
+<!-- Wel doen -->
+<h1>Facturen</h1>
+```
+
+Controleer in DevTools → **Elements** → **Accessibility** → **Headings**. Die lijst moet lezen als
+een inhoudsopgave. De stappen staan bij
+[Handmatig testen](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen).
+Op een volledige pagina hoort daar een
+[skiplink](?path=/docs/toegankelijkheid-inhoud-en-bediening--skiplinks) bij.

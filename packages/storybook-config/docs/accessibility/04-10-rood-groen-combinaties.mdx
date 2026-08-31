@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Kleurenblind"
+  name="Rood/groen-combinaties"
+/>
+
+# Rood/groen-combinaties
+
+Rood versus groen is het meest voorkomende kleuronderscheid in interfaces, en het onderscheid dat
+het vaakst [wegvalt](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht).
+
+## Het probleem
+
+De meeste kleurenblindheid is rood/groen (deuteranomalie of protanomalie). Een groene "succes"-knop
+naast een rode "verwijder"-knop, een stoplichtstatus in een tabel, of een diff die alleen in rood en
+groen is gezet: die twee kleuren vallen voor een deel van de gebruikers samen tot één bruinige tint.
+
+Zelfs met voldoende contrast tegen de achtergrond blijft het _verschil tussen_ rood en groen klein.
+Kleur als enige as in een grafiek heeft hetzelfde probleem; dat staat bij
+[Ongelabelde grafieken](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-kleurenblind--ongelabelde-grafieken).
+
+## De oplossing
+
+Gebruik rood en groen niet als het enige paar dat twee staten uit elkaar houdt.
+
+- Voeg een icoon toe: vink versus kruis, pijl omhoog versus omlaag.
+- Zet er een woord bij: "Opgeslagen", "Mislukt", niet alleen een bolletje.
+- Kies een tweede as: vorm, patroon, dikte van de lijn, positie.
+- In tabellen: tekst in de cel ("actief" / "verlopen") in plaats van alleen een gekleurde badge.
+
+```html
+<!-- Niet doen: twee even grote knoppen, alleen de kleur verschilt -->
+<button class="bg-green-600">Bevestigen</button>
+<button class="bg-red-600">Verwijderen</button>
+
+<!-- Wel doen: label + icoon, destructieve actie visueel én tekstueel anders -->
+<button type="button">Bevestigen</button>
+<button type="button">Factuur verwijderen</button>
+```
+
+Curve-componenten gebruiken semantische tokens (`destructive`, `success`) die je mag inzetten:
+niet in plaats van tekst, ernaast. Test met een kleurenblindheidsfilter in DevTools of een
+grijstinten-screenshot.

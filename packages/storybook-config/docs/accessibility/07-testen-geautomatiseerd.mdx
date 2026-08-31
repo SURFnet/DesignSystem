@@ -16,13 +16,21 @@ Een linter vangt een hele categorie fouten op bij de cursor, nog voordat er een 
 Zet de regelset aan die bij jouw templatetaal hoort, en schakel regels niet uit zonder een benoemde,
 beoordeelde uitzondering.
 
-- **React / JSX**: [`eslint-plugin-jsx-a11y`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y),
-  `recommended` of `strict`.
-- **Angular**: de templateregels van
-  [`angular-eslint`](https://github.com/angular-eslint/angular-eslint)
-  (`@angular-eslint/template-accessibility-*`).
-- **Editor**: de axe Accessibility Linter-extensie voor VS Code / Cursor markeert problemen in HTML en
-  JSX terwijl je typt.
+<dl>
+  <dt>React / JSX</dt>
+  <dd>
+    <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y">eslint-plugin-jsx-a11y</a>, <code>recommended</code> of <code>strict</code>.
+  </dd>
+  <dt>Angular</dt>
+  <dd>
+    De templateregels van <a href="https://github.com/angular-eslint/angular-eslint">angular-eslint</a> (<code>@angular-eslint/template-accessibility-*</code>).
+  </dd>
+  <dt>Editor</dt>
+  <dd>
+    De axe Accessibility Linter-extensie voor VS Code / Cursor markeert problemen in HTML en JSX
+    terwijl je typt.
+  </dd>
+</dl>
 
 Linters zien alleen statische opmaak, dus ze kunnen niet weten dat bij `role="tab"` het bijbehorende
 `tabpanel` ontbreekt. Het blijft het waardevolste uur dat je eraan besteedt.
@@ -43,18 +51,28 @@ dat alleen toegankelijk is dankzij opmaak die zijn ouder toevallig meelevert.
 
 ## 3. Component- en end-to-endtests
 
-Laat axe los op weergegeven UI in je tests. Probeer niet elke pixel van de applicatie te scannen — dek de
+Laat axe los op weergegeven UI in je tests. Probeer niet elke pixel van de applicatie te scannen: dek de
 routes af die ertoe doen: inloggen, de belangrijkste formulieren, navigatie, en elke dialoog of overlay.
 
-- **Componenttests**: [`jest-axe`](https://github.com/nickcolley/jest-axe) of `vitest-axe` op een
-  weergegeven component.
-- **End-to-end**: [`@axe-core/playwright`](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright)
-  of `cypress-axe` op de belangrijkste gebruikersroutes.
-- **Storybook**: de test runner kan de a11y-controles voor elke story in CI uitvoeren, wat je met
-  nauwelijks schrijfwerk brede dekking oplevert.
+<dl>
+  <dt>Componenttests</dt>
+  <dd>
+    <a href="https://github.com/nickcolley/jest-axe">jest-axe</a> of <code>vitest-axe</code> op een
+    weergegeven component.
+  </dd>
+  <dt>End-to-end</dt>
+  <dd>
+    <a href="https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright">@axe-core/playwright</a> of <code>cypress-axe</code> op de belangrijkste gebruikersroutes.
+  </dd>
+  <dt>Storybook</dt>
+  <dd>
+    De test runner kan de a11y-controles voor elke story in CI uitvoeren, wat je met nauwelijks
+    schrijfwerk brede dekking oplevert.
+  </dd>
+</dl>
 
 Test op meer dan axe wanneer het gedrag specifiek is. axe kan niet vaststellen dat de focus in de dialoog
-belandde, dat <kbd>Esc</kbd> hem sloot en dat de focus terugkeerde naar de knop — een test wel:
+belandde, dat <kbd>Esc</kbd> hem sloot en dat de focus terugkeerde naar de knop: een test wel:
 
 ```ts
 await userEvent.click(screen.getByRole('button', { name: 'Instellingen openen' }));
@@ -74,11 +92,17 @@ Zoeken op rol en toegankelijke naam, zoals hierboven, is zelf al een toegankelij
 Controles die alleen lokaal draaien, worden overgeslagen zodra de druk oploopt. Zet een dunne, betrouwbare
 selectie op elke pull request en laat de tragere scans op `main` of 's nachts draaien.
 
-- **Elke pull request**: linten inclusief a11y-regels, plus unittests met axe-asserties.
-- **Elke pull request**: een korte Playwright- of Cypress-run met axe op de belangrijkste routes.
-- **'s Nachts of op `main`**: de toegankelijkheidscategorie van
-  [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci),
-  [`pa11y-ci`](https://github.com/pa11y/pa11y-ci), of een volledige run van de Storybook test runner.
+<dl>
+  <dt>Elke pull request</dt>
+  <dd>Linten inclusief a11y-regels, plus unittests met axe-asserties.</dd>
+  <dd>Een korte Playwright- of Cypress-run met axe op de belangrijkste routes.</dd>
+  <dt>
+    's Nachts of op <code>main</code>
+  </dt>
+  <dd>
+    De toegankelijkheidscategorie van <a href="https://github.com/GoogleChrome/lighthouse-ci">Lighthouse CI</a>, <a href="https://github.com/pa11y/pa11y-ci">pa11y-ci</a>, of een volledige run van de Storybook test runner.
+  </dd>
+</dl>
 
 Laat de build falen op nieuwe fouten in de code die wordt aangeraakt. Houd bekende problemen bij als
 issues met een eigenaar, niet als een permanent rode pipeline die iedereen heeft leren negeren.
@@ -87,6 +111,6 @@ issues met een eigenaar, niet als een permanent rode pipeline die iedereen heeft
 
 Alles wat een afweging vraagt: of de kopstructuur een verhaal vertelt, of iets een link had moeten zijn,
 of de tabvolgorde het ontwerp volgt, of de foutmelding helpt, of de flow werkt met een screenreader.
-Automatisering verkleint de handmatige ronde — zie
-[Handmatig testen](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen) — maar
+Automatisering verkleint de handmatige ronde: zie
+[Handmatig testen](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen): maar
 schaft hem nooit af.

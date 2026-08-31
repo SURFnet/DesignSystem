@@ -52,7 +52,7 @@ vergroting overleeft zonder over elkaar te vallen, contrast van minimaal 4,5:1 v
 Ongeveer 8% van de mannen en 0,5% van de vrouwen heeft een vorm van kleurenblindheid, meestal
 rood/groen. Zij zien jouw opmaak prima; wat wegvalt is het onderscheid dat je in kleur hebt gestopt.
 
-**Wat dit van je vraagt:** laat kleur nooit het enige signaal zijn. Combineer het met een icoon, een label,
+**Wat dit van je vraagt:** laat kleur nooit de enige manier zijn waarop je informatie communiceert. Combineer het met een icoon, een label,
 een patroon of een positie. Een invoerveld dat rood kleurt is onzichtbaar; een veld dat rood kleurt,
 een waarschuwingsicoon krijgt en de zin "Vul een geldig e-mailadres in" toont, werkt voor iedereen.
 

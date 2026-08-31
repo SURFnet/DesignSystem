@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Slechtziend, vergroting"
+  name="Vaste breedtes"
+/>
+
+# Vaste breedtes
+
+Wie [vergroot tot 200 of 400%](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+krijgt jouw desktoplayout in een venster van grofweg 320px breed. Vaste breedtes passen daar niet in.
+
+## Het probleem
+
+Een container van `width: 1200px`, een tabel die niet mag wrappen, of `white-space: nowrap` op
+lopende tekst dwingt tot horizontaal scrollen. Bij 400% zoom moet je dan in twee richtingen scrollen
+om één zin te lezen: eerst naar rechts voor het einde, dan naar beneden voor de volgende regel.
+
+WCAG 1.4.10 (Reflow) zegt: bij een viewport van 320 CSS-pixels blijft de inhoud werken in één
+scrollrichting, zonder dat er iets wegvalt. Vaste hoogtes met `overflow: hidden` knippen tekst af
+zodra iemand de lettergrootte van het systeem vergroot.
+
+## De oplossing
+
+Laat de layout meebewegen. Gebruik `max-width` in plaats van `width`, relatieve eenheden, en een
+omslag naar één kolom.
+
+```css
+/* Niet doen */
+.layout {
+  width: 1200px;
+}
+.cell {
+  white-space: nowrap;
+}
+
+/* Wel doen */
+.layout {
+  max-width: 75rem;
+  width: 100%;
+}
+```
+
+- Bij **200% zoom** blijft alles leesbaar: geen overlapping, geen afgesneden labels.
+- Bij **400% zoom** (of 320px breed) vouwt de opmaak terug naar één kolom.
+- Vermijd vaste hoogtes die tekst afknippen. `overflow: auto` is beter dan `hidden` als er geen
+  andere weg is.
+
+De teststappen staan bij
+[Touch en vergroting](?path=/docs/toegankelijkheid-inhoud-en-bediening--touch-en-vergroting)
+en in de
+[handmatige ronde](?path=/docs/toegankelijkheid-je-werk-testen--handmatig-testen).

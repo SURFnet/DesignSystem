@@ -15,7 +15,7 @@ die te zetten, en ze verdringen elkaar in een vaste volgorde:
 
 **`aria-labelledby` → `aria-label` → de eigen inhoud → `title`**
 
-`aria-labelledby` wint van alles, ook van zichtbare tekst — en dat is de meest voorkomende oorzaak van
+`aria-labelledby` wint van alles, ook van zichtbare tekst: en dat is de meest voorkomende oorzaak van
 "er staat Opslaan maar hij zegt Annuleren". Gebruik bij voorkeur zichtbare tekst die je niet hoefde te
 verdubbelen:
 
@@ -34,8 +34,8 @@ verdubbelen:
 </section>
 ```
 
-Twee regels die veel zoekwerk schelen: `aria-label` wordt genegeerd op elementen zonder rol — op een `div`
-of `span` doet het niets — en de tekst van een zichtbaar label moet in de toegankelijke naam voorkomen,
+Twee regels die veel zoekwerk schelen: `aria-label` wordt genegeerd op elementen zonder rol: op een `div`
+of `span` doet het niets: en de tekst van een zichtbaar label moet in de toegankelijke naam voorkomen,
 anders kunnen gebruikers van spraakbesturing niet uitspreken wat ze zien.
 
 Bij formuliervelden wint een echt `<label>` van dit alles. Dat geeft je de naam én een groter klikgebied.
@@ -63,7 +63,7 @@ waar je de class bijwerkt.
 | Attribuut       | Waarvoor                                            | Let op                                                |
 | --------------- | --------------------------------------------------- | ----------------------------------------------------- |
 | `aria-expanded` | Uitklappers, accordions, comboboxen, menu's         | Hoort op de **knop**, niet op het paneel              |
-| `aria-current`  | De actieve pagina in een navigatie, de huidige stap | `aria-current="page"` — niet `aria-selected`          |
+| `aria-current`  | De actieve pagina in een navigatie, de huidige stap | `aria-current="page"`: niet `aria-selected`          |
 | `aria-selected` | Tabs, opties in een listbox                         | Alleen geldig binnen die patronen                     |
 | `aria-checked`  | Eigen checkboxen, radio's, switches                 | Native invoervelden regelen dit zelf                  |
 | `aria-disabled` | Elementen die focusbaar moeten blijven              | Je moet de actie zelf blokkeren                       |
@@ -74,8 +74,8 @@ De fout is altijd dezelfde: de visuele status verandert en het attribuut niet. B
 
 ## Verandering aankondigen
 
-Verandert er iets zonder dat de pagina herlaadt — een aantal zoekresultaten, een opgeslagen-melding, een
-foutsamenvatting — dan ziet een ziende gebruiker dat en hoort een screenreadergebruiker niets. Live regions
+Verandert er iets zonder dat de pagina herlaadt: een aantal zoekresultaten, een opgeslagen-melding, een
+foutsamenvatting: dan ziet een ziende gebruiker dat en hoort een screenreadergebruiker niets. Live regions
 lossen dat op.
 
 ```html
@@ -96,7 +96,7 @@ lossen dat op.
 voor decoratieve iconen en gedupliceerde tekst; het is een fout op alles wat focusbaar is, of op de enige
 versie van een stuk informatie.
 
-Voor het omgekeerde — wel voor screenreaders, niet op het scherm — gebruik je een utility-class die het
+Voor het omgekeerde: wel voor screenreaders, niet op het scherm: gebruik je een utility-class die het
 element visueel verbergt, en niet `display: none`, want dat verbergt het voor iedereen.
 
 ## Controleer het in de toegankelijkheidsboom
@@ -116,5 +116,5 @@ het.
 ## Als je iets nieuws bouwt
 
 Gebruik de [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/). Elk patroon
-vermeldt de rollen, de statussen en het volledige toetsenbordcontract — en lijkt dat veel werk, dan is dat
+vermeldt de rollen, de statussen en het volledige toetsenbordcontract: en lijkt dat veel werk, dan is dat
 de eerlijke prijs van het component, en een goed argument om bestaande Curve-componenten te combineren.

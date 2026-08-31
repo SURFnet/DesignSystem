@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Slechtziend, vergroting"
+  name="Te licht contrast"
+/>
+
+# Te licht contrast
+
+Wie [slechtziend is](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht),
+buiten in de zon werkt, of een mat scherm heeft, leest jouw grijze tekst op een bijna-witte
+achtergrond niet.
+
+## Het probleem
+
+Lichtgrijs op wit oogt rustig in een ontwerp op een gekalibreerd scherm. Op een laptop in de trein
+is het onleesbaar. Hetzelfde geldt voor placeholders, disabled-tekst die de enige uitleg is, iconen
+zonder extra signaal, en randen van invoervelden die je alleen ziet als je weet dat ze er zijn.
+
+WCAG vraagt **4,5:1** voor lopende tekst en **3:1** voor grote tekst, iconen en componenten
+(1.4.3 Contrast Minimum, 1.4.11 Non-text Contrast). Curve-tokens zijn daarop gebouwd. Een
+handmatige `text-gray-400` op `bg-white` haalt dat er zo weer af.
+
+## De oplossing
+
+Gebruik de semantische kleurtokens van Curve, niet een grijs dat "zachter" oogt. Controleer het
+contrast in DevTools: klik de kleur, de verhouding staat erbij.
+
+| Wat                         | Minimum |
+| --------------------------- | ------- |
+| Lopende tekst, tot 18px     | 4,5:1   |
+| Grote tekst (18px bold / 24px) | 3:1  |
+| Iconen, randen, focusring   | 3:1     |
+
+Placeholder-tekst telt als tekst als het de enige naam van het veld is: gebruik een zichtbaar
+label. Uitgeschakelde knoppen mogen lichter, maar zet er dan in gewone tekst bij waarom ze niet
+werken. Zie
+[Do's en don'ts](?path=/docs/toegankelijkheid-do-s-en-don-ts--overzicht).
+
+Contrast is niet hetzelfde als
+[kleur als enig signaal](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-kleurenblind--status-alleen-in-kleur):
+een foutmelding kan wél rood zijn, als de tekst zelf het contrast haalt én het probleem in woorden
+staat.

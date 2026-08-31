@@ -30,8 +30,8 @@ export default {
     options: {
       storySort: {
         // `includeNames` is required: without it Storybook sorts on title only,
-        // so a page whose title has no subgroup (e.g. Toegankelijkheid / Meer
-        // leren) always sorts before the groups, whatever `order` says.
+        // so a page whose title has no subgroup always sorts before the groups,
+        // whatever `order` says.
         // `configure` leaves anything not listed below in file order, which
         // keeps each component's stories in the sequence they were authored.
         method: 'configure',
@@ -50,8 +50,34 @@ export default {
             'Introductie',
             [
               'Overzicht',
+              'Regelgeving',
               "Verschillende beperkingen (persona's)",
-              'Toegankelijkheid in andere design systems',
+              [
+                'Overzicht',
+                'Blind, screenreadergebruiker',
+                [
+                  'Naamloze knoppen',
+                  'Ontbrekende pagina-structuur',
+                  'Afbeeldingen zonder beschrijving',
+                  'Video die automatisch afspeelt',
+                ],
+                'Slechtziend, vergroting',
+                [
+                  'Vaste breedtes',
+                  'Te licht contrast',
+                  'Tekst in afbeeldingen',
+                  'Geen taal ingesteld op de pagina',
+                ],
+                'Kleurenblind',
+                ['Status alleen in kleur', 'Rood/groen-combinaties', 'Ongelabelde grafieken'],
+                'Doof of slechthorend',
+                ['Video zonder ondertiteling', 'Geen transcript'],
+                'Beperkte motoriek',
+                ['Kleine klikdoelen', 'Alleen slepen', "Hover-menu's", 'Korte time-outs'],
+                'Cognitief of neurodivergent',
+                ['Jargon', 'Automatische beweging', 'Tijdsdruk', 'Vage foutmeldingen'],
+                'Op het slechtst denkbare moment',
+              ],
             ],
             'Je werk testen',
             ['Overzicht', 'Handmatig testen', 'Geautomatiseerd testen'],
@@ -71,6 +97,7 @@ export default {
               'Touch en vergroting',
             ],
             'Meer leren',
+            ['Overzicht', 'Toegankelijkheid in andere design systems'],
           ],
           'Foundations',
           'Components',

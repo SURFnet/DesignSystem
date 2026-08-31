@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Toegankelijkheid/Introductie/Verschillende beperkingen (persona's)/Kleurenblind"
+  name="Ongelabelde grafieken"
+/>
+
+# Ongelabelde grafieken
+
+Een grafiek die series alleen in kleur onderscheidt, is voor
+[wie geen kleurverschil ziet](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s--overzicht)
+één lijn. Voor wie de pagina beluistert, is er helemaal geen grafiek.
+
+## Het probleem
+
+Een legenda met gekleurde vlakjes, lijnen zonder patroon, taartpunten zonder naam in de slice:
+de betekenis zit in de tint. In grijstinten vallen de series samen. Een screenreader krijgt
+hooguit `alt="grafiek"` of de bestandsnaam, niet de conclusie.
+
+Dat is twee persona's tegelijk: kleurenblind én
+[blind](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-blind-screenreadergebruiker--afbeeldingen-zonder-beschrijving).
+Wie vergroot, loopt bovendien tegen
+[tekst in de afbeelding](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-slechtziend-vergroting--tekst-in-afbeeldingen)
+aan als de assen in pixels zitten.
+
+## De oplossing
+
+Maak de grafiek leesbaar zonder kleur, en geef de boodschap ook als tekst.
+
+- Direct label op de lijn of staaf ("WO 2024"), niet alleen een gekleurde legenda.
+- Patroon of vorm per serie: stippellijn, driehoek, arcering.
+- De conclusie in de lopende tekst: "Aanmeldingen stegen van 120 naar 340."
+- Een data-tabel ernaast of achter een "Toon tabel"-knop, met kopcellen.
+- Alt-tekst of een `figcaption` die de conclusie noemt, niet "staafdiagram van aanmeldingen".
+
+```html
+<figure>
+  <img
+    src="aanmeldingen.svg"
+    alt="Aanmeldingen stegen van 120 in januari naar 340 in juni"
+  />
+  <figcaption>
+    Aanmeldingen 2026, per maand. WO steeg het sterkst; HBO bleef nagenoeg gelijk.
+  </figcaption>
+</figure>
+```
+
+Een interactieve grafiek (SVG, canvas) heeft dezelfde eisen: elke serie een naam, toetsenbordtoegang
+tot datapunt of tabel, geen betekenis alleen in kleur. Zie ook
+[Status alleen in kleur](?path=/docs/toegankelijkheid-introductie-verschillende-beperkingen-persona-s-kleurenblind--status-alleen-in-kleur).
