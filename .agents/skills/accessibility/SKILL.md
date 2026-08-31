@@ -112,4 +112,4 @@ like a linter: fast and useful, but not a substitute for real assistive-tech che
 | Claude Code | `.claude/skills/accessibility/` |
 | Other agents | `.agents/skills/accessibility/` |
 
-Download the full folder from Curve Storybook: **Toegankelijkheid → Do's en don'ts → Wanneer je gebruik maakt van AI**.
+Download the full folder from Curve Storybook: **Curve → Voor developers → Je werk testen → Wanneer je gebruik maakt van AI**.

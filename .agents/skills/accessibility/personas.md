@@ -4,9 +4,9 @@
 WCAG-criteria daadwerkelijk sturen, en ze lopen elk op andere fouten vast. Gebruik ze om te
 voorspellen welk criterium een ontwerp breekt door je voor te stellen wie er niet langs komt.
 
-| Persona                      | Hoe diegene een scherm gebruikt                        | Waar het misgaat                                                      |
+| Persona                      | Hoe diegene jouw website gebruikt                        | Waar het misgaat                                                      |
 | ---------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------- |
-| Blind, screenreadergebruiker | Alleen toetsenbord, luistert; navigeert op kop en link | Naamloze knoppen, `div`-knoppen, betekenis die alleen zichtbaar is    |
+| Blind, screenreadergebruiker | Alleen toetsenbord, luistert; navigeert via koppen en links | Naamloze knoppen, `div`-knoppen, betekenis die alleen zichtbaar is    |
 | Slechtziend, vergroting      | 200–400% zoom, hoog contrast, grote letters            | Vaste breedtes, te licht contrast, tekst in afbeeldingen              |
 | Kleurenblind                 | Ziet de opmaak, niet het kleurverschil                 | Status alleen in kleur, rood/groen-combinaties, ongelabelde grafieken |
 | Doof of slechthorend         | Leest in plaats van luistert                           | Video zonder ondertiteling, geluidssignalen, geen transcript          |

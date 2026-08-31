@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Taalwissels zonder markering" />
+
+# Taalwissels zonder markering
+
+Voorleessoftware, vertaaltools en de browser moeten weten in welke taal de tekst staat. Zonder
+markering spreekt een Nederlandse stem Engels fonetisch uit, of andersom — ook voor wie
+[vergroot of laat voorlezen](?path=/docs/curve-voor-developers--robuust-bouwen).
+
+## Het probleem
+
+Een citaat, een knoplabel, een `aria-label` of een vakterm in een andere taal midden in een
+Nederlandse zin: zonder `lang` blijft de stem op Nederlands staan. "Submit" wordt "submit" met
+een Nederlandse u, "SURFconext" een onverstaanbare klank. Wisselt het product van taal via een
+taalselector, maar blijft `lang="nl"` op `<html>` staan, dan is de hele Engelstalige pagina
+onverstaanbaar.
+
+Hetzelfde geldt voor toegankelijke namen. Een Nederlandse pagina met `aria-label="Close"` of
+`alt="Search"` leest die woorden Nederlands voor. Ontbreekt `lang` op `<html>` helemaal, dan
+raadt de software de taal, en raadt ze het vaak mis. WCAG 3.1.1 eist een taal op de pagina,
+3.1.2 op delen die afwijken.
+
+## De oplossing
+
+Zet de taal van het document, markeer afwijkingen, en houd toegankelijke namen in dezelfde taal.
+
+```html
+<html lang="nl">
+  <body>
+    <p>
+      Log in via
+      <span lang="en">SURFconext</span>.
+    </p>
+    <blockquote lang="en">
+      <p>The service will be unavailable on Sunday.</p>
+    </blockquote>
+    <button type="button" aria-label="Zoeken">
+      <svg aria-hidden="true"><!-- vergrootglas --></svg>
+    </button>
+  </body>
+</html>
+```
+
+- Eén `lang` op `<html>` die overeenkomt met de hoofdtaal van de pagina.
+- Een citaat, UI-string of vakterm in een andere taal krijgt een eigen `lang`.
+- Wisselt het product van taal, dan verandert `lang` op `<html>` mee.
+- `aria-label`, skiplinktekst en alt-tekst horen in dezelfde taal als de pagina, tenzij je die
+  ook markeert.
+
+Dit is geen werk dat je aan een component uit Curve overlaat. Het is een eigenschap van het
+document.

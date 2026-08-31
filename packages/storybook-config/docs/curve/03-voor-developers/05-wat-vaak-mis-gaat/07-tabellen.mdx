@@ -1,0 +1,76 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Tabellen zonder koppen" />
+
+# Tabellen zonder koppen
+
+Een [screenreadergebruiker](?path=/docs/curve-voor-developers--robuust-bouwen)
+navigeert een tabel per cel, en hoort bij elke cel de bijbehorende kop. Zonder kopcellen is een
+tabel een reeks losse woorden. Met een tabel als layout is de pagina een doolhof.
+
+## Het probleem
+
+Een `table` om twee kolommen naast elkaar te zetten, een raster van `div`s dat eruitziet als een
+tabel, of een gegevensoverzicht waarvan de eerste rij visueel vet is maar uit `td`s bestaat: de
+relatie tussen rij, kolom en waarde zit dan alleen in de pixels.
+
+Wie de tabel beluistert, hoort "104, 2026, betaald" zonder te weten wat die getallen zijn. Wie
+vergroot, krijgt bij een layout-tabel horizontale scroll of cellen die hun inhoud afsnijden.
+Samengevoegde cellen zonder `headers` of `scope` maken de route nog korter stuk.
+
+WCAG 1.3.1 (Info and Relationships) eist dat die relaties in de opmaak zitten. Dit is geen
+Curve-component. Het is een keuze in de HTML, en die moet kloppen voordat de pagina "af" is.
+
+## De oplossing
+
+Gebruik een tabel alleen als rijen en kolommen bij elkaar horen. Niet om iets mooi naast elkaar
+te zetten.
+
+```html
+<!-- Niet doen: layout, geen kopcellen -->
+<table>
+  <tr>
+    <td><strong>Nummer</strong></td>
+    <td><strong>Status</strong></td>
+  </tr>
+  <tr>
+    <td>2026-104</td>
+    <td>Betaald</td>
+  </tr>
+</table>
+
+<!-- Wel doen: gegevens, kopcellen, bijschrift -->
+<table>
+  <caption>
+    Openstaande facturen
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Nummer</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">2026-104</th>
+      <td>Betaald</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+- Layout is CSS (`flex`, `grid`), nooit `<table>`.
+- Elke kolom (en bij een complexe tabel elke rij) heeft een `<th>` met `scope`.
+- Een `<caption>` zegt waar de tabel over gaat. Die vervangt de paginakop niet. Bijschriften bij
+  afbeeldingen zijn `<figcaption>`: zie
+  [Ontbrekende bijschriften](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--ontbrekende-bijschriften).
+- Zet de conclusie ook in de lopende tekst als de tabel een grafiek ondersteunt: zie
+  [Ongelabelde grafieken](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--ongelabelde-grafieken).
+- Lever een gegevens-tabel niet aan als plaatje. Wie vergroot of beluistert, komt er dan niet
+  bij — zie
+  [Tekst in afbeeldingen](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--tekst-in-afbeeldingen).
+
+Controleer in DevTools → **Elements** → **Accessibility**: elke cel moet een naam hebben die de
+kop meeneemt. De rest van de
+[pagina-structuur](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--ontbrekende-pagina-structuur)
+is koppen en landmarks; een tabel is alleen het raster daarbinnen.

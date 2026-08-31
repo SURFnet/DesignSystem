@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Slechte alt-tekst" />
+
+# Slechte alt-tekst
+
+Een alt-tekst is geen bijschrift voor wie de afbeelding wél ziet. Het is de afbeelding, voor wie
+de pagina [beluistert](?path=/docs/curve-voor-developers--robuust-bouwen).
+Beschrijf de betekenis in deze context, niet de pixels.
+
+## Het probleem
+
+Zonder `alt` leest een screenreader vaak de bestandsnaam voor: "grafiek-q3-final-v2.png". Met
+`alt="afbeelding"` of `alt="icoon"` weet de luisteraar dat er iets is, niet wat het betekent.
+Het omgekeerde is ook een probleem: een sfeerfoto mét een uitgebreide beschrijving onderbreekt
+de inhoud met iets dat niets toevoegt, of herhaalt de alinea ernaast.
+
+Tekst _in_ een afbeelding (een poster, een meme, een scan) zit vast in pixels. Wie vergroot of
+een eigen lettertype gebruikt, komt er niet bij — zie
+[Tekst in afbeeldingen](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--tekst-in-afbeeldingen).
+
+## De oplossing
+
+Beschrijf wat de afbeelding in deze context overbrengt. Is er niets over te brengen, dan is de
+afbeelding decoratief.
+
+```html
+<!-- Decoratief: wordt overgeslagen -->
+<img src="golf.svg" alt="" />
+
+<!-- Informatief: de conclusie, niet de kleuren -->
+<img src="aanmeldingen.svg" alt="Aanmeldingen stegen van 120 in januari naar 340 in juni" />
+
+<!-- Icoonknop: de actie, niet het icoon. De alt-tekst in dit voorbeeld wordt de "tekst" van de knop. -->
+<button type="button">
+  <img src="trash.svg" alt="Factuur verwijderen" />
+</button>
+
+<!-- Logo van de organisatie in de header geeft aan welke actie de gebruiker kan verwachten als de link wordt geactiveerd -->
+<a href="https://www.surf.nl">
+    <img src="surf-logo.svg" alt="Logo SURF, ga naar de homepage" />
+ </a>
+```
+
+| Situatie                                      | Alt-tekst                                                |
+| --------------------------------------------- | -------------------------------------------------------- |
+| Decoratief (sfeer, scheiding, herhaald icoon) | Leeg: `alt=""`. De afbeelding wordt overgeslagen         |
+| Foto die sfeer toevoegt, geen informatie      | Leeg, of één korte zin als de foto wél iets beweert      |
+| Knop of link die alleen een icoon is          | De actie: "Factuur verwijderen", niet "prullenbak-icoon" |
+| Grafiek of infographic                        | De conclusie: "Aanmeldingen stegen van 120 naar 340", met aanvullende data in een tabel vlakbij de grafiek     |
+| Screenshot in een handleiding                 | Wat je eruit moet halen, niet "screenshot van stap 3"    |
+| Logo van de organisatie in de header          | De organisatienaam, één keer                             |
+
+Niet doen: `alt="afbeelding"`, `alt="icoon"`, een bestandsnaam, of de eerste alinea van het
+artikel ernaast herhalen. Staat de informatie al in de lopende tekst, dan is de afbeelding
+decoratief.
+
+Een bijschrift is extra uitleg voor iedereen. Die vervangt de alt-tekst niet: zie
+[Ontbrekende bijschriften](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--ontbrekende-bijschriften).
+Hoe je een informatieve afbeelding zelf laat vergroten, staat bij
+[Touch en vergroting](?path=/docs/curve-voor-designers--touch-en-vergroting).
+Ontbreekt het attribuut helemaal, dan is dat
+[Afbeeldingen zonder beschrijving](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--afbeeldingen-zonder-beschrijving).

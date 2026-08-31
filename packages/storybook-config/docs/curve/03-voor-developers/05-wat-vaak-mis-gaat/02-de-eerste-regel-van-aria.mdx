@@ -1,0 +1,92 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Teveel ARIA" />
+
+# Teveel ARIA
+
+> Geen ARIA is beter dan slechte ARIA.
+
+Dat is de eerste regel van ARIA, in de woorden van het W3C zelf. Wie de pagina
+[beluistert](?path=/docs/curve-voor-developers--robuust-bouwen)
+krijgt beloftes die jij in JavaScript moet nakomen. Native HTML komt die beloftes al na.
+
+## Het probleem
+
+Grootschalige scans laten stelselmatig zien dat pagina's mét ARIA gemiddeld _méér_ aantoonbare
+toegankelijkheidsfouten bevatten dan pagina's zonder: niet omdat de attributen op zichzelf
+schadelijk zijn, maar omdat ernaar grijpen een symptoom is van het verkeerde element bouwen.
+
+ARIA verandert wat hulpsoftware over een element te horen krijgt. Meer niet. Het voegt **geen
+gedrag** toe: `role="button"` maakt een element niet focusbaar, niet activeerbaar met
+
+<kbd>Enter</kbd> en niet indrukbaar met <kbd>Spatie</kbd>. Het voegt **geen opmaak** toe:
+`aria-expanded="true"` opent niets.
+
+Een `div` met `role="button"` staat niet betrouwbaar in de knoppenlijst van een screenreader, werkt
+niet met spraakbesturing, en mist het toetsenbordcontract. Dat is erger dan
+[een knop zonder naam](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--naamloze-knoppen):
+het element liegt over wat het is.
+
+## De oplossing
+
+**Geeft een bestaand HTML-element of -attribuut je de semantiek en het gedrag dat je nodig hebt,
+gebruik dat dan in plaats van een element te herbestemmen en er ARIA op te plakken.**
+
+```html
+<!-- Niet doen: drie attributen, een toetsafhandelaar, en nog steeds geen knop -->
+<div role="button" tabindex="0" onclick="opslaan()" onkeydown="...">Opslaan</div>
+
+<!-- Wel doen -->
+<button type="button" onclick="opslaan()">Opslaan</button>
+```
+
+De native variant is focusbaar, staat in de tabvolgorde, reageert op <kbd>Enter</kbd> en
+
+<kbd>Spatie</kbd>, wordt aangekondigd als knop, werkt met spraakbesturing, respecteert de
+hoog-contrastmodus van het besturingssysteem, en verschijnt wanneer een screenreadergebruiker om een
+lijst met knoppen vraagt.
+
+De vijf regels van het W3C dekken de fouten die volgen zodra ARIA onvermijdelijk is.
+
+**2. Verander de native semantiek niet, tenzij het echt moet.** Heb je een kop nodig die als tab
+werkt, zet de tab dan in de kop in plaats van de rol van de kop te overschrijven.
+
+```html
+<!-- Niet doen -->
+<h2 role="tab">Facturatie</h2>
+
+<!-- Wel doen -->
+<h2><div role="tab">Facturatie</div></h2>
+```
+
+**3. Alle bedienbare ARIA-elementen moeten met het toetsenbord werken.** Geef je iets
+`role="slider"`, dan ben je pijltoetsen, <kbd>Home</kbd> en <kbd>End</kbd> verschuldigd. Een rol
+zonder het bijbehorende toetsenbordcontract is een leugen.
+
+**4. Zet nooit `role="presentation"` of `aria-hidden="true"` op een focusbaar element.** Dat levert
+een element op dat een toetsenbordgebruiker wel kan bereiken en een screenreader niet kan
+beschrijven: de focus landt op niets.
+
+```html
+<!-- Niet doen: bereikbaar met Tab, onzichtbaar voor een screenreader -->
+<button aria-hidden="true">Sluiten</button>
+
+<!-- Wel doen: verberg het icoon, benoem de knop -->
+<button type="button" aria-label="Sluiten">
+  <svg aria-hidden="true">...</svg>
+</button>
+```
+
+**5. Elk bedienbaar element heeft een toegankelijke naam nodig.** Uit de eigen tekst, een `label`,
+`aria-label` of `aria-labelledby`. Zie
+[Naamloze knoppen](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--naamloze-knoppen).
+
+Vrijwel alle ARIA die je anders zou schrijven, is in Curve al geregeld. Base UI (React) en de
+Brain-laag van Spartan (Angular) implementeren het WAI-ARIA-patroon per component. Betrap je
+jezelf erop dat je `role`, `aria-expanded` of `aria-selected` aan een Curve-component toevoegt,
+stop dan: of het component zet het al, of je gebruikt het verkeerde component.
+
+Bouw je iets dat Curve niet heeft, gebruik dan het patroon uit de
+[ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/). Wat er legitiem
+overblijft — benoemen, beschrijven, live regions en status — staat in
+[Verkeerde ARIA](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--verkeerde-aria).

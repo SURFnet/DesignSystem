@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Curve/Voor developers/Wat vaak mis gaat"
+  name="Video die automatisch afspeelt"
+/>
+
+# Video die automatisch afspeelt
+
+Een [screenreadergebruiker](?path=/docs/curve-voor-developers--robuust-bouwen)
+luistert naar de pagina. Een video die vanzelf begint, praat daaroverheen.
+
+## Het probleem
+
+Automatisch geluid vecht met de spraak van de screenreader. De gebruiker hoort twee stemmen
+tegelijk, kwijt de plek in de pagina, en moet eerst een pauzeknop vinden die hij niet kan zien.
+
+Hetzelfde geldt voor achtergrondvideo met geluid, een hero-loop, of een chatbot die ongevraagd
+begint te praten. Wie het geluid niet kan pauzeren binnen een paar seconden, kan de rest van de
+pagina niet gebruiken. WCAG 1.4.2 (Audio Control) eist dat je dat geluid kunt stoppen.
+
+Bewegend beeld zonder geluid is minder luid, maar nog steeds een afleiding. Dat raakt vooral de
+[cognitieve persona](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--automatische-beweging).
+
+## De oplossing
+
+Speel niets af totdat iemand erom vraagt. Geen `autoplay`, en al helemaal niet met geluid.
+
+```html
+<!-- Niet doen -->
+<video src="intro.mp4" autoplay muted loop></video>
+
+<!-- Wel doen: stilstaand beeld, gebruiker start zelf -->
+<video src="intro.mp4" controls poster="intro.jpg">
+  <track kind="captions" src="intro.nl.vtt" srclang="nl" label="Nederlands" />
+</video>
+```
+
+Moet iets wél vanzelf lopen (een stille sfeerloop), dan: zonder geluid, pauzeerbaar, en stil bij
+`prefers-reduced-motion`. De pauzeknop moet met het toetsenbord bereikbaar zijn en een naam hebben.
+
+Ondertiteling, transcript en audiodescriptie staan bij
+[Video en audio](?path=/docs/curve-voor-designers--video-en-audio).

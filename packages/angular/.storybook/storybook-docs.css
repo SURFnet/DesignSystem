@@ -1,7 +1,5 @@
 /* Restore list markers inside docs prose; Tailwind preflight strips them globally. */
-.sbdocs-wrapper.sbdocs-wrapper {
-  padding: 1rem;
-}
+
 .sbdocs-content ul,
 .sbdocs-content ol {
   list-style: revert;
@@ -46,6 +44,7 @@
 .sbdocs-content table :where(th, td) {
   font-size: 1rem;
   vertical-align: top;
+  text-align: left;
 }
 .sbdocs-content.sbdocs-content h2 {
   margin-block-start: 2rem;

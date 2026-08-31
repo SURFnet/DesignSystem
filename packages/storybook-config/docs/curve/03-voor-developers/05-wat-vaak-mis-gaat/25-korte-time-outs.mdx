@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Korte time-outs" />
+
+# Korte time-outs
+
+Wie [langzamer navigeert](?path=/docs/curve-voor-developers--robuust-bouwen)
+— switch, oogbesturing, toetsenbord, een pauze om te lezen — loopt vast op een sessie of een
+carrousel die vanzelf verdergaat.
+
+## Het probleem
+
+Een inlog die na twee minuten verloopt, een melding die na drie seconden verdwijnt, een
+cookie-banner die zichzelf sluit, een quiz met een countdown: de gebruiker was nog bezig. Met een
+switch kan één keuze tientallen seconden duren. Met een screenreader duurt voorlezen langer dan
+overzien.
+
+WCAG 2.2.1 (Timing Adjustable) eist dat je tijdslimieten kunt uitzetten, aanpassen of verlengen,
+tenzij de limiet essentieel is (een veiling, een realtime-toets). Een sessie om beveiligingsredenen
+mag verlopen, maar niet zonder waarschuwing en een manier om te verlengen.
+
+Dit raakt ook de
+[cognitieve persona](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--tijdsdruk):
+tijdsdruk zelf is het probleem, niet alleen de motoriek.
+
+## De oplossing
+
+Geef tijd, of geef controle over de tijd.
+
+- Sessie: waarschuw vóór het verlopen, met een knop "Blijf ingelogd". Bewaar wat al is ingevuld.
+- Toasts en banners: blijven staan tot iemand ze sluit, of minstens lang genoeg om te lezen én te
+  handelen. Geen informatie die alleen in een verdwijnende melding zit.
+- Carrousels: niet automatisch doorschuiven, of pauzeren bij focus/hover en een pauze-knop.
+- Formulieren: geen countdown. Als die er toch moet zijn, minstens 20 uur of verlengbaar.
+
+```html
+<dialog aria-labelledby="sessie-titel">
+  <h2 id="sessie-titel">Je sessie verloopt over 2 minuten</h2>
+  <p>Je voortgang blijft bewaard als je ingelogd blijft.</p>
+  <button type="button">Blijf ingelogd</button>
+</dialog>
+```
+
+Niets mag afhangen van hoe snel iemand de muis haalt. Dezelfde tien minuten als de
+[handmatige ronde](?path=/docs/curve-voor-developers-je-werk-testen--handmatig-testen):
+wacht eens twintig seconden op een scherm, en kijk wat er vanzelf gebeurt.

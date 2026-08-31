@@ -1,6 +1,6 @@
-// The Foundations / Accessibility pages are framework-agnostic prose, so they
-// live as shared MDX in `docs/accessibility/` and are pulled into both
-// Storybooks via their `stories` globs — no copy is exported from here.
+// Shared MDX docs (Curve, accessibility) are framework-agnostic prose, so they
+// live in `docs/` and are pulled into both Storybooks via their `stories`
+// globs — no copy is exported from here.
 export { FRAMEWORKS, frameworkGlobalTypes, frameworkSwitcher } from './frameworks.js';
 export type { Framework, FrameworkTarget } from './frameworks.js';
 export { THEME_NAMES, themeGlobalTypes, themeInitialGlobals, themeSwitcher } from './themes.js';
