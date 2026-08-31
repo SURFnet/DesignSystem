@@ -1,5 +1,23 @@
 # @surfnet/curve-react-app
 
+## 0.3.0
+
+### Minor Changes
+
+- 02d3c7c: Added multiple new components
+
+### Patch Changes
+
+- Updated dependencies [59d72e3]
+- Updated dependencies [a2792df]
+- Updated dependencies [aed7d3b]
+- Updated dependencies [3c533d0]
+- Updated dependencies [0468c9a]
+- Updated dependencies [02d3c7c]
+- Updated dependencies [f511046]
+  - @surfnet/curve-react@0.3.0
+  - @surfnet/curve-tokens@0.3.0
+
 ## 0.2.2
 
 ### Patch Changes
