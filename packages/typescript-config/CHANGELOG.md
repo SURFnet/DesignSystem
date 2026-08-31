@@ -1,5 +1,11 @@
 # @surfnet/curve-typescript-config
 
+## 0.3.0
+
+### Minor Changes
+
+- 02d3c7c: Added multiple new components
+
 ## 0.2.2
 
 ## 0.2.1

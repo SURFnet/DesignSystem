@@ -1,5 +1,19 @@
 # @surfnet/curve-storybook-config
 
+## 0.3.0
+
+### Minor Changes
+
+- 02d3c7c: Added multiple new components
+
+### Patch Changes
+
+- Updated dependencies [a2792df]
+- Updated dependencies [0468c9a]
+- Updated dependencies [02d3c7c]
+- Updated dependencies [f511046]
+  - @surfnet/curve-tokens@0.3.0
+
 ## 0.2.2
 
 ### Patch Changes
