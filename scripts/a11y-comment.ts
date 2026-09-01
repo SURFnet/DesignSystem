@@ -195,8 +195,10 @@ function buildBody(): string {
   // step, and callers just render without an image in that case.
   const img = (url: string | undefined, alt: string): string =>
     url ? `<img src="${url}" alt="${alt.replace(/"/g, '')}">` : '';
-  const details = (summary: string, body: string): string =>
-    `<details open><summary>${summary}</summary>\n\n${body}\n\n</details>`;
+  const details = (summary: string, body: string, name?: string): string => {
+    const nameAttr = name ? ` name="${name.replace(/"/g, '&quot;')}"` : '';
+    return `<details open${nameAttr}><summary>${summary}</summary>\n\n${body}\n\n</details>`;
+  };
 
   const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
@@ -271,17 +273,13 @@ function buildBody(): string {
         details(
           `<strong>${component}</strong> — ${variationsCount(variations)} finding(s)`,
           lines.join('\n').trim(),
+          component,
         ),
       );
     }
 
-    // Nested <blockquote> is the reliable way to indent inside GitHub comments
-    // (style attributes are stripped; a wrapping list would add bullets).
     sections.push(
-      details(
-        `<strong>${framework}</strong> — ${fwCount} finding(s)`,
-        `<blockquote>\n\n${blocks.join('\n\n')}\n\n</blockquote>`,
-      ),
+      details(`<strong>${framework}</strong> — ${fwCount} finding(s)`, blocks.join('\n\n')),
     );
   }
 
