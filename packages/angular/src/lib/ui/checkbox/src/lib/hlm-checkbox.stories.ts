@@ -30,7 +30,7 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-			<hlm-checkbox inputId="testCheckbox" checked [disabled]="disabled" />
+			<hlm-checkbox inputId="testCheckbox" checked [disabled]="disabled" aria-label="Checkbox" />
 		`,
   }),
 };
