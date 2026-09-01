@@ -2,8 +2,13 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCaretDown, phosphorX } from '@ng-icons/phosphor-icons/regular';
-import { BrnComboboxImports, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
+import {
+  BrnComboboxImports,
+  BrnComboboxPopoverTrigger,
+  injectBrnComboboxBase,
+} from '@spartan-ng/brain/combobox';
 import { HlmInputGroupImports } from '../../../input-group/src';
+import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
 
 @Component({
   selector: 'hlm-combobox-input',
@@ -26,9 +31,13 @@ import { HlmInputGroupImports } from '../../../input-group/src';
       <hlm-input-group-addon align="inline-end">
         @if (showTrigger()) {
           <button
+            aria-label="Open combobox"
+            aria-haspopup="listbox"
             brnComboboxPopoverTrigger
             hlmInputGroupButton
             data-slot="input-group-button"
+            [attr.aria-expanded]="_isExpanded() ? 'true' : 'false'"
+            [attr.aria-controls]="_listboxId"
             [disabled]="comboboxInput.disabled()"
             size="icon-xs"
             variant="ghost"
@@ -46,6 +55,7 @@ import { HlmInputGroupImports } from '../../../input-group/src';
             [disabled]="comboboxInput.disabled()"
             size="icon-xs"
             variant="ghost"
+            aria-label="Clear"
           >
             <ng-icon name="phosphorX" />
           </button>
@@ -58,6 +68,10 @@ import { HlmInputGroupImports } from '../../../input-group/src';
 })
 export class HlmComboboxInput {
   private static _id = 0;
+
+  private readonly _combobox = injectBrnComboboxBase();
+  protected readonly _listboxId = injectHlmComboboxListboxId();
+  protected readonly _isExpanded = this._combobox.isExpanded;
 
   public readonly inputId = input<string>(`hlm-combobox-input-${HlmComboboxInput._id++}`);
   public readonly placeholder = input<string>('');
