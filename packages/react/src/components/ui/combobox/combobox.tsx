@@ -15,7 +15,7 @@ import { CaretDownIcon, XIcon, CheckIcon } from '@phosphor-icons/react';
 
 const ComboboxListboxIdContext = React.createContext<string | undefined>(undefined);
 
-function Combobox(props: ComboboxPrimitive.Root.Props) {
+function Combobox(props: React.ComponentProps<typeof ComboboxPrimitive.Root>) {
   const listboxId = React.useId();
 
   return (
