@@ -44,7 +44,6 @@ export default {
             'Voor developers',
             [
               'Curve gebruiken',
-              'Toegankelijkheid',
               'Robuust bouwen',
               'Je werk testen',
               [
@@ -87,6 +86,7 @@ export default {
               ],
               'Meer leren',
             ],
+            'Toegankelijkheid',
             'Updates en releases',
             'Changelog en beslissingen',
           ],
