@@ -13,16 +13,34 @@ import {
 } from '@/components/ui/input-group';
 import { CaretDownIcon, XIcon, CheckIcon } from '@phosphor-icons/react';
 
-const Combobox = ComboboxPrimitive.Root;
+const ComboboxListboxIdContext = React.createContext<string | undefined>(undefined);
+
+function Combobox(props: React.ComponentProps<typeof ComboboxPrimitive.Root>) {
+  const listboxId = React.useId();
+
+  return (
+    <ComboboxListboxIdContext.Provider value={listboxId}>
+      <ComboboxPrimitive.Root {...props} />
+    </ComboboxListboxIdContext.Provider>
+  );
+}
 
 function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
 }
 
-function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Trigger.Props) {
+function ComboboxTrigger({
+  className,
+  children,
+  'aria-controls': ariaControlsProp,
+  ...props
+}: ComboboxPrimitive.Trigger.Props) {
+  const listboxId = React.useContext(ComboboxListboxIdContext);
+
   return (
     <ComboboxPrimitive.Trigger
-      data-slot="combobox-trigger"
+      aria-label="Open combobox"
+      aria-controls={ariaControlsProp ?? listboxId}
       className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
       {...props}
     >
@@ -32,9 +50,14 @@ function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Tr
   );
 }
 
-function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
+function ComboboxClear({
+  className,
+  'aria-label': ariaLabel = 'Clear',
+  ...props
+}: ComboboxPrimitive.Clear.Props) {
   return (
     <ComboboxPrimitive.Clear
+      aria-label={ariaLabel}
       data-slot="combobox-clear"
       render={<InputGroupButton variant="ghost" size="icon-xs" />}
       className={cn(className)}
@@ -61,13 +84,11 @@ function ComboboxInput({
       <ComboboxPrimitive.Input render={<InputGroupInput disabled={disabled} />} {...props} />
       <InputGroupAddon align="inline-end">
         {showTrigger && (
-          <InputGroupButton
-            size="icon-xs"
-            variant="ghost"
-            render={<ComboboxTrigger />}
+          <ComboboxTrigger
             data-slot="input-group-button"
             className="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
             disabled={disabled}
+            render={<InputGroupButton size="icon-xs" variant="ghost" disabled={disabled} />}
           />
         )}
         {showClear && <ComboboxClear disabled={disabled} />}
@@ -114,9 +135,12 @@ function ComboboxContent({
   );
 }
 
-function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
+function ComboboxList({ className, id, ...props }: ComboboxPrimitive.List.Props) {
+  const listboxId = React.useContext(ComboboxListboxIdContext);
+
   return (
     <ComboboxPrimitive.List
+      id={id ?? listboxId}
       data-slot="combobox-list"
       className={cn(
         'no-scrollbar max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0',

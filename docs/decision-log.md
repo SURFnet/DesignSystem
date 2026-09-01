@@ -46,6 +46,7 @@ the replacement.
 | 17  | [Prove it in a real app](#adr-017--prove-it-in-a-real-app)                                                           | Proposed | 2026-06-30 |
 | 18  | [Relative imports for vendored helm cross-references](#adr-018--relative-imports-for-vendored-helm-cross-references) | Accepted | 2026-07-01 |
 | 19  | [Only add components available in both frameworks](#adr-019--only-add-components-available-in-both-frameworks)       | Accepted | 2026-07-13 |
+| 20  | [Keep Command off Storybook until we use it](#adr-020--keep-command-off-storybook-until-we-use-it)                   | Accepted | 2026-09-01 |
 
 ### Open questions (not yet decided)
 
@@ -452,3 +453,32 @@ here than let per-framework drift creep in one component at a time.
 - **Typography** — decide whether this becomes a real component (e.g. `Heading`/`Text`
   wrapper components with contract-enforced size/weight scales) or stays documentation-only
   (a Storybook foundations page, like the existing Design Tokens stories) before building it.
+
+---
+
+## ADR-020 — Keep Command off Storybook until we use it
+
+**Status:** Accepted · **Date:** 2026-09-01
+
+**Context.** Command is vendored in both frameworks (`@surfnet/curve-react` and
+`@surfnet/curve-angular`) because shadcn and Spartan ship it as a primitive. We don't
+intend to offer it as a public, documented component yet — there is no product use for
+a command palette — but ADR-016/013 would otherwise require a Storybook story for every
+shipped component. Leaving those stories in place surfaces Command in the catalog and
+the a11y audit as if it were ready for consumers.
+
+**Decision.** Keep the Command **implementation** in both packages (and still export it),
+but **do not document it in Storybook**. The React and Angular story files were removed
+so Command stays out of the sidebar, Docs, and the a11y sweep.
+
+**Rationale.** Storybook is the living catalog (ADR-013). Showing a component we are not
+ready to stand behind is more confusing than keeping the code "under water" until there
+is a real use. Deleting stories rather than deleting the component avoids re-vendoring
+later.
+
+**Consequences.** Command is an explicit exception to "every component gets a story"
+(ADR-016). Bring it back when we decide to use it: restore
+`packages/react/src/components/ui/command/command.stories.tsx` and
+`packages/angular/src/lib/ui/command/src/lib/hlm-command.stories.ts` (git history has the
+last versions), covering the full surface the way the other components do. Until then,
+treat Command as internal plumbing, not a documented Curve component.

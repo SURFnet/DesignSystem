@@ -20,6 +20,8 @@ import { classes } from '../../../utils/src';
         class="w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
         [id]="inputId()"
         [placeholder]="placeholder()"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
       />
 
       <hlm-input-group-addon>
@@ -31,6 +33,12 @@ import { classes } from '../../../utils/src';
 export class HlmCommandInput {
   public readonly inputId = input<string | undefined>();
   public readonly placeholder = input<string>('');
+
+  /** Accessible name applied to the underlying combobox input. */
+  public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
+
+  /** Accessible name applied to the underlying combobox input via a visible label. */
+  public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
   constructor() {
     classes(() => 'p-1 pb-0');

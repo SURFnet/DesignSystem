@@ -59,7 +59,7 @@ export const WithTextPrefix: Story = {
         </InputGroupAddon>
         <InputGroupInput placeholder="example.com" className="pl-1!" />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton className="rounded-full" size="icon-xs">
+          <InputGroupButton className="rounded-full" size="icon-xs" aria-label="Open tooltip">
             <InfoIcon />
           </InputGroupButton>
         </InputGroupAddon>
@@ -105,13 +105,23 @@ export const TextareaWithBlockEndToolbar: Story = {
   render: () => (
     <div className="w-full max-w-sm">
       <InputGroup>
-        <InputGroupTextarea placeholder="Ask, search or chat…" />
+        <InputGroupTextarea aria-label="Ask, search or chat…" placeholder="Ask, search or chat…" />
         <InputGroupAddon align="block-end">
-          <InputGroupButton variant="outline" className="rounded-full" size="icon-xs">
+          <InputGroupButton
+            variant="outline"
+            className="rounded-full"
+            size="icon-xs"
+            aria-label="Add"
+          >
             <PlusIcon />
           </InputGroupButton>
           <InputGroupText className="ml-auto">52% used</InputGroupText>
-          <InputGroupButton variant="default" className="rounded-full" size="icon-xs" disabled>
+          <InputGroupButton
+            variant="default"
+            className="rounded-full"
+            size="icon-xs"
+            aria-label="Send"
+          >
             <PaperPlaneTiltIcon />
             <span className="sr-only">Send</span>
           </InputGroupButton>

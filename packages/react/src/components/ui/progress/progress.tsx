@@ -8,6 +8,7 @@ function Progress({ className, children, value, ...props }: ProgressPrimitive.Ro
   return (
     <ProgressPrimitive.Root
       value={value}
+      role="progressbar"
       data-slot="progress"
       className={cn('flex flex-col gap-1.5', className)}
       {...props}

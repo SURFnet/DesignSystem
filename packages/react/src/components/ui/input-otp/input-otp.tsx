@@ -9,21 +9,53 @@ import { MinusIcon } from '@phosphor-icons/react';
 function InputOTP({
   className,
   containerClassName,
+  value,
+  defaultValue,
+  onChange,
+  maxLength,
+  completeAnnouncement = 'Verification code complete',
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
+  /** Screen-reader announcement when every slot is filled, including after paste. */
+  completeAnnouncement?: string;
 }) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState(() =>
+    typeof defaultValue === 'string' ? defaultValue : '',
+  );
+  const currentValue = value !== undefined ? value : uncontrolledValue;
+
   return (
-    <OTPInput
-      data-slot="input-otp"
-      containerClassName={cn(
-        'cn-input-otp flex items-center has-disabled:opacity-50',
-        containerClassName,
-      )}
-      spellCheck={false}
-      className={cn('disabled:cursor-not-allowed', className)}
-      {...props}
-    />
+    <>
+      <OTPInput
+        data-slot="input-otp"
+        containerClassName={cn(
+          'cn-input-otp flex items-center has-disabled:opacity-50',
+          containerClassName,
+        )}
+        spellCheck={false}
+        className={cn('disabled:cursor-not-allowed', className)}
+        {...props}
+        value={value}
+        defaultValue={defaultValue}
+        maxLength={maxLength}
+        onChange={(next) => {
+          if (value === undefined) {
+            setUncontrolledValue(next);
+          }
+          onChange?.(next);
+        }}
+      />
+      <div
+        data-slot="input-otp-status"
+        role="status"
+        aria-live="polite"
+        aria-atomic
+        className="sr-only"
+      >
+        {currentValue.length === maxLength ? completeAnnouncement : ''}
+      </div>
+    </>
   );
 }
 

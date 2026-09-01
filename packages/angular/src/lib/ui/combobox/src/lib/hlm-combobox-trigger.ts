@@ -25,6 +25,7 @@ import type { ClassValue } from 'clsx';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
+      aria-label="Open combobox trigger"
       brnComboboxTrigger
       brnComboboxAnchor
       brnComboboxPopoverTrigger

@@ -11,14 +11,8 @@ import type { ClassValue } from 'clsx';
   providers: [provideIcons({ phosphorDotsThree })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span
-      data-slot="breadcrumb-ellipsis"
-      role="presentation"
-      aria-hidden="true"
-      [class]="_computedClass()"
-    >
+    <span data-slot="breadcrumb-ellipsis" aria-hidden="true" [class]="_computedClass()">
       <ng-icon hlm size="sm" name="phosphorDotsThree" />
-      <span class="sr-only">{{ srOnlyText() }}</span>
     </span>
   `,
 })

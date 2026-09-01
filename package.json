@@ -14,6 +14,7 @@
     "storybook": "turbo run storybook",
     "build-storybook": "turbo run build-storybook",
     "lint": "turbo run lint",
+    "test:a11y": "turbo run test:a11y:ci",
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\"",
     "changeset": "changeset",
