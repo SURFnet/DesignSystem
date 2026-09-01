@@ -255,6 +255,7 @@ function buildBody(): string {
   const sections: string[] = [];
   for (const [framework, components] of [...tree].sort(byKey)) {
     const fwCount = [...components.values()].reduce((n, vs) => n + variationsCount(vs), 0);
+    const pkg = framework.replace(/^@surfnet\/curve-/, '');
 
     const blocks: string[] = [];
     for (const [component, variations] of [...components].sort(byKey)) {
@@ -289,7 +290,7 @@ function buildBody(): string {
         details(
           `<strong>${component}</strong> — ${variationsCount(variations)} finding(s)${note}`,
           lines.join('\n').trim(),
-          component,
+          pkg,
         ),
       );
     }
