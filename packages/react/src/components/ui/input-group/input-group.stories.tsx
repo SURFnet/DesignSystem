@@ -59,7 +59,7 @@ export const WithTextPrefix: Story = {
         </InputGroupAddon>
         <InputGroupInput placeholder="example.com" className="pl-1!" />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton className="rounded-full" size="icon-xs">
+          <InputGroupButton className="rounded-full" size="icon-xs" aria-label="Open tooltip">
             <InfoIcon />
           </InputGroupButton>
         </InputGroupAddon>
