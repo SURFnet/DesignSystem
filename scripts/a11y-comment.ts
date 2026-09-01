@@ -195,6 +195,8 @@ function buildBody(): string {
   // step, and callers just render without an image in that case.
   const img = (url: string | undefined, alt: string): string =>
     url ? `<img src="${url}" alt="${alt.replace(/"/g, '')}">` : '';
+  const details = (summary: string, body: string): string =>
+    `<details open><summary>${summary}</summary>\n\n${body}\n\n</details>`;
 
   const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
@@ -239,9 +241,9 @@ function buildBody(): string {
 
     const blocks: string[] = [];
     for (const [component, variations] of [...components].sort(byKey)) {
-      const lines = [`#### ${component} — ${variationsCount(variations)} finding(s)`];
+      const lines: string[] = [];
       for (const [variation, data] of [...variations].sort(byKey)) {
-        lines.push('', `##### ${variation} — ${findingCount(data)} finding(s)`);
+        lines.push(`#### ${variation} — ${findingCount(data)} finding(s)`);
 
         // Theme-independent findings: one line each, flagged as such.
         for (const [rule, entry] of [...data.structural].sort(byKey)) {
@@ -263,12 +265,23 @@ function buildBody(): string {
             if (thumb) lines.push(`    ${thumb}`);
           }
         }
+        lines.push('');
       }
-      blocks.push(lines.join('\n'));
+      blocks.push(
+        details(
+          `<strong>${component}</strong> — ${variationsCount(variations)} finding(s)`,
+          lines.join('\n').trim(),
+        ),
+      );
     }
 
+    // Nested <blockquote> is the reliable way to indent inside GitHub comments
+    // (style attributes are stripped; a wrapping list would add bullets).
     sections.push(
-      `<details open><summary><strong>${framework}</strong> — ${fwCount} finding(s)</summary>\n\n${blocks.join('\n\n')}\n\n</details>`,
+      details(
+        `<strong>${framework}</strong> — ${fwCount} finding(s)`,
+        `<blockquote>\n\n${blocks.join('\n\n')}\n\n</blockquote>`,
+      ),
     );
   }
 
