@@ -231,6 +231,21 @@ function buildBody(): string {
   const findingCount = (d: VariationData) => d.structural.size + themedCount(d);
   const variationsCount = (vs: VariationMap) =>
     [...vs.values()].reduce((n, d) => n + findingCount(d), 0);
+  // True when every finding on the component is color-contrast /
+  // color-contrast-enhanced — no structural or other themed rules.
+  const contrastOnly = (vs: VariationMap): boolean => {
+    let found = false;
+    for (const data of vs.values()) {
+      if (data.structural.size > 0) return false;
+      for (const leaves of data.themed.values()) {
+        for (const leaf of leaves) {
+          found = true;
+          if (!leaf.rule.startsWith('color-contrast')) return false;
+        }
+      }
+    }
+    return found;
+  };
   // Light before dark, then anything else alphabetically.
   const modeRank = (m: string) => (m === 'light' ? 0 : m === 'dark' ? 1 : 2);
   const byKey = ([a]: [string, unknown], [b]: [string, unknown]) => a.localeCompare(b);
@@ -269,9 +284,10 @@ function buildBody(): string {
         }
         lines.push('');
       }
+      const note = contrastOnly(variations) ? ' · <em>color-contrast only</em>' : '';
       blocks.push(
         details(
-          `<strong>${component}</strong> — ${variationsCount(variations)} finding(s)`,
+          `<strong>${component}</strong> — ${variationsCount(variations)} finding(s)${note}`,
           lines.join('\n').trim(),
           component,
         ),
