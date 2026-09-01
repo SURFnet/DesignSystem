@@ -36,6 +36,10 @@ const meta = {
     },
   },
   argTypes: {
+    label: {
+      control: 'text',
+      description: 'Accessible name for the command menu. Not shown visibly.',
+    },
     loop: {
       control: 'boolean',
       description:
@@ -47,6 +51,7 @@ const meta = {
     },
   },
   args: {
+    label: 'Type a command or search...',
     loop: false,
     shouldFilter: true,
   },
@@ -100,7 +105,7 @@ export const Default: Story = {
   ),
 };
 
-/** When no item matches the search query, `CommandEmpty` renders in its place. */
+/** When no item matches the search query, `CommandEmpty` is shown and announced to screen readers. */
 export const Empty: Story = {
   render: () => (
     <Command className="w-[320px] rounded-lg border shadow-md">
