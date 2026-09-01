@@ -66,9 +66,9 @@ export const Default: Story = {
     props: args,
     template: `
       <hlm-command ${argsToTemplate(args)} class="w-[320px] rounded-lg border shadow-md">
-        <hlm-command-input placeholder="Type a command or search..." />
+        <hlm-command-input placeholder="Type a command or search..." aria-label="Type a command or search..." />
         <hlm-command-list>
-          <div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+          <div hlmCommandEmpty>No results found.</div>
           <hlm-command-group>
             <hlm-command-group-label>Suggestions</hlm-command-group-label>
             <button hlm-command-item value="calendar">
@@ -109,14 +109,14 @@ export const Default: Story = {
   }),
 };
 
-/** When no item matches the search query, the `hlmCommandEmptyState` view renders in its place. */
+/** When no item matches the search query, `hlmCommandEmpty` is shown and announced to screen readers. */
 export const Empty: Story = {
   render: () => ({
     template: `
       <hlm-command [search]="'xyz'" class="w-[320px] rounded-lg border shadow-md">
-        <hlm-command-input placeholder="Search for something that doesn't exist..." />
+        <hlm-command-input placeholder="Search for something that doesn't exist..." aria-label="Search for something that doesn't exist..." />
         <hlm-command-list>
-          <div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+          <div hlmCommandEmpty>No results found.</div>
           <hlm-command-group>
             <hlm-command-group-label>Suggestions</hlm-command-group-label>
             <button hlm-command-item value="calendar">
@@ -135,9 +135,9 @@ export const DisabledItem: Story = {
   render: () => ({
     template: `
       <hlm-command class="w-[320px] rounded-lg border shadow-md">
-        <hlm-command-input placeholder="Type a command or search..." />
+        <hlm-command-input placeholder="Type a command or search..." aria-label="Type a command or search..." />
         <hlm-command-list>
-          <div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+          <div hlmCommandEmpty>No results found.</div>
           <hlm-command-group>
             <hlm-command-group-label>Settings</hlm-command-group-label>
             <button hlm-command-item value="profile">
@@ -183,9 +183,12 @@ export const DisabledItem: Story = {
     </button>
     <hlm-command-dialog [state]="state()" (stateChange)="state.set($event)">
       <hlm-command>
-        <hlm-command-input placeholder="Type a command or search..." />
+        <hlm-command-input
+          placeholder="Type a command or search..."
+          aria-label="Type a command or search..."
+        />
         <hlm-command-list>
-          <div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+          <div hlmCommandEmpty>No results found.</div>
           <hlm-command-group>
             <hlm-command-group-label>Suggestions</hlm-command-group-label>
             <button hlm-command-item value="calendar" (selected)="state.set('closed')">

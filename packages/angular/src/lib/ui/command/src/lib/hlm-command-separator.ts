@@ -7,6 +7,8 @@ import { classes } from '../../../utils/src';
   hostDirectives: [BrnCommandSeparator],
   host: {
     'data-slot': 'command-separator',
+    '[attr.role]': '"presentation"',
+    '[attr.aria-hidden]': 'true',
   },
 })
 export class HlmCommandSeparator {
