@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Ontbreken van unieke pagina-titel" />
+
+# Ontbreken van unieke pagina-titel
+
+De paginatitel is het eerste dat een
+[screenreader](?path=/docs/curve-voor-developers--robuust-bouwen)
+voorleest, en wat in het tabblad staat. Zonder unieke titel is elke pagina dezelfde pagina.
+
+## Het probleem
+
+Elk tabblad zegt "Mijn SURF". Wie vijf tabbladen open heeft, moet ze allemaal openen om de juiste
+te vinden. Een screenreadergebruiker hoort bij elke navigatie opnieuw de productnaam, niet waar
+die terecht is gekomen. In een single-page-app blijft de titel vaak hangen op de eerste view:
+na drie stappen in een wizard zegt het tabblad nog "Aanvragen".
+
+WCAG 2.4.2 (Page Titled) eist een titel die het onderwerp of doel beschrijft. Dit is geen
+Curve-component. Het is een eigenschap van het document, en het moet kloppen voordat de pagina
+"af" is.
+
+## De oplossing
+
+Maak de titel uniek, met het onderwerp eerst. Werk hem bij bij iedere route.
+
+```html
+<!-- Niet doen: elke pagina hetzelfde -->
+<title>Mijn SURF</title>
+
+<!-- Wel doen: onderwerp eerst, product daarna -->
+<title>Factuur 2026-104 - Mijn SURF</title>
+```
+
+- Eén titel per weergave, niet per layout.
+- Het unieke deel vooraan: "Facturen - Mijn SURF", niet "Mijn SURF - Facturen". In een tabblad
+  is de staart het eerst afgekapt.
+- Bij een wizard of een gefilterde lijst hoort de stap of de filter in de titel: "Stap 2 van 4:
+  Controleer je gegevens - Aanvragen".
+- Verandert de view zonder herladen, dan verandert `document.title` mee. Anders blijft de
+  screenreader de oude pagina aankondigen.
+
+Controleer het door drie pagina's in tabbladen te openen. Kun je ze uit elkaar houden zonder ze
+te activeren, dan klopt de titel. De rest van de
+[pagina-structuur](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--ontbrekende-pagina-structuur)
+is de inhoudsopgave; de titel is de naam op de kaft.

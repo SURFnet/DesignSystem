@@ -1,0 +1,113 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor designers" name="Robuust ontwerpen" />
+
+# Robuust ontwerpen
+
+De meeste toegankelijkheidsfouten zijn niet bijzonder. Een handvol terugkerende missers verklaart het
+overgrote deel van wat audits vinden, en ze zijn allemaal niet zo moeilijk te voorkomen als je weet waar je op
+moet letten. Veel daarvan ontstaan in het ontwerp, nog voordat er een regel code is.
+
+Uitwerking van tekst, media en vergroting staat bij
+[Microcopy](?path=/docs/curve-voor-designers--microcopy),
+[Validatie van formulieren](?path=/docs/curve-voor-designers--validatie-van-formulieren),
+[Video en audio](?path=/docs/curve-voor-designers--video-en-audio)
+en
+[Touch en vergroting](?path=/docs/curve-voor-designers--touch-en-vergroting).
+
+## Persona's
+
+Dit is een lijst met verschillende beperkingen die je moet overwegen wanneer je een website ontwerpt. Het is geen volledige lijst, en van sommige beperkingen wordt een beeld geschetst van hoe diegene gebruik _kan_ maken van je website.
+
+| Persona                      | Hoe diegene jouw website gebruikt                      | Waar het misgaat in het ontwerp                                                                  |
+| ---------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| Blind, screenreadergebruiker | Alleen toetsenbord, luistert; navigeert via koppen en links | Icoonknoppen zonder naam, formuliervelden zonder label, alleen "Lees meer" links |
+| Slechtziend, vergroting      | 200–400% zoom, hoog contrast, grote letters            | Vaste breedtes, te licht contrast, tekst in afbeeldingen                                         |
+| Kleurenblind                 | Ziet de opmaak, niet het kleurverschil                 | Status alleen in kleur, rood/groen-combinaties, grafieken zonder beschrijving                           |
+| Doof of slechthorend         | Leest in plaats van luistert                           | Video zonder ondertiteling, geen transcript                                                      |
+| Beperkte motoriek            | Toetsenbord, switch, spraak of oogbesturing            | Kleine klikdoelen, objecten die alleen gesleept kunnen worden, hover-menu's                                                   |
+| Cognitief of neurodivergent  | Heeft rust, voorspelbaarheid en eenvoud nodig          | Jargon, veel animaties, tijdsdruk, vage foutmeldingen                                     |
+| Tijdelijk of situationeel    | Van alles, kort en onhandig                            | Alles hierboven, op het slechtst denkbare moment                                                 |
+
+## Blind, screenreadergebruiker
+
+Gebruikt NVDA, JAWS, VoiceOver of TalkBack en ziet de opmaak nooit. De pagina wordt als structuur
+opgenomen: een lijst met koppen, een lijst met links, en dan pas inhoud. Visuele groepering
+betekent niets als die niet in de hiërarchie van het ontwerp zit.
+
+Wat dit van je vraagt: koppen in een logische volgorde, niet omdat het formaat klopt. Elk bedienbaar
+element een zichtbaar tekstlabel. Icoonknoppen die in het ontwerp al een naam meekrijgen, anders
+wordt er "knop" voorgelezen. Alternatieve tekst die vertelt wat een afbeelding overbrengt, niet wat
+erop staat. Hoe je labels schrijft, staat bij
+[Microcopy](?path=/docs/curve-voor-designers--microcopy).
+Hoe je alt-tekst schrijft, staat bij
+[Slechte alt-tekst](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--slechte-alt-tekst).
+
+## Slechtziend, vergroting
+
+Zoomt tot 200% of verder, of zet het besturingssysteem op grote letters. Bij 400% zoom op een viewport
+van 1280px is jouw desktoplayout nog ongeveer 320px breed: het WCAG-criterium Reflow zegt dat de
+inhoud daar moet blijven werken, in één scrollrichting, zonder dat er iets wegvalt.
+
+Wat dit van je vraagt: layouts die meebewegen in plaats van horizontaal scrollen, tekst die 200%
+vergroting overleeft zonder over elkaar te vallen, contrast van minimaal 4,5:1 voor lopende tekst en
+3:1 voor interface-elementen en iconen, en geen essentiële tekst die in een afbeelding zit. Hoe je
+zoom en informatieve afbeeldingen aanpakt, staat bij
+[Touch en vergroting](?path=/docs/curve-voor-designers--touch-en-vergroting).
+
+## Kleurenblind
+
+Ongeveer 8% van de mannen en 0,5% van de vrouwen heeft een vorm van kleurenblindheid, meestal
+rood/groen. Zij zien jouw opmaak prima; wat wegvalt is het onderscheid dat je in kleur hebt gestopt.
+
+Wat dit van je vraagt: laat kleur nooit de enige manier zijn waarop je informatie communiceert. Combineer het met een icoon, een label,
+een patroon of een positie. Een invoerveld dat rood kleurt is onzichtbaar; een veld dat rood kleurt,
+een waarschuwingsicoon krijgt en de zin "Vul een geldig e-mailadres in" toont, werkt voor iedereen.
+
+## Doof of slechthorend
+
+Leest in plaats van luistert. Beschrijft ook iedereen in een kantoortuin zonder koptelefoon.
+
+Wat dit van je vraagt: ondertiteling bij alles waarin gesproken wordt, transcripten bij audio, en geen
+statuswijziging die alleen met geluid wordt aangekondigd. Uitwerking staat bij
+[Video en audio](?path=/docs/curve-voor-designers--video-en-audio).
+
+## Beperkte motoriek
+
+Een brede groep: tremor, RSI, bediening met één hand, een switch, spraakbesturing, oogbesturing. Wat ze
+delen is dat nauwkeurig aanwijzen duur of onmogelijk is.
+
+Wat dit van je vraagt: klikdoelen van minimaal 24×24 CSS-pixels (44×44 is comfortabel). Alles wat je
+met slepen kunt doen, moet ook met één klik kunnen. Inhoud die alleen bij hover verschijnt is
+onbereikbaar: toon die ook bij focus, en zorg dat je hem kunt wegklikken zonder de muis te verplaatsen.
+Ontwerp een zichtbare focusring, en haal hem niet weg omdat hij niet bij het ontwerp past. De visuele
+volgorde moet gelijk zijn aan de leesvolgorde. Maten, telefoon en gebaren staan bij
+[Touch en vergroting](?path=/docs/curve-voor-designers--touch-en-vergroting).
+
+## Cognitief of neurodivergent
+
+Dyslexie, ADHD, autisme, verschillen in geheugen of verwerkingssnelheid, angst: en iedereen onder
+druk. Dit is de grootste groep, en niets ervan is in de pixels te zien.
+
+Wat dit van je vraagt: gewone taal in plaats van slimme taal, navigatie en knoppen die steeds op
+dezelfde plek staan, geen onverwachte beweging of automatisch afspelen, ruime of verlengbare
+tijdslimieten, foutmeldingen die het probleem én de oplossing noemen, en niets dat afhangt van wat
+iemand zich uit een vorige stap herinnert. Hoe je die teksten schrijft, staat bij
+[Microcopy](?path=/docs/curve-voor-designers--microcopy)
+en
+[Validatie van formulieren](?path=/docs/curve-voor-designers--validatie-van-formulieren).
+
+## Tijdelijk of situationeel
+
+Een gebroken arm, een ooginfectie, een kind op de arm, een gebarsten scherm, fel zonlicht, een tunnel.
+Niemand hiervan noemt zichzelf beperkt, en ze lopen allemaal tegen dezelfde drempels aan.
+
+Dit is het curb-cut-effect: ondertiteling wordt gebruikt in stille kantoren, groot lettertype door
+mensen buiten, grote klikdoelen met één hand op een perron. Werk dat je voor de persona's hierboven
+doet, is zelden alleen voor hen.
+
+Toets een scherm tegen een situationele vraag, niet alleen tegen een diagnose:
+
+- Kan ik dit met één hand, op een telefoon, in fel licht?
+- Kan ik dit zonder geluid, zonder muis, zonder kleur?
+- Kan ik dit als ik de vorige stap alweer ben vergeten?

@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Afbeeldingen zonder beschrijving" />
+
+# Afbeeldingen zonder beschrijving
+
+Wie de pagina [beluistert](?path=/docs/curve-voor-developers--robuust-bouwen)
+ziet de afbeelding nooit. De alt-tekst ís de afbeelding.
+
+## Het probleem
+
+Zonder `alt` leest een screenreader vaak de bestandsnaam voor: "grafiek-q3-final-v2.png". Met
+`alt="afbeelding"` of `alt="icoon"` weet de luisteraar dat er iets is, niet wat het betekent. Een
+informatieve grafiek zonder beschrijving valt gewoon weg.
+
+Het omgekeerde is ook een probleem: een sfeerfoto of een decoratief scheidingslijntje mét een
+uitgebreide alt-tekst onderbreekt de inhoud met iets dat niets toevoegt.
+
+## De oplossing
+
+Beschrijf wat de afbeelding in deze context overbrengt, niet de pixels. Is er niets over te brengen,
+dan is de afbeelding decoratief.
+
+```html
+<!-- Decoratief: wordt overgeslagen -->
+<img src="golf.svg" alt="" />
+
+<!-- Informatief: de conclusie, niet de kleuren -->
+<img src="aanmeldingen.svg" alt="Aanmeldingen stegen van 120 in januari naar 340 in juni" />
+
+<!-- Icoonknop: de actie, niet het icoon -->
+<button type="button" aria-label="Factuur verwijderen">
+  <img src="trash.svg" alt="" />
+</button>
+```
+
+| Situatie                         | Alt-tekst                    |
+| -------------------------------- | ---------------------------- |
+| Sfeer, scheiding, herhaald icoon | Leeg: `alt=""`               |
+| Grafiek of infographic           | De conclusie in één zin      |
+| Screenshot in een handleiding    | Wat je eruit moet halen      |
+| Logo in de header                | De organisatienaam, één keer |
+
+Niet doen: `alt="afbeelding"`, een bestandsnaam, of de alinea ernaast herhalen. Meer voorbeelden
+staan bij
+[Slechte alt-tekst](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--slechte-alt-tekst).

@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Geen transcript" />
+
+# Geen transcript
+
+Een podcast, een interview, een gesproken toelichting: zonder tekst blijft er voor wie
+[niet hoort](?path=/docs/curve-voor-developers--robuust-bouwen)
+niets over.
+
+## Het probleem
+
+Ondertiteling helpt bij video, omdat je het beeld nog hebt. Bij alleen audio is er geen beeld.
+Zonder transcript is de opname ontoegankelijk, en onbruikbaar voor iedereen die wil zoeken, citeren
+of op eigen tempo lezen.
+
+Een status die alleen een piepje is ("upload klaar") heeft hetzelfde gat: wie het geluid mist, merkt
+niets. WCAG 1.2.1 eist een tekstalternatief voor vooraf opgenomen audio.
+
+## De oplossing
+
+Zet de hele inhoud als tekst op dezelfde pagina, of direct ernaast achter een duidelijke link
+("Lees het transcript").
+
+- Bij **alleen audio** is het transcript het enige alternatief.
+- Bij **video** is het een extra: doorzoekbaar, citeerbaar, leesbaar zonder de speler.
+- Een **geluidssignaal** voor status hoort altijd een zichtbare tekst of een icoon met naam naast
+  zich te hebben.
+
+```html
+<audio src="interview.mp3" controls></audio>
+<p><a href="#transcript">Lees het transcript</a></p>
+<section id="transcript">
+  <h2>Transcript</h2>
+  <p>Interviewer: Wanneer gaat de nieuwe inschrijfperiode open?</p>
+  <p>Gast: Op 1 september, om 09:00.</p>
+</section>
+```
+
+Controle: zet het geluid uit en lees alleen het transcript. Mis je een handeling, een schema of een
+resultaat dat alleen getoond of gezegd werd, dan is de tekst te dun. Uitwerking staat bij
+[Video en audio](?path=/docs/curve-voor-designers--video-en-audio).

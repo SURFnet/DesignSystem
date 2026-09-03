@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Kleine klikdoelen" />
+
+# Kleine klikdoelen
+
+Wie [niet nauwkeurig kan aanwijzen](?path=/docs/curve-voor-developers--robuust-bouwen)
+— tremor, RSI, één hand, een switch, een duim in de trein — mist een doel van 16 pixels, of raakt
+het doel ernaast.
+
+## Het probleem
+
+Icoonknoppen in een toolbar, een sluitkruis in een hoek, checkboxes zonder ruime hit-area, links die
+tegen elkaar aan staan: het klikvlak is kleiner dan de motoriek toelaat. Per ongeluk tikken is dan
+geen slordigheid, het is het ontwerp.
+
+WCAG 2.2 vraagt minimaal **24×24 CSS-pixels** (2.5.8). **44×44** is comfortabel: wat je duim haalt
+zonder te mikken, en wat Apple en Android al jaren als richtlijn geven. Twee 24-pixel-iconen tegen
+elkaar aan zijn nog steeds één verkeerde tik.
+
+## De oplossing
+
+Maak het klikvlak groot genoeg, en houd ruimte tussen doelen.
+
+- Padding telt. Een 16-pixel-icoon in een 44-pixel-knop is in orde.
+- Zet ruimte _tussen_ knoppen, niet alleen grotere iconen.
+- Curve-componenten zitten aan de ruime kant. Knijp ze niet in met `p-0` of een vaste `h-6`.
+- Een tekstlink in een alinea mag kleiner, omdat de regel ernaast per ongeluk tikken ondervangt.
+  Losse icoonknoppen hebben die ruimte niet.
+
+```html
+<!-- Niet doen: icoon is het hele doel -->
+<button type="button" class="size-4" aria-label="Sluiten">
+  <svg><!-- kruis --></svg>
+</button>
+
+<!-- Wel doen: het klikvlak is groter dan de tekening -->
+<button type="button" class="size-11" aria-label="Sluiten">
+  <svg aria-hidden="true"><!-- kruis --></svg>
+</button>
+```
+
+Test op een echt toestel, of in de apparaatmodus met je vinger in plaats van een muis. Tik de
+sluitknop, de secundaire actie, de checkbox in een lijst. Uitwerking staat bij
+[Touch en vergroting](?path=/docs/curve-voor-designers--touch-en-vergroting).

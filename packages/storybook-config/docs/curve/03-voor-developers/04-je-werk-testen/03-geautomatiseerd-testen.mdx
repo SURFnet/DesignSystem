@@ -1,0 +1,148 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Je werk testen" name="Geautomatiseerd testen" />
+
+# Geautomatiseerd testen
+
+Automatisering bestaat om te voorkomen dat je dezelfde fout steeds opnieuw ontdekt. Het vertelt je niet
+of je interface ergens op slaat, maar het vindt wél elke keer, op elke branch en gratis het ontbrekende
+label, de tekst met 3:1 contrast en de dubbele `id`.
+
+Vier lagen, van goedkoop naar duur.
+
+## 1. Linten tijdens het typen
+
+Een linter vangt een hele categorie fouten op bij de cursor, nog voordat er een browser aan te pas komt.
+Zet de regelset aan die bij jouw templatetaal hoort, en schakel regels niet uit zonder een benoemde,
+beoordeelde uitzondering.
+
+<dl>
+  <dt>React / JSX</dt>
+  <dd>
+    <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y">eslint-plugin-jsx-a11y</a>,{' '}
+    <code>recommended</code> of <code>strict</code>.
+  </dd>
+  <dt>Angular</dt>
+  <dd>
+    De templateregels van{' '}
+    <a href="https://github.com/angular-eslint/angular-eslint">angular-eslint</a> (
+    <code>@angular-eslint/template-accessibility-*</code>).
+  </dd>
+  <dt>Editor</dt>
+  <dd>
+    De axe Accessibility Linter-extensie voor VS Code / Cursor markeert problemen in HTML en JSX
+    terwijl je typt.
+  </dd>
+</dl>
+
+Linters zien alleen statische opmaak, dus ze kunnen niet weten dat bij `role="tab"` het bijbehorende
+`tabpanel` ontbreekt. Het blijft het waardevolste uur dat je eraan besteedt.
+
+## 2. De Storybook-addon voor toegankelijkheid
+
+Beide Curve-Storybooks bevatten
+[`@storybook/addon-a11y`](https://storybook.js.org/docs/writing-tests/accessibility-testing), die
+axe-core loslaat op de weergegeven story. Open het paneel **Accessibility** in de addonbalk terwijl je
+een component bekijkt.
+
+Dit is de beste plek om contrast- en naamgevingsproblemen te vinden, omdat een story het component
+isoleert van de ruis van een volledige pagina. Projecten die Curve gebruiken, doen er goed aan dezelfde
+addon in hun eigen Storybook te zetten.
+
+Een component los bekijken legt bovendien iets bloot dat een volledige pagina verbergt: een component
+dat alleen toegankelijk is dankzij opmaak die zijn ouder toevallig meelevert.
+
+## 3. Component- en end-to-endtests
+
+Laat axe los op weergegeven UI in je tests. Probeer niet elke pixel van de applicatie te scannen: dek de
+routes af die ertoe doen: inloggen, de belangrijkste formulieren, navigatie, en elke dialoog of overlay.
+
+<dl>
+  <dt>Componenttests</dt>
+  <dd>
+    <a href="https://github.com/nickcolley/jest-axe">jest-axe</a> of <code>vitest-axe</code> op een
+    weergegeven component.
+  </dd>
+  <dt>End-to-end</dt>
+  <dd>
+    <a href="https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright">
+      @axe-core/playwright
+    </a>{' '}
+    of <code>cypress-axe</code> op de belangrijkste gebruikersroutes.
+  </dd>
+  <dt>Storybook</dt>
+  <dd>
+    De test runner kan de a11y-controles voor elke story in CI uitvoeren, wat je met nauwelijks
+    schrijfwerk brede dekking oplevert.
+  </dd>
+</dl>
+
+Test op meer dan axe wanneer het gedrag specifiek is. axe kan niet vaststellen dat de focus in de dialoog
+belandde, dat <kbd>Esc</kbd> hem sloot en dat de focus terugkeerde naar de knop: een test wel:
+
+```ts
+await userEvent.click(screen.getByRole('button', { name: 'Instellingen openen' }));
+const dialog = screen.getByRole('dialog', { name: 'Instellingen' });
+expect(dialog).toContainElement(document.activeElement);
+
+await userEvent.keyboard('{Escape}');
+expect(dialog).not.toBeInTheDocument();
+expect(screen.getByRole('button', { name: 'Instellingen openen' })).toHaveFocus();
+```
+
+Zoeken op rol en toegankelijke naam, zoals hierboven, is zelf al een toegankelijkheidstest: kan
+`getByRole('button', { name: ... })` jouw knop niet vinden, dan een screenreader ook niet.
+
+## 4. Continuous integration
+
+Controles die alleen lokaal draaien, worden overgeslagen zodra de druk oploopt. Zet een dunne, betrouwbare
+selectie op elke pull request en laat de tragere scans op `main` of 's nachts draaien.
+
+<dl>
+  <dt>Elke pull request</dt>
+  <dd>Linten inclusief a11y-regels, plus unittests met axe-asserties.</dd>
+  <dd>Een korte Playwright- of Cypress-run met axe op de belangrijkste routes.</dd>
+  <dt>
+    's Nachts of op <code>main</code>
+  </dt>
+  <dd>
+    De toegankelijkheidscategorie van{' '}
+    <a href="https://github.com/GoogleChrome/lighthouse-ci">Lighthouse CI</a>,{' '}
+    <a href="https://github.com/pa11y/pa11y-ci">pa11y-ci</a>, of een volledige run van de Storybook
+    test runner.
+  </dd>
+</dl>
+
+Laat de build falen op nieuwe fouten in de code die wordt aangeraakt. Houd bekende problemen bij als
+issues met een eigenaar, niet als een permanent rode pipeline die iedereen heeft leren negeren.
+
+## Wat hier allemaal niet uit komt
+
+Alles wat een afweging vraagt: of de kopstructuur een verhaal vertelt, of iets een link had moeten zijn,
+of de tabvolgorde het ontwerp volgt, of de foutmelding helpt, of de flow werkt met een screenreader.
+Automatisering verkleint de handmatige ronde: zie
+[Handmatig testen](?path=/docs/curve-voor-developers-je-werk-testen--handmatig-testen): maar
+schaft hem nooit af.
+
+
+## Gereedschap
+
+- [axe DevTools](https://www.deque.com/axe/devtools/): browserextensie; dezelfde motor als de
+  Storybook-addon en de CI-packages.
+- [Accessibility Insights](https://accessibilityinsights.io/): begeleide handmatige controles, met een
+  visualisatie van de tabvolgorde die focusproblemen meteen zichtbaar maakt.
+- [WAVE](https://wave.webaim.org/extension/): zet de bevindingen op de pagina zelf; handig om iemand
+  zonder technische achtergrond te laten zien wat er mis is.
+- [Colour Contrast Analyser](https://www.tpgi.com/color-contrast-checker/): om een ontwerp te
+  controleren voordat het gebouwd wordt.
+- [NVDA](https://www.nvaccess.org/download/): gratis screenreader voor Windows; na JAWS de meest
+  gebruikte.
+- [VoiceOver-handleiding (WebAIM)](https://webaim.org/articles/voiceover/): hoe je de screenreader
+  bedient die al op je Mac staat.
+
+## Testen en CI
+
+- [axe-core](https://github.com/dequelabs/axe-core): de regelmotor, inclusief welke regels bestaan en wat
+  ze niet kunnen zien.
+- [WebAIM Million](https://webaim.org/projects/million/): het jaarlijkse onderzoek naar een miljoen
+  homepages. Ontnuchterend, en bruikbaar als je moet onderbouwen waarom hier tijd naartoe gaat.

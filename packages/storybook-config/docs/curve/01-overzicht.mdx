@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve" name="Overzicht" />
+
+# Curve
+
+Curve is het design system van SURF. Eén verzameling componenten, kleuren, typografie en richtlijnen
+die alle SURF-producten delen, zodat je niet in elk project opnieuw een knop, een dialoog of een
+formulier hoeft te bedenken.
+
+Deze Storybook is de plek waar je ziet wat er is, hoe het eruitziet en hoe je het gebruikt.
+
+## Waarom een design system
+
+- **Consistentie.** Een gebruiker die van het ene SURF-product naar het andere gaat, herkent de
+  interface. Dezelfde knop doet hetzelfde en ziet er hetzelfde uit.
+- **Snelheid.** Componenten zijn al ontworpen, gebouwd en getest. Je begint niet vanaf nul.
+- **[Toegankelijkheid](?path=/docs/curve--toegankelijkheid).** Toetsenbordgebruik, focus-indicatoren
+  en juiste rollen zitten in de componenten ingebouwd. Dat scheelt werk en voorkomt fouten die
+  anders pas laat opvallen.
+- **Onderhoud op één plek.** Een verbetering in een component komt in alle producten terecht die de
+  nieuwe versie installeren.
+
+## Waaruit bestaat Curve
+
+| Onderdeel                | Wat het is                                            | Voor wie                |
+| ------------------------ | ----------------------------------------------------- | ----------------------- |
+| `@surfnet/curve-react`   | De componenten voor React-projecten                   | Developers              |
+| `@surfnet/curve-angular` | Dezelfde componenten voor Angular-projecten           | Developers              |
+| Design tokens            | Kleuren, typografie, spacing en radius als variabelen | Designers en developers |
+| Deze Storybook           | Documentatie, voorbeelden en richtlijnen              | Iedereen                |
+
+De twee component-packages zijn bewust gescheiden: elk project gebruikt de versie die bij zijn
+framework past. Ze zien er hetzelfde uit en heten hetzelfde, omdat ze dezelfde design tokens en
+dezelfde afspraken over varianten gebruiken.
+
+## Twee frameworks, dezelfde componenten
+
+Een knop in React en een knop in Angular hebben dezelfde varianten (`default`, `outline`, `secondary`,
+`ghost`, `destructive`, `link`) en dezelfde maten. Dat wordt tijdens het bouwen automatisch gecontroleerd: staat er in het ene framework
+een variant die het andere niet heeft, dan faalt de build. Zo kunnen de twee packages niet stilletjes
+uit elkaar groeien.
+
+Rechtsboven in de werkbalk staat een **Framework**-schakelaar. Daarmee spring je naar dezelfde
+component in de Storybook van het andere framework.
+
+## Waar vind je wat
+
+- **Curve** — deze sectie: wat het design system is, hoe toegankelijkheid zit ingebouwd, hoe je het
+  gebruikt, en hoe updates werken.
+- **Voor designers** — Figma, microcopy, video, touch en vergroting.
+- **Voor developers** — installeren, thema's, en wat je zelf nog moet doen om toegankelijk te bouwen.
+- **Foundations** — de basis: design tokens (kleur, typografie, spacing).
+- **Components** — elk component met zijn varianten, states en voorbeelden. Op elke component-pagina
+  vind je onder **Docs** de eigenschappen die je kunt instellen.
+
+## Meedoen
+
+- Ben je **designer**? Begin bij [Voor designers](?path=/docs/curve-voor-designers--overzicht).
+- Ben je **developer**? Begin bij [Voor developers](?path=/docs/curve-voor-developers--curve-gebruiken).
+- Wil je weten hoe Curve toegankelijkheid aanpakt? Zie
+  [Toegankelijkheid](?path=/docs/curve--toegankelijkheid).
+- Wil je weten hoe nieuwe versies verschijnen? Zie
+  [Updates en releases](?path=/docs/curve--updates-en-releases).
+- Wil je weten hoe de changelog eruit ziet? Zie
+  [Changelog en beslissingen](?path=/docs/curve--changelog-en-beslissingen).

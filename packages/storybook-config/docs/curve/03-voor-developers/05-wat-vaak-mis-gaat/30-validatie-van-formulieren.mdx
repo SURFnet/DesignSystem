@@ -1,0 +1,71 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Onduidelijke validatie" />
+
+# Onduidelijke validatie
+
+"Ongeldige invoer" zegt dat er iets mis is, niet wát, en niet hoe het wél moet. Wie
+[onder druk staat of de vorige stap is vergeten](?path=/docs/curve-voor-developers--robuust-bouwen)
+heeft beide nodig, bij het veld waar het misging, in een vorm die ook voorgelezen wordt.
+
+## Het probleem
+
+Een rood veld zonder zin, een `disabled` verzendknop zonder uitleg, of een melding bovenin de
+pagina terwijl de fout onderin zit: de gebruiker moet gokken. Verwijzen naar "het rode veld" of
+"hierboven" valt weg voor wie
+[geen kleur ziet](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--status-alleen-in-kleur)
+of de pagina beluistert.
+
+Technisch gaat het nóg vaker mis. De melding staat ernaast maar is niet gekoppeld, dus een
+screenreader leest het veld voor als geldig. Na een mislukte verzending blijft de focus op de
+knop. Wat al was ingevuld, is weg. WCAG 3.3.1 en 3.3.3 vragen dat fouten geïdentificeerd worden
+én dat je een suggestie krijgt.
+
+## De oplossing
+
+Noem het probleem én de oplossing, in gewone taal, bij het veld. Koppel de melding, markeer het
+veld, en verplaats de focus.
+
+```html
+<!-- Niet doen: alleen een rode rand, knop uitgeschakeld, niks gekoppeld -->
+<input type="email" class="border-red-600" />
+<button type="submit" disabled>Versturen</button>
+
+<!-- Wel doen: label, melding, invalid, beschrijving -->
+<label for="email">E-mailadres</label>
+<input id="email" type="email" aria-invalid="true" aria-describedby="email-fout" />
+<p id="email-fout">Vul een geldig e-mailadres in, bijvoorbeeld naam@instelling.nl</p>
+<button type="submit">Versturen</button>
+```
+
+| In plaats van       | Schrijf                                                                  |
+| ------------------- | ------------------------------------------------------------------------ |
+| Ongeldige invoer    | Vul een datum in als DD-MM-JJJJ, bijvoorbeeld 04-09-2026                 |
+| Verplicht veld      | Vul een e-mailadres in                                                   |
+| Fout                | Dit wachtwoord is te kort. Gebruik minimaal 12 tekens                    |
+| Probeer het opnieuw | We konden niet opslaan. Controleer je verbinding en probeer het nog eens |
+
+Zeg wat er wél mag, niet alleen wat er fout is. Kleur mag, nooit alleen. De zinnen zelf zijn
+copywerk: zie
+[Vage foutmeldingen](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--vage-foutmeldingen)
+en, voor wie de teksten schrijft,
+[Validatie van formulieren](?path=/docs/curve-voor-designers--validatie-van-formulieren).
+
+Technisch, allemaal nodig:
+
+- Een `<label>` dat aan het veld gekoppeld is.
+- `aria-invalid="true"` op het afgekeurde veld.
+- `aria-describedby` naar de zichtbare melding (en eventueel naar de hulptekst).
+- Na een mislukte verzending de focus naar een zinnige plek: de samenvatting of het eerste
+  veld met een fout.
+- Een live region als de melding verschijnt zonder herladen. Hoe je die zet, staat bij
+  [Verkeerde ARIA](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--verkeerde-aria).
+
+Mensen maken typefouten, kiezen de verkeerde optie, of sturen een formulier te vroeg in. Een
+toegankelijk product straft dat niet af.
+
+- Toon de eisen _vóór_ het versturen: het datumformaat, de minimale lengte, wat verplicht is.
+- Houd de verzendknop bruikbaar. Een `disabled` knop zonder uitleg is een doodlopende weg.
+- Laat iemand een destructieve actie bevestigen ("Factuur 2026-104 verwijderen?"), en bied
+  daarna een manier om terug te gaan als dat nog kan.
+- Bewaar wat al is ingevuld als er iets misgaat. "Begin opnieuw" is geen herstel, het is straf.

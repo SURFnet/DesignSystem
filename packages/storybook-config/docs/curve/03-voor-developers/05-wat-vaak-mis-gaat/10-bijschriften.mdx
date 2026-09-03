@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Wat vaak mis gaat" name="Ontbrekende bijschriften" />
+
+# Ontbrekende bijschriften
+
+Een bijschrift is extra uitleg voor iedereen: wie ziet én wie
+[beluistert](?path=/docs/curve-voor-developers--robuust-bouwen).
+Het vervangt de alt-tekst niet, en de alt-tekst herhaalt het bijschrift niet.
+
+## Het probleem
+
+Een zin onder een afbeelding in een gewone `<p>` hoort visueel bij het plaatje, maar niet in de
+opmaak. Een screenreader leest hem als de volgende alinea, niet als toelichting bij de figuur.
+Het omgekeerde: de hele uitleg in de alt-tekst stoppen. Wie de afbeelding wél ziet, mist die
+context, en wie beluistert hoort een alinea waar een korte beschrijving hoort.
+
+Nog een valkuil: alt en bijschrift dezelfde zin. Dan hoort de luisteraar twee keer "Aanmeldingen
+stegen van 120 naar 340". WCAG 1.3.1 (Info and Relationships) eist dat de relatie in de HTML zit,
+niet alleen in de pixels.
+
+## De oplossing
+
+Zet de afbeelding in een `<figure>` met een `<figcaption>`. De alt-tekst beschrijft wat de
+afbeelding overbrengt; het bijschrift geeft context die iedereen nodig heeft: periode, bron,
+een extra conclusie.
+
+```html
+<!-- Niet doen: visueel eronder, niet gekoppeld, of alles in de alt -->
+<img src="aanmeldingen.svg" alt="Aanmeldingen 2026 per maand. WO steeg het sterkst." />
+<p>Bron: CROHO, juni 2026.</p>
+
+<!-- Wel doen: alt voor wie beluistert, bijschrift voor iedereen -->
+<figure>
+  <img src="aanmeldingen.svg" alt="Aanmeldingen stegen van 120 in januari naar 340 in juni" />
+  <figcaption>Aanmeldingen 2026, per maand. Bron: CROHO.</figcaption>
+</figure>
+```
+
+- Een bijschrift hoort in `<figcaption>` binnen `<figure>`, niet in een losse `<p>` of een
+  `div` ernaast.
+- De alt-tekst is kort en specifiek voor wie de afbeelding niet ziet. Het bijschrift mag langer,
+  want het is extra, niet de afbeelding zelf.
+- Herhaal de alt-tekst niet in het bijschrift.
+- Een sfeerfoto zonder informatie heeft geen bijschrift nodig, en ook geen alt: `alt=""`.
+- Tabellen hebben een eigen `<caption>`, geen `<figcaption>`. Dat staat bij
+  [Tabellen zonder koppen](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--tabellen-zonder-koppen).
+
+Hoe je de afbeelding zelf beschrijft, staat bij
+[Slechte alt-tekst](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--slechte-alt-tekst).
+Een grafiek die zonder kleur of bijschrift onleesbaar is, staat bij
+[Ongelabelde grafieken](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--ongelabelde-grafieken).
