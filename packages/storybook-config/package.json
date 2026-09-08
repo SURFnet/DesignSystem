@@ -37,6 +37,7 @@
     "axe-playwright": "2.2.2"
   },
   "devDependencies": {
+    "@storybook/addon-docs": "10.4.5",
     "@storybook/test-runner": "0.24.4",
     "@surfnet/curve-typescript-config": "workspace:*",
     "@types/react": "19.2.17",

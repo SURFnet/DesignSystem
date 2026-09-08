@@ -29,8 +29,9 @@ jobs:
           cache: pnpm
 
       # Trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10.x.
-      # `changeset publish` shells out to this global npm to publish each package.
-      - run: npm install -g npm@latest
+      # Pin to npm 11 — npm 12 changed `npm info --json` output and breaks
+      # changesets' published-version detection (see changesets/changesets#2164).
+      - run: npm install -g npm@11
 
       - run: pnpm install --frozen-lockfile
 
