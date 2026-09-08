@@ -125,7 +125,7 @@
   },
   "font-sans": {
     "$type": "fontFamily",
-    "$value": "Source Sans 3, sans-serif"
+    "$value": "Source Sans 3 Variable, sans-serif"
   },
   "font-mono": {
     "$type": "fontFamily",
