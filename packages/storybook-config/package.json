@@ -25,6 +25,7 @@
     "lint": "tsc --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
+    "@storybook/addon-docs": "10.4.5",
     "storybook": "10.4.5"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "@surfnet/curve-tokens": "workspace:*"
   },
   "devDependencies": {
+    "@storybook/addon-docs": "10.4.5",
     "@surfnet/curve-typescript-config": "workspace:*",
     "@types/react": "19.2.17",
     "react": "19.2.7",
