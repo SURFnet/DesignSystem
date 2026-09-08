@@ -1,5 +1,11 @@
 # @surfnet/curve-angular
 
+## 0.3.1
+
+### Patch Changes
+
+- 9d522e2: Fix --font-sans theme overrides not applying to base text in either framework; self-host Source Sans 3 as the default SURF typeface.
+
 ## 0.3.0
 
 ### Minor Changes
