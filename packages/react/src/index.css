@@ -2,12 +2,27 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/geist';
+@import '@fontsource-variable/source-sans-3';
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * --font-sans lives in a plain (non-inline) @theme block on purpose: it holds
+ * a literal font stack, not a var() reference. `@theme inline` copies a key's
+ * value verbatim into every consumer (the `font-sans` utility, `@apply
+ * font-sans`), so a literal value there gets permanently baked in at build
+ * time and can never be overridden at runtime by a consumer's theme tokens
+ * (e.g. @surfnet/curve-tokens setting --font-sans to a different font per
+ * theme). A regular @theme key still emits the `--font-sans` custom property,
+ * but consumers get `font-family: var(--font-sans)`, so runtime overrides
+ * actually take effect.
+ */
+@theme {
+  --font-sans: 'Geist Variable', sans-serif;
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

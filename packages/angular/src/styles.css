@@ -6,6 +6,7 @@
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 @import '@surfnet/curve-tokens/tokens.css';
 @import '@fontsource-variable/geist';
+@import '@fontsource-variable/source-sans-3';
 
 /* Scan the library's component sources so a standalone Tailwind build (build:css)
    emits every utility the components reference. Path is relative to this file. */
@@ -20,12 +21,24 @@
   --color-destructive-foreground: var(--destructive-foreground);
 }
 
+/*
+ * --font-sans's package default lives in @theme (not :root) on purpose: a
+ * plain :root rule here has the same specificity as @surfnet/curve-tokens'
+ * own unlayered `:root { --font-sans: ... }` default, so whichever one comes
+ * LAST in the built CSS wins by source order alone — and since this file's
+ * own :root was declared after the tokens import, it silently always won,
+ * permanently pinning html to Geist regardless of the active theme. @theme
+ * puts this default in the (lower-priority) theme layer instead, so
+ * curve-tokens' unlayered override always wins regardless of import order.
+ */
+@theme {
+  --font-sans: 'Geist Variable', sans-serif;
+}
+
 :root {
   color-scheme: light;
 
   --radius: 0.625rem;
-
-  --font-sans: 'Geist Variable', sans-serif;
 }
 
 :root.dark {

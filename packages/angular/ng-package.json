@@ -9,6 +9,7 @@
     "@angular/forms",
     "@angular/router",
     "@fontsource-variable/geist",
+    "@fontsource-variable/source-sans-3",
     "@ng-icons/phosphor-icons",
     "@spartan-ng/brain",
     "@tanstack/angular-table",
