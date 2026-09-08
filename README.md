@@ -28,6 +28,7 @@ curve-design-system/
 │   ├── typescript-config/  # @surfnet/curve-typescript-config — base.json + react-library.json
 │   ├── tokens/             # @surfnet/curve-tokens — DTCG JSON -> Style Dictionary -> tokens.css (private)
 │   ├── contracts/          # @surfnet/curve-contracts — component API specs, build-time only (private)
+│   ├── storybook-config/   # @surfnet/curve-storybook-config — shared Storybook config + Curve docs (private)
 │   ├── react/              # @surfnet/curve-react — Vite library + Storybook (Vite) (published)
 │   └── angular/            # @surfnet/curve-angular — ng-packagr library + Storybook (webpack) (published)
 └── apps/
@@ -61,9 +62,10 @@ pnpm build            # build both libraries (Turborepo)
 pnpm lint             # type-check
 pnpm format           # format everything with Prettier
 
-# Storybook (run per package)
-pnpm --filter @surfnet/curve-react storybook     # http://localhost:6006
-pnpm --filter @surfnet/curve-angular storybook   # http://localhost:6007
+# Storybook
+pnpm storybook              # both (React :6006, Angular :6007)
+pnpm storybook:react        # http://localhost:6006
+pnpm storybook:angular      # http://localhost:6007
 ```
 
 Each component ships a Storybook story covering its full surface (variants, sizes,
@@ -72,6 +74,15 @@ to GitHub Pages on every push to `main`:
 
 - **React** — https://surfnet.github.io/DesignSystem/react/
 - **Angular** — https://surfnet.github.io/DesignSystem/angular/
+
+## Documentation
+
+The written Curve docs — overview, designer and developer guides, accessibility,
+releases — live in [`packages/storybook-config/docs/curve`](packages/storybook-config/docs/curve).
+Both Storybooks load those MDX pages as the **Curve** section in the sidebar, so
+you read them in Storybook (locally on `:6006` / `:6007`, or on GitHub Pages) rather
+than as standalone files. Edit the MDX there, not in the framework packages, to keep
+the two Storybooks in sync.
 
 ## Demo app
 

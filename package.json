@@ -12,6 +12,8 @@
     "sync:figma": "jiti scripts/sync-figma.ts",
     "dev": "turbo run dev",
     "storybook": "turbo run storybook",
+    "storybook:react": "pnpm --filter @surfnet/curve-react storybook",
+    "storybook:angular": "pnpm --filter @surfnet/curve-angular storybook",
     "build-storybook": "turbo run build-storybook",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,cjs,json,md,css,html}\"",
