@@ -73,6 +73,7 @@
     "http-server": "14.1.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
+    "remark-gfm": "^4.0.1",
     "rollup-plugin-preserve-directives": "^0.4.0",
     "shadcn": "4.11.0",
     "start-server-and-test": "3.0.11",

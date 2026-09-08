@@ -31,7 +31,7 @@
             "browserTarget": "angular:build",
             "tsConfig": ".storybook/tsconfig.json",
             "compodoc": false,
-            "styles": ["src/styles.css"],
+            "styles": ["src/styles.css", ".storybook/storybook-docs.css"],
             "port": 6007
           }
         },
@@ -42,7 +42,7 @@
             "browserTarget": "angular:build",
             "tsConfig": ".storybook/tsconfig.json",
             "compodoc": false,
-            "styles": ["src/styles.css"],
+            "styles": ["src/styles.css", ".storybook/storybook-docs.css"],
             "outputDir": "storybook-static"
           }
         }

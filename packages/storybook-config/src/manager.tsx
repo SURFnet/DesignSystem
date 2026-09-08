@@ -30,6 +30,7 @@ export function registerManager(framework: Framework): void {
     base: 'light',
     brandTitle: brandMarkup(framework),
     brandUrl: 'https://www.surf.nl',
+    barBg: '#f5f5f5',
   });
 
   addons.setConfig({ theme });
