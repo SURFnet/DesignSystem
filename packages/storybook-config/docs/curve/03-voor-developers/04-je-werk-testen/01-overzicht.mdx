@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers/Je werk testen" name="Overzicht" />
+
+# Je werk testen
+
+Eén tool dekt toegankelijkheid niet af. Automatische controle vindt ongeveer 40% van de echte WCAG-fouten. In dat deel dat wordt gemist zitten de meeste problemen die iemand daadwerkelijk in de weg zitten. Een pagina kan nul AXE-meldingen geven of een perfecte Lighthouse score, en toch onbruikbaar zijn. Maar daarom blijft het ook mensenwerk! Maar hoe fijn is het als het laaghangend fruit vroeg opgespoord wordt, zodat je je de rest van de tijd kunt focussen op het maken van een goede gebruiksvriendelijke website?
+
+## Automatische controle
+
+| Wanneer                                | Hulpmiddel                                                                | Wat het opmerkt                                                                   |
+| -------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Tijdens het schrijven en reviewen      | Agent skill (voor wie LLM's gebruikt)                                     | Verkeerd element, ontbrekende naam, overgeslagen koppen, weggehaalde focusstijlen |
+| Bij opslaan en in pull requests        | Linter                                                                    | Ontbrekende labels en alt-teksten, klikafhandelaars op niet-knoppen, ARIA-fouten  |
+| Bij elke pull request                  | Geautomatiseerde tests + CI voor wie CI gebruikt                          | Terugval op belangrijke flows (formulieren, navigatie, dialogen)                  |
+| Vlak voor je een nieuw scherm oplevert | Toetsenbord en screenreader voor wie toetsenbord en screenreader gebruikt | Focusvolgorde, skiplinks, koplogica, echt gebruik: dingen die axe niet ziet       |
+
+## Waar je begint als je nog geen werkwijze hebt
+
+1. Installeer
+   [de agent skill](?path=/docs/curve-voor-developers-je-werk-testen--wanneer-je-gebruik-maakt-van-ai) zodat nieuwe
+   code dichter bij goed begint.
+2. Zet de toegankelijkheidsregels van je linter aan.
+   [Axe accessibility linter for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=deque-systems.vscode-axe-linter)
+   [React's accessibility code linter](https://www.24a11y.com/2017/reacts-accessibility-code-linter/)
+   [Jetbrains IDE's Accessibility Linter](https://plugins.jetbrains.com/plugin/19498-accessibility-linter)
+   [How to lint HTML using CSS](https://dev.to/believer/how-to-lint-html-using-css-5dc)
+3. [Loop de feature die je bouwt één keer met het toetsenbord door.](?path=/docs/curve-voor-developers-je-werk-testen--handmatig-testen)
+4. Hang axe pas daarna in CI, zodat je niet begint met een muur aan bestaande meldingen.
+   [Axe accessibility linter for GitHub Actions](https://github.com/marketplace/axe-linter)
+   [AccessLint](https://accesslint.com/)
+   [accessibility-check](https://github.com/GoogleChrome/accessibility-check)
+   [Using GitHub Actions to automate accessibility tests](https://bolonio.medium.com/automating-the-accessibility-tests-of-your-source-code-with-github-actions-63590cdc6860#:~:text=Using%20GitHub%20Actions%20to%20automate%20accessibility%20tests&text=The%20first%20thing%20is%20to,main%20branch%20has%20that%20name)
+
+Allerlei hulpmiddelen tegelijk invoeren op een bestaand product levert een lijst op die niemand leest. In deze volgorde toevoegen betekent dat elke nieuwe pull request iets beter is dan de vorige.
+
+## Tips
+
+- **Behandel meldingen als bugs, niet als ruis.** Een toegankelijkheidspaneel dat altijd rood staat, leert het team om het te negeren. Dat is erger dan het niet hebben. Komt het team er niet goed uit? Neem dan contact op met het toegankelijkheidsteam!
+- **Laat de build niet struikelen over je bestaande achterstand.** Laat hem falen op nieuwe fouten in de code die wordt aangeraakt, en houd bekende problemen apart bij. Een geblokkeerde pipeline die iedereen omzeilt, beschermt niemand.
