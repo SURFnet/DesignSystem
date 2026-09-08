@@ -25,7 +25,6 @@
     "lint": "tsc --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
-    "@storybook/addon-docs": "10.4.5",
     "storybook": "10.4.5"
   },
   "dependencies": {
