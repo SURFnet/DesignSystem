@@ -1,5 +1,11 @@
 # @surfnet/curve-angular
 
+## 0.3.2
+
+### Patch Changes
+
+- 2907f73: Fix unquoted Source Sans 3 Variable font token causing --font-sans to be invalid, falling back to the browser default font.
+
 ## 0.3.1
 
 ### Patch Changes
