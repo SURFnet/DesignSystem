@@ -7,16 +7,12 @@ import { Meta } from '@storybook/addon-docs/blocks';
 Deze pagina beschrijft hoe een ontwerpwijziging in Curve terechtkomt: waar je hem maakt, hoe hij in de
 code belandt en wat er van je verwacht wordt zodat een developer er direct mee verder kan.
 
-## Figma is de bron
+## Figma 
 
-Alle kleuren, typografie, spacing en hoekafrondingen staan als **variabelen in Figma**. Die variabelen
-zijn de officiële bron: de code haalt de waarden daaruit op, niet omgekeerd.
+Alle kleuren, typografie, spacing en hoekafrondingen staan als variabelen in Figma. Die variabelen
+zijn de officiële bron: de code haalt de waarden daaruit op, niet omgekeerd. Neem contact op met het Design team als je hier nog geen toegang toe hebt!
 
-Dat betekent één belangrijke afspraak: **pas kleuren nooit direct in de code aan.** Wijzig je een
-kleur alleen in de code, dan verdwijnt die wijziging bij de volgende synchronisatie met Figma. Wijzig
-je hem in Figma, dan komt hij overal terecht.
-
-## Van Figma naar code, stap voor stap
+## Van Figma naar code
 
 1. Je past een variabele aan in Figma, of voegt een nieuwe toe.
 2. Een developer haalt de variabelen op met één commando (`pnpm sync:figma`). De waarden worden
@@ -53,14 +49,16 @@ kleurcode, dan werkt je ontwerp automatisch in alle thema's.
 
 1. **Kijk eerst of het al bestaat.** Zoek in **Components**. Vaak is wat je nodig hebt een bestaand
    component met andere inhoud, of een combinatie van twee componenten.
+2. **Kijk in de [backlog](https://github.com/orgs/SURFnet/projects/24/views/1)** of hier al een issue voor is aangemaakt op Github.
 2. **Beschrijf waarvoor het is.** In welk product, welke taak van de gebruiker, hoe vaak. Componenten
    die maar op één plek voorkomen horen meestal niet in het design system.
-3. **Lever alle states.** Standaard, hover, focus, actief, uitgeschakeld, met foutmelding, leeg, en aan
+3. **Ontwerp alle states.** Standaard, hover, focus, actief, uitgeschakeld, met foutmelding, leeg, en aan
    het laden. Een ontwerp zonder states wordt door iemand anders verzonnen.
 4. **Geef aan wat er gebeurt bij weinig en veel inhoud.** Lange labels, twee regels tekst, een lege
    lijst.
 5. **Gebruik bestaande tokens.** Heb je echt een nieuwe waarde nodig, benoem dat expliciet — het is
    een beslissing, geen detail.
+6. **Maak een Github issue aan** voor een nieuwe feature, bug, of vraag. [Maak een Github issue aan](https://github.com/SURFnet/DesignSystem/issues/new).
 
 ## Checklist: is dit ontwerp klaar voor implementatie?
 
@@ -72,9 +70,8 @@ kleurcode, dan werkt je ontwerp automatisch in alle thema's.
 - Duidelijk welke elementen aanklikbaar zijn, ook zonder kleurverschil.
 - Interactieve elementen zijn minimaal 24×24 pixels (44×44 is comfortabel).
 - Betekenis zit nooit alleen in kleur — zie
-  [Robuust ontwerpen](?path=/docs/curve-voor-designers--robuust-ontwerpen).
+  [Robuust ontwerpen](?path=/docs/curve-voor-designers--toegankelijk-ontwerpen).
 
 ## Waar beslissingen worden vastgelegd
 
-Grotere keuzes — waarom een component zo werkt, waarom een token zo heet — worden apart
-gedocumenteerd. Zie [Changelog en beslissingen](?path=/docs/curve--changelog-en-beslissingen).
+Beslissingen over het design system, zoals waarom een component zo werkt en waarom een token zo heet, worden apart gedocumenteerd. Zie [Changelog en beslissingen](?path=/docs/curve--changelog-en-beslissingen).

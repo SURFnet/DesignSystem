@@ -12,7 +12,7 @@ voorspellen welk criterium een ontwerp breekt door je voor te stellen wie er nie
 | Doof of slechthorend         | Leest in plaats van luistert                           | Video zonder ondertiteling, geluidssignalen, geen transcript          |
 | Beperkte motoriek            | Toetsenbord, switch, spraak of oogbesturing            | Kleine klikdoelen, alleen slepen, hover-menu's, korte time-outs       |
 | Cognitief of neurodivergent  | Heeft rust, voorspelbaarheid en eenvoud nodig          | Jargon, automatische beweging, tijdsdruk, vage foutmeldingen          |
-| Tijdelijk of situationeel    | Van alles, kort en onhandig                            | Alles hierboven, op het slechtst denkbare moment                      |
+| Tijdelijk of situationeel    | Op allerlei manieren, ongeoefend, kort en mogelijk onhandig                            | Tijdelijke beperking                      |
 
 ## Blind, screenreadergebruiker
 

@@ -43,7 +43,7 @@ export default {
             'Voor designers',
             [
               'Overzicht',
-              'Robuust ontwerpen',
+              'Toegankelijk ontwerpen',
               'Microcopy',
               'Validatie van formulieren',
               'Touch en vergroting',
@@ -53,7 +53,7 @@ export default {
             'Voor developers',
             [
               'Curve gebruiken',
-              'Robuust bouwen',
+              'Toegankelijk bouwen',
               'Je werk testen',
               [
                 'Overzicht',

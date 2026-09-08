@@ -13,11 +13,11 @@ Deze Storybook is de plek waar je ziet wat er is, hoe het eruitziet en hoe je he
 ## Waarom een design system
 
 - **Consistentie.** Een gebruiker die van het ene SURF-product naar het andere gaat, herkent de
-  interface. Dezelfde knop doet hetzelfde en ziet er hetzelfde uit.
-- **Snelheid.** Componenten zijn al ontworpen, gebouwd en getest. Je begint niet vanaf nul.
-- **[Toegankelijkheid](?path=/docs/curve--toegankelijkheid).** Toetsenbordgebruik, focus-indicatoren
-  en juiste rollen zitten in de componenten ingebouwd. Dat scheelt werk en voorkomt fouten die
-  anders pas laat opvallen.
+  interface. Dezelfde knop doet hetzelfde en ziet er hetzelfde uit. Dit geeft vertrouwen en maakt het gebruik gemakkelijker.
+- **Snelheid.** Componenten zijn al ontworpen, gebouwd en getest. Dit helpt om sneller aan de slag te gaan.
+- **[Toegankelijkheid](?path=/docs/curve--toegankelijkheid).** Toetsenbordgebruik, focus-stijlen
+  en semantiek zitten in de componenten ingebouwd. Dat scheelt werk en voorkomt fouten die
+  anders pas laat opvallen. (Hier wordt op dit moment nog verder aan ontwikkeld en getest.)
 - **Onderhoud op één plek.** Een verbetering in een component komt in alle producten terecht die de
   nieuwe versie installeren.
 
@@ -30,26 +30,26 @@ Deze Storybook is de plek waar je ziet wat er is, hoe het eruitziet en hoe je he
 | Design tokens            | Kleuren, typografie, spacing en radius als variabelen | Designers en developers |
 | Deze Storybook           | Documentatie, voorbeelden en richtlijnen              | Iedereen                |
 
-De twee component-packages zijn bewust gescheiden: elk project gebruikt de versie die bij zijn
-framework past. Ze zien er hetzelfde uit en heten hetzelfde, omdat ze dezelfde design tokens en
-dezelfde afspraken over varianten gebruiken.
-
 ## Twee frameworks, dezelfde componenten
 
 Een knop in React en een knop in Angular hebben dezelfde varianten (`default`, `outline`, `secondary`,
-`ghost`, `destructive`, `link`) en dezelfde maten. Dat wordt tijdens het bouwen automatisch gecontroleerd: staat er in het ene framework
-een variant die het andere niet heeft, dan faalt de build. Zo kunnen de twee packages niet stilletjes
-uit elkaar groeien.
+`ghost`, `destructive`, `link`) en dezelfde maten. Dat wordt tijdens het bouwen automatisch gecontroleerd: staat er in het ene framework een variant die het andere niet heeft, dan faalt de build. Zo kunnen de twee packages niet stilletjes uit elkaar groeien.
 
-Rechtsboven in de werkbalk staat een **Framework**-schakelaar. Daarmee spring je naar dezelfde
-component in de Storybook van het andere framework.
+Boven in de werkbalk (boven elke preview van een component)staat een **Framework**-schakelaar. Daarmee switch je naar dezelfde component in de Storybook van het andere framework.
+
+## Figma is de bron van waarheid voor DesignSystem
+
+Alle kleuren, typografie, spacing en hoekafrondingen staan als variabelen in Figma. Die variabelen
+zijn de officiële bron (_'Single source of truth'_): de code haalt de waarden daaruit op, niet omgekeerd.
+
+Dat betekent één belangrijke afspraak: pas kleuren nooit direct in de code aan. Wijzig je een
+kleur alleen in de code, dan verdwijnt die wijziging bij de volgende synchronisatie met Figma. Wijzig
+je hem in Figma, dan komt hij overal terecht.
 
 ## Waar vind je wat
 
-- **Curve** — deze sectie: wat het design system is, hoe toegankelijkheid zit ingebouwd, hoe je het
-  gebruikt, en hoe updates werken.
 - **Voor designers** — Figma, microcopy, video, touch en vergroting.
-- **Voor developers** — installeren, thema's, en wat je zelf nog moet doen om toegankelijk te bouwen.
+- **Voor developers** — installeren, thema's, en wat je zelf nog moet doen om toegankelijk te bouwen en andere <span lang="en">best practices</span>.
 - **Foundations** — de basis: design tokens (kleur, typografie, spacing).
 - **Components** — elk component met zijn varianten, states en voorbeelden. Op elke component-pagina
   vind je onder **Docs** de eigenschappen die je kunt instellen.
