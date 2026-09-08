@@ -146,6 +146,12 @@ function resolveColor(varId: string, semanticModeId: string, themeModeId: string
 const pxToRem = (px: number): string =>
   `${parseFloat((px / 16).toFixed(4).replace(/\.?0+$/, ''))}rem`;
 
+/** Wrap a bare font-family name in double quotes for CSS validity (e.g. names
+ *  with a digit like "Source Sans 3" aren't a valid unquoted CSS identifier).
+ *  No-op if already quoted. */
+const quoteFontName = (name: string): string =>
+  /^['"]/.test(name) ? name : `"${name.replace(/"/g, '\\"')}"`;
+
 /** "SURF Blue" → "surf-blue"; "Groenvermogen / NKPH2" → "groenvermogen-nkph2". */
 const themeNameToClass = (name: string): string =>
   name
@@ -257,8 +263,8 @@ function collectThemeNonColorTokens(themeModeId: string): TokenMap {
   delete tokens['font-font-sans'];
   delete tokens['font-font-serif'];
   delete tokens['font-font-mono'];
-  tokens['font-sans'] = `${sans}, sans-serif`;
-  tokens['font-mono'] = `${mono}, monospace`;
+  tokens['font-sans'] = `${quoteFontName(sans)}, sans-serif`;
+  tokens['font-mono'] = `${quoteFontName(mono)}, monospace`;
 
   return tokens;
 }

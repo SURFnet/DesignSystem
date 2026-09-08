@@ -96,9 +96,45 @@ for (const { cls, light, dark } of themes) {
 }
 
 // Emit dist/tokens.css
+//
+// Font-family values need every custom name quoted to be valid CSS (an
+// unquoted name must be a sequence of CSS identifiers, and e.g. the "3" in
+// "Source Sans 3" is a number token, not a valid identifier — substituting an
+// unquoted name via var() makes the whole declaration invalid at
+// computed-value time). This is applied here, at the CSS text emitter, so it
+// protects every build regardless of source (Figma sync, hand-edited JSON, a
+// third-party token file) rather than relying on the source JSON always
+// being correctly quoted. It deliberately does NOT touch readTokens()/the JS
+// `themes` export below, which should keep exposing plain, unquoted strings.
+const GENERIC_FONT_FAMILIES = new Set([
+  'serif',
+  'sans-serif',
+  'monospace',
+  'cursive',
+  'fantasy',
+  'system-ui',
+  'ui-serif',
+  'ui-sans-serif',
+  'ui-monospace',
+  'ui-rounded',
+  'math',
+  'emoji',
+  'fangsong',
+]);
+const isFontFamilyProp = (prop: string): boolean => /^--font-(?!weight-)/.test(prop);
+const formatFontFamilyValue = (value: string): string =>
+  value
+    .split(',')
+    .map((part) => {
+      const trimmed = part.trim();
+      if (!trimmed || /^['"]/.test(trimmed) || GENERIC_FONT_FAMILIES.has(trimmed)) return trimmed;
+      return `"${trimmed.replace(/"/g, '\\"')}"`;
+    })
+    .join(', ');
+
 const block = (selector: string, map: TokenMap): string =>
   `${selector} {\n${Object.entries(map)
-    .map(([p, v]) => `  ${p}: ${v};`)
+    .map(([p, v]) => `  ${p}: ${isFontFamilyProp(p) ? formatFontFamilyValue(v) : v};`)
     .join('\n')}\n}`;
 
 const cssBlocks = [block(':root', defaultLight)];
