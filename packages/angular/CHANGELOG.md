@@ -1,5 +1,11 @@
 # @surfnet/curve-angular
 
+## 0.3.3
+
+### Patch Changes
+
+- 89425f7: Fix --font-sans resolving to no font at all (Figma syncs strip the self-hosted font name Figma doesn't know about); pnpm sync:figma now aliases "Source Sans 3" to the shipped "Source Sans 3 Variable" automatically.
+
 ## 0.3.2
 
 ### Patch Changes
