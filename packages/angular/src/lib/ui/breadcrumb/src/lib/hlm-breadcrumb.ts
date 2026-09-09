@@ -9,5 +9,5 @@ import { Directive, input } from '@angular/core';
   },
 })
 export class HlmBreadcrumb {
-  public readonly ariaLabel = input<string>('breadcrumb', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>('You are here: ', { alias: 'aria-label' });
 }

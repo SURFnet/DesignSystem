@@ -3,10 +3,12 @@ import { BrnComboboxMultiple } from '@spartan-ng/brain/combobox';
 import { provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { BrnPopover, provideBrnPopoverConfig } from '@spartan-ng/brain/popover';
 import { classes } from '../../../utils/src';
+import { provideHlmComboboxListboxId } from './hlm-combobox-listbox-id';
 
 @Directive({
   selector: '[hlmComboboxMultiple],hlm-combobox-multiple',
   providers: [
+    provideHlmComboboxListboxId(),
     provideBrnPopoverConfig({
       align: 'start',
       sideOffset: 6,

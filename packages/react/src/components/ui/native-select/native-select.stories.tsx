@@ -23,10 +23,12 @@ const meta = {
       },
     },
     disabled: { control: 'boolean' },
+    'aria-label': { control: 'text' },
   },
   args: {
     size: nativeSelectContract.defaults.sizes,
     disabled: false,
+    'aria-label': 'Select an option',
   },
 } satisfies Meta<typeof NativeSelect>;
 

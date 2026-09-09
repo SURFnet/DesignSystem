@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Command as CommandPrimitive } from 'cmdk';
+import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 
 import { cn } from '@/lib/utils';
 import {
@@ -14,7 +14,11 @@ import {
 import { InputGroup, InputGroupAddon } from '@/components/ui/input-group';
 import { MagnifyingGlassIcon, CheckIcon } from '@phosphor-icons/react';
 
-function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
+function Command({
+  className,
+  label = 'Type a command or search...',
+  ...props
+}: React.ComponentProps<typeof CommandPrimitive>) {
   return (
     <CommandPrimitive
       data-slot="command"
@@ -22,6 +26,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
         'flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground',
         className,
       )}
+      label={label}
       {...props}
     />
   );
@@ -93,16 +98,24 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
   );
 }
 
-function CommandEmpty({
-  className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) {
+function CommandEmpty({ className, children, ...props }: React.ComponentProps<'div'>) {
+  const isEmpty = useCommandState((state) => state.filtered.count === 0);
+
   return (
-    <CommandPrimitive.Empty
+    <div
       data-slot="command-empty"
-      className={cn('py-6 text-center text-sm', className)}
+      cmdk-empty=""
+      hidden={!isEmpty}
+      className={cn('py-6 text-center text-sm text-muted-foreground', className)}
       {...props}
-    />
+      role="option"
+      aria-disabled="true"
+      aria-selected="false"
+      aria-live="polite"
+      aria-atomic
+    >
+      {isEmpty ? children : null}
+    </div>
   );
 }
 
@@ -124,13 +137,22 @@ function CommandGroup({
 
 function CommandSeparator({
   className,
+  alwaysRender,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Separator>) {
+}: React.ComponentProps<'div'> & { alwaysRender?: boolean }) {
+  const search = useCommandState((state) => state.search);
+
+  if (!alwaysRender && search) {
+    return null;
+  }
+
   return (
-    <CommandPrimitive.Separator
+    <div
       data-slot="command-separator"
       className={cn('-mx-1 h-px w-auto bg-border', className)}
       {...props}
+      role="presentation"
+      aria-hidden="true"
     />
   );
 }

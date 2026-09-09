@@ -68,7 +68,7 @@ export const WithTextPrefix: Story = {
 					</div>
 					<input hlmInputGroupInput placeholder="example.com" class="!pl-1" />
 					<div hlmInputGroupAddon align="inline-end">
-						<button hlmInputGroupButton class="rounded-full" size="icon-xs" [hlmTooltip]="'This is content in a tooltip.'">
+						<button hlmInputGroupButton class="rounded-full" size="icon-xs" [hlmTooltip]="'This is content in a tooltip.'" aria-label="Open tooltip">
 							<ng-icon name="phosphorInfo" />
 						</button>
 					</div>
@@ -92,11 +92,11 @@ export const WithLeadingDropdown: Story = {
 			<div class="w-full max-w-sm">
 				<div hlmInputGroup>
 					<div hlmInputGroupAddon>
-						<button hlmInputGroupButton variant="ghost" [hlmDropdownMenuTrigger]="menu">{{ category }}</button>
+						<button hlmInputGroupButton variant="ghost" [hlmDropdownMenuTrigger]="menu" aria-label="Open dropdown menu for {{ category }}">{{ category }}</button>
 						<ng-template #menu>
 							<hlm-dropdown-menu>
 								@for (option of categories; track option) {
-									<button hlmDropdownMenuItem (click)="select(option)">{{ option }}</button>
+									<button hlmDropdownMenuItem (click)="select(option)" aria-label="Select {{ option }}">{{ option }}</button>
 								}
 							</hlm-dropdown-menu>
 						</ng-template>
@@ -114,14 +114,14 @@ export const TextareaWithBlockEndToolbar: Story = {
     template: `
 			<div class="w-full max-w-sm">
 				<div hlmInputGroup>
-					<textarea hlmInputGroupTextarea placeholder="Ask, Search or Chat…"></textarea>
+					<textarea hlmInputGroupTextarea aria-label="Ask, Search or Chat…" placeholder="Ask, Search or Chat…"></textarea>
 					<div hlmInputGroupAddon align="block-end">
-						<button hlmInputGroupButton variant="outline" class="rounded-full" size="icon-xs">
+						<button hlmInputGroupButton variant="outline" class="rounded-full" size="icon-xs" aria-label="Add">
 							<ng-icon name="phosphorPlus" />
 						</button>
 						<span hlmInputGroupText class="ml-auto">52% used</span>
 						<hlm-separator orientation="vertical" class="!h-4" />
-						<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-xs" disabled>
+						<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-xs" aria-label="Send">
 							<ng-icon name="phosphorPaperPlaneTilt" />
 							<span class="sr-only">Send</span>
 						</button>

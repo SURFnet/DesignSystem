@@ -10,13 +10,23 @@ import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
   imports: [HlmDropdownMenuImports, NgIcon],
   providers: [provideIcons({ phosphorDotsThree })],
   template: `
-    <button hlmBtn variant="ghost" size="sm" [hlmDropdownMenuTrigger]="menu">
+    <button
+      hlmBtn
+      variant="ghost"
+      size="sm"
+      [hlmDropdownMenuTrigger]="menu"
+      aria-label="Open action menu for {{ record() }}"
+    >
       <ng-icon name="phosphorDotsThree" />
     </button>
     <ng-template #menu>
       <hlm-dropdown-menu align="start" class="w-48">
         @for (action of actions(); track action) {
-          <button hlmDropdownMenuItem (click)="onActionClick(action)">
+          <button
+            hlmDropdownMenuItem
+            (click)="onActionClick(action)"
+            aria-label="Execute action {{ action }}"
+          >
             {{ action }}
           </button>
         }

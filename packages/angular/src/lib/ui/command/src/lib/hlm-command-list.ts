@@ -12,6 +12,7 @@ import { classes } from '../../../utils/src';
   ],
   host: {
     'data-slot': 'command-list',
+    role: 'listbox',
   },
 })
 export class HlmCommandList {

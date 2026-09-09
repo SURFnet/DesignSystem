@@ -13,6 +13,7 @@ import { classes } from '../../../utils/src';
   ],
   host: {
     'data-slot': 'command-item',
+    role: 'option',
   },
 })
 export class HlmCommandItem {

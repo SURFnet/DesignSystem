@@ -18,6 +18,12 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    completeAnnouncement: {
+      control: 'text',
+      description: 'Screen-reader announcement when every slot is filled, including after paste.',
+    },
+  },
 } satisfies Meta<typeof InputOTP>;
 
 export default meta;
@@ -33,7 +39,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: { maxLength: 6, children: null },
   render: () => (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} aria-label="One-time password">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -50,7 +56,7 @@ export const Default: Story = {
 export const WithSeparator: Story = {
   args: { maxLength: 6, children: null },
   render: () => (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} aria-label="One-time password">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -70,7 +76,7 @@ export const WithSeparator: Story = {
 export const Disabled: Story = {
   args: { maxLength: 6, children: null },
   render: () => (
-    <InputOTP maxLength={6} disabled defaultValue="123456">
+    <InputOTP maxLength={6} disabled defaultValue="123456" aria-label="One-time password">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

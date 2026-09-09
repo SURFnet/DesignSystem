@@ -1,13 +1,24 @@
-import { Directive } from '@angular/core';
+import { Directive, input } from '@angular/core';
 import { BrnComboboxList } from '@spartan-ng/brain/combobox';
 import { classes } from '../../../utils/src';
+import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
 
 @Directive({
   selector: '[hlmComboboxList]',
-  hostDirectives: [{ directive: BrnComboboxList, inputs: ['id'] }],
-  host: { 'data-slot': 'combobox-list' },
+  hostDirectives: [{ directive: BrnComboboxList, inputs: ['id: listId'] }],
+  host: {
+    'data-slot': 'combobox-list',
+    '[id]': 'listId()',
+  },
 })
 export class HlmComboboxList {
+  private static _id = 0;
+
+  private readonly _defaultListId =
+    injectHlmComboboxListboxId() ?? `hlm-combobox-listbox-${++HlmComboboxList._id}`;
+
+  public readonly listId = input<string>(this._defaultListId, { alias: 'id' });
+
   constructor() {
     classes(
       () =>

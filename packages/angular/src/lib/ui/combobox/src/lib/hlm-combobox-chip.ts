@@ -17,7 +17,7 @@ import { HlmComboboxChipRemove } from './hlm-combobox-chip-remove';
     <ng-content />
 
     @if (showRemove()) {
-      <button hlmComboboxChipRemove>
+      <button hlmComboboxChipRemove aria-label="Remove">
         <ng-icon name="phosphorX" />
       </button>
     }
