@@ -152,6 +152,22 @@ const pxToRem = (px: number): string =>
 const quoteFontName = (name: string): string =>
   /^['"]/.test(name) ? name : `"${name.replace(/"/g, '\\"')}"`;
 
+/** Fonts self-hosted via @fontsource-variable/* under a different @font-face
+ *  family name than Figma's design-name (fontsource suffixes "Variable" for
+ *  variable-font packages, e.g. "Source Sans 3" -> "Source Sans 3 Variable").
+ *  Figma has no knowledge of this npm-packaging detail and can't be changed,
+ *  so the self-hosted name is prepended as the primary choice, ahead of the
+ *  design name itself (kept as a fallback — e.g. useful if a user's OS
+ *  happens to have the plain static font installed). */
+const SELF_HOSTED_FONT_ALIASES: Record<string, string> = {
+  'Source Sans 3': 'Source Sans 3 Variable',
+};
+
+const withSelfHostedAlias = (name: string): string => {
+  const alias = SELF_HOSTED_FONT_ALIASES[name];
+  return alias ? `${quoteFontName(alias)}, ${quoteFontName(name)}` : quoteFontName(name);
+};
+
 /** "SURF Blue" → "surf-blue"; "Groenvermogen / NKPH2" → "groenvermogen-nkph2". */
 const themeNameToClass = (name: string): string =>
   name
@@ -263,8 +279,8 @@ function collectThemeNonColorTokens(themeModeId: string): TokenMap {
   delete tokens['font-font-sans'];
   delete tokens['font-font-serif'];
   delete tokens['font-font-mono'];
-  tokens['font-sans'] = `${quoteFontName(sans)}, sans-serif`;
-  tokens['font-mono'] = `${quoteFontName(mono)}, monospace`;
+  tokens['font-sans'] = `${withSelfHostedAlias(sans)}, sans-serif`;
+  tokens['font-mono'] = `${withSelfHostedAlias(mono)}, monospace`;
 
   return tokens;
 }

@@ -17,7 +17,7 @@
   },
   "popover": {
     "$type": "color",
-    "$value": "rgba(23, 23, 23, 1)"
+    "$value": "rgba(41, 37, 36, 1)"
   },
   "popover-foreground": {
     "$type": "color",
@@ -125,19 +125,115 @@
   },
   "font-sans": {
     "$type": "fontFamily",
-    "$value": "\"Source Sans 3 Variable\", sans-serif"
+    "$value": "\"Source Sans 3 Variable\", \"Source Sans 3\", sans-serif"
   },
   "font-mono": {
     "$type": "fontFamily",
-    "$value": "Geist Mono, monospace"
+    "$value": "\"Geist Mono\", monospace"
   },
-  "warning": {
+  "border-subtle": {
     "$type": "color",
-    "$value": "rgba(250, 204, 21, 1)"
+    "$value": "rgba(255, 255, 255, 0.06)"
   },
   "destructive-foreground": {
     "$type": "color",
     "$value": "rgba(69, 10, 10, 1)"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "rgba(110, 154, 232, 1)"
+  },
+  "info-hover": {
+    "$type": "color",
+    "$value": "rgba(6, 75, 203, 1)"
+  },
+  "info-foreground": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 1)"
+  },
+  "info-subtle": {
+    "$type": "color",
+    "$value": "rgba(4, 50, 134, 1)"
+  },
+  "info-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(5, 62, 170, 1)"
+  },
+  "info-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(234, 240, 252, 1)"
+  },
+  "success": {
+    "$type": "color",
+    "$value": "rgba(0, 211, 127, 1)"
+  },
+  "success-hover": {
+    "$type": "color",
+    "$value": "rgba(3, 171, 104, 1)"
+  },
+  "success-foreground": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 1)"
+  },
+  "success-subtle": {
+    "$type": "color",
+    "$value": "rgba(1, 101, 61, 1)"
+  },
+  "success-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(2, 135, 82, 1)"
+  },
+  "success-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(221, 253, 240, 1)"
+  },
+  "warning-hover": {
+    "$type": "color",
+    "$value": "rgba(255, 232, 74, 1)"
+  },
+  "warning-foreground": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 1)"
+  },
+  "warning-subtle": {
+    "$type": "color",
+    "$value": "rgba(97, 84, 0, 1)"
+  },
+  "warning-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(58, 50, 0, 1)"
+  },
+  "warning-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(255, 247, 202, 1)"
+  },
+  "warning": {
+    "$type": "color",
+    "$value": "rgba(255, 235, 117, 1)"
+  },
+  "danger": {
+    "$type": "color",
+    "$value": "rgba(237, 130, 124, 1)"
+  },
+  "danger-hover": {
+    "$type": "color",
+    "$value": "rgba(237, 130, 124, 1)"
+  },
+  "danger-foreground": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 1)"
+  },
+  "danger-subtle": {
+    "$type": "color",
+    "$value": "rgba(114, 28, 24, 1)"
+  },
+  "danger-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(131, 32, 27, 1)"
+  },
+  "danger-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(255, 224, 222, 1)"
   },
   "primary-strong": {
     "$type": "color",
