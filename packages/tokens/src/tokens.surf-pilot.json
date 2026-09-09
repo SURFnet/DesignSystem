@@ -125,19 +125,115 @@
   },
   "font-sans": {
     "$type": "fontFamily",
-    "$value": "\"Source Sans 3 Variable\", sans-serif"
+    "$value": "\"Source Sans 3 Variable\", \"Source Sans 3\", sans-serif"
   },
   "font-mono": {
     "$type": "fontFamily",
-    "$value": "Geist Mono, monospace"
+    "$value": "\"Geist Mono\", monospace"
   },
-  "warning": {
+  "border-subtle": {
     "$type": "color",
-    "$value": "rgba(202, 138, 4, 1)"
+    "$value": "rgba(0, 0, 0, 0.08)"
   },
   "destructive-foreground": {
     "$type": "color",
     "$value": "rgba(254, 242, 242, 1)"
+  },
+  "info": {
+    "$type": "color",
+    "$value": "rgba(4, 50, 134, 1)"
+  },
+  "info-hover": {
+    "$type": "color",
+    "$value": "rgba(5, 62, 170, 1)"
+  },
+  "info-foreground": {
+    "$type": "color",
+    "$value": "rgba(255, 255, 255, 1)"
+  },
+  "info-subtle": {
+    "$type": "color",
+    "$value": "rgba(234, 240, 252, 1)"
+  },
+  "info-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(213, 226, 250, 1)"
+  },
+  "info-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(4, 50, 134, 1)"
+  },
+  "success": {
+    "$type": "color",
+    "$value": "rgba(1, 101, 61, 1)"
+  },
+  "success-hover": {
+    "$type": "color",
+    "$value": "rgba(2, 135, 82, 1)"
+  },
+  "success-foreground": {
+    "$type": "color",
+    "$value": "rgba(255, 255, 255, 1)"
+  },
+  "success-subtle": {
+    "$type": "color",
+    "$value": "rgba(221, 253, 240, 1)"
+  },
+  "success-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(184, 248, 220, 1)"
+  },
+  "success-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(1, 101, 61, 1)"
+  },
+  "warning-hover": {
+    "$type": "color",
+    "$value": "rgba(255, 232, 74, 1)"
+  },
+  "warning-foreground": {
+    "$type": "color",
+    "$value": "rgba(58, 50, 0, 1)"
+  },
+  "warning-subtle": {
+    "$type": "color",
+    "$value": "rgba(255, 247, 202, 1)"
+  },
+  "warning-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(255, 243, 173, 1)"
+  },
+  "warning-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(159, 74, 26, 1)"
+  },
+  "warning": {
+    "$type": "color",
+    "$value": "rgba(255, 235, 117, 1)"
+  },
+  "danger": {
+    "$type": "color",
+    "$value": "rgba(160, 39, 33, 1)"
+  },
+  "danger-hover": {
+    "$type": "color",
+    "$value": "rgba(131, 32, 27, 1)"
+  },
+  "danger-foreground": {
+    "$type": "color",
+    "$value": "rgba(255, 255, 255, 1)"
+  },
+  "danger-subtle": {
+    "$type": "color",
+    "$value": "rgba(254, 226, 226, 1)"
+  },
+  "danger-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(254, 202, 202, 1)"
+  },
+  "danger-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(189, 47, 39, 1)"
   },
   "primary-strong": {
     "$type": "color",
