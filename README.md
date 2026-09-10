@@ -33,6 +33,7 @@ curve-design-system/
 │   └── angular/            # @surfnet/curve-angular — ng-packagr library + Storybook (webpack) (published)
 └── apps/
     └── react-app/          # @surfnet/curve-react-app — demo Next.js app for testing @surfnet/curve-react
+    └── angular-app/        # @surfnet/curve-angular-app — demo Angular app for testing @surfnet/curve-angular
 ```
 
 ## Architecture

@@ -1,9 +1,17 @@
-import { CheckCircleIcon, WarningCircleIcon } from '@phosphor-icons/react';
+import { CheckCircleIcon, InfoIcon, WarningCircleIcon, WarningIcon } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { alertContract } from '@surfnet/curve-contracts';
+import { alertContract, type AlertVariantName } from '@surfnet/curve-contracts';
 
 import { Button } from '@/components/ui/button';
 import { Alert, AlertAction, AlertDescription, AlertTitle } from './alert';
+
+const variantIcons: Record<AlertVariantName, React.ReactNode> = {
+  default: <CheckCircleIcon />,
+  info: <InfoIcon />,
+  success: <CheckCircleIcon />,
+  warning: <WarningIcon />,
+  danger: <WarningCircleIcon />,
+};
 
 const meta = {
   title: 'Components/Alert',
@@ -51,7 +59,7 @@ export const Variants: Story = {
     <div className="flex w-96 flex-col gap-3">
       {alertContract.props.variants.map((variant) => (
         <Alert key={variant} variant={variant} title={alertContract.docs.variants[variant]}>
-          {variant === 'destructive' ? <WarningCircleIcon /> : <CheckCircleIcon />}
+          {variantIcons[variant]}
           <AlertTitle>{variant.charAt(0).toUpperCase() + variant.slice(1)}</AlertTitle>
           <AlertDescription>{alertContract.docs.variants[variant]}</AlertDescription>
         </Alert>
@@ -60,10 +68,10 @@ export const Variants: Story = {
   ),
 };
 
-/** Destructive alert used to surface an error, with title and description. */
-export const Destructive: Story = {
+/** Danger alert used to surface an error, with title and description. */
+export const Danger: Story = {
   render: () => (
-    <Alert variant="destructive" className="w-96">
+    <Alert variant="danger" className="w-96">
       <WarningCircleIcon />
       <AlertTitle>Unable to process payment</AlertTitle>
       <AlertDescription>Please verify your billing details and try again.</AlertDescription>
