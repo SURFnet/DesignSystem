@@ -10,8 +10,13 @@ import { cn } from '@/lib/utils';
 const badgeVariantClasses = {
   default: 'bg-primary text-primary-foreground [a]:hover:bg-primary/80',
   secondary: 'bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80',
-  destructive:
-    'bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20',
+  info: 'bg-info-subtle text-info-subtle-foreground focus-visible:ring-info/20 dark:focus-visible:ring-info/40 [a]:hover:bg-info-subtle-hover',
+  success:
+    'bg-success-subtle text-success-subtle-foreground focus-visible:ring-success/20 dark:focus-visible:ring-success/40 [a]:hover:bg-success-subtle-hover',
+  warning:
+    'bg-warning-subtle text-warning-subtle-foreground focus-visible:ring-warning/20 dark:focus-visible:ring-warning/40 [a]:hover:bg-warning-subtle-hover',
+  danger:
+    'bg-danger-subtle text-danger-subtle-foreground focus-visible:ring-danger/20 dark:focus-visible:ring-danger/40 [a]:hover:bg-danger-subtle-hover',
   outline: 'border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground',
   ghost: 'hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50',
   link: 'text-primary underline-offset-4 hover:underline',

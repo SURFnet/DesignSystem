@@ -133,7 +133,7 @@
   },
   "border-subtle": {
     "$type": "color",
-    "$value": "rgba(0, 0, 0, 0.08)"
+    "$value": "rgba(0, 0, 0, 0.06)"
   },
   "destructive-foreground": {
     "$type": "color",
