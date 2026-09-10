@@ -12,13 +12,13 @@ const alertVariants = cva(
     variants: {
       variant: {
         default: 'bg-card text-card-foreground',
-        info: 'bg-info-subtle text-info-subtle-foreground *:data-[slot=alert-description]:text-info-subtle-foreground/90 *:[svg]:text-current',
+        info: 'bg-info-subtle text-info-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[svg]:text-current',
         success:
-          'bg-success-subtle text-success-subtle-foreground *:data-[slot=alert-description]:text-success-subtle-foreground/90 *:[svg]:text-current',
+          'bg-success-subtle text-success-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[svg]:text-current',
         warning:
-          'bg-warning-subtle text-warning-subtle-foreground *:data-[slot=alert-description]:text-warning-subtle-foreground/90 *:[svg]:text-current',
+          'bg-warning-subtle text-warning-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[svg]:text-current',
         danger:
-          'bg-danger-subtle text-danger-subtle-foreground *:data-[slot=alert-description]:text-danger-subtle-foreground/90 *:[svg]:text-current',
+          'bg-danger-subtle text-danger-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[svg]:text-current',
       } satisfies Record<AlertVariantName, string>,
     },
     defaultVariants: {
