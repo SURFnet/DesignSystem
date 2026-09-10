@@ -6,8 +6,13 @@ import { type VariantProps, cva } from 'class-variance-authority';
 const badgeVariantClasses = {
   default: 'bg-primary text-primary-foreground [a]:hover:bg-primary/80',
   secondary: 'bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80',
-  destructive:
-    'bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20',
+  info: 'bg-info-subtle text-info-subtle-foreground [a]:hover:bg-info-subtle-hover focus-visible:ring-info/20 dark:focus-visible:ring-info/40',
+  success:
+    'bg-success-subtle text-success-subtle-foreground [a]:hover:bg-success-subtle-hover focus-visible:ring-success/20 dark:focus-visible:ring-success/40',
+  warning:
+    'bg-warning-subtle text-warning-subtle-foreground [a]:hover:bg-warning-subtle-hover focus-visible:ring-warning/20 dark:focus-visible:ring-warning/40',
+  danger:
+    'bg-danger-subtle text-danger-subtle-foreground [a]:hover:bg-danger-subtle-hover focus-visible:ring-danger/20 dark:focus-visible:ring-danger/40',
   outline: 'border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground',
   ghost: 'hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50',
   link: 'text-primary underline-offset-4 hover:underline',

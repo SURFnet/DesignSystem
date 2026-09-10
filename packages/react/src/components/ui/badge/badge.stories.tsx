@@ -70,7 +70,7 @@ export const Counts: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>
-      <Badge variant="destructive" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+      <Badge variant="danger" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
         99
       </Badge>
       <Badge variant="outline" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
@@ -106,7 +106,7 @@ export const StatusList: Story = {
       </li>
       <li className="flex items-center justify-between rounded-md border border-border px-3 py-2">
         <span>Rotate API credentials</span>
-        <Badge variant="destructive">Overdue</Badge>
+        <Badge variant="danger">Overdue</Badge>
       </li>
       <li className="flex items-center justify-between rounded-md border border-border px-3 py-2">
         <span>Archive old backups</span>

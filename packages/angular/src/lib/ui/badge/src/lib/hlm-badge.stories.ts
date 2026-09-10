@@ -102,7 +102,7 @@ export const Counts: Story = {
     template: `
       <div class="flex flex-wrap items-center gap-3">
         <span hlmBadge class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</span>
-        <span hlmBadge variant="destructive" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">99</span>
+        <span hlmBadge variant="danger" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">99</span>
         <span hlmBadge variant="outline" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">20+</span>
       </div>`,
   }),
@@ -130,7 +130,7 @@ export const StatusList: Story = {
         </li>
         <li class="flex items-center justify-between rounded-md border border-border px-3 py-2">
           <span>Rotate API credentials</span>
-          <span hlmBadge variant="destructive">Overdue</span>
+          <span hlmBadge variant="danger">Overdue</span>
         </li>
         <li class="flex items-center justify-between rounded-md border border-border px-3 py-2">
           <span>Archive old backups</span>
