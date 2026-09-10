@@ -1,11 +1,24 @@
 import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorCheckCircle, phosphorWarningCircle } from '@ng-icons/phosphor-icons/regular';
+import {
+  phosphorCheckCircle,
+  phosphorInfo,
+  phosphorWarning,
+  phosphorWarningCircle,
+} from '@ng-icons/phosphor-icons/regular';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { alertContract } from '@surfnet/curve-contracts';
+import { alertContract, type AlertVariantName } from '@surfnet/curve-contracts';
 
 import { HlmButton } from '../../../button/src/lib/hlm-button';
 import { HlmAlert, HlmAlertImports } from '..';
+
+const variantIcons: Record<AlertVariantName, string> = {
+  default: 'phosphorCheckCircle',
+  info: 'phosphorInfo',
+  success: 'phosphorCheckCircle',
+  warning: 'phosphorWarning',
+  danger: 'phosphorWarningCircle',
+};
 
 const meta: Meta<HlmAlert> = {
   title: 'Components/Alert',
@@ -13,7 +26,9 @@ const meta: Meta<HlmAlert> = {
   decorators: [
     moduleMetadata({
       imports: [HlmAlertImports, HlmButton, NgIcon],
-      providers: [provideIcons({ phosphorCheckCircle, phosphorWarningCircle })],
+      providers: [
+        provideIcons({ phosphorCheckCircle, phosphorInfo, phosphorWarning, phosphorWarningCircle }),
+      ],
     }),
   ],
   parameters: {
@@ -66,9 +81,7 @@ export const Default: Story = {
     <div class="flex w-96 flex-col gap-3">
       @for (variant of alertContract.props.variants; track variant) {
         <div hlmAlert [variant]="variant" [title]="alertContract.docs.variants[variant]">
-          <ng-icon
-            [name]="variant === 'destructive' ? 'phosphorWarningCircle' : 'phosphorCheckCircle'"
-          />
+          <ng-icon [name]="variantIcons[variant]" />
           <h5 hlmAlertTitle>{{ variant.charAt(0).toUpperCase() + variant.slice(1) }}</h5>
           <p hlmAlertDescription>{{ alertContract.docs.variants[variant] }}</p>
         </div>
@@ -78,6 +91,7 @@ export const Default: Story = {
 })
 class AlertVariants {
   @Input() alertContract!: typeof alertContract;
+  protected readonly variantIcons = variantIcons;
 }
 
 /** Every visual variant side by side. */
@@ -91,11 +105,11 @@ export const Variants: Story = {
   }),
 };
 
-/** Destructive alert used to surface an error, with title and description. */
-export const Destructive: Story = {
+/** Danger alert used to surface an error, with title and description. */
+export const Danger: Story = {
   render: () => ({
     template: `
-      <div hlmAlert variant="destructive" class="w-96">
+      <div hlmAlert variant="danger" class="w-96">
         <ng-icon name="phosphorWarningCircle" />
         <h5 hlmAlertTitle>Unable to process payment</h5>
         <p hlmAlertDescription>Please verify your billing details and try again.</p>
