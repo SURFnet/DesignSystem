@@ -133,7 +133,7 @@
   },
   "border-subtle": {
     "$type": "color",
-    "$value": "rgba(0, 0, 0, 0.08)"
+    "$value": "rgba(0, 0, 0, 0.06)"
   },
   "destructive-foreground": {
     "$type": "color",
@@ -225,11 +225,11 @@
   },
   "danger-subtle": {
     "$type": "color",
-    "$value": "rgba(254, 226, 226, 1)"
+    "$value": "rgba(255, 224, 222, 1)"
   },
   "danger-subtle-hover": {
     "$type": "color",
-    "$value": "rgba(254, 202, 202, 1)"
+    "$value": "rgba(246, 167, 163, 1)"
   },
   "danger-subtle-foreground": {
     "$type": "color",
