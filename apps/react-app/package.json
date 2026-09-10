@@ -1,6 +1,6 @@
 {
   "name": "@surfnet/curve-react-app",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "private": true,
   "description": "Demo app for testing @surfnet/curve-react components in a real Next.js consumer.",
   "type": "module",
