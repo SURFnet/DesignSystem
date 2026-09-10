@@ -267,6 +267,37 @@ Each package's stylesheet then adds its own framework-specific wiring on top: Ta
 `@theme inline` mappings, the radius scale, and the font stack (Geist for React, system
 stack for Angular).
 
+### Where the tokens come from (Figma sync)
+
+The DTCG JSON isn't hand-written — it's pulled from Figma. `pnpm sync:figma`
+([`scripts/sync-figma.ts`](scripts/sync-figma.ts), run via `jiti`) calls the Figma
+**Variables REST API** directly (this is a bespoke integration, not the Tokens Studio
+plugin format, despite the similarly-shaped JSON) and (re)writes:
+
+- `packages/tokens/src/tokens.json` / `tokens.dark.json` — the default theme, light and dark
+- `packages/tokens/src/tokens.<class>.json` / `tokens.<class>.dark.json` — one pair per
+  additional brand theme (e.g. `tokens.surf-green.json`)
+
+It expects three Figma variable collections, matched by name: **`1. TailwindCSS`**
+(radius, font family — single mode), **`2. Theme`** (per-brand color palettes), and
+**`3. Mode`** (semantic light/dark aliasing on top of the theme layer). The script
+resolves Figma's variable alias chains and writes plain CSS-ready values (`rgba(...)`,
+rem) — it produces JSON only, never CSS.
+
+You need a `FIGMA_TOKEN` and `FIGMA_FILE_ID` in `.env` (see
+[`.env.example`](.env.example)) to run the sync yourself. The JSON output is committed
+to git, so running `pnpm sync:figma` is only needed when the Figma file actually
+changes — a normal `pnpm build` works from whatever JSON is already checked in and
+never talks to Figma.
+
+### Multi-brand themes
+
+Style Dictionary builds `packages/tokens/dist/tokens.css` as cascaded blocks: `:root`
+(default theme, light) and `.dark` (its dark-mode diff), plus one `.theme-<class>` /
+`.dark.theme-<class>` pair per additional brand theme — each containing only the
+properties that differ from the default, to keep the CSS small. Switch themes at
+runtime by adding classes to `<html>`, e.g. `class="dark theme-surf-green"`.
+
 ## Releasing & versioning
 
 Versioning and publishing are managed with [Changesets](https://changesets.dev). The flow
@@ -307,9 +338,12 @@ You do **not** run `version` or `publish` by hand. The
 3. On merge, the same workflow runs `pnpm release` (build + `changeset publish`), publishing
    the changed public packages to npm and pushing git tags.
 
-Publishing requires an **`NPM_TOKEN`** repository secret (an npm automation token with
-publish rights to the `@surfnet` scope). Add it under **Settings → Secrets and variables →
-Actions**. The provided `GITHUB_TOKEN` handles the PR and tags automatically.
+Publishing uses npm's **OIDC trusted publishing** — the workflow requests a short-lived
+`id-token` (see the `id-token: write` permission and `npm publish`'s automatic provenance
+in [`release.yml`](.github/workflows/release.yml)), so there's no `NPM_TOKEN` secret to
+manage or rotate. The `@surfnet` npm scope must have this repository/workflow configured
+as a trusted publisher on npmjs.com. The provided `GITHUB_TOKEN` handles the PR and tags
+automatically.
 
 ### Running it manually (rarely needed)
 
