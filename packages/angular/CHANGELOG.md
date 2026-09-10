@@ -1,5 +1,11 @@
 # @surfnet/curve-angular
 
+## 0.4.1
+
+### Patch Changes
+
+- 8544090: Fix Alert's `info`/`success`/`warning`/`danger` variants: title and description text now use the neutral `foreground`/`muted-foreground` tokens instead of the signal color, per design review. Only the icon and the tinted background carry the signal color now.
+
 ## 0.4.0
 
 ### Minor Changes
