@@ -84,7 +84,7 @@ to GitHub Pages on every push to `main`:
 
 Playwright screenshots each **Components** and **Foundations** story in the built
 Storybooks (React and Angular separately). CI compares those PNGs to baselines in
-`tests/visual/__screenshots__/`.
+`tests/visual/__screenshots__/react/` and `tests/visual/__screenshots__/angular/`.
 
 ```bash
 pnpm test:visual:install      # once per machine / after @playwright/test upgrades

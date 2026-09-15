@@ -12,7 +12,6 @@ export default defineConfig({
     ? [['github'], ['html', { open: 'never' }]]
     : [['list'], ['html', { open: 'never' }]],
   timeout: 20_000,
-  snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{ext}',
   expect: {
     toHaveScreenshot: {
       animations: 'disabled',
@@ -30,6 +29,18 @@ export default defineConfig({
     colorScheme: 'light',
     trace: 'on-first-retry',
   },
+  projects: [
+    {
+      name: 'react',
+      testMatch: /react\.spec\.ts/,
+      snapshotPathTemplate: '{testDir}/__screenshots__/react/{arg}{ext}',
+    },
+    {
+      name: 'angular',
+      testMatch: /angular\.spec\.ts/,
+      snapshotPathTemplate: '{testDir}/__screenshots__/angular/{arg}{ext}',
+    },
+  ],
   webServer: [
     {
       command: 'node tests/visual/serve-storybook.mjs packages/react/storybook-static 6008',
