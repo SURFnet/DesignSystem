@@ -28,6 +28,10 @@ const meta: Meta<InputOtpArgs> = {
   argTypes: {
     maxLength: { control: 'number' },
     disabled: { control: 'boolean' },
+    completeAnnouncement: {
+      control: 'text',
+      description: 'Screen-reader announcement when every slot is filled, including after paste.',
+    },
   },
   args: {
     maxLength: 6,
@@ -43,7 +47,7 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <brn-input-otp hlmInputOtp ${argsToTemplate(args)}>
+      <brn-input-otp hlmInputOtp aria-label="One-time password" ${argsToTemplate(args)}>
         <hlm-input-otp-group>
           <hlm-input-otp-slot index="0" />
           <hlm-input-otp-slot index="1" />
@@ -61,7 +65,7 @@ export const Default: Story = {
 export const WithSeparator: Story = {
   render: () => ({
     template: `
-      <brn-input-otp hlmInputOtp maxLength="6">
+      <brn-input-otp hlmInputOtp aria-label="One-time password" maxLength="6">
         <hlm-input-otp-group>
           <hlm-input-otp-slot index="0" />
           <hlm-input-otp-slot index="1" />
@@ -82,7 +86,7 @@ export const WithSeparator: Story = {
 export const Disabled: Story = {
   render: () => ({
     template: `
-      <brn-input-otp hlmInputOtp value="123456" disabled maxLength="6">
+      <brn-input-otp hlmInputOtp aria-label="One-time password" value="123456" disabled maxLength="6">
         <hlm-input-otp-group>
           <hlm-input-otp-slot index="0" />
           <hlm-input-otp-slot index="1" />

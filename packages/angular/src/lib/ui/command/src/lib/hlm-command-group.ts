@@ -12,6 +12,7 @@ import { classes } from '../../../utils/src';
   ],
   host: {
     'data-slot': 'command-group',
+    role: 'group',
   },
 })
 export class HlmCommandGroup {

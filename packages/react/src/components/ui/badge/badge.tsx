@@ -19,7 +19,7 @@ const badgeVariantClasses = {
     'bg-danger-subtle text-danger-subtle-foreground focus-visible:ring-danger/20 dark:focus-visible:ring-danger/40 [a]:hover:bg-danger-subtle-hover',
   outline: 'border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground',
   ghost: 'hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50',
-  link: 'text-primary underline-offset-4 hover:underline',
+  link: 'text-primary-strong underline-offset-4 hover:underline',
 } satisfies Record<BadgeVariantName, string>;
 
 const badgeVariants = cva(
