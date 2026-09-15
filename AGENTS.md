@@ -129,7 +129,8 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   Vite/webpack dev servers. Serve them on 6008/6009 so they don't collide with
   `pnpm storybook` on 6006/6007.
 - React and Angular each have a `*.spec.ts` that `toHaveScreenshot`s every story (light + dark).
-  `pnpm test:visual` compares to `tests/visual/__screenshots__/` — no React↔Angular diff in that step.
+  Baselines live in separate folders: `tests/visual/__screenshots__/react/` and
+  `.../angular/` (same story ids, different PNGs — never share one flat directory).
 - Refresh baselines with `pnpm test:visual:update`. Optional parity: `pnpm test:visual:parity`.
 
 ### Shared packages (`@surfnet/curve-tokens` + `@surfnet/curve-contracts`)
