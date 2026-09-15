@@ -46,18 +46,18 @@
   vertical-align: top;
   text-align: left;
 }
-.sbdocs-content.sbdocs-content h2 {
+.sbdocs-content.sbdocs-content > h2 {
   margin-block-start: 2rem;
 }
-.sbdocs-content.sbdocs-content h3 {
+.sbdocs-content.sbdocs-content > h3 {
   margin-block-start: 1.5rem;
 }
-.sbdocs-content.sbdocs-content h4 {
+.sbdocs-content.sbdocs-content > h4 {
   margin-block-start: 1rem;
 }
-.sbdocs-content.sbdocs-content h5 {
+.sbdocs-content.sbdocs-content > h5 {
   margin-block-start: 0.5rem;
 }
-.sbdocs-a.sbdocs-a {
+.sbdocs-content.sbdocs-content > p > .sbdocs-a.sbdocs-a {
   color: rgb(0 85 182);
 }
