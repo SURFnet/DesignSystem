@@ -1,0 +1,164 @@
+.root {
+  display: flex;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.root[data-orientation='horizontal'],
+.root[data-horizontal] {
+  flex-direction: column;
+}
+
+.list {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  padding: 3px;
+  color: var(--muted-foreground);
+}
+
+.root[data-orientation='horizontal'] .list,
+.root[data-horizontal] .list {
+  height: calc(var(--spacing, 0.25rem) * 9);
+}
+
+.root[data-orientation='vertical'] .list,
+.root[data-vertical] .list {
+  height: fit-content;
+  flex-direction: column;
+}
+
+.list[data-variant='default'],
+.listDefault {
+  background-color: var(--muted);
+}
+
+.list[data-variant='line'],
+.listLine {
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.trigger {
+  position: relative;
+  display: inline-flex;
+  height: calc(100% - 1px);
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding: calc(var(--spacing, 0.25rem) * 1) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: color-mix(in oklch, var(--foreground) 60%, transparent);
+  transition: all 150ms ease;
+  outline: none;
+}
+
+.root[data-orientation='vertical'] .trigger,
+.root[data-vertical] .trigger {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.trigger:hover {
+  color: var(--foreground);
+}
+
+:global(.dark) .trigger {
+  color: var(--muted-foreground);
+}
+
+:global(.dark) .trigger:hover {
+  color: var(--foreground);
+}
+
+.trigger:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+  outline: 1px solid var(--ring);
+}
+
+.trigger:disabled,
+.trigger[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.trigger:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.trigger:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.trigger svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.trigger[data-active] {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+:global(.dark) .trigger[data-active] {
+  border-color: var(--input);
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+  color: var(--foreground);
+}
+
+.list[data-variant='default'] .trigger[data-active],
+.listDefault .trigger[data-active] {
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.list[data-variant='line'] .trigger[data-active],
+.listLine .trigger[data-active] {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+:global(.dark) .list[data-variant='line'] .trigger[data-active],
+:global(.dark) .listLine .trigger[data-active] {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.trigger::after {
+  content: '';
+  position: absolute;
+  background-color: var(--foreground);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.root[data-orientation='horizontal'] .list[data-variant='line'] .trigger[data-active]::after,
+.root[data-horizontal] .list[data-variant='line'] .trigger[data-active]::after {
+  inset-inline: 0;
+  bottom: -5px;
+  height: 2px;
+  opacity: 1;
+}
+
+.root[data-orientation='vertical'] .list[data-variant='line'] .trigger[data-active]::after,
+.root[data-vertical] .list[data-variant='line'] .trigger[data-active]::after {
+  inset-block: 0;
+  right: -4px;
+  width: 2px;
+  opacity: 1;
+}
+
+.content {
+  flex: 1;
+  font-size: 0.875rem;
+  outline: none;
+}

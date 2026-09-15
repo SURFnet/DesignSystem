@@ -1,0 +1,193 @@
+.badge {
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 5);
+  width: fit-content;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--radius-4xl, calc(var(--radius, 0.625rem) * 2.6));
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  white-space: nowrap;
+  transition: all 150ms ease;
+}
+
+.badge:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.badge[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .badge[aria-invalid='true'] {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.badge:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.badge:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.badge svg {
+  pointer-events: none;
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.badge[data-variant='default'],
+.variantDefault {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.badge[data-variant='default'] a:hover,
+.variantDefault a:hover {
+  background-color: color-mix(in oklch, var(--primary) 80%, transparent);
+}
+
+.badge[data-variant='secondary'],
+.variantSecondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.badge[data-variant='secondary'] a:hover,
+.variantSecondary a:hover {
+  background-color: color-mix(in oklch, var(--secondary) 80%, transparent);
+}
+
+.badge[data-variant='info'],
+.variantInfo {
+  background-color: var(--info-subtle);
+  color: var(--info-subtle-foreground);
+}
+
+.badge[data-variant='info']:focus-visible,
+.variantInfo:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 20%, transparent);
+}
+
+:global(.dark) .badge[data-variant='info']:focus-visible,
+:global(.dark) .variantInfo:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 40%, transparent);
+}
+
+.badge[data-variant='info'] a:hover,
+.variantInfo a:hover {
+  background-color: var(--info-subtle-hover);
+}
+
+.badge[data-variant='success'],
+.variantSuccess {
+  background-color: var(--success-subtle);
+  color: var(--success-subtle-foreground);
+}
+
+.badge[data-variant='success']:focus-visible,
+.variantSuccess:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 20%, transparent);
+}
+
+:global(.dark) .badge[data-variant='success']:focus-visible,
+:global(.dark) .variantSuccess:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 40%, transparent);
+}
+
+.badge[data-variant='success'] a:hover,
+.variantSuccess a:hover {
+  background-color: var(--success-subtle-hover);
+}
+
+.badge[data-variant='warning'],
+.variantWarning {
+  background-color: var(--warning-subtle);
+  color: var(--warning-subtle-foreground);
+}
+
+.badge[data-variant='warning']:focus-visible,
+.variantWarning:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 20%, transparent);
+}
+
+:global(.dark) .badge[data-variant='warning']:focus-visible,
+:global(.dark) .variantWarning:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 40%, transparent);
+}
+
+.badge[data-variant='warning'] a:hover,
+.variantWarning a:hover {
+  background-color: var(--warning-subtle-hover);
+}
+
+.badge[data-variant='danger'],
+.variantDanger {
+  background-color: var(--danger-subtle);
+  color: var(--danger-subtle-foreground);
+}
+
+.badge[data-variant='danger']:focus-visible,
+.variantDanger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 20%, transparent);
+}
+
+:global(.dark) .badge[data-variant='danger']:focus-visible,
+:global(.dark) .variantDanger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 40%, transparent);
+}
+
+.badge[data-variant='danger'] a:hover,
+.variantDanger a:hover {
+  background-color: var(--danger-subtle-hover);
+}
+
+.badge[data-variant='outline'],
+.variantOutline {
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.badge[data-variant='outline'] a:hover,
+.variantOutline a:hover {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.badge[data-variant='ghost'],
+.variantGhost {
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+.badge[data-variant='ghost']:hover,
+.variantGhost:hover {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+:global(.dark) .badge[data-variant='ghost']:hover,
+:global(.dark) .variantGhost:hover {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.badge[data-variant='link'],
+.variantLink {
+  background-color: transparent;
+  color: var(--primary);
+  text-underline-offset: 4px;
+}
+
+.badge[data-variant='link']:hover,
+.variantLink:hover {
+  text-decoration: underline;
+}

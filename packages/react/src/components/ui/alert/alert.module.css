@@ -1,0 +1,119 @@
+.alert {
+  position: relative;
+  display: grid;
+  width: 100%;
+  gap: 0.125rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.alert:has([data-slot='alert-action']) {
+  padding-inline-end: 4.5rem;
+}
+
+.alert:has(> svg) {
+  grid-template-columns: auto 1fr;
+  column-gap: 0.625rem;
+}
+
+.alert > svg {
+  grid-row: span 2;
+  transform: translateY(2px);
+  color: currentcolor;
+  width: 1rem;
+  height: 1rem;
+}
+
+.alert[data-variant='default'],
+.variantDefault {
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+.alert[data-variant='info'],
+.variantInfo {
+  background-color: var(--info-subtle);
+  color: var(--info-subtle-foreground);
+}
+
+.alert[data-variant='success'],
+.variantSuccess {
+  background-color: var(--success-subtle);
+  color: var(--success-subtle-foreground);
+}
+
+.alert[data-variant='warning'],
+.variantWarning {
+  background-color: var(--warning-subtle);
+  color: var(--warning-subtle-foreground);
+}
+
+.alert[data-variant='danger'],
+.variantDanger {
+  background-color: var(--danger-subtle);
+  color: var(--danger-subtle-foreground);
+}
+
+.alert[data-variant='info'] [data-slot='alert-title'],
+.variantInfo [data-slot='alert-title'],
+.alert[data-variant='success'] [data-slot='alert-title'],
+.variantSuccess [data-slot='alert-title'],
+.alert[data-variant='warning'] [data-slot='alert-title'],
+.variantWarning [data-slot='alert-title'],
+.alert[data-variant='danger'] [data-slot='alert-title'],
+.variantDanger [data-slot='alert-title'] {
+  color: var(--foreground);
+}
+
+.title {
+  font-weight: 500;
+}
+
+.alert:has(> svg) .title {
+  grid-column-start: 2;
+}
+
+.title a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.title a:hover {
+  color: var(--foreground);
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-wrap: balance;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 768px) {
+  .description {
+    text-wrap: pretty;
+  }
+}
+
+.description a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.description a:hover {
+  color: var(--foreground);
+}
+
+.description p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.action {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.75rem;
+}

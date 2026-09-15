@@ -1,0 +1,94 @@
+.switch {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition: all 150ms ease;
+  outline: none;
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  inset: -0.5rem -0.75rem;
+}
+
+.switch[data-size='default'] {
+  height: 18.4px;
+  width: 32px;
+}
+
+.switch[data-size='sm'] {
+  height: 14px;
+  width: 24px;
+}
+
+.switch:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.switch[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .switch[aria-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.switch[data-checked] {
+  background-color: var(--primary);
+}
+
+.switch[data-unchecked] {
+  background-color: var(--input);
+}
+
+:global(.dark) .switch[data-unchecked] {
+  background-color: color-mix(in oklch, var(--input) 80%, transparent);
+}
+
+.switch[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.thumb {
+  pointer-events: none;
+  display: block;
+  border-radius: 9999px;
+  background-color: var(--background);
+  box-shadow: none;
+  transition: transform 150ms ease;
+}
+
+.switch[data-size='default'] .thumb {
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.switch[data-size='sm'] .thumb {
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.switch[data-unchecked] .thumb {
+  transform: translateX(0);
+}
+
+.switch[data-checked] .thumb {
+  transform: translateX(calc(100% - 2px));
+}
+
+:global(.dark) .switch[data-checked] .thumb {
+  background-color: var(--primary-foreground);
+}
+
+:global(.dark) .switch[data-unchecked] .thumb {
+  background-color: var(--foreground);
+}

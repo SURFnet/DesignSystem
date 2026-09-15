@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
+import styles from './date-picker.module.css';
+
 function DatePicker({
   date,
   onDateChange,
@@ -29,14 +31,14 @@ function DatePicker({
           <Button
             variant="outline"
             data-slot="date-picker-trigger"
-            className={cn('w-56 justify-start text-left font-normal', triggerClassName)}
+            className={cn(styles.trigger, triggerClassName)}
           />
         }
       >
         <CalendarIcon data-icon="inline-start" />
-        {date ? format(date, 'PPP') : <span className="text-muted-foreground">{placeholder}</span>}
+        {date ? format(date, 'PPP') : <span className={styles.placeholder}>{placeholder}</span>}
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className={styles.popoverContent} align="start">
         <Calendar mode="single" selected={date} onSelect={onDateChange} {...props} />
       </PopoverContent>
     </Popover>
@@ -62,7 +64,7 @@ function DateRangePicker({
           <Button
             variant="outline"
             data-slot="date-range-picker-trigger"
-            className={cn('w-72 justify-start text-left font-normal', triggerClassName)}
+            className={cn(styles.trigger, styles.triggerRange, triggerClassName)}
           />
         }
       >
@@ -76,10 +78,10 @@ function DateRangePicker({
             format(dateRange.from, 'LLL d, y')
           )
         ) : (
-          <span className="text-muted-foreground">{placeholder}</span>
+          <span className={styles.placeholder}>{placeholder}</span>
         )}
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className={styles.popoverContent} align="start">
         <Calendar
           mode="range"
           selected={dateRange}

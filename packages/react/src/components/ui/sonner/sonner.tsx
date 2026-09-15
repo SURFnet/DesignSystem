@@ -1,14 +1,16 @@
 'use client';
 
-import { useTheme } from 'next-themes';
-import { Toaster as Sonner, type ToasterProps } from 'sonner';
 import {
   CheckCircleIcon,
   InfoIcon,
+  SpinnerIcon,
   WarningIcon,
   XCircleIcon,
-  SpinnerIcon,
 } from '@phosphor-icons/react';
+import { useTheme } from 'next-themes';
+import { Toaster as Sonner, type ToasterProps } from 'sonner';
+
+import styles from './sonner.module.css';
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
@@ -16,13 +18,13 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme={theme as ToasterProps['theme']}
-      className="toaster group"
+      className={styles.toaster}
       icons={{
-        success: <CheckCircleIcon className="size-4" />,
-        info: <InfoIcon className="size-4" />,
-        warning: <WarningIcon className="size-4" />,
-        error: <XCircleIcon className="size-4" />,
-        loading: <SpinnerIcon className="size-4 animate-spin" />,
+        success: <CheckCircleIcon className={styles.icon} />,
+        info: <InfoIcon className={styles.icon} />,
+        warning: <WarningIcon className={styles.icon} />,
+        error: <XCircleIcon className={styles.icon} />,
+        loading: <SpinnerIcon className={styles.iconSpin} />,
       }}
       style={
         {
@@ -32,11 +34,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
           '--border-radius': 'var(--radius)',
         } as React.CSSProperties
       }
-      toastOptions={{
-        classNames: {
-          toast: 'cn-toast',
-        },
-      }}
       {...props}
     />
   );

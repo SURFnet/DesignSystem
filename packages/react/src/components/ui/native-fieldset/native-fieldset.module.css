@@ -1,0 +1,48 @@
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  padding: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.fieldset:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.fieldset:disabled :global(*) {
+  pointer-events: none;
+}
+
+.legend {
+  padding-inline: calc(var(--spacing, 0.25rem) * 1);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 3);
+  margin-top: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  cursor: pointer;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
