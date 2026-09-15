@@ -9,6 +9,7 @@ import { HlmSpinner, HlmSpinnerImports } from '..';
 const meta: Meta<HlmSpinner> = {
   title: 'Components/Spinner',
   component: HlmSpinner,
+  tags: ['skip-visual'],
   decorators: [
     moduleMetadata({
       imports: [HlmSpinnerImports, HlmButton, HlmCardImports, HlmEmptyImports],
