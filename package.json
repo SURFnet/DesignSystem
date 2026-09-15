@@ -18,7 +18,7 @@
     "test:visual": "playwright test",
     "test:visual:install": "playwright install chromium",
     "test:visual:parity": "playwright test tests/visual/parity.spec.ts",
-    "test:visual:update": "playwright test tests/visual/react.spec.ts tests/visual/angular.spec.ts --update-snapshots=all",
+    "test:visual:update": "playwright test tests/visual/react.spec.ts --update-snapshots=all && playwright test tests/visual/angular.spec.ts --update-snapshots=all",
     "test:visual:ui": "playwright test --ui",
     "lint": "turbo run lint",
     "test:a11y": "turbo run test:a11y:ci",
