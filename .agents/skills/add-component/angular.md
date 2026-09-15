@@ -103,6 +103,7 @@ pnpm --filter @surfnet/curve-contracts lint       # contract types still compile
 pnpm --filter @surfnet/curve-angular build        # ng-packagr (FESM + d.ts); satisfies check runs here
 pnpm --filter @surfnet/curve-angular build-storybook
 pnpm format
+pnpm test:visual   # after both Storybooks are built
 ```
 
 ## Definition of done
@@ -116,6 +117,9 @@ pnpm format
 - Story covers full variant/size/state surface, sourcing its description and axis lists from
   the contract object.
 - `pnpm build`, `pnpm format`, and `build-storybook` all pass.
+- Visual tests pass (`pnpm test:visual`). Parity screenshots compare this story to its React
+  counterpart by story id — keep the story names in sync. Tag stories `skip-visual` if they
+  cannot be snapshotted stably.
 
 ## Updating an existing component
 

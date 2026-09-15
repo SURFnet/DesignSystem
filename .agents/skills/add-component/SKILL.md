@@ -74,6 +74,7 @@ states, and story coverage.
    # parity check — both should list the same story ids:
    node -e "console.log(Object.keys(require('./packages/react/storybook-static/index.json').entries))"
    node -e "console.log(Object.keys(require('./packages/angular/storybook-static/index.json').entries))"
+   pnpm test:visual   # React snapshots + React/Angular screenshot comparison
    ```
 
 ## Contract step
@@ -172,4 +173,6 @@ enough.
 - A Storybook story per package covering the component's full surface; when added to both,
   the story sets match.
 - `pnpm build`, `pnpm lint`, `pnpm format`, and the relevant `build-storybook` runs pass.
+- Visual tests pass (`pnpm test:visual`). React snapshot baselines are refreshed with
+  `pnpm test:visual:update`.
 - Any unavoidable React/Angular difference is documented, not hidden.

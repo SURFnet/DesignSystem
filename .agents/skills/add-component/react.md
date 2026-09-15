@@ -122,6 +122,7 @@ pnpm --filter @surfnet/curve-react lint           # tsc --noEmit (satisfies chec
 pnpm --filter @surfnet/curve-react build          # vite lib build + d.ts
 pnpm --filter @surfnet/curve-react build-storybook
 pnpm format
+pnpm test:visual   # after both Storybooks are built
 ```
 
 ## Definition of done
@@ -135,6 +136,8 @@ pnpm format
 - Story covers full variant/size/state surface, sourcing its description and axis lists from
   the contract object.
 - `pnpm build`, `pnpm lint`, `pnpm format`, and `build-storybook` all pass.
+- Visual tests pass (`pnpm test:visual`). Refresh baselines with `pnpm test:visual:update`
+  when appearance changed. Tag stories `skip-visual` if they cannot be snapshotted stably.
 
 ## Updating an existing component
 
