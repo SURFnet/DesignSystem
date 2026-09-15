@@ -5,6 +5,7 @@ import {
   themeGlobalTypes,
   themeInitialGlobals,
   themeSwitcher,
+  visualReadyMarker,
 } from '@surfnet/curve-storybook-config';
 
 // Pull in Tailwind + the design tokens so stories render with the real styles.
@@ -17,7 +18,7 @@ export default {
   tags: ['autodocs'],
   initialGlobals: { framework: 'react', ...themeInitialGlobals },
   globalTypes: { ...frameworkGlobalTypes, ...themeGlobalTypes },
-  decorators: [frameworkSwitcher('react'), themeSwitcher()],
+  decorators: [frameworkSwitcher('react'), themeSwitcher(), visualReadyMarker()],
   parameters: {
     ...sharedParameters,
     // Force the React jsxDecorator to always serialize the rendered JSX for the
