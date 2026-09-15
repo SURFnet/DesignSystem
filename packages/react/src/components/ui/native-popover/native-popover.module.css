@@ -1,0 +1,35 @@
+.popover {
+  margin: 0;
+  width: 18rem;
+  max-width: calc(100vw - 2rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding: calc(var(--spacing, 0.25rem) * 4);
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.popover::backdrop {
+  background-color: transparent;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.title {
+  font-weight: 500;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.trigger {
+  /* Unstyled trigger hook — consumers often use Button */
+}

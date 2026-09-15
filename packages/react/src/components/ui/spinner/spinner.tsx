@@ -1,7 +1,10 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { SpinnerIcon } from '@phosphor-icons/react';
+
+import { cn } from '@/lib/utils';
+
+import styles from './spinner.module.css';
 
 function Spinner({ className, ...props }: React.ComponentProps<'svg'>) {
   return (
@@ -9,7 +12,7 @@ function Spinner({ className, ...props }: React.ComponentProps<'svg'>) {
       data-slot="spinner"
       role="status"
       aria-label="Loading"
-      className={cn('size-4 animate-spin', className)}
+      className={cn(styles.spinner, className)}
       {...props}
     />
   );

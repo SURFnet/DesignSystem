@@ -1,0 +1,216 @@
+.trigger svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.triggerIcon {
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.inputGroupWide {
+  width: auto;
+}
+
+.comboboxTriggerButton[data-pressed] {
+  background-color: transparent;
+}
+
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+}
+
+.content {
+  position: relative;
+  max-height: var(--available-height, 24rem);
+  width: var(--anchor-width, auto);
+  max-width: var(--available-width, 100%);
+  min-width: calc(var(--anchor-width, 12rem) + calc(var(--spacing, 0.25rem) * 7));
+  overflow: hidden;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.content[data-chips='true'] {
+  min-width: var(--anchor-width, auto);
+}
+
+.content :global([data-slot='input-group']) {
+  margin: calc(var(--spacing, 0.25rem) * 1);
+  margin-bottom: 0;
+  height: calc(var(--spacing, 0.25rem) * 8);
+  border-color: color-mix(in oklch, var(--input) 30%, transparent);
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+  box-shadow: none;
+}
+
+.list {
+  max-height: min(
+    calc(calc(var(--spacing, 0.25rem) * 72) - calc(var(--spacing, 0.25rem) * 9)),
+    calc(var(--available-height, 24rem) - calc(var(--spacing, 0.25rem) * 9))
+  );
+  scroll-padding-block: calc(var(--spacing, 0.25rem) * 1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(var(--spacing, 0.25rem) * 1);
+  scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.list[data-empty] {
+  padding: 0;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 8)
+    calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  outline: none;
+  user-select: none;
+}
+
+.item[data-highlighted] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.item[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.item svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.itemIndicator {
+  pointer-events: none;
+  position: absolute;
+  right: calc(var(--spacing, 0.25rem) * 2);
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.empty {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  padding-block: calc(var(--spacing, 0.25rem) * 2);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.content[data-empty] .empty {
+  display: flex;
+}
+
+.separator {
+  margin-block: calc(var(--spacing, 0.25rem) * 1);
+  margin-inline: calc(var(--spacing, 0.25rem) * -1);
+  height: 1px;
+  background-color: var(--border);
+}
+
+.chips {
+  display: flex;
+  min-height: calc(var(--spacing, 0.25rem) * 9);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  background-clip: padding-box;
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2.5);
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition:
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.chips:focus-within {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.chips:has([aria-invalid='true']) {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .chips {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+.chips:has([data-slot='combobox-chip']) {
+  padding-inline: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.chip {
+  display: flex;
+  width: fit-content;
+  height: calc(var(--spacing, 0.25rem) * 5.5);
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  background-color: var(--muted);
+  padding-inline: calc(var(--spacing, 0.25rem) * 1.5);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--foreground);
+}
+
+.chip:has([data-slot='combobox-chip-remove']) {
+  padding-right: 0;
+}
+
+.chipRemove {
+  margin-left: calc(var(--spacing, 0.25rem) * -1);
+  opacity: 0.5;
+}
+
+.chipRemove:hover {
+  opacity: 1;
+}
+
+.chipsInput {
+  min-width: 4rem;
+  flex: 1;
+  outline: none;
+}
+
+.group:has([data-slot='combobox-clear']) .comboboxTriggerButton {
+  display: none;
+}

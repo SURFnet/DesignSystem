@@ -33,7 +33,17 @@ export {
 } from './item.js';
 export { kbdContract } from './kbd.js';
 export { labelContract } from './label.js';
+export { nativeCheckboxContract } from './native-checkbox.js';
+export { nativeDetailsContract } from './native-details.js';
+export { nativeDialogContract } from './native-dialog.js';
+export { nativeFieldsetContract } from './native-fieldset.js';
+export { nativeInputContract, type NativeInputSizeName } from './native-input.js';
+export { nativePopoverContract } from './native-popover.js';
+export { nativeProgressContract } from './native-progress.js';
+export { nativeRadioContract } from './native-radio.js';
+export { nativeRangeContract } from './native-range.js';
 export { nativeSelectContract, type NativeSelectSizeName } from './native-select.js';
+export { nativeTextareaContract } from './native-textarea.js';
 export { navigationMenuContract } from './navigation-menu.js';
 export { paginationContract } from './pagination.js';
 export { popoverContract } from './popover.js';

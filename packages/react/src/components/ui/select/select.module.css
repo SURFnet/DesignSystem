@@ -1,0 +1,211 @@
+.group {
+  scroll-margin-block: calc(var(--spacing, 0.25rem) * 1);
+  padding: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.value {
+  display: flex;
+  flex: 1;
+  text-align: left;
+}
+
+.trigger {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 2)
+    calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 2.5);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition:
+    color 150ms ease,
+    box-shadow 150ms ease;
+  outline: none;
+}
+
+.trigger[data-size='default'] {
+  height: calc(var(--spacing, 0.25rem) * 9);
+}
+
+.trigger[data-size='sm'] {
+  height: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.trigger:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.trigger[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .trigger {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+:global(.dark) .trigger:hover:not(:disabled) {
+  background-color: color-mix(in oklch, var(--input) 50%, transparent);
+}
+
+:global(.dark) .trigger[aria-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.trigger[data-placeholder] {
+  color: var(--muted-foreground);
+}
+
+.trigger :global([data-slot='select-value']) {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trigger svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.triggerIcon {
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+}
+
+.content {
+  position: relative;
+  isolation: isolate;
+  z-index: 50;
+  max-height: var(--available-height, 24rem);
+  width: var(--anchor-width, auto);
+  min-width: 9rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.label {
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 8)
+    calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  user-select: none;
+}
+
+.item:focus {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.item[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.item svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.itemText {
+  display: flex;
+  flex: 1;
+  flex-shrink: 0;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  white-space: nowrap;
+}
+
+.itemIndicator {
+  pointer-events: none;
+  position: absolute;
+  right: calc(var(--spacing, 0.25rem) * 2);
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemIndicatorIcon {
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.separator {
+  pointer-events: none;
+  margin-block: calc(var(--spacing, 0.25rem) * 1);
+  margin-inline: calc(var(--spacing, 0.25rem) * -1);
+  height: 1px;
+  background-color: var(--border);
+}
+
+.scrollButton {
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--popover);
+  padding-block: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.scrollButton svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.scrollUp {
+  top: 0;
+}
+
+.scrollDown {
+  bottom: 0;
+}

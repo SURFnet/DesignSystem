@@ -1,7 +1,6 @@
 import { isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 import dts from 'vite-plugin-dts';
 import preserveDirectives from 'rollup-plugin-preserve-directives';
 import { defineConfig } from 'vite';
@@ -11,7 +10,6 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url));
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
     dts({
       tsconfigPath: './tsconfig.build.json',
       entryRoot: 'src',

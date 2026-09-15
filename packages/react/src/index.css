@@ -1,8 +1,9 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/source-sans-3';
+@import '@surfnet/curve-tokens/tokens.css';
+@import './styles/base.css';
+@import './styles/semantic-colors.css';
+@import './styles/utilities.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -89,20 +90,15 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@import '@surfnet/curve-tokens/tokens.css';
-
 :root {
   --radius: 0.625rem;
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+  /*
+   * Base spacing unit, consumed as `calc(var(--spacing) * N)` throughout the
+   * component CSS Modules. Previously supplied implicitly by Tailwind's
+   * default theme; each module also carries a `0.25rem` fallback
+   * (`var(--spacing, 0.25rem)`) so nothing broke while this was missing, but
+   * defining it here is the real source of truth and lets consumers override
+   * the base unit for their whole app.
+   */
+  --spacing: 0.25rem;
 }

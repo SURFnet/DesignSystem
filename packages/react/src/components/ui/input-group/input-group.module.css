@@ -1,0 +1,185 @@
+.group {
+  position: relative;
+  display: flex;
+  height: calc(var(--spacing, 0.25rem) * 9);
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition:
+    color 150ms ease,
+    box-shadow 150ms ease;
+  outline: none;
+}
+
+:global(.dark) .group {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+.group:has([data-slot='input-group-control']:focus-visible) {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.group:has([data-slot][aria-invalid='true']) {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .group:has([data-slot][aria-invalid='true']) {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.group:has(> [data-align='block-end']),
+.group:has(> [data-align='block-start']) {
+  height: auto;
+  flex-direction: column;
+}
+
+.group:has(> textarea) {
+  height: auto;
+}
+
+:global([data-slot='combobox-content']) .group:focus-within {
+  border-color: inherit;
+  box-shadow: none;
+}
+
+.addon {
+  display: flex;
+  height: auto;
+  cursor: text;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding-block: calc(var(--spacing, 0.25rem) * 1.5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  user-select: none;
+}
+
+.group[data-disabled='true'] .addon {
+  opacity: 0.5;
+}
+
+.addon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.addonInlineStart {
+  order: -1;
+  padding-left: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.addonInlineEnd {
+  order: 1;
+  padding-right: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.addonBlockStart {
+  order: -1;
+  width: 100%;
+  justify-content: flex-start;
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+  padding-top: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.addonBlockEnd {
+  order: 1;
+  width: 100%;
+  justify-content: flex-start;
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+  padding-bottom: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.addonButton {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  box-shadow: none;
+}
+
+.addonButtonSizeXs {
+  height: calc(var(--spacing, 0.25rem) * 6);
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: calc(var(--radius, 0.625rem) - 5px);
+  padding-inline: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.addonButtonSizeXs svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.addonButtonIconXs {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+  border-radius: calc(var(--radius, 0.625rem) - 5px);
+  padding: 0;
+}
+
+.addonButtonIconSm {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  padding: 0;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.text svg {
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.control {
+  flex: 1;
+  border-radius: 0;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.control:focus-visible {
+  box-shadow: none;
+}
+
+.control[aria-invalid='true'] {
+  box-shadow: none;
+}
+
+:global(.dark) .control {
+  background-color: transparent;
+}
+
+.controlTextarea {
+  resize: none;
+  padding-block: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.group:has(> [data-align='block-end']) .control {
+  padding-top: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.group:has(> [data-align='block-start']) .control {
+  padding-bottom: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.group:has(> [data-align='inline-end']) .control {
+  padding-right: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.group:has(> [data-align='inline-start']) .control {
+  padding-left: calc(var(--spacing, 0.25rem) * 1.5);
+}

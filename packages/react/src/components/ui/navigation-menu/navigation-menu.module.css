@@ -1,0 +1,189 @@
+.root {
+  position: relative;
+  display: flex;
+  max-width: max-content;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.list {
+  display: flex;
+  flex: 1;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.root[data-orientation='vertical'] .list {
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+
+.item {
+  position: relative;
+}
+
+.trigger {
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 9);
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 150ms ease;
+  outline: none;
+}
+
+.trigger:hover {
+  background-color: var(--muted);
+}
+
+.trigger:focus {
+  background-color: var(--muted);
+}
+
+.trigger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+  outline: 1px solid transparent;
+}
+
+.trigger:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.trigger[data-open],
+.trigger[data-popup-open] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.triggerCaret {
+  position: relative;
+  top: 1px;
+  margin-left: calc(var(--spacing, 0.25rem) * 1);
+  width: 0.75rem;
+  height: 0.75rem;
+  transition: transform 300ms ease;
+}
+
+.trigger[data-open] .triggerCaret,
+.trigger[data-popup-open] .triggerCaret {
+  transform: rotate(180deg);
+}
+
+.content {
+  height: 100%;
+  width: auto;
+  padding: calc(var(--spacing, 0.25rem) * 2);
+  padding-right: 0.625rem;
+}
+
+.root[data-viewport='false'] .content {
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.content :global([data-slot='navigation-menu-link']:focus) {
+  box-shadow: none;
+  outline: none;
+}
+
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+  height: var(--positioner-height, auto);
+  width: var(--positioner-width, auto);
+  max-width: var(--available-width, 100%);
+}
+
+.popup {
+  position: relative;
+  height: var(--popup-height, auto);
+  width: var(--popup-width, auto);
+  border-radius: var(--radius-lg, calc(var(--radius, 0.625rem) * 1));
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  transition: all 150ms ease;
+  outline: none;
+}
+
+.link:hover {
+  background-color: var(--muted);
+}
+
+.link:focus {
+  background-color: var(--muted);
+}
+
+.link:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+  outline: 1px solid transparent;
+}
+
+.link[data-active='true'] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.link[data-active='true']:hover,
+.link[data-active='true']:focus {
+  background-color: var(--secondary);
+}
+
+.link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+:global([data-slot='navigation-menu-content']) .link {
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+}
+
+.indicator {
+  top: 100%;
+  z-index: 1;
+  display: flex;
+  height: 0.375rem;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.indicatorArrow {
+  position: relative;
+  top: 60%;
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: rotate(45deg);
+  border-top-left-radius: 2px;
+  background-color: var(--border);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+}

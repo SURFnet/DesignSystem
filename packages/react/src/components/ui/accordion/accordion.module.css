@@ -1,0 +1,91 @@
+.root {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.header {
+  display: flex;
+}
+
+.trigger {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding-block: calc(var(--spacing, 0.25rem) * 4);
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 150ms ease;
+  outline: none;
+}
+
+.trigger:hover {
+  text-decoration: underline;
+}
+
+.trigger:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.trigger[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.triggerIcon {
+  margin-left: auto;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  pointer-events: none;
+  color: var(--muted-foreground);
+}
+
+.iconCollapsed {
+  display: inline;
+}
+
+.iconExpanded {
+  display: none;
+}
+
+.trigger[aria-expanded='true'] .iconCollapsed {
+  display: none;
+}
+
+.trigger[aria-expanded='true'] .iconExpanded {
+  display: inline;
+}
+
+.panel {
+  overflow: hidden;
+  font-size: 0.875rem;
+}
+
+.panelInner {
+  padding-top: 0;
+  padding-bottom: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.panelInner a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.panelInner a:hover {
+  color: var(--foreground);
+}
+
+.panelInner p:not(:last-child) {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 4);
+}

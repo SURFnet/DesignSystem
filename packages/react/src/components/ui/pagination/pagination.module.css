@@ -1,0 +1,67 @@
+.root {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.linkPaddingStart {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 2) !important;
+}
+
+.linkPaddingEnd {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 2) !important;
+}
+
+.ellipsis {
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 9);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  align-items: center;
+  justify-content: center;
+}
+
+.ellipsis svg {
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.hideSm {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .hideSm {
+    display: block;
+  }
+}
+
+.rtlFlip {
+  transform: scaleX(-1);
+}
+
+:global([dir='rtl']) .rtlFlip {
+  transform: scaleX(1);
+}
+
+:global([dir='rtl']) .rtlFlip:where(:not([dir='rtl'] *)) {
+  transform: scaleX(-1);
+}
