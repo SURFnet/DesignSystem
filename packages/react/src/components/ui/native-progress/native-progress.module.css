@@ -1,0 +1,25 @@
+.progress {
+  width: 100%;
+  height: calc(var(--spacing, 0.25rem) * 1.5);
+  appearance: none;
+  overflow: hidden;
+  border: none;
+  border-radius: 9999px;
+  background-color: var(--muted);
+}
+
+.progress::-webkit-progress-bar {
+  background-color: var(--muted);
+  border-radius: 9999px;
+}
+
+.progress::-webkit-progress-value {
+  background-color: var(--primary);
+  border-radius: 9999px;
+  transition: width 150ms ease;
+}
+
+.progress::-moz-progress-bar {
+  background-color: var(--primary);
+  border-radius: 9999px;
+}

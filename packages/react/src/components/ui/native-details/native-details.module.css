@@ -1,0 +1,43 @@
+.details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+.details + .details {
+  margin-top: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.summary {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding: calc(var(--spacing, 0.25rem) * 4);
+  font-weight: 500;
+  list-style: none;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::after {
+  content: '+';
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--muted-foreground);
+  transition: transform 150ms ease;
+}
+
+.details[open] .summary::after {
+  content: '−';
+}
+
+.content {
+  padding: 0 calc(var(--spacing, 0.25rem) * 4) calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
