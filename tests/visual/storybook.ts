@@ -17,6 +17,10 @@ const SKIP_TITLES = new Set(['Components/Spinner']);
 
 const FIXTURES = path.join(process.cwd(), 'tests/visual/fixtures');
 
+const CURVE_FONT_FAMILIES = ['Source Sans 3 Variable', 'Source Sans 3', 'Geist Variable'] as const;
+
+const DATE_STORY = /calendar|date-picker|datepicker/i;
+
 export type StoryType = 'story' | 'docs';
 
 export type StoryEntry = {
@@ -57,13 +61,84 @@ export function isFullPage(story: StoryEntry): boolean {
   return story.tags?.includes('visual-fullpage') === true;
 }
 
+export function frameworkFromOrigin(origin: string): Framework {
+  return origin === ANGULAR_ORIGIN ? 'angular' : 'react';
+}
+
+async function waitForThemeMode(page: Page, mode: Mode): Promise<void> {
+  await page.waitForFunction(
+    (expectedMode) => {
+      const isDark = document.documentElement.classList.contains('dark');
+      return expectedMode === 'dark' ? isDark : !isDark;
+    },
+    mode,
+    { timeout: 10_000 },
+  );
+}
+
+async function loadCurveFonts(page: Page): Promise<void> {
+  await page.evaluate(async (families) => {
+    await document.fonts.ready;
+    for (const family of families) {
+      for (const weight of ['400', '500', '600']) {
+        await document.fonts.load(`${weight} 16px "${family}"`).catch(() => undefined);
+      }
+    }
+    await document.fonts.ready;
+  }, CURVE_FONT_FAMILIES);
+}
+
+/** Angular Storybook injects global CSS via webpack `styles` — light wait is enough. */
+async function waitForAngularStoryReady(page: Page, mode: Mode): Promise<void> {
+  await waitForThemeMode(page, mode);
+  await page.locator('#storybook-root').waitFor({ state: 'visible' });
+  await loadCurveFonts(page);
+}
+
+/** React Storybook sets `data-curve-visual-ready` from preview (fonts + tokens in-browser). */
+async function waitForReactStoryReady(page: Page, mode: Mode): Promise<void> {
+  await waitForThemeMode(page, mode);
+  await page.locator('#storybook-root').waitFor({ state: 'visible' });
+  await page.locator('html[data-curve-visual-ready="true"]').waitFor({ timeout: 25_000 });
+}
+
+async function waitForStoryReady(page: Page, mode: Mode, framework: Framework): Promise<void> {
+  if (framework === 'react') {
+    await waitForReactStoryReady(page, mode);
+  } else {
+    await waitForAngularStoryReady(page, mode);
+  }
+}
+
+/** Pin Date for calendar stories without Playwright's fake clock (that breaks React/Vite paint). */
+async function installFrozenDateIfNeeded(page: Page, storyId: string): Promise<void> {
+  if (!DATE_STORY.test(storyId)) {
+    return;
+  }
+  await page.addInitScript((iso) => {
+    const fixed = new Date(iso).getTime();
+    const NativeDate = Date;
+    function PatchedDate(
+      ...args: [] | [Date | number | string] | [number, number, number, ...number[]]
+    ) {
+      if (args.length === 0) {
+        return new NativeDate(fixed);
+      }
+      return new NativeDate(...args);
+    }
+    PatchedDate.now = () => fixed;
+    PatchedDate.parse = NativeDate.parse;
+    PatchedDate.UTC = NativeDate.UTC;
+    PatchedDate.prototype = NativeDate.prototype;
+    // @ts-expect-error — frozen clock for date-picker stories only
+    Date = PatchedDate;
+  }, FROZEN_DATE);
+}
+
 /**
- * Intercept flaky remote images, freeze the clock, and prefer reduced motion
- * before the Storybook iframe loads.
+ * Intercept flaky remote images and prefer reduced motion before the Storybook iframe loads.
  */
 export async function preparePage(page: Page): Promise<void> {
-  await page.clock.install({ time: new Date(FROZEN_DATE) });
-  await page.clock.resume();
   await page.emulateMedia({ reducedMotion: 'reduce' });
 
   await page.route('https://example.com/**', (route) =>
@@ -89,16 +164,19 @@ export async function openStory(
   storyId: string,
   mode: Mode,
 ): Promise<void> {
+  const framework = frameworkFromOrigin(origin);
+  await installFrozenDateIfNeeded(page, storyId);
+
   const url = new URL('/iframe.html', origin);
   url.searchParams.set('id', storyId);
   url.searchParams.set('viewMode', 'story');
   url.searchParams.set('globals', `theme:default;mode:${mode}`);
 
-  await page.goto(url.toString(), { waitUntil: 'domcontentloaded' });
+  await page.goto(url.toString(), { waitUntil: 'load', timeout: 60_000 });
   await page.waitForFunction(() => document.body.classList.contains('sb-show-main'));
-  await page.locator('#storybook-root').waitFor({ state: 'attached' });
+  await waitForStoryReady(page, mode, framework);
+
   await page.evaluate(async () => {
-    await document.fonts.ready;
     await Promise.all(
       [...document.images].map((img) => {
         if (img.complete) return undefined;
