@@ -20,6 +20,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from './pagination';
+import numberedStyles from './numbered-pagination.module.css';
 
 type Page = number | '...';
 
@@ -76,12 +77,8 @@ function NumberedPagination({
   const isLastPageActive = correctedCurrentPage === lastPageNumber;
 
   return (
-    <div
-      data-slot="numbered-pagination"
-      className={cn('flex items-center justify-between gap-2 px-4 py-2', className)}
-      {...props}
-    >
-      <div className="flex items-center gap-1 text-sm text-nowrap text-muted-foreground">
+    <div data-slot="numbered-pagination" className={cn(numberedStyles.root, className)} {...props}>
+      <div className={numberedStyles.meta}>
         <b>{totalItems}</b>
         total items |<b>{lastPageNumber}</b>
         pages
@@ -142,7 +139,7 @@ function NumberedPagination({
           }
         }}
       >
-        <SelectTrigger className="ml-auto w-fit">
+        <SelectTrigger className={numberedStyles.pageSize}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

@@ -85,10 +85,7 @@ export const Default: Story = {
           <NavigationMenuContent>
             <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
-                <NavigationMenuLink
-                  href="#"
-                  className="flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-4 no-underline select-none"
-                >
+                <NavigationMenuLink href="#" className="story-nav-featured">
                   <div className="mb-2 text-lg font-medium">Curve</div>
                   <p className="text-sm leading-tight text-muted-foreground">
                     SURF's design system, built on shadcn/ui and Base UI.

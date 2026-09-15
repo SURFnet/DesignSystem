@@ -1,28 +1,28 @@
 /* Restore list markers inside docs prose; Tailwind preflight strips them globally. */
 
-.sbdocs-content ul,
-.sbdocs-content ol {
+.sbdocs-content > ul,
+.sbdocs-content > ol {
   list-style: revert;
   font-size: inherit;
   padding-inline-start: 1.5rem;
 }
-.sbdocs-content ul {
+.sbdocs-content > ul {
   list-style-type: disc;
 }
-.sbdocs-content ol {
+.sbdocs-content > ol {
   list-style-type: decimal;
 }
-.sbdocs-content ul ul {
+.sbdocs-content > ul ul {
   list-style-type: circle;
 }
-.sbdocs-content ul ul ul {
+.sbdocs-content > ul ul ul {
   list-style-type: square;
 }
-.sbdocs-content ol li,
-.sbdocs-content ul li {
+.sbdocs-content > ol li,
+.sbdocs-content > ul li {
   font-size: inherit;
 }
-.sbdocs-content.sbdocs-content dl {
+.sbdocs-content.sbdocs-content > dl {
   margin-block: 1em;
 }
 .sbdocs-content.sbdocs-content dt {
@@ -46,18 +46,18 @@
   vertical-align: top;
   text-align: left;
 }
-.sbdocs-content.sbdocs-content h2 {
+.sbdocs-content.sbdocs-content > h2 {
   margin-block-start: 2rem;
 }
-.sbdocs-content.sbdocs-content h3 {
+.sbdocs-content.sbdocs-content > h3 {
   margin-block-start: 1.5rem;
 }
-.sbdocs-content.sbdocs-content h4 {
+.sbdocs-content.sbdocs-content > h4 {
   margin-block-start: 1rem;
 }
-.sbdocs-content.sbdocs-content h5 {
+.sbdocs-content.sbdocs-content > h5 {
   margin-block-start: 0.5rem;
 }
-.sbdocs-a.sbdocs-a {
+.sbdocs-content.sbdocs-content > p > .sbdocs-a.sbdocs-a {
   color: rgb(0 85 182);
 }

@@ -1,0 +1,115 @@
+@keyframes caretBlink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.container:has(:disabled) {
+  opacity: 0.5;
+}
+
+.input {
+  cursor: not-allowed;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.group:has([aria-invalid='true']) {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .group:has([aria-invalid='true']) {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.slot {
+  position: relative;
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 9);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--input);
+  border-right: 1px solid var(--input);
+  border-bottom: 1px solid var(--input);
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition: all 150ms ease;
+  outline: none;
+}
+
+.slot:first-child {
+  border-left: 1px solid var(--input);
+  border-top-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.slot:last-child {
+  border-top-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.slot[aria-invalid='true'] {
+  border-color: var(--destructive);
+}
+
+:global(.dark) .slot {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+.slot[data-active='true'] {
+  z-index: 10;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.slot[data-active='true'][aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.caretWrap {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caret {
+  height: 1rem;
+  width: 1px;
+  background-color: var(--foreground);
+  animation: caretBlink 1s step-end infinite;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+}
+
+.separator svg {
+  width: 1rem;
+  height: 1rem;
+}

@@ -1,0 +1,83 @@
+.group {
+  display: grid;
+  width: 100%;
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  aspect-ratio: 1;
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+  flex-shrink: 0;
+  border: 1px solid var(--input);
+  border-radius: 9999px;
+  outline: none;
+}
+
+.item::after {
+  content: '';
+  position: absolute;
+  inset: -0.5rem -0.75rem;
+}
+
+.item:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.item:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.item[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .item {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+:global(.dark) .item[aria-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.item[data-checked],
+.item[aria-checked='true'] {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+:global(.dark) .item[data-checked],
+:global(.dark) .item[aria-checked='true'] {
+  background-color: var(--primary);
+}
+
+.item[aria-invalid='true'][data-checked],
+.item[aria-invalid='true'][aria-checked='true'] {
+  border-color: var(--primary);
+}
+
+.indicator {
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--spacing, 0.25rem) * 2);
+  height: calc(var(--spacing, 0.25rem) * 2);
+  border-radius: 9999px;
+  background-color: var(--primary-foreground);
+  transform: translate(-50%, -50%);
+}

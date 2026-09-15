@@ -1,0 +1,155 @@
+.root {
+  position: relative;
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  flex-shrink: 0;
+  border-radius: 9999px;
+  user-select: none;
+}
+
+.root::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  mix-blend-mode: darken;
+  pointer-events: none;
+}
+
+:global(.dark) .root::after {
+  mix-blend-mode: lighten;
+}
+
+.root[data-size='sm'] {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.root[data-size='lg'] {
+  width: calc(var(--spacing, 0.25rem) * 10);
+  height: calc(var(--spacing, 0.25rem) * 10);
+}
+
+.image {
+  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.fallback {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--muted);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.root[data-size='sm'] .fallback {
+  font-size: 0.75rem;
+}
+
+.badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  background-blend-mode: color;
+  box-shadow: 0 0 0 2px var(--background);
+  user-select: none;
+}
+
+.root[data-size='sm'] .badge {
+  width: calc(var(--spacing, 0.25rem) * 2);
+  height: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.root[data-size='sm'] .badge svg {
+  display: none;
+}
+
+.root[data-size='default'] .badge {
+  width: calc(var(--spacing, 0.25rem) * 2.5);
+  height: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.root[data-size='default'] .badge svg {
+  width: calc(var(--spacing, 0.25rem) * 2);
+  height: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.root[data-size='lg'] .badge {
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.root[data-size='lg'] .badge svg {
+  width: calc(var(--spacing, 0.25rem) * 2);
+  height: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.group {
+  display: flex;
+}
+
+.group > :global([data-slot='avatar']) {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * -2);
+  box-shadow: 0 0 0 2px var(--background);
+}
+
+.group > :global([data-slot='avatar']:first-child) {
+  margin-inline-start: 0;
+}
+
+.groupCount {
+  position: relative;
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--muted);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  box-shadow: 0 0 0 2px var(--background);
+}
+
+.groupCount svg {
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+}
+
+:global([data-slot='avatar-group']:has([data-size='lg'])) .groupCount {
+  width: calc(var(--spacing, 0.25rem) * 10);
+  height: calc(var(--spacing, 0.25rem) * 10);
+}
+
+:global([data-slot='avatar-group']:has([data-size='lg'])) .groupCount svg {
+  width: calc(var(--spacing, 0.25rem) * 5);
+  height: calc(var(--spacing, 0.25rem) * 5);
+}
+
+:global([data-slot='avatar-group']:has([data-size='sm'])) .groupCount {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+}
+
+:global([data-slot='avatar-group']:has([data-size='sm'])) .groupCount svg {
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}

@@ -57,8 +57,9 @@ states, and story coverage.
      Variants, Sizes, states, …) so the two Storybooks read identically. Mirror the button
      stories: `packages/react/src/components/ui/button/button.stories.tsx` and
      `packages/angular/src/lib/ui/button/src/lib/hlm-button.stories.ts`.
-   - **Tokens:** both packages share the same oklch token names. If you add a new token,
-     add it to **both** `react/src/index.css` and `angular/src/styles.css`.
+   - **Tokens:** semantic values live in `@surfnet/curve-tokens` DTCG JSON (rebuild tokens,
+     don't hand-edit `:root`). React maps them in `packages/react/src/index.css` (`@theme
+     inline`); Angular in `packages/angular/src/styles.css`. Keep names aligned across both.
 
 6. **Verify both:**
 
@@ -69,6 +70,7 @@ states, and story coverage.
    # parity check — both should list the same story ids:
    node -e "console.log(Object.keys(require('./packages/react/storybook-static/index.json').entries))"
    node -e "console.log(Object.keys(require('./packages/angular/storybook-static/index.json').entries))"
+   pnpm test:visual   # React snapshots + React/Angular screenshot comparison
    ```
 
 ## Contract step
@@ -149,22 +151,29 @@ Then:
   ```
 
 The per-framework playbooks (`react.md`, `angular.md`) each have a matching step that ties
-the component to the contract **for every axis it has**: a `cva` map carries
-`satisfies Record<CardVariantName, string>`; an inline-union prop (no `cva`) is typed as
-`size?: CardSizeName`. Either way a name mismatch fails `pnpm lint` at compile time. A
-description-only contract has nothing to enforce — wiring it into the story's docs is
-enough.
+the component to the contract **for every axis it has**:
+
+- **React:** a CSS Module class map (or `data-*` attribute + CSS) carries
+  `satisfies Record<CardVariantName, string>` on the TS side; inline-union props are typed as
+  `size?: CardSizeName`.
+- **Angular:** Spartan `cva` / `hlm` maps carry the same `satisfies Record<…>` pattern.
+
+Either way a name mismatch fails `pnpm lint` at compile time. A description-only contract
+has nothing to enforce — wiring it into the story's docs is enough.
 
 ## Definition of done
 
 - Component vendored via the framework CLI(s) — never hand-write primitives.
 - A `<name>Contract` `as const` entry exists in `@surfnet/curve-contracts` for **every** component
   (description-only when it has no axis) and is exported from its `index.ts`.
-- For each axis the component exposes, both frameworks are tied to the contract: `cva` maps
-  carry `satisfies Record<...>`, inline-union props are typed as the contract's `*Name`
-  (see per-framework playbooks). Description-only contracts have nothing to enforce.
+- For each axis the component exposes, both frameworks are tied to the contract (React:
+  CSS Module class maps + `satisfies Record<...>`; Angular: `cva`/`hlm` + `satisfies`).
+  Inline-union props are typed as the contract's `*Name` (see per-framework playbooks).
+  Description-only contracts have nothing to enforce.
 - Exported from each package's entry (`src/index.ts` / `src/public-api.ts`).
 - A Storybook story per package covering the component's full surface; when added to both,
   the story sets match.
 - `pnpm build`, `pnpm lint`, `pnpm format`, and the relevant `build-storybook` runs pass.
+- Visual tests pass (`pnpm test:visual`). React snapshot baselines are refreshed with
+  `pnpm test:visual:update`.
 - Any unavoidable React/Angular difference is documented, not hidden.

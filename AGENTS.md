@@ -53,10 +53,13 @@ pnpm format                                    # prettier --write across the rep
 pnpm storybook                                       # both Storybooks (React :6006, Angular :6007)
 pnpm storybook:react                                 # React Storybook (port 6006)
 pnpm storybook:angular                               # Angular Storybook (port 6007)
+pnpm build-storybook && pnpm test:visual             # story screenshots vs baselines (React + Angular)
 ```
 
 Always run `pnpm lint` and `pnpm format` before considering a change done, and rebuild
-the package you touched.
+the package you touched. Refresh snapshot baselines with `pnpm test:visual:update`
+(after `pnpm build-storybook`). Compare React to Angular when you want with
+`pnpm test:visual:parity`.
 
 ## MCP servers
 
@@ -119,6 +122,16 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - Ports are pinned in the configs so both can run at once: **React → 6006** (the
   `storybook` script's `-p 6006` in `packages/react/package.json`), **Angular → 6007**
   (the `storybook` target's `"port": 6007` in `packages/angular/angular.json`).
+
+### Visual tests (Playwright)
+
+- Screenshots come from the **built** Storybooks (`pnpm build-storybook`), not the
+  Vite/webpack dev servers. Serve them on 6008/6009 so they don't collide with
+  `pnpm storybook` on 6006/6007.
+- React and Angular each have a `*.spec.ts` that `toHaveScreenshot`s every story (light + dark).
+  Baselines live in separate folders: `tests/visual/__screenshots__/react/` and
+  `.../angular/` (same story ids, different PNGs — never share one flat directory).
+- Refresh baselines with `pnpm test:visual:update`. Optional parity: `pnpm test:visual:parity`.
 
 ### Shared packages (`@surfnet/curve-tokens` + `@surfnet/curve-contracts`)
 
@@ -185,7 +198,7 @@ Gotchas:
 1. Component vendored via the framework's CLI (don't hand-write primitives).
 2. Exported from the package entry (`src/index.ts` / `src/public-api.ts`).
 3. A Storybook story covering the component's full surface (variants, sizes, states).
-4. `pnpm build`, `pnpm lint`, and `pnpm format` all pass.
+4. `pnpm build`, `pnpm lint`, `pnpm format`, and `pnpm test:visual` all pass.
 5. A changeset added (`pnpm changeset`) if a publishable package changed.
 
 ## Skills

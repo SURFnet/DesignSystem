@@ -1,0 +1,38 @@
+.kbd {
+  pointer-events: none;
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 5);
+  width: fit-content;
+  min-width: calc(var(--spacing, 0.25rem) * 5);
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  background-color: var(--muted);
+  padding-inline: calc(var(--spacing, 0.25rem) * 1);
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  user-select: none;
+}
+
+:global([data-slot='tooltip-content']) .kbd {
+  background-color: color-mix(in oklch, var(--background) 20%, transparent);
+  color: var(--background);
+}
+
+:global(.dark) :global([data-slot='tooltip-content']) .kbd {
+  background-color: color-mix(in oklch, var(--background) 10%, transparent);
+}
+
+.kbd svg {
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+}
