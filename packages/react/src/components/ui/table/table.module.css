@@ -1,0 +1,80 @@
+.container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  caption-side: bottom;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.header :global(tr) {
+  border-bottom: 1px solid var(--border);
+}
+
+.body :global(tr:last-child) {
+  border-bottom-width: 0;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+  font-weight: 500;
+}
+
+.footer :global(tr:last-child) {
+  border-bottom-width: 0;
+}
+
+.row {
+  border-bottom: 1px solid var(--border);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.row:hover {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.row:has([aria-expanded='true']) {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.row[data-state='selected'] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.head {
+  height: calc(var(--spacing, 0.25rem) * 10);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2);
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--foreground);
+}
+
+.head:has([role='checkbox']) {
+  padding-right: 0;
+}
+
+.cell {
+  padding: calc(var(--spacing, 0.25rem) * 2);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cell:has([role='checkbox']) {
+  padding-right: 0;
+}
+
+.caption {
+  margin-top: calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}

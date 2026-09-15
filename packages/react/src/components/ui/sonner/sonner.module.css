@@ -1,0 +1,20 @@
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.iconSpin {
+  width: 1rem;
+  height: 1rem;
+  animation: sonnerSpin 1s linear infinite;
+}
+
+@keyframes sonnerSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.toaster {
+  /* Sonner root hook — theme vars set inline in component */
+}

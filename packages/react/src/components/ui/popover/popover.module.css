@@ -1,0 +1,35 @@
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+}
+
+.content {
+  z-index: 50;
+  display: flex;
+  width: 18rem;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  font-size: 0.875rem;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.description {
+  color: var(--muted-foreground);
+}

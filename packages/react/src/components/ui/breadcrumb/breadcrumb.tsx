@@ -3,9 +3,11 @@
 import * as React from 'react';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
+import { CaretRightIcon, DotsThreeIcon } from '@phosphor-icons/react';
 
 import { cn } from '@/lib/utils';
-import { CaretRightIcon, DotsThreeIcon } from '@phosphor-icons/react';
+
+import styles from './breadcrumb.module.css';
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -14,26 +16,11 @@ function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
 }
 
 function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
-  return (
-    <ol
-      data-slot="breadcrumb-list"
-      className={cn(
-        'flex flex-wrap items-center gap-1.5 text-sm wrap-break-word text-muted-foreground sm:gap-2.5',
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <ol data-slot="breadcrumb-list" className={cn(styles.list, className)} {...props} />;
 }
 
 function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
-  return (
-    <li
-      data-slot="breadcrumb-item"
-      className={cn('inline-flex items-center gap-1.5', className)}
-      {...props}
-    />
-  );
+  return <li data-slot="breadcrumb-item" className={cn(styles.item, className)} {...props} />;
 }
 
 function BreadcrumbLink({ className, render, ...props }: useRender.ComponentProps<'a'>) {
@@ -41,7 +28,7 @@ function BreadcrumbLink({ className, render, ...props }: useRender.ComponentProp
     defaultTagName: 'a',
     props: mergeProps<'a'>(
       {
-        className: cn('transition-colors hover:text-foreground', className),
+        className: cn(styles.link, className),
       },
       props,
     ),
@@ -59,7 +46,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<'span'>) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('font-normal text-foreground', className)}
+      className={cn(styles.page, className)}
       {...props}
     />
   );
@@ -71,7 +58,7 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn('[&>svg]:size-3.5', className)}
+      className={cn(styles.separator, className)}
       {...props}
     >
       {children ?? <CaretRightIcon />}
@@ -84,10 +71,11 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<'span'
     <span
       data-slot="breadcrumb-ellipsis"
       aria-hidden="true"
-      className={cn('flex size-5 items-center justify-center [&>svg]:size-4', className)}
+      className={cn(styles.ellipsis, className)}
       {...props}
     >
       <DotsThreeIcon />
+      <span className={styles.srOnly}>More</span>
     </span>
   );
 }

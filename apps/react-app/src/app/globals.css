@@ -1,12 +1,12 @@
 /*
  * App-level Tailwind v4 entry.
  *
- * The compiled @surfnet/curve-react/styles.css (imported first in layout.tsx) already
- * ships Tailwind's preflight, the design-token CSS variables (:root / .dark /
- * .theme-*), and the component utilities. So here we pull in Tailwind WITHOUT
- * preflight (granular imports, no `tailwindcss/preflight.css`) to avoid a second
- * base reset, and re-declare the token -> color mapping so app-authored utilities
- * like `bg-primary` / `text-foreground` resolve to the same theme variables.
+ * The compiled @surfnet/curve-react/styles.css (imported first in layout.tsx) ships
+ * design tokens, minimal base styles, semantic color utilities (`text-primary`,
+ * `bg-muted`, …), and hashed CSS Module rules for components — not full Tailwind.
+ * Here we pull in Tailwind WITHOUT preflight (granular imports) for app layout
+ * utilities (`flex`, `gap-*`, …) and re-declare the token → `--color-*` mapping so
+ * those utilities resolve to the same theme variables.
  */
 @layer theme, base, components, utilities;
 

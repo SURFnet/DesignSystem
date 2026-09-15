@@ -57,7 +57,7 @@ export const WithTextPrefix: Story = {
         <InputGroupAddon>
           <InputGroupText>https://</InputGroupText>
         </InputGroupAddon>
-        <InputGroupInput placeholder="example.com" className="pl-1!" />
+        <InputGroupInput placeholder="example.com" className="pl-1" />
         <InputGroupAddon align="inline-end">
           <InputGroupButton className="rounded-full" size="icon-xs" aria-label="Open tooltip">
             <InfoIcon />
@@ -114,6 +114,7 @@ export const TextareaWithBlockEndToolbar: Story = {
             aria-label="Add"
           >
             <PlusIcon />
+            <span className="sr-only">Add attachment</span>
           </InputGroupButton>
           <InputGroupText className="ml-auto">52% used</InputGroupText>
           <InputGroupButton
