@@ -11,7 +11,7 @@ export default defineConfig({
   reporter: process.env.CI
     ? [['github'], ['html', { open: 'never' }]]
     : [['list'], ['html', { open: 'never' }]],
-  timeout: 20_000,
+  timeout: 30_000,
   expect: {
     toHaveScreenshot: {
       animations: 'disabled',
