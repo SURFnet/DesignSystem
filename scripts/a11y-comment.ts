@@ -198,6 +198,15 @@ function buildBody(): string {
     const nameAttr = name ? ` name="${name.replace(/"/g, '&quot;')}"` : '';
     return `<details open${nameAttr}><summary>${summary}</summary>\n\n${body}\n\n</details>`;
   };
+  // Wraps a block in a blockquote so nested <details> render visibly indented
+  // on GitHub (inline `style` margins get stripped by its sanitizer, but
+  // blockquotes nest and indent reliably). Stacks naturally: indenting an
+  // already-indented block deepens the `>` nesting.
+  const indent = (text: string): string =>
+    text
+      .split('\n')
+      .map((line) => (line.length ? `> ${line}` : '>'))
+      .join('\n');
 
   const tree = new Map<string, ComponentMap>();
   for (const r of rows) {
@@ -230,21 +239,23 @@ function buildBody(): string {
   const findingCount = (d: VariationData) => d.structural.size + themedCount(d);
   const variationsCount = (vs: VariationMap) =>
     [...vs.values()].reduce((n, d) => n + findingCount(d), 0);
-  // True when every finding on the component is color-contrast /
-  // color-contrast-enhanced — no structural or other themed rules.
-  const contrastOnly = (vs: VariationMap): boolean => {
+  // True when every finding on a single story is color-contrast /
+  // color-contrast-enhanced — no structural or other themed rules. These are
+  // the stories safe to skip in a manual review pass.
+  const contrastOnlyStory = (data: VariationData): boolean => {
+    if (data.structural.size > 0) return false;
     let found = false;
-    for (const data of vs.values()) {
-      if (data.structural.size > 0) return false;
-      for (const leaves of data.themed.values()) {
-        for (const leaf of leaves) {
-          found = true;
-          if (!leaf.rule.startsWith('color-contrast')) return false;
-        }
+    for (const leaves of data.themed.values()) {
+      for (const leaf of leaves) {
+        found = true;
+        if (!leaf.rule.startsWith('color-contrast')) return false;
       }
     }
     return found;
   };
+  // True when every story on the component is contrast-only.
+  const contrastOnly = (vs: VariationMap): boolean =>
+    [...vs.values()].every(contrastOnlyStory) && vs.size > 0;
   // Light before dark, then anything else alphabetically.
   const modeRank = (m: string) => (m === 'light' ? 0 : m === 'dark' ? 1 : 2);
   const byKey = ([a]: [string, unknown], [b]: [string, unknown]) => a.localeCompare(b);
@@ -252,15 +263,16 @@ function buildBody(): string {
   let structuralTotal = 0;
   let themedTotal = 0;
   const sections: string[] = [];
+  const skippableStories: string[] = [];
   for (const [framework, components] of [...tree].sort(byKey)) {
     const fwCount = [...components.values()].reduce((n, vs) => n + variationsCount(vs), 0);
     const pkg = framework.replace(/^@surfnet\/curve-/, '');
 
     const blocks: string[] = [];
     for (const [component, variations] of [...components].sort(byKey)) {
-      const lines: string[] = [];
+      const storyBlocks: string[] = [];
       for (const [variation, data] of [...variations].sort(byKey)) {
-        lines.push(`#### ${variation} — ${findingCount(data)} finding(s)`);
+        const lines: string[] = [];
 
         // Theme-independent findings: one line each, flagged as such.
         for (const [rule, entry] of [...data.structural].sort(byKey)) {
@@ -282,13 +294,24 @@ function buildBody(): string {
             if (thumb) lines.push(`    ${thumb}`);
           }
         }
-        lines.push('');
+
+        const storySkippable = contrastOnlyStory(data);
+        if (storySkippable) skippableStories.push(`${framework} → ${component} → ${variation}`);
+        const storyNote = storySkippable ? ' · <em>color-contrast only — skippable</em>' : '';
+        storyBlocks.push(
+          indent(
+            details(
+              `${variation} — ${findingCount(data)} finding(s)${storyNote}`,
+              lines.join('\n').trim(),
+            ),
+          ),
+        );
       }
       const note = contrastOnly(variations) ? ' · <em>color-contrast only</em>' : '';
       blocks.push(
         details(
           `<strong>${component}</strong> — ${variationsCount(variations)} finding(s)${note}`,
-          lines.join('\n').trim(),
+          storyBlocks.join('\n\n'),
           pkg,
         ),
       );
@@ -303,13 +326,25 @@ function buildBody(): string {
     `${themedTotal} contrast (per theme·mode), ${structuralTotal} theme-independent` +
     ` · across ${storiesAudited} stories / ${totalCombos} audited combinations`;
 
+  const skipSection =
+    skippableStories.length > 0
+      ? [
+          '',
+          details(
+            `⏭️ <strong>${skippableStories.length} story(ies) safe to skip in manual review</strong> — color-contrast only`,
+            skippableStories.map((s) => `- ${s}`).join('\n'),
+          ),
+        ]
+      : [];
+
   return [
     HEADER,
     '',
     `⚠️ **${structuralTotal + themedTotal} finding(s)** — ${breakdown}. ` +
       `Report-only — does not block merge.`,
+    ...skipSection,
     '',
-    ...sections,
+    sections.join('\n\n<hr>\n\n'),
     '',
     FOOTER,
   ].join('\n');
