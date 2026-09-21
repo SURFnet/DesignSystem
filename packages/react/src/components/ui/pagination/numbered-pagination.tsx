@@ -142,7 +142,7 @@ function NumberedPagination({
           }
         }}
       >
-        <SelectTrigger className="ml-auto w-fit">
+        <SelectTrigger className="ml-auto w-fit" aria-label="Items per page">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
