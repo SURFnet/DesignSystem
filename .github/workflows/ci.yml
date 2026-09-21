@@ -28,7 +28,7 @@ jobs:
 
       # Caches Turborepo task outputs, so unchanged build/lint tasks are replayed
       # from cache instead of re-running.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.sha }}
