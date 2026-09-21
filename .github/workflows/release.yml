@@ -36,7 +36,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Create version PR or publish
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           # Opens/updates the "Version Packages" PR.
           version: pnpm version-packages
