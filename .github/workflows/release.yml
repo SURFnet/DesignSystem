@@ -39,14 +39,14 @@ jobs:
         uses: changesets/action@v2
         with:
           # Opens/updates the "Version Packages" PR.
-          version: pnpm version-packages
+          version-script: pnpm version-packages
           # Runs once the version PR is merged: builds, then `changeset publish`.
           # Must be a single command (no shell operators) — changesets/action execs
           # this string directly without a shell, so `&&` chaining has to live
           # inside the `release` script itself, not here.
-          publish: pnpm release
-          commit: 'chore: version packages'
-          title: 'chore: version packages'
+          publish-script: pnpm release
+          commit-message: 'chore: version packages'
+          pr-title: 'chore: version packages'
         env:
           # No NPM_TOKEN: auth is handled by npm trusted publishing via the OIDC
           # id-token above, and provenance is generated automatically.
