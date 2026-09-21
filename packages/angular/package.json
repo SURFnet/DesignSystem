@@ -67,7 +67,7 @@
     "@storybook/addon-a11y": "10.4.5",
     "@storybook/addon-docs": "10.4.5",
     "@storybook/angular": "10.4.5",
-    "@storybook/test-runner": "0.24.4",
+    "@storybook/test-runner": "0.24.5",
     "@surfnet/curve-contracts": "workspace:*",
     "@surfnet/curve-storybook-config": "workspace:*",
     "@surfnet/curve-tokens": "workspace:*",
