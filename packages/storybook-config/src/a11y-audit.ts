@@ -7,7 +7,6 @@ import { getStoryContext } from '@storybook/test-runner';
 import type { TestContext } from '@storybook/test-runner';
 import type { Result, RunOptions } from 'axe-core';
 import { getViolations, injectAxe } from 'axe-playwright';
-import type { Page } from 'playwright-core';
 
 import { WCAG_21_AA_TAGS } from './a11y.js';
 import { THEME_NAMES } from './themes.js';
@@ -17,6 +16,8 @@ const RESULT_TYPES: RunOptions['resultTypes'] = ['violations'];
 
 // Scope axe to the rendered story, not the Storybook chrome.
 const STORY_ROOT = '#storybook-root';
+
+type Page = Parameters<typeof getStoryContext>[0];
 
 const MODES = ['light', 'dark'] as const;
 type Mode = (typeof MODES)[number];

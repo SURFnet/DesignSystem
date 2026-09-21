@@ -467,7 +467,7 @@ importers:
         version: link:../tokens
       axe-playwright:
         specifier: 2.2.2
-        version: 2.2.2(playwright@1.61.1)
+        version: 2.2.2(playwright@1.63.0)
     devDependencies:
       '@storybook/addon-docs':
         specifier: 10.4.5
@@ -485,11 +485,11 @@ importers:
         specifier: 4.12.1
         version: 4.12.1
       playwright:
-        specifier: 1.61.1
-        version: 1.61.1
+        specifier: 1.63.0
+        version: 1.63.0
       playwright-core:
-        specifier: 1.61.1
-        version: 1.61.1
+        specifier: 1.63.0
+        version: 1.63.0
       react:
         specifier: 19.2.7
         version: 19.2.7
@@ -7923,11 +7923,6 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
-  fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -10114,19 +10109,9 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.61.1:
-    resolution: {integrity: sha512-h7Qlt6m4REp25qvIdvbDtVmD4LqVXfpRxhORv9L0jzETM05p4fuPJ3dKyuSXQxDSbXnmS79HAgi9589lGSpLkg==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright-core@1.63.0:
     resolution: {integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==}
     engines: {node: '>=20'}
-    hasBin: true
-
-  playwright@1.61.1:
-    resolution: {integrity: sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==}
-    engines: {node: '>=18'}
     hasBin: true
 
   playwright@1.63.0:
@@ -19288,15 +19273,6 @@ snapshots:
       axe-core: 4.12.1
       mustache: 4.2.0
 
-  axe-playwright@2.2.2(playwright@1.61.1):
-    dependencies:
-      '@types/junit-report-builder': 3.0.2
-      axe-core: 4.12.1
-      axe-html-reporter: 2.2.11(axe-core@4.12.1)
-      junit-report-builder: 5.1.2
-      picocolors: 1.1.1
-      playwright: 1.61.1
-
   axe-playwright@2.2.2(playwright@1.63.0):
     dependencies:
       '@types/junit-report-builder': 3.0.2
@@ -21345,9 +21321,6 @@ snapshots:
   fs-monkey@1.1.0: {}
 
   fs.realpath@1.0.0: {}
-
-  fsevents@2.3.2:
-    optional: true
 
   fsevents@2.3.3:
     optional: true
@@ -24261,15 +24234,7 @@ snapshots:
 
   playwright-core@1.61.0: {}
 
-  playwright-core@1.61.1: {}
-
   playwright-core@1.63.0: {}
-
-  playwright@1.61.1:
-    dependencies:
-      playwright-core: 1.61.1
-    optionalDependencies:
-      fsevents: 2.3.2
 
   playwright@1.63.0:
     dependencies:
