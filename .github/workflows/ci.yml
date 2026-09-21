@@ -61,7 +61,8 @@ jobs:
       # test phase is a few seconds per framework once Storybook is built (the
       # build-storybook step dominates). Report-only for now; flip to blocking by
       # removing `continue-on-error`.
-      - name: Accessibility audit (WCAG 2.1 AA)
+      - name: Accessibility audit (WCAG 2.2 AA)
+        id: a11y_audit
         continue-on-error: true
         run: pnpm test:a11y
 
@@ -83,6 +84,8 @@ jobs:
       # Summarise the JSON reports into .a11y-report/comment.md.
       - name: Summarise a11y findings
         if: always()
+        env:
+          A11Y_AUDIT_OUTCOME: ${{ steps.a11y_audit.outcome }}
         run: pnpm exec jiti scripts/a11y-comment.ts
 
       # One sticky comment, updated in place.

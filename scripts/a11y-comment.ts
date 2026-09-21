@@ -57,6 +57,7 @@ const REPORT_DIR_NAME = '.a11y-report';
 const SCREENSHOTS_BRANCH = 'a11y-screenshots';
 const PR_NUMBER = process.env.PR_NUMBER;
 const REPO = process.env.GITHUB_REPOSITORY;
+const AUDIT_OUTCOME = process.env.A11Y_AUDIT_OUTCOME;
 
 function screenshotUrl(pkgName: string, file?: string): string | undefined {
   if (!file || !PR_NUMBER || !REPO) return undefined;
@@ -142,21 +143,19 @@ for (const fw of frameworks) {
 }
 
 // Build the Markdown.
-const HEADER = '## ♿ Accessibility audit — WCAG 2.1 AA';
+const HEADER = '## ♿ Accessibility audit — WCAG 2.2 AA';
 const FOOTER =
-  '_Automated axe covers ~30–50% of WCAG 2.1 AA. Keyboard, screen-reader and ' +
+  '_Automated axe covers ~30–50% of WCAG 2.2 AA. Keyboard, screen-reader and ' +
   'reflow checks still need a manual pass. Full per-story JSON is in the run’s ' +
   '`a11y-reports` artifact._';
 
 function buildBody(): string {
   if (frameworksWithReports.size === 0) {
-    return [
-      HEADER,
-      '',
-      'No a11y report was produced (the audit step may not have run).',
-      '',
-      FOOTER,
-    ].join('\n');
+    const status =
+      AUDIT_OUTCOME === 'failure'
+        ? 'The accessibility audit failed before it could write a story report. Check the audit step logs for the underlying error.'
+        : 'No a11y report was produced (the audit step may not have run).';
+    return [HEADER, '', `⚠️ ${status}`, '', FOOTER].join('\n');
   }
 
   if (rows.length === 0) {

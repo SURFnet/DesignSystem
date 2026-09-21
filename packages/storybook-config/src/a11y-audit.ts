@@ -1,4 +1,4 @@
-// WCAG 2.1 AA audit run by the test-runner's `postVisit` hook. Reached via the
+// WCAG 2.2 AA audit run by the test-runner's `postVisit` hook. Reached via the
 // package's `./test-runner` subpath, never the main entry.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -8,10 +8,10 @@ import type { TestContext } from '@storybook/test-runner';
 import type { Result, RunOptions } from 'axe-core';
 import { getViolations, injectAxe } from 'axe-playwright';
 
-import { WCAG_21_AA_TAGS } from './a11y.js';
+import { WCAG_22_AA_TAGS } from './a11y.js';
 import { THEME_NAMES } from './themes.js';
 
-const RUN_ONLY: RunOptions['runOnly'] = { type: 'tag', values: WCAG_21_AA_TAGS };
+const RUN_ONLY: RunOptions['runOnly'] = { type: 'tag', values: WCAG_22_AA_TAGS };
 const RESULT_TYPES: RunOptions['resultTypes'] = ['violations'];
 
 // Scope axe to the rendered story, not the Storybook chrome.
@@ -84,7 +84,7 @@ async function captureViolationScreenshot(
 }
 
 /**
- * Audits the rendered story against WCAG 2.1 AA, once per theme/mode from
+ * Audits the rendered story against WCAG 2.2 AA, once per theme/mode from
  * `@surfnet/curve-tokens`. Writes a per-story JSON report and throws on violations.
  */
 export async function runStoryA11yAudit(page: Page, context: TestContext): Promise<void> {
@@ -139,7 +139,7 @@ export async function runStoryA11yAudit(page: Page, context: TestContext): Promi
     id: context.id,
     title: storyContext.title,
     name: storyContext.name,
-    tags: WCAG_21_AA_TAGS,
+    tags: WCAG_22_AA_TAGS,
     themesTested: THEME_NAMES.length,
     modesTested: MODES.length,
     totalViolations: total,
@@ -159,7 +159,7 @@ export async function runStoryA11yAudit(page: Page, context: TestContext): Promi
       })
       .join('\n');
     throw new Error(
-      `a11y (WCAG 2.1 AA) violations in "${storyContext.title} / ${storyContext.name}":\n${offending}`,
+      `a11y (WCAG 2.2 AA) violations in "${storyContext.title} / ${storyContext.name}":\n${offending}`,
     );
   }
 }

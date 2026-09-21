@@ -14,7 +14,7 @@ export type {
   TypeScaleEntry,
 } from './tokens.js';
 // Browser-safe a11y config; the audit lives behind the `./test-runner` subpath.
-export { WCAG_21_AA_TAGS, a11yParameters } from './a11y.js';
+export { WCAG_22_AA_TAGS, a11yParameters } from './a11y.js';
 
 // Shared preview parameters so every framework's Storybook renders stories the
 // same way.

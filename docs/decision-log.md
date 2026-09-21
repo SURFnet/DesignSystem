@@ -348,7 +348,7 @@ apps smaller bundles.
 **Context.** The PoC needs a representative component set in both frameworks.
 
 **Decision.** Roughly **16 components each** in React and Angular, built in parity. React
-additionally ships a **data table** (TanStack); both share the rest. Target **WCAG 2.1 AA**.
+additionally ships a **data table** (TanStack); both share the rest. Target **WCAG 2.2 AA**.
 
 **Rationale.** A parity set proves the contract mechanism and tokens across both
 frameworks; the data table demonstrates React-only depth where Angular has no direct equivalent.
