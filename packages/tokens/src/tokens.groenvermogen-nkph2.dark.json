@@ -69,7 +69,7 @@
   },
   "ring": {
     "$type": "color",
-    "$value": "rgba(115, 115, 115, 1)"
+    "$value": "rgba(163, 230, 53, 1)"
   },
   "chart-1": {
     "$type": "color",
@@ -386,14 +386,6 @@
   "custom-dark-input": {
     "$type": "color",
     "$value": "rgba(255, 255, 255, 0.15)"
-  },
-  "custom-outline": {
-    "$type": "color",
-    "$value": "rgba(115, 115, 115, 0.5)"
-  },
-  "custom-outline10-dark-outline20": {
-    "$type": "color",
-    "$value": "rgba(115, 115, 115, 0.2)"
   },
   "custom-blue-500-dark-blue-600": {
     "$type": "color",
