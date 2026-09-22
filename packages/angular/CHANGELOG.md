@@ -1,5 +1,19 @@
 # @surfnet/curve-angular
 
+## 0.5.1
+
+### Patch Changes
+
+- 198f917: Use `--primary-strong` for link-style text (Badge `link`, and inline links in Field, Empty, and Item) so it meets contrast on the page background. Filled Primary is unchanged.
+- 198f917: Wire combobox input trigger button `aria-expanded`, `aria-haspopup="listbox"`, and `aria-controls` to the listbox id. Add default `aria-label="Clear"` on the React clear button.
+- 198f917: Keep Command empty state mounted in the DOM and announce it with `aria-live="polite"` and `aria-atomic`. Use `role="option"` (`aria-disabled`, `aria-selected="false"`) so the empty message is a valid listbox child, and mark separators as presentational so listboxes only expose `option` / `group` children.
+- 198f917: Forward `aria-label` and `aria-labelledby` from Command Input onto the underlying combobox `<input>` so the accessible name is on the field assistive technology uses, not the wrapper.
+- 198f917: Give the data table action-cell icon button and each menu item accessible names so the icon-only trigger and actions are announced by screen readers.
+- 198f917: Forward `aria-label` from Input OTP onto the underlying input so unlabeled examples (and consumers) can name the field for assistive technology.
+- 198f917: Announce Input OTP completion to screen readers with a polite live region so pasting a full code is perceivable.
+- 198f917: Set `aria-grabbed` and `aria-valuenow` on Resizable handles, and expose an `isDragging` signal on the group and handle.
+- 198f917: Always set `tabindex="0"` on ScrollArea so the scrollable region is keyboard-accessible, including before overflow is measured.
+
 ## 0.5.0
 
 ### Minor Changes
