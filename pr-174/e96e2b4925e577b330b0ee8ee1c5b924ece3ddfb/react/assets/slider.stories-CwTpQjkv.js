@@ -1,0 +1,29 @@
+import{i as e}from"./preload-helper-xPQekRTU.js";import{t}from"./jsx-runtime-CaZkqeYb.js";import{C as n,n as r,r as i,t as a}from"./utils-C5n3ayfX.js";import{c as o,i as s,n as c,o as l,t as u,u as d}from"./slider-D1hAQQhy.js";import{a as f,n as p,t as m}from"./field-Lp-w-mT6.js";import{t as h}from"./field-Dp3BaMoo.js";var g,_,v,y,b,x,S=e((()=>{g=`_root_1bmz4_1`,_=`_control_1bmz4_11`,v=`_track_1bmz4_32`,y=`_indicator_1bmz4_53`,b=`_thumb_1bmz4_68`,x={root:g,control:_,track:v,indicator:y,thumb:b}}));function C({className:e,defaultValue:t,value:n,min:r=0,max:i=100,"aria-label":u,getAriaLabel:f,...p}){let m=n??t,h=Array.isArray(m)?m:[m??r];return(0,w.jsx)(d,{className:a(x.root,e),"data-slot":`slider`,defaultValue:t,value:n,min:r,max:i,thumbAlignment:`edge`,...p,children:(0,w.jsxs)(o,{className:x.control,children:[(0,w.jsx)(l,{"data-slot":`slider-track`,className:x.track,children:(0,w.jsx)(c,{"data-slot":`slider-range`,className:x.indicator})}),Array.from({length:h.length},(e,t)=>(0,w.jsx)(s,{"data-slot":`slider-thumb`,"aria-label":u,getAriaLabel:f,className:x.thumb},t))]})})}var w,T=e((()=>{u(),r(),S(),w=t(),C.__docgenInfo={description:``,methods:[],displayName:`Slider`,props:{orientation:{required:!1,tsType:{name:`SliderOrientationName`},description:``},"aria-label":{required:!1,tsType:{name:`string`},description:"Accessible name applied to every thumb. Use `getAriaLabel` instead for range sliders where each thumb needs a distinct name."},getAriaLabel:{required:!1,tsType:{name:`SliderPrimitive.Thumb.Props['getAriaLabel']`,raw:`SliderPrimitive.Thumb.Props['getAriaLabel']`},description:``},min:{defaultValue:{value:`0`,computed:!1},required:!1},max:{defaultValue:{value:`100`,computed:!1},required:!1}}}})),E,D,O,k,A,j,M,N,P;e((()=>{i(),h(),T(),E=t(),D={title:`Components/Slider`,tags:[`a11y-minor`],component:C,parameters:{docs:{description:{component:n.docs.description}}},argTypes:{orientation:{control:`inline-radio`,options:n.props.orientations,description:n.props.orientations.map(e=>`\`${e}\` — ${n.docs.orientations[e]}`).join(`
+
+`),table:{defaultValue:{summary:n.defaults.orientations}}},disabled:{control:`boolean`}},args:{orientation:n.defaults.orientations,defaultValue:50,disabled:!1}},O={render:e=>(0,E.jsx)(`div`,{className:e.orientation===`vertical`?`flex h-40 items-center`:`w-72`,children:(0,E.jsx)(C,{...e,"aria-label":`Volume`})})},k={render:()=>(0,E.jsx)(`div`,{className:`w-72`,children:(0,E.jsx)(C,{orientation:`horizontal`,defaultValue:50,"aria-label":`Volume`})})},A={render:()=>(0,E.jsx)(`div`,{className:`flex h-40 items-center`,children:(0,E.jsx)(C,{orientation:`vertical`,defaultValue:50,"aria-label":`Volume`})})},j={render:()=>(0,E.jsx)(`div`,{className:`w-72`,children:(0,E.jsx)(C,{defaultValue:[25,75],getAriaLabel:e=>e===0?`Minimum price`:`Maximum price`})})},M={render:()=>(0,E.jsx)(`div`,{className:`w-72`,children:(0,E.jsx)(C,{defaultValue:50,disabled:!0,"aria-label":`Volume`})})},N={render:()=>(0,E.jsxs)(m,{className:`w-72`,children:[(0,E.jsx)(f,{htmlFor:`volume`,children:`Volume`}),(0,E.jsx)(C,{id:`volume`,defaultValue:60,"aria-label":`Volume`}),(0,E.jsx)(p,{children:`Drag the thumb or use the arrow keys to adjust.`})]})},O.parameters={...O.parameters,docs:{...O.parameters?.docs,source:{originalSource:`{
+  render: args => <div className={args.orientation === 'vertical' ? 'flex h-40 items-center' : 'w-72'}>
+      <Slider {...args} aria-label="Volume" />
+    </div>
+}`,...O.parameters?.docs?.source},description:{story:`Interactive playground — tweak the controls to see the slider react.`,...O.parameters?.docs?.description}}},k.parameters={...k.parameters,docs:{...k.parameters?.docs,source:{originalSource:`{
+  render: () => <div className="w-72">
+      <Slider orientation="horizontal" defaultValue={50} aria-label="Volume" />
+    </div>
+}`,...k.parameters?.docs?.source},description:{story:`A track running left to right — the default orientation.`,...k.parameters?.docs?.description}}},A.parameters={...A.parameters,docs:{...A.parameters?.docs,source:{originalSource:`{
+  render: () => <div className="flex h-40 items-center">
+      <Slider orientation="vertical" defaultValue={50} aria-label="Volume" />
+    </div>
+}`,...A.parameters?.docs?.source},description:{story:`A track running bottom to top.`,...A.parameters?.docs?.description}}},j.parameters={...j.parameters,docs:{...j.parameters?.docs,source:{originalSource:`{
+  render: () => <div className="w-72">
+      <Slider defaultValue={[25, 75]} getAriaLabel={index => index === 0 ? 'Minimum price' : 'Maximum price'} />
+    </div>
+}`,...j.parameters?.docs?.source},description:{story:"A range slider with two thumbs, dragging independently between `min` and `max`.",...j.parameters?.docs?.description}}},M.parameters={...M.parameters,docs:{...M.parameters?.docs,source:{originalSource:`{
+  render: () => <div className="w-72">
+      <Slider defaultValue={50} disabled aria-label="Volume" />
+    </div>
+}`,...M.parameters?.docs?.source},description:{story:`Disabled state — the slider ignores pointer and keyboard interaction.`,...M.parameters?.docs?.description}}},N.parameters={...N.parameters,docs:{...N.parameters?.docs,source:{originalSource:`{
+  render: () => <Field className="w-72">
+      <FieldLabel htmlFor="volume">Volume</FieldLabel>
+      <Slider id="volume" defaultValue={60} aria-label="Volume" />
+      <FieldDescription>Drag the thumb or use the arrow keys to adjust.</FieldDescription>
+    </Field>
+}`,...N.parameters?.docs?.source},description:{story:"A slider composed with a `Field` label and description, the typical form usage.",...N.parameters?.docs?.description}}},P=[`Default`,`Horizontal`,`Vertical`,`Range`,`Disabled`,`WithField`]}))();export{O as Default,M as Disabled,k as Horizontal,j as Range,A as Vertical,N as WithField,P as __namedExportsOrder,D as default};

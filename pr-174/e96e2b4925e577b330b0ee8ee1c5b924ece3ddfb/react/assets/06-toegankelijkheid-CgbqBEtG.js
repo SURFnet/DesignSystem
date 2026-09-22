@@ -1,0 +1,14 @@
+import{i as e}from"./preload-helper-xPQekRTU.js";import{a as t,o as n,v as r}from"./blocks-BAoneT7p.js";import{t as i}from"./jsx-runtime-CaZkqeYb.js";import{t as a}from"./mdx-react-shim-lbHL14Bs.js";function o(e){let n={a:`a`,h1:`h1`,h2:`h2`,h3:`h3`,p:`p`,...r(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(t,{title:`Curve`,name:`Toegankelijkheid`}),`
+`,(0,c.jsx)(n.h1,{id:`toegankelijkheid`,children:`Toegankelijkheid`}),`
+`,(0,c.jsx)(n.p,{children:`Ongeveer één op de zes mensen heeft een beperking, en veel meer mensen hebben er tijdelijk of
+situationeel mee te maken: een gebroken pols, een ooginfectie, fel zonlicht op een perron. Werken aan
+toegankelijkheid is zelden werk voor een kleine minderheid: het is hetzelfde werk dat een interface
+bruikbaar maakt met één hand, op een slechte verbinding, of aan het eind van een lange dag.`}),`
+`,(0,c.jsxs)(n.p,{children:[`Jij maakt als designer of developer dagelijks keuzes die grote invloed hebben op het leven en werk van andere mensen. Door je bewust te zijn van de `,(0,c.jsx)(n.a,{href:`?path=/docs/curve-voor-developers--toegankelijk-bouwen`,children:`grote verscheidenheid van mensen`}),` die straks gebruik maken van wat je bouwt, kun je er voor zorgen dat zo min mogelijk mensen worden buitengesloten.`]}),`
+`,(0,c.jsx)(n.p,{children:`Om dat makkelijker te maken, hebben we Curve ontworpen. Curve is een design systeem dat componenten aanbiedt, die zoveel mogelijk out-of-the-box rekening houden met de toegankelijkheidsnormen.`}),`
+`,(0,c.jsx)(n.h2,{id:`hoe-helpt-curve-ervoor-zorgen-dat-surf-toegankelijke-websites-bouwt`,children:`Hoe helpt Curve ervoor zorgen dat SURF toegankelijke websites bouwt?`}),`
+`,(0,c.jsx)(n.p,{children:`Curve is een design systeem dat componenten aanbiedt, die gebouwd zijn op toegankelijke principes. Door met Curve te werken, kun je er voor zorgen dat je componenten op zichzelf toegankelijk zijn, mits goed gebruikt.`}),`
+`,(0,c.jsx)(n.h3,{id:`pas-op`,children:`Pas op!`}),`
+`,(0,c.jsx)(n.p,{children:`De juiste rollen, werkende toetsenbordbediening en een zichtbare focusring. Die zijn noodzakelijk, maar niet genoeg. De schermen die jij als designer of developer samenstelt hebben nog steeds een logische structuur nodig, toegankelijke namen, en een werkwijze die fouten opmerkt vóórdat ze in productie staan.`}),`
+`,(0,c.jsxs)(n.p,{children:[`De terugkerende missers — van ARIA tot alt-tekst, bijschriften, paginatitel, taal, tabellen en formuliervalidatie — staan onder
+`,(0,c.jsx)(n.a,{href:`?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--naamloze-knoppen`,children:`Wat vaak mis gaat`}),`.`]})]})}function s(e={}){let{wrapper:t}={...r(),...e.components};return t?(0,c.jsx)(t,{...e,children:(0,c.jsx)(o,{...e})}):o(e)}var c;e((()=>{c=i(),a(),n()}))();export{s as default};
