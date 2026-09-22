@@ -1,0 +1,33 @@
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+}
+
+.content {
+  z-index: 50;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 20rem;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--foreground);
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 3);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--background);
+}
+
+.content:has([data-slot='kbd']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.arrow {
+  z-index: 50;
+  width: calc(var(--spacing, 0.25rem) * 2.5);
+  height: calc(var(--spacing, 0.25rem) * 2.5);
+  rotate: 45deg;
+  border-radius: 2px;
+  background-color: var(--foreground);
+  fill: var(--foreground);
+}

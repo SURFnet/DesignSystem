@@ -14,15 +14,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import styles from './data-table.module.css';
+
 interface DataTableToolbarProps extends React.ComponentProps<'div'> {}
 
 function DataTableToolbar({ className, ...props }: DataTableToolbarProps) {
   return (
-    <div
-      data-slot="data-table-toolbar"
-      className={cn('flex items-center gap-2 py-4', className)}
-      {...props}
-    />
+    <div data-slot="data-table-toolbar" className={cn(styles.toolbar, className)} {...props} />
   );
 }
 
@@ -41,11 +39,7 @@ function DataTableContent<TData>({
   ...props
 }: DataTableContentProps<TData>) {
   return (
-    <div
-      data-slot="data-table-content"
-      className={cn('overflow-hidden rounded-md border', className)}
-      {...props}
-    >
+    <div data-slot="data-table-content" className={cn(styles.content, className)} {...props}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -73,7 +67,7 @@ function DataTableContent<TData>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className={styles.emptyCell}>
                 {noResultsLabel}
               </TableCell>
             </TableRow>
@@ -104,18 +98,14 @@ function DataTablePagination<TData>({
   ...props
 }: DataTablePaginationProps<TData>) {
   return (
-    <div
-      data-slot="data-table-pagination"
-      className={cn('flex items-center justify-end gap-2 py-4', className)}
-      {...props}
-    >
-      <div className="flex-1 text-sm text-muted-foreground">
+    <div data-slot="data-table-pagination" className={cn(styles.pagination, className)} {...props}>
+      <div className={styles.selectionSummary}>
         {selectionLabel(
           table.getFilteredSelectedRowModel().rows.length,
           table.getFilteredRowModel().rows.length,
         )}
       </div>
-      <div className="flex gap-2">
+      <div className={styles.paginationActions}>
         <Button
           variant="outline"
           size="sm"

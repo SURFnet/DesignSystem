@@ -35,6 +35,17 @@ const config: StorybookConfig = {
     options: {},
   },
   tags: a11yTagConfig,
+  async viteFinal(config) {
+    // One CSS bundle for the preview (like Angular's global `styles` entry) so Playwright
+    // does not screenshot stories before async CSS chunks from code-split stories arrive.
+    return {
+      ...config,
+      build: {
+        ...config.build,
+        cssCodeSplit: false,
+      },
+    };
+  },
 };
 
 export default config;

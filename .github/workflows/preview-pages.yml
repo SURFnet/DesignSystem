@@ -1,0 +1,89 @@
+name: Preview Pages
+
+# Builds both packages' Storybooks and both demo apps (same layout as
+# deploy-storybook.yml) and publishes a preview deployment for pull requests,
+# commenting the preview URL back on the PR.
+on:
+  pull_request:
+
+concurrency:
+  group: preview-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: actions/cache@v6
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - run: pnpm install --frozen-lockfile
+
+      # Build the libraries first so both the Storybooks and the demo apps
+      # consume the compiled output; turbo resolves the ^build token/contract
+      # deps automatically.
+      - run: pnpm turbo run build --filter='./packages/*'
+
+      # Both storybook-static outputs.
+      - run: pnpm build-storybook
+
+      # Demo apps, built for their Pages sub-paths (see each app's build:pages
+      # script). React is a static export under /react-app; Angular is a SPA
+      # served under --base-href /angular-app/.
+      - run: pnpm --filter @surfnet/curve-react-app build:pages
+      - run: pnpm --filter @surfnet/curve-angular-app build:pages
+
+      - name: Assemble preview site
+        run: |
+          mkdir -p site/react site/angular site/react-app site/angular-app
+          cp -r packages/react/storybook-static/. site/react/
+          cp -r packages/angular/storybook-static/. site/angular/
+          cp -r apps/react-app/out/. site/react-app/
+          cp -r apps/angular-app/dist/angular-app/browser/. site/angular-app/
+          # SPA fallback: deep-link refreshes on the Angular router must fall
+          # back to index.html. (Next's export already emits its own 404.html.)
+          cp site/angular-app/index.html site/angular-app/404.html
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <title>Curve — Storybooks & demo apps (preview)</title>
+            </head>
+            <body>
+              <h1>Curve (preview)</h1>
+              <h2>Storybooks</h2>
+              <ul>
+                <li><a href="react/">React Storybook</a></li>
+                <li><a href="angular/">Angular Storybook</a></li>
+              </ul>
+              <h2>Demo apps</h2>
+              <ul>
+                <li><a href="react-app/">React demo app</a></li>
+                <li><a href="angular-app/">Angular demo app</a></li>
+              </ul>
+            </body>
+          </html>
+          EOF
+
+      - name: Preview Pages
+        uses: rajyan/preview-pages@v1.3.37
+        with:
+          source-dir: site

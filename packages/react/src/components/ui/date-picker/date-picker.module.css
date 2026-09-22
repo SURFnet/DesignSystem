@@ -1,0 +1,20 @@
+.trigger {
+  width: 14rem;
+  justify-content: flex-start;
+  text-align: left;
+  font-weight: 400;
+}
+
+.triggerRange {
+  width: 18rem;
+}
+
+.placeholder {
+  color: var(--muted-foreground);
+}
+
+.popoverContent {
+  width: auto;
+  padding: 0;
+  gap: 0;
+}

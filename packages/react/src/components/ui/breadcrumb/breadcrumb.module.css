@@ -1,0 +1,65 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow-wrap: break-word;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 640px) {
+  .list {
+    gap: calc(var(--spacing, 0.25rem) * 2.5);
+  }
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.link {
+  transition: color 150ms ease;
+}
+
+.link:hover {
+  color: var(--foreground);
+}
+
+.page {
+  font-weight: 400;
+  color: var(--foreground);
+}
+
+.separator svg {
+  width: calc(var(--spacing, 0.25rem) * 3.5);
+  height: calc(var(--spacing, 0.25rem) * 3.5);
+}
+
+.ellipsis {
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 5);
+  height: calc(var(--spacing, 0.25rem) * 5);
+  align-items: center;
+  justify-content: center;
+}
+
+.ellipsis svg {
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

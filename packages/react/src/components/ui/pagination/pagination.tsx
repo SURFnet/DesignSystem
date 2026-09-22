@@ -1,10 +1,12 @@
 'use client';
 
 import * as React from 'react';
+import { CaretLeftIcon, CaretRightIcon, DotsThreeIcon } from '@phosphor-icons/react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { CaretLeftIcon, CaretRightIcon, DotsThreeIcon } from '@phosphor-icons/react';
+
+import styles from './pagination.module.css';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -12,20 +14,14 @@ function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
       role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn('mx-auto flex w-full justify-center', className)}
+      className={cn(styles.root, className)}
       {...props}
     />
   );
 }
 
 function PaginationContent({ className, ...props }: React.ComponentProps<'ul'>) {
-  return (
-    <ul
-      data-slot="pagination-content"
-      className={cn('flex items-center gap-1', className)}
-      {...props}
-    />
-  );
+  return <ul data-slot="pagination-content" className={cn(styles.content, className)} {...props} />;
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<'li'>) {
@@ -67,11 +63,11 @@ function PaginationPrevious({
     <PaginationLink
       aria-label={ariaLabel}
       size={iconOnly ? 'icon' : 'default'}
-      className={cn(!iconOnly && 'ps-2!', className)}
+      className={cn(!iconOnly && styles.linkPaddingStart, className)}
       {...props}
     >
-      <CaretLeftIcon data-icon="inline-start" className="rtl:rotate-180" />
-      <span className={iconOnly ? 'sr-only' : 'hidden sm:block'}>{text}</span>
+      <CaretLeftIcon data-icon="inline-start" className={styles.rtlFlip} />
+      <span className={iconOnly ? styles.srOnly : styles.hideSm}>{text}</span>
     </PaginationLink>
   );
 }
@@ -87,11 +83,11 @@ function PaginationNext({
     <PaginationLink
       aria-label={ariaLabel}
       size={iconOnly ? 'icon' : 'default'}
-      className={cn(!iconOnly && 'pe-2!', className)}
+      className={cn(!iconOnly && styles.linkPaddingEnd, className)}
       {...props}
     >
-      <span className={iconOnly ? 'sr-only' : 'hidden sm:block'}>{text}</span>
-      <CaretRightIcon data-icon="inline-end" className="rtl:rotate-180" />
+      <span className={iconOnly ? styles.srOnly : styles.hideSm}>{text}</span>
+      <CaretRightIcon data-icon="inline-end" className={styles.rtlFlip} />
     </PaginationLink>
   );
 }
@@ -102,16 +98,9 @@ function PaginationEllipsis({
   ...props
 }: React.ComponentProps<'span'> & { srOnlyText?: string }) {
   return (
-    <span
-      data-slot="pagination-ellipsis"
-      className={cn(
-        "flex size-9 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    >
+    <span data-slot="pagination-ellipsis" className={cn(styles.ellipsis, className)} {...props}>
       <DotsThreeIcon aria-hidden />
-      <span className="sr-only">{srOnlyText}</span>
+      <span className={styles.srOnly}>{srOnlyText}</span>
     </span>
   );
 }
