@@ -85,9 +85,9 @@ export const ComposedLayout: Story = {
     <div className="h-80 w-full max-w-3xl">
       <ResizablePanelGroup className="h-full w-full rounded-lg border">
         <ResizablePanel defaultSize={20} minSize={15}>
-          <div className="flex h-full flex-col gap-1 p-4">
-            <span className="text-sm font-medium">Sidebar</span>
-            <span className="text-xs text-muted-foreground">Navigation</span>
+          <div className="flex h-full min-w-0 flex-col gap-1 p-4">
+            <span className="truncate text-sm font-medium">Sidebar</span>
+            <span className="truncate text-xs text-muted-foreground">Navigation</span>
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
@@ -108,9 +108,9 @@ export const ComposedLayout: Story = {
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={25} minSize={15}>
-          <div className="flex h-full flex-col gap-1 p-4">
-            <span className="text-sm font-medium">Inspector</span>
-            <span className="text-xs text-muted-foreground">Properties</span>
+          <div className="flex h-full min-w-0 flex-col gap-1 p-4">
+            <span className="truncate text-sm font-medium">Inspector</span>
+            <span className="truncate text-xs text-muted-foreground">Properties</span>
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
