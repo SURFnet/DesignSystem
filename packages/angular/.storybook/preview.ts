@@ -3,6 +3,7 @@ import {
   frameworkGlobalTypes,
   frameworkSwitcher,
   sharedParameters,
+  simplifyAngularDocsSource,
   themeGlobalTypes,
   themeInitialGlobals,
   themeSwitcher,
@@ -18,6 +19,15 @@ export default {
   parameters: {
     ...sharedParameters,
     ...a11yParameters,
+    docs: {
+      source: {
+        // Drop brackets around plain string args (e.g. `[variant]="variant"`
+        // -> `variant="outline"`) in the "Show code" snippet only — see
+        // simplifyAngularDocsSource for why the live story keeps binding them.
+        transform: (code: string, { args }: { args: Record<string, unknown> }) =>
+          simplifyAngularDocsSource(code, args),
+      },
+    },
     // Must be a literal (Storybook reads it via static analysis, not
     // execution). Keep in sync with packages/react/.storybook/preview.ts.
     options: {

@@ -16,6 +16,9 @@ export type {
 // Browser-safe a11y config; the audit lives behind the `./test-runner` subpath.
 export { WCAG_22_AA_TAGS, a11yParameters } from './a11y.js';
 
+// Angular-only docs "Show code" cleanup; see the file for why.
+export { simplifyAngularDocsSource } from './angular-docs-source.js';
+
 // Shared preview parameters so every framework's Storybook renders stories the
 // same way.
 //
