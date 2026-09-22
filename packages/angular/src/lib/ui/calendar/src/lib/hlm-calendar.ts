@@ -50,7 +50,7 @@ import type { ClassValue } from 'clsx';
             <div class="flex w-full items-center justify-center gap-1.5">
               <ng-template #month>
                 <hlm-select brnCalendarMonthSelect>
-                  <hlm-select-trigger size="sm" [class]="_selectClass">
+                  <hlm-select-trigger size="sm" [class]="_selectClass" aria-label="Select month">
                     <hlm-select-value />
                   </hlm-select-trigger>
                   <hlm-select-content *hlmSelectPortal class="max-h-80">
@@ -64,7 +64,7 @@ import type { ClassValue } from 'clsx';
               </ng-template>
               <ng-template #year>
                 <hlm-select brnCalendarYearSelect>
-                  <hlm-select-trigger size="sm" [class]="_selectClass">
+                  <hlm-select-trigger size="sm" [class]="_selectClass" aria-label="Select year">
                     <hlm-select-value />
                   </hlm-select-trigger>
                   <hlm-select-content *hlmSelectPortal class="max-h-80">
