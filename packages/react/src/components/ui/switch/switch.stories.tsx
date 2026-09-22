@@ -43,7 +43,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => {
     const [checked, setChecked] = useState(true);
-    return <Switch {...args} checked={checked} onCheckedChange={setChecked} />;
+    return (
+      <Switch
+        {...args}
+        aria-label="Enable notifications"
+        checked={checked}
+        onCheckedChange={setChecked}
+      />
+    );
   },
 };
 
