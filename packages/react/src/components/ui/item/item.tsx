@@ -58,13 +58,7 @@ function itemVariants({
 }
 
 function ItemGroup({ className, ...props }: React.ComponentProps<'ul'>) {
-  return (
-    <ul
-      data-slot="item-group"
-      className={cn(styles.itemGroup, className)}
-      {...props}
-    />
-  );
+  return <ul data-slot="item-group" className={cn(styles.itemGroup, className)} {...props} />;
 }
 
 function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
