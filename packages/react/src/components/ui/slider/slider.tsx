@@ -21,6 +21,7 @@ function Slider({
 }: SliderProps & {
   /** Accessible name applied to every thumb. Use `getAriaLabel` instead for range sliders where each thumb needs a distinct name. */
   'aria-label'?: string;
+  getAriaLabel?: SliderPrimitive.Thumb.Props['getAriaLabel'];
 }) {
   const resolvedValue = value ?? defaultValue;
   const _values = Array.isArray(resolvedValue) ? resolvedValue : [resolvedValue ?? min];
