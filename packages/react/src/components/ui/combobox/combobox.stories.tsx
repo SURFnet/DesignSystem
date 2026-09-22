@@ -118,7 +118,9 @@ export const Multiple: Story = {
               {(value: string[]) => (
                 <>
                   {value.map((language) => (
-                    <ComboboxChip key={language}>{language}</ComboboxChip>
+                    <ComboboxChip key={language} removeLabel={`Remove ${language}`}>
+                      {language}
+                    </ComboboxChip>
                   ))}
                   <ComboboxChipsInput placeholder="Add a language…" />
                 </>
