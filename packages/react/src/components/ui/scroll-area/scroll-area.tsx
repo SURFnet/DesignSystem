@@ -18,7 +18,6 @@ function ScrollArea({ className, children, ...props }: ScrollAreaPrimitive.Root.
         tabIndex={0}
         className={styles.viewport}
       >
-
         {children}
       </ScrollAreaPrimitive.Viewport>
       <ScrollBar />
