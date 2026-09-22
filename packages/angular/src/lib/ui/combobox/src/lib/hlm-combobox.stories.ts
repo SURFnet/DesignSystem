@@ -7,6 +7,8 @@ import { HlmComboboxImports } from '..';
 
 const meta: Meta<HlmCombobox> = {
   title: 'Components/Combobox',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: HlmCombobox,
   decorators: [
     moduleMetadata({

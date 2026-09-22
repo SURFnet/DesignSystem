@@ -6,6 +6,8 @@ import { Button } from './button';
 
 const meta = {
   title: 'Components/Button',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Button,
   parameters: {
     docs: {

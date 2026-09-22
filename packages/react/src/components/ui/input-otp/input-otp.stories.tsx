@@ -10,12 +10,20 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './inpu
 
 const meta = {
   title: 'Components/InputOTP',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: InputOTP,
   parameters: {
     docs: {
       description: {
         component: inputOtpContract.docs.description,
       },
+    },
+  },
+  argTypes: {
+    completeAnnouncement: {
+      control: 'text',
+      description: 'Screen-reader announcement when every slot is filled, including after paste.',
     },
   },
 } satisfies Meta<typeof InputOTP>;
@@ -33,7 +41,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: { maxLength: 6, children: null },
   render: () => (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} aria-label="One-time password">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -50,7 +58,7 @@ export const Default: Story = {
 export const WithSeparator: Story = {
   args: { maxLength: 6, children: null },
   render: () => (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} aria-label="One-time password">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -70,7 +78,7 @@ export const WithSeparator: Story = {
 export const Disabled: Story = {
   args: { maxLength: 6, children: null },
   render: () => (
-    <InputOTP maxLength={6} disabled defaultValue="123456">
+    <InputOTP maxLength={6} disabled defaultValue="123456" aria-label="One-time password">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

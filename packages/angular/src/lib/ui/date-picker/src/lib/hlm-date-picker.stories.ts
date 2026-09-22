@@ -6,6 +6,8 @@ import { HlmDatePicker, HlmDatePickerImports } from '..';
 
 const meta: Meta<HlmDatePicker<Date>> = {
   title: 'Components/DatePicker',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: HlmDatePicker,
   decorators: [
     moduleMetadata({

@@ -9,12 +9,22 @@ type SliderProps = Omit<SliderPrimitive.Root.Props, 'orientation'> & {
   orientation?: SliderOrientationName;
 };
 
-function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }: SliderProps) {
-  const _values = Array.isArray(value)
-    ? value
-    : Array.isArray(defaultValue)
-      ? defaultValue
-      : [min, max];
+function Slider({
+  className,
+  defaultValue,
+  value,
+  min = 0,
+  max = 100,
+  'aria-label': ariaLabel,
+  getAriaLabel,
+  ...props
+}: SliderProps & {
+  /** Accessible name applied to every thumb. Use `getAriaLabel` instead for range sliders where each thumb needs a distinct name. */
+  'aria-label'?: string;
+  getAriaLabel?: SliderPrimitive.Thumb.Props['getAriaLabel'];
+}) {
+  const resolvedValue = value ?? defaultValue;
+  const _values = Array.isArray(resolvedValue) ? resolvedValue : [resolvedValue ?? min];
 
   return (
     <SliderPrimitive.Root
@@ -41,6 +51,8 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
             key={index}
+            aria-label={ariaLabel}
+            getAriaLabel={getAriaLabel}
             className="block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] select-none hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
           />
         ))}

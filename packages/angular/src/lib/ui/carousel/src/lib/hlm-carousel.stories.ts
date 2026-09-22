@@ -6,6 +6,8 @@ import { HlmCardImports } from '../../../card/src';
 
 const meta: Meta<HlmCarousel> = {
   title: 'Components/Carousel',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: HlmCarousel,
   decorators: [
     moduleMetadata({

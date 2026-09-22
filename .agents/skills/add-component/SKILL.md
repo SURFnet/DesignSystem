@@ -6,7 +6,12 @@ description: Use when adding, scaffolding, or vendoring a component into the des
 # Add a component
 
 The design system ships components per framework. Decide the scope first, then follow the
-matching playbook(s) in this skill's subfiles:
+matching playbook(s) in this skill's subfiles.
+
+**Already in the repo?** Do not re-run this add flow. Use
+[`update-component`](../update-component/SKILL.md) so Curve design and accessibility
+edits are merged, not overwritten. Changes can have an effect on accessibility —
+see that playbook before restyling or re-vendoring.
 
 - **React only** → follow [`react.md`](react.md) (shadcn/Base UI flow for `@surfnet/curve-react`).
 - **Angular only** → follow [`angular.md`](angular.md) (Spartan flow for `@surfnet/curve-angular`).

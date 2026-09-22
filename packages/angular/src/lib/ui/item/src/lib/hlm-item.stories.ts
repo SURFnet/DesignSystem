@@ -201,8 +201,8 @@ export const MediaVariants: Story = {
 export const Group: Story = {
   render: () => ({
     template: `
-      <div hlmItemGroup class="w-full max-w-md">
-        <div hlmItem>
+      <ul hlmItemGroup class="w-full max-w-md">
+        <li hlmItem>
           <div hlmItemMedia variant="icon">
             <ng-icon name="phosphorUser" />
           </div>
@@ -213,9 +213,9 @@ export const Group: Story = {
           <div hlmItemActions>
             <button hlmBtn variant="outline" size="sm">Edit</button>
           </div>
-        </div>
-        <hlm-item-separator />
-        <div hlmItem>
+        </li>
+        <li aria-hidden="true"><hlm-item-separator /></li>
+        <li hlmItem>
           <div hlmItemMedia variant="icon">
             <ng-icon name="phosphorCreditCard" />
           </div>
@@ -226,9 +226,9 @@ export const Group: Story = {
           <div hlmItemActions>
             <button hlmBtn variant="outline" size="sm">Manage</button>
           </div>
-        </div>
-        <hlm-item-separator />
-        <div hlmItem>
+        </li>
+        <li aria-hidden="true"><hlm-item-separator /></li>
+        <li hlmItem>
           <div hlmItemMedia variant="icon">
             <ng-icon name="phosphorBell" />
           </div>
@@ -239,8 +239,8 @@ export const Group: Story = {
           <div hlmItemActions>
             <button hlmBtn variant="outline" size="sm">Configure</button>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     `,
   }),
 };

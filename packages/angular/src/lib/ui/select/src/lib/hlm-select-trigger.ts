@@ -27,6 +27,7 @@ import type { ClassValue } from 'clsx';
       [id]="buttonId()"
       [class]="_computedClass()"
       [attr.data-size]="size()"
+      [attr.aria-label]="ariaLabel()"
       data-slot="select-trigger"
     >
       <ng-content />
@@ -49,6 +50,9 @@ export class HlmSelectTrigger {
   );
 
   public readonly buttonId = input<string>(`hlm-select-trigger-${HlmSelectTrigger._id++}`);
+
+  /** The aria-label for the trigger button. Required when there's no visible, associated label. */
+  public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 
   public readonly size = input<SelectTriggerSizeName>('default');
 

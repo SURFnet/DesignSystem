@@ -136,6 +136,12 @@ pnpm format
   the contract object.
 - `pnpm build`, `pnpm lint`, `pnpm format`, and `build-storybook` all pass.
 
+## Updating an existing component
+
+Do not re-run `shadcn add` (or `--overwrite`) on a component that is already
+vendored. Follow [`update-component/react.md`](../update-component/react.md).
+Restyling or merging upstream can have an effect on accessibility.
+
 ## Notes
 
 - Icons: import from `@phosphor-icons/react` (components are suffixed `Icon`, e.g.

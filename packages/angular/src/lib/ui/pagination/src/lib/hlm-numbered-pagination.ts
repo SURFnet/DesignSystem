@@ -74,7 +74,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 
       <!-- Show Page Size selector -->
       <hlm-select [(value)]="itemsPerPage" class="ml-auto">
-        <hlm-select-trigger class="w-fit">
+        <hlm-select-trigger class="w-fit" aria-label="Items per page">
           <hlm-select-value />
         </hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>

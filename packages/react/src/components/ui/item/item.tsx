@@ -9,10 +9,9 @@ import type { ItemMediaVariantName, ItemSizeName, ItemVariantName } from '@surfn
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 
-function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
+function ItemGroup({ className, ...props }: React.ComponentProps<'ul'>) {
   return (
-    <div
-      role="list"
+    <ul
       data-slot="item-group"
       className={cn(
         'group/item-group flex w-full flex-col gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2',
@@ -25,12 +24,14 @@ function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
 
 function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
   return (
-    <Separator
-      data-slot="item-separator"
-      orientation="horizontal"
-      className={cn('my-2', className)}
-      {...props}
-    />
+    <li aria-hidden="true">
+      <Separator
+        data-slot="item-separator"
+        orientation="horizontal"
+        className={cn('my-2', className)}
+        {...props}
+      />
+    </li>
   );
 }
 

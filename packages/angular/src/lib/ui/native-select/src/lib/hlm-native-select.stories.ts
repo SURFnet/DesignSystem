@@ -2,13 +2,14 @@ import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@story
 import { nativeSelectContract } from '@surfnet/curve-contracts';
 
 import { HlmNativeSelect, HlmNativeSelectImports } from '..';
+import { HlmLabel } from '../../../label/src';
 
 const meta: Meta<HlmNativeSelect> = {
   title: 'Components/NativeSelect',
   component: HlmNativeSelect,
   decorators: [
     moduleMetadata({
-      imports: [HlmNativeSelectImports],
+      imports: [HlmNativeSelectImports, HlmLabel],
     }),
   ],
   parameters: {
@@ -47,7 +48,8 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <hlm-native-select ${argsToTemplate(args)}>
+      <label hlmLabel for="default-select" class="sr-only">Select label</label>
+      <hlm-native-select ${argsToTemplate(args)} selectId="default-select">
         <option hlmNativeSelectOption value="apple">Apple</option>
         <option hlmNativeSelectOption value="banana">Banana</option>
         <option hlmNativeSelectOption value="cherry">Cherry</option>
@@ -60,7 +62,8 @@ export const Default: Story = {
 export const WithOptionGroups: Story = {
   render: () => ({
     template: `
-      <hlm-native-select aria-label="Favorite fruit or vegetable" value="apple">
+      <label hlmLabel for="with-option-groups-select" class="sr-only">With Option Groups select</label>
+      <hlm-native-select aria-label="Favorite fruit or vegetable" selectId="with-option-groups-select">
         <optgroup hlmNativeSelectOptGroup label="Fruit">
           <option hlmNativeSelectOption value="apple">Apple</option>
           <option hlmNativeSelectOption value="banana">Banana</option>
@@ -80,12 +83,14 @@ export const Sizes: Story = {
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-3">
-        <hlm-native-select size="default" title="${nativeSelectContract.docs.sizes.default}">
+        <label hlmLabel for="default-sized-select" class="sr-only">Default sized select</label>
+        <hlm-native-select size="default" title="${nativeSelectContract.docs.sizes.default}" selectId="default-sized-select">
           <option hlmNativeSelectOption value="apple">Apple</option>
           <option hlmNativeSelectOption value="banana">Banana</option>
           <option hlmNativeSelectOption value="cherry">Cherry</option>
         </hlm-native-select>
-        <hlm-native-select size="sm" title="${nativeSelectContract.docs.sizes.sm}">
+        <label hlmLabel for="sm-select" class="sr-only">Small select</label>
+        <hlm-native-select size="sm" title="${nativeSelectContract.docs.sizes.sm}" selectId="sm-select">
           <option hlmNativeSelectOption value="apple">Apple</option>
           <option hlmNativeSelectOption value="banana">Banana</option>
           <option hlmNativeSelectOption value="cherry">Cherry</option>
@@ -99,8 +104,9 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => ({
     template: `
-      <hlm-native-select disabled value="apple">
-        <option hlmNativeSelectOption value="apple">Apple</option>
+      <label hlmLabel for="disabled-select" class="sr-only">Disabled select</label>
+      <hlm-native-select selectId="disabled-select" disabled value="apple">
+        <option hlmNativeSelectOption value="apple" selected>Apple</option>
         <option hlmNativeSelectOption value="banana">Banana</option>
       </hlm-native-select>
     `,
@@ -111,7 +117,8 @@ export const Disabled: Story = {
 export const Invalid: Story = {
   render: () => ({
     template: `
-      <hlm-native-select forceInvalid value="">
+    <label hlmLabel for="invalid-select" class="sr-only">Invalid select</label>
+      <hlm-native-select selectId="invalid-select" forceInvalid value="">
         <option hlmNativeSelectOption value="" disabled>Choose an option</option>
         <option hlmNativeSelectOption value="apple">Apple</option>
         <option hlmNativeSelectOption value="banana">Banana</option>

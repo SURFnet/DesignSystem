@@ -46,7 +46,7 @@ type Story = StoryObj<HlmSwitch>;
 export const Default: Story = {
   render: (args) => ({
     props: args,
-    template: `<hlm-switch checked ${argsToTemplate(args)} />`,
+    template: `<hlm-switch checked aria-label="Enable notifications" ${argsToTemplate(args)} />`,
   }),
 };
 

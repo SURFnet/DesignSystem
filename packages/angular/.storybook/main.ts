@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/angular';
 import remarkGfm from 'remark-gfm';
+import { a11yTagConfig } from '@surfnet/curve-storybook-config';
 
 const config: StorybookConfig = {
   stories: [
@@ -30,6 +31,7 @@ const config: StorybookConfig = {
     { from: '../../../.agents/skills/accessibility', to: 'downloads/accessibility' },
   ],
   framework: '@storybook/angular',
+  tags: a11yTagConfig,
 };
 
 export default config;

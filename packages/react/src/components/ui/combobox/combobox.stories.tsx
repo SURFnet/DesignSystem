@@ -42,6 +42,8 @@ const languages = ['TypeScript', 'JavaScript', 'Python', 'Rust', 'Go'];
 
 const meta = {
   title: 'Components/Combobox',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-gap'],
   component: Combobox,
   parameters: {
     docs: {
@@ -116,7 +118,9 @@ export const Multiple: Story = {
               {(value: string[]) => (
                 <>
                   {value.map((language) => (
-                    <ComboboxChip key={language}>{language}</ComboboxChip>
+                    <ComboboxChip key={language} removeLabel={`Remove ${language}`}>
+                      {language}
+                    </ComboboxChip>
                   ))}
                   <ComboboxChipsInput placeholder="Add a language…" />
                 </>

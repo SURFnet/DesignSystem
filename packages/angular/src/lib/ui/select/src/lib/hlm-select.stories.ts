@@ -28,7 +28,7 @@ export const Default: Story = {
   render: () => ({
     template: `
 			<hlm-select>
-				<hlm-select-trigger class="w-56">
+				<hlm-select-trigger class="w-56" aria-label="Category">
 					<hlm-select-value placeholder="Category: All" />
 				</hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
@@ -47,7 +47,7 @@ export const Grouped: Story = {
   render: () => ({
     template: `
 			<hlm-select value="identity">
-				<hlm-select-trigger class="w-56">
+				<hlm-select-trigger class="w-56" aria-label="Category">
 					<hlm-select-value placeholder="Pick a category" />
 				</hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
@@ -68,7 +68,7 @@ export const Disabled: Story = {
   render: () => ({
     template: `
 			<hlm-select disabled>
-				<hlm-select-trigger class="w-56">
+				<hlm-select-trigger class="w-56" aria-label="Category">
 					<hlm-select-value placeholder="Category: All" />
 				</hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
@@ -88,7 +88,7 @@ export const Sizes: Story = {
           .map(
             (size) => `
 							<hlm-select key="${size}" value="all">
-								<hlm-select-trigger class="w-40" size="${size}">
+								<hlm-select-trigger class="w-40" size="${size}" aria-label="Category">
 									<hlm-select-value />
 								</hlm-select-trigger>
 								<hlm-select-content *hlmSelectPortal>

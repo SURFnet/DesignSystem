@@ -7,6 +7,8 @@ import { Slider } from './slider';
 
 const meta = {
   title: 'Components/Slider',
+  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
+  tags: ['a11y-minor'],
   component: Slider,
   parameters: {
     docs: {
@@ -45,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <div className={args.orientation === 'vertical' ? 'flex h-40 items-center' : 'w-72'}>
-      <Slider {...args} />
+      <Slider {...args} aria-label="Volume" />
     </div>
   ),
 };
@@ -54,7 +56,7 @@ export const Default: Story = {
 export const Horizontal: Story = {
   render: () => (
     <div className="w-72">
-      <Slider orientation="horizontal" defaultValue={50} />
+      <Slider orientation="horizontal" defaultValue={50} aria-label="Volume" />
     </div>
   ),
 };
@@ -63,7 +65,7 @@ export const Horizontal: Story = {
 export const Vertical: Story = {
   render: () => (
     <div className="flex h-40 items-center">
-      <Slider orientation="vertical" defaultValue={50} />
+      <Slider orientation="vertical" defaultValue={50} aria-label="Volume" />
     </div>
   ),
 };
@@ -72,7 +74,10 @@ export const Vertical: Story = {
 export const Range: Story = {
   render: () => (
     <div className="w-72">
-      <Slider defaultValue={[25, 75]} />
+      <Slider
+        defaultValue={[25, 75]}
+        getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
+      />
     </div>
   ),
 };
@@ -81,7 +86,7 @@ export const Range: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="w-72">
-      <Slider defaultValue={50} disabled />
+      <Slider defaultValue={50} disabled aria-label="Volume" />
     </div>
   ),
 };
@@ -91,7 +96,7 @@ export const WithField: Story = {
   render: () => (
     <Field className="w-72">
       <FieldLabel htmlFor="volume">Volume</FieldLabel>
-      <Slider id="volume" defaultValue={60} />
+      <Slider id="volume" defaultValue={60} aria-label="Volume" />
       <FieldDescription>Drag the thumb or use the arrow keys to adjust.</FieldDescription>
     </Field>
   ),
