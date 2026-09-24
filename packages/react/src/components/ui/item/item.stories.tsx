@@ -26,6 +26,10 @@ const meta = {
         component: itemContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18709-94348&t=e05qWfQcPmc0GJEw-4',
+    },
   },
   argTypes: {
     variant: {

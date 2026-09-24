@@ -37,6 +37,10 @@ const meta: Meta<HlmAlert> = {
         component: alertContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=21-322&p=f&t=vT3gKkMDSpQaeqci-0',
+    },
   },
   argTypes: {
     variant: {

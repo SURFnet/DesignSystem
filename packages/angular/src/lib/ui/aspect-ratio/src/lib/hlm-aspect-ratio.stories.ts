@@ -17,6 +17,10 @@ const meta: Meta<HlmAspectRatio> = {
         component: aspectRatioContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=17079-164406&t=vT3gKkMDSpQaeqci-4',
+    },
   },
   argTypes: {
     ratio: {

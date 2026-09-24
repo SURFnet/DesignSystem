@@ -51,6 +51,10 @@ const meta = {
         component: comboboxContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=466-336&t=vT3gKkMDSpQaeqci-4',
+    },
   },
 } satisfies Meta<typeof Combobox>;
 

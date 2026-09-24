@@ -15,6 +15,10 @@ const meta = {
         component: switchContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=60-438',
+    },
   },
   argTypes: {
     size: {

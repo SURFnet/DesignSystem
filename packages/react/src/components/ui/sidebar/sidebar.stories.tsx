@@ -31,6 +31,10 @@ const meta = {
         component: sidebarContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=25594-28607',
+    },
   },
 } satisfies Meta<typeof Sidebar>;
 

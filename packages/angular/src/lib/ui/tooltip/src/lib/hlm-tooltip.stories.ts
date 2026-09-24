@@ -30,6 +30,10 @@ const meta: Meta<TooltipArgs> = {
         component: tooltipContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=122-10',
+    },
   },
   argTypes: {
     content: {

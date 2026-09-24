@@ -16,6 +16,10 @@ const meta = {
         component: hoverCardContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=216-2886',
+    },
   },
 } satisfies Meta<typeof HoverCard>;
 

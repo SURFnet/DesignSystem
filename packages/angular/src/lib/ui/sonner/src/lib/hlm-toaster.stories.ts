@@ -22,6 +22,10 @@ const meta: Meta<HlmToaster> = {
         component: sonnerContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=118-2756',
+    },
   },
   argTypes: {
     position: {

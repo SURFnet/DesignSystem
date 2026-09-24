@@ -20,6 +20,10 @@ const meta: Meta<HlmCarousel> = {
         component: carouselContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=399-1140&t=vT3gKkMDSpQaeqci-0',
+    },
   },
   argTypes: {
     orientation: {

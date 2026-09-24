@@ -27,6 +27,10 @@ const meta: Meta<ProgressArgs> = {
         component: progressContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=65-441',
+    },
   },
   argTypes: {
     label: labelArgType,

@@ -27,7 +27,6 @@ const meta: Meta<ButtonArgs> = {
         component: buttonContract.docs.description,
       },
     },
-    // TODO: replace with the real Figma frame URL for this component.
     design: {
       type: 'figma',
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=17085-177606&t=T6LHdnRRLuad5nDS-4',
