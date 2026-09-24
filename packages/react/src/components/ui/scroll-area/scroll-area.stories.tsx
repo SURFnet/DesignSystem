@@ -13,6 +13,10 @@ const meta = {
         component: scrollAreaContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=296-207',
+    },
   },
 } satisfies Meta<typeof ScrollArea>;
 

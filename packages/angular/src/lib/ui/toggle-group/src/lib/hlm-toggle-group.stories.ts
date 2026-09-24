@@ -41,6 +41,10 @@ const meta: Meta<ToggleGroupArgs> = {
         component: toggleGroupContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=123-75',
+    },
   },
   argTypes: {
     variant: {

@@ -23,6 +23,10 @@ const meta: Meta<AccordionArgs> = {
         component: accordionContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=1-434&p=f&t=vT3gKkMDSpQaeqci-0',
+    },
   },
   argTypes: {
     type: {
