@@ -1,0 +1,8 @@
+import{i as e}from"./preload-helper-xPQekRTU.js";import{t}from"./jsx-runtime-CaZkqeYb.js";import{d as n,r}from"./utils-C5n3ayfX.js";import{n as i,t as a}from"./textarea-DLTmjzu4.js";var o,s,c,l,u,d;e((()=>{r(),i(),o=t(),s={title:`Components/Textarea`,component:a,parameters:{docs:{description:{component:n.docs.description}},design:{type:`figma`,url:`https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=177-367`}},argTypes:{placeholder:{control:`text`},disabled:{control:`boolean`}},args:{placeholder:`Type something…`,disabled:!1}},c={},l={args:{disabled:!0,placeholder:`Cannot type here`}},u={render:()=>(0,o.jsx)(a,{"aria-invalid":`true`,placeholder:`This field has an error`})},c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{}`,...c.parameters?.docs?.source},description:{story:`Default textarea — auto-sizes to content.`,...c.parameters?.docs?.description}}},l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+  args: {
+    disabled: true,
+    placeholder: 'Cannot type here'
+  }
+}`,...l.parameters?.docs?.source},description:{story:`Disabled state.`,...l.parameters?.docs?.description}}},u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
+  render: () => <Textarea aria-invalid="true" placeholder="This field has an error" />
+}`,...u.parameters?.docs?.source},description:{story:`Invalid state (e.g. after failed form validation).`,...u.parameters?.docs?.description}}},d=[`Default`,`Disabled`,`Invalid`]}))();export{c as Default,l as Disabled,u as Invalid,d as __namedExportsOrder,s as default};

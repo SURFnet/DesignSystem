@@ -1,0 +1,9 @@
+import{i as e}from"./preload-helper-xPQekRTU.js";import{t}from"./jsx-runtime-CaZkqeYb.js";import{mt as n,n as r,r as i,t as a}from"./utils-C5n3ayfX.js";var o,s,c,l,u=e((()=>{o=`_details_pmxjy_1`,s=`_summary_pmxjy_12`,c=`_content_pmxjy_39`,l={details:o,summary:s,content:c}}));function d({className:e,...t}){return(0,m.jsx)(`details`,{"data-slot":`native-details`,className:a(l.details,e),...t})}function f({className:e,...t}){return(0,m.jsx)(`summary`,{"data-slot":`native-summary`,className:a(l.summary,e),...t})}function p({className:e,...t}){return(0,m.jsx)(`div`,{"data-slot":`native-details-content`,className:a(l.content,e),...t})}var m,h=e((()=>{r(),u(),m=t(),d.__docgenInfo={description:``,methods:[],displayName:`NativeDetails`},p.__docgenInfo={description:``,methods:[],displayName:`NativeDetailsContent`},f.__docgenInfo={description:``,methods:[],displayName:`NativeSummary`}})),g,_,v,y;e((()=>{i(),h(),g=t(),_={title:`Components/NativeDetails`,component:d,parameters:{docs:{description:{component:n.docs.description}},design:{type:`figma`,url:`https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=1-434&p=f&t=vT3gKkMDSpQaeqci-0`}}},v={render:()=>(0,g.jsxs)(d,{children:[(0,g.jsx)(f,{children:`What is a native details element?`}),(0,g.jsx)(p,{children:`Browsers provide built-in expand/collapse behavior without JavaScript. Use Accordion when you need coordinated single-expand groups.`})]})},v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`{
+  render: () => <NativeDetails>
+      <NativeSummary>What is a native details element?</NativeSummary>
+      <NativeDetailsContent>
+        Browsers provide built-in expand/collapse behavior without JavaScript. Use Accordion when
+        you need coordinated single-expand groups.
+      </NativeDetailsContent>
+    </NativeDetails>
+}`,...v.parameters?.docs?.source}}},y=[`Default`]}))();export{v as Default,y as __namedExportsOrder,_ as default};

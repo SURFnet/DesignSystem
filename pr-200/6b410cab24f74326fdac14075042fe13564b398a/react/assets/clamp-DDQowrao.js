@@ -1,0 +1,1 @@
+import{i as e,s as t}from"./preload-helper-xPQekRTU.js";import{O as n}from"./iframe-CaelJD7u.js";function r(){return i.useContext(a)??o}var i,a,o,s=e((()=>{i=t(n()),a=i.createContext(void 0),o={disableStyleElements:!1}}));function c(e,t=-(2**53-1),n=2**53-1){return Math.max(t,Math.min(e,n))}var l=e((()=>{}));export{r as i,l as n,s as r,c as t};
