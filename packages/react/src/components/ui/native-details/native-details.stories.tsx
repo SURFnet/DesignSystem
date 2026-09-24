@@ -12,6 +12,12 @@ const meta = {
         component: nativeDetailsContract.docs.description,
       },
     },
+    // No dedicated Figma frame — links to Accordion, the Base UI component this
+    // is a lightweight native alternative to.
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=1-434&p=f&t=vT3gKkMDSpQaeqci-0',
+    },
   },
 } satisfies Meta<typeof NativeDetails>;
 

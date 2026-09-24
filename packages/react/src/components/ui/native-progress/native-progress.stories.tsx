@@ -12,6 +12,12 @@ const meta = {
         component: nativeProgressContract.docs.description,
       },
     },
+    // No dedicated Figma frame — links to Progress, the Base UI component this
+    // is a lightweight native alternative to.
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=65-441',
+    },
   },
 } satisfies Meta<typeof NativeProgress>;
 

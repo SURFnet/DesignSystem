@@ -21,6 +21,10 @@ const meta: Meta<HlmAlertDialog> = {
         component: alertDialogContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=22-307&p=f&t=vT3gKkMDSpQaeqci-0',
+    },
   },
 };
 

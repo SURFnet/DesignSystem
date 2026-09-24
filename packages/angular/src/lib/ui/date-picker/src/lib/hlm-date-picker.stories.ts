@@ -20,6 +20,10 @@ const meta: Meta<HlmDatePicker<Date>> = {
         component: datePickerContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=302-6273&t=vT3gKkMDSpQaeqci-4',
+    },
   },
   argTypes: {
     captionLayout: {

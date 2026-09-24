@@ -17,6 +17,10 @@ const meta: Meta<HlmKbd> = {
         component: kbdContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18679-17681&t=e05qWfQcPmc0GJEw-4',
+    },
   },
   args: {
     children: '⌘',

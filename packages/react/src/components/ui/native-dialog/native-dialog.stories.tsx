@@ -22,6 +22,12 @@ const meta = {
         component: nativeDialogContract.docs.description,
       },
     },
+    // No dedicated Figma frame — links to Dialog, the Base UI component this
+    // is a lightweight native alternative to.
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=424-7365&t=vT3gKkMDSpQaeqci-4',
+    },
   },
 } satisfies Meta<typeof NativeDialog>;
 

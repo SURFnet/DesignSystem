@@ -21,6 +21,10 @@ const meta: Meta<HlmDropdownMenu> = {
         component: dropdownMenuContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=430-17941&t=vT3gKkMDSpQaeqci-0',
+    },
   },
 };
 

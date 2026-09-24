@@ -19,6 +19,12 @@ const meta = {
         component: nativePopoverContract.docs.description,
       },
     },
+    // No dedicated Figma frame — links to Popover, the Base UI component this
+    // is a lightweight native alternative to.
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=193-1388',
+    },
   },
 } satisfies Meta<typeof NativePopover>;
 
