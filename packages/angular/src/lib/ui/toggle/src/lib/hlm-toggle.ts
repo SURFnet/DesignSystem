@@ -4,6 +4,8 @@ import { classes, hlm } from '../../../utils/src';
 import type { ToggleSizeName, ToggleVariantName } from '@surfnet/curve-contracts';
 import type { ClassValue } from 'clsx';
 
+// Styling lives in ./hlm-toggle.css. Modifier classes (not only data attributes)
+// so `toggleVariants()` also works for toggle-group items.
 const toggleVariantClasses = {
   default: 'curve-toggle--variant-default',
   outline: 'curve-toggle--variant-outline',

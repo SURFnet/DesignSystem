@@ -3,6 +3,7 @@ import { classes } from '../../../utils/src';
 import type { ItemMediaVariantName } from '@surfnet/curve-contracts';
 import { injectHlmItemMediaConfig } from './hlm-item-token';
 
+// Styling lives in ./hlm-item.css.
 const itemMediaVariantClasses = {
   default: 'curve-item-media--variant-default',
   icon: 'curve-item-media--variant-icon',
