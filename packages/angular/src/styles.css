@@ -39,6 +39,7 @@
 @import './lib/ui/kbd/src/lib/hlm-kbd.css' layer(components);
 @import './lib/ui/spinner/src/lib/hlm-spinner.css' layer(components);
 @import './lib/ui/skeleton/src/lib/hlm-skeleton.css' layer(components);
+@import './lib/ui/skip-link/src/lib/hlm-skip-link.css' layer(components);
 @import './lib/ui/badge/src/lib/hlm-badge.css' layer(components);
 @import './lib/ui/button/src/lib/hlm-button.css' layer(components);
 @import './lib/ui/toggle/src/lib/hlm-toggle.css' layer(components);
