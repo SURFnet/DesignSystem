@@ -18,6 +18,10 @@ const meta: Meta<HlmCheckbox> = {
         component: checkboxContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18692-39410&t=vT3gKkMDSpQaeqci-4',
+    },
   },
 };
 

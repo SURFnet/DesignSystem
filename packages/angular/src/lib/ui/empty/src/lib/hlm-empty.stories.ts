@@ -29,6 +29,10 @@ const meta: Meta<HlmEmpty> = {
         component: emptyContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18672-1039',
+    },
   },
 };
 

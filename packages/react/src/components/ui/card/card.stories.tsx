@@ -21,6 +21,10 @@ const meta = {
         component: cardContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=301-1502&t=vT3gKkMDSpQaeqci-0',
+    },
   },
   argTypes: {
     size: {

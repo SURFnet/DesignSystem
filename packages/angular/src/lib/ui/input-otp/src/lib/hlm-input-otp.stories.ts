@@ -26,6 +26,10 @@ const meta: Meta<InputOtpArgs> = {
         component: inputOtpContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=430-17451&t=e05qWfQcPmc0GJEw-4',
+    },
   },
   argTypes: {
     maxLength: { control: 'number' },

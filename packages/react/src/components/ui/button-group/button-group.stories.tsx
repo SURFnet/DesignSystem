@@ -16,6 +16,10 @@ const meta = {
         component: buttonGroupContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18686-6893&t=vT3gKkMDSpQaeqci-4',
+    },
   },
   argTypes: {
     orientation: {

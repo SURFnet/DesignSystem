@@ -16,6 +16,10 @@ const meta: Meta<HlmAvatar> = {
         component: avatarContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=296-5188&t=vT3gKkMDSpQaeqci-4',
+    },
   },
   argTypes: {
     size: {
