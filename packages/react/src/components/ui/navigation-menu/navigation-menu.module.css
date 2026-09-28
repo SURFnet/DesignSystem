@@ -187,3 +187,81 @@
   background-color: var(--border);
   box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
 }
+
+/*
+ * Enter/exit motion: the popup scales/fades in and resizes between items;
+ * content slides in the direction of travel. Base UI sets
+ * [data-starting-style] / [data-ending-style], [data-activation-direction]
+ * and [data-instant]. Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .positioner {
+    transition-property: top, left, right, bottom;
+    transition-duration: 0.35s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .positioner[data-instant] {
+    transition: none;
+  }
+
+  .popup {
+    transform-origin: var(--transform-origin, center);
+    transition-property: opacity, scale, width, height;
+    transition-duration: 0.35s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .popup[data-starting-style],
+  .popup[data-ending-style] {
+    opacity: 0;
+    scale: 0.9;
+  }
+
+  .popup[data-ending-style] {
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
+
+  .content {
+    transition-property: opacity, translate;
+    transition-duration: 0.35s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .content[data-starting-style],
+  .content[data-ending-style] {
+    opacity: 0;
+  }
+
+  .content[data-starting-style][data-activation-direction='left'],
+  .content[data-ending-style][data-activation-direction='right'] {
+    translate: -50% 0;
+  }
+
+  .content[data-starting-style][data-activation-direction='right'],
+  .content[data-ending-style][data-activation-direction='left'] {
+    translate: 50% 0;
+  }
+
+  /* Without the shared viewport each item's content is its own popup. */
+  .root[data-viewport='false'] .content {
+    transform-origin: var(--transform-origin, center);
+    animation-duration: 300ms;
+    --curve-enter-opacity: 0;
+    --curve-enter-scale: 0.95;
+    --curve-exit-opacity: 0;
+    --curve-exit-scale: 0.95;
+  }
+
+  .root[data-viewport='false'] .content[data-open] {
+    animation-name: global(curve-enter);
+    animation-timing-function: ease-out;
+  }
+
+  .root[data-viewport='false'] .content[data-closed] {
+    animation-name: global(curve-exit);
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+}

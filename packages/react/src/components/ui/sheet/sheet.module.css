@@ -3,7 +3,6 @@
   inset: 0;
   z-index: 50;
   background-color: rgb(0 0 0 / 10%);
-  transition: opacity 150ms ease;
 }
 
 @supports (backdrop-filter: blur(1px)) {
@@ -24,9 +23,6 @@
   line-height: 1.25rem;
   color: var(--popover-foreground);
   box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
-  transition:
-    transform 200ms ease-in-out,
-    opacity 200ms ease-in-out;
 }
 
 .content[data-side='top'] {
@@ -110,4 +106,48 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/*
+ * Enter/exit motion: backdrop fades; the panel fades and slides 2.5rem in from
+ * its edge. Base UI applies [data-starting-style] / [data-ending-style] around
+ * mount/unmount. Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .overlay {
+    transition: opacity 150ms ease;
+  }
+
+  .content {
+    transition:
+      opacity 200ms ease-in-out,
+      translate 200ms ease-in-out;
+  }
+
+  .overlay[data-starting-style],
+  .overlay[data-ending-style],
+  .content[data-starting-style],
+  .content[data-ending-style] {
+    opacity: 0;
+  }
+
+  .content[data-side='top'][data-starting-style],
+  .content[data-side='top'][data-ending-style] {
+    translate: 0 -2.5rem;
+  }
+
+  .content[data-side='bottom'][data-starting-style],
+  .content[data-side='bottom'][data-ending-style] {
+    translate: 0 2.5rem;
+  }
+
+  .content[data-side='left'][data-starting-style],
+  .content[data-side='left'][data-ending-style] {
+    translate: -2.5rem 0;
+  }
+
+  .content[data-side='right'][data-starting-style],
+  .content[data-side='right'][data-ending-style] {
+    translate: 2.5rem 0;
+  }
 }

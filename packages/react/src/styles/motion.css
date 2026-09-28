@@ -1,0 +1,37 @@
+/*
+ * Shared enter/exit keyframes for overlays (dialogs, popovers, menus, …).
+ *
+ * Components only reference these from inside a
+ * `@media (prefers-reduced-motion: no-preference)` block, so nothing animates
+ * for users who asked their OS/browser for reduced motion.
+ *
+ * In React CSS Modules reference them as `animation-name: global(curve-enter)`
+ * (stops the name being hashed); plain component CSS uses `curve-enter`.
+ * Keep this file identical in packages/react and packages/angular.
+ *
+ * Each keyframe animates from/to the element's resting state; tune it with
+ * custom properties (all default to "no change"):
+ *   --curve-enter-opacity, --curve-enter-scale,
+ *   --curve-enter-translate-x, --curve-enter-translate-y
+ *   (and the matching --curve-exit-* properties)
+ *
+ * They animate the individual `opacity` / `scale` / `translate` properties,
+ * not `transform`, so they compose with a component's own transform (e.g. a
+ * dialog's `translate(-50%, -50%)` centering) instead of overriding it.
+ */
+
+@keyframes curve-enter {
+  from {
+    opacity: var(--curve-enter-opacity, 1);
+    scale: var(--curve-enter-scale, 1);
+    translate: var(--curve-enter-translate-x, 0) var(--curve-enter-translate-y, 0);
+  }
+}
+
+@keyframes curve-exit {
+  to {
+    opacity: var(--curve-exit-opacity, 1);
+    scale: var(--curve-exit-scale, 1);
+    translate: var(--curve-exit-translate-x, 0) var(--curve-exit-translate-y, 0);
+  }
+}
