@@ -16,6 +16,10 @@ const meta = {
         component: sliderContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=61-169',
+    },
   },
   argTypes: {
     orientation: {

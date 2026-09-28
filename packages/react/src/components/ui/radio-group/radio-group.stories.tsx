@@ -16,6 +16,10 @@ const meta = {
         component: radioGroupContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=64-316',
+    },
   },
   argTypes: {
     disabled: { control: 'boolean' },

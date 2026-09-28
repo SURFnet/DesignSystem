@@ -18,6 +18,10 @@ const meta: Meta<HlmTextarea> = {
         component: textareaContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=177-367',
+    },
   },
   argTypes: {
     placeholder: { control: 'text' },

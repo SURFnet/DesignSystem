@@ -18,6 +18,10 @@ const meta = {
         component: calendarContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=301-1181&t=vT3gKkMDSpQaeqci-4',
+    },
   },
   argTypes: {
     captionLayout: {

@@ -65,6 +65,7 @@
     "@ng-icons/core": "33.3.0",
     "@spartan-ng/cli": "0.0.1-alpha.715",
     "@storybook/addon-a11y": "10.4.5",
+    "@storybook/addon-designs": "11.1.4",
     "@storybook/addon-docs": "10.4.5",
     "@storybook/angular": "10.4.5",
     "@storybook/test-runner": "0.24.5",

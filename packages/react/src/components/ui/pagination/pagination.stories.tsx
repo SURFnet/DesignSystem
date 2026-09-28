@@ -22,6 +22,10 @@ const meta = {
         component: paginationContract.docs.description,
       },
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=65-516',
+    },
   },
 } satisfies Meta<typeof Pagination>;
 
