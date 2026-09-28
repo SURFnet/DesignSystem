@@ -18,7 +18,7 @@ import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angul
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'data-slot': 'data-table-content',
-    class: 'block overflow-hidden rounded-md border',
+    class: 'curve-data-table-content',
   },
   template: `
     <div hlmTableContainer>
@@ -65,7 +65,7 @@ import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angul
             }
           } @else {
             <tr hlmTableRow>
-              <td hlmTableCell [attr.colspan]="columns().length" class="h-24 text-center">
+              <td hlmTableCell [attr.colspan]="columns().length" class="curve-data-table-empty">
                 {{ noResultsLabel() }}
               </td>
             </tr>

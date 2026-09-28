@@ -13,11 +13,11 @@ import { classes } from '../../../utils/src';
   },
   template: `
     @if (showIcon()) {
-      <hlm-skeleton data-sidebar="menu-skeleton-icon" class="size-4 rounded-md" />
+      <hlm-skeleton data-sidebar="menu-skeleton-icon" class="curve-sidebar-skeleton-icon" />
     } @else {
       <hlm-skeleton
         data-sidebar="menu-skeleton-text"
-        class="h-4 max-w-(--skeleton-width) flex-1"
+        class="curve-sidebar-skeleton-text"
         [style.--skeleton-width]="_width"
       />
     }
@@ -28,6 +28,6 @@ export class HlmSidebarMenuSkeleton {
   protected readonly _width = `${Math.floor(Math.random() * 40) + 50}%`;
 
   constructor() {
-    classes(() => 'h-8 gap-2 rounded-md px-2 flex items-center');
+    classes(() => 'curve-sidebar-menu-skeleton');
   }
 }

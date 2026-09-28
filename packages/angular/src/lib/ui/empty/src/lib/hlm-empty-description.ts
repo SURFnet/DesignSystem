@@ -7,9 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmEmptyDescription {
   constructor() {
-    classes(
-      () =>
-        'text-sm/relaxed text-muted-foreground [&>a:hover]:text-primary-strong [&>a]:underline [&>a]:underline-offset-4',
-    );
+    classes(() => 'curve-empty-description');
   }
 }

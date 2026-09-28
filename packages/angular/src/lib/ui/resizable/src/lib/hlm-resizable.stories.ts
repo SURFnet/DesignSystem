@@ -53,13 +53,13 @@ export const Default: Story = {
 				<div hlmResizableGroup ${argsToTemplate(args)} class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
-						<span class="font-mono text-sm">One</span>
+						<span class="font-mono text-sm">Left panel</span>
 					</div>
 				</div>
 				<hlm-resizable-handle withHandle />
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
-						<span class="font-mono text-sm">Two</span>
+						<span class="font-mono text-sm">Right panel</span>
 					</div>
 				</div>
 				</div>
@@ -76,13 +76,13 @@ export const Vertical: Story = {
 				<div hlmResizableGroup direction="vertical" class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
-						<span class="font-mono text-sm">Top</span>
+						<span class="font-mono text-sm">Top panel</span>
 					</div>
 				</div>
 				<hlm-resizable-handle withHandle />
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
-						<span class="font-mono text-sm">Bottom</span>
+						<span class="font-mono text-sm">Bottom panel</span>
 					</div>
 				</div>
 				</div>

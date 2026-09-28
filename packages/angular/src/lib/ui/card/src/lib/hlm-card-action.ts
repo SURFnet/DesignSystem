@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCardAction {
   constructor() {
-    classes(() => 'col-start-2 row-span-2 row-start-1 self-start justify-self-end');
+    classes(() => 'curve-card-action');
   }
 }

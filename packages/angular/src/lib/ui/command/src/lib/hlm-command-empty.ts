@@ -21,6 +21,6 @@ export class HlmCommandEmpty {
   );
 
   constructor() {
-    classes(() => 'py-6 text-center text-sm text-muted-foreground');
+    classes(() => 'curve-command-empty');
   }
 }

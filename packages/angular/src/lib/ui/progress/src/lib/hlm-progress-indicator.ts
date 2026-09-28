@@ -7,7 +7,7 @@ import { classes } from '../../../utils/src';
   selector: '[hlmProgressIndicator],hlm-progress-indicator',
   hostDirectives: [BrnProgressIndicator],
   host: {
-    '[class.animate-indeterminate]': '_indeterminate()',
+    '[class.curve-progress-indicator--indeterminate]': '_indeterminate()',
     '[style.transform]': '_transform()',
   },
 })
@@ -25,6 +25,7 @@ export class HlmProgressIndicator {
   );
 
   constructor() {
-    classes(() => 'bg-primary h-full w-full flex-1 transition-all');
+    // Styling lives in ./hlm-progress.css.
+    classes(() => 'curve-progress-indicator');
   }
 }

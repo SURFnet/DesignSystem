@@ -49,6 +49,6 @@ import { provideHlmComboboxListboxId } from './hlm-combobox-listbox-id';
 })
 export class HlmComboboxMultiple {
   constructor() {
-    classes(() => 'block');
+    classes(() => 'curve-combobox');
   }
 }

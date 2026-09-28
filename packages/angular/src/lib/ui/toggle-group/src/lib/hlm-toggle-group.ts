@@ -32,9 +32,7 @@ export class HlmToggleGroup {
   public readonly orientation = input<ToggleGroupOrientationName>('horizontal');
 
   constructor() {
-    classes(
-      () =>
-        'rounded-md data-[spacing=0]:data-[variant=outline]:shadow-xs group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch',
-    );
+    // Styling lives in ./hlm-toggle-group.css; `group/toggle-group` stays as a hook for consumers' Tailwind.
+    classes(() => 'curve-toggle-group group/toggle-group');
   }
 }

@@ -18,9 +18,6 @@ export class HlmAlertDialogContent {
   public readonly size = input<AlertDialogSizeName>('default');
 
   constructor() {
-    classes(
-      () =>
-        'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-popover text-popover-foreground ring-foreground/10 gap-6 rounded-xl p-6 ring-1 duration-100 data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-lg group/alert-dialog-content grid w-full outline-none',
-    );
+    classes(() => 'curve-alert-dialog-content group/alert-dialog-content');
   }
 }

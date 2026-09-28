@@ -1,0 +1,83 @@
+/* Toggle — `hlmToggle` and `toggleVariants()` (also used by toggle-group items). */
+.curve-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+  outline: none;
+  transition-property: color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-toggle ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-toggle ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-toggle--variant-default {
+  background-color: transparent;
+}
+
+.curve-toggle--variant-outline {
+  border: 1px solid var(--input);
+  background-color: transparent;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-toggle:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-toggle[aria-pressed='true'] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.curve-toggle:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-toggle[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+}
+
+.dark .curve-toggle[data-matches-spartan-invalid='true'] {
+  border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent);
+}
+
+.curve-toggle:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.curve-toggle--size-default {
+  height: calc(var(--spacing, 0.25rem) * 9);
+  min-width: calc(var(--spacing, 0.25rem) * 9);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.curve-toggle--size-sm {
+  height: calc(var(--spacing, 0.25rem) * 8);
+  min-width: calc(var(--spacing, 0.25rem) * 8);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.curve-toggle--size-lg {
+  height: calc(var(--spacing, 0.25rem) * 10);
+  min-width: calc(var(--spacing, 0.25rem) * 10);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+}

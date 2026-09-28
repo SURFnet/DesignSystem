@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDropdownMenuShortcut {
   constructor() {
-    classes(() => 'text-muted-foreground ml-auto text-xs tracking-widest');
+    classes(() => 'curve-dropdown-menu-shortcut');
   }
 }

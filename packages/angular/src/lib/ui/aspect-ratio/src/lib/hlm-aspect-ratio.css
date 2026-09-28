@@ -1,0 +1,5 @@
+/* Aspect ratio — `hlmAspectRatio` (sets --ratio on the host). */
+.curve-aspect-ratio {
+  position: relative;
+  aspect-ratio: var(--ratio);
+}

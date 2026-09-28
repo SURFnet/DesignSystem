@@ -1,0 +1,16 @@
+/* Separator — `hlmSeparator` (also reused by item, field and sidebar separators). */
+.curve-separator {
+  display: inline-flex;
+  flex-shrink: 0;
+  background-color: var(--border);
+}
+
+.curve-separator[data-orientation='horizontal'] {
+  height: 1px;
+  width: 100%;
+}
+
+.curve-separator[data-orientation='vertical'] {
+  width: 1px;
+  align-self: stretch;
+}

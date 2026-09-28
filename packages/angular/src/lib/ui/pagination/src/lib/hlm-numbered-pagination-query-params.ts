@@ -33,8 +33,8 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex items-center justify-between gap-2 px-4 py-2">
-      <div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
+    <div class="curve-numbered-pagination">
+      <div class="curve-numbered-pagination-summary">
         <b>{{ totalItems() }}</b>
         total items |
         <b>{{ _lastPageNumber() }}</b>
@@ -84,8 +84,8 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
       </nav>
 
       <!-- Show Page Size selector -->
-      <hlm-select [(value)]="itemsPerPage" class="ml-auto">
-        <hlm-select-trigger class="w-fit">
+      <hlm-select [(value)]="itemsPerPage" class="curve-numbered-pagination-size">
+        <hlm-select-trigger>
           <hlm-select-value />
         </hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>

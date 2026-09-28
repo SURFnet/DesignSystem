@@ -1,0 +1,88 @@
+/* Empty — `hlmEmpty` and its parts. */
+.curve-empty {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  border-style: dashed;
+  padding: calc(var(--spacing, 0.25rem) * 12);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.curve-empty-header {
+  display: flex;
+  max-width: 24rem;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-empty-media {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 2);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.curve-empty-media ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-empty-media--variant-default {
+  background-color: transparent;
+}
+
+.curve-empty-media--variant-icon {
+  width: calc(var(--spacing, 0.25rem) * 10);
+  height: calc(var(--spacing, 0.25rem) * 10);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-empty-media--variant-icon ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.curve-empty-title {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.curve-empty-description {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+
+.curve-empty-description > a {
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.curve-empty-description > a:hover {
+  color: var(--primary-strong);
+}
+
+.curve-empty-content {
+  display: flex;
+  width: 100%;
+  max-width: 24rem;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-wrap: balance;
+}

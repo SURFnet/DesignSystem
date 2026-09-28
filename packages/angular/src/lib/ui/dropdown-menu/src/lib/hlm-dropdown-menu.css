@@ -1,0 +1,269 @@
+/*
+ * Dropdown menu — `hlm-dropdown-menu` and its parts. Also used for context
+ * menus and menubars (same helm directives).
+ */
+.curve-dropdown-menu,
+.curve-dropdown-menu-sub {
+  z-index: 50;
+  min-width: 8rem;
+  transform-origin: top;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 1);
+  color: var(--popover-foreground);
+}
+
+.curve-dropdown-menu {
+  margin-block: calc(var(--spacing, 0.25rem) * var(--side-offset));
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.curve-dropdown-menu-sub {
+  overflow: hidden;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Item */
+.curve-dropdown-menu-item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  user-select: none;
+}
+
+.curve-dropdown-menu-item ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* Muted icons, unless they carry their own text-* colour (or are ours). */
+.curve-dropdown-menu-item
+  ng-icon:not([class*='text-']):not(.curve-dropdown-menu-sub-indicator-icon) {
+  color: var(--muted-foreground);
+}
+
+.curve-dropdown-menu-item svg:not([class*='text-']) {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.curve-dropdown-menu-item:hover,
+.curve-dropdown-menu-item:focus-visible {
+  background-color: var(--muted);
+}
+
+.curve-dropdown-menu-item:focus {
+  color: var(--foreground);
+}
+
+.curve-dropdown-menu-item[data-inset] {
+  padding-left: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-dropdown-menu-item[data-variant='destructive'] {
+  color: var(--destructive);
+}
+
+.curve-dropdown-menu-item[data-variant='destructive']:focus {
+  background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+  color: var(--destructive);
+}
+
+.dark .curve-dropdown-menu-item[data-variant='destructive']:focus {
+  background-color: color-mix(in oklab, var(--destructive) 20%, transparent);
+}
+
+.curve-dropdown-menu-item[data-variant='destructive'] > ng-icon {
+  color: var(--destructive) !important;
+}
+
+.curve-dropdown-menu-item[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Checkbox and radio items: indicator in the start gutter. */
+.curve-dropdown-menu-choice {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding-block: calc(var(--spacing, 0.25rem) * 1.5);
+  padding-inline: calc(var(--spacing, 0.25rem) * 8) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  user-select: none;
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-dropdown-menu-choice:hover,
+.curve-dropdown-menu-choice:focus-visible {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-dropdown-menu-choice:is([data-state='checked'], [data-checked]:not([data-checked='false'])) {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.curve-dropdown-menu-choice[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Checkbox indicator placed last → gutter moves to the end. */
+.curve-dropdown-menu-choice--checkbox:has(> hlm-dropdown-menu-checkbox-indicator:last-child) {
+  padding-inline: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-dropdown-menu-choice--checkbox:has(> hlm-dropdown-menu-checkbox-indicator:last-child)
+  > hlm-dropdown-menu-checkbox-indicator {
+  inset-inline-start: auto;
+  inset-inline-end: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-dropdown-menu-indicator {
+  pointer-events: none;
+  position: absolute;
+  inset-inline-start: calc(var(--spacing, 0.25rem) * 2);
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 3.5);
+  height: calc(var(--spacing, 0.25rem) * 3.5);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.curve-dropdown-menu-indicator--checkbox {
+  inset-inline-start: auto;
+  left: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-dropdown-menu-choice[data-checked] .curve-dropdown-menu-indicator {
+  opacity: 1;
+}
+
+/* ng-icon's own :host line-height wins here, as it did over the original text-base class. */
+.curve-dropdown-menu-indicator-icon,
+.curve-dropdown-menu-sub-indicator-icon {
+  font-size: 1rem;
+}
+
+.curve-dropdown-menu-radio-dot {
+  font-size: 0.5rem;
+}
+
+.curve-dropdown-menu-radio-dot > svg {
+  fill: currentcolor;
+}
+
+.curve-dropdown-menu-sub-indicator {
+  margin-inline-start: auto;
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-dropdown-menu-sub-indicator-icon:dir(rtl) {
+  rotate: 180deg;
+}
+
+.curve-dropdown-menu-group {
+  display: block;
+}
+
+.curve-dropdown-menu-label {
+  display: block;
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.curve-dropdown-menu-label[data-inset] {
+  padding-left: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-dropdown-menu-separator {
+  display: block;
+  margin: calc(var(--spacing, 0.25rem) * 1) calc(var(--spacing, 0.25rem) * -1);
+  height: 1px;
+  background-color: var(--border);
+}
+
+.curve-dropdown-menu-shortcut {
+  margin-left: auto;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+}
+
+/*
+ * Enter/exit motion (fade + zoom 95% + short slide away from the anchor).
+ * Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-dropdown-menu,
+  .curve-dropdown-menu-sub {
+    animation-duration: 150ms;
+    --curve-enter-opacity: 0;
+    --curve-enter-scale: 0.95;
+    --curve-exit-opacity: 0;
+    --curve-exit-scale: 0.95;
+  }
+
+  .curve-dropdown-menu[data-state='open'],
+  .curve-dropdown-menu-sub[data-state='open'] {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+  }
+
+  .curve-dropdown-menu[data-state='closed'],
+  .curve-dropdown-menu-sub[data-state='closed'] {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+
+  .curve-dropdown-menu[data-side='bottom'],
+  .curve-dropdown-menu-sub[data-side='bottom'] {
+    --curve-enter-translate-y: calc(calc(var(--spacing, 0.25rem) * 2) * -1);
+  }
+
+  .curve-dropdown-menu[data-side='top'],
+  .curve-dropdown-menu-sub[data-side='top'] {
+    --curve-enter-translate-y: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .curve-dropdown-menu[data-side='left'],
+  .curve-dropdown-menu-sub[data-side='left'] {
+    --curve-enter-translate-x: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .curve-dropdown-menu[data-side='right'],
+  .curve-dropdown-menu-sub[data-side='right'] {
+    --curve-enter-translate-x: calc(calc(var(--spacing, 0.25rem) * 2) * -1);
+  }
+}

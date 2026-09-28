@@ -9,9 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDialogDescription {
   constructor() {
-    classes(
-      () =>
-        'text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3',
-    );
+    classes(() => 'curve-dialog-description');
   }
 }

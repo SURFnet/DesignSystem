@@ -25,10 +25,7 @@ export class HlmResizableGroup {
   readonly isDragging = this._isDragging.asReadonly();
 
   constructor() {
-    classes(
-      () =>
-        'group flex h-full w-full overflow-hidden data-[panel-group-direction=vertical]:flex-col',
-    );
+    classes(() => 'curve-resizable-group group');
 
     // Brain does not expose drag state; wrap startResize / dragEnd (emitted from _endResize).
     const startResize = this._brn.startResize.bind(this._brn);

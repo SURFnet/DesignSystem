@@ -16,7 +16,7 @@ import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
   providers: [provideIcons({ phosphorCaretDown, phosphorX })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <hlm-input-group brnComboboxAnchor class="w-auto">
+    <hlm-input-group brnComboboxAnchor class="curve-combobox-input-group">
       <input
         brnComboboxInput
         #comboboxInput="brnComboboxInput"
@@ -41,7 +41,7 @@ import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
             [disabled]="comboboxInput.disabled()"
             size="icon-xs"
             variant="ghost"
-            class="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
+            class="curve-combobox-open-button"
           >
             <ng-icon name="phosphorCaretDown" />
           </button>

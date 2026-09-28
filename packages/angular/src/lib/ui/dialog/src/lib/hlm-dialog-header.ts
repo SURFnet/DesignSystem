@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDialogHeader {
   constructor() {
-    classes(() => 'gap-2 flex flex-col');
+    classes(() => 'curve-dialog-header');
   }
 }

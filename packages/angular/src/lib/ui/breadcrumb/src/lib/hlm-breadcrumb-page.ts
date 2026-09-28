@@ -12,6 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmBreadcrumbPage {
   constructor() {
-    classes(() => 'text-foreground font-normal');
+    classes(() => 'curve-breadcrumb-page');
   }
 }

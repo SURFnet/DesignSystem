@@ -11,6 +11,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDropdownMenuGroup {
   constructor() {
-    classes(() => 'block');
+    classes(() => 'curve-dropdown-menu-group');
   }
 }

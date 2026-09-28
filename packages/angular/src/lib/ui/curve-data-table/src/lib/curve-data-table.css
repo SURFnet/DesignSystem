@@ -1,0 +1,24 @@
+/* Curve data table — the ready-made table (search, column toggles, row actions). */
+.curve-input-group.curve-data-table-search {
+  max-width: 20rem;
+}
+
+.curve-button.curve-data-table-columns-button {
+  margin-left: auto;
+}
+
+.curve-dropdown-menu.curve-data-table-columns-menu {
+  width: 10rem;
+}
+
+.curve-dropdown-menu.curve-data-table-actions-menu {
+  width: 12rem;
+}
+
+.curve-data-table-column-toggle {
+  text-transform: capitalize;
+}
+
+.curve-data-table-value--end {
+  text-align: right;
+}

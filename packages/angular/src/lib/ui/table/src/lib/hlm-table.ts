@@ -7,7 +7,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmTableContainer {
   constructor() {
-    classes(() => 'relative w-full overflow-x-auto');
+    classes(() => 'curve-table-container');
   }
 }
 
@@ -20,7 +20,7 @@ export class HlmTableContainer {
 })
 export class HlmTable {
   constructor() {
-    classes(() => 'w-full caption-bottom text-sm');
+    classes(() => 'curve-table');
   }
 }
 
@@ -34,7 +34,7 @@ export class HlmTable {
 })
 export class HlmTHead {
   constructor() {
-    classes(() => '[&_tr]:border-b');
+    classes(() => 'curve-table-header');
   }
 }
 
@@ -48,7 +48,7 @@ export class HlmTHead {
 })
 export class HlmTBody {
   constructor() {
-    classes(() => '[&_tr:last-child]:border-0');
+    classes(() => 'curve-table-body');
   }
 }
 
@@ -62,7 +62,7 @@ export class HlmTBody {
 })
 export class HlmTFoot {
   constructor() {
-    classes(() => 'bg-muted/50 border-t font-medium [&>tr]:last:border-b-0');
+    classes(() => 'curve-table-footer');
   }
 }
 
@@ -76,10 +76,7 @@ export class HlmTFoot {
 })
 export class HlmTr {
   constructor() {
-    classes(
-      () =>
-        'hover:bg-muted/50 data-[state=selected]:bg-secondary data-[state=selected]:text-secondary-foreground border-b transition-colors has-aria-expanded:bg-muted/50',
-    );
+    classes(() => 'curve-table-row');
   }
 }
 
@@ -93,10 +90,7 @@ export class HlmTr {
 })
 export class HlmTh {
   constructor() {
-    classes(
-      () =>
-        'text-foreground h-10 px-2 text-start align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pe-0',
-    );
+    classes(() => 'curve-table-head');
   }
 }
 
@@ -110,7 +104,7 @@ export class HlmTh {
 })
 export class HlmTd {
   constructor() {
-    classes(() => 'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0');
+    classes(() => 'curve-table-cell');
   }
 }
 
@@ -124,6 +118,6 @@ export class HlmTd {
 })
 export class HlmCaption {
   constructor() {
-    classes(() => 'text-muted-foreground mt-4 text-sm');
+    classes(() => 'curve-table-caption');
   }
 }

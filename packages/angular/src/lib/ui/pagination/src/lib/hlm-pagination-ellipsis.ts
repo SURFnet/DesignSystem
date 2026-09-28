@@ -19,9 +19,6 @@ export class HlmPaginationEllipsis {
   public readonly srOnlyText = input<string>('More pages');
 
   constructor() {
-    classes(
-      () =>
-        "size-9 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] flex items-center justify-center",
-    );
+    classes(() => 'curve-pagination-ellipsis');
   }
 }

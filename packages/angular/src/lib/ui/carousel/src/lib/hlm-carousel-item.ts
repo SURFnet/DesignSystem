@@ -15,8 +15,10 @@ export class HlmCarouselItem {
 
   constructor() {
     classes(() => [
-      'min-w-0 shrink-0 grow-0 basis-full',
-      this._orientation() === 'horizontal' ? 'pl-4' : 'pt-4',
+      'curve-carousel-item',
+      this._orientation() === 'horizontal'
+        ? 'curve-carousel-item--horizontal'
+        : 'curve-carousel-item--vertical',
     ]);
   }
 }

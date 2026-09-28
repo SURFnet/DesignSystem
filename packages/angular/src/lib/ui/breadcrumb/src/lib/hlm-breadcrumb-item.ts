@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmBreadcrumbItem {
   constructor() {
-    classes(() => 'gap-1.5 inline-flex items-center');
+    classes(() => 'curve-breadcrumb-item');
   }
 }

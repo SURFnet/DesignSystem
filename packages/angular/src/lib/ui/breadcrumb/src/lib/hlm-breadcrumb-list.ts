@@ -9,9 +9,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmBreadcrumbList {
   constructor() {
-    classes(
-      () =>
-        'text-muted-foreground gap-1.5 text-sm sm:gap-2.5 flex flex-wrap items-center wrap-break-word',
-    );
+    // Styling lives in ./hlm-breadcrumb.css.
+    classes(() => 'curve-breadcrumb-list');
   }
 }

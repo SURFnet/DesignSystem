@@ -1,0 +1,2 @@
+/* Cascade layer order for @surfnet/curve-angular — see the comment in ../styles.css. */
+@layer theme, base, ng-icon, cdk-overlay, cdk-resets, default, components, utilities;

@@ -1,0 +1,112 @@
+/*
+ * Button group — `hlmButtonGroup` and its parts. It restyles the controls
+ * inside it (joined corners, shared borders); those rules carry an extra
+ * [data-slot] so they outrank the controls' own styles.
+ */
+.curve-button-group {
+  display: flex;
+  width: fit-content;
+  align-items: stretch;
+}
+
+.curve-button-group:has(> [data-slot='button-group']) {
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-button-group > *:focus-visible {
+  position: relative;
+  z-index: 10;
+}
+
+.curve-button-group > [data-slot='select-trigger']:not([class*='w-']) {
+  width: fit-content;
+}
+
+.curve-button-group > input {
+  flex: 1 1 0%;
+}
+
+.curve-button-group:has(select[aria-hidden='true']:last-child)
+  > [data-slot='select-trigger']:last-of-type {
+  border-top-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+/* Horizontal */
+[data-slot='button-group'].curve-button-group--horizontal > *:not(:first-child) {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-inline-start-width: 0;
+}
+
+[data-slot='button-group'].curve-button-group--horizontal > *:not(:last-child) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.curve-button-group--horizontal > [data-slot]:not(:has(~ [data-slot])) {
+  border-start-end-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)) !important;
+  border-end-end-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)) !important;
+}
+
+/* Vertical */
+.curve-button-group--vertical {
+  flex-direction: column;
+}
+
+[data-slot='button-group'].curve-button-group--vertical > *:not(:first-child) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-width: 0;
+}
+
+[data-slot='button-group'].curve-button-group--vertical > *:not(:last-child) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.curve-button-group--vertical > [data-slot]:not(:has(~ [data-slot])) {
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)) !important;
+  border-bottom-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)) !important;
+}
+
+.curve-button-group-text {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--muted);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-button-group-text ng-icon {
+  pointer-events: none;
+}
+
+.curve-button-group-text ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-button-group-separator {
+  position: relative;
+  flex-shrink: 0;
+  align-self: stretch;
+  background-color: var(--input);
+}
+
+.curve-button-group-separator[data-orientation='horizontal'] {
+  margin-inline: 1px;
+  width: auto;
+  height: 1px;
+}
+
+.curve-button-group-separator[data-orientation='vertical'] {
+  margin-block: 1px;
+  height: auto;
+  width: 1px;
+}

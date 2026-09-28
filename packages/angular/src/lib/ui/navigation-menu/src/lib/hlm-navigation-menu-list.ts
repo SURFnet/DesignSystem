@@ -12,9 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmNavigationMenuList {
   constructor() {
-    classes(() => [
-      'group flex flex-1 list-none items-center justify-center gap-0',
-      'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch data-[orientation=vertical]:text-center',
-    ]);
+    classes(() => ['curve-navigation-menu-list group']);
   }
 }

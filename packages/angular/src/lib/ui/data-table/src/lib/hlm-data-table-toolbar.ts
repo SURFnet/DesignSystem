@@ -11,6 +11,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDataTableToolbar {
   constructor() {
-    classes(() => 'flex items-center gap-2 py-4');
+    classes(() => 'curve-data-table-toolbar');
   }
 }

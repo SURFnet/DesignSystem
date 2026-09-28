@@ -7,9 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmItemGroup {
   constructor() {
-    classes(
-      () =>
-        'gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2 group/item-group flex w-full flex-col',
-    );
+    classes(() => 'curve-item-group group/item-group');
   }
 }

@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSelectGroup {
   constructor() {
-    classes(() => 'scroll-my-1 p-1');
+    classes(() => 'curve-select-group');
   }
 }

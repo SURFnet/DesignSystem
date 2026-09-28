@@ -17,8 +17,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmInputOtpSeparator {
   constructor() {
-    classes(
-      () => "[&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] flex items-center",
-    );
+    classes(() => 'curve-input-otp-separator');
   }
 }

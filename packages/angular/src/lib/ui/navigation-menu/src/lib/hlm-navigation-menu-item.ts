@@ -8,6 +8,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmNavigationMenuItem {
   constructor() {
-    classes(() => 'relative');
+    classes(() => 'curve-navigation-menu-item');
   }
 }

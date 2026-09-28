@@ -1,0 +1,228 @@
+/*
+ * Input group — `hlmInputGroup` with addons, text, buttons and a borderless
+ * input/textarea. The group draws the field chrome; the control inside drops
+ * its own. Control/button overrides are qualified so they outrank the
+ * input/textarea/button component styles they sit on top of.
+ */
+.curve-input-group {
+  position: relative;
+  display: flex;
+  height: calc(var(--spacing, 0.25rem) * 9);
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  outline: none;
+  transition-property: color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .curve-input-group {
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+.curve-input-group:has([data-slot='input-group-control']:focus-visible) {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-input-group:has([data-slot][data-matches-spartan-invalid='true']) {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark .curve-input-group:has([data-slot][data-matches-spartan-invalid='true']) {
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+/* Inside a combobox popup the search field shows no focus ring. */
+[data-slot='combobox-content'] .curve-input-group:focus-within {
+  border-color: inherit;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-input-group:has(> textarea),
+.curve-input-group:has(> [data-align='block-start']),
+.curve-input-group:has(> [data-align='block-end']) {
+  height: auto;
+}
+
+.curve-input-group:has(> [data-align='block-start']),
+.curve-input-group:has(> [data-align='block-end']) {
+  flex-direction: column;
+}
+
+.curve-input-group:has(> [data-align='block-end']) > input {
+  padding-top: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-input-group:has(> [data-align='block-start']) > input {
+  padding-bottom: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-input-group:has(> [data-align='inline-end']) > input {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-input-group:has(> [data-align='inline-start']) > input {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+/* Control: borderless, transparent, no ring in any state. */
+[data-slot='input-group'] .curve-input-group-control,
+[data-slot='input-group'] .curve-input-group-control:focus-visible,
+[data-slot='input-group'] .curve-input-group-control[data-matches-spartan-invalid='true'],
+.dark [data-slot='input-group'] .curve-input-group-control,
+.dark [data-slot='input-group'] .curve-input-group-control[data-matches-spartan-invalid='true'] {
+  flex: 1 1 0%;
+  border-width: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+[data-slot='input-group'] .curve-input-group-control--textarea {
+  padding-block: calc(var(--spacing, 0.25rem) * 2);
+  resize: none;
+}
+
+/* Addons */
+.curve-input-group-addon {
+  display: flex;
+  height: auto;
+  cursor: text;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding-block: calc(var(--spacing, 0.25rem) * 1.5);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  user-select: none;
+}
+
+[data-slot='input-group'][data-disabled='true'] .curve-input-group-addon {
+  opacity: 0.5;
+}
+
+.curve-input-group-addon > kbd {
+  border-radius: calc(var(--radius, 0.625rem) - 5px);
+}
+
+.curve-input-group-addon > ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-input-group-addon--inline-start {
+  order: -9999;
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-group-addon--inline-start:has(> button) {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * -1);
+}
+
+.curve-input-group-addon--inline-start:has(> kbd) {
+  margin-inline-start: -0.15rem;
+}
+
+.curve-input-group-addon--inline-end {
+  order: 9999;
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-group-addon--inline-end:has(> button) {
+  margin-inline-end: calc(var(--spacing, 0.25rem) * -1);
+}
+
+.curve-input-group-addon--inline-end:has(> kbd) {
+  margin-inline-end: -0.15rem;
+}
+
+.curve-input-group-addon--block-start,
+.curve-input-group-addon--block-end {
+  width: 100%;
+  justify-content: flex-start;
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.curve-input-group-addon--block-start {
+  order: -9999;
+  padding-top: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-group-addon--block-start.border-b {
+  padding-bottom: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-group-addon--block-end {
+  order: 9999;
+  padding-bottom: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-group-addon--block-end.border-t {
+  padding-top: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-group-text {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.curve-input-group-text ng-icon {
+  pointer-events: none;
+}
+
+.curve-input-group-text ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Buttons (on top of hlmBtn, ghost by default). */
+.curve-input-group-button {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: none;
+}
+
+.curve-input-group-button--size-xs {
+  height: calc(var(--spacing, 0.25rem) * 6);
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: calc(var(--radius, 0.625rem) - 5px);
+  padding-inline: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-input-group-button--size-xs > ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 3.5);
+}
+
+.curve-input-group-button--size-icon-xs,
+.curve-input-group-button--size-icon-xs:has(> ng-icon) {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+  border-radius: calc(var(--radius, 0.625rem) - 5px);
+  padding: 0;
+}
+
+.curve-input-group-button--size-icon-sm,
+.curve-input-group-button--size-icon-sm:has(> ng-icon) {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  padding: 0;
+}

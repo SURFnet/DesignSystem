@@ -3,7 +3,9 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 @Component({
   selector: 'data-table-string-cell',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<div [attr.class]="alignRight() ? 'text-right' : ''">{{ value() }}</div>`,
+  template: `<div [attr.class]="alignRight() ? 'curve-data-table-value--end' : ''">
+    {{ value() }}
+  </div>`,
 })
 export class DataTableStringCell {
   public readonly value = input.required<string>();

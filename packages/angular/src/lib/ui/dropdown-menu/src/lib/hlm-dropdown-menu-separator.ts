@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDropdownMenuSeparator {
   constructor() {
-    classes(() => 'bg-border -mx-1 my-1 block h-px');
+    classes(() => 'curve-dropdown-menu-separator');
   }
 }

@@ -24,7 +24,8 @@ export class HlmInputOtp {
   public readonly completeAnnouncement = input('Verification code complete');
 
   constructor() {
-    classes(() => 'gap-2 flex items-center has-disabled:opacity-50');
+    // Styling lives in ./hlm-input-otp.css.
+    classes(() => 'curve-input-otp');
 
     afterRenderEffect(() => {
       const label = this.ariaLabel();

@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmAlertAction {
   constructor() {
-    classes(() => 'absolute end-3 top-2.5');
+    classes(() => 'curve-alert-action');
   }
 }

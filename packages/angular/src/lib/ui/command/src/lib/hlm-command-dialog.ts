@@ -46,7 +46,7 @@ export class HlmCommandDialog {
 
   public readonly dialogContentClass = input<ClassValue>('');
   protected readonly _computedDialogContentClass = computed(() =>
-    hlm('w-96 p-0', this.dialogContentClass()),
+    hlm('curve-command-dialog-content', this.dialogContentClass()),
   );
 
   public readonly stateChange = output<BrnDialogState>();

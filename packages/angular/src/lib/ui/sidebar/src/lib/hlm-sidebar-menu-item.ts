@@ -10,6 +10,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarMenuItem {
   constructor() {
-    classes(() => 'group/menu-item relative');
+    classes(() => 'curve-sidebar-menu-item group/menu-item');
   }
 }

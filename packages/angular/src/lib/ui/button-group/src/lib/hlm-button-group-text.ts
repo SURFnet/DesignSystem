@@ -9,9 +9,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmButtonGroupText {
   constructor() {
-    classes(
-      () =>
-        "bg-muted gap-2 rounded-md border px-2.5 text-sm font-medium shadow-xs [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] flex items-center [&_ng-icon]:pointer-events-none",
-    );
+    // Styling lives in ./hlm-button-group.css.
+    classes(() => 'curve-button-group-text');
   }
 }

@@ -12,10 +12,10 @@ import { type Table } from '@tanstack/angular-table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'data-slot': 'data-table-pagination',
-    class: 'flex items-center justify-end gap-2 py-4',
+    class: 'curve-data-table-pagination',
   },
   template: `
-    <div class="text-muted-foreground flex-1 text-sm">
+    <div class="curve-data-table-pagination-summary">
       {{
         selectionLabel()(
           table().getFilteredSelectedRowModel().rows.length,
@@ -23,7 +23,7 @@ import { type Table } from '@tanstack/angular-table';
         )
       }}
     </div>
-    <div class="flex gap-2">
+    <div class="curve-data-table-pagination-actions">
       <button
         hlmBtn
         variant="outline"

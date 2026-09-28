@@ -7,9 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmInputOtpGroup {
   constructor() {
-    classes(
-      () =>
-        'data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive rounded-md data-[matches-spartan-invalid=true]:ring-3 flex items-center',
-    );
+    classes(() => 'curve-input-otp-group');
   }
 }

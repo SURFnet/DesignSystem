@@ -1,0 +1,17 @@
+/* Spinner — `hlm-spinner`. */
+.curve-spinner {
+  display: inline-flex;
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .curve-spinner {
+    animation: curve-spinner-spin 1s linear infinite;
+  }
+}
+
+@keyframes curve-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

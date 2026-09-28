@@ -40,7 +40,7 @@ type HlmDialogContentContext = {
     }
 
     @if (showCloseButton()) {
-      <button hlmBtn variant="ghost" size="icon-sm" class="absolute end-4 top-4" hlmDialogClose>
+      <button hlmBtn variant="ghost" size="icon-sm" class="curve-dialog-close" hlmDialogClose>
         <span class="sr-only">close</span>
         <ng-icon hlm size="sm" name="phosphorX" />
       </button>
@@ -67,7 +67,8 @@ export class HlmDialogContent {
 
   constructor() {
     classes(() => [
-      'bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 sm:max-w-md relative mx-auto w-full outline-none sm:mx-0',
+      // Styling (incl. enter/exit motion) lives in ./hlm-dialog.css.
+      'curve-dialog-content',
       this._dynamicComponentClass,
     ]);
   }
