@@ -185,7 +185,8 @@ Restyling or merging upstream can have an effect on accessibility.
 - **Published CSS:** consumers import `@surfnet/curve-react/styles.css` for tokens, base
   styles, **semantic color utilities** (`text-*` / `bg-*` / `border-*` on theme names),
   and compiled CSS Modules. Full Tailwind (layout, spacing, opacity modifiers) is **not**
-  shipped — apps add their own Tailwind or plain CSS. Storybook uses `.storybook/story-chrome.css`.
+  shipped — apps add their own Tailwind or plain CSS. Storybook uses the shared
+  `@surfnet/curve-storybook-config/story-chrome.css`.
 - **Icons:** import from `@phosphor-icons/react` (suffix `Icon`, e.g. `PlusIcon`). Optional
   peer for consumers; devDependency for Storybook. Size/color icons in the module or via
   parent `svg` rules — see `button.stories.tsx` (`IconSizes`, `WithIcon`).
@@ -197,5 +198,5 @@ Restyling or merging upstream can have an effect on accessibility.
 - The `@surfnet/curve-contracts` import is a `devDependency` only — it must not appear in
   published `dist`. Types and `satisfies` erase at compile time.
 - **No Tailwind in `@surfnet/curve-react`** — not in the lib build or Storybook. New story
-  layout classes go in `.storybook/story-chrome.css` if needed. See
+  layout classes go in `packages/storybook-config/src/story-chrome.css` (shared with Angular) if needed. See
   [`css-modules-pilot.md`](../../packages/react/docs/css-modules-pilot.md).

@@ -161,7 +161,8 @@ the component to the contract **for every axis it has**:
 - **React:** a CSS Module class map (or `data-*` attribute + CSS) carries
   `satisfies Record<CardVariantName, string>` on the TS side; inline-union props are typed as
   `size?: CardSizeName`.
-- **Angular:** Spartan `cva` / `hlm` maps carry the same `satisfies Record<…>` pattern.
+- **Angular:** the helm code's variant → `curve-*` class maps carry the same
+  `satisfies Record<…>` pattern (styles in the co-located `hlm-<name>.css`).
 
 Either way a name mismatch fails `pnpm lint` at compile time. A description-only contract
 has nothing to enforce — wiring it into the story's docs is enough.
@@ -172,7 +173,7 @@ has nothing to enforce — wiring it into the story's docs is enough.
 - A `<name>Contract` `as const` entry exists in `@surfnet/curve-contracts` for **every** component
   (description-only when it has no axis) and is exported from its `index.ts`.
 - For each axis the component exposes, both frameworks are tied to the contract (React:
-  CSS Module class maps + `satisfies Record<...>`; Angular: `cva`/`hlm` + `satisfies`).
+  CSS Module class maps + `satisfies Record<...>`; Angular: `curve-*` class maps + `satisfies`).
   Inline-union props are typed as the contract's `*Name` (see per-framework playbooks).
   Description-only contracts have nothing to enforce.
 - Exported from each package's entry (`src/index.ts` / `src/public-api.ts`).

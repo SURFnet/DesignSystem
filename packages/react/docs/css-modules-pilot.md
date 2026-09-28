@@ -119,14 +119,14 @@ Shared field styles: [`native-control/control.module.css`](../src/components/ui/
 
 **Motion.** Enter/exit animations (popups, menus, dialogs, sheet, accordion, navigation menu) are declared only inside `@media (prefers-reduced-motion: no-preference)`. Popups/dialogs use the shared `curve-enter` / `curve-exit` keyframes from `motion.css`, referenced as `animation-name: global(curve-enter)` so CSS Modules don't hash the name and tuned per component with `--curve-enter-*` / `--curve-exit-*` custom properties; Base UI's `[data-starting-style]` / `[data-ending-style]` transitions cover the rest.
 
-| Area        | Path                                 | Role                                                         |
-| ----------- | ------------------------------------ | ------------------------------------------------------------ |
-| Library CSS | `src/index.css`                      | Tokens + base + semantic colors only                         |
-| Storybook   | `.storybook/story-chrome.css`        | Plain CSS demo utilities for stories — not Tailwind          |
-| shadcn CLI  | `components.json` → `tailwind.css`   | CLI metadata; migrate vendored Tailwind to modules after add |
-| `cn()`      | `src/lib/utils.ts`                   | `tailwind-merge` for consumer `className`s                   |
-| Demo app    | `apps/react-app/src/app/globals.css` | App Tailwind (theme + utilities)                             |
-| Angular     | `packages/angular`                   | Tailwind, migrating to plain CSS per component (see below)   |
+| Area        | Path                                    | Role                                                         |
+| ----------- | --------------------------------------- | ------------------------------------------------------------ |
+| Library CSS | `src/index.css`                         | Tokens + base + semantic colors only                         |
+| Storybook   | `storybook-config/src/story-chrome.css` | Plain CSS demo utilities for stories (shared with Angular)   |
+| shadcn CLI  | `components.json` → `tailwind.css`      | CLI metadata; migrate vendored Tailwind to modules after add |
+| `cn()`      | `src/lib/utils.ts`                      | `tailwind-merge` for consumer `className`s                   |
+| Demo app    | `apps/react-app/src/app/globals.css`    | App Tailwind (theme + utilities)                             |
+| Angular     | `packages/angular`                      | Plain CSS per component, no Tailwind (see below)             |
 
 Component `src/components/ui/**/*.tsx` files use CSS Modules only.
 
@@ -139,21 +139,35 @@ Component `src/components/ui/**/*.tsx` files use CSS Modules only.
 - **Storybook:** existing stories under `Components/Button` cover variants, sizes, icons, destructive, disabled, and `render` prop — run `pnpm --filter @surfnet/curve-react storybook` for visual and a11y checks.
 - **Calendar:** `buttonVariants()` in [`calendar.tsx`](../src/components/ui/calendar/calendar.tsx) unchanged at the call site; styling now comes from module classes instead of Tailwind utilities.
 
-## Angular (pilot: Button, Badge, Input, Dialog)
+## Angular
 
-Spartan's helm layer is mostly **directives** (`button[hlmBtn]`, …), which cannot own component styles, so Angular can't use CSS Modules or `styleUrl`. Instead each migrated component gets a plain, co-located stylesheet with stable `curve-` prefixed classes:
+All `@surfnet/curve-angular` components are styled with plain CSS; the published `dist/styles.css` contains no Tailwind. Spartan's helm layer is mostly **directives** (`button[hlmBtn]`, …), which cannot own component styles, so Angular can't use CSS Modules or `styleUrl`. Each component has a co-located stylesheet with stable `curve-` prefixed classes:
 
-| Piece           | Where                                                                                                            |
-| --------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Component CSS   | `src/lib/ui/<name>/src/lib/hlm-<name>.css`, imported into `@layer components` from `src/styles.css`              |
-| Class names     | Block + BEM modifiers: `curve-button`, `curve-button--variant-ghost`, `curve-button--size-icon-sm`               |
-| Variant helpers | `buttonVariants()` returns those classes (no `cva`), so calendar/pagination/tabs/combobox keep working unchanged |
-| Contracts       | `satisfies Record<ButtonVariantName, string>` on the class maps, as before                                       |
-| State selectors | Spartan attributes: `[data-disabled]`, `[data-matches-spartan-invalid='true']`, `[data-state='open' / 'closed']` |
-| Motion          | `src/styles/motion.css` (identical to React's), keyframes used as plain `curve-enter` / `curve-exit`             |
+| Piece           | Where                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Component CSS   | `src/lib/ui/<name>/src/lib/hlm-<name>.css`, imported into `@layer components` from `src/styles.css`                    |
+| Import order    | Primitives first (separator, label, button, toggle, input, …), then composites, so a composite can restyle a primitive |
+| Class names     | Block + BEM modifiers: `curve-button`, `curve-button--variant-ghost`, `curve-button--size-icon-sm`                     |
+| Variant helpers | `buttonVariants()` / `toggleVariants()` / `listVariants()` return those classes (no `cva`)                             |
+| Contracts       | `satisfies Record<ButtonVariantName, string>` on the class maps, as before                                             |
+| State selectors | Spartan attributes: `[data-disabled]`, `[data-matches-spartan-invalid='true']`, `[data-state='open' / 'closed']`       |
+| Motion          | `src/styles/motion.css` (identical to React's), keyframes used as plain `curve-enter` / `curve-exit`                   |
+| Base            | `src/styles/{preflight,base,semantic-colors,utilities}.css` — preflight/semantic colours/utilities shared with React   |
+| Build           | `scripts/build-css.ts` bundles with Lightning CSS (keeps `@import … layer()`), fonts copied by `copy-font-files.ts`    |
+| Storybook       | Shared `storybook-config/src/story-chrome.css` (plain CSS, as in React) — no Tailwind                                  |
 
-Notes:
+**Layer order** (`src/styles.css`): `theme, base, ng-icon, cdk-overlay, cdk-resets, default, components, utilities`. `ng-icon`, `cdk-*` and `default` are layers that @ng-icons, the Angular CDK and ngx-scrollbar declare when they inject their styles at runtime; left undeclared they'd be created last and outrank every component rule (e.g. `ng-icon` sets the icon colour in its layer). Reserving them between the reset and the components restores the old precedence: reset < library styles < Curve components < utilities.
 
+**Pitfalls when translating helm Tailwind to CSS** (all hit during the migration):
+
+- **`ng-icon` host styles are unlayered.** `:host { display; width; height; line-height; vertical-align; overflow }` beats any layered rule. Where the Tailwind selector used to outrank it (`[&>ng-icon]:flex`, `group-…:hidden`), use `!important` for just that property. Where a plain class sat on the `<ng-icon>` itself (`class="size-3"`), the host already won before, so don't force it.
+- **`tailwind-merge` used to resolve conflicts.** `classes()` merges every source on an element (host directives, `setClass()`, static `class="…"` in templates, passed-in class inputs) and the last one won. In CSS that becomes specificity plus import order: overrides on top of another component are qualified (`.curve-button.curve-calendar-day`, `.curve-input-group.curve-command-input-group`).
+- **Tailwind composes `box-shadow`** from independent ring and shadow variables, so `shadow-none` never cancelled a focus ring. Write out the resulting shadow per state (ring first, then the shadow).
+- **Order among equal-specificity variants** follows Tailwind's output (e.g. data variants sort by value: `disabled` < `outside` < `range-between` < `selected` < `today` for calendar days). When unsure, read the rule order from a Tailwind build instead of guessing.
+- **`leading-*` pins line-height:** with `leading-normal`, a later `text-sm` only changes the font size.
+- **Animations need the right state element.** Select and combobox content have no state attribute; Spartan puts `data-state` on the CDK overlay pane, so their motion keys off `.cdk-overlay-pane[data-state]` (Spartan waits for subtree animations before closing).
+- `group/*` and `peer/*` marker classes stay on the hosts (consumers' Tailwind may target them); component CSS uses `[data-slot]` / `curve-*` selectors.
+- **The layer order statement is its own first import** (`src/styles/layers.css`). webpack's `css-loader` (Storybook) emits imported files before the importing file's own rules, so a statement at the top of `styles.css` would land after the component layers.
 - No `data-variant` / `data-size` host attributes on `hlmBtn`: ancestors use `:has([data-size=…])` (e.g. the item group gap), and a button's size must not trip them. The React item group had the same collision; its selector is now scoped to `[data-slot='item']`.
-- Tailwind still builds the rest of the package during the migration, and its utilities stay **unlayered** on purpose. Angular's own component styles (e.g. `ng-icon`'s `:host { display: inline-block }`) are unlayered too, so helm classes like `hidden` must stay unlayered to beat them. Once the last helm class is gone, drop Tailwind from `build:css` and everything the package ships is layered, like React.
-- Verified by rendering Button, Badge, Input, Dialog and every `buttonVariants()` consumer before/after: 158 story screenshots pixel-identical.
+
+**Verification:** every Angular story (414 screenshots, light and dark) rendered pixel-identical before and after, with Tailwind removed from the package CSS. Hover, focus and open states that no story shows were translated by hand from the original classes.
