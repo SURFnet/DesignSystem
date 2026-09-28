@@ -5,11 +5,12 @@
   gap: calc(var(--spacing, 0.25rem) * 4);
 }
 
-.itemGroup:has([data-size='sm']) {
+/* Scoped to items: a bare [data-size] would also match e.g. a small Button inside a row. */
+.itemGroup:has([data-slot='item'][data-size='sm']) {
   gap: calc(var(--spacing, 0.25rem) * 2.5);
 }
 
-.itemGroup:has([data-size='xs']) {
+.itemGroup:has([data-slot='item'][data-size='xs']) {
   gap: calc(var(--spacing, 0.25rem) * 2);
 }
 

@@ -51,8 +51,8 @@
   color: var(--primary-foreground);
 }
 
-.badge[data-variant='default'] a:hover,
-.variantDefault a:hover {
+a.badge[data-variant='default']:hover,
+a.variantDefault:hover {
   background-color: color-mix(in oklch, var(--primary) 80%, transparent);
 }
 
@@ -62,8 +62,8 @@
   color: var(--secondary-foreground);
 }
 
-.badge[data-variant='secondary'] a:hover,
-.variantSecondary a:hover {
+a.badge[data-variant='secondary']:hover,
+a.variantSecondary:hover {
   background-color: color-mix(in oklch, var(--secondary) 80%, transparent);
 }
 
@@ -83,8 +83,8 @@
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 40%, transparent);
 }
 
-.badge[data-variant='info'] a:hover,
-.variantInfo a:hover {
+a.badge[data-variant='info']:hover,
+a.variantInfo:hover {
   background-color: var(--info-subtle-hover);
 }
 
@@ -104,8 +104,8 @@
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 40%, transparent);
 }
 
-.badge[data-variant='success'] a:hover,
-.variantSuccess a:hover {
+a.badge[data-variant='success']:hover,
+a.variantSuccess:hover {
   background-color: var(--success-subtle-hover);
 }
 
@@ -125,8 +125,8 @@
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 40%, transparent);
 }
 
-.badge[data-variant='warning'] a:hover,
-.variantWarning a:hover {
+a.badge[data-variant='warning']:hover,
+a.variantWarning:hover {
   background-color: var(--warning-subtle-hover);
 }
 
@@ -146,8 +146,8 @@
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 40%, transparent);
 }
 
-.badge[data-variant='danger'] a:hover,
-.variantDanger a:hover {
+a.badge[data-variant='danger']:hover,
+a.variantDanger:hover {
   background-color: var(--danger-subtle-hover);
 }
 
@@ -157,8 +157,8 @@
   color: var(--foreground);
 }
 
-.badge[data-variant='outline'] a:hover,
-.variantOutline a:hover {
+a.badge[data-variant='outline']:hover,
+a.variantOutline:hover {
   background-color: var(--muted);
   color: var(--muted-foreground);
 }
@@ -183,7 +183,7 @@
 .badge[data-variant='link'],
 .variantLink {
   background-color: transparent;
-  color: var(--primary);
+  color: var(--primary-strong);
   text-underline-offset: 4px;
 }
 

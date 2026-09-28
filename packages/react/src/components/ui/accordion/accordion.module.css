@@ -70,6 +70,8 @@
 .panel {
   overflow: hidden;
   font-size: 0.875rem;
+  /* Base UI measures the panel into this variable (falls back to auto). */
+  height: var(--accordion-panel-height, auto);
 }
 
 .panelInner {
@@ -88,4 +90,20 @@
 
 .panelInner p:not(:last-child) {
   margin-bottom: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/*
+ * Expand/collapse motion. Base UI sets [data-starting-style] on open and
+ * [data-ending-style] on close. Only for users without a reduced-motion
+ * preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    transition: height 200ms ease-out;
+  }
+
+  .panel[data-starting-style],
+  .panel[data-ending-style] {
+    height: 0;
+  }
 }

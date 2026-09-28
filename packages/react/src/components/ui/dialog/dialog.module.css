@@ -95,3 +95,34 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+/*
+ * Enter/exit motion (backdrop fade; content fade + zoom 95%). Only for users
+ * without a reduced-motion preference; keyframes live in src/styles/motion.css.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .overlay,
+  .content {
+    animation-duration: 100ms;
+    --curve-enter-opacity: 0;
+    --curve-exit-opacity: 0;
+  }
+
+  .content {
+    --curve-enter-scale: 0.95;
+    --curve-exit-scale: 0.95;
+  }
+
+  .overlay[data-open],
+  .content[data-open] {
+    animation-name: global(curve-enter);
+    animation-timing-function: ease-out;
+  }
+
+  .overlay[data-closed],
+  .content[data-closed] {
+    animation-name: global(curve-exit);
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+}

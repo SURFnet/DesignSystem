@@ -1,9 +1,24 @@
+/*
+ * Cascade layers. Everything the package ships (reset, component CSS Modules,
+ * semantic utilities) lives in a layer, using the same names and order as
+ * Tailwind v4. Consumers therefore get a predictable cascade:
+ *   - unlayered app CSS always beats the package;
+ *   - a consumer Tailwind build merges into the same layers, so e.g.
+ *     `<Button className="h-12">` (utilities) beats the button module
+ *     (components), and the reset (base) never beats a component.
+ * CSS Modules are put into `components` by the `curve-layer-modules` PostCSS
+ * plugin in vite.config.ts. Tokens stay unlayered custom properties.
+ */
+@layer theme, base, components, utilities;
+
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/source-sans-3';
 @import '@surfnet/curve-tokens/tokens.css';
-@import './styles/base.css';
-@import './styles/semantic-colors.css';
-@import './styles/utilities.css';
+@import './styles/preflight.css' layer(base);
+@import './styles/base.css' layer(base);
+@import './styles/motion.css' layer(base);
+@import './styles/semantic-colors.css' layer(utilities);
+@import './styles/utilities.css' layer(utilities);
 
 @custom-variant dark (&:is(.dark *));
 
