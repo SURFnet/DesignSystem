@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import preserveDirectives from 'rollup-plugin-preserve-directives';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import type { Plugin as PostcssPlugin } from 'postcss';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
@@ -30,9 +30,24 @@ const layerCssModules: PostcssPlugin = {
   },
 };
 
+// The minifier drops `/*! … */` comments, so re-add the attribution for the
+// reset vendored from Tailwind's preflight (src/styles/preflight.css).
+const cssLicenseBanner: Plugin = {
+  name: 'curve-css-license-banner',
+  enforce: 'post',
+  generateBundle(_options, bundle) {
+    for (const file of Object.values(bundle)) {
+      if (file.type === 'asset' && file.fileName === 'styles.css') {
+        file.source = `/*! Reset based on tailwindcss v4.3.1 preflight | MIT License | https://tailwindcss.com */\n${String(file.source)}`;
+      }
+    }
+  },
+};
+
 export default defineConfig({
   plugins: [
     react(),
+    cssLicenseBanner,
     dts({
       tsconfigPath: './tsconfig.build.json',
       entryRoot: 'src',

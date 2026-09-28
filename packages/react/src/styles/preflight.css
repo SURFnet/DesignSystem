@@ -1,9 +1,11 @@
+/*! Reset based on tailwindcss v4.3.1 preflight | MIT License | https://tailwindcss.com */
 /*
  * Vendored from tailwindcss@4.3.1 `preflight.css` (MIT License, Copyright (c) Tailwind Labs, Inc.).
  * The package no longer compiles CSS through Tailwind, so the `--theme()` calls are resolved by
  * hand: the sans / mono font stacks read `--font-sans` / `--font-mono` (with Tailwind's default
  * stacks as fallback) and the font feature/variation settings are `normal`. Imported into
- * `@layer base` from `src/index.css`, so component and consumer styles always win over it.
+ * `@layer base` from the package's global stylesheet, so component and consumer styles always
+ * win over it. Keep identical in packages/react and packages/angular.
  * To refresh: copy the upstream file again and re-apply those substitutions.
  */
 
