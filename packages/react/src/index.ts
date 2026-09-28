@@ -42,6 +42,7 @@ export * from '@/components/ui/separator';
 export * from '@/components/ui/sheet';
 export * from '@/components/ui/sidebar';
 export * from '@/components/ui/skeleton';
+export * from '@/components/ui/skip-link';
 export * from '@/components/ui/slider';
 export * from '@/components/ui/sonner';
 export * from '@/components/ui/spinner';

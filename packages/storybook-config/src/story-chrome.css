@@ -15,6 +15,9 @@
 .grid {
   display: grid;
 }
+.relative {
+  position: relative;
+}
 .flex-row {
   flex-direction: row;
 }

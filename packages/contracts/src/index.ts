@@ -51,6 +51,7 @@ export {
   type SidebarMenuButtonSizeName,
 } from './sidebar.js';
 export { skeletonContract } from './skeleton.js';
+export { skipLinkContract } from './skip-link.js';
 export { sliderContract, type SliderOrientationName } from './slider.js';
 export { sonnerContract } from './sonner.js';
 export { spinnerContract } from './spinner.js';
