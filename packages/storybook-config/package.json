@@ -31,7 +31,7 @@
     "lint": "tsc --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
-    "storybook": "10.4.5"
+    "storybook": "10.6.0"
   },
   "dependencies": {
     "@storybook/icons": "2.0.2",
@@ -39,7 +39,7 @@
     "axe-playwright": "2.2.2"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "10.4.5",
+    "@storybook/addon-docs": "10.6.0",
     "@storybook/test-runner": "0.24.5",
     "@surfnet/curve-typescript-config": "workspace:*",
     "@types/react": "19.2.17",
@@ -47,7 +47,7 @@
     "playwright": "1.63.0",
     "playwright-core": "1.63.0",
     "react": "19.2.7",
-    "storybook": "10.4.5",
+    "storybook": "10.6.0",
     "typescript": "6.0.3"
   }
 }
