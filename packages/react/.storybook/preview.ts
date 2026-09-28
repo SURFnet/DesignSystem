@@ -11,7 +11,7 @@ import {
 
 import '../src/index.css';
 import './storybook-docs.css';
-import './story-chrome.css';
+import '@surfnet/curve-storybook-config/story-chrome.css';
 
 // Keep this a literal object so Storybook's static analyzer can read `tags`
 // (project-level autodocs) — a factory call can't be parsed statically.

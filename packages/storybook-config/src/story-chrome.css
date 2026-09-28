@@ -1,6 +1,8 @@
 /*
- * Storybook-only layout and demo utilities (not Tailwind).
- * Keeps story markup readable without shipping a utility framework in the library.
+ * Storybook-only layout and demo utilities (not Tailwind), shared by the React
+ * and Angular Storybooks. Keeps story markup readable without shipping a
+ * utility framework in either library. Class names follow Tailwind's so the
+ * stories read familiarly; add a class here when a story needs one.
  */
 
 /* -- display / flex / grid -- */
@@ -565,3 +567,47 @@
 /* .sr-only is shipped with the library itself (src/styles/utilities.css,
    loaded via index.css above) so it works the same way for real consumers,
    not just here. */
+
+/* -- added for the Angular stories -- */
+.block {
+  display: block;
+}
+.mt-4 {
+  margin-top: calc(var(--spacing, 0.25rem) * 4);
+}
+.p-2 {
+  padding: calc(var(--spacing, 0.25rem) * 2);
+}
+:where(.space-y-2 > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing, 0.25rem) * 2);
+}
+.border-t {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: var(--border);
+}
+.last\:border-b-0:last-child {
+  border-bottom-width: 0;
+}
+.text-\[calc\(var\(--spacing\)\*4\)\] {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+.text-\[calc\(var\(--spacing\)\*6\)\] {
+  font-size: calc(var(--spacing, 0.25rem) * 6);
+}
+.text-\[calc\(var\(--spacing\)\*8\)\] {
+  font-size: calc(var(--spacing, 0.25rem) * 8);
+}
+.text-\[calc\(var\(--spacing\)\*10\)\] {
+  font-size: calc(var(--spacing, 0.25rem) * 10);
+}
+/* Forced values that must beat component styles (Tailwind's `!` / trailing `!`). */
+.\!h-4 {
+  height: calc(var(--spacing, 0.25rem) * 4) !important;
+}
+.\!pl-1 {
+  padding-left: calc(var(--spacing, 0.25rem) * 1) !important;
+}
+.bg-destructive\/90\! {
+  background-color: color-mix(in oklab, var(--destructive) 90%, transparent) !important;
+}
