@@ -39,13 +39,13 @@ export class HlmPaginationLink {
   public readonly link = input<RouterLink['routerLink']>();
 
   constructor() {
+    // Styling lives in ./hlm-pagination.css (on top of the button classes).
     classes(() => [
-      '',
       buttonVariants({
         variant: this.isActive() ? 'outline' : 'ghost',
         size: this.size(),
       }),
-      this.link() === undefined && 'cursor-pointer',
+      this.link() === undefined && 'curve-pagination-link--clickable',
     ]);
   }
 }

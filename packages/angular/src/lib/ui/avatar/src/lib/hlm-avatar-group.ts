@@ -9,9 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmAvatarGroup {
   constructor() {
-    classes(
-      () =>
-        '*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2',
-    );
+    classes(() => 'curve-avatar-group group/avatar-group');
   }
 }

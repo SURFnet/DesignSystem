@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSelectSeparator {
   constructor() {
-    classes(() => 'bg-border -mx-1 my-1 h-px pointer-events-none');
+    classes(() => 'curve-select-separator');
   }
 }

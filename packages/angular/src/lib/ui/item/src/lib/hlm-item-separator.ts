@@ -10,6 +10,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmItemSeparator {
   constructor() {
-    classes(() => [hlmSeparatorClass, 'my-2']);
+    classes(() => [hlmSeparatorClass, 'curve-item-separator']);
   }
 }

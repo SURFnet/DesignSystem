@@ -1,0 +1,199 @@
+/* Item — `hlmItem` and its parts. Sizes: data-size="default | sm | xs". */
+.curve-item {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: 100ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a.curve-item:hover {
+  background-color: var(--muted);
+}
+
+.curve-item:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-item--variant-default {
+  border-color: transparent;
+}
+
+.curve-item--variant-outline {
+  border-color: var(--border);
+}
+
+.curve-item--variant-muted {
+  border-color: transparent;
+  background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+}
+
+.curve-item--size-default {
+  gap: calc(var(--spacing, 0.25rem) * 3.5);
+  padding: calc(var(--spacing, 0.25rem) * 3.5) calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-item--size-sm {
+  gap: calc(var(--spacing, 0.25rem) * 2.5);
+  padding: calc(var(--spacing, 0.25rem) * 2.5) calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-item--size-xs {
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+[data-slot='dropdown-menu-content'] .curve-item--size-xs {
+  padding: 0;
+}
+
+.curve-item-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Scoped to items: a bare [data-size] would also match e.g. a small button in a row. */
+.curve-item-group:has([data-slot='item'][data-size='sm']) {
+  gap: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.curve-item-group:has([data-slot='item'][data-size='xs']) {
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-item-separator {
+  margin-block: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-item-media {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-item-media ng-icon {
+  pointer-events: none;
+}
+
+[data-slot='item']:has([data-slot='item-description']) .curve-item-media {
+  align-self: flex-start;
+  translate: 0 calc(var(--spacing, 0.25rem) * 0.5);
+}
+
+.curve-item-media--variant-default {
+  background-color: transparent;
+}
+
+.curve-item-media--variant-icon ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-item-media--variant-image {
+  width: calc(var(--spacing, 0.25rem) * 10);
+  height: calc(var(--spacing, 0.25rem) * 10);
+  overflow: hidden;
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+}
+
+.curve-item[data-size='sm'] .curve-item-media--variant-image {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-item[data-size='xs'] .curve-item-media--variant-image {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.curve-item-media--variant-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.curve-item-content {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-item[data-size='xs'] .curve-item-content {
+  gap: 0;
+}
+
+.curve-item-content + [data-slot='item-content'] {
+  flex: none;
+}
+
+/*
+ * Title and description keep `display: flex` (it wins over the line clamp's
+ * -webkit-box, as in the original): long text is clipped, not ellipsised.
+ */
+.curve-item-title {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: 0.875rem;
+  line-height: 1.375;
+  font-weight: 500;
+  text-underline-offset: 4px;
+}
+
+.curve-item-description {
+  display: flex;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-align: start;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+/* line-height stays 1.5: only the size shrinks. */
+.curve-item[data-size='xs'] .curve-item-description {
+  font-size: 0.75rem;
+}
+
+.curve-item-description > a {
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.curve-item-description > a:hover {
+  color: var(--primary);
+}
+
+.curve-item-actions {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-item-header,
+.curve-item-footer {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}

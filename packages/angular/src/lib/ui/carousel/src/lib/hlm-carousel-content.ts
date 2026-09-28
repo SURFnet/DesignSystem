@@ -12,6 +12,12 @@ export class HlmCarouselContent {
   private readonly _orientation = inject(HlmCarousel).orientation;
 
   constructor() {
-    classes(() => ['flex', this._orientation() === 'horizontal' ? '-ml-4' : '-mt-4 flex-col']);
+    // Styling lives in ./hlm-carousel.css.
+    classes(() => [
+      'curve-carousel-content',
+      this._orientation() === 'horizontal'
+        ? 'curve-carousel-content--horizontal'
+        : 'curve-carousel-content--vertical',
+    ]);
   }
 }

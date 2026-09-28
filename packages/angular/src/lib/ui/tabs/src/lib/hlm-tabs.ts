@@ -19,6 +19,7 @@ export class HlmTabs {
   public readonly tab = input.required<string>();
 
   constructor() {
-    classes(() => 'group/tabs flex gap-2 data-[orientation=horizontal]:flex-col');
+    // Styling lives in ./hlm-tabs.css; `group/tabs` stays as a hook for consumers' Tailwind.
+    classes(() => 'curve-tabs group/tabs');
   }
 }

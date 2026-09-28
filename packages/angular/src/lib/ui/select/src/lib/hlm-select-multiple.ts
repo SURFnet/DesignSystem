@@ -38,6 +38,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSelectMultiple {
   constructor() {
-    classes(() => 'block');
+    classes(() => 'curve-select');
   }
 }

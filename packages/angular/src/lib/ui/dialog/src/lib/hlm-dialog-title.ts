@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDialogTitle {
   constructor() {
-    classes(() => 'leading-none font-medium');
+    classes(() => 'curve-dialog-title');
   }
 }

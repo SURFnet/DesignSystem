@@ -1,0 +1,148 @@
+/* Sheet — `hlm-sheet` side panel (CDK overlay) with header, footer, title, description. */
+.curve-sheet-overlay {
+  background-color: rgb(0 0 0 / 10%);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .curve-sheet-overlay {
+    backdrop-filter: blur(4px);
+  }
+}
+
+.curve-sheet-overlay[data-starting-style],
+.curve-sheet-overlay[data-ending-style] {
+  opacity: 0;
+}
+
+.curve-sheet-content {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  background-color: var(--popover);
+  background-clip: padding-box;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--popover-foreground);
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.curve-sheet-content[data-side='top'],
+.curve-sheet-content[data-side='bottom'] {
+  inset-inline: 0;
+  height: auto;
+}
+
+.curve-sheet-content[data-side='top'] {
+  top: 0;
+  border-bottom-width: 1px;
+}
+
+.curve-sheet-content[data-side='bottom'] {
+  bottom: 0;
+  border-top-width: 1px;
+}
+
+.curve-sheet-content[data-side='left'],
+.curve-sheet-content[data-side='right'] {
+  inset-block: 0;
+  height: 100%;
+  width: 75%;
+}
+
+.curve-sheet-content[data-side='left'] {
+  left: 0;
+  border-right-width: 1px;
+}
+
+.curve-sheet-content[data-side='right'] {
+  right: 0;
+  border-left-width: 1px;
+}
+
+@media (min-width: 40rem) {
+  .curve-sheet-content[data-side='left'],
+  .curve-sheet-content[data-side='right'] {
+    max-width: 24rem;
+  }
+}
+
+.curve-sheet-close {
+  position: absolute;
+  top: calc(var(--spacing, 0.25rem) * 4);
+  inset-inline-end: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-sheet-header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  padding: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-sheet-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-sheet-title {
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.curve-sheet-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+/*
+ * Enter/exit motion: the panel slides in from its edge; the backdrop fades.
+ * Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-sheet-overlay {
+    transition-property: opacity;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .curve-sheet-content {
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  .curve-sheet-content:is([data-state='open'], [data-open]:not([data-open='false'])) {
+    animation-name: curve-enter;
+  }
+
+  .curve-sheet-content:is([data-state='closed'], [data-closed]:not([data-closed='false'])) {
+    animation-name: curve-exit;
+    animation-fill-mode: forwards;
+  }
+
+  .curve-sheet-content[data-side='top'] {
+    --curve-enter-translate-y: -100%;
+    --curve-exit-translate-y: -100%;
+  }
+
+  .curve-sheet-content[data-side='bottom'] {
+    --curve-enter-translate-y: 100%;
+    --curve-exit-translate-y: 100%;
+  }
+
+  .curve-sheet-content[data-side='left'] {
+    --curve-enter-translate-x: -100%;
+    --curve-exit-translate-x: -100%;
+  }
+
+  .curve-sheet-content[data-side='right'] {
+    --curve-enter-translate-x: 100%;
+    --curve-exit-translate-x: 100%;
+  }
+}

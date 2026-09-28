@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmComboboxGroup {
   constructor() {
-    classes(() => 'data-hidden:hidden');
+    classes(() => 'curve-combobox-group');
   }
 }

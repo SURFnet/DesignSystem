@@ -10,6 +10,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarHeader {
   constructor() {
-    classes(() => 'gap-2 p-2 flex flex-col');
+    classes(() => 'curve-sidebar-header');
   }
 }

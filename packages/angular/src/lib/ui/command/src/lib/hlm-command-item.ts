@@ -18,9 +18,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCommandItem {
   constructor() {
-    classes(
-      () =>
-        "data-[selected]:bg-muted data-[selected=true]:text-foreground [&>ng-icon:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-hidden:hidden data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>ng-icon]:pointer-events-none [&>ng-icon]:shrink-0 [&>ng-icon:not([class*='text-'])]:text-base",
-    );
+    classes(() => 'curve-command-item');
   }
 }

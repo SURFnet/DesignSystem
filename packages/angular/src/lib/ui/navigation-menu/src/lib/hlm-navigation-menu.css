@@ -1,0 +1,233 @@
+/* Navigation menu — `hlm-navigation-menu` with list, items, triggers, links and content. */
+.curve-navigation-menu {
+  position: relative;
+  display: flex;
+  max-width: max-content;
+  flex: 1 1 0%;
+  align-items: center;
+  justify-content: center;
+}
+
+.curve-navigation-menu-list {
+  display: flex;
+  flex: 1 1 0%;
+  list-style-type: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.curve-navigation-menu-list[data-orientation='vertical'] {
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+
+.curve-navigation-menu-item {
+  position: relative;
+}
+
+/* Trigger */
+.curve-navigation-menu-trigger {
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 9);
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--background);
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  outline: none;
+  transition-property: color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-navigation-menu-trigger:hover,
+.curve-navigation-menu-trigger:focus {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-navigation-menu-trigger[data-state='open'],
+.curve-navigation-menu-trigger[data-state='open']:hover,
+.curve-navigation-menu-trigger[data-state='open']:focus {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.curve-navigation-menu-trigger:focus-visible {
+  outline-style: solid;
+  outline-width: 1px;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-navigation-menu-trigger:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Sized by ng-icon itself (1em); the original size-3 lost to ng-icon's :host styles. */
+.curve-navigation-menu-trigger-icon {
+  position: relative;
+  top: 1px;
+  margin-left: calc(var(--spacing, 0.25rem) * 1);
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, translate, scale, rotate, filter, backdrop-filter;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-navigation-menu-trigger[data-state='open'] .curve-navigation-menu-trigger-icon {
+  rotate: 180deg;
+}
+
+/* Link */
+.curve-navigation-menu-link {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* line-height !important: beats ng-icon's own unlayered `:host { line-height: initial }`. */
+.curve-navigation-menu-link ng-icon:not([class*='text-']) {
+  font-size: 1rem;
+  line-height: 1.5rem !important;
+  color: var(--muted-foreground);
+}
+
+.curve-navigation-menu-link:hover,
+.curve-navigation-menu-link:focus {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-navigation-menu-link[data-active='true'],
+.curve-navigation-menu-link[data-active='true']:hover,
+.curve-navigation-menu-link[data-active='true']:focus {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.curve-navigation-menu-link:focus-visible {
+  outline-style: solid;
+  outline-width: 1px;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-navigation-menu-link[data-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Content panel */
+.curve-navigation-menu-content {
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 2.5)
+    calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 2);
+  color: var(--popover-foreground);
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+@media (min-width: 48rem) {
+  .curve-navigation-menu-content {
+    width: auto;
+  }
+}
+
+.curve-navigation-menu-content[data-orientation='horizontal'] {
+  margin-top: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-navigation-menu-content[data-orientation='vertical'] {
+  margin-inline: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-navigation-menu-content [data-slot='navigation-menu-link']:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/*
+ * Enter/exit motion: the panel fades and zooms open; switching between items
+ * slides the content in the direction of travel. Only for users without a
+ * reduced-motion preference; keyframes live in src/styles/motion.css.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-navigation-menu-content {
+    animation-duration: 200ms;
+  }
+
+  .curve-navigation-menu-content[data-state='open'],
+  .curve-navigation-menu-content[data-motion^='from-'] {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+    --curve-enter-opacity: 0;
+  }
+
+  .curve-navigation-menu-content[data-state='closed'],
+  .curve-navigation-menu-content[data-motion^='to-'] {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    --curve-exit-opacity: 0;
+  }
+
+  .curve-navigation-menu-content[data-state='open'] {
+    --curve-enter-scale: 0.95;
+  }
+
+  .curve-navigation-menu-content[data-state='closed'] {
+    --curve-exit-scale: 0.95;
+  }
+
+  .curve-navigation-menu-content[data-orientation='horizontal'][data-motion='from-end'] {
+    --curve-enter-translate-x: 13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='horizontal'][data-motion='from-start'] {
+    --curve-enter-translate-x: -13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='horizontal'][data-motion='to-end'] {
+    --curve-exit-translate-x: 13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='horizontal'][data-motion='to-start'] {
+    --curve-exit-translate-x: -13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='vertical'][data-motion='from-end'] {
+    --curve-enter-translate-y: 13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='vertical'][data-motion='from-start'] {
+    --curve-enter-translate-y: -13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='vertical'][data-motion='to-end'] {
+    --curve-exit-translate-y: 13rem;
+  }
+
+  .curve-navigation-menu-content[data-orientation='vertical'][data-motion='to-start'] {
+    --curve-exit-translate-y: -13rem;
+  }
+}

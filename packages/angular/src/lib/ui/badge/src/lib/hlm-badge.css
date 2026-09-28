@@ -1,0 +1,164 @@
+/*
+ * Badge — `hlmBadge`. Imported into `@layer components` from src/styles.css;
+ * mirrors packages/react/src/components/ui/badge/badge.module.css.
+ * `a.curve-badge…:hover` = the hover state when the badge itself is a link.
+ */
+.curve-badge {
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 5);
+  width: fit-content;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--radius-4xl, calc(var(--radius, 0.625rem) * 2.6));
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  white-space: nowrap;
+  transition: all 150ms ease;
+}
+
+.curve-badge:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.curve-badge[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.dark .curve-badge[aria-invalid='true'] {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.curve-badge:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-badge:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-badge > ng-icon {
+  pointer-events: none;
+  font-size: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-badge--variant-default {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+a.curve-badge--variant-default:hover {
+  background-color: color-mix(in oklch, var(--primary) 80%, transparent);
+}
+
+.curve-badge--variant-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+a.curve-badge--variant-secondary:hover {
+  background-color: color-mix(in oklch, var(--secondary) 80%, transparent);
+}
+
+.curve-badge--variant-info {
+  background-color: var(--info-subtle);
+  color: var(--info-subtle-foreground);
+}
+
+a.curve-badge--variant-info:hover {
+  background-color: var(--info-subtle-hover);
+}
+
+.curve-badge--variant-info:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 20%, transparent);
+}
+
+.dark .curve-badge--variant-info:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 40%, transparent);
+}
+
+.curve-badge--variant-success {
+  background-color: var(--success-subtle);
+  color: var(--success-subtle-foreground);
+}
+
+a.curve-badge--variant-success:hover {
+  background-color: var(--success-subtle-hover);
+}
+
+.curve-badge--variant-success:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 20%, transparent);
+}
+
+.dark .curve-badge--variant-success:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 40%, transparent);
+}
+
+.curve-badge--variant-warning {
+  background-color: var(--warning-subtle);
+  color: var(--warning-subtle-foreground);
+}
+
+a.curve-badge--variant-warning:hover {
+  background-color: var(--warning-subtle-hover);
+}
+
+.curve-badge--variant-warning:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 20%, transparent);
+}
+
+.dark .curve-badge--variant-warning:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 40%, transparent);
+}
+
+.curve-badge--variant-danger {
+  background-color: var(--danger-subtle);
+  color: var(--danger-subtle-foreground);
+}
+
+a.curve-badge--variant-danger:hover {
+  background-color: var(--danger-subtle-hover);
+}
+
+.curve-badge--variant-danger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 20%, transparent);
+}
+
+.dark .curve-badge--variant-danger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 40%, transparent);
+}
+
+.curve-badge--variant-outline {
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+a.curve-badge--variant-outline:hover {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.curve-badge--variant-ghost:hover {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.dark .curve-badge--variant-ghost:hover {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.curve-badge--variant-link {
+  color: var(--primary-strong);
+  text-underline-offset: 4px;
+}
+
+.curve-badge--variant-link:hover {
+  text-decoration: underline;
+}

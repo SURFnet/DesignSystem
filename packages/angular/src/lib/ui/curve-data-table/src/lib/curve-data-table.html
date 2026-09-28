@@ -1,7 +1,7 @@
 @if (searchColumn() || hasColumnFilter()) {
 <div hlmDataTableToolbar>
   @if (searchColumn()) {
-  <div hlmInputGroup class="max-w-xs">
+  <div hlmInputGroup class="curve-data-table-search">
     <div hlmInputGroupAddon>
       <ng-icon name="phosphorMagnifyingGlass" />
       <input
@@ -13,15 +13,20 @@
     </div>
   </div>
   } @if (hasColumnFilter()) {
-  <button hlmBtn variant="outline" class="ml-auto" [hlmDropdownMenuTrigger]="columnsMenu">
+  <button
+    hlmBtn
+    variant="outline"
+    class="curve-data-table-columns-button"
+    [hlmDropdownMenuTrigger]="columnsMenu"
+  >
     Columns
   </button>
   <ng-template #columnsMenu>
-    <hlm-dropdown-menu class="w-40">
+    <hlm-dropdown-menu class="curve-data-table-columns-menu">
       @for (column of hideableColumns(); track column.id) {
       <button
         hlmDropdownMenuCheckbox
-        class="capitalize"
+        class="curve-data-table-column-toggle"
         [checked]="column.getIsVisible()"
         (triggered)="column.toggleVisibility(!column.getIsVisible())"
       >

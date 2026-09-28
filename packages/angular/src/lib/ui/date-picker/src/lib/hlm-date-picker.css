@@ -1,0 +1,29 @@
+/* Date picker — trigger (a button) plus a popover holding a flush calendar. */
+.curve-date-picker {
+  display: block;
+}
+
+.curve-button.curve-date-picker-trigger {
+  width: calc(var(--spacing, 0.25rem) * 64);
+  justify-content: space-between;
+}
+
+.curve-button.curve-date-picker-trigger[data-placeholder] {
+  color: var(--muted-foreground);
+}
+
+.curve-date-picker-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.curve-popover-content.curve-date-picker-popover {
+  width: fit-content;
+  padding: 0;
+}
+
+.curve-calendar.curve-calendar--flush {
+  border-width: 0;
+  border-radius: 0;
+}

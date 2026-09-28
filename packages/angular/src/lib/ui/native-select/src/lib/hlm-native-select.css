@@ -1,0 +1,94 @@
+/* Native select — `hlm-native-select` (wrapper) with its <select> and caret icon. */
+.curve-native-select-wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.curve-native-select-wrapper:has(select:disabled) {
+  opacity: 0.5;
+}
+
+.curve-native-select {
+  height: calc(var(--spacing, 0.25rem) * 9);
+  width: 100%;
+  min-width: 0;
+  appearance: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  padding-block: calc(var(--spacing, 0.25rem) * 1);
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 2.5);
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 8);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  user-select: none;
+  outline: none;
+  transition-property: color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-native-select[data-size='sm'] {
+  height: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-native-select::placeholder {
+  color: var(--muted-foreground);
+}
+
+.curve-native-select::selection,
+.curve-native-select *::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.dark .curve-native-select {
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+.dark .curve-native-select:hover {
+  background-color: color-mix(in oklab, var(--input) 50%, transparent);
+}
+
+.curve-native-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-native-select[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark .curve-native-select[data-matches-spartan-invalid='true'] {
+  border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-native-select:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.curve-native-select-icon {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  inset-inline-end: calc(var(--spacing, 0.25rem) * 2.5);
+  translate: 0 -50%;
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+  color: var(--muted-foreground);
+  user-select: none;
+}
+
+.curve-native-select-option {
+  background-color: Canvas;
+  color: CanvasText;
+}

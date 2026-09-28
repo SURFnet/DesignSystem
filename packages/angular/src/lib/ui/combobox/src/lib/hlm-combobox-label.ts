@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmComboboxLabel {
   constructor() {
-    classes(() => 'text-muted-foreground px-2 py-1.5 text-xs');
+    classes(() => 'curve-combobox-label');
   }
 }

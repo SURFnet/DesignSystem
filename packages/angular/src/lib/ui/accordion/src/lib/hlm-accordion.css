@@ -1,0 +1,114 @@
+/* Accordion — `hlmAccordion`, items, trigger (with caret icons) and content. */
+.curve-accordion {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.curve-accordion-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.curve-accordion-item:not(:last-child) {
+  border-bottom-width: 1px;
+}
+
+.curve-accordion-header {
+  display: flex;
+}
+
+.curve-accordion-trigger {
+  position: relative;
+  display: flex;
+  flex: 1 1 0%;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding-block: calc(var(--spacing, 0.25rem) * 4);
+  text-align: start;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  outline: none;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-accordion-trigger:hover {
+  text-decoration-line: underline;
+}
+
+.curve-accordion-trigger:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-accordion-trigger:focus-visible::after {
+  content: '';
+  border-color: var(--ring);
+}
+
+.curve-accordion-trigger[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.curve-accordion-trigger [data-slot='accordion-trigger-icon'] {
+  margin-inline-start: auto;
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+  color: var(--muted-foreground) !important;
+}
+
+.curve-accordion-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* display !important: beats ng-icon's own unlayered `:host { display: inline-block }`. */
+.curve-accordion-trigger[aria-expanded='true'] .curve-accordion-icon--collapsed,
+.curve-accordion-trigger[aria-expanded='false'] .curve-accordion-icon--expanded {
+  display: none !important;
+}
+
+.curve-accordion-trigger[aria-expanded='true'] .curve-accordion-icon--expanded {
+  display: inline !important;
+}
+
+.curve-accordion-content {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.curve-accordion-content[data-state='closed'] {
+  height: 0;
+}
+
+.curve-accordion-content[data-state='open'] {
+  height: var(--brn-accordion-content-height);
+}
+
+.curve-accordion-content-inner {
+  padding-top: 0;
+  padding-bottom: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-accordion-content-inner a {
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+
+.curve-accordion-content-inner a:hover {
+  color: var(--foreground);
+}
+
+.curve-accordion-content-inner p:not(:last-child) {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Expand/collapse motion — only for users without a reduced-motion preference. */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-accordion-content {
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

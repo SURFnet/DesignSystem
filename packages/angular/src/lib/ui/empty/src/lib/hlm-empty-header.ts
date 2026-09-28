@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmEmptyHeader {
   constructor() {
-    classes(() => 'gap-2 flex max-w-sm flex-col items-center');
+    classes(() => 'curve-empty-header');
   }
 }

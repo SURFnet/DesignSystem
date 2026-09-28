@@ -10,6 +10,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarMenu {
   constructor() {
-    classes(() => 'gap-1 flex w-full min-w-0 flex-col');
+    classes(() => 'curve-sidebar-menu');
   }
 }

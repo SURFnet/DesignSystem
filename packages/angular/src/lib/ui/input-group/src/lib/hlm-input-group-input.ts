@@ -9,9 +9,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmInputGroupInput {
   constructor() {
-    classes(
-      () =>
-        `rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 data-[matches-spartan-invalid=true]:ring-0 dark:bg-transparent flex-1`,
-    );
+    // On top of hlmInput's `curve-input`; styling lives in ./hlm-input-group.css.
+    classes(() => 'curve-input-group-control');
   }
 }

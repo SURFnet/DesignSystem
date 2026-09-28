@@ -9,6 +9,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmKbdGroup {
   constructor() {
-    classes(() => 'gap-1 inline-flex items-center');
+    // Styling lives in ./hlm-kbd.css.
+    classes(() => 'curve-kbd-group');
   }
 }

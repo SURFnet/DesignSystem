@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSelectLabel {
   constructor() {
-    classes(() => 'text-muted-foreground px-2 py-1.5 text-xs flex');
+    classes(() => 'curve-select-label');
   }
 }

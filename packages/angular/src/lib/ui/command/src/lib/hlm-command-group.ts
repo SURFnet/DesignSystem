@@ -17,6 +17,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCommandGroup {
   constructor() {
-    classes(() => 'text-foreground block overflow-hidden p-1 data-hidden:hidden');
+    classes(() => 'curve-command-group');
   }
 }

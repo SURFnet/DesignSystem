@@ -10,7 +10,6 @@ import type {
   SidebarMenuButtonSizeName,
   SidebarMenuButtonVariantName,
 } from '@surfnet/curve-contracts';
-import { cva } from 'class-variance-authority';
 import { HlmSidebarService } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 import {
@@ -19,27 +18,18 @@ import {
   tooltipPositionVariants,
 } from '../../../tooltip/src';
 
-const sidebarMenuButtonVariants = cva(
-  'ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-start text-sm transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pe-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_ng-icon]:shrink-0 [&_ng-icon]:text-[calc(var(--spacing)*4)] [&>span:last-child]:truncate',
-  {
-    variants: {
-      variant: {
-        default: 'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-        outline:
-          'bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_var(--sidebar-border)] hover:shadow-[0_0_0_1px_var(--sidebar-accent)]',
-      } satisfies Record<SidebarMenuButtonVariantName, string>,
-      size: {
-        default: 'h-8 text-sm',
-        sm: 'h-7 text-xs',
-        lg: 'h-12 text-sm group-data-[collapsible=icon]:p-0!',
-      } satisfies Record<SidebarMenuButtonSizeName, string>,
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
-  },
-);
+// Styling lives in ./hlm-sidebar.css; `peer/menu-button` and `group/menu-button`
+// stay as hooks for consumers' Tailwind.
+const sidebarMenuButtonVariantClasses = {
+  default: 'curve-sidebar-menu-button--variant-default',
+  outline: 'curve-sidebar-menu-button--variant-outline',
+} satisfies Record<SidebarMenuButtonVariantName, string>;
+
+const sidebarMenuButtonSizeClasses = {
+  default: 'curve-sidebar-menu-button--size-default',
+  sm: 'curve-sidebar-menu-button--size-sm',
+  lg: 'curve-sidebar-menu-button--size-lg',
+} satisfies Record<SidebarMenuButtonSizeName, string>;
 
 @Directive({
   selector: 'button[hlmSidebarMenuButton], a[hlmSidebarMenuButton]',
@@ -85,7 +75,11 @@ export class HlmSidebarMenuButton {
   );
 
   constructor() {
-    classes(() => sidebarMenuButtonVariants({ variant: this.variant(), size: this.size() }));
+    classes(() => [
+      'curve-sidebar-menu-button peer/menu-button group/menu-button',
+      sidebarMenuButtonVariantClasses[this.variant()],
+      sidebarMenuButtonSizeClasses[this.size()],
+    ]);
     effect(() => this._brnTooltip.mutableTooltipDisabled.set(this._isTooltipHidden()));
   }
 

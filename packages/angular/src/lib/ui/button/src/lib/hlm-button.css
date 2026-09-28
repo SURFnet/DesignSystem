@@ -1,0 +1,205 @@
+/*
+ * Button — `hlmBtn` and `buttonVariants()`.
+ * Imported into `@layer components` from src/styles.css; mirrors
+ * packages/react/src/components/ui/button/button.module.css, with Spartan's
+ * state attributes (`data-disabled`, `data-matches-spartan-invalid`) and
+ * `ng-icon` instead of `svg`.
+ */
+.curve-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-clip: padding-box;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  transition: all 150ms ease;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.curve-button:active:not([aria-haspopup]) {
+  transform: translateY(1px);
+}
+
+.curve-button:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.curve-button:disabled,
+.curve-button[data-disabled]:not([data-disabled='false']) {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.curve-button[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.dark .curve-button[data-matches-spartan-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.curve-button ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-button ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-button:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-button:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 2);
+}
+
+[data-slot='button-group'] .curve-button {
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+/* Variants */
+.curve-button--variant-default {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.curve-button--variant-default:hover {
+  border-color: transparent;
+  background-color: color-mix(in oklch, var(--primary) 80%, transparent);
+}
+
+.curve-button--variant-outline {
+  border-color: var(--border);
+  background-color: var(--background);
+}
+
+.curve-button--variant-outline:hover,
+.curve-button--variant-outline[aria-expanded='true'] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.dark .curve-button--variant-outline {
+  border-color: var(--input);
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+.dark .curve-button--variant-outline:hover {
+  background-color: color-mix(in oklch, var(--input) 50%, transparent);
+}
+
+.curve-button--variant-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.curve-button--variant-secondary:hover,
+.curve-button--variant-secondary[aria-expanded='true'] {
+  background-color: color-mix(in oklch, var(--secondary), var(--foreground) 5%);
+  color: var(--secondary-foreground);
+}
+
+.curve-button--variant-ghost:hover,
+.curve-button--variant-ghost[aria-expanded='true'] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.dark .curve-button--variant-ghost:hover {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.curve-button--variant-destructive {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+.curve-button--variant-destructive:hover {
+  border-color: transparent;
+  background-color: color-mix(in oklch, var(--destructive) 90%, transparent);
+}
+
+.curve-button--variant-destructive:focus-visible {
+  border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.dark .curve-button--variant-destructive:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.curve-button--variant-link {
+  color: var(--primary-strong);
+  text-underline-offset: 4px;
+}
+
+.curve-button--variant-link:hover {
+  text-decoration: underline;
+}
+
+/* Sizes */
+.curve-button--size-sm {
+  height: calc(var(--spacing, 0.25rem) * 8);
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 10px);
+}
+
+.curve-button--size-sm:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-button--size-sm:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-button--size-lg {
+  height: calc(var(--spacing, 0.25rem) * 10);
+}
+
+.curve-button--size-icon,
+.curve-button--size-icon-xs,
+.curve-button--size-icon-sm,
+.curve-button--size-icon-lg {
+  padding-inline: 0;
+}
+
+.curve-button--size-icon {
+  width: calc(var(--spacing, 0.25rem) * 9);
+  height: calc(var(--spacing, 0.25rem) * 9);
+}
+
+.curve-button--size-icon-xs {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+  border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 8px);
+}
+
+.curve-button--size-icon-xs ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-button--size-icon-sm {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 10px);
+}
+
+.curve-button--size-icon-lg {
+  width: calc(var(--spacing, 0.25rem) * 10);
+  height: calc(var(--spacing, 0.25rem) * 10);
+}

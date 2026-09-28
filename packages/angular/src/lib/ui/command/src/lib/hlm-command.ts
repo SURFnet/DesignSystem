@@ -17,9 +17,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCommand {
   constructor() {
-    classes(
-      () =>
-        'bg-popover text-popover-foreground flex size-full flex-col overflow-hidden rounded-xl p-1',
-    );
+    classes(() => 'curve-command');
   }
 }

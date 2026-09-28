@@ -1,0 +1,106 @@
+/* Switch — `hlm-switch` (host is display: contents; the track is brn-switch). */
+.curve-switch-root {
+  display: contents;
+}
+
+.curve-switch {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: calc(infinity * 1px);
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  outline: none;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-switch[data-size='default'] {
+  width: 32px;
+  height: 18.4px;
+}
+
+.curve-switch[data-size='sm'] {
+  width: 24px;
+  height: 14px;
+}
+
+.curve-switch:is([data-state='unchecked'], [data-unchecked]:not([data-unchecked='false'])) {
+  background-color: var(--input);
+}
+
+.dark .curve-switch:is([data-state='unchecked'], [data-unchecked]:not([data-unchecked='false'])) {
+  background-color: color-mix(in oklab, var(--input) 80%, transparent);
+}
+
+.curve-switch:is([data-state='checked'], [data-checked]:not([data-checked='false'])) {
+  background-color: var(--primary);
+}
+
+.curve-switch:focus-visible {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-switch[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark .curve-switch[data-matches-spartan-invalid='true'] {
+  border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-switch[data-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.curve-switch-thumb {
+  pointer-events: none;
+  display: block;
+  border-radius: calc(infinity * 1px);
+  background-color: var(--background);
+  transition-property: transform, translate, scale, rotate;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-switch[data-size='default'] .curve-switch-thumb {
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-switch[data-size='sm'] .curve-switch-thumb {
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-switch-thumb:is([data-state='unchecked'], [data-unchecked]:not([data-unchecked='false'])) {
+  translate: 0 0;
+}
+
+.curve-switch-thumb:is([data-state='checked'], [data-checked]:not([data-checked='false'])) {
+  translate: calc(100% - 2px) 0;
+}
+
+.curve-switch-thumb:is([data-state='checked'], [data-checked]:not([data-checked='false'])):dir(
+    rtl
+  ) {
+  translate: calc((100% - 2px) * -1) 0;
+}
+
+.dark
+  .curve-switch-thumb:is([data-state='unchecked'], [data-unchecked]:not([data-unchecked='false'])) {
+  background-color: var(--foreground);
+}
+
+.dark .curve-switch-thumb:is([data-state='checked'], [data-checked]:not([data-checked='false'])) {
+  background-color: var(--primary-foreground);
+}

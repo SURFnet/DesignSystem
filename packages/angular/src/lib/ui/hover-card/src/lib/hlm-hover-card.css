@@ -1,0 +1,57 @@
+/* Hover card — `hlmHoverCardContent` (rendered in a CDK overlay). */
+.curve-hover-card-content {
+  z-index: 50;
+  width: calc(var(--spacing, 0.25rem) * 64);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--popover-foreground);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent),
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  outline: none;
+}
+
+/*
+ * Enter/exit motion (fade + zoom 95% + short slide away from the anchor).
+ * Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-hover-card-content {
+    animation-duration: 100ms;
+    --curve-enter-opacity: 0;
+    --curve-enter-scale: 0.95;
+    --curve-exit-opacity: 0;
+    --curve-exit-scale: 0.95;
+  }
+
+  .curve-hover-card-content:is([data-state='open'], [data-open]:not([data-open='false'])) {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+  }
+
+  .curve-hover-card-content:is([data-state='closed'], [data-closed]:not([data-closed='false'])) {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+
+  .curve-hover-card-content[data-side='bottom'] {
+    --curve-enter-translate-y: calc(calc(var(--spacing, 0.25rem) * 2) * -1);
+  }
+
+  .curve-hover-card-content[data-side='top'] {
+    --curve-enter-translate-y: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .curve-hover-card-content[data-side='left'] {
+    --curve-enter-translate-x: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .curve-hover-card-content[data-side='right'] {
+    --curve-enter-translate-x: calc(calc(var(--spacing, 0.25rem) * 2) * -1);
+  }
+}

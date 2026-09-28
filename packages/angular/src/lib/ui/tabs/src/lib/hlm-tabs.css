@@ -1,0 +1,219 @@
+/* Tabs — `hlmTabs`, list, trigger, content and the paginated list. */
+.curve-tabs {
+  display: flex;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-tabs[data-orientation='horizontal'] {
+  flex-direction: column;
+}
+
+.curve-tabs-list {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  padding: 3px;
+  color: var(--muted-foreground);
+}
+
+[data-slot='tabs'][data-orientation='horizontal'] .curve-tabs-list {
+  height: calc(var(--spacing, 0.25rem) * 9);
+}
+
+[data-slot='tabs'][data-orientation='vertical'] .curve-tabs-list {
+  height: fit-content;
+  flex-direction: column;
+}
+
+.curve-tabs-list[data-variant='line'] {
+  border-radius: 0;
+}
+
+.curve-tabs-list--variant-default {
+  background-color: var(--muted);
+}
+
+.curve-tabs-list--variant-line {
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  background-color: transparent;
+}
+
+/* Trigger */
+.curve-tabs-trigger {
+  position: relative;
+  display: inline-flex;
+  height: calc(100% - 1px);
+  flex: 1 1 0%;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding: calc(var(--spacing, 0.25rem) * 1) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: color-mix(in oklab, var(--foreground) 60%, transparent);
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-tabs-trigger ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-tabs-trigger ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-tabs-trigger:hover,
+.dark .curve-tabs-trigger:hover {
+  color: var(--foreground);
+}
+
+.dark .curve-tabs-trigger {
+  color: var(--muted-foreground);
+}
+
+[data-slot='tabs'][data-orientation='vertical'] .curve-tabs-trigger {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.curve-tabs-trigger:focus-visible {
+  border-color: var(--ring);
+  outline: 1px solid var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-tabs-trigger:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Active tab */
+.curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])) {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.dark .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])) {
+  border-color: var(--input);
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+  color: var(--foreground);
+}
+
+.curve-tabs-list[data-variant='default']
+  .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])) {
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.curve-tabs-list[data-variant='default']
+  .curve-tabs-trigger:is(
+    [data-state='active'],
+    [data-active]:not([data-active='false'])
+  ):focus-visible {
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Line variant: transparent tabs, active one underlined. */
+.curve-tabs-list[data-variant='line'] .curve-tabs-trigger,
+.curve-tabs-list[data-variant='line']
+  .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])),
+.dark
+  .curve-tabs-list[data-variant='line']
+  .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])) {
+  background-color: transparent;
+}
+
+.curve-tabs-list[data-variant='line']
+  .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])) {
+  box-shadow: none;
+}
+
+.dark
+  .curve-tabs-list[data-variant='line']
+  .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false'])) {
+  border-color: transparent;
+}
+
+.curve-tabs-trigger::after {
+  content: '';
+  position: absolute;
+  background-color: var(--foreground);
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-slot='tabs'][data-orientation='horizontal'] .curve-tabs-trigger::after {
+  inset-inline: 0;
+  bottom: -5px;
+  height: calc(var(--spacing, 0.25rem) * 0.5);
+}
+
+[data-slot='tabs'][data-orientation='vertical'] .curve-tabs-trigger::after {
+  inset-block: 0;
+  right: calc(var(--spacing, 0.25rem) * -1);
+  width: calc(var(--spacing, 0.25rem) * 0.5);
+}
+
+.curve-tabs-list[data-variant='line']
+  .curve-tabs-trigger:is([data-state='active'], [data-active]:not([data-active='false']))::after {
+  opacity: 1;
+}
+
+.curve-tabs-content {
+  flex: 1 1 0%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+}
+
+/* Paginated list: scroll buttons either side of a clipped, sliding track. */
+.curve-tabs-paginated-list {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  overflow: hidden;
+}
+
+.curve-tabs-paginated-viewport {
+  z-index: 1;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.curve-tabs-paginated-track {
+  position: relative;
+  flex-grow: 1;
+  transition-property: transform, translate, scale, rotate;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-tabs-paginator {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  user-select: none;
+}
+
+.curve-tabs-paginator:disabled {
+  cursor: default;
+}
+
+.curve-tabs-paginator--hidden {
+  display: none;
+}

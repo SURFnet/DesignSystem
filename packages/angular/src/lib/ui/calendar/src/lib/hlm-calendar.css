@@ -1,0 +1,312 @@
+/*
+ * Calendar — `hlm-calendar`, `hlm-calendar-range`, `hlm-calendar-multi`.
+ * Day buttons are ghost buttons; the day rules are qualified with
+ * `.curve-button` so they always outrank the button styles, and follow the
+ * original precedence among states: disabled < outside < range-between <
+ * selected < today.
+ */
+.curve-calendar {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  padding: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-calendar-months {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+:where(.curve-calendar-months > :not(:last-child)),
+:where(.curve-calendar-header-stack > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-calendar-caption {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-calendar-caption-label {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-calendar-heading {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+/* Month/year selects: compact trigger with the caret close to the value. */
+.curve-select-trigger.curve-calendar-select-trigger {
+  gap: 0;
+}
+
+.curve-calendar-select-trigger > ng-icon {
+  margin-left: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-select-content.curve-calendar-select-content {
+  max-height: calc(var(--spacing, 0.25rem) * 80);
+}
+
+/* Previous/next */
+.curve-calendar-nav-group {
+  display: flex;
+  align-items: center;
+}
+
+:where(.curve-calendar-nav-group > :not(:last-child)) {
+  margin-inline-end: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-calendar-nav {
+  position: absolute;
+  display: inline-flex;
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--popover-foreground);
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-calendar-nav--prev {
+  left: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-calendar-nav--next {
+  right: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-calendar-nav--outline {
+  width: calc(var(--spacing, 0.25rem) * 7);
+  height: calc(var(--spacing, 0.25rem) * 7);
+  border: 1px solid var(--input);
+  color: inherit;
+  opacity: 0.5;
+}
+
+.curve-calendar-nav:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+  opacity: 1;
+}
+
+.curve-calendar-nav:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px var(--ring);
+}
+
+.curve-calendar-nav--outline:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--ring);
+}
+
+.curve-calendar-nav:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Grid */
+.curve-calendar-grid {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+:where(.curve-calendar-grid > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-calendar-weekdays {
+  display: flex;
+}
+
+.curve-calendar-weekday {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+.curve-calendar-week {
+  margin-top: calc(var(--spacing, 0.25rem) * 2);
+  display: flex;
+  width: 100%;
+}
+
+.curve-calendar-cell {
+  position: relative;
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  padding: 0;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.curve-calendar-cell:focus-within {
+  position: relative;
+  z-index: 20;
+}
+
+.curve-calendar-cell[data-selected] {
+  background-color: var(--muted);
+}
+
+.curve-calendar-cell:not(.curve-calendar-cell--range):first-child[data-selected] {
+  border-top-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-calendar-cell:not(.curve-calendar-cell--range):last-child[data-selected] {
+  border-top-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-calendar-cell[data-selected][data-outside] {
+  background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+}
+
+.curve-calendar-cell:not(.curve-calendar-cell--range):has([aria-selected].day-range-end) {
+  border-top-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+/* Range: fill half a cell behind the start/end day so the band looks continuous. */
+.curve-calendar-cell--range:has([data-range-start])::after,
+.curve-calendar-cell--range:has([data-range-end])::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  width: calc(var(--spacing, 0.25rem) * 4);
+  background-color: var(--muted);
+}
+
+.curve-calendar-cell--range:has([data-range-end])::after {
+  left: 0;
+}
+
+.curve-calendar-cell--range:has([data-range-start])::after {
+  right: 0;
+}
+
+.curve-calendar-cell--range:first-child:has([data-range-between]) > button {
+  border-top-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-calendar-cell--range:last-child:has([data-range-between]) > button {
+  border-top-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+/* Day buttons */
+.curve-button.curve-calendar-day {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  padding: 0;
+  font-weight: 400;
+}
+
+.curve-button.curve-calendar-day--range {
+  position: relative;
+  z-index: 10;
+  border-width: 0;
+}
+
+.curve-button.curve-calendar-day[aria-selected='true'] {
+  opacity: 1;
+}
+
+.curve-button.curve-calendar-day[data-disabled] {
+  color: var(--muted-foreground);
+  opacity: 0.5;
+}
+
+.curve-button.curve-calendar-day[data-outside] {
+  color: var(--muted-foreground);
+}
+
+.curve-button.curve-calendar-day--single[data-outside],
+.curve-button.curve-calendar-day--multi[data-outside] {
+  opacity: 0.5;
+}
+
+.curve-button.curve-calendar-day--single[data-outside][aria-selected='true'],
+.curve-button.curve-calendar-day--multi[data-outside][aria-selected='true'] {
+  background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+  opacity: 0.3;
+}
+
+.curve-button.curve-calendar-day[data-outside][aria-selected='true'] {
+  color: var(--muted-foreground);
+}
+
+.curve-button.curve-calendar-day--range[data-range-between] {
+  border-radius: 0;
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-button.curve-calendar-day[data-selected] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.curve-button.curve-calendar-day--single[data-selected]:hover,
+.curve-button.curve-calendar-day--multi[data-selected]:hover {
+  background-color: var(--primary);
+}
+
+.curve-button.curve-calendar-day--multi[data-selected]:hover {
+  color: var(--primary-foreground);
+}
+
+.curve-button.curve-calendar-day[data-selected]:focus {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.curve-button.curve-calendar-day[data-today] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.dark .curve-button.curve-calendar-day:hover {
+  color: var(--foreground);
+}
+
+/* Highlighted days get a small dot. */
+.curve-button.curve-calendar-day[data-highlighted]::before {
+  content: '';
+  position: absolute;
+  bottom: calc(var(--spacing, 0.25rem) * 1);
+  left: 50%;
+  width: calc(var(--spacing, 0.25rem) * 1);
+  height: calc(var(--spacing, 0.25rem) * 1);
+  translate: -50% 0;
+  border-radius: calc(infinity * 1px);
+  background-color: var(--destructive);
+}

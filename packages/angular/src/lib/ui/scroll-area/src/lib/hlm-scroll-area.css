@@ -1,0 +1,6 @@
+/* Scroll area — `hlm-scroll-area` (ngx-scrollbar); thumb colours are set on the host. */
+.curve-scroll-area {
+  --scrollbar-thumb-shape: 9999px;
+  display: block;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}

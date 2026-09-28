@@ -1,0 +1,160 @@
+/* Command — `hlm-command` palette (optionally in `hlm-command-dialog`). */
+.curve-command {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 1);
+  color: var(--popover-foreground);
+}
+
+.curve-dialog-content.curve-command-dialog-content {
+  width: calc(var(--spacing, 0.25rem) * 96);
+  padding: 0;
+}
+
+.curve-command-input {
+  padding: calc(var(--spacing, 0.25rem) * 1) calc(var(--spacing, 0.25rem) * 1) 0;
+}
+
+/* Search field: compact and flat (the input isn't an input-group control, so no focus ring). */
+.curve-input-group.curve-command-input-group {
+  height: calc(var(--spacing, 0.25rem) * 8);
+  border-color: color-mix(in oklab, var(--input) 30%, transparent);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+  box-shadow: none;
+}
+
+.curve-command-input-group > [data-slot='input-group-addon'] {
+  padding-left: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-command-input-control {
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline-style: none;
+}
+
+@media (forced-colors: active) {
+  .curve-command-input-control {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
+
+.curve-command-input-control:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.curve-command-list {
+  max-height: calc(var(--spacing, 0.25rem) * 72);
+  scroll-padding-block: calc(var(--spacing, 0.25rem) * 1);
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.curve-command-list::-webkit-scrollbar {
+  display: none;
+}
+
+.curve-command-empty {
+  padding-block: calc(var(--spacing, 0.25rem) * 6);
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.curve-command-group {
+  display: block;
+  overflow: hidden;
+  padding: calc(var(--spacing, 0.25rem) * 1);
+  color: var(--foreground);
+}
+
+.curve-command-group-label {
+  display: block;
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.curve-command-item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline-style: none;
+  user-select: none;
+}
+
+@media (forced-colors: active) {
+  .curve-command-item {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
+
+.curve-command-item > ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* line-height !important: beats ng-icon's own unlayered `:host { line-height: initial }`. */
+.curve-command-item > ng-icon:not([class*='text-']) {
+  font-size: 1rem;
+  line-height: 1.5rem !important;
+  color: var(--muted-foreground);
+}
+
+.curve-command-item[data-selected] {
+  background-color: var(--muted);
+}
+
+.curve-command-item[data-selected='true'] {
+  color: var(--foreground);
+}
+
+.curve-command-item[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.curve-command-group[data-hidden],
+.curve-command-item[data-hidden],
+.curve-command-separator[data-hidden] {
+  display: none;
+}
+
+.curve-command-separator {
+  display: block;
+  margin-inline: calc(var(--spacing, 0.25rem) * -1);
+  height: 1px;
+  width: auto;
+  background-color: var(--border);
+}
+
+.curve-command-shortcut {
+  margin-left: auto;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+}

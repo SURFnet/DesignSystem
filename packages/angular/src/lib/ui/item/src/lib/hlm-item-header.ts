@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmItemHeader {
   constructor() {
-    classes(() => 'gap-2 flex basis-full items-center justify-between');
+    classes(() => 'curve-item-header');
   }
 }

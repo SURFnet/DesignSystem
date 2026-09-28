@@ -1,0 +1,18 @@
+/* Skeleton — `hlmSkeleton`. */
+.curve-skeleton {
+  display: block;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .curve-skeleton {
+    animation: curve-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes curve-skeleton-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
