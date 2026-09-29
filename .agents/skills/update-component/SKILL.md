@@ -23,6 +23,24 @@ instead.
 running them again on an existing component can wipe Curve edits. Git is the
 source of truth. Diff, then merge.
 
+## Start here: `pnpm update:component`
+
+If `packages/<fw>/.upstream/<name>/` exists (every component added with
+`pnpm new:component`), run:
+
+```bash
+pnpm update:component <name>          # or --react / --angular
+```
+
+It fetches today's upstream in a temp git worktree (never touching the repo's
+install) and runs `git merge-file` per file with the `.upstream/` snapshot as the
+base. Clean merges land in place; conflicts get `<<<<<<<` markers. Resolve
+those, then do the **Accessibility** pass below and `pnpm check:conventions && pnpm lint`.
+
+Components without a snapshot (vendored before the scripts) fall back to the
+manual flow in [`react.md`](react.md) / [`angular.md`](angular.md). The script
+says so when that happens.
+
 ## Accessibility
 
 **Changes can have an effect on accessibility.** Styling, markup, ARIA, focus

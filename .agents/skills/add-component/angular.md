@@ -14,6 +14,9 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
 
 ## Steps
 
+> `pnpm new:component <name>` does steps 1–2 (including `fix-helm-imports`, the CSS stub and its `styles.css` import), the export and a story stub for you (see [`SKILL.md`](SKILL.md)).
+> Follow the steps below for the rest, or all of them if you can't use the script.
+
 1. **Define the contract first.** Before generating, add `<name>Contract` to
    `@surfnet/curve-contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
    is required for **every** component, including structural primitives that get a
