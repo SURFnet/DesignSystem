@@ -1,0 +1,5 @@
+{
+  "react-story": ["command"],
+  "angular-story": ["command"],
+  "story-title-parity": ["dropdown-menu", "input-group"]
+}
