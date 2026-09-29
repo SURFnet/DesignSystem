@@ -10,6 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "sync:figma": "jiti scripts/sync-figma.ts",
+    "check:conventions": "jiti scripts/check-conventions.ts",
     "dev": "turbo run dev",
     "storybook": "turbo run storybook",
     "storybook:react": "pnpm --filter @surfnet/curve-react storybook",
