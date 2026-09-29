@@ -143,21 +143,28 @@ so app utilities like `bg-primary` resolve to the same `@surfnet/curve-tokens` v
 
 ## Adding a component
 
-Use the generator. It runs the upstream CLIs and does all the mechanical wiring:
+There are two generators with the same options:
 
 ```bash
-pnpm new:component card                                   # React + Angular
-pnpm new:component card --react                           # one framework only
-pnpm new:component card --description "A bordered surface…" --axis variants=default,outline
-pnpm new:component curve-pill --custom --axis variants=default,outline   # home-grown, no upstream
+# A shadcn / Spartan component: vendored through the upstream CLIs
+pnpm import:component card                                # React + Angular
+pnpm import:component card --react                        # one framework only
+pnpm import:component card --description "A bordered surface…" --axis variants=default,outline
+
+# A home-grown component: no upstream, named curve-<name>
+pnpm new:component pill --axis variants=default,outline   # creates curve-pill
 ```
 
-With `--custom`, for a home-grown component with no shadcn/Spartan equivalent, no CLI runs and there
-is no upstream snapshot. The name must start with `curve-` (like `curve-data-table`), so it can
-never collide with an upstream component. You get a small working component in each framework:
-each contract axis becomes a typed prop that sets a `data-*` attribute, plus a CSS rule stub per
-value and Playground + per-axis stories with the same names in both Storybooks. The steps below
-describe the default (vendored) flow.
+### Home-grown: `new:component`
+
+No CLI runs and there is no upstream snapshot. The name always gets the `curve-` prefix (like
+`curve-data-table`), so it never collides with an upstream component. Bare names that Spartan
+already has are refused; import those instead. You get a small working component in each
+framework: each contract axis becomes a typed prop that sets a `data-*` attribute, plus a CSS rule
+stub per value and Playground + per-axis stories with the same names in both Storybooks. The
+contract, barrel, exports and Angular `styles.css` import are wired up as below.
+
+### Upstream: `import:component`
 
 For each framework it:
 
