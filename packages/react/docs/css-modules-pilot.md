@@ -89,23 +89,11 @@ This pilot moves **Button** styling from Tailwind `cva` class strings to a co-lo
 
 Lightweight siblings of Base UI components — same tokens and CSS Modules, no extra primitives:
 
-| Component        | Element                   | When to use                                             |
-| ---------------- | ------------------------- | ------------------------------------------------------- |
-| `NativeSelect`   | `<select>`                | Simple option lists                                     |
-| `NativeInput`    | `<input>`                 | Text-like and file types; `size` default \| sm          |
-| `NativeTextarea` | `<textarea>`              | Multi-line text                                         |
-| `NativeCheckbox` | checkbox input            | Boolean choice                                          |
-| `NativeRadio`    | radio input               | One-of-many (use with fieldset / shared `name`)         |
-| `NativeRange`    | range input               | Simple slider                                           |
-| `NativeFieldset` | `<fieldset>` / `<legend>` | Semantic form groups                                    |
-| `NativeProgress` | `<progress>`              | Determinate bar without custom labels                   |
-| `NativeDialog`   | `<dialog>`                | Simple modal; use `Dialog` for focus trap / composition |
-| `NativePopover`  | `popover` API             | Lightweight floating panel                              |
-| `NativeDetails`  | `<details>` / `<summary>` | Single expandable blocks; use `Accordion` for groups    |
+| Component      | Element    | When to use         |
+| -------------- | ---------- | ------------------- |
+| `NativeSelect` | `<select>` | Simple option lists |
 
-Shared field styles: [`native-control/control.module.css`](../src/components/ui/native-control/control.module.css).
-
-**Contracts:** Keep variant/size **names** in `@surfnet/curve-contracts`. Native components each have a description-only contract in that package.
+**Contracts:** Keep variant/size **names** in `@surfnet/curve-contracts`. NativeSelect has its own contract there too.
 
 **Publishing:** Consumers still import `@surfnet/curve-react/styles.css`; CSS Modules compile into that bundle.
 
