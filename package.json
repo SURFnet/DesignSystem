@@ -10,6 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "sync:figma": "jiti scripts/sync-figma.ts",
+    "new:component": "jiti scripts/new-component.ts",
     "check:conventions": "jiti scripts/check-conventions.ts",
     "dev": "turbo run dev",
     "storybook": "turbo run storybook",
