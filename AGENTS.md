@@ -54,13 +54,13 @@ pnpm storybook                                       # both Storybooks (React :6
 pnpm storybook:react                                 # React Storybook (port 6006)
 pnpm storybook:angular                               # Angular Storybook (port 6007)
 pnpm build-storybook && pnpm test:visual             # story screenshots vs baselines (React + Angular)
-pnpm new:component <name> [--react|--angular]        # scaffold a component (contract, vendor, exports, stubs)
-pnpm new:component curve-<name> --custom             # scaffold a home-grown component (no upstream CLI)
+pnpm import:component <name> [--react|--angular]     # vendor a shadcn/Spartan component (contract, exports, stubs)
+pnpm new:component <name> [--react|--angular]        # create a home-grown curve-<name> component (no upstream)
 pnpm update:component <name>                         # 3-way merge upstream into a vendored component
 pnpm check:conventions                               # repo conventions (runs in CI)
 ```
 
-**Prefer the scripts over hand-following the skills.** `new:component` and
+**Prefer the scripts over hand-following the skills.** `import:component`, `new:component` and
 `update:component` do the mechanical steps deterministically; the skills cover what's left.
 `check:conventions` enforces barrels, exports, stories, contracts, no leftover Tailwind and
 story-title parity. Accepted exceptions live in `scripts/conventions.allowlist.json`.
@@ -99,11 +99,12 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - **One directory per component**: `src/components/ui/<name>/` holds `<name>.tsx`, its
   story, an `index.ts` barrel, and (later) tests. The barrel keeps `@/components/ui/<name>`
   imports resolving for other shadcn components.
-- Add with `pnpm new:component` (see the **add-component** skill, `react.md`). Refresh with
+- Add with `pnpm import:component` (see the **add-component** skill, `react.md`), or
+  `pnpm new:component` for a home-grown `curve-*` component. Refresh with
   `pnpm update:component`, or **update-component** (`react.md`) for components without an
   `.upstream/` snapshot. Never `shadcn add --overwrite`.
 - The shadcn registry lists `cn` as an npm dependency and imports it `from "cn"`;
-  `new:component` removes the package and points the import at `@/lib/utils`.
+  `import:component` removes the package and points the import at `@/lib/utils`.
 - Library build externalises bare imports; relative + `@/` aliased imports are bundled
   (`vite.config.ts`). `.d.ts` files land under `dist/src/` — that's why `package.json`
   `types` points at `dist/src/index.d.ts`.
@@ -116,11 +117,12 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   import each other through it, and `ng-packagr` inlines those into the build.
 - Runtime deps of the library must be listed in `ng-package.json` →
   `allowedNonPeerDependencies`, or `ng-packagr` fails the build.
-- Add with `pnpm new:component` (see the **add-component** skill, `angular.md`). Refresh with
+- Add with `pnpm import:component` (see the **add-component** skill, `angular.md`), or
+  `pnpm new:component` for a home-grown `curve-*` component. Refresh with
   `pnpm update:component`, or **update-component** (`angular.md`) for components without an
   `.upstream/` snapshot. Never re-run `ng g @spartan-ng/cli:ui` as an overwrite.
 - `@spartan-ng/cli` is on 1.x but `@spartan-ng/brain` is still `0.0.1-alpha.720`. The CLI
-  tries to bump brain on every `ng g`; `new:component` reverts that and refuses components
+  tries to bump brain on every `ng g`; `import:component` reverts that and refuses components
   whose helm needs brain 1.x (e.g. `message-scroller`). Upgrading brain is a separate change.
 
 ### Storybook
@@ -216,7 +218,8 @@ Gotchas:
 ## Definition of done for a new component
 
 1. Component vendored via the framework's CLI (don't hand-write primitives), preferably with
-   `pnpm new:component`, which also keeps the `.upstream/` snapshot.
+   `pnpm import:component`, which also keeps the `.upstream/` snapshot (home-grown
+   components: `pnpm new:component`).
 2. Exported from the package entry (`src/index.ts` / `src/public-api.ts`).
 3. A Storybook story covering the component's full surface (variants, sizes, states).
 4. `pnpm check:conventions`, `pnpm build`, `pnpm lint`, `pnpm format`, and `pnpm test:visual`

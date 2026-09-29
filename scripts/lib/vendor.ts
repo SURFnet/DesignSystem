@@ -1,6 +1,6 @@
 /**
  * Runs the upstream CLIs (shadcn for React, Spartan for Angular) and applies the
- * mechanical fix-ups Curve always needs afterwards. Used by new-component (in the
+ * mechanical fix-ups Curve always needs afterwards. Used by import:component (in the
  * repo) and update-component (in a throwaway worktree), so both see identical
  * upstream output.
  */
@@ -76,7 +76,7 @@ function vendorReact(name: string, { root, live }: VendorOptions): VendorResult 
       files.push(join('src/components/ui', file));
       warnings.push(
         `shadcn also vendored "${dep}" (${file}), which Curve does not have yet. ` +
-          `Move it into src/components/ui/${dep}/ or add it with \`pnpm new:component ${dep}\`.`,
+          `Move it into src/components/ui/${dep}/ or add it with \`pnpm import:component ${dep}\`.`,
       );
     }
   }
