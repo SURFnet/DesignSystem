@@ -1,6 +1,6 @@
 /**
  * Shared paths, naming and file helpers for the component scripts
- * (new-component, update-component, check-conventions).
+ * (scaffold, update-component, check-conventions).
  */
 
 import { execSync, type ExecSyncOptions } from 'node:child_process';

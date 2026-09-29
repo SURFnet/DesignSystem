@@ -26,7 +26,7 @@ source of truth. Diff, then merge.
 ## Start here: `pnpm update:component`
 
 If `packages/<fw>/.upstream/<name>/` exists (every component added with
-`pnpm new:component`), run:
+`pnpm import:component`), run:
 
 ```bash
 pnpm update:component <name>          # or --react / --angular

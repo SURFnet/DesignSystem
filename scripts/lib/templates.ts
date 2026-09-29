@@ -1,5 +1,5 @@
 /**
- * File templates for `pnpm new:component`. Each returns a starting point that
+ * File templates for `pnpm new:component` and `pnpm import:component`. Each returns a starting point that
  * compiles and passes the conventions check; the TODOs mark what a person still
  * has to fill in.
  */
@@ -170,7 +170,7 @@ export const Default: Story = {
 `;
 }
 
-// ── Home-grown (--custom) ────────────────────────────────────────────────────
+// ── Home-grown (new:component) ────────────────────────────────────────────────────
 //
 // No upstream CLI: the generator writes a small working component instead, in
 // the shape of curve-data-table. Each contract axis becomes a typed prop that

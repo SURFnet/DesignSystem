@@ -22,7 +22,7 @@ for the pattern, migration table, and gaps (e.g. overlay motion not ported).
 
 ## Steps
 
-> `pnpm new:component <name>` does steps 1, 2 and 5–6 and stubs 3 and 7 for you (see [`SKILL.md`](SKILL.md)).
+> `pnpm import:component <name>` does steps 1, 2 and 5–6 and stubs 3 and 7 for you (see [`SKILL.md`](SKILL.md)).
 > Follow the steps below for the rest, or all of them if you can't use the script.
 
 1. **Define the contract first.** Before vendoring, add `<name>Contract` to
