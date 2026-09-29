@@ -55,6 +55,10 @@ if (!name || !isKebab(name)) {
   console.error('Usage: pnpm update:component <kebab-name> [--react] [--angular]');
   process.exit(1);
 }
+if (name.startsWith('curve-')) {
+  console.error(`"${name}" is home-grown: there is no upstream to merge from.`);
+  process.exit(1);
+}
 
 const requested: Framework[] =
   args.react || args.angular

@@ -55,6 +55,7 @@ pnpm storybook:react                                 # React Storybook (port 600
 pnpm storybook:angular                               # Angular Storybook (port 6007)
 pnpm build-storybook && pnpm test:visual             # story screenshots vs baselines (React + Angular)
 pnpm new:component <name> [--react|--angular]        # scaffold a component (contract, vendor, exports, stubs)
+pnpm new:component curve-<name> --custom             # scaffold a home-grown component (no upstream CLI)
 pnpm update:component <name>                         # 3-way merge upstream into a vendored component
 pnpm check:conventions                               # repo conventions (runs in CI)
 ```

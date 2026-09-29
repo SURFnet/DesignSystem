@@ -149,7 +149,15 @@ Use the generator. It runs the upstream CLIs and does all the mechanical wiring:
 pnpm new:component card                                   # React + Angular
 pnpm new:component card --react                           # one framework only
 pnpm new:component card --description "A bordered surface…" --axis variants=default,outline
+pnpm new:component curve-pill --custom --axis variants=default,outline   # home-grown, no upstream
 ```
+
+With `--custom`, for a home-grown component with no shadcn/Spartan equivalent, no CLI runs and there
+is no upstream snapshot. The name must start with `curve-` (like `curve-data-table`), so it can
+never collide with an upstream component. You get a small working component in each framework:
+each contract axis becomes a typed prop that sets a `data-*` attribute, plus a CSS rule stub per
+value and Playground + per-axis stories with the same names in both Storybooks. The steps below
+describe the default (vendored) flow.
 
 For each framework it:
 
