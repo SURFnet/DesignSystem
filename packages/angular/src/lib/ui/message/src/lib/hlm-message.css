@@ -1,0 +1,75 @@
+/* Message — `hlmMessage` and its parts. Mirrors packages/react/.../message.module.css. */
+.curve-message-group {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-message {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.curve-message[data-align='end'] {
+  flex-direction: row-reverse;
+}
+
+.curve-message-avatar {
+  display: flex;
+  width: fit-content;
+  min-width: calc(var(--spacing, 0.25rem) * 8);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: var(--muted);
+}
+
+/* Keep the avatar level with the last bubble, not with the footer below it. */
+.curve-message:has([data-slot='message-footer']) .curve-message-avatar {
+  translate: 0 calc(var(--spacing, 0.25rem) * -8);
+}
+
+.curve-message-content {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 2.5);
+  overflow-wrap: break-word;
+}
+
+.curve-message[data-align='end'] .curve-message-content > [data-slot] {
+  align-self: flex-end;
+}
+
+.curve-message-header,
+.curve-message-footer {
+  display: flex;
+  max-width: 100%;
+  min-width: 0;
+  align-items: center;
+  padding-inline: calc(var(--spacing, 0.25rem) * 3);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.curve-message[data-align='end'] .curve-message-footer {
+  justify-content: flex-end;
+}
+
+/* Ghost (unboxed) content has no bubble padding to line up with. */
+.curve-message:has([data-variant='ghost']) .curve-message-header,
+.curve-message:has([data-variant='ghost']) .curve-message-footer {
+  padding-inline: 0;
+}

@@ -8,6 +8,32 @@ description: Use when adding, scaffolding, or vendoring a component into the des
 The design system ships components per framework. Decide the scope first, then follow the
 matching playbook(s) in this skill's subfiles.
 
+## Start here: `pnpm import:component` or `pnpm new:component`
+
+Two generators, same options (`[--react] [--angular] --description "…" [--axis variants=a,b]`):
+
+- **`pnpm import:component <name>`** for a shadcn / Spartan component.
+- **`pnpm new:component <name>`** for a home-grown one (no upstream equivalent).
+
+**Importing.** `import:component` does the mechanical steps of both playbooks: contract, vendoring through the
+CLI, undoing CLI side effects (dependency bumps, the bogus `cn` package, duplicate
+dependency components), barrel, exports, CSS stub (imported in Angular `styles.css`),
+story stub and the `.upstream/` snapshot. It refuses up front when the component
+exists or Spartan needs a newer `@spartan-ng/brain`. For the latter, add React only
+and document the gap. What's left is what the script prints at the end:
+porting Tailwind to CSS, wiring contract axes, full stories and the changeset. The
+playbooks below remain the reference for those steps and the manual fallback.
+`pnpm check:conventions` tells you when you're done.
+
+**Home-grown.** `pnpm new:component pill --axis variants=default,outline` creates
+`curve-pill`: home-grown names always get the `curve-` prefix (added for you), so they
+never collide with an upstream component. It refuses bare names that Spartan already
+has (import those instead). No CLI runs and there's no `.upstream/` snapshot. Instead you get a small working
+component in each framework (React `CurvePill`, Angular `CurvePillComponent` with the
+`curve-pill` selector, like `curve-data-table`). Each axis is wired to a typed prop plus
+a `data-*` attribute, with a CSS rule stub per value and Playground + per-axis stories.
+Build the real component from there and keep both frameworks in parity.
+
 **Already in the repo?** Do not re-run this add flow. Use
 [`update-component`](../update-component/SKILL.md) so Curve design and accessibility
 edits are merged, not overwritten. Changes can have an effect on accessibility —

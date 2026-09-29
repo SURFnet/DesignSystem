@@ -48,6 +48,8 @@ jobs:
 
       - run: pnpm lint
 
+      - run: pnpm check:conventions
+
       - run: pnpm build
 
       # The audit runs @storybook/test-runner, which drives Playwright Chromium

@@ -54,7 +54,16 @@ pnpm storybook                                       # both Storybooks (React :6
 pnpm storybook:react                                 # React Storybook (port 6006)
 pnpm storybook:angular                               # Angular Storybook (port 6007)
 pnpm build-storybook && pnpm test:visual             # story screenshots vs baselines (React + Angular)
+pnpm import:component <name> [--react|--angular]     # vendor a shadcn/Spartan component (contract, exports, stubs)
+pnpm new:component <name> [--react|--angular]        # create a home-grown curve-<name> component (no upstream)
+pnpm update:component <name>                         # 3-way merge upstream into a vendored component
+pnpm check:conventions                               # repo conventions (runs in CI)
 ```
+
+**Prefer the scripts over hand-following the skills.** `import:component`, `new:component` and
+`update:component` do the mechanical steps deterministically; the skills cover what's left.
+`check:conventions` enforces barrels, exports, stories, contracts, no leftover Tailwind and
+story-title parity. Accepted exceptions live in `scripts/conventions.allowlist.json`.
 
 Always run `pnpm lint` and `pnpm format` before considering a change done, and rebuild
 the package you touched. Refresh snapshot baselines with `pnpm test:visual:update`
@@ -85,16 +94,17 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 ### React (`@surfnet/curve-react`)
 
 - Components are **vendored** via the shadcn CLI. The package is configured for **Base
-  UI** primitives (`components.json` → `"style": "base-nova"`) and **Phosphor** icons
+  UI** primitives (`components.json` → `"style": "base-vega"`) and **Phosphor** icons
   (`"iconLibrary": "phosphor"`). **Do not** switch `style` back to a Radix value.
 - **One directory per component**: `src/components/ui/<name>/` holds `<name>.tsx`, its
   story, an `index.ts` barrel, and (later) tests. The barrel keeps `@/components/ui/<name>`
   imports resolving for other shadcn components.
-- See the **add-component** skill (`react.md`) for the exact flow. To refresh an
-  already-vendored component from shadcn, see **update-component** (`react.md`) —
-  never `shadcn add --overwrite`. To refresh an
-  already-vendored component from shadcn, see **update-component** (`react.md`) —
-  never `shadcn add --overwrite`.
+- Add with `pnpm import:component` (see the **add-component** skill, `react.md`), or
+  `pnpm new:component` for a home-grown `curve-*` component. Refresh with
+  `pnpm update:component`, or **update-component** (`react.md`) for components without an
+  `.upstream/` snapshot. Never `shadcn add --overwrite`.
+- The shadcn registry lists `cn` as an npm dependency and imports it `from "cn"`;
+  `import:component` removes the package and points the import at `@/lib/utils`.
 - Library build externalises bare imports; relative + `@/` aliased imports are bundled
   (`vite.config.ts`). `.d.ts` files land under `dist/src/` — that's why `package.json`
   `types` points at `dist/src/index.d.ts`.
@@ -107,11 +117,13 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   import each other through it, and `ng-packagr` inlines those into the build.
 - Runtime deps of the library must be listed in `ng-package.json` →
   `allowedNonPeerDependencies`, or `ng-packagr` fails the build.
-- See the **add-component** skill (`angular.md`) for the exact flow. To refresh an
-  already-vendored helm component, see **update-component** (`angular.md`) — never
-  re-run `ng g @spartan-ng/cli:ui` as an overwrite. To refresh an
-  already-vendored helm component, see **update-component** (`angular.md`) — never
-  re-run `ng g @spartan-ng/cli:ui` as an overwrite.
+- Add with `pnpm import:component` (see the **add-component** skill, `angular.md`), or
+  `pnpm new:component` for a home-grown `curve-*` component. Refresh with
+  `pnpm update:component`, or **update-component** (`angular.md`) for components without an
+  `.upstream/` snapshot. Never re-run `ng g @spartan-ng/cli:ui` as an overwrite.
+- `@spartan-ng/cli` is on 1.x but `@spartan-ng/brain` is still `0.0.1-alpha.720`. The CLI
+  tries to bump brain on every `ng g`; `import:component` reverts that and refuses components
+  whose helm needs brain 1.x (e.g. `message-scroller`). Upgrading brain is a separate change.
 
 ### Storybook
 
@@ -126,9 +138,9 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   layout classes from `@surfnet/curve-storybook-config/story-chrome.css` (`packages/storybook-config/src/story-chrome.css`), shared by both Storybooks (React imports it in
   `.storybook/preview.ts`, Angular lists it in `angular.json` `styles`). Add a class there
   when a story needs one; components never use these classes.
-- Both Storybooks share `@storybook/addon-a11y` + `@storybook/addon-docs`, and every story
-  meta sets `tags: ['autodocs']` so each gets a generated **Docs** page. Keep the two
-  packages' addon sets in sync.
+- Both Storybooks share `@storybook/addon-a11y` + `@storybook/addon-docs`, and both
+  `.storybook/preview.ts` files set `tags: ['autodocs']` project-wide, so every story gets a
+  generated **Docs** page. Keep the two packages' addon sets in sync.
 - Ports are pinned in the configs so both can run at once: **React → 6006** (the
   `storybook` script's `-p 6006` in `packages/react/package.json`), **Angular → 6007**
   (the `storybook` target's `"port": 6007` in `packages/angular/angular.json`).
@@ -205,10 +217,13 @@ Gotchas:
 
 ## Definition of done for a new component
 
-1. Component vendored via the framework's CLI (don't hand-write primitives).
+1. Component vendored via the framework's CLI (don't hand-write primitives), preferably with
+   `pnpm import:component`, which also keeps the `.upstream/` snapshot (home-grown
+   components: `pnpm new:component`).
 2. Exported from the package entry (`src/index.ts` / `src/public-api.ts`).
 3. A Storybook story covering the component's full surface (variants, sizes, states).
-4. `pnpm build`, `pnpm lint`, `pnpm format`, and `pnpm test:visual` all pass.
+4. `pnpm check:conventions`, `pnpm build`, `pnpm lint`, `pnpm format`, and `pnpm test:visual`
+   all pass.
 5. A changeset added (`pnpm changeset`) if a publishable package changed.
 
 ## Skills

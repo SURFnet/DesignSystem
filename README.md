@@ -143,46 +143,72 @@ so app utilities like `bg-primary` resolve to the same `@surfnet/curve-tokens` v
 
 ## Adding a component
 
-### React (shadcn / Base UI)
-
-shadcn components are **vendored** — copied into the package so you own and can edit
-them. The package is configured (in [`components.json`](packages/react/components.json))
-for **Base UI** primitives (`"style": "base-nova"`) and **Phosphor** icons
-(`"iconLibrary": "phosphor"` → `@phosphor-icons/react`).
-
-We keep **one directory per component** (component + stories + future tests live
-together). Pass `--path` with a **trailing slash** so the CLI writes the component
-straight into its own folder:
+There are two generators with the same options:
 
 ```bash
-cd packages/react
-# note the trailing slash — it puts card.tsx inside src/components/ui/card/
-pnpm dlx shadcn@latest add card --path src/components/ui/card/
+# A shadcn / Spartan component: vendored through the upstream CLIs
+pnpm import:component card                                # React + Angular
+pnpm import:component card --react                        # one framework only
+pnpm import:component card --description "A bordered surface…" --axis variants=default,outline
+
+# A home-grown component: no upstream, named curve-<name>
+pnpm new:component pill --axis variants=default,outline   # creates curve-pill
 ```
 
-This creates `src/components/ui/card/card.tsx`. Then finish the wiring:
+### Home-grown: `new:component`
 
-1. Add a barrel — `src/components/ui/card/index.ts` with `export * from './card';`.
-   This keeps `@/components/ui/card` imports working for other shadcn components.
-2. Re-export it from [`src/index.ts`](packages/react/src/index.ts).
-3. Add a `card.stories.tsx` in the same folder (mirror
-   [`button.stories.tsx`](packages/react/src/components/ui/button/button.stories.tsx)).
+No CLI runs and there is no upstream snapshot. The name always gets the `curve-` prefix (like
+`curve-data-table`), so it never collides with an upstream component. Bare names that Spartan
+already has are refused; import those instead. You get a small working component in each
+framework: each contract axis becomes a typed prop that sets a `data-*` attribute, plus a CSS rule
+stub per value and Playground + per-axis stories with the same names in both Storybooks. The
+contract, barrel, exports and Angular `styles.css` import are wired up as below.
+
+### Upstream: `import:component`
+
+For each framework it:
+
+1. writes the contract (`packages/contracts/src/card.ts`) and exports it;
+2. vendors the component with the upstream CLI: shadcn (Base UI + Phosphor, per
+   [`components.json`](packages/react/components.json)) or Spartan (`ng g @spartan-ng/cli:ui`,
+   followed by `fix-helm-imports`);
+3. undoes the CLIs' side effects: dependency bumps, unwanted packages (`cn`,
+   `tw-animate-css`), edits to other tracked files, and duplicate copies of components
+   Curve already has;
+4. adds the barrel, the package export, a CSS stub (`card.module.css` /
+   `hlm-card.css`, imported in `styles.css`) and a story stub;
+5. saves a pristine upstream copy in `packages/<fw>/.upstream/card/`, for
+   `pnpm update:component` later.
+
+It stops before touching anything if the component already exists, or if Spartan needs a
+newer `@spartan-ng/brain` than the repo has. It finishes with the list of what's left to do by hand:
+
+- port the Tailwind class strings to CSS (a CSS Module in React, `curve-*` classes in Angular),
+  using Curve tokens;
+- wire each contract axis into the component (`satisfies Record<…>` / `*Name` prop types);
+- write stories covering every variant, size and state, with the same story names in both
+  frameworks;
+- fill in the contract docs, then `pnpm changeset`.
+
+`pnpm check:conventions` (also run in CI) fails until those are done: it flags leftover
+Tailwind, `TODO`s in contracts, missing barrels, exports, stories or contracts, and
+React/Angular story-title drift. Accepted exceptions go in
+[`scripts/conventions.allowlist.json`](scripts/conventions.allowlist.json).
 
 The resulting layout:
 
 ```
-src/components/ui/
-└── button/
-    ├── button.tsx          # the component (yours to edit)
-    ├── button.stories.tsx  # Storybook story
-    └── index.ts            # barrel → export * from './button'
+packages/react/src/components/ui/card/      packages/angular/src/lib/ui/card/src/
+├── card.tsx           # yours to edit        ├── index.ts
+├── card.module.css    # component styles     └── lib/
+├── card.stories.tsx                               ├── hlm-card.ts
+└── index.ts           # barrel                    ├── hlm-card.css
+                                                   └── hlm-card.stories.ts
 ```
 
-> shadcn pulls the Base UI variant and Phosphor icon imports automatically from the
-> `style` and `iconLibrary` fields in `components.json` — don't switch `style` back to
-> a Radix style.
+### Icons
 
-#### Icons (React)
+#### React
 
 Icons come from [`@phosphor-icons/react`](https://phosphoricons.com), an **optional peer
 dependency** — install it alongside the package if you use icons:
@@ -208,30 +234,7 @@ The button auto-sizes any `<svg>` it contains per button size; `data-icon="inlin
 / `data-icon="inline-end"` tighten the padding next to text. See the **Button** stories
 (`IconSizes`, `WithIcon`).
 
-### Angular (Spartan)
-
-Spartan splits each component into a `brain` primitive (installed from npm) and `helm`
-styles (**copied into the package**). The generator is configured via
-[`components.json`](packages/angular/components.json)
-(`componentsPath: src/lib/ui`, `importAlias: @spartan-ng/helm`).
-
-```bash
-cd packages/angular
-pnpm exec ng g @spartan-ng/cli:ui <component>   # e.g. card, dialog, input
-```
-
-This copies the helm code into `src/lib/ui/<component>/`, installs the matching
-`@spartan-ng/brain` primitive, and adds a `@spartan-ng/helm/<component>` path mapping
-in `tsconfig.json`. Then:
-
-1. Re-export it from [`src/public-api.ts`](packages/angular/src/public-api.ts).
-2. Add a `*.stories.ts` (mirror
-   [`hlm-button.stories.ts`](packages/angular/src/lib/ui/button/src/lib/hlm-button.stories.ts)).
-
-> The vendored helm files import each other through the `@spartan-ng/helm/*` path
-> alias, which resolves to local source — `ng-packagr` inlines them into the build.
-
-#### Icons (Angular)
+#### Angular
 
 Angular uses [ng-icons](https://ng-icons.github.io/ng-icons/) for icons. Install
 `@ng-icons/core` (the `NgIcon` component, an **optional peer dependency**) plus a glyph
@@ -300,12 +303,22 @@ readers, names, or contrast — including on stories tagged `a11y-gap` /
 `a11y-minor` in Storybook. Check the Accessibility addon before you consider an
 edit done.
 
-To refresh a component from upstream, follow
+To refresh a component from upstream:
+
+```bash
+pnpm update:component card            # or --react / --angular
+```
+
+This fetches today's upstream in a throwaway git worktree and three-way merges it into
+your copy per file (`git merge-file`), using the `.upstream/` snapshot as the common base.
+Clean merges are written in place; real conflicts get standard `<<<<<<<` markers to
+resolve in your editor. Your repo is only touched for the component's own files.
+
+Components vendored before the scripts existed have no `.upstream/` snapshot. For those,
+follow the manual flow in
 [`.agents/skills/update-component/SKILL.md`](.agents/skills/update-component/SKILL.md)
 (React: `react.md`, Angular: `angular.md`): diff, merge, keep `CURVE:` markers.
-Do not `shadcn add --overwrite` or re-run `ng g @spartan-ng/cli:ui` as a
-shortcut. New components still use
-[`.agents/skills/add-component/SKILL.md`](.agents/skills/add-component/SKILL.md).
+Never `shadcn add --overwrite` or re-run `ng g @spartan-ng/cli:ui` as a shortcut.
 
 ## Theming
 
