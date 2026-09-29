@@ -29,6 +29,7 @@ export * from '@/components/ui/input-otp';
 export * from '@/components/ui/item';
 export * from '@/components/ui/kbd';
 export * from '@/components/ui/label';
+export * from '@/components/ui/message';
 export * from '@/components/ui/native-select';
 export * from '@/components/ui/navigation-menu';
 export * from '@/components/ui/pagination';

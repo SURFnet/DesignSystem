@@ -35,6 +35,7 @@ export * from './lib/ui/input-otp/src';
 export * from './lib/ui/item/src';
 export * from './lib/ui/kbd/src';
 export * from './lib/ui/label/src';
+export * from './lib/ui/message/src';
 export * from './lib/ui/native-select/src';
 export * from './lib/ui/navigation-menu/src';
 export * from './lib/ui/pagination/src';

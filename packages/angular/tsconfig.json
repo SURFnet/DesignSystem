@@ -67,7 +67,8 @@
       "@spartan-ng/helm/switch": ["./src/lib/ui/switch/src/index.ts"],
       "@spartan-ng/helm/tabs": ["./src/lib/ui/tabs/src/index.ts"],
       "@spartan-ng/helm/toggle": ["./src/lib/ui/toggle/src/index.ts"],
-      "@spartan-ng/helm/toggle-group": ["./src/lib/ui/toggle-group/src/index.ts"]
+      "@spartan-ng/helm/toggle-group": ["./src/lib/ui/toggle-group/src/index.ts"],
+      "@spartan-ng/helm/message": ["./src/lib/ui/message/src/index.ts"]
     }
   },
   "angularCompilerOptions": {
