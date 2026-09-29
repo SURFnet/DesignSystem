@@ -1,0 +1,114 @@
+.scroller {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.viewport {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  contain: content;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+/* Fade the bottom edge while there is more conversation below. */
+.viewport[data-scrollable~='end'] {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
+}
+
+/* Hide the scrollbar while the primitive scrolls for the user. */
+.viewport[data-autoscrolling] {
+  scrollbar-color: transparent transparent;
+}
+
+/* Avoid a flash of the wrong scroll position on first render. */
+.viewport[data-pending-scroll] {
+  visibility: hidden;
+}
+
+.content {
+  display: flex;
+  height: max-content;
+  min-height: 100%;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.item {
+  min-width: 0;
+  flex-shrink: 0;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 10rem;
+}
+
+/*
+ * Jump button, rendered through Curve's Button. [data-direction] raises
+ * specificity over the button's own variant colours.
+ */
+.button[data-direction] {
+  /* Centre on the inline axis; flips sign in RTL where inset-inline-start is right. */
+  --shift-x: -50%;
+  position: absolute;
+  inset-inline-start: 50%;
+  translate: var(--shift-x) 0;
+  border-color: var(--border);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.button[data-direction]:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.button[data-direction='end'] {
+  bottom: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.button[data-direction='start'] {
+  top: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.button[data-direction='start'] svg {
+  rotate: 180deg;
+}
+
+.button[data-active='false'] {
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.95;
+}
+
+.button[data-direction='end'][data-active='false'] {
+  translate: var(--shift-x) 100%;
+}
+
+.button[data-direction='start'][data-active='false'] {
+  translate: var(--shift-x) -100%;
+}
+
+:dir(rtl) .button[data-direction] {
+  --shift-x: 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button[data-direction] {
+    transition-property: translate, scale, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .button[data-active='false'] {
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+  }
+}

@@ -34,6 +34,7 @@ export {
 export { kbdContract } from './kbd.js';
 export { labelContract } from './label.js';
 export { messageContract, type MessageAlignName } from './message.js';
+export { messageScrollerContract } from './message-scroller.js';
 export { nativeSelectContract, type NativeSelectSizeName } from './native-select.js';
 export { navigationMenuContract } from './navigation-menu.js';
 export { paginationContract } from './pagination.js';
