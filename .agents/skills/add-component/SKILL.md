@@ -24,6 +24,14 @@ porting Tailwind to CSS, wiring contract axes, full stories and the changeset. T
 playbooks below remain the reference for those steps and the manual fallback.
 `pnpm check:conventions` tells you when you're done.
 
+**Home-grown components** (no shadcn/Spartan equivalent) use `--custom` and a `curve-`
+prefix, e.g. `pnpm new:component curve-pill --custom --axis variants=default,outline`.
+No CLI runs and there's no `.upstream/` snapshot. Instead you get a small working
+component in each framework (React `CurvePill`, Angular `CurvePillComponent` with the
+`curve-pill` selector, like `curve-data-table`). Each axis is wired to a typed prop plus
+a `data-*` attribute, with a CSS rule stub per value and Playground + per-axis stories.
+Build the real component from there and keep both frameworks in parity.
+
 **Already in the repo?** Do not re-run this add flow. Use
 [`update-component`](../update-component/SKILL.md) so Curve design and accessibility
 edits are merged, not overwritten. Changes can have an effect on accessibility —
