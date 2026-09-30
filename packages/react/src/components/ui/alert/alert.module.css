@@ -11,7 +11,7 @@
   line-height: 1.25rem;
 }
 
-.alert:has([data-slot='alert-action']) {
+.alert:has(.action) {
   padding-inline-end: 4.5rem;
 }
 
@@ -28,44 +28,35 @@
   height: 1rem;
 }
 
-.alert[data-variant='default'],
 .variantDefault {
   background-color: var(--card);
   color: var(--card-foreground);
 }
 
-.alert[data-variant='info'],
 .variantInfo {
   background-color: var(--info-subtle);
   color: var(--info-subtle-foreground);
 }
 
-.alert[data-variant='success'],
 .variantSuccess {
   background-color: var(--success-subtle);
   color: var(--success-subtle-foreground);
 }
 
-.alert[data-variant='warning'],
 .variantWarning {
   background-color: var(--warning-subtle);
   color: var(--warning-subtle-foreground);
 }
 
-.alert[data-variant='danger'],
 .variantDanger {
   background-color: var(--danger-subtle);
   color: var(--danger-subtle-foreground);
 }
 
-.alert[data-variant='info'] [data-slot='alert-title'],
-.variantInfo [data-slot='alert-title'],
-.alert[data-variant='success'] [data-slot='alert-title'],
-.variantSuccess [data-slot='alert-title'],
-.alert[data-variant='warning'] [data-slot='alert-title'],
-.variantWarning [data-slot='alert-title'],
-.alert[data-variant='danger'] [data-slot='alert-title'],
-.variantDanger [data-slot='alert-title'] {
+.variantInfo > .title,
+.variantSuccess > .title,
+.variantWarning > .title,
+.variantDanger > .title {
   color: var(--foreground);
 }
 

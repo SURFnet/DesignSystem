@@ -64,101 +64,82 @@
   border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
 }
 
-/* Variants — dual selectors support `data-variant` on Button and classes from `buttonVariants()` */
-.button[data-variant='default'],
+/* Variants */
 .variantDefault {
   background-color: var(--primary);
   color: var(--primary-foreground);
 }
 
-.button[data-variant='default']:hover,
 .variantDefault:hover {
   border-color: transparent;
   background-color: color-mix(in oklch, var(--primary) 80%, transparent);
 }
 
-.button[data-variant='outline'],
 .variantOutline {
   border-color: var(--border);
   background-color: var(--background);
   color: var(--foreground);
 }
 
-.button[data-variant='outline']:hover,
-.button[data-variant='outline'][aria-expanded='true'],
 .variantOutline:hover,
 .variantOutline[aria-expanded='true'] {
   background-color: var(--muted);
   color: var(--foreground);
 }
 
-:global(.dark) .button[data-variant='outline'],
 :global(.dark) .variantOutline {
   border-color: var(--input);
   background-color: color-mix(in oklch, var(--input) 30%, transparent);
 }
 
-:global(.dark) .button[data-variant='outline']:hover,
 :global(.dark) .variantOutline:hover {
   background-color: color-mix(in oklch, var(--input) 50%, transparent);
 }
 
-.button[data-variant='secondary'],
 .variantSecondary {
   background-color: var(--secondary);
   color: var(--secondary-foreground);
 }
 
-.button[data-variant='secondary']:hover,
-.button[data-variant='secondary'][aria-expanded='true'],
 .variantSecondary:hover,
 .variantSecondary[aria-expanded='true'] {
   background-color: color-mix(in oklch, var(--secondary), var(--foreground) 5%);
 }
 
-.button[data-variant='ghost'],
 .variantGhost {
   background-color: transparent;
   color: var(--foreground);
 }
 
-.button[data-variant='ghost']:hover,
-.button[data-variant='ghost'][aria-expanded='true'],
 .variantGhost:hover,
 .variantGhost[aria-expanded='true'] {
   background-color: var(--muted);
   color: var(--foreground);
 }
 
-:global(.dark) .button[data-variant='ghost']:hover,
 :global(.dark) .variantGhost:hover {
   background-color: color-mix(in oklch, var(--muted) 50%, transparent);
 }
 
-.button[data-variant='destructive'],
 .variantDestructive {
   background-color: var(--destructive);
   color: var(--destructive-foreground);
 }
 
-.button[data-variant='destructive']:hover,
 .variantDestructive:hover {
   border-color: transparent;
   background-color: color-mix(in oklch, var(--destructive) 90%, transparent);
 }
 
-.button[data-variant='destructive']:focus-visible,
 .variantDestructive:focus-visible {
   border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
 }
 
-:global(.dark) .button[data-variant='destructive']:focus-visible,
 :global(.dark) .variantDestructive:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
 }
 
-.button[data-variant='link'],
 .variantLink {
   border-color: transparent;
   background-color: transparent;
@@ -166,20 +147,17 @@
   text-underline-offset: 4px;
 }
 
-.button[data-variant='link']:hover,
 .variantLink:hover {
   text-decoration: underline;
 }
 
 /* Sizes */
-.button[data-size='default'],
 .sizeDefault {
   height: calc(var(--spacing, 0.25rem) * 9);
   gap: calc(var(--spacing, 0.25rem) * 1.5);
   padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
 }
 
-.button[data-size='sm'],
 .sizeSm {
   height: calc(var(--spacing, 0.25rem) * 8);
   gap: calc(var(--spacing, 0.25rem) * 1);
@@ -187,21 +165,18 @@
   border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 10px);
 }
 
-.button[data-size='lg'],
 .sizeLg {
   height: calc(var(--spacing, 0.25rem) * 10);
   gap: calc(var(--spacing, 0.25rem) * 1.5);
   padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
 }
 
-.button[data-size='icon'],
 .sizeIcon {
   width: calc(var(--spacing, 0.25rem) * 9);
   height: calc(var(--spacing, 0.25rem) * 9);
   padding-inline: 0;
 }
 
-.button[data-size='icon-xs'],
 .sizeIconXs {
   width: calc(var(--spacing, 0.25rem) * 6);
   height: calc(var(--spacing, 0.25rem) * 6);
@@ -209,13 +184,11 @@
   border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 8px);
 }
 
-.button[data-size='icon-xs'] svg,
 .sizeIconXs svg {
   width: calc(var(--spacing, 0.25rem) * 3);
   height: calc(var(--spacing, 0.25rem) * 3);
 }
 
-.button[data-size='icon-sm'],
 .sizeIconSm {
   width: calc(var(--spacing, 0.25rem) * 8);
   height: calc(var(--spacing, 0.25rem) * 8);
@@ -223,19 +196,16 @@
   border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 10px);
 }
 
-.button[data-size='icon-lg'],
 .sizeIconLg {
   width: calc(var(--spacing, 0.25rem) * 10);
   height: calc(var(--spacing, 0.25rem) * 10);
   padding-inline: 0;
 }
 
-.button[data-size='sm']:has([data-icon='inline-end']),
 .sizeSm:has([data-icon='inline-end']) {
   padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
 }
 
-.button[data-size='sm']:has([data-icon='inline-start']),
 .sizeSm:has([data-icon='inline-start']) {
   padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
 }

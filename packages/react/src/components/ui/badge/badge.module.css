@@ -45,149 +45,122 @@
   height: calc(var(--spacing, 0.25rem) * 3);
 }
 
-.badge[data-variant='default'],
 .variantDefault {
   background-color: var(--primary);
   color: var(--primary-foreground);
 }
 
-a.badge[data-variant='default']:hover,
 a.variantDefault:hover {
   background-color: color-mix(in oklch, var(--primary) 80%, transparent);
 }
 
-.badge[data-variant='secondary'],
 .variantSecondary {
   background-color: var(--secondary);
   color: var(--secondary-foreground);
 }
 
-a.badge[data-variant='secondary']:hover,
 a.variantSecondary:hover {
   background-color: color-mix(in oklch, var(--secondary) 80%, transparent);
 }
 
-.badge[data-variant='info'],
 .variantInfo {
   background-color: var(--info-subtle);
   color: var(--info-subtle-foreground);
 }
 
-.badge[data-variant='info']:focus-visible,
 .variantInfo:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 20%, transparent);
 }
 
-:global(.dark) .badge[data-variant='info']:focus-visible,
 :global(.dark) .variantInfo:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--info) 40%, transparent);
 }
 
-a.badge[data-variant='info']:hover,
 a.variantInfo:hover {
   background-color: var(--info-subtle-hover);
 }
 
-.badge[data-variant='success'],
 .variantSuccess {
   background-color: var(--success-subtle);
   color: var(--success-subtle-foreground);
 }
 
-.badge[data-variant='success']:focus-visible,
 .variantSuccess:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 20%, transparent);
 }
 
-:global(.dark) .badge[data-variant='success']:focus-visible,
 :global(.dark) .variantSuccess:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 40%, transparent);
 }
 
-a.badge[data-variant='success']:hover,
 a.variantSuccess:hover {
   background-color: var(--success-subtle-hover);
 }
 
-.badge[data-variant='warning'],
 .variantWarning {
   background-color: var(--warning-subtle);
   color: var(--warning-subtle-foreground);
 }
 
-.badge[data-variant='warning']:focus-visible,
 .variantWarning:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 20%, transparent);
 }
 
-:global(.dark) .badge[data-variant='warning']:focus-visible,
 :global(.dark) .variantWarning:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--warning) 40%, transparent);
 }
 
-a.badge[data-variant='warning']:hover,
 a.variantWarning:hover {
   background-color: var(--warning-subtle-hover);
 }
 
-.badge[data-variant='danger'],
 .variantDanger {
   background-color: var(--danger-subtle);
   color: var(--danger-subtle-foreground);
 }
 
-.badge[data-variant='danger']:focus-visible,
 .variantDanger:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 20%, transparent);
 }
 
-:global(.dark) .badge[data-variant='danger']:focus-visible,
 :global(.dark) .variantDanger:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--danger) 40%, transparent);
 }
 
-a.badge[data-variant='danger']:hover,
 a.variantDanger:hover {
   background-color: var(--danger-subtle-hover);
 }
 
-.badge[data-variant='outline'],
 .variantOutline {
   border-color: var(--border);
   color: var(--foreground);
 }
 
-a.badge[data-variant='outline']:hover,
 a.variantOutline:hover {
   background-color: var(--muted);
   color: var(--muted-foreground);
 }
 
-.badge[data-variant='ghost'],
 .variantGhost {
   background-color: transparent;
   color: var(--foreground);
 }
 
-.badge[data-variant='ghost']:hover,
 .variantGhost:hover {
   background-color: var(--muted);
   color: var(--muted-foreground);
 }
 
-:global(.dark) .badge[data-variant='ghost']:hover,
 :global(.dark) .variantGhost:hover {
   background-color: color-mix(in oklch, var(--muted) 50%, transparent);
 }
 
-.badge[data-variant='link'],
 .variantLink {
   background-color: transparent;
   color: var(--primary-strong);
   text-underline-offset: 4px;
 }
 
-.badge[data-variant='link']:hover,
 .variantLink:hover {
   text-decoration: underline;
 }

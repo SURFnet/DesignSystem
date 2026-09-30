@@ -29,12 +29,10 @@
   flex-direction: column;
 }
 
-.list[data-variant='default'],
 .listDefault {
   background-color: var(--muted);
 }
 
-.list[data-variant='line'],
 .listLine {
   gap: calc(var(--spacing, 0.25rem) * 1);
   border-radius: 0;
@@ -116,18 +114,15 @@
   color: var(--foreground);
 }
 
-.list[data-variant='default'] .trigger[data-active],
 .listDefault .trigger[data-active] {
   box-shadow: var(--shadow-sm, 0 1px 2px 0 rgb(0 0 0 / 0.05));
 }
 
-.list[data-variant='line'] .trigger[data-active],
 .listLine .trigger[data-active] {
   background-color: transparent;
   box-shadow: none;
 }
 
-:global(.dark) .list[data-variant='line'] .trigger[data-active],
 :global(.dark) .listLine .trigger[data-active] {
   border-color: transparent;
   background-color: transparent;
@@ -141,16 +136,16 @@
   transition: opacity 150ms ease;
 }
 
-.root[data-orientation='horizontal'] .list[data-variant='line'] .trigger[data-active]::after,
-.root[data-horizontal] .list[data-variant='line'] .trigger[data-active]::after {
+.root[data-orientation='horizontal'] .listLine .trigger[data-active]::after,
+.root[data-horizontal] .listLine .trigger[data-active]::after {
   inset-inline: 0;
   bottom: -5px;
   height: 2px;
   opacity: 1;
 }
 
-.root[data-orientation='vertical'] .list[data-variant='line'] .trigger[data-active]::after,
-.root[data-vertical] .list[data-variant='line'] .trigger[data-active]::after {
+.root[data-orientation='vertical'] .listLine .trigger[data-active]::after,
+.root[data-vertical] .listLine .trigger[data-active]::after {
   inset-block: 0;
   right: -4px;
   width: 2px;

@@ -12,7 +12,7 @@
   line-height: 1.25rem;
 }
 
-.curve-alert:has([data-slot='alert-action']) {
+.curve-alert:has(.curve-alert-action) {
   padding-right: calc(var(--spacing, 0.25rem) * 18);
 }
 
@@ -56,10 +56,10 @@
   color: var(--danger-subtle-foreground);
 }
 
-.curve-alert--variant-info > [data-slot='alert-title'],
-.curve-alert--variant-success > [data-slot='alert-title'],
-.curve-alert--variant-warning > [data-slot='alert-title'],
-.curve-alert--variant-danger > [data-slot='alert-title'] {
+.curve-alert--variant-info > .curve-alert-title,
+.curve-alert--variant-success > .curve-alert-title,
+.curve-alert--variant-warning > .curve-alert-title,
+.curve-alert--variant-danger > .curve-alert-title {
   color: var(--foreground);
 }
 
@@ -67,7 +67,7 @@
   font-weight: 500;
 }
 
-[data-slot='alert']:has(> ng-icon) .curve-alert-title {
+.curve-alert:has(> ng-icon) .curve-alert-title {
   grid-column-start: 2;
 }
 
