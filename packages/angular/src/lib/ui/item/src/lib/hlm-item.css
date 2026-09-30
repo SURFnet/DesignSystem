@@ -139,10 +139,6 @@ a.curve-item:hover {
   flex: none;
 }
 
-/*
- * Title and description keep `display: flex` (it wins over the line clamp's
- * -webkit-box, as in the original): long text is clipped, not ellipsised.
- */
 .curve-item-title {
   display: flex;
   width: fit-content;

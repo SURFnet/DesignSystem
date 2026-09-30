@@ -70,7 +70,6 @@
   opacity: 0.5;
 }
 
-/* Sized by ng-icon itself (1em); the original size-3 lost to ng-icon's :host styles. */
 .curve-navigation-menu-trigger-icon {
   position: relative;
   top: 1px;

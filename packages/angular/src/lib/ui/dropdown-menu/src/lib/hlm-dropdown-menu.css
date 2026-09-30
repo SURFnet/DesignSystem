@@ -165,7 +165,6 @@
   opacity: 1;
 }
 
-/* ng-icon's own :host line-height wins here, as it did over the original text-base class. */
 .curve-dropdown-menu-indicator-icon,
 .curve-dropdown-menu-sub-indicator-icon {
   font-size: 1rem;

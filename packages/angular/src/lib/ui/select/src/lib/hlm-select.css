@@ -76,7 +76,6 @@
   flex-shrink: 0;
 }
 
-/* Selected value: one line (flex wins over the clamp, as in the original). */
 .curve-select-trigger > [data-slot='select-value'] {
   display: flex;
   align-items: center;

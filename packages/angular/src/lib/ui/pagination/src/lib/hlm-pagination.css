@@ -67,7 +67,6 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   text-wrap: nowrap;
-  /* Tailwind's gray-600, not a Curve token (as in the original). */
   color: oklch(44.6% 0.03 256.802);
 }
 
