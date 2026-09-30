@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,22934,(e,t,o)=>{t.exports=e.r(25152)},69408,e=>{"use strict";var t=e.i(22934),o=e.i(56713);e.s(["RootRedirect",0,function(){let e=(0,t.useRouter)();return(0,o.useEffect)(()=>{e.replace("/browse-apps")},[e]),null}])}]);
