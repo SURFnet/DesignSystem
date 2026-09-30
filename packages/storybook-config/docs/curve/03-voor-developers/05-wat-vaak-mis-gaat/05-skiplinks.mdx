@@ -29,10 +29,30 @@ heeft, niet voor wie hem al twintig keer is gepasseerd.
 </dl>
 
 Op een component in isolatie: een knop, een veld, een dialoog: heb je geen skiplink nodig. Op
-een volledige pagina of applicatiescherm met herhaalde navigatie wel. Curve levert hem niet: hij
-hoort in de schil van het product.
+een volledige pagina of applicatiescherm met herhaalde navigatie wel. 
 
-## Hoe je hem maakt
+## Met Curve
+
+```tsx
+// React
+<SkipLink href="#main">Ga naar de inhoud</SkipLink>
+<header>…</header>
+<main id="main">…</main>
+```
+
+```html
+<!-- Angular -->
+<a hlmSkipLink href="#main">Ga naar de inhoud</a>
+<header>…</header>
+<main id="main">…</main>
+```
+
+De component is verborgen tot hij focus krijgt en zet bij activeren zelf de focus op het doel.
+Is dat doel niet focusbaar (zoals `<main>`), dan krijgt het tijdelijk `tabindex="-1"`. Hij werkt
+ook in apps met een `<base href>` of client-side router, waar een kale `#`-link anders naar de
+root van de app navigeert. Zonder `href` wijst hij naar `#main-content`.
+
+## Hoe je hem zelf maakt
 
 ```html
 <a class="skip-link" href="#main">Ga naar de inhoud</a>
