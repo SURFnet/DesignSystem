@@ -57,9 +57,8 @@ pnpm build-storybook && pnpm test:visual             # story screenshots vs base
 ```
 
 Always run `pnpm lint` and `pnpm format` before considering a change done, and rebuild
-the package you touched. Refresh snapshot baselines with `pnpm test:visual:update`
-(after `pnpm build-storybook`). Compare React to Angular when you want with
-`pnpm test:visual:parity`.
+the package you touched. Ask the user if they want to snapshot baselines with `pnpm test:visual:update`
+(after `pnpm build-storybook`). Compare React to Angular when you want with `pnpm test:visual:parity`.
 
 ## MCP servers
 
