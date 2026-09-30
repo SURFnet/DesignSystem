@@ -15,7 +15,6 @@ export class HlmSidebarMenuAction {
   });
 
   constructor() {
-    // Styling lives in ./hlm-sidebar.css.
     classes(() => [
       'curve-sidebar-action curve-sidebar-menu-action',
       this.showOnHover() && 'curve-sidebar-menu-action--show-on-hover',

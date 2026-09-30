@@ -25,7 +25,6 @@ export class HlmProgressIndicator {
   );
 
   constructor() {
-    // Styling lives in ./hlm-progress.css.
     classes(() => 'curve-progress-indicator');
   }
 }

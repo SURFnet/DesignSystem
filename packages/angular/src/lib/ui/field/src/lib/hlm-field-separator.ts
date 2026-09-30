@@ -16,7 +16,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmFieldSeparator {
   constructor() {
-    // Styling lives in ./hlm-field.css.
     classes(() => 'curve-field-separator');
   }
 }

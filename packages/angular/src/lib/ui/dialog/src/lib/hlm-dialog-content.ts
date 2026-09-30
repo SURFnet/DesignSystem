@@ -66,10 +66,6 @@ export class HlmDialogContent {
   private readonly _dynamicComponentClass = this._dialogContext?.$dynamicComponentClass;
 
   constructor() {
-    classes(() => [
-      // Styling (incl. enter/exit motion) lives in ./hlm-dialog.css.
-      'curve-dialog-content',
-      this._dynamicComponentClass,
-    ]);
+    classes(() => ['curve-dialog-content', this._dynamicComponentClass]);
   }
 }

@@ -9,7 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmKbd {
   constructor() {
-    // Styling lives in ./hlm-kbd.css.
     classes(() => 'curve-kbd');
   }
 }

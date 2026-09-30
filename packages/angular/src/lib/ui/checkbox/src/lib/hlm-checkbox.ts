@@ -70,7 +70,6 @@ export class HlmCheckbox implements ControlValueAccessor {
   public readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly _computedClass = computed(() =>
-    // Styling lives in ./hlm-checkbox.css.
     hlm('curve-checkbox peer', this.userClass(), this._errorStateClass()),
   );
 

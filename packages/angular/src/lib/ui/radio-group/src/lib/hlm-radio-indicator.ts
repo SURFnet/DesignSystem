@@ -11,7 +11,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmRadioIndicator {
   constructor() {
-    // Styling lives in ./hlm-radio-group.css.
     classes(() => 'curve-radio-indicator');
   }
 }

@@ -13,7 +13,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmTextarea {
   constructor() {
-    // Styling lives in ./hlm-textarea.css.
     classes(() => 'curve-textarea');
   }
 }

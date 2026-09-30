@@ -23,7 +23,6 @@ export class HlmHoverCardContent {
       this._renderer.setAttribute(this._element.nativeElement, 'data-side', this.side());
     });
 
-    // Styling (incl. enter/exit motion) lives in ./hlm-hover-card.css.
     classes(() => 'curve-hover-card-content');
   }
 }

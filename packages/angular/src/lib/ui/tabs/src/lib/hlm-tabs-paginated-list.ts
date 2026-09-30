@@ -81,7 +81,6 @@ import { listVariants } from './hlm-tabs-list';
 export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
   constructor() {
     super();
-    // Styling lives in ./hlm-tabs.css.
     classes(() => 'curve-tabs-paginated-list');
   }
 

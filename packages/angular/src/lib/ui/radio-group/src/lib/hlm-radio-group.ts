@@ -35,7 +35,6 @@ export class HlmRadioGroup {
   );
 
   constructor() {
-    // Styling lives in ./hlm-radio-group.css.
     classes(() => [
       'curve-radio-group',
       this.userClass(),

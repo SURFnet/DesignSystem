@@ -12,7 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmInput {
   constructor() {
-    // Styling lives in ./hlm-input.css (bundled into the package's styles.css).
     classes(() => 'curve-input');
   }
 }

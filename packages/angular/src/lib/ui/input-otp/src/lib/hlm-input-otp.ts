@@ -24,7 +24,6 @@ export class HlmInputOtp {
   public readonly completeAnnouncement = input('Verification code complete');
 
   constructor() {
-    // Styling lives in ./hlm-input-otp.css.
     classes(() => 'curve-input-otp');
 
     afterRenderEffect(() => {

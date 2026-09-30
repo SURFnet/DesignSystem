@@ -2,7 +2,6 @@ import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import type { EmptyMediaVariantName } from '@surfnet/curve-contracts';
 
-// Styling lives in ./hlm-empty.css.
 const emptyMediaVariantClasses = {
   default: 'curve-empty-media--variant-default',
   icon: 'curve-empty-media--variant-icon',

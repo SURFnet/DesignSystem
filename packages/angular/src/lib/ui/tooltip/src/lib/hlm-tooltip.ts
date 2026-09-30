@@ -6,7 +6,6 @@ import {
 } from '@spartan-ng/brain/tooltip';
 import { hlm } from '../../../utils/src';
 
-// Styling lives in ./hlm-tooltip.css.
 export const DEFAULT_TOOLTIP_SVG_CLASS = 'curve-tooltip-arrow-svg';
 
 export const DEFAULT_TOOLTIP_CONTENT_CLASSES = 'curve-tooltip';

@@ -12,7 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmButtonGroupSeparator {
   constructor() {
-    // Styling lives in ./hlm-button-group.css.
     classes(() => 'curve-button-group-separator');
   }
 }

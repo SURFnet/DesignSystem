@@ -25,7 +25,6 @@ export class HlmSpinner {
   public readonly ariaLabel = input<string>('Loading', { alias: 'aria-label' });
 
   constructor() {
-    // Styling lives in ./hlm-spinner.css.
     classes(() => 'curve-spinner');
   }
 }

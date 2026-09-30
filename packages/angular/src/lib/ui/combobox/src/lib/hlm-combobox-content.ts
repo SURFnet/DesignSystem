@@ -8,7 +8,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmComboboxContent {
   constructor() {
-    // Styling (incl. enter/exit motion) lives in ./hlm-combobox.css.
     classes(() => ['curve-combobox-content group/combobox-content']);
   }
 }

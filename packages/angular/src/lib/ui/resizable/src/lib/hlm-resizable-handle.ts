@@ -50,7 +50,6 @@ export class HlmResizableHandle {
   });
 
   constructor() {
-    // Styling lives in ./hlm-resizable.css.
     classes(() => ['curve-resizable-handle']);
   }
 }

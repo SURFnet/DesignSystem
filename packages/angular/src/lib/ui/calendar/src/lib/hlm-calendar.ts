@@ -204,7 +204,6 @@ export class HlmCalendar<T> {
 
   protected readonly _btnClass = hlm(
     buttonVariants({ variant: 'ghost' }),
-    // Styling lives in ./hlm-calendar.css.
     'curve-calendar-day curve-calendar-day--single',
   );
 

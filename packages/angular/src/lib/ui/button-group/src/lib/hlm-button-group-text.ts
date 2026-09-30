@@ -9,7 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmButtonGroupText {
   constructor() {
-    // Styling lives in ./hlm-button-group.css.
     classes(() => 'curve-button-group-text');
   }
 }

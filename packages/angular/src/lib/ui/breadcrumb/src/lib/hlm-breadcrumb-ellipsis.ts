@@ -22,7 +22,6 @@ export class HlmBreadcrumbEllipsis {
   public readonly srOnlyText = input<string>('More');
 
   protected readonly _computedClass = computed(() =>
-    // Styling lives in ./hlm-breadcrumb.css.
     hlm('curve-breadcrumb-ellipsis', this.userClass()),
   );
 }

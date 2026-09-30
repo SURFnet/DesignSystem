@@ -19,7 +19,6 @@ export class HlmProgress {
   public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
   constructor() {
-    // Styling lives in ./hlm-progress.css.
     classes(() => 'curve-progress');
   }
 }

@@ -12,7 +12,6 @@ export class HlmCarouselContent {
   private readonly _orientation = inject(HlmCarousel).orientation;
 
   constructor() {
-    // Styling lives in ./hlm-carousel.css.
     classes(() => [
       'curve-carousel-content',
       this._orientation() === 'horizontal'

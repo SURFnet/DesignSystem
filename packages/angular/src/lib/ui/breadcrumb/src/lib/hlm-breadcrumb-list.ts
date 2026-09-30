@@ -9,7 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmBreadcrumbList {
   constructor() {
-    // Styling lives in ./hlm-breadcrumb.css.
     classes(() => 'curve-breadcrumb-list');
   }
 }

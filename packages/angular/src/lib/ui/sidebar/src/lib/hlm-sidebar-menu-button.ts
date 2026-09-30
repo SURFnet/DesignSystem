@@ -18,8 +18,6 @@ import {
   tooltipPositionVariants,
 } from '../../../tooltip/src';
 
-// Styling lives in ./hlm-sidebar.css; `peer/menu-button` and `group/menu-button`
-// stay as hooks for consumers' Tailwind.
 const sidebarMenuButtonVariantClasses = {
   default: 'curve-sidebar-menu-button--variant-default',
   outline: 'curve-sidebar-menu-button--variant-outline',

@@ -9,7 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmLabel {
   constructor() {
-    // Styling lives in ./hlm-label.css.
     classes(() => 'curve-label');
   }
 }

@@ -2,7 +2,6 @@ import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import type { AlertVariantName } from '@surfnet/curve-contracts';
 
-// Styling lives in ./hlm-alert.css.
 const alertVariantClasses = {
   default: 'curve-alert--variant-default',
   info: 'curve-alert--variant-info',

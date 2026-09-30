@@ -15,8 +15,6 @@ export class HlmPopoverContent {
     effect(() => {
       this._renderer.setAttribute(this._element.nativeElement, 'data-state', this.state());
     });
-
-    // Styling (incl. enter/exit motion) lives in ./hlm-popover.css.
     classes(() => 'curve-popover-content');
   }
 }

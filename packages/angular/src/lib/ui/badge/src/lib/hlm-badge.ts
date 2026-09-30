@@ -2,7 +2,6 @@ import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import type { BadgeVariantName } from '@surfnet/curve-contracts';
 
-// Styling lives in ./hlm-badge.css (bundled into the package's styles.css).
 const badgeVariantClasses = {
   default: 'curve-badge--variant-default',
   secondary: 'curve-badge--variant-secondary',

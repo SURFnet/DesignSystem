@@ -5,7 +5,6 @@ import type { ButtonSizeName, ButtonVariantName } from '@surfnet/curve-contracts
 import type { ClassValue } from 'clsx';
 import { injectBrnButtonConfig } from './hlm-button.token';
 
-// Styling lives in ./hlm-button.css (bundled into the package's styles.css).
 // Variant/size are modifier classes rather than only data attributes so that
 // `buttonVariants()` also works on elements that aren't an `hlmBtn` host
 // (calendar nav, pagination links, tab scroll buttons, …).

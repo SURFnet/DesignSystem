@@ -3,7 +3,6 @@ import { BrnField } from '@spartan-ng/brain/field';
 import { classes } from '../../../utils/src';
 import type { FieldOrientationName } from '@surfnet/curve-contracts';
 
-// Styling lives in ./hlm-field.css.
 const fieldOrientationClasses = {
   vertical: 'curve-field--vertical',
   horizontal: 'curve-field--horizontal',

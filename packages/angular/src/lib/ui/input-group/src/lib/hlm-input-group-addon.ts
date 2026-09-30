@@ -1,7 +1,6 @@
 import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 
-// Styling lives in ./hlm-input-group.css.
 type InputGroupAddonAlign = 'inline-start' | 'inline-end' | 'block-start' | 'block-end';
 
 const inputGroupAddonAlignClasses = {

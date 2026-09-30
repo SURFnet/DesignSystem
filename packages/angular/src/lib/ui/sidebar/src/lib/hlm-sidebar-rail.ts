@@ -18,7 +18,6 @@ export class HlmSidebarRail {
   public readonly ariaLabel = input<string>('Toggle Sidebar', { alias: 'aria-label' });
 
   constructor() {
-    // Styling lives in ./hlm-sidebar.css.
     classes(() => 'curve-sidebar-rail');
   }
 

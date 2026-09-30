@@ -7,7 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmEmpty {
   constructor() {
-    // Styling lives in ./hlm-empty.css.
     classes(() => 'curve-empty');
   }
 }

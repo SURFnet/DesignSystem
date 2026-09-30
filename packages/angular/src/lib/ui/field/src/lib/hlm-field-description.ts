@@ -36,7 +36,6 @@ export class HlmFieldDescription implements OnDestroy {
     : null;
 
   constructor() {
-    // Styling lives in ./hlm-field.css.
     classes(() => 'curve-field-description');
   }
 

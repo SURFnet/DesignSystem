@@ -14,7 +14,6 @@ import { classes } from '../../../utils/src';
 export class HlmTabsTrigger {
   public readonly triggerFor = input.required<string>({ alias: 'hlmTabsTrigger' });
   constructor() {
-    // Styling lives in ./hlm-tabs.css.
     classes(() => 'curve-tabs-trigger');
   }
 }

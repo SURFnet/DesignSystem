@@ -76,7 +76,6 @@ export class HlmNativeSelect implements ControlValueAccessor {
   public readonly selectClass = input<ClassValue>('');
 
   protected readonly _computedSelectClass = computed(() =>
-    // Styling lives in ./hlm-native-select.css.
     hlm('curve-native-select', this.selectClass()),
   );
 

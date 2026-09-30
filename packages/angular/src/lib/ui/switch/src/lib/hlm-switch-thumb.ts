@@ -6,7 +6,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSwitchThumb {
   constructor() {
-    // Styling lives in ./hlm-switch.css.
     classes(() => 'curve-switch-thumb');
   }
 }

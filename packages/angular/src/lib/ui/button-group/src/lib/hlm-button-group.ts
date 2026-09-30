@@ -2,7 +2,6 @@ import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import type { ButtonGroupOrientationName } from '@surfnet/curve-contracts';
 
-// Styling lives in ./hlm-button-group.css.
 const buttonGroupOrientationClasses = {
   horizontal: 'curve-button-group--horizontal',
   vertical: 'curve-button-group--vertical',

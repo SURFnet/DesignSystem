@@ -9,7 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSkeleton {
   constructor() {
-    // Styling lives in ./hlm-skeleton.css.
     classes(() => 'curve-skeleton');
   }
 }
