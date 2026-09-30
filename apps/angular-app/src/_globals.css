@@ -1,6 +1,6 @@
 /* Components, design tokens, reset and semantic colour utilities (text-muted-foreground,
    bg-primary, …), plain CSS from @surfnet/curve-angular. It also declares the cascade layer
-   order. No Tailwind setup required to consume the design system. */
+   order. */
 @import '@surfnet/curve-angular/styles.css';
 
 /* The app's own Tailwind, for utilities used in app templates (e.g. layout). Skip preflight

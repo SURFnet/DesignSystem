@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "ng build angular && pnpm build:css",
-    "build:css": "jiti scripts/build-css.ts && jiti scripts/copy-font-files.ts",
+    "build:css": "node --conditions=style scripts/build-css.mts && jiti scripts/copy-font-files.ts",
     "dev": "ng build angular --watch --configuration development",
     "lint": "ngc --noEmit -p tsconfig.json",
     "storybook": "ng run angular:storybook",

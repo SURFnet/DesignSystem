@@ -1,6 +1,6 @@
 /*
- * @surfnet/curve-angular global stylesheet → dist/styles.css (scripts/build-css.ts).
- * Plain CSS, no Tailwind: tokens, a reset, base styles and one stylesheet per
+ * @surfnet/curve-angular global stylesheet → dist/styles.css (scripts/build-css.mts).
+ * Plain CSS with tokens, a reset, base styles and one stylesheet per
  * component (next to its helm code).
  *
  * Cascade layers, lowest → highest priority:
