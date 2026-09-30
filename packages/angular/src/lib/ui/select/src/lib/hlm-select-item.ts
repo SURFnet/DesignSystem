@@ -14,11 +14,7 @@ import { classes } from '../../../utils/src';
   template: `
     <ng-content />
     @if (_active()) {
-      <ng-icon
-        name="phosphorCheck"
-        class="absolute end-2 flex items-center justify-center text-[calc(var(--spacing)*4)]"
-        aria-hidden="true"
-      />
+      <ng-icon name="phosphorCheck" class="curve-select-item-indicator" aria-hidden="true" />
     }
   `,
 })
@@ -28,9 +24,6 @@ export class HlmSelectItem {
   protected readonly _active = this._brnSelectItem.active;
 
   constructor() {
-    classes(
-      () =>
-        'data-highlighted:bg-muted data-highlighted:text-foreground not-data-[variant=destructive]:data-highlighted:**:text-foreground gap-2 rounded-sm py-1.5 ps-2 pe-8 text-sm *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2 relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
-    );
+    classes(() => 'curve-select-item');
   }
 }

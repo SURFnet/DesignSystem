@@ -36,9 +36,9 @@ export class HlmRadioGroup {
 
   constructor() {
     classes(() => [
-      'grid gap-3',
+      'curve-radio-group',
       this.userClass(),
-      this._errorState() ? 'data-[invalid=true]:text-destructive' : '',
+      this._errorState() ? 'curve-radio-group--invalid' : '',
     ]);
   }
 }

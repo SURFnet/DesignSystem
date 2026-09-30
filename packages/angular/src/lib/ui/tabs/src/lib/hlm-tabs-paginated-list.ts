@@ -38,8 +38,7 @@ import { listVariants } from './hlm-tabs-list';
       type="button"
       aria-hidden="true"
       tabindex="-1"
-      [class.flex]="showPaginationControls()"
-      [class.hidden]="!showPaginationControls()"
+      [class.curve-tabs-paginator--hidden]="!showPaginationControls()"
       [class]="_paginationButtonClass()"
       [disabled]="disableScrollBefore || null"
       (click)="_handlePaginatorClick('before')"
@@ -49,13 +48,9 @@ import { listVariants } from './hlm-tabs-list';
       <ng-icon hlm size="base" name="phosphorCaretLeft" />
     </button>
 
-    <div
-      #tabListContainer
-      class="z-[1] flex grow overflow-hidden"
-      (keydown)="_handleKeydown($event)"
-    >
+    <div #tabListContainer class="curve-tabs-paginated-viewport" (keydown)="_handleKeydown($event)">
       <div
-        class="relative grow transition-transform"
+        class="curve-tabs-paginated-track"
         #tabList
         role="tablist"
         (cdkObserveContent)="_onContentChanges()"
@@ -72,8 +67,7 @@ import { listVariants } from './hlm-tabs-list';
       type="button"
       aria-hidden="true"
       tabindex="-1"
-      [class.flex]="showPaginationControls()"
-      [class.hidden]="!showPaginationControls()"
+      [class.curve-tabs-paginator--hidden]="!showPaginationControls()"
       [class]="_paginationButtonClass()"
       [disabled]="disableScrollAfter || null"
       (click)="_handlePaginatorClick('after')"
@@ -87,7 +81,7 @@ import { listVariants } from './hlm-tabs-list';
 export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
   constructor() {
     super();
-    classes(() => 'relative flex flex-shrink-0 gap-1 overflow-hidden');
+    classes(() => 'curve-tabs-paginated-list');
   }
 
   public readonly items = contentChildren(BrnTabsTrigger, { descendants: false });
@@ -110,8 +104,8 @@ export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
   public readonly paginationButtonClass = input<ClassValue>('', { alias: 'paginationButtonClass' });
   protected readonly _paginationButtonClass = computed(() =>
     hlm(
-      'relative z-[2] select-none disabled:cursor-default',
       buttonVariants({ variant: 'ghost', size: 'icon' }),
+      'curve-tabs-paginator',
       this.paginationButtonClass(),
     ),
   );

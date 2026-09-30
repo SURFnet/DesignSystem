@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmEmptyTitle {
   constructor() {
-    classes(() => 'text-lg font-medium tracking-tight');
+    classes(() => 'curve-empty-title');
   }
 }

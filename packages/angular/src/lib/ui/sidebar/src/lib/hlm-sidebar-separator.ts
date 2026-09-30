@@ -12,6 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarSeparator {
   constructor() {
-    classes(() => 'bg-sidebar-border mx-2 w-auto');
+    classes(() => 'curve-sidebar-separator');
   }
 }

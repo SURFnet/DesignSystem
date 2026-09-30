@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmNativeSelectOption {
   constructor() {
-    classes(() => 'bg-[Canvas] text-[CanvasText]');
+    classes(() => 'curve-native-select-option');
   }
 }

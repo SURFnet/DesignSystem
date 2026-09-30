@@ -10,18 +10,13 @@ import { classes } from '../../../utils/src';
     'data-slot': 'accordion-content',
   },
   template: `
-    <div
-      class="pt-0 pb-4 [&_a]:hover:text-foreground [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4"
-    >
+    <div class="curve-accordion-content-inner">
       <ng-content />
     </div>
   `,
 })
 export class HlmAccordionContent {
   constructor() {
-    classes(
-      () =>
-        'text-sm transition-all data-[state=closed]:h-0 data-[state=open]:h-(--brn-accordion-content-height)',
-    );
+    classes(() => 'curve-accordion-content');
   }
 }

@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmFieldContent {
   constructor() {
-    classes(() => 'gap-1 group/field-content flex flex-1 flex-col leading-snug');
+    classes(() => 'curve-field-content group/field-content');
   }
 }

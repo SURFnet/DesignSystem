@@ -47,7 +47,7 @@ import { injectHlmDatePicker } from './hlm-date-picker.token';
       brnFieldControlDescribedBy
       [attr.data-placeholder]="_isPlaceholder() ? '' : null"
     >
-      <span class="truncate">
+      <span class="curve-date-picker-value">
         @if (_formattedDate(); as formattedDate) {
           {{ formattedDate }}
         } @else {
@@ -78,7 +78,7 @@ export class HlmDatePickerTrigger implements HlmDatePickerTriggerBase {
 
   public readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly _computedClass = computed(() =>
-    hlm('data-placeholder:text-muted-foreground w-64 justify-between', this.userClass()),
+    hlm('curve-date-picker-trigger', this.userClass()),
   );
 
   protected readonly _isPlaceholder = computed(() => !this._datePicker.hasDate());

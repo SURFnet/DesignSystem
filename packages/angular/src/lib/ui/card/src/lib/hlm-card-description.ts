@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCardDescription {
   constructor() {
-    classes(() => 'text-muted-foreground text-sm');
+    classes(() => 'curve-card-description');
   }
 }

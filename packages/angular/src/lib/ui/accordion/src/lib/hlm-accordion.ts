@@ -11,6 +11,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmAccordion {
   constructor() {
-    classes(() => 'flex w-full flex-col');
+    classes(() => 'curve-accordion');
   }
 }

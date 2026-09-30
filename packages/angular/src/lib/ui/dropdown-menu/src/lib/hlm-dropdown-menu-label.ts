@@ -11,7 +11,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDropdownMenuLabel {
   constructor() {
-    classes(() => 'block px-2 py-1.5 text-sm font-medium data-[inset]:pl-8');
+    classes(() => 'curve-dropdown-menu-label');
   }
 
   public readonly inset = input<boolean, BooleanInput>(false, {

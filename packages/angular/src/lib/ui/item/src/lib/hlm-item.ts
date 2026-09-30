@@ -1,36 +1,25 @@
 import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import type { ItemSizeName, ItemVariantName } from '@surfnet/curve-contracts';
-import { cva, type VariantProps } from 'class-variance-authority';
 import { injectHlmItemConfig } from './hlm-item-token';
 
+// Styling lives in ./hlm-item.css; `group/item` stays as a hook for consumers' Tailwind.
 const itemVariantClasses = {
-  default: 'border-transparent',
-  outline: 'border-border',
-  muted: 'bg-muted/50 border-transparent',
+  default: 'curve-item--variant-default',
+  outline: 'curve-item--variant-outline',
+  muted: 'curve-item--variant-muted',
 } satisfies Record<ItemVariantName, string>;
 
 const itemSizeClasses = {
-  default: 'gap-3.5 px-4 py-3.5',
-  sm: 'gap-2.5 px-3 py-2.5',
-  xs: 'gap-2 px-2.5 py-2 in-data-[slot=dropdown-menu-content]:p-0',
+  default: 'curve-item--size-default',
+  sm: 'curve-item--size-sm',
+  xs: 'curve-item--size-xs',
 } satisfies Record<ItemSizeName, string>;
 
-const itemVariants = cva(
-  '[a]:hover:bg-muted rounded-md border text-sm group/item focus-visible:border-ring focus-visible:ring-ring/50 flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:ring-[3px] [a]:transition-colors',
-  {
-    variants: {
-      variant: itemVariantClasses,
-      size: itemSizeClasses,
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
-  },
-);
-
-export type ItemVariants = VariantProps<typeof itemVariants>;
+export type ItemVariants = {
+  variant?: ItemVariantName | null;
+  size?: ItemSizeName | null;
+};
 
 @Directive({
   selector: '[hlmItem],hlm-item',
@@ -46,6 +35,10 @@ export class HlmItem {
   public readonly size = input<ItemVariants['size']>(this._config.size);
 
   constructor() {
-    classes(() => itemVariants({ variant: this.variant(), size: this.size() }));
+    classes(() => [
+      'curve-item group/item',
+      itemVariantClasses[this.variant() ?? 'default'],
+      itemSizeClasses[this.size() ?? 'default'],
+    ]);
   }
 }

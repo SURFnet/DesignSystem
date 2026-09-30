@@ -1,0 +1,126 @@
+/* Input OTP — `brn-input-otp[hlmInputOtp]` with groups, slots and separators. */
+.curve-input-otp {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-otp:has(:disabled) {
+  opacity: 0.5;
+}
+
+.curve-input-otp-group {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-input-otp-group[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+}
+
+.dark .curve-input-otp-group[data-matches-spartan-invalid='true'] {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent);
+}
+
+/* Slots share borders: each draws top, bottom and end; the first also start. */
+.curve-input-otp-slot {
+  position: relative;
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 9);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  align-items: center;
+  justify-content: center;
+  border-color: var(--input);
+  border-block-width: 1px;
+  border-inline-end-width: 1px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  outline: none;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-input-otp-slot:first-child {
+  border-inline-start-width: 1px;
+  border-start-start-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-end-start-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-input-otp-slot:last-child {
+  border-start-end-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-end-end-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.dark .curve-input-otp-slot {
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+.curve-input-otp-slot[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+}
+
+/* The slot the next character goes into. */
+.curve-input-otp-slot:has(brn-input-otp-slot[data-active='true']) {
+  z-index: 10;
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-input-otp-slot:has(
+    brn-input-otp-slot[data-active='true']
+  )[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark
+  .curve-input-otp-slot:has(
+    brn-input-otp-slot[data-active='true']
+  )[data-matches-spartan-invalid='true'] {
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-input-otp-caret {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.curve-input-otp-caret-line {
+  height: calc(var(--spacing, 0.25rem) * 4);
+  width: 1px;
+  background-color: var(--foreground);
+  animation: curve-input-otp-caret-blink 1.25s ease-out infinite;
+}
+
+@keyframes curve-input-otp-caret-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+.curve-input-otp-separator {
+  display: flex;
+  align-items: center;
+}
+
+.curve-input-otp-separator ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}

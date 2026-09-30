@@ -31,7 +31,11 @@
             "browserTarget": "angular:build",
             "tsConfig": ".storybook/tsconfig.json",
             "compodoc": false,
-            "styles": ["src/styles.css", ".storybook/storybook-docs.css"],
+            "styles": [
+              "src/styles.css",
+              "node_modules/@surfnet/curve-storybook-config/src/story-chrome.css",
+              ".storybook/storybook-docs.css"
+            ],
             "port": 6007
           }
         },
@@ -42,7 +46,11 @@
             "browserTarget": "angular:build",
             "tsConfig": ".storybook/tsconfig.json",
             "compodoc": false,
-            "styles": ["src/styles.css", ".storybook/storybook-docs.css"],
+            "styles": [
+              "src/styles.css",
+              "node_modules/@surfnet/curve-storybook-config/src/story-chrome.css",
+              ".storybook/storybook-docs.css"
+            ],
             "outputDir": "storybook-static"
           }
         }

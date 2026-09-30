@@ -1,0 +1,39 @@
+/* Data table — `hlm-data-table-*` building blocks around `hlmTable`. */
+.curve-data-table-content {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-table-cell.curve-data-table-empty {
+  height: calc(var(--spacing, 0.25rem) * 24);
+  text-align: center;
+}
+
+.curve-data-table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding-block: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-data-table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding-block: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-data-table-pagination-summary {
+  flex: 1 1 0%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.curve-data-table-pagination-actions {
+  display: flex;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}

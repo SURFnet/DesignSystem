@@ -13,6 +13,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCommandSeparator {
   constructor() {
-    classes(() => 'bg-border -mx-1 block h-px w-auto data-hidden:hidden');
+    classes(() => 'curve-command-separator');
   }
 }

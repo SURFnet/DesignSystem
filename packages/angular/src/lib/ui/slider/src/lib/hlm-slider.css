@@ -1,0 +1,186 @@
+/* Slider — `hlm-slider` (brain slider) with track, range, thumbs and optional ticks. */
+.curve-slider {
+  display: flex;
+  width: 100%;
+  touch-action: none;
+  flex-direction: column;
+  user-select: none;
+}
+
+.curve-slider[data-orientation='vertical'] {
+  height: 100%;
+  min-height: calc(var(--spacing, 0.25rem) * 40);
+  width: auto;
+  flex-direction: row;
+}
+
+.curve-slider[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.curve-slider-control {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.curve-slider[data-orientation='vertical'] .curve-slider-control {
+  width: auto;
+  flex-direction: column;
+}
+
+.curve-slider-track {
+  position: relative;
+  flex-grow: 1;
+  overflow: hidden;
+  border-radius: calc(infinity * 1px);
+  background-color: var(--muted);
+}
+
+.curve-slider-track[data-orientation='horizontal'] {
+  height: calc(var(--spacing, 0.25rem) * 1.5);
+  width: 100%;
+}
+
+.curve-slider-track[data-orientation='vertical'] {
+  height: 100%;
+  width: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-slider-range {
+  position: absolute;
+  background-color: var(--primary);
+  user-select: none;
+}
+
+.curve-slider-range[data-draggable-range] {
+  cursor: move;
+}
+
+.curve-slider-range[data-orientation='horizontal'] {
+  height: 100%;
+}
+
+.curve-slider-range[data-orientation='vertical'] {
+  width: 100%;
+}
+
+.curve-slider-thumb {
+  position: absolute;
+  display: block;
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+  flex-shrink: 0;
+  border: 1px solid var(--primary);
+  border-radius: calc(infinity * 1px);
+  background-color: #fff;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  user-select: none;
+  transition-property: color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Larger hit area. */
+.curve-slider-thumb::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--spacing, 0.25rem) * -2);
+}
+
+.curve-slider-thumb:hover,
+.curve-slider-thumb:focus-visible {
+  box-shadow:
+    0 0 0 4px color-mix(in oklab, var(--ring) 50%, transparent),
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.curve-slider-thumb:focus-visible {
+  outline-style: none;
+}
+
+@media (forced-colors: active) {
+  .curve-slider-thumb:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
+
+/* Ticks */
+.curve-slider-ticks {
+  margin-top: calc(var(--spacing, 0.25rem) * 3);
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.curve-slider[data-orientation='horizontal'][data-inverted] .curve-slider-ticks {
+  flex-direction: row-reverse;
+}
+
+.curve-slider[data-orientation='vertical'] .curve-slider-ticks {
+  margin-top: 0;
+  margin-inline-start: calc(var(--spacing, 0.25rem) * 3);
+  width: auto;
+  flex-direction: column-reverse;
+  padding-inline: 0;
+  padding-block: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-slider[data-orientation='vertical'][data-inverted] .curve-slider-ticks {
+  flex-direction: column;
+}
+
+.curve-slider-tick {
+  display: flex;
+  width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-slider[data-orientation='vertical'] .curve-slider-tick {
+  height: 0;
+  width: auto;
+  flex-direction: row;
+}
+
+.curve-slider-tick-mark {
+  height: calc(var(--spacing, 0.25rem) * 1);
+  width: 1px;
+  background-color: color-mix(in oklab, var(--muted-foreground) 70%, transparent);
+}
+
+.curve-slider[data-orientation='vertical'] .curve-slider-tick-mark {
+  height: 1px;
+  width: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-slider[data-orientation='horizontal'] .curve-slider-tick[data-skip] .curve-slider-tick-mark {
+  height: calc(var(--spacing, 0.25rem) * 0.5);
+}
+
+.curve-slider[data-orientation='vertical'] .curve-slider-tick[data-skip] .curve-slider-tick-mark {
+  width: calc(var(--spacing, 0.25rem) * 0.5);
+}
+
+.curve-slider-tick-label {
+  text-align: center;
+}
+
+.curve-slider-tick[data-skip] .curve-slider-tick-label {
+  opacity: 0;
+}

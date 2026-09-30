@@ -14,8 +14,8 @@ export class HlmComboboxChipRemove {
 
   constructor() {
     classes(() => [
-      '-ms-1 opacity-50 hover:opacity-100',
       buttonVariants({ variant: 'ghost', size: 'icon-xs' }),
+      'curve-combobox-chip-remove',
     ]);
   }
 }

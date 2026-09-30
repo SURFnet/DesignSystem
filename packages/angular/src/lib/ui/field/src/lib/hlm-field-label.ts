@@ -9,9 +9,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmFieldLabel {
   constructor() {
-    classes(() => [
-      'has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-3 group/field-label peer/field-label flex w-fit',
-      'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col',
-    ]);
+    // Adds to hlmLabel's `curve-label`; `group/field-label` and `peer/field-label` stay as hooks.
+    classes(() => 'curve-field-label group/field-label peer/field-label');
   }
 }

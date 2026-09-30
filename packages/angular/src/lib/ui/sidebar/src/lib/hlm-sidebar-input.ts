@@ -12,6 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarInput {
   constructor() {
-    classes(() => 'bg-background h-8 w-full shadow-none');
+    classes(() => 'curve-sidebar-input');
   }
 }

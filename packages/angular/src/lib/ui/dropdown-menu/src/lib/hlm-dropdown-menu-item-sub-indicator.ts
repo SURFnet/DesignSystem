@@ -8,10 +8,12 @@ import { classes } from '../../../utils/src';
   imports: [NgIcon],
   providers: [provideIcons({ phosphorCaretRight })],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <ng-icon name="phosphorCaretRight" class="text-base rtl:rotate-180" /> `,
+  template: `
+    <ng-icon name="phosphorCaretRight" class="curve-dropdown-menu-sub-indicator-icon" />
+  `,
 })
 export class HlmDropdownMenuItemSubIndicator {
   constructor() {
-    classes(() => 'ms-auto size-4');
+    classes(() => 'curve-dropdown-menu-sub-indicator');
   }
 }

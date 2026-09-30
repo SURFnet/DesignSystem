@@ -1,82 +1,101 @@
-@layer theme, base, components, utilities;
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/preflight.css' layer(base);
-@import 'tailwindcss/utilities.css';
-
-@import '@spartan-ng/brain/hlm-tailwind-preset.css';
-@import '@surfnet/curve-tokens/tokens.css';
+/*
+ * @surfnet/curve-angular global stylesheet → dist/styles.css (scripts/build-css.mts).
+ * Plain CSS with tokens, a reset, base styles and one stylesheet per
+ * component (next to its helm code).
+ *
+ * Cascade layers, lowest → highest priority:
+ *   theme, base        — reset (Tailwind's preflight, vendored) and base styles
+ *   ng-icon, cdk-overlay, cdk-resets, default
+ *                      — layers that @ng-icons, the Angular CDK and
+ *                        ngx-scrollbar inject at runtime; reserving them here
+ *                        keeps them above the reset but below components (they
+ *                        would otherwise rank highest, being declared last)
+ *   components         — the component stylesheets
+ *   utilities          — semantic colour helpers and .sr-only; a consumer's
+ *                        Tailwind utilities merge into this layer too
+ * Unlayered app CSS always wins. Tokens stay unlayered custom properties.
+ *
+ * The order statement lives in ./styles/layers.css and is imported first:
+ * some bundlers (webpack's css-loader, used by Storybook) emit imported files
+ * before the importing file's own rules, which would put a statement written
+ * here after the component layers.
+ */
+@import './styles/layers.css';
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/source-sans-3';
+@import '@surfnet/curve-tokens/tokens.css';
+@import '@angular/cdk/overlay-prebuilt.css' layer(cdk-overlay);
+@import './styles/preflight.css' layer(base);
+@import './styles/base.css' layer(base);
+/* Shared enter/exit keyframes (used only under prefers-reduced-motion: no-preference). */
+@import './styles/motion.css' layer(base);
+@import './styles/semantic-colors.css' layer(utilities);
+@import './styles/utilities.css' layer(utilities);
 
-/* Scan the library's component sources so a standalone Tailwind build (build:css)
-   emits every utility the components reference. Path is relative to this file. */
-@source '.';
-/* You can add global styles to this file, and also import other style files */
-
-/* The Spartan preset maps the standard token set to --color-* utilities but not
-   --primary-strong, --destructive-foreground, or the signal (info/success/warning/danger)
-   tokens, so expose them here (matches the React package's mapping). */
-@theme inline {
-  --color-primary-strong: var(--primary-strong);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-info: var(--info);
-  --color-info-hover: var(--info-hover);
-  --color-info-foreground: var(--info-foreground);
-  --color-info-subtle: var(--info-subtle);
-  --color-info-subtle-hover: var(--info-subtle-hover);
-  --color-info-subtle-foreground: var(--info-subtle-foreground);
-  --color-success: var(--success);
-  --color-success-hover: var(--success-hover);
-  --color-success-foreground: var(--success-foreground);
-  --color-success-subtle: var(--success-subtle);
-  --color-success-subtle-hover: var(--success-subtle-hover);
-  --color-success-subtle-foreground: var(--success-subtle-foreground);
-  --color-warning: var(--warning);
-  --color-warning-hover: var(--warning-hover);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-warning-subtle: var(--warning-subtle);
-  --color-warning-subtle-hover: var(--warning-subtle-hover);
-  --color-warning-subtle-foreground: var(--warning-subtle-foreground);
-  --color-danger: var(--danger);
-  --color-danger-hover: var(--danger-hover);
-  --color-danger-foreground: var(--danger-foreground);
-  --color-danger-subtle: var(--danger-subtle);
-  --color-danger-subtle-hover: var(--danger-subtle-hover);
-  --color-danger-subtle-foreground: var(--danger-subtle-foreground);
-}
-
-/*
- * --font-sans's package default lives in @theme (not :root) on purpose: a
- * plain :root rule here has the same specificity as @surfnet/curve-tokens'
- * own unlayered `:root { --font-sans: ... }` default, so whichever one comes
- * LAST in the built CSS wins by source order alone — and since this file's
- * own :root was declared after the tokens import, it silently always won,
- * permanently pinning html to Geist regardless of the active theme. @theme
- * puts this default in the (lower-priority) theme layer instead, so
- * curve-tokens' unlayered override always wins regardless of import order.
- */
-@theme {
-  --font-sans: 'Geist Variable', sans-serif;
-}
+/* curve-components:start */
+/* Primitives first, then composites (which may restyle the primitives inside them). */
+@import './lib/ui/separator/src/lib/hlm-separator.css' layer(components);
+@import './lib/ui/label/src/lib/hlm-label.css' layer(components);
+@import './lib/ui/kbd/src/lib/hlm-kbd.css' layer(components);
+@import './lib/ui/spinner/src/lib/hlm-spinner.css' layer(components);
+@import './lib/ui/skeleton/src/lib/hlm-skeleton.css' layer(components);
+@import './lib/ui/badge/src/lib/hlm-badge.css' layer(components);
+@import './lib/ui/button/src/lib/hlm-button.css' layer(components);
+@import './lib/ui/toggle/src/lib/hlm-toggle.css' layer(components);
+@import './lib/ui/input/src/lib/hlm-input.css' layer(components);
+@import './lib/ui/textarea/src/lib/hlm-textarea.css' layer(components);
+@import './lib/ui/checkbox/src/lib/hlm-checkbox.css' layer(components);
+@import './lib/ui/switch/src/lib/hlm-switch.css' layer(components);
+@import './lib/ui/radio-group/src/lib/hlm-radio-group.css' layer(components);
+@import './lib/ui/accordion/src/lib/hlm-accordion.css' layer(components);
+@import './lib/ui/alert/src/lib/hlm-alert.css' layer(components);
+@import './lib/ui/alert-dialog/src/lib/hlm-alert-dialog.css' layer(components);
+@import './lib/ui/aspect-ratio/src/lib/hlm-aspect-ratio.css' layer(components);
+@import './lib/ui/avatar/src/lib/hlm-avatar.css' layer(components);
+@import './lib/ui/breadcrumb/src/lib/hlm-breadcrumb.css' layer(components);
+@import './lib/ui/button-group/src/lib/hlm-button-group.css' layer(components);
+@import './lib/ui/calendar/src/lib/hlm-calendar.css' layer(components);
+@import './lib/ui/card/src/lib/hlm-card.css' layer(components);
+@import './lib/ui/carousel/src/lib/hlm-carousel.css' layer(components);
+@import './lib/ui/combobox/src/lib/hlm-combobox.css' layer(components);
+@import './lib/ui/command/src/lib/hlm-command.css' layer(components);
+@import './lib/ui/curve-data-table/src/lib/curve-data-table.css' layer(components);
+@import './lib/ui/data-table/src/lib/hlm-data-table.css' layer(components);
+@import './lib/ui/date-picker/src/lib/hlm-date-picker.css' layer(components);
+@import './lib/ui/dialog/src/lib/hlm-dialog.css' layer(components);
+@import './lib/ui/dropdown-menu/src/lib/hlm-dropdown-menu.css' layer(components);
+@import './lib/ui/empty/src/lib/hlm-empty.css' layer(components);
+@import './lib/ui/field/src/lib/hlm-field.css' layer(components);
+@import './lib/ui/hover-card/src/lib/hlm-hover-card.css' layer(components);
+@import './lib/ui/input-group/src/lib/hlm-input-group.css' layer(components);
+@import './lib/ui/input-otp/src/lib/hlm-input-otp.css' layer(components);
+@import './lib/ui/item/src/lib/hlm-item.css' layer(components);
+@import './lib/ui/native-select/src/lib/hlm-native-select.css' layer(components);
+@import './lib/ui/navigation-menu/src/lib/hlm-navigation-menu.css' layer(components);
+@import './lib/ui/pagination/src/lib/hlm-pagination.css' layer(components);
+@import './lib/ui/popover/src/lib/hlm-popover.css' layer(components);
+@import './lib/ui/progress/src/lib/hlm-progress.css' layer(components);
+@import './lib/ui/resizable/src/lib/hlm-resizable.css' layer(components);
+@import './lib/ui/scroll-area/src/lib/hlm-scroll-area.css' layer(components);
+@import './lib/ui/select/src/lib/hlm-select.css' layer(components);
+@import './lib/ui/sheet/src/lib/hlm-sheet.css' layer(components);
+@import './lib/ui/sidebar/src/lib/hlm-sidebar.css' layer(components);
+@import './lib/ui/slider/src/lib/hlm-slider.css' layer(components);
+@import './lib/ui/sonner/src/lib/hlm-sonner.css' layer(components);
+@import './lib/ui/table/src/lib/hlm-table.css' layer(components);
+@import './lib/ui/tabs/src/lib/hlm-tabs.css' layer(components);
+@import './lib/ui/toggle-group/src/lib/hlm-toggle-group.css' layer(components);
+@import './lib/ui/tooltip/src/lib/hlm-tooltip.css' layer(components);
+/* curve-components:end */
 
 :root {
   color-scheme: light;
 
   --radius: 0.625rem;
+  /* Base spacing unit used as calc(var(--spacing) * N) by the component styles. */
+  --spacing: 0.25rem;
 }
 
 :root.dark {
   color-scheme: dark;
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
 }

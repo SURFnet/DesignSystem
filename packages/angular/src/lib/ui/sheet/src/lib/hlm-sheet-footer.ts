@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSheetFooter {
   constructor() {
-    classes(() => 'gap-2 p-4 mt-auto flex flex-col');
+    classes(() => 'curve-sheet-footer');
   }
 }

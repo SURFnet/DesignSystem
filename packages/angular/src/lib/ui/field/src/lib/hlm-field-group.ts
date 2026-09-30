@@ -7,9 +7,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmFieldGroup {
   constructor() {
-    classes(
-      () =>
-        'gap-7 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4 group/field-group @container/field-group flex w-full flex-col',
-    );
+    // `group/field-group` stays as a hook for consumers' Tailwind.
+    classes(() => 'curve-field-group group/field-group');
   }
 }

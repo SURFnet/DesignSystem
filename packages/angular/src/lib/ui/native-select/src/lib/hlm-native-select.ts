@@ -76,19 +76,13 @@ export class HlmNativeSelect implements ControlValueAccessor {
   public readonly selectClass = input<ClassValue>('');
 
   protected readonly _computedSelectClass = computed(() =>
-    hlm(
-      'border-input placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 h-9 w-full min-w-0 appearance-none rounded-md border bg-transparent py-1 ps-2.5 pe-8 text-sm shadow-xs transition-[color,box-shadow] select-none focus-visible:ring-3 data-[matches-spartan-invalid=true]:ring-3 data-[size=sm]:h-8 outline-none disabled:pointer-events-none disabled:cursor-not-allowed',
-      this.selectClass(),
-    ),
+    hlm('curve-native-select', this.selectClass()),
   );
 
   public readonly selectIconClass = input<ClassValue>('');
 
   protected readonly _computedSelectIconClass = computed(() =>
-    hlm(
-      'text-muted-foreground end-2.5 top-1/2 -translate-y-1/2 text-[calc(var(--spacing)*4)] pointer-events-none absolute select-none',
-      this.selectIconClass(),
-    ),
+    hlm('curve-native-select-icon', this.selectIconClass()),
   );
 
   public readonly size = input<NativeSelectSizeName>('default');
@@ -128,7 +122,7 @@ export class HlmNativeSelect implements ControlValueAccessor {
   );
 
   constructor() {
-    classes(() => 'group/native-select relative w-fit has-[select:disabled]:opacity-50');
+    classes(() => 'curve-native-select-wrapper group/native-select');
   }
 
   protected _valueChanged(event: Event): void {

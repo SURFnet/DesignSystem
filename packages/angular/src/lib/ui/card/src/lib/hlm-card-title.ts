@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCardTitle {
   constructor() {
-    classes(() => 'text-base leading-normal font-medium group-data-[size=sm]/card:text-sm');
+    classes(() => 'curve-card-title');
   }
 }

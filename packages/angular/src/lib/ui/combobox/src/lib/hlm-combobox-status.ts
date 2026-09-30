@@ -9,9 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmComboboxStatus {
   constructor() {
-    classes(
-      () =>
-        'text-muted-foreground gap-2 py-2 text-sm flex w-full items-center justify-center text-center',
-    );
+    classes(() => 'curve-combobox-status');
   }
 }

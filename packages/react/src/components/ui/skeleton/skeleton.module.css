@@ -1,0 +1,16 @@
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton {
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--muted);
+  animation: skeletonPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

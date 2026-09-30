@@ -116,6 +116,21 @@ selectie op elke pull request en laat de tragere scans op `main` of 's nachts dr
 Laat de build falen op nieuwe fouten in de code die wordt aangeraakt. Houd bekende problemen bij als
 issues met een eigenaar, niet als een permanent rode pipeline die iedereen heeft leren negeren.
 
+## 5. Visuele regressie (Playwright)
+
+Curve screenshot de gebouwde Storybooks met Playwright. Dat vangt twee dingen: een React-component
+die per ongeluk anders gaat uitzien, en een React- en Angular-story met dezelfde id die niet meer
+op elkaar lijken.
+
+```bash
+pnpm build-storybook
+pnpm test:visual
+```
+
+De React-baselines staan in `tests/visual/__screenshots__/` en worden in CI vergeleken. Parity-tests
+bewaren geen snapshots: ze zetten dezelfde story in beide Storybooks naast elkaar. Tag een story
+`skip-visual` als die niet stabiel te fotograferen is (animatie, willekeurige data).
+
 ## Wat hier allemaal niet uit komt
 
 Alles wat een afweging vraagt: of de kopstructuur een verhaal vertelt, of iets een link had moeten zijn,

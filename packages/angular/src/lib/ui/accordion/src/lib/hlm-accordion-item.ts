@@ -17,6 +17,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmAccordionItem {
   constructor() {
-    classes(() => 'not-last:border-b flex flex-col');
+    classes(() => 'curve-accordion-item');
   }
 }

@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmDialogFooter {
   constructor() {
-    classes(() => 'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end');
+    classes(() => 'curve-dialog-footer');
   }
 }

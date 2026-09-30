@@ -1,0 +1,88 @@
+/*
+ * Toggle group — `hlmToggleGroup` and `hlmToggleGroupItem` (items also get the
+ * toggle classes from ../toggle/…/hlm-toggle.css). --gap (host style) is the
+ * spacing multiplier; spacing 0 joins the items into one segmented control.
+ */
+.curve-toggle-group {
+  display: flex;
+  width: fit-content;
+  flex-direction: row;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * var(--gap));
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-toggle-group[data-spacing='0'][data-variant='outline'] {
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-toggle-group[data-orientation='vertical'] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.curve-toggle-group-item {
+  flex-shrink: 0;
+}
+
+.curve-toggle-group-item:focus,
+.curve-toggle-group-item:focus-visible {
+  z-index: 10;
+}
+
+.curve-toggle-group-item[data-state='on'] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+/* Joined (spacing 0): square inner corners, round only the ends. */
+.curve-toggle-group[data-spacing='0'] .curve-toggle-group-item {
+  border-radius: 0;
+  padding-inline: calc(var(--spacing, 0.25rem) * 2);
+  box-shadow: none;
+}
+
+.curve-toggle-group[data-orientation='horizontal']
+  .curve-toggle-group-item[data-spacing='0']:first-child {
+  border-start-start-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-end-start-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-toggle-group[data-orientation='horizontal']
+  .curve-toggle-group-item[data-spacing='0']:last-child {
+  border-start-end-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-end-end-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-toggle-group[data-orientation='vertical']
+  .curve-toggle-group-item[data-spacing='0']:first-child {
+  border-top-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-top-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-toggle-group[data-orientation='vertical']
+  .curve-toggle-group-item[data-spacing='0']:last-child {
+  border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  border-bottom-left-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+/* Joined outline items share borders. */
+.curve-toggle-group[data-orientation='horizontal']
+  .curve-toggle-group-item[data-spacing='0'][data-variant='outline'] {
+  border-inline-start-width: 0;
+}
+
+.curve-toggle-group[data-orientation='horizontal']
+  .curve-toggle-group-item[data-spacing='0'][data-variant='outline']:first-child {
+  border-inline-start-width: 1px;
+}
+
+.curve-toggle-group[data-orientation='vertical']
+  .curve-toggle-group-item[data-spacing='0'][data-variant='outline'] {
+  border-top-width: 0;
+}
+
+.curve-toggle-group[data-orientation='vertical']
+  .curve-toggle-group-item[data-spacing='0'][data-variant='outline']:first-child {
+  border-top-width: 1px;
+}

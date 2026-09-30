@@ -1,30 +1,16 @@
 import { Directive, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import type { AlertVariantName } from '@surfnet/curve-contracts';
-import { cva, type VariantProps } from 'class-variance-authority';
 
-const alertVariants = cva(
-  "grid gap-0.5 rounded-lg border px-4 py-3 text-start text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>ng-icon]:grid-cols-[auto_1fr] has-[>ng-icon]:gap-x-2.5 *:[ng-icon]:row-span-2 *:[ng-icon]:translate-y-0.5 *:[ng-icon]:text-current *:[ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] group/alert relative w-full",
-  {
-    variants: {
-      variant: {
-        default: 'bg-card text-card-foreground',
-        info: 'bg-info-subtle text-info-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[ng-icon]:text-current',
-        success:
-          'bg-success-subtle text-success-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[ng-icon]:text-current',
-        warning:
-          'bg-warning-subtle text-warning-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[ng-icon]:text-current',
-        danger:
-          'bg-danger-subtle text-danger-subtle-foreground *:data-[slot=alert-title]:text-foreground *:[ng-icon]:text-current',
-      } satisfies Record<AlertVariantName, string>,
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
+const alertVariantClasses = {
+  default: 'curve-alert--variant-default',
+  info: 'curve-alert--variant-info',
+  success: 'curve-alert--variant-success',
+  warning: 'curve-alert--variant-warning',
+  danger: 'curve-alert--variant-danger',
+} satisfies Record<AlertVariantName, string>;
 
-export type AlertVariants = VariantProps<typeof alertVariants>;
+export type AlertVariants = { variant?: AlertVariantName | null };
 
 @Directive({
   selector: 'hlm-alert,[hlmAlert]',
@@ -37,6 +23,6 @@ export class HlmAlert {
   public readonly variant = input<AlertVariants['variant']>('default');
 
   constructor() {
-    classes(() => alertVariants({ variant: this.variant() }));
+    classes(() => ['curve-alert group/alert', alertVariantClasses[this.variant() ?? 'default']]);
   }
 }

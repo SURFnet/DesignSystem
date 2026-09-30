@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmKbdGroup {
   constructor() {
-    classes(() => 'gap-1 inline-flex items-center');
+    classes(() => 'curve-kbd-group');
   }
 }

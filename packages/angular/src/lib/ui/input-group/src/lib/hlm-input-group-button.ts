@@ -1,23 +1,18 @@
 import { Directive, input } from '@angular/core';
 import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
 import { classes } from '../../../utils/src';
-import { cva, type VariantProps } from 'class-variance-authority';
 
-const inputGroupAddonVariants = cva('gap-2 text-sm flex items-center shadow-none', {
-  variants: {
-    size: {
-      xs: "h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-1.5 [&>ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)]",
-      sm: '',
-      'icon-xs': 'size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>ng-icon]:p-0',
-      'icon-sm': 'size-8 p-0 has-[>ng-icon]:p-0',
-    },
-  },
-  defaultVariants: {
-    size: 'xs',
-  },
-});
+// Styling lives in ./hlm-input-group.css (on top of hlmBtn's `curve-button`).
+type InputGroupButtonSize = 'xs' | 'sm' | 'icon-xs' | 'icon-sm';
 
-type InputGroupAddonVariants = VariantProps<typeof inputGroupAddonVariants>;
+const inputGroupButtonSizeClasses = {
+  xs: 'curve-input-group-button--size-xs',
+  sm: 'curve-input-group-button--size-sm',
+  'icon-xs': 'curve-input-group-button--size-icon-xs',
+  'icon-sm': 'curve-input-group-button--size-icon-sm',
+} satisfies Record<InputGroupButtonSize, string>;
+
+type InputGroupAddonVariants = { size?: InputGroupButtonSize | null };
 
 @Directive({
   selector: 'button[hlmInputGroupButton]',
@@ -42,6 +37,6 @@ export class HlmInputGroupButton {
   public readonly type = input<'button' | 'submit' | 'reset'>('button');
 
   constructor() {
-    classes(() => inputGroupAddonVariants({ size: this.size() }));
+    classes(() => ['curve-input-group-button', inputGroupButtonSizeClasses[this.size() ?? 'xs']]);
   }
 }

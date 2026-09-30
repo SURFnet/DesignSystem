@@ -1,0 +1,211 @@
+/* Base button — shared with `buttonVariants()` via `.button` + variant/size classes */
+.button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-clip: padding-box;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  transition: all 150ms ease;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.button:active:not([aria-haspopup]) {
+  transform: translateY(1px);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.button[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .button[aria-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.button svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.button:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.button:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 2);
+}
+
+[data-slot='button-group'] .button {
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+/* Variants */
+.variantDefault {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.variantDefault:hover {
+  border-color: transparent;
+  background-color: color-mix(in oklch, var(--primary) 80%, transparent);
+}
+
+.variantOutline {
+  border-color: var(--border);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.variantOutline:hover,
+.variantOutline[aria-expanded='true'] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+:global(.dark) .variantOutline {
+  border-color: var(--input);
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+:global(.dark) .variantOutline:hover {
+  background-color: color-mix(in oklch, var(--input) 50%, transparent);
+}
+
+.variantSecondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.variantSecondary:hover,
+.variantSecondary[aria-expanded='true'] {
+  background-color: color-mix(in oklch, var(--secondary), var(--foreground) 5%);
+}
+
+.variantGhost {
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+.variantGhost:hover,
+.variantGhost[aria-expanded='true'] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+:global(.dark) .variantGhost:hover {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.variantDestructive {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+.variantDestructive:hover {
+  border-color: transparent;
+  background-color: color-mix(in oklch, var(--destructive) 90%, transparent);
+}
+
+.variantDestructive:focus-visible {
+  border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .variantDestructive:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.variantLink {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--primary-strong);
+  text-underline-offset: 4px;
+}
+
+.variantLink:hover {
+  text-decoration: underline;
+}
+
+/* Sizes */
+.sizeDefault {
+  height: calc(var(--spacing, 0.25rem) * 9);
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.sizeSm {
+  height: calc(var(--spacing, 0.25rem) * 8);
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+  border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 10px);
+}
+
+.sizeLg {
+  height: calc(var(--spacing, 0.25rem) * 10);
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.sizeIcon {
+  width: calc(var(--spacing, 0.25rem) * 9);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  padding-inline: 0;
+}
+
+.sizeIconXs {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+  padding-inline: 0;
+  border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 8px);
+}
+
+.sizeIconXs svg {
+  width: calc(var(--spacing, 0.25rem) * 3);
+  height: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.sizeIconSm {
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  padding-inline: 0;
+  border-radius: min(var(--radius-md, calc(var(--radius, 0.625rem) * 0.8)), 10px);
+}
+
+.sizeIconLg {
+  width: calc(var(--spacing, 0.25rem) * 10);
+  height: calc(var(--spacing, 0.25rem) * 10);
+  padding-inline: 0;
+}
+
+.sizeSm:has([data-icon='inline-end']) {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.sizeSm:has([data-icon='inline-start']) {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 1.5);
+}

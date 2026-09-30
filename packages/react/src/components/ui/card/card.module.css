@@ -1,0 +1,95 @@
+.card {
+  --card-spacing: calc(var(--spacing, 0.25rem) * 6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-spacing);
+  overflow: hidden;
+  border-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  background-color: var(--card);
+  padding-block: var(--card-spacing);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--card-foreground);
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.card[data-size='sm'] {
+  --card-spacing: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.card:has(> img:first-child) {
+  padding-top: 0;
+}
+
+.card > img:first-child {
+  border-top-left-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  border-top-right-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+}
+
+.card > img:last-child {
+  border-bottom-left-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  border-bottom-right-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+}
+
+.header {
+  display: grid;
+  grid-auto-rows: min-content;
+  align-items: start;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-top-left-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  border-top-right-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  padding-inline: var(--card-spacing);
+}
+
+.header:has([data-slot='card-action']) {
+  grid-template-columns: 1fr auto;
+}
+
+.header:has([data-slot='card-description']) {
+  grid-template-rows: auto auto;
+}
+
+.header:global(.border-b) {
+  padding-bottom: var(--card-spacing);
+}
+
+.title {
+  font-family: var(--font-heading, var(--font-sans, sans-serif));
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.card[data-size='sm'] .title {
+  font-size: 0.875rem;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.action {
+  grid-column-start: 2;
+  grid-row: span 2;
+  grid-row-start: 1;
+  align-self: start;
+  justify-self: end;
+}
+
+.content {
+  padding-inline: var(--card-spacing);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  border-bottom-left-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  border-bottom-right-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  padding-inline: var(--card-spacing);
+}
+
+.footer:global(.border-t) {
+  padding-top: var(--card-spacing);
+}

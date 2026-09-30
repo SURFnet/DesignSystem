@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmItemActions {
   constructor() {
-    classes(() => 'gap-2 flex items-center');
+    classes(() => 'curve-item-actions');
   }
 }

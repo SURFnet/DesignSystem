@@ -40,12 +40,11 @@ export class HlmPaginationLink {
 
   constructor() {
     classes(() => [
-      '',
       buttonVariants({
         variant: this.isActive() ? 'outline' : 'ghost',
         size: this.size(),
       }),
-      this.link() === undefined && 'cursor-pointer',
+      this.link() === undefined && 'curve-pagination-link--clickable',
     ]);
   }
 }

@@ -5,6 +5,7 @@ export { A11Y_GAP_TAG, A11Y_MINOR_TAG, a11yTagConfig } from './a11y-tags.js';
 export { FRAMEWORKS, frameworkGlobalTypes, frameworkSwitcher } from './frameworks.js';
 export type { Framework, FrameworkTarget } from './frameworks.js';
 export { THEME_NAMES, themeGlobalTypes, themeInitialGlobals, themeSwitcher } from './themes.js';
+export { visualReadyMarker } from './visual-ready.js';
 export { TOKEN_GROUPS, getTokenGroups, getTokenValue, getTypographyScale } from './tokens.js';
 export type {
   TokenEntry,

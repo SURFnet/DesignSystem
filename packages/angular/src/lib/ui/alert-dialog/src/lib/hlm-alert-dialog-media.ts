@@ -7,9 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmAlertDialogMedia {
   constructor() {
-    classes(
-      () =>
-        "bg-muted mb-2 inline-flex size-16 items-center justify-center rounded-md sm:group-data-[size=default]/alert-dialog-content:row-span-2 *:[ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*8)]",
-    );
+    classes(() => 'curve-alert-dialog-media');
   }
 }

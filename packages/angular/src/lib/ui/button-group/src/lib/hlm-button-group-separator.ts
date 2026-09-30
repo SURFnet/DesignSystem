@@ -12,10 +12,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmButtonGroupSeparator {
   constructor() {
-    classes(() => [
-      'bg-input relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto',
-      // separator classes
-      'shrink-0 data-horizontal:h-px data-vertical:w-px data-vertical:self-stretch',
-    ]);
+    classes(() => 'curve-button-group-separator');
   }
 }

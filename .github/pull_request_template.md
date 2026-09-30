@@ -18,6 +18,7 @@
 
 - [ ] `pnpm build`, `pnpm lint`, and `pnpm format` pass
 - [ ] Storybook story added/updated to cover the change (variants, sizes, states)
+- [ ] Visual snapshots updated (`pnpm test:visual:update` after `pnpm build-storybook`) if appearance changed
 - [ ] Changeset added (`pnpm changeset`) — required for any change to `@surfnet/curve-react` or `@surfnet/curve-angular`; N/A for docs/CI-only changes
 - [ ] React and Angular kept in parity, if applicable (contract updated in `@surfnet/curve-contracts`)
 

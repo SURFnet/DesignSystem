@@ -17,10 +17,12 @@
     "./test-runner": {
       "types": "./dist/a11y-audit.d.ts",
       "default": "./dist/a11y-audit.js"
-    }
+    },
+    "./story-chrome.css": "./src/story-chrome.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/story-chrome.css"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",

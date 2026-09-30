@@ -28,7 +28,7 @@ import type { CarouselOrientationName } from '@surfnet/curve-contracts';
   template: `
     <div
       emblaCarousel
-      class="overflow-hidden"
+      class="curve-carousel-viewport"
       [plugins]="plugins()"
       [options]="_emblaOptions()"
       [subscribeToEvents]="['init', 'select', 'reInit']"
@@ -67,7 +67,7 @@ export class HlmCarousel {
   public readonly slideCount = this._slideCount.asReadonly();
 
   constructor() {
-    classes(() => 'relative');
+    classes(() => 'curve-carousel');
   }
 
   protected onEmblaEvent(event: EmblaEventType) {

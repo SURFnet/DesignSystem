@@ -28,9 +28,6 @@ export class HlmDropdownMenuCheckbox {
   });
 
   constructor() {
-    classes(
-      () =>
-        'hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground data-checked:bg-secondary data-checked:text-secondary-foreground group relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-2 pl-8 text-sm transition-colors outline-none select-none has-[>hlm-dropdown-menu-checkbox-indicator:last-child]:ps-2 has-[>hlm-dropdown-menu-checkbox-indicator:last-child]:pe-8 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 has-[>hlm-dropdown-menu-checkbox-indicator:last-child]:[&>hlm-dropdown-menu-checkbox-indicator]:start-auto has-[>hlm-dropdown-menu-checkbox-indicator:last-child]:[&>hlm-dropdown-menu-checkbox-indicator]:end-2',
-    );
+    classes(() => 'curve-dropdown-menu-choice curve-dropdown-menu-choice--checkbox group');
   }
 }

@@ -1,0 +1,32 @@
+/* Progress — `hlm-progress` and `hlm-progress-indicator`. */
+.curve-progress {
+  position: relative;
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 1.5);
+  width: 100%;
+  overflow: hidden;
+  border-radius: calc(infinity * 1px);
+  background-color: var(--muted);
+}
+
+.curve-progress-indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1 1 0%;
+  background-color: var(--primary);
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* No value: the bar sweeps across to show ongoing work. */
+.curve-progress-indicator--indeterminate {
+  animation: curve-progress-indeterminate 4s ease-in-out infinite;
+}
+
+@keyframes curve-progress-indeterminate {
+  0% {
+    transform: translateX(-100%) scaleX(0.5);
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.5);
+  }
+}

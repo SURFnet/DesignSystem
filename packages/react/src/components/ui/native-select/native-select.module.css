@@ -1,0 +1,85 @@
+.wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.wrapper:has(select:disabled) {
+  opacity: 0.5;
+}
+
+.select {
+  height: calc(var(--spacing, 0.25rem) * 9);
+  width: 100%;
+  min-width: 0;
+  appearance: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  padding: 0.25rem calc(var(--spacing, 0.25rem) * 8) 0.25rem calc(var(--spacing, 0.25rem) * 2.5);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition:
+    color 150ms ease,
+    box-shadow 150ms ease;
+  outline: none;
+  user-select: none;
+}
+
+.select::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.select::placeholder {
+  color: var(--muted-foreground);
+}
+
+.select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.select:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.select[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.select[data-size='sm'] {
+  height: calc(var(--spacing, 0.25rem) * 8);
+}
+
+:global(.dark) .select {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+:global(.dark) .select:hover:not(:disabled) {
+  background-color: color-mix(in oklch, var(--input) 50%, transparent);
+}
+
+:global(.dark) .select[aria-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.icon {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: calc(var(--spacing, 0.25rem) * 2.5);
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+  color: var(--muted-foreground);
+  transform: translateY(-50%);
+  user-select: none;
+}
+
+.option {
+  background-color: canvas;
+  color: canvastext;
+}

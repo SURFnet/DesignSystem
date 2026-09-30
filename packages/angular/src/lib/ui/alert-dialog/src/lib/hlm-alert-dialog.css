@@ -1,0 +1,157 @@
+/* Alert dialog — `hlm-alert-dialog` (CDK overlay) and its parts. Sizes: data-size="default | sm". */
+.curve-alert-dialog-overlay {
+  background-color: rgb(0 0 0 / 10%);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .curve-alert-dialog-overlay {
+    backdrop-filter: blur(4px);
+  }
+}
+
+.curve-alert-dialog-content {
+  display: grid;
+  width: 100%;
+  gap: calc(var(--spacing, 0.25rem) * 6);
+  border-radius: var(--radius-xl, calc(var(--radius, 0.625rem) * 1.4));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 6);
+  color: var(--popover-foreground);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+  outline: none;
+}
+
+.curve-alert-dialog-content[data-size='default'],
+.curve-alert-dialog-content[data-size='sm'] {
+  max-width: 20rem;
+}
+
+@media (min-width: 40rem) {
+  .curve-alert-dialog-content[data-size='default'] {
+    max-width: 32rem;
+  }
+}
+
+.curve-alert-dialog-header {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  place-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  text-align: center;
+}
+
+.curve-alert-dialog-header:has([data-slot='alert-dialog-media']) {
+  grid-template-rows: auto auto 1fr;
+  column-gap: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.curve-alert-dialog-media {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 2);
+  display: inline-flex;
+  width: calc(var(--spacing, 0.25rem) * 16);
+  height: calc(var(--spacing, 0.25rem) * 16);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--muted);
+}
+
+.curve-alert-dialog-media > ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-alert-dialog-title {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+}
+
+.curve-alert-dialog-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-wrap: balance;
+  color: var(--muted-foreground);
+}
+
+.curve-alert-dialog-description > a {
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+
+.curve-alert-dialog-description > a:hover {
+  color: var(--foreground);
+}
+
+.curve-alert-dialog-footer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+[data-slot='alert-dialog-content'][data-size='sm'] .curve-alert-dialog-footer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 40rem) {
+  .curve-alert-dialog-footer {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  [data-slot='alert-dialog-content'][data-size='default'] .curve-alert-dialog-header {
+    place-items: start;
+    text-align: start;
+  }
+
+  [data-slot='alert-dialog-content'][data-size='default']
+    .curve-alert-dialog-header:has([data-slot='alert-dialog-media']) {
+    grid-template-rows: auto 1fr;
+  }
+
+  [data-slot='alert-dialog-content'][data-size='default'] .curve-alert-dialog-media {
+    grid-row: span 2 / span 2;
+  }
+
+  [data-slot='alert-dialog-content'][data-size='default']:has([data-slot='alert-dialog-media'])
+    .curve-alert-dialog-title {
+    grid-column-start: 2;
+  }
+}
+
+@media (min-width: 48rem) {
+  .curve-alert-dialog-description {
+    text-wrap: pretty;
+  }
+}
+
+/*
+ * Enter/exit motion (backdrop fade; content fade + zoom 95%). Only for users
+ * without a reduced-motion preference; keyframes live in src/styles/motion.css.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-alert-dialog-overlay,
+  .curve-alert-dialog-content {
+    animation-duration: 100ms;
+    --curve-enter-opacity: 0;
+    --curve-exit-opacity: 0;
+  }
+
+  .curve-alert-dialog-content {
+    --curve-enter-scale: 0.95;
+    --curve-exit-scale: 0.95;
+  }
+
+  .curve-alert-dialog-overlay:is([data-state='open'], [data-open]:not([data-open='false'])),
+  .curve-alert-dialog-content:is([data-state='open'], [data-open]:not([data-open='false'])) {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+  }
+
+  .curve-alert-dialog-overlay:is([data-state='closed'], [data-closed]:not([data-closed='false'])),
+  .curve-alert-dialog-content:is([data-state='closed'], [data-closed]:not([data-closed='false'])) {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+}

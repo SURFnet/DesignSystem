@@ -17,8 +17,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCommandList {
   constructor() {
-    classes(
-      () => 'no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none',
-    );
+    classes(() => 'curve-command-list');
   }
 }

@@ -10,6 +10,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarGroup {
   constructor() {
-    classes(() => 'p-2 relative flex w-full min-w-0 flex-col');
+    classes(() => 'curve-sidebar-group');
   }
 }

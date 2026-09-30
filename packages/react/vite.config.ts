@@ -1,17 +1,53 @@
 import { isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 import dts from 'vite-plugin-dts';
 import preserveDirectives from 'rollup-plugin-preserve-directives';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
+import type { Plugin as PostcssPlugin } from 'postcss';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
+
+// Wraps every component CSS Module in `@layer components`, so consumers'
+// Tailwind utilities and plain CSS can override component styles without
+// specificity fights. Done here rather than in each file so module authors
+// write plain, unwrapped CSS.
+//
+// Each module also restates the full layer order: Vite emits module CSS
+// *before* src/index.css in the bundle, and the first mention of a layer fixes
+// its priority, so without this `components` would rank below `base` (the
+// reset). Keep this list in sync with the one at the top of src/index.css.
+const LAYER_ORDER = 'theme, base, components, utilities';
+
+const layerCssModules: PostcssPlugin = {
+  postcssPlugin: 'curve-layer-modules',
+  Once(root, { AtRule }) {
+    if (!root.source?.input.file?.endsWith('.module.css')) return;
+    const layer = new AtRule({ name: 'layer', params: 'components' });
+    layer.append(root.nodes);
+    root.removeAll();
+    root.append(new AtRule({ name: 'layer', params: LAYER_ORDER }), layer);
+  },
+};
+
+// The minifier drops `/*! … */` comments, so re-add the attribution for the
+// reset vendored from Tailwind's preflight (src/styles/preflight.css).
+const cssLicenseBanner: Plugin = {
+  name: 'curve-css-license-banner',
+  enforce: 'post',
+  generateBundle(_options, bundle) {
+    for (const file of Object.values(bundle)) {
+      if (file.type === 'asset' && file.fileName === 'styles.css') {
+        file.source = `/*! Reset based on tailwindcss v4.3.1 preflight | MIT License | https://tailwindcss.com */\n${String(file.source)}`;
+      }
+    }
+  },
+};
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
+    cssLicenseBanner,
     dts({
       tsconfigPath: './tsconfig.build.json',
       entryRoot: 'src',
@@ -19,6 +55,9 @@ export default defineConfig({
       exclude: ['src/**/*.stories.tsx'],
     }),
   ],
+  css: {
+    postcss: { plugins: [layerCssModules] },
+  },
   resolve: {
     alias: {
       '@': resolve(rootDir, 'src'),
