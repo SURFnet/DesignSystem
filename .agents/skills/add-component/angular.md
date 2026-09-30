@@ -47,8 +47,7 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
      `var(--radius-md, …)`) and Spartan's state attributes (`[data-state='open']`,
      `[data-disabled]`, `[data-matches-spartan-invalid='true']`).
    - Translate faithfully — see `packages/react/docs/css-modules-pilot.md` (Angular section)
-     for the pitfalls: `ng-icon` host styles, runtime CSS layers, `tailwind-merge` having
-     resolved conflicts that CSS now resolves by specificity/order, class strings passed into
+     for the pitfalls: `ng-icon` host styles, runtime CSS layers, class strings passed into
      other components.
    - Enter/exit animations go inside `@media (prefers-reduced-motion: no-preference)` and use
      the shared `curve-enter` / `curve-exit` keyframes (`src/styles/motion.css`).
