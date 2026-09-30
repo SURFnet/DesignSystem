@@ -13,7 +13,7 @@ const meta = {
       },
     },
     a11y: {
-      config: {
+      options: {
         rules: [
           {
             id: 'target-size',

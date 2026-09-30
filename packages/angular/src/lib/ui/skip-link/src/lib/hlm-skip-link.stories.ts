@@ -44,7 +44,7 @@ const meta: Meta<SkipLinkArgs> = {
       },
     },
     a11y: {
-      config: {
+      options: {
         rules: [
           {
             id: 'target-size',
