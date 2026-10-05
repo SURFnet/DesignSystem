@@ -1,5 +1,19 @@
 # @surfnet/curve-react
 
+## 0.6.0
+
+### Minor Changes
+
+- e0e7223: Expand CSS Modules migration to overlays and menus: Dialog, Sheet, Select, Sidebar, Calendar, Accordion, Alert dialog, Carousel, Data table, Dropdown/Context menu, Command, Input group, Combobox, Navigation menu, plus earlier components. Base UI primitives unchanged; motion/enter animations largely not ported.
+- e0e7223: Stop shipping Tailwind in `styles.css`. Published CSS now includes tokens, minimal base styles, semantic color utility classes (`text-primary`, `bg-muted`, etc.), and CSS Modules. Storybook uses plain `.storybook/story-chrome.css` for demo layout. Removed `class-variance-authority` and Tailwind devDependencies from the React package.
+- e0e7223: `styles.css` ships Tailwind's preflight reset again (vendored, no Tailwind build needed). All package CSS now sits in cascade layers (`base`, `components`, `utilities`), so your own CSS and Tailwind utilities — including `className` on components — override component styles again. Enter/exit animations for dialogs, sheets, popovers, tooltips, hover cards, menus, selects, comboboxes, the accordion and the navigation menu are back, and only play when the user has no reduced-motion preference. Fixes: Input placeholder colour, Badge link-variant colour and link-badge hover, and Item group spacing when it contains a small Button.
+
+### Patch Changes
+
+- e0e7223: Map Alert and Badge CSS Module variants to the contract names (`info`, `success`, `warning`, `danger`) instead of the leftover `destructive` keys.
+- e0e7223: Alert: internal styles now target the component's own classes instead of `data-slot` attributes. The `data-slot` attributes stay on every part as a styling hook for consumers. In React, the title colour on the info/success/warning/danger variants now applies only to a title that is a direct child of the alert, matching Angular.
+- e0e7223: Remove the `tailwind-merge` dependency. `cn()` (React) and `hlm()` (Angular) now only join class names with `clsx`; they no longer drop conflicting Tailwind utilities (e.g. `p-2 p-4` stays as-is). Components don't use Tailwind classes anymore, so component styling is unaffected.
+
 ## 0.5.1
 
 ### Patch Changes

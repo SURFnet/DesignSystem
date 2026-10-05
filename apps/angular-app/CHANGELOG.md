@@ -1,5 +1,15 @@
 # @surfnet/curve-angular-app
 
+## 0.6.0
+
+### Patch Changes
+
+- Updated dependencies [e0e7223]
+- Updated dependencies [e0e7223]
+- Updated dependencies [e0e7223]
+  - @surfnet/curve-angular@0.6.0
+  - @surfnet/curve-tokens@0.6.0
+
 ## 0.5.1
 
 ### Patch Changes
