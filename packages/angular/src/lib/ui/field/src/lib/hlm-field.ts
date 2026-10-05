@@ -2,34 +2,14 @@ import { Directive, input } from '@angular/core';
 import { BrnField } from '@spartan-ng/brain/field';
 import { classes } from '../../../utils/src';
 import type { FieldOrientationName } from '@surfnet/curve-contracts';
-import { cva, VariantProps } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
 
-const fieldVariants = cva(
-  'data-[matches-spartan-invalid=true]:text-destructive gap-3 group/field flex w-full',
-  {
-    variants: {
-      orientation: {
-        vertical: 'flex-col *:w-full [&>.sr-only]:w-auto',
-        horizontal: [
-          'flex-row items-center',
-          '*:data-[slot=field-label]:flex-auto',
-          'has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-        ],
-        responsive: [
-          'flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto [&>.sr-only]:w-auto',
-          '@md/field-group:*:data-[slot=field-label]:flex-auto',
-          '@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-        ],
-      } satisfies Record<FieldOrientationName, ClassValue>,
-    },
-    defaultVariants: {
-      orientation: 'vertical',
-    },
-  },
-);
+const fieldOrientationClasses = {
+  vertical: 'curve-field--vertical',
+  horizontal: 'curve-field--horizontal',
+  responsive: 'curve-field--responsive',
+} satisfies Record<FieldOrientationName, string>;
 
-export type FieldVariants = VariantProps<typeof fieldVariants>;
+export type FieldVariants = { orientation?: FieldOrientationName | null };
 
 @Directive({
   selector: '[hlmField],hlm-field',
@@ -44,6 +24,10 @@ export class HlmField {
   public readonly orientation = input<FieldVariants['orientation']>('vertical');
 
   constructor() {
-    classes(() => fieldVariants({ orientation: this.orientation() }));
+    // `group/field` stays as a hook for consumers' Tailwind.
+    classes(() => [
+      'curve-field group/field',
+      fieldOrientationClasses[this.orientation() ?? 'vertical'],
+    ]);
   }
 }

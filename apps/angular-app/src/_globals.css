@@ -1,8 +1,10 @@
-/* Components, design tokens and preflight, fully compiled by @surfnet/curve-angular.
-   No Tailwind setup required to consume the design system. */
+/* Components, design tokens, reset and semantic colour utilities (text-muted-foreground,
+   bg-primary, …), plain CSS from @surfnet/curve-angular. It also declares the cascade layer
+   order. */
 @import '@surfnet/curve-angular/styles.css';
 
-/* The app's own Tailwind, for utilities used in app templates (e.g. layout).
-   Skip preflight here, it already ships in the package stylesheet above. */
+/* The app's own Tailwind, for utilities used in app templates (e.g. layout). Skip preflight
+   (the package ships a reset). Utilities go into the package's `utilities` layer, so a class
+   on a component (e.g. `class="w-56"` on hlm-dropdown-menu) overrides its component styles. */
 @import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/utilities.css';
+@import 'tailwindcss/utilities.css' layer(utilities);

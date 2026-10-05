@@ -20,7 +20,7 @@ import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
       <ng-icon name="phosphorDotsThree" />
     </button>
     <ng-template #menu>
-      <hlm-dropdown-menu align="start" class="w-48">
+      <hlm-dropdown-menu align="start" class="curve-data-table-actions-menu">
         @for (action of actions(); track action) {
           <button
             hlmDropdownMenuItem

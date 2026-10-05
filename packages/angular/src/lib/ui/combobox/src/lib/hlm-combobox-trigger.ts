@@ -37,10 +37,7 @@ import type { ClassValue } from 'clsx';
       [variant]="variant()"
     >
       <ng-content />
-      <ng-icon
-        name="phosphorCaretDown"
-        class="text-muted-foreground text-[calc(var(--spacing)*4)]"
-      />
+      <ng-icon name="phosphorCaretDown" class="curve-combobox-trigger-icon" />
     </button>
   `,
 })
@@ -51,7 +48,7 @@ export class HlmComboboxTrigger {
     alias: 'class',
   });
   protected readonly _computedClass = computed(() =>
-    hlm('data-placeholder:text-muted-foreground', this.userClass()),
+    hlm('curve-combobox-trigger', this.userClass()),
   );
 
   public readonly buttonId = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);

@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmPaginationContent {
   constructor() {
-    classes(() => 'gap-1 flex items-center');
+    classes(() => 'curve-pagination-content');
   }
 }

@@ -43,17 +43,17 @@ import type { ClassValue } from 'clsx';
       [defaultFocusedDate]="defaultFocusedDate()"
       [class]="_computedCalenderClass()"
     >
-      <div class="inline-flex flex-col space-y-4">
+      <div class="curve-calendar-months">
         <!-- Header -->
-        <div class="space-y-4">
-          <div class="relative flex items-center justify-center pt-1">
-            <div class="flex w-full items-center justify-center gap-1.5">
+        <div class="curve-calendar-header-stack">
+          <div class="curve-calendar-caption">
+            <div class="curve-calendar-caption-label">
               <ng-template #month>
                 <hlm-select brnCalendarMonthSelect>
                   <hlm-select-trigger size="sm" [class]="_selectClass" aria-label="Select month">
                     <hlm-select-value />
                   </hlm-select-trigger>
-                  <hlm-select-content *hlmSelectPortal class="max-h-80">
+                  <hlm-select-content *hlmSelectPortal class="curve-calendar-select-content">
                     <hlm-select-group>
                       @for (month of _i18n.config().months(); track month) {
                         <hlm-select-item [value]="month">{{ month }}</hlm-select-item>
@@ -67,7 +67,7 @@ import type { ClassValue } from 'clsx';
                   <hlm-select-trigger size="sm" [class]="_selectClass" aria-label="Select year">
                     <hlm-select-value />
                   </hlm-select-trigger>
-                  <hlm-select-content *hlmSelectPortal class="max-h-80">
+                  <hlm-select-content *hlmSelectPortal class="curve-calendar-select-content">
                     <hlm-select-group>
                       @for (year of _i18n.config().years(); track year) {
                         <hlm-select-item [value]="year">{{ year }}</hlm-select-item>
@@ -84,43 +84,37 @@ import type { ClassValue } from 'clsx';
                 }
                 @case ('dropdown-months') {
                   <ng-container [ngTemplateOutlet]="month" />
-                  <div brnCalendarHeader class="text-sm font-medium">{{ heading.year }}</div>
+                  <div brnCalendarHeader class="curve-calendar-heading">{{ heading.year }}</div>
                 }
                 @case ('dropdown-years') {
-                  <div brnCalendarHeader class="text-sm font-medium">{{ heading.month }}</div>
+                  <div brnCalendarHeader class="curve-calendar-heading">{{ heading.month }}</div>
                   <ng-container [ngTemplateOutlet]="year" />
                 }
                 @case ('label') {
-                  <div brnCalendarHeader class="text-sm font-medium">{{ heading.header }}</div>
+                  <div brnCalendarHeader class="curve-calendar-heading">{{ heading.header }}</div>
                 }
               }
             </div>
 
-            <div class="flex items-center space-x-1">
-              <button
-                brnCalendarPreviousButton
-                class="focus-visible:ring-ring hover:bg-muted hover:text-foreground text-popover-foreground absolute left-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-              >
+            <div class="curve-calendar-nav-group">
+              <button brnCalendarPreviousButton class="curve-calendar-nav curve-calendar-nav--prev">
                 <ng-icon hlm name="phosphorCaretLeft" size="sm" />
               </button>
 
-              <button
-                brnCalendarNextButton
-                class="focus-visible:ring-ring hover:bg-muted hover:text-foreground text-popover-foreground absolute right-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-              >
+              <button brnCalendarNextButton class="curve-calendar-nav curve-calendar-nav--next">
                 <ng-icon hlm name="phosphorCaretRight" size="sm" />
               </button>
             </div>
           </div>
         </div>
 
-        <table class="w-full border-collapse space-y-1" brnCalendarGrid>
+        <table class="curve-calendar-grid" brnCalendarGrid>
           <thead>
-            <tr class="flex">
+            <tr class="curve-calendar-weekdays">
               <th
                 *brnCalendarWeekday="let weekday"
                 scope="col"
-                class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
+                class="curve-calendar-weekday"
                 [attr.aria-label]="_i18n.config().labelWeekday(weekday)"
               >
                 {{ _i18n.config().formatWeekdayName(weekday) }}
@@ -129,12 +123,9 @@ import type { ClassValue } from 'clsx';
           </thead>
 
           <tbody role="rowgroup">
-            <tr *brnCalendarWeek="let week" class="mt-2 flex w-full">
+            <tr *brnCalendarWeek="let week" class="curve-calendar-week">
               @for (date of week; track _dateAdapter.getTime(date)) {
-                <td
-                  brnCalendarCell
-                  class="data-[selected]:data-[outside]:bg-muted/50 data-[selected]:bg-muted relative size-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:data-[selected]:rounded-l-md last:data-[selected]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md"
-                >
+                <td brnCalendarCell class="curve-calendar-cell">
                   <button brnCalendarCellButton [date]="date" [class]="_btnClass">
                     {{ _dateAdapter.getDate(date) }}
                   </button>
@@ -151,7 +142,7 @@ export class HlmCalendar<T> {
   public readonly calendarClass = input<ClassValue>('');
 
   protected readonly _computedCalenderClass = computed(() =>
-    hlm('rounded-md border p-3', this.calendarClass()),
+    hlm('curve-calendar', this.calendarClass()),
   );
 
   /** Access the calendar i18n */
@@ -213,22 +204,8 @@ export class HlmCalendar<T> {
 
   protected readonly _btnClass = hlm(
     buttonVariants({ variant: 'ghost' }),
-    'size-8 p-0 font-normal aria-selected:opacity-100',
-    'data-[outside]:text-muted-foreground data-[outside]:aria-selected:bg-muted/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:opacity-30',
-    'data-[today]:bg-muted data-[today]:text-foreground',
-    'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary dark:hover:text-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
-    'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
-    'dark:hover:text-foreground',
-    "data-[highlighted]:before:content-['']",
-    'data-[highlighted]:before:absolute',
-    'data-[highlighted]:before:bottom-1',
-    'data-[highlighted]:before:left-1/2',
-    'data-[highlighted]:before:h-1',
-    'data-[highlighted]:before:w-1',
-    'data-[highlighted]:before:-translate-x-1/2',
-    'data-[highlighted]:before:rounded-full',
-    'data-[highlighted]:before:bg-destructive',
+    'curve-calendar-day curve-calendar-day--single',
   );
 
-  protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ml-1';
+  protected readonly _selectClass = 'curve-calendar-select-trigger';
 }

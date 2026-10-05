@@ -13,6 +13,6 @@ export class HlmSelectValue {
   protected readonly _hidden = this._brnSelectValue.hidden;
 
   constructor() {
-    classes(() => 'data-hidden:hidden');
+    classes(() => 'curve-select-value');
   }
 }

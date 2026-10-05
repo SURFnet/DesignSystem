@@ -16,7 +16,7 @@ A Turborepo + pnpm monorepo with five packages:
 | `@surfnet/curve-contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_) | `tsc --noEmit`                      | —                              |
 | `@surfnet/curve-typescript-config` | Shared base `tsconfig`s                                                                         | —                                   | —                              |
 
-Both component packages style with **Tailwind CSS v4** and source their design tokens from `@surfnet/curve-tokens`.
+Both component packages style with **plain CSS in cascade layers** and source their design tokens from `@surfnet/curve-tokens`: React with co-located CSS Modules, Angular with a co-located `hlm-<name>.css` per component (`curve-*` classes). Neither published `styles.css` contains Tailwind; apps can still add their own Tailwind on top.
 
 The workspace also has an `apps/*` glob with one demo app:
 
@@ -53,10 +53,12 @@ pnpm format                                    # prettier --write across the rep
 pnpm storybook                                       # both Storybooks (React :6006, Angular :6007)
 pnpm storybook:react                                 # React Storybook (port 6006)
 pnpm storybook:angular                               # Angular Storybook (port 6007)
+pnpm build-storybook && pnpm test:visual             # story screenshots vs baselines (React + Angular)
 ```
 
 Always run `pnpm lint` and `pnpm format` before considering a change done, and rebuild
-the package you touched.
+the package you touched. Ask the user if they want to snapshot baselines with `pnpm test:visual:update`
+(after `pnpm build-storybook`). Compare React to Angular when you want with `pnpm test:visual:parity`.
 
 ## MCP servers
 
@@ -117,16 +119,28 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - **Do not remove `browserTarget: "angular:build"`** from the `storybook` /
   `build-storybook` targets in `packages/angular/angular.json` — the Angular dev server
   throws `AngularLegacyBuildOptionsError` without it. Keep the explicit `tsConfig`
-  (compiles stories) and `styles` (loads Tailwind) alongside it.
-- Angular's webpack Storybook needs `packages/angular/.postcssrc.json`
-  (`@tailwindcss/postcss`) to generate Tailwind utilities — without it stories get theme
-  tokens but no utility classes. Don't delete it.
+  (compiles stories) and `styles` (the package CSS, the shared story chrome, docs CSS)
+  alongside it.
+- **No Tailwind in either Storybook.** Story templates use a small set of Tailwind-named
+  layout classes from `@surfnet/curve-storybook-config/story-chrome.css` (`packages/storybook-config/src/story-chrome.css`), shared by both Storybooks (React imports it in
+  `.storybook/preview.ts`, Angular lists it in `angular.json` `styles`). Add a class there
+  when a story needs one; components never use these classes.
 - Both Storybooks share `@storybook/addon-a11y` + `@storybook/addon-docs`, and every story
   meta sets `tags: ['autodocs']` so each gets a generated **Docs** page. Keep the two
   packages' addon sets in sync.
 - Ports are pinned in the configs so both can run at once: **React → 6006** (the
   `storybook` script's `-p 6006` in `packages/react/package.json`), **Angular → 6007**
   (the `storybook` target's `"port": 6007` in `packages/angular/angular.json`).
+
+### Visual tests (Playwright)
+
+- Screenshots come from the **built** Storybooks (`pnpm build-storybook`), not the
+  Vite/webpack dev servers. Serve them on 6008/6009 so they don't collide with
+  `pnpm storybook` on 6006/6007.
+- React and Angular each have a `*.spec.ts` that `toHaveScreenshot`s every story (light + dark).
+  Baselines live in separate folders: `tests/visual/__screenshots__/react/` and
+  `.../angular/` (same story ids, different PNGs — never share one flat directory).
+- Refresh baselines with `pnpm test:visual:update`. Optional parity: `pnpm test:visual:parity`.
 
 ### Shared packages (`@surfnet/curve-tokens` + `@surfnet/curve-contracts`)
 
@@ -141,16 +155,16 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 - **Token flow:** Figma -> `sync:figma` -> DTCG JSON -> Style Dictionary build ->
   `dist/tokens.css` (`:root` default light, `.dark` diff, `.theme-<class>` /
   `.dark.theme-<class>` per-theme diffs) + `dist/index.{js,d.ts}` (typed token map). Both
-  component packages `@import` the CSS; Vite / PostCSS inlines it into each published
-  `styles.css`. Switch themes by adding a class to `<html>` (e.g. `class="dark theme-surf-green"`).
+  component packages `@import` the CSS; Vite (React) and Lightning CSS (Angular,
+  `packages/angular/scripts/build-css.ts`) inline it into each published `styles.css`. Switch themes by adding a class to `<html>` (e.g. `class="dark theme-surf-green"`).
 - **Parity mechanism:** `@surfnet/curve-contracts` exports an `as const` spec (e.g.
   `buttonContract`) that declares the canonical variant names, size names, defaults, and
   docs. Both frameworks enforce this at compile time with
-  `satisfies Record<ButtonVariantName, string>` on their cva call. A mismatch (stray
+  `satisfies Record<ButtonVariantName, string>` on their variant → class maps. A mismatch (stray
   variant in one framework, missing size in another) fails `pnpm lint` immediately.
 - **Contracts are build-time only.** `@surfnet/curve-contracts` is private and must not appear
-  in any published `dist` — types erase after compilation. Each framework continues to
-  export its own `VariantProps<typeof buttonVariants>`.
+  in any published `dist` — types erase after compilation. Each framework exports its own
+  plain variant option types (e.g. `ButtonVariants`) and `buttonVariants()` helpers.
 - **Do not add runtime utils to the shared packages.** `cn` stays in React; `hlm` stays
   in Angular. The shared packages are intentionally thin.
 
@@ -193,7 +207,7 @@ Gotchas:
 1. Component vendored via the framework's CLI (don't hand-write primitives).
 2. Exported from the package entry (`src/index.ts` / `src/public-api.ts`).
 3. A Storybook story covering the component's full surface (variants, sizes, states).
-4. `pnpm build`, `pnpm lint`, and `pnpm format` all pass.
+4. `pnpm build`, `pnpm lint`, `pnpm format`, and `pnpm test:visual` all pass.
 5. A changeset added (`pnpm changeset`) if a publishable package changed.
 
 ## Skills

@@ -1,0 +1,80 @@
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+}
+
+.content {
+  z-index: 50;
+  display: flex;
+  width: 18rem;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  padding: calc(var(--spacing, 0.25rem) * 4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--popover-foreground);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  outline: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  font-size: 0.875rem;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.description {
+  color: var(--muted-foreground);
+}
+
+/*
+ * Enter/exit motion (fade + zoom 95% + short slide away from the anchor).
+ * Only for users without a reduced-motion preference; keyframes live in
+ * src/styles/motion.css.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .content {
+    transform-origin: var(--transform-origin, center);
+    animation-duration: 100ms;
+    --curve-enter-opacity: 0;
+    --curve-enter-scale: 0.95;
+    --curve-exit-opacity: 0;
+    --curve-exit-scale: 0.95;
+  }
+
+  .content[data-open] {
+    animation-name: global(curve-enter);
+    animation-timing-function: ease-out;
+  }
+
+  .content[data-closed] {
+    animation-name: global(curve-exit);
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+
+  .content[data-side='bottom'] {
+    --curve-enter-translate-y: calc(var(--spacing, 0.25rem) * -2);
+  }
+
+  .content[data-side='top'] {
+    --curve-enter-translate-y: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .content[data-side='left'],
+  .content[data-side='inline-start'] {
+    --curve-enter-translate-x: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .content[data-side='right'],
+  .content[data-side='inline-end'] {
+    --curve-enter-translate-x: calc(var(--spacing, 0.25rem) * -2);
+  }
+}

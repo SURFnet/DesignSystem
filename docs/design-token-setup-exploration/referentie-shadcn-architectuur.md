@@ -114,7 +114,7 @@ project-root/
 │   ├── components/
 │   │   └── ui/              ← shadcn primitives (Button, Input, …)
 │   ├── lib/
-│   │   └── utils.ts         ← cn() helper (clsx + tailwind-merge)
+│   │   └── utils.ts         ← cn() helper (clsx)
 │   └── hooks/               ← optioneel (use-mobile, etc.)
 ```
 
@@ -204,7 +204,7 @@ shadcn gebruikt **background/foreground pairs** zonder expliciete rol-prefix:
 
 **Componentpatroon:** Primitives in `components/ui/` combineren Radix UI + Tailwind classes die semantic utilities gebruiken (`bg-primary`, `hover:bg-accent`, `border-input`).
 
-**Dependencies:** Radix UI primitives, `class-variance-authority` (variants), `tailwind-merge` + `clsx` (`cn()`), Lucide icons.
+**Dependencies:** Radix UI primitives, `class-variance-authority` (variants), `clsx` (`cn()`), Lucide icons.
 
 ---
 

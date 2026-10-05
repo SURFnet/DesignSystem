@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSheetHeader {
   constructor() {
-    classes(() => 'gap-1.5 p-4 flex flex-col');
+    classes(() => 'curve-sheet-header');
   }
 }

@@ -1,0 +1,60 @@
+/* Breadcrumb — `hlmBreadcrumb*`. */
+.curve-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  overflow-wrap: break-word;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 40rem) {
+  .curve-breadcrumb-list {
+    gap: calc(var(--spacing, 0.25rem) * 2.5);
+  }
+}
+
+.curve-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-breadcrumb-link {
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-breadcrumb-link:hover {
+  color: var(--foreground);
+}
+
+.curve-breadcrumb-page {
+  font-weight: 400;
+  color: var(--foreground);
+}
+
+/*
+ * `!important` only where ng-icon's own (unlayered) :host styles set the same
+ * property — a layered important declaration outranks them.
+ */
+.curve-breadcrumb-separator > ng-icon {
+  display: flex !important;
+  font-size: calc(var(--spacing, 0.25rem) * 3.5);
+}
+
+.curve-breadcrumb-ellipsis {
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 5);
+  height: calc(var(--spacing, 0.25rem) * 5);
+  align-items: center;
+  justify-content: center;
+}
+
+.curve-breadcrumb-ellipsis > ng-icon {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}

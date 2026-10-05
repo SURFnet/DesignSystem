@@ -8,13 +8,10 @@ import { classes } from '../../../utils/src';
   imports: [NgIcon],
   providers: [provideIcons({ phosphorCircle })],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <ng-icon name="phosphorCircle" class="text-[0.5rem] *:[svg]:fill-current" /> `,
+  template: ` <ng-icon name="phosphorCircle" class="curve-dropdown-menu-radio-dot" /> `,
 })
 export class HlmDropdownMenuRadioIndicator {
   constructor() {
-    classes(
-      () =>
-        'pointer-events-none absolute start-2 flex size-3.5 items-center justify-center opacity-0 group-data-[checked]:opacity-100',
-    );
+    classes(() => 'curve-dropdown-menu-indicator');
   }
 }

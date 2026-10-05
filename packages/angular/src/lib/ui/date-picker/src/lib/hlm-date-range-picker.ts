@@ -40,7 +40,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   hostDirectives: [BrnFieldControl],
-  host: { class: 'block' },
+  host: { class: 'curve-date-picker' },
   template: `
     <hlm-popover
       sideOffset="5"
@@ -50,10 +50,10 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
     >
       <ng-content />
 
-      <hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
+      <hlm-popover-content class="curve-date-picker-popover" *hlmPopoverPortal="let ctx">
         <ng-content select="[hlmDatePickerHeader]" />
         <hlm-calendar-range
-          calendarClass="border-0 rounded-none"
+          calendarClass="curve-calendar--flush"
           [startDate]="_start()"
           [captionLayout]="captionLayout()"
           [endDate]="_end()"

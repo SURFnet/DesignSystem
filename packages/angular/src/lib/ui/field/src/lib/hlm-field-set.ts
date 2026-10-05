@@ -7,9 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmFieldSet {
   constructor() {
-    classes(
-      () =>
-        'gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3 flex flex-col',
-    );
+    classes(() => 'curve-field-set');
   }
 }

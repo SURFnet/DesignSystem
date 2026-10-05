@@ -74,7 +74,7 @@ whitespace-nowrap`.
 ## The `hlm()` utility
 
 When you compute classes in TypeScript, merge them with `hlm()` from `@spartan-ng/helm/utils` (it
-wraps `clsx` + `tailwind-merge`, so later classes win conflicts). Do not concatenate class strings
+wraps `clsx`, so later classes win conflicts). Do not concatenate class strings
 by hand.
 
 ```ts

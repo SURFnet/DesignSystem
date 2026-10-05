@@ -2,23 +2,18 @@ import { Directive, input } from '@angular/core';
 import { BrnTabsList } from '@spartan-ng/brain/tabs';
 import { classes } from '../../../utils/src';
 import type { TabsVariantName } from '@surfnet/curve-contracts';
-import { type VariantProps, cva } from 'class-variance-authority';
 
-export const listVariants = cva(
-  'rounded-lg p-[3px] group-data-horizontal/tabs:h-9 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col',
-  {
-    variants: {
-      variant: {
-        default: 'bg-muted',
-        line: 'gap-1 bg-transparent',
-      } satisfies Record<TabsVariantName, string>,
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
-type ListVariants = VariantProps<typeof listVariants>;
+// Styling lives in ./hlm-tabs.css; `group/tabs-list` stays as a hook for consumers' Tailwind.
+const listVariantClasses = {
+  default: 'curve-tabs-list--variant-default',
+  line: 'curve-tabs-list--variant-line',
+} satisfies Record<TabsVariantName, string>;
+
+type ListVariants = { variant?: TabsVariantName | null };
+
+export function listVariants({ variant }: ListVariants = {}): string {
+  return `curve-tabs-list group/tabs-list ${listVariantClasses[variant ?? 'default']}`;
+}
 
 @Directive({
   selector: '[hlmTabsList],hlm-tabs-list',

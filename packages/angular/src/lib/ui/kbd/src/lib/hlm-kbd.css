@@ -1,0 +1,39 @@
+/* Kbd — `hlmKbd` and `hlmKbdGroup`. */
+.curve-kbd {
+  pointer-events: none;
+  display: inline-flex;
+  height: calc(var(--spacing, 0.25rem) * 5);
+  width: fit-content;
+  min-width: calc(var(--spacing, 0.25rem) * 5);
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  background-color: var(--muted);
+  padding-inline: calc(var(--spacing, 0.25rem) * 1);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  user-select: none;
+}
+
+.curve-kbd ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 3);
+}
+
+[data-slot='tooltip-content'] .curve-kbd {
+  background-color: color-mix(in oklab, var(--background) 20%, transparent);
+  color: var(--background);
+}
+
+.dark [data-slot='tooltip-content'] .curve-kbd {
+  background-color: color-mix(in oklab, var(--background) 10%, transparent);
+}
+
+.curve-kbd-group {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+}

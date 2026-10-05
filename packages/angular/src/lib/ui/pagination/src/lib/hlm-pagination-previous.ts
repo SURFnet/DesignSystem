@@ -29,7 +29,7 @@ import { HlmPaginationLink } from './hlm-pagination-link';
       [size]="_size()"
       [attr.aria-label]="ariaLabel()"
     >
-      <ng-icon name="phosphorCaretLeft" class="rtl:rotate-180" />
+      <ng-icon name="phosphorCaretLeft" class="curve-pagination-icon" />
       <span [class]="_labelClass()">{{ text() }}</span>
     </a>
   `,
@@ -52,7 +52,7 @@ export class HlmPaginationPrevious {
     transform: booleanAttribute,
   });
   protected readonly _labelClass = computed(() =>
-    hlm(this.iconOnly() ? 'sr-only' : 'hidden sm:block'),
+    hlm(this.iconOnly() ? 'sr-only' : 'curve-pagination-label'),
   );
 
   protected readonly _size = computed<ButtonVariants['size']>(() =>
@@ -60,6 +60,6 @@ export class HlmPaginationPrevious {
   );
 
   protected readonly _computedClass = computed(() =>
-    hlm(!this.iconOnly() && 'ps-2!', this.userClass()),
+    hlm(!this.iconOnly() && 'curve-pagination-previous--labelled', this.userClass()),
   );
 }

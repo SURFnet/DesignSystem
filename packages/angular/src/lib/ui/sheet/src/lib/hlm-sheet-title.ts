@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSheetTitle {
   constructor() {
-    classes(() => 'text-foreground font-medium');
+    classes(() => 'curve-sheet-title');
   }
 }

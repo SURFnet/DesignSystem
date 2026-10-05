@@ -67,6 +67,10 @@ pnpm format           # format everything with Prettier
 pnpm storybook              # both (React :6006, Angular :6007)
 pnpm storybook:react        # http://localhost:6006
 pnpm storybook:angular      # http://localhost:6007
+
+# Visual regression (Playwright screenshots of the built Storybooks)
+pnpm build-storybook
+pnpm test:visual
 ```
 
 Each component ships a Storybook story covering its full surface (variants, sizes,
@@ -75,6 +79,34 @@ to GitHub Pages on every push to `main`:
 
 - **React** — https://surfnet.github.io/DesignSystem/react/
 - **Angular** — https://surfnet.github.io/DesignSystem/angular/
+
+## Visual regression
+
+Playwright screenshots each **Components** and **Foundations** story in the built
+Storybooks (React and Angular separately). CI compares those PNGs to baselines in
+`tests/visual/__screenshots__/react/` and `tests/visual/__screenshots__/angular/`.
+
+```bash
+pnpm test:visual:install      # once per machine / after @playwright/test upgrades
+pnpm build-storybook
+pnpm test:visual              # compare snapshots to committed baselines
+pnpm test:visual:parity       # optional: React vs Angular pixel diff (run when you want)
+pnpm test:visual:ui           # Playwright UI mode
+```
+
+Baselines live in `tests/visual/__screenshots__/` and are committed. Refresh after
+`pnpm build-storybook`:
+
+```bash
+pnpm test:visual:update
+```
+
+CI runs on `ubuntu-latest` (Linux Chromium). If snapshots from your machine do not
+match CI, update baselines on Linux or from the failing CI run’s diff, then commit.
+
+React↔Angular alignment is a separate step (`pnpm test:visual:parity`), not part of
+the default `test:visual`. Tag a story `skip-visual` to exclude it (Spinner does).
+Use `visual-fullpage` when the UI portals outside `#storybook-root`.
 
 ## Documentation
 

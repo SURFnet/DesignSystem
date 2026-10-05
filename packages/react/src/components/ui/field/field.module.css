@@ -1,0 +1,150 @@
+.set {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.set:has(> [data-slot='checkbox-group']) {
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.set:has(> [data-slot='radio-group']) {
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.legend {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 3);
+  font-weight: 500;
+}
+
+.legend[data-variant='label'] {
+  font-size: 0.875rem;
+}
+
+.legend[data-variant='legend'] {
+  font-size: 1rem;
+}
+
+.group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 7);
+}
+
+.group > [data-slot='field-group'] {
+  gap: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.field {
+  display: flex;
+  width: 100%;
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.field[data-invalid='true'] {
+  color: var(--destructive);
+}
+
+.field[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+.field[data-orientation='vertical'] > * {
+  width: 100%;
+}
+
+.field[data-orientation='horizontal'] {
+  flex-direction: row;
+  align-items: center;
+}
+
+.fieldContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  line-height: 1.375;
+}
+
+.fieldLabel {
+  display: flex;
+  width: fit-content;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  line-height: 1.375;
+}
+
+.fieldTitle {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.description {
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+.description a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.description a:hover {
+  color: var(--primary);
+}
+
+.separator {
+  position: relative;
+  height: calc(var(--spacing, 0.25rem) * 5);
+  font-size: 0.875rem;
+}
+
+.separator > :global([data-slot='separator']) {
+  position: absolute;
+  inset: 0;
+  top: 50%;
+}
+
+.separatorContent {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  background-color: var(--background);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2);
+  color: var(--muted-foreground);
+}
+
+.error {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--destructive);
+}
+
+.errorList {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  list-style: disc;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

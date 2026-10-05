@@ -7,8 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCardFooter {
   constructor() {
-    classes(
-      () => 'rounded-b-xl px-(--card-spacing) [.border-t]:pt-(--card-spacing) flex items-center',
-    );
+    classes(() => 'curve-card-footer');
   }
 }

@@ -4,6 +4,9 @@ storybook-static
 .turbo
 .next
 pnpm-lock.yaml
+test-results
+playwright-report
+blob-report
 
 # vendored upstream skills — keep them byte-for-byte as fetched
 .agents/skills

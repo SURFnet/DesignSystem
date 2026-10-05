@@ -35,32 +35,48 @@ don't hand-write helm code. Config lives in `packages/angular/components.json`
    Immediately after generating, run `pnpm --filter @surfnet/curve-angular fix-helm-imports` —
    see the note below on why the alias must not survive into the vendored files.
 
+   **Replace the generated Tailwind class strings with CSS.** Spartan emits Tailwind; Curve
+   ships none. Add `src/lib/ui/<component>/src/lib/hlm-<component>.css` next to the helm code
+   and import it from `src/styles.css` (primitives section first, composites after — a
+   composite that restyles a primitive inside it must come later). Then:
+
+   - Name classes `curve-<component>[-part]` with BEM modifiers
+     (`curve-card--size-sm`), and set them via `classes(() => 'curve-card')`. Keep Tailwind
+     `group/*` / `peer/*` marker classes the helm code had — consumers' Tailwind may use them.
+   - Use Curve tokens (`var(--primary)`, `calc(var(--spacing, 0.25rem) * 4)`,
+     `var(--radius-md, …)`) and Spartan's state attributes (`[data-state='open']`,
+     `[data-disabled]`, `[data-matches-spartan-invalid='true']`).
+   - Translate faithfully — see `packages/react/docs/css-modules-pilot.md` (Angular section)
+     for the pitfalls: `ng-icon` host styles, runtime CSS layers, class strings passed into
+     other components.
+   - Enter/exit animations go inside `@media (prefers-reduced-motion: no-preference)` and use
+     the shared `curve-enter` / `curve-exit` keyframes (`src/styles/motion.css`).
+   - Leave no Tailwind in the component — nothing generates Tailwind utilities anymore, so a
+     leftover class simply has no effect (and shows up as a visual difference).
+
 3. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
    from `@surfnet/curve-contracts` and wire them in. Two styles, by how the helm code models the
    axis:
 
-   **a. `cva` map → `satisfies Record<…>`** (the common case; adapted from `hlm-button.ts`):
+   **a. variant → class map with `satisfies Record<…>`** (the common case; adapted from
+   `hlm-button.ts` — no `cva`):
 
    ```ts
    import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
 
-   const cardVariants = cva('...', {
-     variants: {
-       variant: {
-         default: '...',
-         outline: '...',
-       } satisfies Record<CardVariantName, string>,
-       size: {
-         default: '...',
-         sm: '...',
-         lg: '...',
-       } satisfies Record<CardSizeName, string>,
-     },
-   });
+   const cardVariantClasses = {
+     default: 'curve-card--variant-default',
+     outline: 'curve-card--variant-outline',
+   } satisfies Record<CardVariantName, string>;
+
+   const cardSizeClasses = {
+     default: 'curve-card--size-default',
+     sm: 'curve-card--size-sm',
+   } satisfies Record<CardSizeName, string>;
    ```
 
-   **b. inline-union input (no `cva`) → type the input** as the contract's `*Name` instead
-   of a hand-written union.
+   **b. inline-union input → type the input** as the contract's `*Name` instead of a
+   hand-written union.
 
    A **description-only** contract has no axis, so there's nothing to wire — skip to the
    public-API export. Confirm `pnpm lint` passes — a name mismatch between the component and
@@ -103,19 +119,25 @@ pnpm --filter @surfnet/curve-contracts lint       # contract types still compile
 pnpm --filter @surfnet/curve-angular build        # ng-packagr (FESM + d.ts); satisfies check runs here
 pnpm --filter @surfnet/curve-angular build-storybook
 pnpm format
+pnpm test:visual   # after both Storybooks are built
 ```
 
 ## Definition of done
 
 - Component generated via the Spartan CLI — never hand-written.
 - A `<name>Contract` entry exists in `@surfnet/curve-contracts` (description-only if the component
-  has no axis). For every axis, the component is tied to the contract — `cva` maps carry
+  has no axis). For every axis, the component is tied to the contract — class maps carry
   `satisfies Record<...>`, inline-union inputs are typed as the contract's `*Name`; `pnpm
   lint` (or the build) fails if either side adds or removes a name.
 - Component exported from `src/public-api.ts`.
+- Styling in a co-located `hlm-<name>.css` imported from `src/styles.css`; no Tailwind
+  utility strings left in the helm code or its templates.
 - Story covers full variant/size/state surface, sourcing its description and axis lists from
   the contract object.
 - `pnpm build`, `pnpm format`, and `build-storybook` all pass.
+- Visual tests pass (`pnpm test:visual`). Parity screenshots compare this story to its React
+  counterpart by story id — keep the story names in sync. Tag stories `skip-visual` if they
+  cannot be snapshotted stably.
 
 ## Updating an existing component
 
@@ -137,9 +159,11 @@ merging upstream can have an effect on accessibility.
   after every `ng g` to rewrite the new alias imports to relative ones — verify with
   `pnpm --filter @surfnet/curve-angular build` and confirm `dist` has no `@spartan-ng/helm` left
   (`grep -r "@spartan-ng/helm" packages/angular/dist`).
-- The library has no global stylesheet in its build output; the theme tokens in
-  `src/styles.css` are loaded by Storybook (via the `styles` option) and are meant to be
-  imported by consuming apps.
+- `src/styles.css` is bundled into the published `dist/styles.css` by
+  `scripts/build-css.ts` (Lightning CSS, no Tailwind): tokens, reset, base styles and every
+  component stylesheet. Storybook loads the same file via the `styles` option, plus the
+  shared `packages/storybook-config/src/story-chrome.css` for story layout classes (plain
+  CSS, Tailwind-named; add a class there when a story needs one — there's no Tailwind).
 - Icons: use [ng-icons](https://ng-icons.github.io/ng-icons/)'s `NgIcon` directly; there is
   no vendored icon component. `@ng-icons/core` is an **optional peer dependency**; a glyph
   set (we use `@ng-icons/phosphor-icons`) is a `devDependency` for stories and an install the

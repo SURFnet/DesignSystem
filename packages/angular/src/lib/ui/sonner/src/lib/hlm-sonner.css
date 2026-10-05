@@ -1,0 +1,22 @@
+/* Sonner — `hlm-toaster`. The toasts themselves are styled by Spartan's sonner. */
+.curve-toast {
+  border-radius: var(--radius-2xl, calc(var(--radius, 0.625rem) * 1.8)) !important;
+}
+
+/* overflow !important as in the original (ng-icon's :host clips otherwise). */
+.curve-toast-icon {
+  overflow: visible !important;
+  font-size: 1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .curve-toast-icon--loading > svg {
+    animation: curve-toast-spin 1s linear infinite;
+  }
+}
+
+@keyframes curve-toast-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

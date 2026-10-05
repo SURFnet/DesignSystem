@@ -302,8 +302,10 @@ Storybook is the living docs.
 used for Angular because the Vite builder isn't production-ready there.
 
 **Consequences.** Ports pinned so both run at once (React 6006, Angular 6007). Shared
-config in `@surfnet/curve-storybook-config`. Keep `browserTarget: "angular:build"` and the
-Angular `.postcssrc.json` (see [AGENTS.md](../AGENTS.md)).
+config in `@surfnet/curve-storybook-config`. Keep `browserTarget: "angular:build"` (see
+[AGENTS.md](../AGENTS.md)). _Update:_ the Angular `.postcssrc.json` (Tailwind) is gone since the
+Angular components moved to plain CSS; both Storybooks share
+`@surfnet/curve-storybook-config/story-chrome.css` for story layout classes.
 
 ---
 

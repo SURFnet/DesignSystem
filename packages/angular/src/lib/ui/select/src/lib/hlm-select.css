@@ -1,0 +1,281 @@
+/* Select — `hlm-select`, trigger, content (CDK overlay) and items. */
+.curve-select {
+  display: block;
+}
+
+/* Trigger */
+.curve-select-trigger {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  padding-block: calc(var(--spacing, 0.25rem) * 2);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  outline: none;
+  transition-property: color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curve-select-trigger[data-size='default'] {
+  height: calc(var(--spacing, 0.25rem) * 9);
+}
+
+.curve-select-trigger[data-size='sm'] {
+  height: calc(var(--spacing, 0.25rem) * 8);
+}
+
+.curve-select-trigger[data-placeholder] {
+  color: var(--muted-foreground);
+}
+
+.dark .curve-select-trigger {
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+.dark .curve-select-trigger:hover {
+  background-color: color-mix(in oklab, var(--input) 50%, transparent);
+}
+
+.curve-select-trigger:focus-visible {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-select-trigger[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark .curve-select-trigger[data-matches-spartan-invalid='true'] {
+  border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-select-trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.curve-select-trigger ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-select-trigger > [data-slot='select-value'] {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.curve-select-trigger-icon {
+  margin-inline-start: auto;
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+  color: var(--muted-foreground);
+}
+
+.curve-select-value[data-hidden] {
+  display: none;
+}
+
+.curve-select-values-content {
+  display: flex;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-select-placeholder {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-select-placeholder[data-hidden] {
+  display: none;
+}
+
+.curve-select-placeholder ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-select-placeholder ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Content */
+.curve-select-content {
+  position: relative;
+  display: flex;
+  max-height: calc(var(--spacing, 0.25rem) * 72);
+  width: var(--brn-select-width);
+  min-width: calc(var(--spacing, 0.25rem) * 36);
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent),
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.curve-select-content::-webkit-scrollbar {
+  display: none;
+}
+
+.curve-select-listbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.curve-select-group {
+  scroll-margin-block: calc(var(--spacing, 0.25rem) * 1);
+  padding: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-select-label {
+  display: flex;
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.curve-select-separator {
+  pointer-events: none;
+  margin: calc(var(--spacing, 0.25rem) * 1) calc(var(--spacing, 0.25rem) * -1);
+  height: 1px;
+  background-color: var(--border);
+}
+
+.curve-select-scroll {
+  position: sticky;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--popover);
+  padding-block: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-select-scroll--up {
+  top: 0;
+}
+
+.curve-select-scroll--down {
+  bottom: 0;
+}
+
+.curve-select-scroll[data-hidden] {
+  display: none;
+}
+
+.curve-select-scroll ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Item */
+.curve-select-item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  padding-block: calc(var(--spacing, 0.25rem) * 1.5);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 8);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline-style: none;
+  user-select: none;
+}
+
+@media (forced-colors: active) {
+  .curve-select-item {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
+
+.curve-select-item ng-icon {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.curve-select-item > span:last-child {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-select-item[data-highlighted] {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-select-item:not([data-variant='destructive'])[data-highlighted] * {
+  color: var(--foreground);
+}
+
+.curve-select-item:is([data-disabled='true'], [data-disabled]:not([data-disabled='false'])) {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Check mark (an ng-icon; its own :host display wins over a flex class, as before). */
+.curve-select-item-indicator {
+  position: absolute;
+  inset-inline-end: calc(var(--spacing, 0.25rem) * 2);
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/*
+ * Enter/exit motion (fade + zoom 95%). Spartan puts the open/closed state on
+ * the CDK overlay pane around the content (and waits for these animations
+ * before closing). Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-select-content {
+    transform-origin: var(--transform-origin, center);
+    animation-duration: 100ms;
+    --curve-enter-opacity: 0;
+    --curve-enter-scale: 0.95;
+    --curve-exit-opacity: 0;
+    --curve-exit-scale: 0.95;
+  }
+
+  .cdk-overlay-pane[data-state='open'] > .curve-select-content {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+  }
+
+  .cdk-overlay-pane[data-state='closed'] > .curve-select-content {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+}

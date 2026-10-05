@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmCardContent {
   constructor() {
-    classes(() => 'px-(--card-spacing)');
+    classes(() => 'curve-card-content');
   }
 }

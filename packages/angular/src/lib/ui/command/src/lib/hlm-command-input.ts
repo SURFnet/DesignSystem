@@ -11,13 +11,11 @@ import { classes } from '../../../utils/src';
   providers: [provideIcons({ phosphorMagnifyingGlass })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <hlm-input-group
-      class="bg-input/30 border-input/30 h-8 rounded-lg shadow-none *:data-[slot=input-group-addon]:pl-2"
-    >
+    <hlm-input-group class="curve-command-input-group">
       <input
         brnCommandInput
         data-slot="command-input"
-        class="w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
+        class="curve-command-input-control"
         [id]="inputId()"
         [placeholder]="placeholder()"
         [attr.aria-label]="ariaLabel()"
@@ -41,6 +39,6 @@ export class HlmCommandInput {
   public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
   constructor() {
-    classes(() => 'p-1 pb-0');
+    classes(() => 'curve-command-input');
   }
 }

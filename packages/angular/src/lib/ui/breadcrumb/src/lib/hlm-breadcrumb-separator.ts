@@ -22,6 +22,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmBreadcrumbSeparator {
   constructor() {
-    classes(() => '[&>ng-icon]:text-[calc(var(--spacing)*3.5)] [&>ng-icon]:flex');
+    classes(() => 'curve-breadcrumb-separator');
   }
 }

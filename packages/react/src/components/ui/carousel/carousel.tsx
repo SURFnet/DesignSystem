@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react';
 
+import styles from './carousel.module.css';
+
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
@@ -118,7 +120,7 @@ function Carousel({
     >
       <div
         onKeyDownCapture={handleKeyDown}
-        className={cn('relative', className)}
+        className={cn(styles.root, className)}
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
@@ -134,9 +136,13 @@ function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
+    <div ref={carouselRef} className={styles.viewport} data-slot="carousel-content">
       <div
-        className={cn('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', className)}
+        className={cn(
+          styles.track,
+          orientation === 'horizontal' ? styles.trackHorizontal : styles.trackVertical,
+          className,
+        )}
         {...props}
       />
     </div>
@@ -152,8 +158,8 @@ function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
       aria-roledescription="slide"
       data-slot="carousel-item"
       className={cn(
-        'min-w-0 shrink-0 grow-0 basis-full',
-        orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+        styles.item,
+        orientation === 'horizontal' ? styles.itemHorizontal : styles.itemVertical,
         className,
       )}
       {...props}
@@ -175,10 +181,8 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        'absolute touch-manipulation rounded-full',
-        orientation === 'horizontal'
-          ? 'inset-y-0 -left-12 my-auto'
-          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+        styles.navButton,
+        orientation === 'horizontal' ? styles.navPreviousHorizontal : styles.navPreviousVertical,
         className,
       )}
       disabled={!canScrollPrev}
@@ -186,7 +190,7 @@ function CarouselPrevious({
       {...props}
     >
       <CaretLeftIcon />
-      <span className="sr-only">Previous slide</span>
+      <span className={styles.srOnly}>Previous slide</span>
     </Button>
   );
 }
@@ -205,10 +209,8 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        'absolute touch-manipulation rounded-full',
-        orientation === 'horizontal'
-          ? 'inset-y-0 -right-12 my-auto'
-          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+        styles.navButton,
+        orientation === 'horizontal' ? styles.navNextHorizontal : styles.navNextVertical,
         className,
       )}
       disabled={!canScrollNext}
@@ -216,7 +218,7 @@ function CarouselNext({
       {...props}
     >
       <CaretRightIcon />
-      <span className="sr-only">Next slide</span>
+      <span className={styles.srOnly}>Next slide</span>
     </Button>
   );
 }

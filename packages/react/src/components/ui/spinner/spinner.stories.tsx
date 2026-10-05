@@ -10,6 +10,7 @@ import { Spinner } from './spinner';
 const meta = {
   title: 'Components/Spinner',
   component: Spinner,
+  tags: ['skip-visual'],
   parameters: {
     docs: {
       description: {

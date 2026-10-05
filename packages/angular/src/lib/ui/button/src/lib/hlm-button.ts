@@ -1,56 +1,57 @@
 import { Directive, input, signal } from '@angular/core';
 import { BrnButton } from '@spartan-ng/brain/button';
-import { classes } from '../../../utils/src';
+import { classes, hlm } from '../../../utils/src';
 import type { ButtonSizeName, ButtonVariantName } from '@surfnet/curve-contracts';
-import { cva, type VariantProps } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';
 import { injectBrnButtonConfig } from './hlm-button.token';
 
+// Variant/size are modifier classes rather than only data attributes so that
+// `buttonVariants()` also works on elements that aren't an `hlmBtn` host
+// (calendar nav, pagination links, tab scroll buttons, …).
 const variantClasses = {
-  default: 'bg-primary text-primary-foreground hover:border-transparent hover:bg-primary/80',
-  outline:
-    'border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground',
-  secondary:
-    'bg-secondary text-secondary-foreground aria-expanded:bg-secondary aria-expanded:text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]',
-  ghost:
-    'hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground',
-  destructive:
-    'bg-destructive text-destructive-foreground hover:border-transparent hover:bg-destructive/90 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
-  link: 'text-primary-strong underline-offset-4 hover:underline',
+  default: 'curve-button--variant-default',
+  outline: 'curve-button--variant-outline',
+  secondary: 'curve-button--variant-secondary',
+  ghost: 'curve-button--variant-ghost',
+  destructive: 'curve-button--variant-destructive',
+  link: 'curve-button--variant-link',
 } satisfies Record<ButtonVariantName, string>;
 
 const sizeClasses = {
-  default:
-    'h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
-  sm: 'h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
-  lg: 'h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
-  icon: 'size-9',
-  'icon-xs':
-    "size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3)]",
-  'icon-sm': 'size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md',
-  'icon-lg': 'size-10',
+  default: 'curve-button--size-default',
+  sm: 'curve-button--size-sm',
+  lg: 'curve-button--size-lg',
+  icon: 'curve-button--size-icon',
+  'icon-xs': 'curve-button--size-icon-xs',
+  'icon-sm': 'curve-button--size-icon-sm',
+  'icon-lg': 'curve-button--size-icon-lg',
 } satisfies Record<ButtonSizeName, string>;
 
-export const buttonVariants = cva(
-  "focus-visible:border-ring focus-visible:ring-ring data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px data-[matches-spartan-invalid=true]:ring-3 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)] group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-  {
-    variants: {
-      variant: variantClasses,
-      size: sizeClasses,
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
-  },
-);
+export type ButtonVariants = {
+  variant?: ButtonVariantName | null;
+  size?: ButtonSizeName | null;
+};
 
-export type ButtonVariants = VariantProps<typeof buttonVariants>;
+export function buttonVariants({
+  variant,
+  size,
+  class: className,
+}: ButtonVariants & { class?: ClassValue } = {}): string {
+  return hlm(
+    'curve-button',
+    variantClasses[variant ?? 'default'],
+    sizeClasses[size ?? 'default'],
+    className,
+  );
+}
 
 @Directive({
   selector: 'button[hlmBtn], a[hlmBtn]',
   exportAs: 'hlmBtn',
   hostDirectives: [{ directive: BrnButton, inputs: ['disabled'] }],
+  // No data-variant/data-size host attributes: the modifier classes carry them,
+  // and a bare [data-size] would trip ancestors' `:has([data-size=…])` rules
+  // (e.g. the item group gap).
   host: { 'data-slot': 'button' },
 })
 export class HlmButton {

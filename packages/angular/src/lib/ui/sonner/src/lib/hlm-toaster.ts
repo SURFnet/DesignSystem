@@ -49,22 +49,19 @@ import type { ClassValue } from 'clsx';
       [style]="userStyle()"
     >
       <ng-template #loadingIcon>
-        <ng-icon
-          name="phosphorSpinner"
-          class="overflow-visible! text-base [&>svg]:motion-safe:animate-spin"
-        />
+        <ng-icon name="phosphorSpinner" class="curve-toast-icon curve-toast-icon--loading" />
       </ng-template>
       <ng-template #successIcon>
-        <ng-icon name="phosphorCheckCircle" class="overflow-visible! text-base" />
+        <ng-icon name="phosphorCheckCircle" class="curve-toast-icon" />
       </ng-template>
       <ng-template #errorIcon>
-        <ng-icon name="phosphorXCircle" class="overflow-visible! text-base" />
+        <ng-icon name="phosphorXCircle" class="curve-toast-icon" />
       </ng-template>
       <ng-template #infoIcon>
-        <ng-icon name="phosphorInfo" class="overflow-visible! text-base" />
+        <ng-icon name="phosphorInfo" class="curve-toast-icon" />
       </ng-template>
       <ng-template #warningIcon>
-        <ng-icon name="phosphorWarning" class="overflow-visible! text-base" />
+        <ng-icon name="phosphorWarning" class="curve-toast-icon" />
       </ng-template>
     </brn-sonner-toaster>
   `,
@@ -99,7 +96,7 @@ export class HlmToaster {
       ...options,
       classes: {
         ...options?.classes,
-        toast: hlm('rounded-2xl!', options?.classes?.toast),
+        toast: hlm('curve-toast', options?.classes?.toast),
       },
     };
   });

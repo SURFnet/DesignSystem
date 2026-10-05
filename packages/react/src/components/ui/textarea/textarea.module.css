@@ -1,0 +1,52 @@
+.textarea {
+  display: flex;
+  field-sizing: content;
+  min-height: calc(var(--spacing, 0.25rem) * 16);
+  width: 100%;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: transparent;
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 2.5);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  transition:
+    color 150ms ease,
+    box-shadow 150ms ease;
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+.textarea:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.textarea[aria-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+:global(.dark) .textarea {
+  background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+:global(.dark) .textarea[aria-invalid='true'] {
+  border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+@media (min-width: 768px) {
+  .textarea {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}

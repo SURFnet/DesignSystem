@@ -30,6 +30,6 @@ export class HlmAspectRatio {
   });
 
   constructor() {
-    classes(() => 'relative aspect-(--ratio)');
+    classes(() => 'curve-aspect-ratio');
   }
 }

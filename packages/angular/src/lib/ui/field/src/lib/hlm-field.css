@@ -1,0 +1,250 @@
+/*
+ * Field — `hlmField` and its parts (label, title, description, error, set,
+ * legend, group, separator). Rules that size or align the controls inside a
+ * field are prefixed with [data-slot='field'] so they outrank the controls'
+ * own component styles, as the Tailwind originals did.
+ */
+.curve-field {
+  display: flex;
+  width: 100%;
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-field[data-matches-spartan-invalid='true'] {
+  color: var(--destructive);
+}
+
+/* Vertical: controls stretch. */
+.curve-field--vertical {
+  flex-direction: column;
+}
+
+[data-slot='field'].curve-field--vertical > * {
+  width: 100%;
+}
+
+[data-slot='field'].curve-field--vertical > .sr-only {
+  width: auto;
+}
+
+/* Horizontal: control and label side by side. */
+.curve-field--horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+[data-slot='field'].curve-field--horizontal > [data-slot='field-label'] {
+  flex: 1 1 auto;
+}
+
+.curve-field--horizontal:has(> [data-slot='field-content']) {
+  align-items: flex-start;
+}
+
+[data-slot='field'].curve-field--horizontal:has(> [data-slot='field-content']) > [role='checkbox'],
+[data-slot='field'].curve-field--horizontal:has(> [data-slot='field-content']) [role='radio'] {
+  margin-top: 1px;
+}
+
+/* Responsive: vertical, horizontal once the field group is ≥ 28rem wide. */
+.curve-field--responsive {
+  flex-direction: column;
+}
+
+[data-slot='field'].curve-field--responsive > * {
+  width: 100%;
+}
+
+[data-slot='field'].curve-field--responsive > .sr-only {
+  width: auto;
+}
+
+@container field-group (min-width: 28rem) {
+  .curve-field--responsive {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  [data-slot='field'].curve-field--responsive > * {
+    width: auto;
+  }
+
+  [data-slot='field'].curve-field--responsive > [data-slot='field-label'] {
+    flex: 1 1 auto;
+  }
+
+  .curve-field--responsive:has(> [data-slot='field-content']) {
+    align-items: flex-start;
+  }
+
+  [data-slot='field'].curve-field--responsive:has(> [data-slot='field-content'])
+    > [role='checkbox'],
+  [data-slot='field'].curve-field--responsive:has(> [data-slot='field-content']) [role='radio'] {
+    margin-top: 1px;
+  }
+}
+
+.curve-field-content {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  line-height: 1.375;
+}
+
+/* Label (on top of hlmLabel's `curve-label`). */
+.curve-field-label {
+  display: flex;
+  width: fit-content;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  line-height: 1.375;
+}
+
+.curve-field-label:has(:is([data-state='checked'], [data-checked]:not([data-checked='false']))) {
+  border-color: color-mix(in oklab, var(--primary) 30%, transparent);
+  background-color: color-mix(in oklab, var(--primary) 5%, transparent);
+}
+
+.dark
+  .curve-field-label:has(:is([data-state='checked'], [data-checked]:not([data-checked='false']))) {
+  border-color: color-mix(in oklab, var(--primary) 20%, transparent);
+  background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+}
+
+/* A label wrapping a whole field becomes a selectable card. */
+.curve-field-label:has(> [data-slot='field']) {
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.curve-field-label > [data-slot='field'] {
+  padding: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-field-title {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  font-size: 0.875rem;
+  line-height: 1.375;
+  font-weight: 500;
+}
+
+[data-slot='field'][data-disabled='true'] .curve-field-label,
+[data-slot='field'][data-disabled='true'] .curve-field-title {
+  opacity: 0.5;
+}
+
+.curve-field-description {
+  text-align: start;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+.curve-field-description:nth-last-child(2) {
+  margin-top: calc(var(--spacing, 0.25rem) * -1);
+}
+
+.curve-field-description:last-child {
+  margin-top: 0;
+}
+
+[data-variant='legend'] + .curve-field-description {
+  margin-top: calc(var(--spacing, 0.25rem) * -1.5);
+}
+
+[data-slot='field']:has([data-orientation='horizontal']) .curve-field-description {
+  text-wrap: balance;
+}
+
+.curve-field-description > a {
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.curve-field-description > a:hover {
+  color: var(--primary);
+}
+
+.curve-field-error {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: var(--destructive);
+}
+
+.curve-field-set {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.curve-field-set:has(> [data-slot='checkbox-group']),
+.curve-field-set:has(> [data-slot='radio-group']) {
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-field-legend {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 3);
+  font-weight: 500;
+}
+
+.curve-field-legend[data-variant='label'] {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.curve-field-legend[data-variant='legend'] {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.curve-field-group {
+  container: field-group / inline-size;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 7);
+}
+
+.curve-field-group[data-slot='checkbox-group'] {
+  gap: calc(var(--spacing, 0.25rem) * 3);
+}
+
+.curve-field-group > [data-slot='field-group'] {
+  gap: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* "or"-style divider: a line with the projected content on top of it. */
+.curve-field-separator {
+  position: relative;
+  margin-block: calc(var(--spacing, 0.25rem) * -2);
+  height: calc(var(--spacing, 0.25rem) * 5);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+[data-slot='field-group'][data-variant='outline'] .curve-field-separator {
+  margin-bottom: calc(var(--spacing, 0.25rem) * -2);
+}
+
+.curve-field-separator-line {
+  position: absolute;
+  inset: 0;
+  top: 50%;
+}
+
+.curve-field-separator-content {
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  background-color: var(--background);
+  padding-inline: calc(var(--spacing, 0.25rem) * 2);
+  color: var(--muted-foreground);
+}

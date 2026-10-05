@@ -20,7 +20,7 @@ export class HlmCarouselSlideDisplay {
 
   protected readonly _currentSlide = computed(() => this._carousel.currentSlide() + 1);
 
-  public readonly slideClass = input<ClassValue>('text-muted-foreground text-sm');
+  public readonly slideClass = input<ClassValue>('curve-carousel-slide-display');
 
   /** Screen reader only text for the slide display */
   public readonly label = input<string>('Slide');

@@ -1,0 +1,108 @@
+/*
+ * Tooltip — `hlmTooltip`. The content, arrow <span> and arrow <svg> are
+ * rendered by Spartan's BrnTooltipContent with these classes.
+ */
+.curve-tooltip {
+  z-index: 50;
+  width: fit-content;
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--foreground);
+  padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 3);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-wrap: balance;
+  color: var(--background);
+}
+
+.curve-tooltip-arrow {
+  position: absolute;
+}
+
+.curve-tooltip-arrow--top {
+  bottom: 0;
+  left: calc(50% - 5px);
+  translate: 0 100%;
+}
+
+.curve-tooltip-arrow--bottom {
+  top: calc(var(--spacing, 0.25rem) * -2.5);
+  left: calc(50% - 5px);
+  translate: 0 0;
+  rotate: 180deg;
+}
+
+.curve-tooltip-arrow--left {
+  top: calc(50% - 5px);
+  inset-inline-end: calc(var(--spacing, 0.25rem) * -2.5);
+  translate: 0 0;
+  rotate: 270deg;
+}
+
+.curve-tooltip-arrow--right {
+  top: calc(50% - 5px);
+  inset-inline-start: calc(var(--spacing, 0.25rem) * -2.5);
+  translate: 0 0;
+  rotate: 90deg;
+}
+
+.curve-tooltip-arrow--left:dir(rtl) {
+  rotate: -270deg;
+}
+
+.curve-tooltip-arrow--right:dir(rtl) {
+  rotate: -90deg;
+}
+
+.curve-tooltip-arrow-svg {
+  z-index: 50;
+  display: block;
+  width: calc(var(--spacing, 0.25rem) * 2.5);
+  height: calc(var(--spacing, 0.25rem) * 2.5);
+  translate: 0 calc(-50% - 2px);
+  rotate: 45deg;
+  border-radius: 2px;
+  background-color: var(--foreground);
+  fill: var(--foreground);
+}
+
+/*
+ * Enter/exit motion (fade + zoom 95% + short slide away from the anchor).
+ * Only for users without a reduced-motion preference.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .curve-tooltip {
+    animation-duration: 150ms;
+    --curve-enter-opacity: 0;
+    --curve-enter-scale: 0.95;
+    --curve-exit-opacity: 0;
+    --curve-exit-scale: 0.95;
+  }
+
+  .curve-tooltip {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+  }
+
+  .curve-tooltip:is([data-state='closed'], [data-closed]:not([data-closed='false'])) {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+
+  .curve-tooltip[data-side='bottom'] {
+    --curve-enter-translate-y: calc(calc(var(--spacing, 0.25rem) * 2) * -1);
+  }
+
+  .curve-tooltip[data-side='top'] {
+    --curve-enter-translate-y: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .curve-tooltip[data-side='left'] {
+    --curve-enter-translate-x: calc(var(--spacing, 0.25rem) * 2);
+  }
+
+  .curve-tooltip[data-side='right'] {
+    --curve-enter-translate-x: calc(calc(var(--spacing, 0.25rem) * 2) * -1);
+  }
+}

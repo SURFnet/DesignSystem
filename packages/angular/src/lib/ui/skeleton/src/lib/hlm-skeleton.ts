@@ -9,6 +9,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSkeleton {
   constructor() {
-    classes(() => 'bg-muted rounded-md block motion-safe:animate-pulse');
+    classes(() => 'curve-skeleton');
   }
 }

@@ -1,0 +1,106 @@
+/* Alert — `hlmAlert` and its parts. */
+.curve-alert {
+  position: relative;
+  display: grid;
+  width: 100%;
+  gap: calc(var(--spacing, 0.25rem) * 0.5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+  padding: calc(var(--spacing, 0.25rem) * 3) calc(var(--spacing, 0.25rem) * 4);
+  text-align: start;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.curve-alert:has(.curve-alert-action) {
+  padding-right: calc(var(--spacing, 0.25rem) * 18);
+}
+
+.curve-alert:has(> ng-icon) {
+  grid-template-columns: auto 1fr;
+  column-gap: calc(var(--spacing, 0.25rem) * 2.5);
+}
+
+.curve-alert > ng-icon {
+  grid-row: span 2 / span 2;
+  translate: 0 calc(var(--spacing, 0.25rem) * 0.5);
+  color: currentcolor;
+}
+
+.curve-alert > ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-alert--variant-default {
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+.curve-alert--variant-info {
+  background-color: var(--info-subtle);
+  color: var(--info-subtle-foreground);
+}
+
+.curve-alert--variant-success {
+  background-color: var(--success-subtle);
+  color: var(--success-subtle-foreground);
+}
+
+.curve-alert--variant-warning {
+  background-color: var(--warning-subtle);
+  color: var(--warning-subtle-foreground);
+}
+
+.curve-alert--variant-danger {
+  background-color: var(--danger-subtle);
+  color: var(--danger-subtle-foreground);
+}
+
+.curve-alert--variant-info > .curve-alert-title,
+.curve-alert--variant-success > .curve-alert-title,
+.curve-alert--variant-warning > .curve-alert-title,
+.curve-alert--variant-danger > .curve-alert-title {
+  color: var(--foreground);
+}
+
+.curve-alert-title {
+  font-weight: 500;
+}
+
+.curve-alert:has(> ng-icon) .curve-alert-title {
+  grid-column-start: 2;
+}
+
+.curve-alert-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-wrap: balance;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 48rem) {
+  .curve-alert-description {
+    text-wrap: pretty;
+  }
+}
+
+.curve-alert-description p:not(:last-child) {
+  margin-bottom: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-alert-title a,
+.curve-alert-description a {
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+
+.curve-alert-title a:hover,
+.curve-alert-description a:hover {
+  color: var(--foreground);
+}
+
+.curve-alert-action {
+  position: absolute;
+  top: calc(var(--spacing, 0.25rem) * 2.5);
+  inset-inline-end: calc(var(--spacing, 0.25rem) * 3);
+}

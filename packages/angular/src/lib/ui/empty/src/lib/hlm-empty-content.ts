@@ -7,6 +7,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmEmptyContent {
   constructor() {
-    classes(() => 'gap-4 text-sm flex w-full max-w-sm min-w-0 flex-col items-center text-balance');
+    classes(() => 'curve-empty-content');
   }
 }

@@ -1,0 +1,79 @@
+/* Carousel — `hlm-carousel` (Embla) with content, items, previous/next buttons. */
+.curve-carousel {
+  position: relative;
+}
+
+.curve-carousel-viewport {
+  overflow: hidden;
+}
+
+.curve-carousel-content {
+  display: flex;
+}
+
+.curve-carousel-content--horizontal {
+  margin-left: calc(var(--spacing, 0.25rem) * -4);
+}
+
+.curve-carousel-content--vertical {
+  margin-top: calc(var(--spacing, 0.25rem) * -4);
+  flex-direction: column;
+}
+
+.curve-carousel-item {
+  min-width: 0;
+  flex: 0 0 100%;
+}
+
+.curve-carousel-item--horizontal {
+  padding-left: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-carousel-item--vertical {
+  padding-top: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Previous/next: round outline icon buttons outside the viewport. */
+.curve-button.curve-carousel-nav {
+  position: absolute;
+  width: calc(var(--spacing, 0.25rem) * 8);
+  height: calc(var(--spacing, 0.25rem) * 8);
+  border-radius: calc(infinity * 1px);
+}
+
+.curve-button.curve-carousel-nav--horizontal {
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.curve-button.curve-carousel-nav--next.curve-button.curve-carousel-nav--horizontal {
+  inset-inline-end: calc(var(--spacing, 0.25rem) * -12);
+}
+
+.curve-button.curve-carousel-nav--previous.curve-button.curve-carousel-nav--horizontal {
+  inset-inline-start: calc(var(--spacing, 0.25rem) * -12);
+}
+
+.curve-button.curve-carousel-nav--vertical {
+  left: 50%;
+  translate: -50% 0;
+  rotate: 90deg;
+}
+
+.curve-button.curve-carousel-nav--next.curve-button.curve-carousel-nav--vertical {
+  bottom: calc(var(--spacing, 0.25rem) * -12);
+}
+
+.curve-button.curve-carousel-nav--previous.curve-button.curve-carousel-nav--vertical {
+  top: calc(var(--spacing, 0.25rem) * -12);
+}
+
+.curve-carousel-nav-icon:dir(rtl) {
+  rotate: 180deg;
+}
+
+.curve-carousel-slide-display {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}

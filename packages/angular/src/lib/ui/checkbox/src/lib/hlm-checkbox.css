@@ -1,0 +1,92 @@
+/* Checkbox — `hlm-checkbox` (host is display: contents; the box is brn-checkbox). */
+.curve-checkbox-root {
+  display: contents;
+}
+
+.curve-checkbox {
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 4);
+  height: calc(var(--spacing, 0.25rem) * 4);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--input);
+  border-radius: 4px;
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  cursor: default;
+  outline: none;
+  transition-property: box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .curve-checkbox {
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+.curve-checkbox:focus-visible {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-checkbox:is([data-state='checked'], [data-checked]:not([data-checked='false'])),
+.dark .curve-checkbox:is([data-state='checked'], [data-checked]:not([data-checked='false'])) {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.curve-checkbox[data-matches-spartan-invalid='true'] {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark .curve-checkbox[data-matches-spartan-invalid='true'] {
+  border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-checkbox[data-matches-spartan-invalid='true'][aria-checked='true'] {
+  border-color: var(--primary);
+}
+
+/* Invalid via the control state (forceInvalid or form validation). */
+.curve-checkbox--invalid,
+.curve-checkbox--invalid:focus-visible {
+  border-color: var(--destructive);
+}
+
+.curve-checkbox--invalid:focus-visible {
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dark .curve-checkbox--invalid:focus-visible {
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent),
+    var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.curve-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[data-slot='field']:has(:disabled) .curve-checkbox {
+  opacity: 0.5;
+}
+
+.curve-checkbox-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentcolor;
+  transition-property: none;
+}

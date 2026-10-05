@@ -69,8 +69,11 @@ code, so a `--diff` / `git diff` review can keep it:
 // CURVE: design — focus ring uses ring-offset-background to match tokens
 ```
 
-Use `a11y` or `design` (or both) and a short why. Same idea in `cva` maps and
-Angular templates (`<!-- CURVE: a11y — … -->`).
+Use `a11y` or `design` (or both) and a short why. Same idea in CSS (`/* CURVE: … */`),
+class maps and Angular templates (`<!-- CURVE: a11y — … -->`). Upstream shadcn/Spartan code
+arrives with Tailwind class strings; Curve's styling lives in the co-located CSS files, so
+a re-vendor means translating any upstream styling change into that CSS rather than
+accepting the Tailwind strings.
 
 Audit markers with:
 

@@ -10,6 +10,6 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSidebarGroupContent {
   constructor() {
-    classes(() => 'text-sm w-full');
+    classes(() => 'curve-sidebar-group-content');
   }
 }

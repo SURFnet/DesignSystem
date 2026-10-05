@@ -1,0 +1,75 @@
+/* Pagination — `hlmPagination*` (links are buttons) and the numbered variants. */
+.curve-pagination {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.curve-pagination-content {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+}
+
+.curve-pagination-link--clickable {
+  cursor: pointer;
+}
+
+.curve-pagination-ellipsis {
+  display: flex;
+  width: calc(var(--spacing, 0.25rem) * 9);
+  height: calc(var(--spacing, 0.25rem) * 9);
+  align-items: center;
+  justify-content: center;
+}
+
+.curve-pagination-ellipsis ng-icon:not([class*='text-']) {
+  font-size: calc(var(--spacing, 0.25rem) * 4);
+}
+
+/* Previous/next with a visible label: tighter padding on the icon side. */
+.curve-pagination-previous--labelled {
+  padding-inline-start: calc(var(--spacing, 0.25rem) * 2) !important;
+}
+
+.curve-pagination-next--labelled {
+  padding-inline-end: calc(var(--spacing, 0.25rem) * 2) !important;
+}
+
+.curve-pagination-label {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .curve-pagination-label {
+    display: block;
+  }
+}
+
+.curve-pagination-icon:dir(rtl) {
+  rotate: 180deg;
+}
+
+/* Numbered pagination: summary · pages · page-size select. */
+.curve-numbered-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-numbered-pagination-summary {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-wrap: nowrap;
+  color: oklch(44.6% 0.03 256.802);
+}
+
+.curve-select.curve-numbered-pagination-size {
+  margin-left: auto;
+}
