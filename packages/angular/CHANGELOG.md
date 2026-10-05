@@ -1,5 +1,21 @@
 # @surfnet/curve-angular
 
+## 0.6.0
+
+### Minor Changes
+
+- e0e7223: All components are now styled with plain CSS (`curve-*` classes, one stylesheet per component) instead of Tailwind utility classes; they look the same. What changes for apps:
+
+  - `@surfnet/curve-angular/styles.css` no longer contains Tailwind. It ships the tokens, a reset (Tailwind's preflight), base styles, the component styles, semantic colour classes (`text-muted-foreground`, `bg-primary`, …) and `.sr-only`. If your templates relied on other Tailwind utilities that happened to be in the package CSS (`flex`, `gap-4`, …), add Tailwind to your app (see `apps/angular-app/src/_globals.css`).
+  - The CSS uses cascade layers (`theme, base, …, components, utilities`). Your own CSS and Tailwind utilities (imported with `layer(utilities)`, or unlayered) override component styles, e.g. `class="w-56"` on `hlm-dropdown-menu`.
+  - `class-variance-authority` is no longer a dependency. `buttonVariants()`, `toggleVariants()`, `listVariants()` and `tooltipPositionVariants()` return the `curve-*` classes; `ButtonVariants`, `ToggleVariants`, `BadgeVariants`, `AlertVariants`, `ItemVariants`, `FieldVariants` and similar are now plain `{ variant?, size? }` types.
+  - Enter/exit animations (dialogs, sheets, popovers, menus, tooltips, hover cards, navigation menu, accordion) only play when the user has no reduced-motion preference. Select and combobox popups now animate too.
+
+### Patch Changes
+
+- e0e7223: Alert: internal styles now target the component's own classes instead of `data-slot` attributes. The `data-slot` attributes stay on every part as a styling hook for consumers. In React, the title colour on the info/success/warning/danger variants now applies only to a title that is a direct child of the alert, matching Angular.
+- e0e7223: Remove the `tailwind-merge` dependency. `cn()` (React) and `hlm()` (Angular) now only join class names with `clsx`; they no longer drop conflicting Tailwind utilities (e.g. `p-2 p-4` stays as-is). Components don't use Tailwind classes anymore, so component styling is unaffected.
+
 ## 0.5.1
 
 ### Patch Changes
