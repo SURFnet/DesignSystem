@@ -48,6 +48,7 @@ export * from './lib/ui/separator/src';
 export * from './lib/ui/sheet/src';
 export * from './lib/ui/sidebar/src';
 export * from './lib/ui/skeleton/src';
+export * from './lib/ui/skip-link/src';
 export * from './lib/ui/slider/src';
 export * from './lib/ui/sonner/src';
 export * from './lib/ui/spinner/src';
