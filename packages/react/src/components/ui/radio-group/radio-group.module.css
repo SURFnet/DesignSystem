@@ -78,6 +78,6 @@
   width: calc(var(--spacing, 0.25rem) * 2);
   height: calc(var(--spacing, 0.25rem) * 2);
   border-radius: 9999px;
-  background-color: var(--primary-foreground);
+  background-color: var(--background);
   transform: translate(-50%, -50%);
 }

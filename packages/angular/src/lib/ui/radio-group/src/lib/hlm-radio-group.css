@@ -55,12 +55,22 @@
 }
 
 .curve-radio-indicator-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: calc(var(--spacing, 0.25rem) * 2);
   height: calc(var(--spacing, 0.25rem) * 2);
-  border-radius: calc(infinity * 1px);
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
   background-color: transparent;
 }
 
-.curve-radio[data-checked='true'] .curve-radio-indicator-dot {
+.brn-radio-checked .curve-radio-indicator {
+  border-color: var(--primary);
   background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.curve-radio[data-checked='true'] .curve-radio-indicator-dot {
+  background-color: var(--background);
 }
