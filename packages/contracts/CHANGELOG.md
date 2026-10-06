@@ -1,5 +1,11 @@
 # @surfnet/curve-contracts
 
+## 0.7.0
+
+### Minor Changes
+
+- 7592bdc: Added a new skip-link component to improve accessibility. The link is visually hidden until it receives keyboard focus, then lets users skip past headers and navigation menus directly to the page's main content. This helps keyboard and assistive technology users and supports WCAG 2.4.1 (Bypass Blocks).
+
 ## 0.6.0
 
 No changes in this release.
