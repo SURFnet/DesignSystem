@@ -1,0 +1,76 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor designers" name="Verplichte en optionele velden" />
+
+# Verplichte en optionele velden
+
+In Curve is elk formulierveld **standaard verplicht**. Alleen de uitzondering krijg je te zien:
+een optioneel veld heeft "(optioneel)" achter het label. Zo hoeft niemand een legenda met sterretjes
+te ontcijferen, en blijft het formulier rustig.
+
+## Vraag alleen wat je nodig hebt
+
+Elk veld kost tijd en aandacht, en voor iemand met een motorische beperking of een screenreader
+nog meer. Twijfel je of een veld optioneel moet zijn? Kijk dan eerst of het weg kan.
+
+- Heb je het antwoord nodig om de taak af te ronden? Dan is het veld verplicht.
+- Is het handig maar niet nodig? Overweeg het te schrappen, of vraag het later.
+- Blijft het toch staan? Markeer het als optioneel en leg in een beschrijving uit waarvoor je het
+  gebruikt ("Alleen als we je niet per e-mail kunnen bereiken").
+
+## Markeer de uitzondering, in tekst
+
+- Zet "(optioneel)" direct achter het label. In Curve is dat `text-sm`, `leading-none`, in
+  `muted-foreground`, met 4px afstand tot het label.
+- Gebruik geen sterretje (`*`) voor verplichte velden. Een sterretje moet uitgelegd worden, wordt
+  door screenreaders wisselend voorgelezen, en is voor veel mensen te klein.
+- Gebruik geen kleur alleen. Zie
+  [Status alleen in kleur](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--status-alleen-in-kleur).
+- Is _elk_ veld in een formulier optioneel? Zeg dat dan één keer bovenaan, in plaats van achter elk
+  label.
+
+## Keuzevelden
+
+- Een losse checkbox om akkoord te gaan ("Ik ga akkoord met de gebruiksvoorwaarden") is verplicht:
+  zonder vinkje kun je niet verder.
+- Een checkbox voor iets extra's ("Stuur me de nieuwsbrief") is optioneel. Markeer hem ook zo.
+- Bij een groep keuzes (radio's) gaat de markering op de groep, niet op elke optie.
+
+## Voorbeelden
+
+- [Optioneel veld](?path=/story/components-field--optional): één veld met "(optioneel)".
+- [Gemengd formulier](?path=/story/components-field--mixed-form): verplichte en optionele velden
+  door elkaar, inclusief een akkoord- en een nieuwsbrief-checkbox.
+
+## Voor developers
+
+`optional` staat op de `Field`. Het label krijgt dan het achtervoegsel, en het besturingselement
+verliest `aria-required`. Zonder `optional` (ook buiten een `Field`) krijgen Input, Textarea,
+NativeSelect, Select, Checkbox, Switch, RadioGroup en InputOTP `aria-required="true"`.
+
+```tsx
+// React
+<Field optional>
+  <FieldLabel htmlFor="tel">Telefoonnummer</FieldLabel>
+  <Input id="tel" type="tel" />
+</Field>
+```
+
+```html
+<!-- Angular -->
+<div hlmField optional>
+  <label hlmFieldLabel for="tel">Telefoonnummer</label>
+  <input hlmInput id="tel" type="tel" />
+</div>
+```
+
+- Engelstalig formulier? Geef `optionalText="(optional)"` mee aan het label.
+- Staat een Input of Textarea niet in een `Field`? Zet `optional` dan op het veld zelf:
+  `<Input optional />` of `<input hlmInput optional />`. In een `Field` heeft `optional` op de
+  `Field` de voorkeur, want alleen dan krijgt het label "(optioneel)".
+- Een expliciete `aria-required` (of `required` op Checkbox en RadioGroup) gaat altijd voor.
+- `aria-required` vertelt alleen dat een veld verplicht is; het valideert niets. Controleer zelf,
+  met `Validators.required` of je schema, en geef een duidelijke foutmelding. Zie
+  [Onduidelijke validatie](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--onduidelijke-validatie).
+- De DatePicker opent met een knop, en een knop kan volgens ARIA niet verplicht zijn. Noem in de
+  beschrijving of foutmelding dat er een datum gekozen moet worden.

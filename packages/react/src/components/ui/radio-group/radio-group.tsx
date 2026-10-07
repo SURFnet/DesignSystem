@@ -4,13 +4,17 @@ import { Radio as RadioPrimitive } from '@base-ui/react/radio';
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
 
 import { cn } from '@/lib/utils';
+import { useAriaRequired } from '@/components/ui/field';
 
 import styles from './radio-group.module.css';
 
 function RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {
+  // CURVE: required by default unless inside <Field optional> (issue #144).
+  const ariaRequired = useAriaRequired(props['aria-required'], props.required);
   return (
     <RadioGroupPrimitive
       data-slot="radio-group"
+      aria-required={ariaRequired}
       className={cn(styles.group, className)}
       {...props}
     />

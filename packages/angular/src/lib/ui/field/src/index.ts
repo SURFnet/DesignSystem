@@ -16,6 +16,7 @@ export * from './lib/hlm-field-error';
 export * from './lib/hlm-field-group';
 export * from './lib/hlm-field-label';
 export * from './lib/hlm-field-legend';
+export * from './lib/hlm-field-required';
 export * from './lib/hlm-field-separator';
 export * from './lib/hlm-field-set';
 export * from './lib/hlm-field-title';

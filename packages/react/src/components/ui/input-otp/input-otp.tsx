@@ -5,6 +5,7 @@ import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from '@phosphor-icons/react';
 
 import { cn } from '@/lib/utils';
+import { useAriaRequired } from '@/components/ui/field';
 
 import styles from './input-otp.module.css';
 
@@ -22,6 +23,8 @@ function InputOTP({
   /** Screen-reader announcement when every slot is filled, including after paste. */
   completeAnnouncement?: string;
 }) {
+  // CURVE: required by default unless inside <Field optional> (issue #144).
+  const ariaRequired = useAriaRequired(props['aria-required'], props.required);
   const [uncontrolledValue, setUncontrolledValue] = React.useState(() =>
     typeof defaultValue === 'string' ? defaultValue : '',
   );
@@ -33,6 +36,7 @@ function InputOTP({
         data-slot="input-otp"
         containerClassName={cn(styles.container, containerClassName)}
         spellCheck={false}
+        aria-required={ariaRequired}
         className={cn(styles.input, className)}
         {...props}
         value={value}

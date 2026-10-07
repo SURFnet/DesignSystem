@@ -20,6 +20,11 @@ import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { HlmIcon } from '../../../icon/src';
 import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
+import {
+  ariaRequiredAttribute,
+  injectAriaRequired,
+  syncAriaRequired,
+} from '../../../field/src/lib/hlm-field-required';
 
 export const HLM_CHECKBOX_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -40,6 +45,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
     'data-slot': 'checkbox',
     '[attr.aria-label]': 'null',
     '[attr.aria-labelledby]': 'null',
+    '[attr.aria-required]': 'null',
     '[attr.data-disabled]': '_disabled() ? "" : null',
   },
   template: `
@@ -116,6 +122,23 @@ export class HlmCheckbox implements ControlValueAccessor {
   });
 
   protected readonly _disabled = linkedSignal(this.disabled);
+
+  /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
+  public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {
+    alias: 'aria-required',
+    transform: ariaRequiredAttribute,
+  });
+
+  constructor() {
+    // CURVE: required by default unless inside an optional field (issue #144);
+    // an explicit `aria-required` or `required` wins.
+    syncAriaRequired(
+      'button[role="checkbox"]',
+      injectAriaRequired(
+        computed(() => this.ariaRequiredOverride() ?? (this.required() || undefined)),
+      ),
+    );
+  }
 
   private readonly _brnCheckbox = viewChild.required(BrnCheckbox);
 

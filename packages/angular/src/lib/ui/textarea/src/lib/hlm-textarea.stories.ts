@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { HlmTextarea, HlmTextareaImports } from '..';
+import { HlmFieldImports } from '../../../field/src';
 import { textareaContract } from '@surfnet/curve-contracts';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,7 +10,7 @@ const meta: Meta<HlmTextarea> = {
   component: HlmTextarea,
   decorators: [
     moduleMetadata({
-      imports: [HlmTextareaImports, ReactiveFormsModule],
+      imports: [HlmTextareaImports, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -26,22 +27,32 @@ const meta: Meta<HlmTextarea> = {
   argTypes: {
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    optional: {
+      control: 'boolean',
+      description:
+        'Fields are required by default (`aria-required="true"`). `optional` drops `aria-required`; in an `hlmField optional` the label also gets "(optioneel)".',
+      table: { defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     placeholder: 'Type something…',
     disabled: false,
+    optional: false,
   },
 } as Meta<HlmTextarea>;
 
 export default meta;
 type Story = StoryObj<HlmTextarea>;
 
-/** Default textarea — auto-sizes to content. */
+/** Default textarea with its label — auto-sizes to content; toggle `optional` to see the label suffix. */
 export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-			<textarea hlmTextarea ${argsToTemplate(args)}></textarea>
+			<div hlmField class="w-72" [optional]="optional">
+				<label hlmFieldLabel for="textarea-default">Toelichting</label>
+				<textarea hlmTextarea id="textarea-default" ${argsToTemplate(args)}></textarea>
+			</div>
 		`,
   }),
 };

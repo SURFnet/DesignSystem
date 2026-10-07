@@ -49,6 +49,7 @@ export default {
               'Toegankelijk ontwerpen',
               'Microcopy',
               'Validatie van formulieren',
+              'Verplichte en optionele velden',
               'Touch en vergroting',
               'Meer leren',
               ['Overzicht', 'Toegankelijkheid in andere design systems'],
