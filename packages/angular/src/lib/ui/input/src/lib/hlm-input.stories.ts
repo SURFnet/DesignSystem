@@ -8,16 +8,32 @@ import {
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import { inputContract } from '@surfnet/curve-contracts';
 import { HlmInput, HlmInputImports } from '..';
-import { HlmButton, HlmLabel } from '../../../../../public-api';
+import { HlmButton, HlmFieldImports, HlmLabel } from '../../../../../public-api';
 
-const meta: Meta<HlmInput> = {
+/** Native `<input>` attributes the stories expose as controls, on top of HlmInput's own inputs. */
+type InputArgs = HlmInput & {
+  type: string;
+  placeholder: string;
+  disabled: boolean;
+  /** Story-only: drives the wrapping `hlmField optional`. */
+  optional: boolean;
+};
+
+const meta: Meta<InputArgs> = {
   title: 'Components/Input',
   // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
   tags: ['a11y-minor'],
   component: HlmInput,
   decorators: [
     moduleMetadata({
-      imports: [HlmInputImports, HlmLabel, HlmButton, FormsModule, ReactiveFormsModule],
+      imports: [
+        HlmInputImports,
+        HlmFieldImports,
+        HlmLabel,
+        HlmButton,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
     }),
   ],
   parameters: {
@@ -39,23 +55,33 @@ const meta: Meta<HlmInput> = {
     },
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    optional: {
+      control: 'boolean',
+      description:
+        'Fields are required by default (`aria-required="true"`). Story control for the wrapping `hlmField optional`: the label gets "(optioneel)" and the control drops `aria-required`.',
+      table: { defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     type: 'text',
     placeholder: 'Type something…',
     disabled: false,
+    optional: false,
   },
 };
 
 export default meta;
-type Story = StoryObj<HlmInput>;
+type Story = StoryObj<InputArgs>;
 
-/** The default input — tweak it via the controls. */
+/** The default input with its label — tweak it via the controls; toggle `optional` to see the label suffix. */
 export const Default: Story = {
   render: ({ ...args }) => ({
     props: args,
     template: `
-    	<input hlmInput type="text" class="w-72" ${argsToTemplate(args)} />
+			<div hlmField class="w-72" [optional]="optional">
+				<label hlmFieldLabel for="input-default">Naam</label>
+				<input hlmInput id="input-default" ${argsToTemplate(args, { exclude: ['optional'] })} />
+			</div>
     `,
   }),
 };
