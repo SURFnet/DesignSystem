@@ -98,7 +98,7 @@
 .fieldLabel:has(> [data-slot='field']) {
   width: 100%;
   flex-direction: column;
-  border: 1px solid var(--border);
+  border: 1px solid var(--input);
   border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
 }
 
