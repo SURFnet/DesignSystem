@@ -3,6 +3,7 @@ import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
 import { classes } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
+import { injectAriaRequired } from '../../../field/src/lib/hlm-field-required';
 
 @Directive({
   selector: '[hlmRadioGroup],hlm-radio-group',
@@ -16,6 +17,7 @@ import type { ClassValue } from 'clsx';
   ],
   host: {
     'data-slot': 'radio-group',
+    '[attr.aria-required]': '_ariaRequired()',
     '[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
     '[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
     '[attr.data-dirty]': '_dirty() ? "true" : null',
@@ -25,6 +27,10 @@ import type { ClassValue } from 'clsx';
 export class HlmRadioGroup {
   public readonly userClass = input<ClassValue>('', { alias: 'class' });
   private readonly _brnRadioGroup = inject(BrnRadioGroup);
+  // CURVE: required by default unless inside an optional field (issue #144).
+  protected readonly _ariaRequired = injectAriaRequired(
+    computed(() => (this._brnRadioGroup.required() ? true : undefined)),
+  );
   protected readonly _ariaInvalid = computed(() => this._brnRadioGroup.controlState?.()?.invalid);
 
   protected readonly _touched = computed(() => this._brnRadioGroup.controlState?.()?.touched);

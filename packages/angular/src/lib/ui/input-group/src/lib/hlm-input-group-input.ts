@@ -4,7 +4,7 @@ import { classes } from '../../../utils/src';
 
 @Directive({
   selector: 'input[hlmInputGroupInput]',
-  hostDirectives: [HlmInput],
+  hostDirectives: [{ directive: HlmInput, inputs: ['optional', 'aria-required'] }],
   host: { 'data-slot': 'input-group-control' },
 })
 export class HlmInputGroupInput {

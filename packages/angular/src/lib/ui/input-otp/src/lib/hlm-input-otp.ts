@@ -1,6 +1,11 @@
 import { afterRenderEffect, Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
 import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
 import { classes } from '../../../utils/src';
+import {
+  ariaRequiredAttribute,
+  injectAriaRequired,
+  syncAriaRequired,
+} from '../../../field/src/lib/hlm-field-required';
 
 @Directive({
   selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
@@ -8,6 +13,7 @@ import { classes } from '../../../utils/src';
     'data-slot': 'input-otp',
     // Consume aria-label on the host so it can be forwarded to the inner <input>.
     '[attr.aria-label]': 'null',
+    '[attr.aria-required]': 'null',
   },
 })
 export class HlmInputOtp {
@@ -23,8 +29,16 @@ export class HlmInputOtp {
   /** Screen-reader announcement when every slot is filled, including after paste. */
   public readonly completeAnnouncement = input('Verification code complete');
 
+  /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
+  public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {
+    alias: 'aria-required',
+    transform: ariaRequiredAttribute,
+  });
+
   constructor() {
     classes(() => 'curve-input-otp');
+    // CURVE: required by default unless inside an optional field (issue #144).
+    syncAriaRequired('input[data-slot="input-otp"]', injectAriaRequired(this.ariaRequiredOverride));
 
     afterRenderEffect(() => {
       const label = this.ariaLabel();

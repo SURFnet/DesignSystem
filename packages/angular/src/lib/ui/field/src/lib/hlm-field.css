@@ -100,6 +100,15 @@
   line-height: 1.375;
 }
 
+/* "(optioneel)" suffix. Label gap is 8px; issue #144 asks for 4px to the label text. */
+.curve-field-optional {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * -1);
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
 .curve-field-label:has(:is([data-state='checked'], [data-checked]:not([data-checked='false']))) {
   border-color: color-mix(in oklab, var(--primary) 30%, transparent);
   background-color: color-mix(in oklab, var(--primary) 5%, transparent);

@@ -16,6 +16,10 @@ import { phosphorCaretDown } from '@ng-icons/phosphor-icons/regular';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { classes, hlm } from '../../../utils/src';
+import {
+  ariaRequiredAttribute,
+  injectAriaRequired,
+} from '../../../field/src/lib/hlm-field-required';
 import type { ClassValue } from 'clsx';
 import type { NativeSelectSizeName } from '@surfnet/curve-contracts';
 
@@ -38,6 +42,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
   host: {
     'data-slot': 'native-select-wrapper',
     '[attr.data-size]': 'size()',
+    '[attr.aria-required]': 'null',
   },
   template: `
     <select
@@ -45,6 +50,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
       [id]="selectId()"
       [class]="_computedSelectClass()"
       [attr.data-size]="size()"
+      [attr.aria-required]="_ariaRequired()"
       [attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
       [attr.data-invalid]="_ariaInvalid() ? 'true' : null"
       [attr.data-dirty]="_dirty?.() ? 'true' : null"
@@ -101,6 +107,14 @@ export class HlmNativeSelect implements ControlValueAccessor {
     transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
     alias: 'aria-invalid',
   });
+
+  /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
+  public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {
+    alias: 'aria-required',
+    transform: ariaRequiredAttribute,
+  });
+
+  protected readonly _ariaRequired = injectAriaRequired(this.ariaRequiredOverride);
 
   protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
 
