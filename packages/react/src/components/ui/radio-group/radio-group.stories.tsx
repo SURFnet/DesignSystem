@@ -93,39 +93,62 @@ export const InFieldset: Story = {
 
 /**
  * Choice cards: wrap each option's `Field` in a `FieldLabel` and the whole label becomes a
- * selectable card. The selected card gets a primary-tinted border and background.
+ * selectable card. The selected card gets a primary-tinted border and background. The group
+ * is named by a visible `Label` via `aria-labelledby`.
  */
 export const ChoiceCard: Story = {
   render: () => (
-    <RadioGroup defaultValue="plus" className="max-w-sm">
-      <FieldLabel htmlFor="plus-plan">
-        <Field orientation="horizontal">
-          <FieldContent>
-            <FieldTitle>Plus</FieldTitle>
-            <FieldDescription>For individuals and small teams.</FieldDescription>
-          </FieldContent>
-          <RadioGroupItem value="plus" id="plus-plan" />
-        </Field>
-      </FieldLabel>
-      <FieldLabel htmlFor="pro-plan">
-        <Field orientation="horizontal">
-          <FieldContent>
-            <FieldTitle>Pro</FieldTitle>
-            <FieldDescription>For growing businesses.</FieldDescription>
-          </FieldContent>
-          <RadioGroupItem value="pro" id="pro-plan" />
-        </Field>
-      </FieldLabel>
-      <FieldLabel htmlFor="enterprise-plan">
-        <Field orientation="horizontal">
-          <FieldContent>
-            <FieldTitle>Enterprise</FieldTitle>
-            <FieldDescription>For large teams and enterprises.</FieldDescription>
-          </FieldContent>
-          <RadioGroupItem value="enterprise" id="enterprise-plan" />
-        </Field>
-      </FieldLabel>
-    </RadioGroup>
+    <div className="flex max-w-sm flex-col gap-3">
+      <Label id="plan-label">Plan</Label>
+      <RadioGroup defaultValue="plus" aria-labelledby="plan-label">
+        <FieldLabel htmlFor="plus-plan">
+          <Field orientation="horizontal">
+            <FieldContent>
+              <FieldTitle id="plus-plan-title">Plus</FieldTitle>
+              <FieldDescription id="plus-plan-description">
+                For individuals and small teams.
+              </FieldDescription>
+            </FieldContent>
+            <RadioGroupItem
+              value="plus"
+              id="plus-plan"
+              aria-labelledby="plus-plan-title"
+              aria-describedby="plus-plan-description"
+            />
+          </Field>
+        </FieldLabel>
+        <FieldLabel htmlFor="pro-plan">
+          <Field orientation="horizontal">
+            <FieldContent>
+              <FieldTitle id="pro-plan-title">Pro</FieldTitle>
+              <FieldDescription id="pro-plan-description">For growing businesses.</FieldDescription>
+            </FieldContent>
+            <RadioGroupItem
+              value="pro"
+              id="pro-plan"
+              aria-labelledby="pro-plan-title"
+              aria-describedby="pro-plan-description"
+            />
+          </Field>
+        </FieldLabel>
+        <FieldLabel htmlFor="enterprise-plan">
+          <Field orientation="horizontal">
+            <FieldContent>
+              <FieldTitle id="enterprise-plan-title">Enterprise</FieldTitle>
+              <FieldDescription id="enterprise-plan-description">
+                For large teams and enterprises.
+              </FieldDescription>
+            </FieldContent>
+            <RadioGroupItem
+              value="enterprise"
+              id="enterprise-plan"
+              aria-labelledby="enterprise-plan-title"
+              aria-describedby="enterprise-plan-description"
+            />
+          </Field>
+        </FieldLabel>
+      </RadioGroup>
+    </div>
   ),
 };
 

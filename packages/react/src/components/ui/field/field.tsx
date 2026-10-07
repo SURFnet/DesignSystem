@@ -46,9 +46,10 @@ function Field({
   orientation = 'vertical',
   ...props
 }: React.ComponentProps<'div'> & FieldVariantsOptions) {
+  // CURVE: a11y — no role="group" (upstream adds it): a single field isn't a group, and inside a
+  // choice-card label it blanks the label's text for axe. Group fields with FieldSet instead.
   return (
     <div
-      role="group"
       data-slot="field"
       data-orientation={orientation}
       className={fieldVariants({ orientation, className })}

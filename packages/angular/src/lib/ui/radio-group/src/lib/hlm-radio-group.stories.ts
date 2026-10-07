@@ -107,46 +107,64 @@ export const InFieldset: Story = {
 /**
  * Choice cards: wrap each option's `hlmField` in a `label[hlmFieldLabel]` and the whole
  * label becomes a selectable card. The selected card gets a primary-tinted border and
- * background.
+ * background. The group is named by a visible `label[hlmLabel]` via `aria-labelledby`.
  */
 export const ChoiceCard: Story = {
   render: () => ({
     template: `
-			<hlm-radio-group value="plus" class="max-w-sm">
-				<label hlmFieldLabel for="plus-plan">
-					<div hlmField orientation="horizontal">
-						<div hlmFieldContent>
-							<div hlmFieldTitle>Plus</div>
-							<p hlmFieldDescription>For individuals and small teams.</p>
+			<div class="flex max-w-sm flex-col gap-3">
+				<label hlmLabel id="plan-label">Plan</label>
+				<hlm-radio-group value="plus" aria-labelledby="plan-label">
+					<label hlmFieldLabel for="plus-plan">
+						<div hlmField orientation="horizontal">
+							<div hlmFieldContent>
+								<div hlmFieldTitle id="plus-plan-title">Plus</div>
+								<p hlmFieldDescription id="plus-plan-description">For individuals and small teams.</p>
+							</div>
+							<hlm-radio
+								value="plus"
+								inputId="plus-plan"
+								aria-labelledby="plus-plan-title"
+								aria-describedby="plus-plan-description"
+							>
+								<hlm-radio-indicator indicator />
+							</hlm-radio>
 						</div>
-						<hlm-radio value="plus" inputId="plus-plan">
-							<hlm-radio-indicator indicator />
-						</hlm-radio>
-					</div>
-				</label>
-				<label hlmFieldLabel for="pro-plan">
-					<div hlmField orientation="horizontal">
-						<div hlmFieldContent>
-							<div hlmFieldTitle>Pro</div>
-							<p hlmFieldDescription>For growing businesses.</p>
+					</label>
+					<label hlmFieldLabel for="pro-plan">
+						<div hlmField orientation="horizontal">
+							<div hlmFieldContent>
+								<div hlmFieldTitle id="pro-plan-title">Pro</div>
+								<p hlmFieldDescription id="pro-plan-description">For growing businesses.</p>
+							</div>
+							<hlm-radio
+								value="pro"
+								inputId="pro-plan"
+								aria-labelledby="pro-plan-title"
+								aria-describedby="pro-plan-description"
+							>
+								<hlm-radio-indicator indicator />
+							</hlm-radio>
 						</div>
-						<hlm-radio value="pro" inputId="pro-plan">
-							<hlm-radio-indicator indicator />
-						</hlm-radio>
-					</div>
-				</label>
-				<label hlmFieldLabel for="enterprise-plan">
-					<div hlmField orientation="horizontal">
-						<div hlmFieldContent>
-							<div hlmFieldTitle>Enterprise</div>
-							<p hlmFieldDescription>For large teams and enterprises.</p>
+					</label>
+					<label hlmFieldLabel for="enterprise-plan">
+						<div hlmField orientation="horizontal">
+							<div hlmFieldContent>
+								<div hlmFieldTitle id="enterprise-plan-title">Enterprise</div>
+								<p hlmFieldDescription id="enterprise-plan-description">For large teams and enterprises.</p>
+							</div>
+							<hlm-radio
+								value="enterprise"
+								inputId="enterprise-plan"
+								aria-labelledby="enterprise-plan-title"
+								aria-describedby="enterprise-plan-description"
+							>
+								<hlm-radio-indicator indicator />
+							</hlm-radio>
 						</div>
-						<hlm-radio value="enterprise" inputId="enterprise-plan">
-							<hlm-radio-indicator indicator />
-						</hlm-radio>
-					</div>
-				</label>
-			</hlm-radio-group>
+					</label>
+				</hlm-radio-group>
+			</div>
 		`,
   }),
 };
