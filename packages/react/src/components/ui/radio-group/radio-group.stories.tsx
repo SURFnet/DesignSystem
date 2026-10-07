@@ -2,7 +2,15 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { radioGroupContract } from '@surfnet/curve-contracts';
 
-import { FieldDescription, FieldLabel, FieldLegend, FieldSet } from '@/components/ui/field';
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+  FieldTitle,
+} from '@/components/ui/field';
 import { Label } from '@/components/ui/label';
 
 import { RadioGroup, RadioGroupItem } from './radio-group';
@@ -80,6 +88,44 @@ export const InFieldset: Story = {
         </div>
       </RadioGroup>
     </FieldSet>
+  ),
+};
+
+/**
+ * Choice cards: wrap each option's `Field` in a `FieldLabel` and the whole label becomes a
+ * selectable card. The selected card gets a primary-tinted border and background.
+ */
+export const ChoiceCard: Story = {
+  render: () => (
+    <RadioGroup defaultValue="plus" className="max-w-sm">
+      <FieldLabel htmlFor="plus-plan">
+        <Field orientation="horizontal">
+          <FieldContent>
+            <FieldTitle>Plus</FieldTitle>
+            <FieldDescription>For individuals and small teams.</FieldDescription>
+          </FieldContent>
+          <RadioGroupItem value="plus" id="plus-plan" />
+        </Field>
+      </FieldLabel>
+      <FieldLabel htmlFor="pro-plan">
+        <Field orientation="horizontal">
+          <FieldContent>
+            <FieldTitle>Pro</FieldTitle>
+            <FieldDescription>For growing businesses.</FieldDescription>
+          </FieldContent>
+          <RadioGroupItem value="pro" id="pro-plan" />
+        </Field>
+      </FieldLabel>
+      <FieldLabel htmlFor="enterprise-plan">
+        <Field orientation="horizontal">
+          <FieldContent>
+            <FieldTitle>Enterprise</FieldTitle>
+            <FieldDescription>For large teams and enterprises.</FieldDescription>
+          </FieldContent>
+          <RadioGroupItem value="enterprise" id="enterprise-plan" />
+        </Field>
+      </FieldLabel>
+    </RadioGroup>
   ),
 };
 

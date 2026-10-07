@@ -104,6 +104,53 @@ export const InFieldset: Story = {
   }),
 };
 
+/**
+ * Choice cards: wrap each option's `hlmField` in a `label[hlmFieldLabel]` and the whole
+ * label becomes a selectable card. The selected card gets a primary-tinted border and
+ * background.
+ */
+export const ChoiceCard: Story = {
+  render: () => ({
+    template: `
+			<hlm-radio-group value="plus" class="max-w-sm">
+				<label hlmFieldLabel for="plus-plan">
+					<div hlmField orientation="horizontal">
+						<div hlmFieldContent>
+							<div hlmFieldTitle>Plus</div>
+							<p hlmFieldDescription>For individuals and small teams.</p>
+						</div>
+						<hlm-radio value="plus" inputId="plus-plan">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+					</div>
+				</label>
+				<label hlmFieldLabel for="pro-plan">
+					<div hlmField orientation="horizontal">
+						<div hlmFieldContent>
+							<div hlmFieldTitle>Pro</div>
+							<p hlmFieldDescription>For growing businesses.</p>
+						</div>
+						<hlm-radio value="pro" inputId="pro-plan">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+					</div>
+				</label>
+				<label hlmFieldLabel for="enterprise-plan">
+					<div hlmField orientation="horizontal">
+						<div hlmFieldContent>
+							<div hlmFieldTitle>Enterprise</div>
+							<p hlmFieldDescription>For large teams and enterprises.</p>
+						</div>
+						<hlm-radio value="enterprise" inputId="enterprise-plan">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+					</div>
+				</label>
+			</hlm-radio-group>
+		`,
+  }),
+};
+
 /** Disabling a single item versus disabling the whole group. */
 export const Disabled: Story = {
   render: () => ({
