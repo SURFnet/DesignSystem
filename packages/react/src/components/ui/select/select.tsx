@@ -6,6 +6,7 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 import { CaretDownIcon, CaretUpDownIcon, CaretUpIcon, CheckIcon } from '@phosphor-icons/react';
+import { useAriaRequired } from '@/components/ui/field/field-context';
 
 import styles from './select.module.css';
 
@@ -39,9 +40,12 @@ function SelectTrigger({
 }: SelectPrimitive.Trigger.Props & {
   size?: SelectTriggerSizeName;
 }) {
+  // CURVE: required by default unless inside <Field optional> (issue #144).
+  const ariaRequired = useAriaRequired(props['aria-required']);
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
+      aria-required={ariaRequired}
       data-size={size}
       className={cn(styles.trigger, className)}
       {...props}

@@ -1,6 +1,10 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Directive, inject, input } from '@angular/core';
 import { BrnFieldControl, BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
+import {
+  ariaRequiredAttribute,
+  injectAriaRequired,
+} from '../../../field/src/lib/hlm-field-required';
 import { BrnTextarea } from '@spartan-ng/brain/textarea';
 import { ariaInvalid, ariaInvalidOverride, classes } from '../../../utils/src';
 
@@ -12,7 +16,7 @@ import { ariaInvalid, ariaInvalidOverride, classes } from '../../../utils/src';
     // being overwritten by the directive's host binding.
     { directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
   ],
-  host: { 'data-slot': 'textarea' },
+  host: { 'data-slot': 'textarea', '[attr.aria-required]': '_ariaRequired()' },
 })
 export class HlmTextarea {
   private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
@@ -23,6 +27,14 @@ export class HlmTextarea {
     alias: 'aria-invalid',
     transform: ariaInvalidOverride,
   });
+
+  /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
+  public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {
+    alias: 'aria-required',
+    transform: ariaRequiredAttribute,
+  });
+
+  protected readonly _ariaRequired = injectAriaRequired(this.ariaRequiredOverride);
 
   constructor() {
     classes(() => 'curve-textarea');
