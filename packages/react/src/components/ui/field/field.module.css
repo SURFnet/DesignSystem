@@ -59,6 +59,15 @@
   align-items: center;
 }
 
+.field[data-orientation='horizontal']:has(> [data-slot='field-content']) {
+  align-items: flex-start;
+}
+
+.field[data-orientation='horizontal']:has(> [data-slot='field-content']) > [role='checkbox'],
+.field[data-orientation='horizontal']:has(> [data-slot='field-content']) [role='radio'] {
+  margin-top: 1px;
+}
+
 .fieldContent {
   display: flex;
   flex: 1;
@@ -72,6 +81,29 @@
   width: fit-content;
   gap: calc(var(--spacing, 0.25rem) * 2);
   line-height: 1.375;
+}
+
+.fieldLabel:has(:is([data-state='checked'], [data-checked]:not([data-checked='false']))) {
+  border-color: color-mix(in oklab, var(--primary) 30%, transparent);
+  background-color: color-mix(in oklab, var(--primary) 5%, transparent);
+}
+
+:global(.dark)
+  .fieldLabel:has(:is([data-state='checked'], [data-checked]:not([data-checked='false']))) {
+  border-color: color-mix(in oklab, var(--primary) 20%, transparent);
+  background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+}
+
+/* A label wrapping a whole field becomes a selectable card. */
+.fieldLabel:has(> [data-slot='field']) {
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+}
+
+.fieldLabel > [data-slot='field'] {
+  padding: calc(var(--spacing, 0.25rem) * 3);
 }
 
 .fieldTitle {

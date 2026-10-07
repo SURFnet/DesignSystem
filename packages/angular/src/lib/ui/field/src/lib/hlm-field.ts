@@ -14,8 +14,9 @@ export type FieldVariants = { orientation?: FieldOrientationName | null };
 @Directive({
   selector: '[hlmField],hlm-field',
   hostDirectives: [{ directive: BrnField, inputs: ['data-invalid', 'forceInvalid'] }],
+  // CURVE: a11y — no role="group" (upstream adds it): a single field isn't a group, and inside a
+  // choice-card label it blanks the label's text for axe. Group fields with hlmFieldSet instead.
   host: {
-    role: 'group',
     'data-slot': 'field',
     '[attr.data-orientation]': 'orientation()',
   },
