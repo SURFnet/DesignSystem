@@ -1,15 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { HlmTextarea, HlmTextareaImports } from '..';
+import { HlmFieldImports } from '../../../field/src';
 import { textareaContract } from '@surfnet/curve-contracts';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
-const meta: Meta<HlmTextarea> = {
+/** Story-only `optional` drives the wrapping `hlmField optional`. */
+type TextareaArgs = HlmTextarea & { placeholder: string; disabled: boolean; optional: boolean };
+
+const meta: Meta<TextareaArgs> = {
   title: 'Components/Textarea',
   component: HlmTextarea,
   decorators: [
     moduleMetadata({
-      imports: [HlmTextareaImports, ReactiveFormsModule],
+      imports: [HlmTextareaImports, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -26,22 +30,32 @@ const meta: Meta<HlmTextarea> = {
   argTypes: {
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    optional: {
+      control: 'boolean',
+      description:
+        'Fields are required by default (`aria-required="true"`). Story control for the wrapping `hlmField optional`: the label gets "(optioneel)" and the control drops `aria-required`.',
+      table: { defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     placeholder: 'Type something…',
     disabled: false,
+    optional: false,
   },
-} as Meta<HlmTextarea>;
+} as Meta<TextareaArgs>;
 
 export default meta;
-type Story = StoryObj<HlmTextarea>;
+type Story = StoryObj<TextareaArgs>;
 
-/** Default textarea — auto-sizes to content. */
+/** Default textarea with its label — auto-sizes to content; toggle `optional` to see the label suffix. */
 export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-			<textarea hlmTextarea ${argsToTemplate(args)}></textarea>
+			<div hlmField class="w-72" [optional]="optional">
+				<label hlmFieldLabel for="textarea-default">Toelichting</label>
+				<textarea hlmTextarea id="textarea-default" ${argsToTemplate(args, { exclude: ['optional'] })}></textarea>
+			</div>
 		`,
   }),
 };

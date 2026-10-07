@@ -1,7 +1,13 @@
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { inputContract } from '@surfnet/curve-contracts';
 
+import { Field, FieldLabel } from '@/components/ui/field';
+
 import { Input } from './input';
+
+/** `optional` is a story-only arg: it drives the wrapping `<Field optional>`. */
+type InputArgs = ComponentProps<typeof Input> & { optional?: boolean };
 
 const meta = {
   title: 'Components/Input',
@@ -27,20 +33,34 @@ const meta = {
     },
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    optional: {
+      control: 'boolean',
+      description:
+        'Fields are required by default (`aria-required="true"`). Story control for the wrapping `<Field optional>`: the label gets "(optioneel)" and the control drops `aria-required`.',
+      table: { defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     type: 'text',
     placeholder: 'Type something…',
     disabled: false,
+    optional: false,
   },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<InputArgs>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<InputArgs>;
 
-/** The default input — tweak it via the controls. */
-export const Default: Story = {};
+/** The default input with its label — tweak it via the controls; toggle `optional` to see the label suffix. */
+export const Default: Story = {
+  render: ({ optional, ...args }) => (
+    <Field optional={optional} className="w-72">
+      <FieldLabel htmlFor="input-default">Naam</FieldLabel>
+      <Input id="input-default" {...args} />
+    </Field>
+  ),
+};
 
 /** Common input types side by side. */
 export const Types: Story = {

@@ -64,7 +64,10 @@ Technisch, allemaal nodig:
 Mensen maken typefouten, kiezen de verkeerde optie, of sturen een formulier te vroeg in. Een
 toegankelijk product straft dat niet af.
 
-- Toon de eisen _vóór_ het versturen: het datumformaat, de minimale lengte, wat verplicht is.
+- Toon de eisen _vóór_ het versturen: het datumformaat, de minimale lengte, wat optioneel is.
+  Curve-velden zijn standaard verplicht en krijgen `aria-required`; dat wordt voorgelezen maar
+  valideert niets. Je hebt nog steeds `Validators.required` of je schema nodig. Zie
+  [Verplichte en optionele velden](?path=/docs/curve-voor-designers--verplichte-en-optionele-velden).
 - Houd de verzendknop bruikbaar. Een `disabled` knop zonder uitleg is een doodlopende weg.
 - Laat iemand een destructieve actie bevestigen ("Factuur 2026-104 verwijderen?"), en bied
   daarna een manier om terug te gaan als dat nog kan.
