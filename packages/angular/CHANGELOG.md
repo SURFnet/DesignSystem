@@ -1,5 +1,11 @@
 # @surfnet/curve-angular
 
+## 0.8.0
+
+### Patch Changes
+
+- 4cca4c0: `Field` / `hlmField` no longer renders `role="group"`. A single field isn't a group, and inside a choice-card label the role caused the radio or checkbox to lose its accessible name (axe "Form elements must have labels"). To group related fields, use `FieldSet` / `fieldset[hlmFieldSet]`.
+
 ## 0.7.0
 
 ### Minor Changes
