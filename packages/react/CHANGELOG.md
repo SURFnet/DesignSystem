@@ -1,5 +1,15 @@
 # @surfnet/curve-react
 
+## 0.8.0
+
+### Minor Changes
+
+- 4cca4c0: `FieldLabel` now becomes a selectable "choice card" when it wraps a `Field` (bordered, with a primary tint when the control inside is checked), matching `@surfnet/curve-angular`. Horizontal `Field`s with `FieldContent` now top-align their checkbox or radio. See the new RadioGroup **ChoiceCard** story.
+
+### Patch Changes
+
+- 4cca4c0: `Field` / `hlmField` no longer renders `role="group"`. A single field isn't a group, and inside a choice-card label the role caused the radio or checkbox to lose its accessible name (axe "Form elements must have labels"). To group related fields, use `FieldSet` / `fieldset[hlmFieldSet]`.
+
 ## 0.7.0
 
 ### Minor Changes
