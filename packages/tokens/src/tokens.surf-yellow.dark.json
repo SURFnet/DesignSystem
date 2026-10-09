@@ -235,6 +235,14 @@
     "$type": "color",
     "$value": "rgba(255, 224, 222, 1)"
   },
+  "border-strong": {
+    "$type": "color",
+    "$value": "rgba(163, 163, 163, 1)"
+  },
+  "placeholder": {
+    "$type": "color",
+    "$value": "rgba(163, 163, 163, 1)"
+  },
   "primary-strong": {
     "$type": "color",
     "$value": "rgba(255, 229, 0, 1)"
