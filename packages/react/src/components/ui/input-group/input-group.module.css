@@ -20,7 +20,7 @@
 
 .group:has([data-slot='input-group-control']:focus-visible) {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .group:has([data-slot][aria-invalid='true']) {

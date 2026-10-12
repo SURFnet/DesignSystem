@@ -80,7 +80,7 @@
 .slot[data-active='true'] {
   z-index: 10;
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .slot[data-active='true'][aria-invalid='true'] {
