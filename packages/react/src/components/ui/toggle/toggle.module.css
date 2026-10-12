@@ -21,8 +21,11 @@
   color: var(--foreground);
 }
 
-.toggle:focus-visible {
+.toggle:focus {
   border-color: var(--ring);
+}
+
+.toggle:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 

@@ -47,8 +47,11 @@
   background-color: color-mix(in oklab, var(--input) 30%, transparent);
 }
 
-.curve-radio:has(:focus-visible) .curve-radio-indicator {
+.curve-radio:has(:focus) .curve-radio-indicator {
   border-color: var(--ring);
+}
+
+.curve-radio:has(:focus-visible) .curve-radio-indicator {
   box-shadow:
     0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent),
     var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));

@@ -19,8 +19,11 @@
   color: var(--muted-foreground);
 }
 
-.input:focus-visible {
+.input:focus {
   border-color: var(--ring);
+}
+
+.input:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 

@@ -26,8 +26,11 @@
   width: 24px;
 }
 
-.switch:focus-visible {
+.switch:focus {
   border-color: var(--ring);
+}
+
+.switch:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 

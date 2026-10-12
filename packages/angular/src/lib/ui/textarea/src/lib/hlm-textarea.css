@@ -21,8 +21,11 @@
   color: var(--muted-foreground);
 }
 
-.curve-textarea:focus-visible {
+.curve-textarea:focus {
   border-color: var(--ring);
+}
+
+.curve-textarea:focus-visible {
   box-shadow:
     0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent),
     var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));

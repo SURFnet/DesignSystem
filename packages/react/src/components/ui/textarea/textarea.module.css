@@ -20,8 +20,11 @@
   color: var(--muted-foreground);
 }
 
-.textarea:focus-visible {
+.textarea:focus {
   border-color: var(--ring);
+}
+
+.textarea:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
