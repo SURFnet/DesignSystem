@@ -24,6 +24,10 @@
   color: var(--muted-foreground);
 }
 
+.curve-input:hover:where(:not(:disabled)) {
+  border-color: var(--border-strong);
+}
+
 .curve-input:focus {
   border-color: var(--ring);
 }

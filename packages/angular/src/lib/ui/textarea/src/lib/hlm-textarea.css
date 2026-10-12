@@ -21,6 +21,10 @@
   color: var(--muted-foreground);
 }
 
+.curve-textarea:hover:where(:not(:disabled)) {
+  border-color: var(--border-strong);
+}
+
 .curve-textarea:focus {
   border-color: var(--ring);
 }

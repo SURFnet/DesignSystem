@@ -20,6 +20,10 @@
   color: var(--muted-foreground);
 }
 
+.textarea:hover:where(:not(:disabled)) {
+  border-color: var(--border-strong);
+}
+
 .textarea:focus {
   border-color: var(--ring);
 }

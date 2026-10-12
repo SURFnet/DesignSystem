@@ -19,6 +19,10 @@
   color: var(--muted-foreground);
 }
 
+.input:hover:where(:not(:disabled)) {
+  border-color: var(--border-strong);
+}
+
 .input:focus {
   border-color: var(--ring);
 }

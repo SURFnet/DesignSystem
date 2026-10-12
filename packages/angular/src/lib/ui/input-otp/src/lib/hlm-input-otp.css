@@ -42,6 +42,10 @@
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.curve-input-otp-slot:disabled {
+  cursor: not-allowed;
+}
+
 .curve-input-otp-slot:first-child {
   border-inline-start-width: 1px;
   border-start-start-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
@@ -59,6 +63,11 @@
 
 .curve-input-otp-slot[data-matches-spartan-invalid='true'] {
   border-color: var(--destructive);
+}
+
+/* Hover; the active state below overrides it. */
+.curve-input-otp-slot:hover:not([data-matches-spartan-invalid='true']) {
+  border-color: var(--border-strong);
 }
 
 /* The slot the next character goes into. */

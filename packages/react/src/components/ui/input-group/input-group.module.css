@@ -18,6 +18,10 @@
   background-color: color-mix(in oklch, var(--input) 30%, transparent);
 }
 
+.group:hover:where(:not(:has(:disabled))) {
+  border-color: var(--border-strong);
+}
+
 .group:has([data-slot='input-group-control']:focus-visible) {
   border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
@@ -42,6 +46,7 @@
   height: auto;
 }
 
+:global([data-slot='combobox-content']) .group:hover,
 :global([data-slot='combobox-content']) .group:focus-within {
   border-color: inherit;
   box-shadow: none;
