@@ -38,6 +38,10 @@
   height: calc(var(--spacing, 0.25rem) * 8);
 }
 
+.trigger:hover:where(:not(:disabled)) {
+  border-color: var(--border-strong);
+}
+
 .trigger:focus {
   border-color: var(--ring);
 }

@@ -45,6 +45,10 @@
   background-color: color-mix(in oklab, var(--input) 50%, transparent);
 }
 
+.curve-select-trigger:hover:where(:not(:disabled)) {
+  border-color: var(--border-strong);
+}
+
 .curve-select-trigger:focus {
   border-color: var(--ring);
 }

@@ -158,6 +158,10 @@
     box-shadow 150ms ease;
 }
 
+.chips:hover:where(:not(:has(:disabled))) {
+  border-color: var(--border-strong);
+}
+
 .chips:focus-within {
   border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);

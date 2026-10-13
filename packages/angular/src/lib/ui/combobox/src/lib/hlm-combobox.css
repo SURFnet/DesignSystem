@@ -80,6 +80,10 @@
   background-color: color-mix(in oklab, var(--input) 30%, transparent);
 }
 
+.curve-combobox-chips:hover:where(:not(:has(:disabled))) {
+  border-color: var(--border-strong);
+}
+
 .curve-combobox-chips:focus-within {
   border-color: var(--ring);
   box-shadow:

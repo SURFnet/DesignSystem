@@ -20,10 +20,6 @@
   opacity: 0.5;
 }
 
-.input {
-  cursor: not-allowed;
-}
-
 .input:disabled {
   cursor: not-allowed;
 }
@@ -75,6 +71,10 @@
 
 :global(.dark) .slot {
   background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+.slot:hover:not([aria-invalid='true']) {
+  border-color: var(--border-strong);
 }
 
 .slot[data-active='true'] {
