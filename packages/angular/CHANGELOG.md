@@ -1,5 +1,16 @@
 # @surfnet/curve-angular
 
+## 0.8.0
+
+### Minor Changes
+
+- f2e4e42: Form fields now show a `--border-strong` border on hover: Combobox (chips), Input, Input Group, Input OTP, Select and Textarea. Focus, active and invalid states still take precedence, and disabled fields don't react to hover.
+
+### Patch Changes
+
+- 4cca4c0: `Field` / `hlmField` no longer renders `role="group"`. A single field isn't a group, and inside a choice-card label the role caused the radio or checkbox to lose its accessible name (axe "Form elements must have labels"). To group related fields, use `FieldSet` / `fieldset[hlmFieldSet]`.
+- f5c43ed: Split focus styling: `:focus` now gives the primary (`--ring`) border, and `:focus-visible` adds the 3px ring shadow on top. Mouse-focused controls show the border change only; keyboard focus shows both. Applies to accordion, badge, button, checkbox, input, item, native select, radio group, select, switch, tabs, textarea and toggle.
+
 ## 0.7.0
 
 ### Minor Changes
