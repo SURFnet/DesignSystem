@@ -35,9 +35,12 @@
   color: var(--muted-foreground);
 }
 
-.select:focus-visible {
+.select:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.select:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .select:disabled {

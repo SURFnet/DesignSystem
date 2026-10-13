@@ -82,11 +82,11 @@
 }
 
 .thumb:hover {
-  box-shadow: 0 0 0 4px color-mix(in oklch, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .thumb:focus-visible {
-  box-shadow: 0 0 0 4px color-mix(in oklch, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .thumb:disabled {

@@ -23,9 +23,12 @@
   opacity: 0.5;
 }
 
-.checkbox:focus-visible {
+.checkbox:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.checkbox:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .checkbox:disabled {

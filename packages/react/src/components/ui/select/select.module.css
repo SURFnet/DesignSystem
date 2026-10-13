@@ -38,9 +38,12 @@
   height: calc(var(--spacing, 0.25rem) * 8);
 }
 
-.trigger:focus-visible {
+.trigger:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.trigger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .trigger:disabled {

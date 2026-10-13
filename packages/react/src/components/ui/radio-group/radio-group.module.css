@@ -22,9 +22,12 @@
   inset: -0.5rem -0.75rem;
 }
 
-.item:focus-visible {
+.item:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.item:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .item:disabled {

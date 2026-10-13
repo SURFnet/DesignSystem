@@ -76,9 +76,12 @@
   color: var(--foreground);
 }
 
-.trigger:focus-visible {
+.trigger:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.trigger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
   outline: 1px solid var(--ring);
 }
 

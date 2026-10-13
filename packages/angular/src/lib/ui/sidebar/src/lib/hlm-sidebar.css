@@ -298,7 +298,7 @@
 }
 
 .curve-input.curve-sidebar-input:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
 }
 
 .curve-input.curve-sidebar-input[data-matches-spartan-invalid='true'] {

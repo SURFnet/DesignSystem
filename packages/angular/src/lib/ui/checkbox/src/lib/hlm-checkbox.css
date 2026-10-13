@@ -24,10 +24,13 @@
   background-color: color-mix(in oklab, var(--input) 30%, transparent);
 }
 
-.curve-checkbox:focus-visible {
+.curve-checkbox:focus {
   border-color: var(--ring);
+}
+
+.curve-checkbox:focus-visible {
   box-shadow:
-    0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent),
+    0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent),
     var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
 }
 
@@ -58,7 +61,7 @@
 
 /* Invalid via the control state (forceInvalid or form validation). */
 .curve-checkbox--invalid,
-.curve-checkbox--invalid:focus-visible {
+.curve-checkbox--invalid:focus {
   border-color: var(--destructive);
 }
 

@@ -20,9 +20,12 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.button:focus-visible {
+.button:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
 .button:active:not([aria-haspopup]) {
@@ -131,8 +134,11 @@
   background-color: color-mix(in oklch, var(--destructive) 90%, transparent);
 }
 
-.variantDestructive:focus-visible {
+.variantDestructive:focus {
   border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
+}
+
+.variantDestructive:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
 }
 

@@ -19,9 +19,12 @@ a.curve-item:hover {
   background-color: var(--muted);
 }
 
-.curve-item:focus-visible {
+.curve-item:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.curve-item:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
 }
 
 .curve-item--variant-default {

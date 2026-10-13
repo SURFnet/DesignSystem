@@ -39,12 +39,15 @@
   text-decoration-line: underline;
 }
 
-.curve-accordion-trigger:focus-visible {
+.curve-accordion-trigger:focus {
   border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
 }
 
-.curve-accordion-trigger:focus-visible::after {
+.curve-accordion-trigger:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
+}
+
+.curve-accordion-trigger:focus::after {
   content: '';
   border-color: var(--ring);
 }

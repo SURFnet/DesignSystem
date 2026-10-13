@@ -62,7 +62,7 @@
 .curve-navigation-menu-trigger:focus-visible {
   outline-style: solid;
   outline-width: 1px;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
 }
 
 .curve-navigation-menu-trigger:disabled {
@@ -121,7 +121,7 @@
 .curve-navigation-menu-link:focus-visible {
   outline-style: solid;
   outline-width: 1px;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
 }
 
 .curve-navigation-menu-link[data-disabled='true'] {
