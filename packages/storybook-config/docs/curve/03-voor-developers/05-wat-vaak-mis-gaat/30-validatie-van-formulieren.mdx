@@ -56,10 +56,13 @@ Technisch, allemaal nodig:
 - Een `<label>` dat aan het veld gekoppeld is.
 - `aria-invalid="true"` op het afgekeurde veld.
 - `aria-describedby` naar de zichtbare melding (en eventueel naar de hulptekst).
-- Na een mislukte verzending de focus naar een zinnige plek: de samenvatting of het eerste
-  veld met een fout.
-- Een live region als de melding verschijnt zonder herladen. Hoe je die zet, staat bij
-  [Verkeerde ARIA](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--verkeerde-aria).
+- Een foutsamenvatting boven het formulier, met links naar de velden. Na een mislukte verzending,
+  en bij het laden van een pagina met fouten, gaat de focus naar die samenvatting.
+- Geen `role="alert"` op de meldingen bij de velden: bij meerdere fouten onderbreekt de
+  screenreader zichzelf steeds opnieuw.
+
+Hoe je dat allemaal bouwt, ook met Curve-componenten, staat bij
+[Formulieren bouwen](?path=/docs/curve-voor-developers--formulieren-bouwen).
 
 Mensen maken typefouten, kiezen de verkeerde optie, of sturen een formulier te vroeg in. Een
 toegankelijk product straft dat niet af.

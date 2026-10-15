@@ -4,5 +4,5 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "include": ["../src/**/*.stories.ts", "./preview.ts"]
+  "include": ["../src/**/*.stories.ts", "../src/examples/**/*.d.ts", "./preview.ts"]
 }

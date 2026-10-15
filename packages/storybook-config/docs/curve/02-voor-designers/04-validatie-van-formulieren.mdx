@@ -2,7 +2,6 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Curve/Voor designers" name="Validatie van formulieren" />
 
-
 # Fouten toestaan
 
 Mensen maken typefouten, kiezen de verkeerde optie, of sturen een formulier te vroeg in. Een
@@ -11,3 +10,88 @@ toegankelijk product straft dat niet af. Daarom is het belangrijk om de gebruike
 - Toon de eisen _vóór_ het versturen: het datumformaat, de minimale lengte, wat niet verplicht is (maak standaard velden verplicht).
 - Laat iemand een destructieve actie bevestigen ("Factuur 2026-104 verwijderen?"), en bied daarna een manier om terug te gaan als dat nog kan.
 - Bewaar wat er al is ingevuld als er iets misgaat. "Begin opnieuw" is geen herstel, het is straf.
+
+## Een formulier ontwerpen
+
+Hieronder staat waar een toegankelijk formulier uit bestaat, en waarom. De technische uitwerking voor
+developers staat bij
+[Formulieren bouwen](?path=/docs/curve-voor-developers--formulieren-bouwen).
+
+### Een titel
+
+Geef het formulier een kop die zegt waar het voor is: "Aanmelden voor de nieuwsbrief", niet
+"Formulier". Blinde gebruikers navigeren via koppen, dus de titel is vaak het eerste wat ze van je
+formulier horen.
+
+### Groepen velden
+
+Zet velden die bij elkaar horen in een groep met een eigen titel: "Over jou", "Factuuradres",
+"Verzendadres". Wat jij met witruimte en een lijntje groepeert, moet ook in de code een groep worden.
+Teken het dus duidelijk als groep, met een titel, zodat een developer weet dat het er een is.
+
+Een groep kan ook in- en uitklappen. Doe dat alleen als het formulier lang is, en zorg dat de titel
+zegt wat erin zit.
+
+### Elk veld bestaat uit vier delen
+
+| Onderdeel       | Wat het doet                                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Label**       | Zegt welke informatie gevraagd wordt. Altijd zichtbaar, boven of naast het veld. Elk veld heeft er een.                        |
+| **Uitleg**      | Optioneel. Vertelt wat je verwacht, vóórdat iemand begint: "Vul je volledige naam in", "Minimaal 12 tekens", "DD-MM-JJJJ".     |
+| **Invoerveld**  | Waar de gebruiker typt of kiest. De placeholder (de grijze tekst erin) mag een voorbeeld geven, maar is nooit de enige uitleg. |
+| **Foutmelding** | Verschijnt pas als er iets mis is, direct bij het veld. Zegt wat er fout ging én hoe het wél moet.                             |
+
+Waarom de placeholder niet genoeg is: hij verdwijnt zodra iemand begint te typen, en dan is de uitleg
+weg. Hij heeft vaak te weinig contrast om goed te lezen. En sommige screenreaders lezen hem niet voor.
+Zet alles wat iemand nodig heeft in het label of de uitleg.
+
+Ontwerp elk veld in al zijn states: leeg, ingevuld, met focus, uitgeschakeld en met foutmelding.
+
+### Als er iets misgaat
+
+Wanneer iemand op versturen drukt en er klopt iets niet, toon je de fouten op twee plekken:
+
+1. **Een samenvatting bovenaan het formulier.** "Er zijn fouten in het formulier", met een lijst van
+   wat er mis is. Elke fout is een link die direct naar het juiste veld springt. Zo hoeft iemand die
+   het toetsenbord of een screenreader gebruikt niet het hele formulier opnieuw door te lopen.
+2. **Een melding bij elk veld met een fout.** Direct onder of bij het veld, zodat je ziet welk veld
+   het is.
+
+Na het versturen springt de focus naar de samenvatting. Ook als de pagina opnieuw laadt met fouten,
+begint de gebruiker daar. Zo hoort een screenreadergebruiker meteen dat er iets mis is, en ziet
+iemand die het toetsenbord gebruikt waar het verder gaat. Teken daarom ook hoe de samenvatting eruitziet
+mét focus: hij krijgt een zichtbare focusrand, net als een knop.
+
+Staat de samenvatting buiten beeld, dan scrollt de pagina er vanzelf naartoe. Zet hem dus direct
+boven het formulier, niet ergens anders op de pagina.
+
+Laat een fout nooit alleen uit kleur bestaan. Een rode rand ziet niet iedereen. Combineer kleur altijd
+met een icoon en een zin die uitlegt wat er moet gebeuren.
+
+Houd de verzendknop altijd klikbaar. Een uitgeschakelde knop zonder uitleg is een doodlopende weg: je
+kunt niet verder en je weet niet waarom. Laat iemand versturen, en toon dan wat er mis is.
+
+### De tekst is het belangrijkste
+
+Maak zo duidelijk mogelijk wat er van de gebruiker verwacht wordt. Geef uitleg vóór het invullen, en
+feedback als er iets fout gaat.
+
+| In plaats van    | Schrijf                                                         |
+| ---------------- | --------------------------------------------------------------- |
+| Ongeldige invoer | Voer hier een geldig e-mailadres in, zoals jan.smit@example.com |
+| Verplicht veld   | Voer hier je voor- en achternaam (of naam en familienaam) in    |
+| Fout             | Dit wachtwoord is te kort. Gebruik minimaal 12 tekens           |
+
+Meer voorbeelden staan bij [Microcopy](?path=/docs/curve-voor-designers--microcopy).
+
+## Checklist: is dit formulier klaar voor een developer?
+
+- Het formulier heeft een titel die zegt waar het voor is.
+- Velden die bij elkaar horen, zijn gegroepeerd en de groep heeft een titel.
+- Elk veld heeft een zichtbaar label.
+- Waar nodig staat er uitleg bij het veld, vóórdat iemand begint met invullen.
+- De placeholder bevat geen informatie die nergens anders staat.
+- Elk veld is getekend met een foutmelding, en de tekst van die foutmelding is uitgeschreven.
+- Er is een foutsamenvatting bovenaan het formulier ontworpen, ook in de state mét focus.
+- Fouten zijn te herkennen zonder kleur: met een icoon en tekst.
+- De verzendknop is altijd bruikbaar.

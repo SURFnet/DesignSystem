@@ -56,6 +56,7 @@ export default {
             'Voor developers',
             [
               'Curve gebruiken',
+              'Formulieren bouwen',
               'Toegankelijk bouwen',
               'Je werk testen',
               [
@@ -104,6 +105,7 @@ export default {
           ],
           'Foundations',
           'Components',
+          'Examples',
         ],
       },
     },
