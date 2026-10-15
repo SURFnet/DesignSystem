@@ -215,6 +215,10 @@
   outline: none;
 }
 
+.chipsInput::placeholder {
+  color: var(--placeholder);
+}
+
 .group:has([data-slot='combobox-clear']) .comboboxTriggerButton {
   display: none;
 }

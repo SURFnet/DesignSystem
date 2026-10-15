@@ -10,7 +10,7 @@
 }
 
 .placeholder {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .popoverContent {

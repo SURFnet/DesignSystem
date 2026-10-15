@@ -34,7 +34,7 @@
 }
 
 .curve-select-trigger[data-placeholder] {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .dark .curve-select-trigger {

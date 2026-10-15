@@ -34,7 +34,7 @@
 }
 
 .curve-native-select::placeholder {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .curve-native-select::selection,

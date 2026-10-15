@@ -9,7 +9,7 @@
 }
 
 .curve-button.curve-date-picker-trigger[data-placeholder] {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .curve-date-picker-value {

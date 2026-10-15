@@ -20,7 +20,7 @@
 }
 
 .curve-combobox-trigger[data-placeholder] {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .curve-combobox-trigger-icon {
@@ -148,7 +148,7 @@
 }
 
 .curve-combobox-chip-input::placeholder {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 /* Popup */

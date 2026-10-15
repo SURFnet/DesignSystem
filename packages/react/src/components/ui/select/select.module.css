@@ -74,7 +74,7 @@
 }
 
 .trigger[data-placeholder] {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .trigger :global([data-slot='select-value']) {
