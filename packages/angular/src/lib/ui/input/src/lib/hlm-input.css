@@ -21,7 +21,7 @@
 }
 
 .curve-input::placeholder {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .curve-input:hover:where(:not(:disabled)) {

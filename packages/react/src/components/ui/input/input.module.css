@@ -16,7 +16,7 @@
 }
 
 .input::placeholder {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .input:hover:where(:not(:disabled)) {

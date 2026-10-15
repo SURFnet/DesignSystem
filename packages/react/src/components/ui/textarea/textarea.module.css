@@ -17,7 +17,7 @@
 }
 
 .textarea::placeholder {
-  color: var(--muted-foreground);
+  color: var(--placeholder);
 }
 
 .textarea:hover:where(:not(:disabled)) {

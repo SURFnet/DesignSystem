@@ -295,15 +295,12 @@ textarea,
 }
 
 /*
-  Set the default placeholder color to a semi-transparent version of the current text color in browsers that do not
-  crash when using `color-mix(…)` with `currentcolor`. (https://github.com/tailwindlabs/tailwindcss/issues/17194)
+  Set the default placeholder color to the Curve `--placeholder` token (replaces Tailwind's
+  `color-mix(…)` with `currentcolor` default).
 */
 
-@supports (not (-webkit-appearance: -apple-pay-button)) /* Not Safari */ or
-  (contain-intrinsic-size: 1px) /* Safari 17+ */ {
-  ::placeholder {
-    color: color-mix(in oklab, currentcolor 50%, transparent);
-  }
+::placeholder {
+  color: var(--placeholder);
 }
 
 /*
