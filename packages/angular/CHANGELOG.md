@@ -1,5 +1,13 @@
 # @surfnet/curve-angular
 
+## 0.8.1
+
+### Patch Changes
+
+- f277442: Alert: links in a list inside an alert description (such as an error summary) now have a target at least 24px high, meeting WCAG 2.2 target size (2.5.8).
+- f277442: `FieldError` (React) and `hlm-field-error` (Angular) no longer have `role="alert"`. With several invalid fields, each error interrupted the screen reader at once. Show an error summary above the form and move focus to it after a failed submit instead — see "Formulieren bouwen" in the Curve docs. In React, link each error to its control with `aria-describedby`; in Angular `hlmField` already does this.
+- 45bf39e: Placeholder text now uses the `--placeholder` token instead of `--muted-foreground`: Combobox, Date Picker, Input, Input Group, Select and Textarea. The base `::placeholder` style in the package CSS uses `--placeholder` too, so plain `<input>` and `<textarea>` elements match the components.
+
 ## 0.8.0
 
 ### Minor Changes

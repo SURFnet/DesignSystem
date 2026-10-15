@@ -1,5 +1,15 @@
 # @surfnet/curve-angular-app
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [f277442]
+- Updated dependencies [f277442]
+- Updated dependencies [45bf39e]
+  - @surfnet/curve-angular@0.8.1
+  - @surfnet/curve-tokens@0.8.1
+
 ## 0.8.0
 
 ### Patch Changes
