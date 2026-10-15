@@ -136,8 +136,11 @@ function FieldError({
     return null;
   }
 
+  // CURVE: a11y — no role="alert" (upstream adds it): one live region per invalid field means a
+  // pile of interrupting announcements on submit. Errors are announced through a focused error
+  // summary above the form; link this message to its control with aria-describedby instead.
   return (
-    <div role="alert" data-slot="field-error" className={cn(styles.error, className)} {...props}>
+    <div data-slot="field-error" className={cn(styles.error, className)} {...props}>
       {content}
     </div>
   );

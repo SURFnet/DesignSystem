@@ -226,6 +226,10 @@
   min-width: calc(var(--spacing, 0.25rem) * 5);
 }
 
+.min-w-100 {
+  min-width: calc(var(--spacing, 0.25rem) * 100);
+}
+
 /* -- spacing (padding / margin) -- */
 .p-0 {
   padding: 0;

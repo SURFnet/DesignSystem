@@ -52,7 +52,8 @@ export default defineConfig({
       tsconfigPath: './tsconfig.build.json',
       entryRoot: 'src',
       include: ['src'],
-      exclude: ['src/**/*.stories.tsx'],
+      // Storybook-only examples are not part of the published API.
+      exclude: ['src/**/*.stories.tsx', 'src/examples/**'],
     }),
   ],
   css: {

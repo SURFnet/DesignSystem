@@ -16,8 +16,10 @@ import { classes } from '../../../utils/src';
 @Component({
   selector: 'hlm-field-error',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // CURVE: a11y — no role="alert" (upstream adds it): one live region per invalid field means a
+  // pile of interrupting announcements on submit. Errors are announced through a focused error
+  // summary above the form; hlmField links this message to its control via aria-describedby.
   host: {
-    role: 'alert',
     'data-slot': 'field-error',
     '[attr.id]': 'id()',
     '[hidden]': '!_display()',

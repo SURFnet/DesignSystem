@@ -26,10 +26,35 @@
   z-index: 50;
   width: calc(var(--spacing, 0.25rem) * 2.5);
   height: calc(var(--spacing, 0.25rem) * 2.5);
+  translate: 0 calc(-50% - 2px);
   rotate: 45deg;
   border-radius: 2px;
   background-color: var(--foreground);
   fill: var(--foreground);
+}
+
+/*
+ * Base UI only sets the arrow's `left` (top/bottom) or `top` (left/right)
+ * inline; pin it to the edge facing the trigger per side.
+ */
+.arrow[data-side='top'] {
+  bottom: calc(var(--spacing, 0.25rem) * -2.5);
+}
+
+.arrow[data-side='bottom'] {
+  top: var(--spacing, 0.25rem);
+}
+
+.arrow:is([data-side='left'], [data-side='inline-start']) {
+  top: 50% !important;
+  right: calc(var(--spacing, 0.25rem) * -1);
+  translate: 0 -50%;
+}
+
+.arrow:is([data-side='right'], [data-side='inline-end']) {
+  top: 50% !important;
+  left: calc(var(--spacing, 0.25rem) * -1);
+  translate: 0 -50%;
 }
 
 /*

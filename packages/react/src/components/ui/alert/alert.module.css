@@ -99,6 +99,13 @@
   color: var(--foreground);
 }
 
+/* Links listed on their own lines (e.g. an error summary) aren't inline in a
+   sentence, so they need a 24px-high target (WCAG 2.5.8). */
+.description li > a {
+  display: inline-block;
+  padding: 2px 0;
+}
+
 .description p:not(:last-child) {
   margin-bottom: 1rem;
 }

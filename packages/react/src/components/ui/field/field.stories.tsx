@@ -76,8 +76,8 @@ export const WithError: Story = {
   render: () => (
     <Field data-invalid className="w-72">
       <FieldLabel htmlFor="password">Password</FieldLabel>
-      <Input id="password" type="password" aria-invalid />
-      <FieldError>Password must be at least 8 characters.</FieldError>
+      <Input id="password" type="password" aria-invalid aria-describedby="password-error" />
+      <FieldError id="password-error">Password must be at least 8 characters.</FieldError>
     </Field>
   ),
 };

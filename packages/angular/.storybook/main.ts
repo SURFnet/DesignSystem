@@ -32,6 +32,22 @@ const config: StorybookConfig = {
     { from: '../../../.agents/skills/accessibility', to: 'downloads/accessibility' },
   ],
   framework: '@storybook/angular',
+  // `import source from './file.ts?raw'` gives a file's text, to show example code in Docs (Vite
+  // does this out of the box in the React Storybook). Keep the other rules — the TypeScript
+  // loader above all — away from `?raw` imports so they aren't compiled as well.
+  webpackFinal: async (config) => {
+    const rules = config.module?.rules ?? [];
+    for (const rule of rules) {
+      if (rule && typeof rule === 'object' && !rule.resourceQuery) {
+        rule.resourceQuery = { not: [/raw/] };
+      }
+    }
+    config.module = {
+      ...config.module,
+      rules: [{ resourceQuery: /raw/, type: 'asset/source' }, ...rules],
+    };
+    return config;
+  },
   tags: a11yTagConfig,
 };
 

@@ -1,0 +1,256 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Curve/Voor developers" name="Formulieren bouwen" />
+
+# Formulieren bouwen
+
+Hoe bouw je een formulier met toegankelijke foutmeldingen? Hieronder eerst het complete voorbeeld in
+gewone HTML, daarna stap voor stap waarom elk onderdeel er staat. Het voorbeeld laat het formulier
+zien _nadat_ iemand op versturen heeft gedrukt en twee velden niet goed waren ingevuld.
+
+Voor de teksten zelf (wat schrijf je in een label, een uitleg of een foutmelding), zie
+[Validatie van formulieren](?path=/docs/curve-voor-designers--validatie-van-formulieren).
+
+## Het complete voorbeeld
+
+```html
+<form novalidate>
+  <h2>Formulier titel</h2>
+
+  <div id="foutoverzicht" role="alert" tabindex="-1">
+    <p>Er zijn fouten in het formulier.</p>
+    <ul>
+      <li><a href="#naam">Naam is verplicht.</a></li>
+      <li><a href="#email">Een e-mailadres is verplicht.</a></li>
+    </ul>
+  </div>
+
+  <fieldset>
+    <legend><h3>Over jou</h3></legend>
+
+    <div class="field-group">
+      <label for="naam">Naam</label>
+      <p id="naamHelp">Vul hier je volledige naam in.</p>
+      <input
+        id="naam"
+        type="text"
+        placeholder="Jan Smit"
+        required
+        spellcheck="false"
+        autocomplete="name"
+        aria-describedby="naamHelp naamError"
+        aria-invalid="true"
+        aria-errormessage="naamError"
+      />
+      <p id="naamError">Voer hier je voor- en achternaam (of naam en familienaam) in.</p>
+    </div>
+
+    <div class="field-group">
+      <label for="email">E-mailadres</label>
+      <p id="emailHelp">Vul hier je e-mailadres in.</p>
+      <input
+        id="email"
+        type="email"
+        placeholder="jan.smit@example.com"
+        required
+        spellcheck="false"
+        autocomplete="email"
+        aria-describedby="emailHelp emailError"
+        aria-invalid="true"
+        aria-errormessage="emailError"
+      />
+      <p id="emailError">
+        Voer hier een geldig e-mailadres in. We verwachten hier een e-mailadres zoals bijvoorbeeld
+        jan.smit@example.com.
+      </p>
+    </div>
+  </fieldset>
+
+  <button type="submit">Versturen</button>
+</form>
+
+<script>
+  // Pagina geladen met fouten: zet de focus op de foutsamenvatting
+  document.getElementById('foutoverzicht')?.focus();
+</script>
+```
+
+## Stap voor stap
+
+### Het formulier: `novalidate`
+
+```html
+<form novalidate>
+  <h2>Formulier titel</h2>
+</form>
+```
+
+`novalidate` zorgt ervoor dat de browser geen eigen validatie uitvoert. De ingebouwde
+browsermeldingen verschillen per browser, verdwijnen na een paar seconden en zijn niet op te maken.
+Zo regel je de validatie zelf, bijvoorbeeld met je framework. De attributen `required` en
+`type="email"` op de velden blijven wel staan: die vertellen een screenreader dat een veld verplicht
+is en wat voor invoer er verwacht wordt.
+
+Geef het formulier een kop die zegt waar het voor is.
+
+### De foutsamenvatting
+
+```html
+<div id="foutoverzicht" role="alert" tabindex="-1">
+  <p>Er zijn fouten in het formulier.</p>
+  <ul>
+    <li><a href="#naam">Naam is verplicht.</a></li>
+    <li><a href="#email">Een e-mailadres is verplicht.</a></li>
+  </ul>
+</div>
+```
+
+Gebruik altijd een foutsamenvatting boven het formulier. Toon hem alleen als er fouten zijn. Elke
+fout is een link naar het veld waar het misging. Zo kan iemand met het toetsenbord in één keer naar
+het juiste veld springen, in plaats van het hele formulier opnieuw door te lopen. Een klik op de link
+zet de focus in het veld.
+
+#### De focus naar de samenvatting
+
+Na een mislukte verzending **verplaats je de focus naar de samenvatting**. Dat is de manier waarop een
+screenreadergebruiker te horen krijgt dat er iets mis is. Zonder focus blijft iemand op de
+verzendknop staan en gebeurt er, voor wie niet kijkt, niets.
+
+- `tabindex="-1"` maakt de samenvatting focusbaar met een script, zonder dat hij in de tabvolgorde
+  terechtkomt.
+- **De pagina wordt (opnieuw) geladen met fouten**, bijvoorbeeld omdat de server het formulier
+  valideert: zet de focus op de samenvatting zodra de pagina geladen is.
+
+  ```js
+  document.getElementById('foutoverzicht')?.focus();
+  ```
+
+- **Je valideert in de browser, zonder herladen:** toon de samenvatting en zet er direct daarna de
+  focus op. In een framework doe je dat ná het renderen, anders bestaat het element nog niet.
+- Verstuurt iemand opnieuw en zijn er nog steeds fouten, zet de focus dan opnieuw op de samenvatting.
+- Verplaats de focus niet terwijl iemand typt. Valideer bij het versturen, niet bij elke toetsaanslag.
+- Zorg dat de focus zichtbaar is: de samenvatting krijgt een focusrand, net als een knop of veld.
+- Zet bij een herladen pagina ook "Fout: " voor de `<title>`, bijvoorbeeld "Fout: Aanmelden – SURF".
+  De paginatitel is het eerste dat een screenreader voorleest.
+
+De focus verplaatsen is de hoofdzaak. `role="alert"` is een vangnet: als de samenvatting verschijnt
+zonder herladen, leest een screenreader hem ook voor als de focus om wat voor reden dan ook niet
+verplaatst is. Bij het laden van een pagina doet `role="alert"` niets; daar zorgt alleen de focus
+ervoor dat de fouten voorgelezen worden.
+
+Geef de meldingen bij de velden zelf **geen** `role="alert"`. Bij drie foutieve velden onderbreekt de
+screenreader zichzelf dan drie keer achter elkaar, en blijft er niets van hangen. De samenvatting
+vertelt wat er mis is; de melding bij het veld wordt voorgelezen als iemand in dat veld komt.
+
+### Velden groeperen: `fieldset` en `legend`
+
+```html
+<fieldset>
+  <legend><h3>Over jou</h3></legend>
+  ...
+</fieldset>
+```
+
+Maak per groepje velden dat bij elkaar hoort een `fieldset`: adres, factuuradres, verzendadres. Zo
+communiceer je wat bij elkaar hoort, ook aan wie de opmaak niet ziet. De `legend` is de titel van de
+groep. Schrijf daar een titel die omschrijft waar dit groepje velden voor is.
+
+Een kop in de `legend` mag, en zorgt ervoor dat de groep ook in de lijst met koppen staat. Kies het
+niveau onder de titel van het formulier (hier `h3` onder `h2`).
+
+Alternatieven voor `fieldset`:
+
+- Een `section` met een `h2` of `h3` (een niveau onder de titel van het formulier).
+- Een `details`-element met de titel van de groep in een `summary`, als de groep in- en uitklapt.
+
+### Een veld: label, beschrijving, invoer, foutmelding
+
+```html
+<div class="field-group">
+  <label for="naam">Naam</label>
+  <p id="naamHelp">Vul hier je volledige naam in.</p>
+  <input
+    id="naam"
+    type="text"
+    placeholder="Jan Smit"
+    required
+    spellcheck="false"
+    autocomplete="name"
+    aria-describedby="naamHelp naamError"
+    aria-invalid="true"
+    aria-errormessage="naamError"
+  />
+  <p id="naamError">Voer hier je voor- en achternaam (of naam en familienaam) in.</p>
+</div>
+```
+
+De `div` om het veld heen houdt het label, de invoer en de meldingen bij elkaar. Handig voor de
+opmaak en de positionering, maar niet nodig voor de toegankelijkheid.
+
+| Onderdeel                                | Waarom                                                                                                                                                                                                                       |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `label for="naam"`                       | Elk veld heeft een label dat omschrijft welke informatie gevraagd wordt. `for` koppelt het aan de `id` van het veld. Een klik op het label zet de focus in het veld.                                                         |
+| `p id="naamHelp"`                        | Een eventuele uitleg bij het veld. Wordt gekoppeld via `aria-describedby` op het veld, en dus voorgelezen als iemand in het veld komt.                                                                                       |
+| `placeholder`                            | Geeft een voorbeeld, maar bevat geen cruciale informatie over hoe het veld in te vullen. Hij verdwijnt zodra je begint te typen, en het contrast is vaak laag. Het label en de uitleg doen het echte werk.                   |
+| `required`                               | Maakt het veld verplicht, en vertelt dat aan een screenreader.                                                                                                                                                               |
+| `autocomplete`                           | Laat de browser bekende gegevens invullen (`name`, `email`, `street-address`…). Scheelt typen voor iedereen, en veel moeite voor wie motorisch of cognitief beperkt is (WCAG 1.3.5).                                         |
+| `spellcheck="false"`                     | Geen rode kronkels onder namen en e-mailadressen die geen woorden zijn.                                                                                                                                                      |
+| `aria-invalid="true"`                    | Vertelt dat de waarde is afgekeurd. Zet dit pas op het veld als er een validatiefout is, niet bij het laden van de pagina.                                                                                                   |
+| `aria-errormessage` + `aria-describedby` | Koppelen de foutmelding aan het veld. `aria-errormessage` is het attribuut dat hiervoor bedoeld is, maar wordt nog niet door elke screenreader ondersteund. Zet de `id` van de foutmelding daarom ook in `aria-describedby`. |
+| `p id="naamError"`                       | De foutmelding zelf: zichtbaar, bij het veld. Toon hem alleen als er een fout is.                                                                                                                                            |
+
+### De verzendknop
+
+```html
+<button type="submit">Versturen</button>
+```
+
+Houd de knop altijd bruikbaar. Een `disabled` knop zonder uitleg is een doodlopende weg: je kunt niet
+versturen en je weet niet waarom. Laat iemand versturen, en toon dan wat er mis is.
+
+## Samengevat
+
+Een invoerveld heeft altijd een label, een beschrijving en een foutmelding. De tekst is belangrijk:
+maak zo duidelijk mogelijk wat er van de gebruiker verwacht wordt. Geef uitleg vóór het invullen, en
+geef feedback als er iets fout gaat.
+
+Checklist:
+
+- `novalidate` op het formulier, eigen validatie in je code.
+- Een foutsamenvatting boven het formulier, met links naar de velden.
+- Na een mislukte verzending, en bij het laden van een pagina met fouten, staat de focus op die
+  samenvatting.
+- Velden die bij elkaar horen in een `fieldset` met een `legend`.
+- Elk veld een gekoppeld `label`.
+- Uitleg en foutmelding gekoppeld via `aria-describedby`.
+- `aria-invalid="true"` alleen op velden met een fout.
+- Geen `role="alert"` op de meldingen bij de velden.
+- Een verzendknop die altijd werkt.
+
+Wat er daarnaast vaak misgaat, staat bij
+[Onduidelijke validatie](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--onduidelijke-validatie)
+en [Vage foutmeldingen](?path=/docs/curve-voor-developers-wat-vaak-mis-gaat--vage-foutmeldingen).
+
+## Hoe maak je dat met Curve?
+
+Hetzelfde formulier, met Curve-componenten. Wat in HTML met de hand moest, doen de componenten deels
+voor je:
+
+| HTML                                  | Curve                                                         |
+| ------------------------------------- | ------------------------------------------------------------- |
+| Foutsamenvatting (`div role="alert"`) | `Alert` met `variant="danger"` (heeft `role="alert"` al)      |
+| `fieldset` + `legend`                 | `FieldSet` + `FieldLegend` / `hlmFieldSet` + `hlmFieldLegend` |
+| `div class="field-group"`             | `Field` / `hlmField`                                          |
+| `label`                               | `FieldLabel` / `hlmFieldLabel`                                |
+| Uitleg bij het veld                   | `FieldDescription` / `hlmFieldDescription`                    |
+| `input`                               | `Input` / `hlmInput`                                          |
+| Foutmelding bij het veld              | `FieldError` / `hlm-field-error` (zonder `role="alert"`)      |
+| `button type="submit"`                | `Button` / `hlmBtn`                                           |
+
+Het grootste verschil tussen de twee frameworks: in **Angular** koppelt `hlmField` de uitleg en de
+foutmelding zelf aan het veld (`aria-describedby`), en zet `hlmInput` zelf `aria-invalid` zodra het
+veld is afgekeurd. In **React** doe je dat met de hand, via `id`'s.
+
+Het complete formulier, werkend en met de code voor jouw framework, staat bij
+[Examples → Formulier met foutmeldingen](?path=/docs/examples-forms--docs).
+Daar kun je het lege formulier versturen en zien waar de focus heen gaat.
