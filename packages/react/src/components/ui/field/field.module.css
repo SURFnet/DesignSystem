@@ -105,6 +105,14 @@
 .fieldLabel > [data-slot='field'] {
   padding: calc(var(--spacing, 0.25rem) * 3);
 }
+.optional {
+  /* Label gap is 8px; issue #144 asks for 4px between label text and the suffix. */
+  margin-inline-start: calc(var(--spacing, 0.25rem) * -1);
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
 
 .fieldTitle {
   display: flex;

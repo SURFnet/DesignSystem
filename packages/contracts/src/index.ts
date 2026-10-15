@@ -20,7 +20,7 @@ export { datePickerContract } from './date-picker.js';
 export { dialogContract } from './dialog.js';
 export { dropdownMenuContract, type DropdownMenuItemVariantName } from './dropdown-menu.js';
 export { emptyContract, type EmptyMediaVariantName } from './empty.js';
-export { fieldContract, type FieldOrientationName } from './field.js';
+export { fieldContract, type FieldNecessityName, type FieldOrientationName } from './field.js';
 export { hoverCardContract } from './hover-card.js';
 export { inputContract } from './input.js';
 export { inputGroupContract } from './input-group.js';

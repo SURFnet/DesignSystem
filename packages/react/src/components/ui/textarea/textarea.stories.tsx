@@ -1,7 +1,13 @@
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { textareaContract } from '@surfnet/curve-contracts';
 
+import { Field, FieldLabel } from '@/components/ui/field';
+
 import { Textarea } from './textarea';
+
+/** `optional` is a story-only arg: it drives the wrapping `<Field optional>`. */
+type TextareaArgs = ComponentProps<typeof Textarea> & { optional?: boolean };
 
 const meta = {
   title: 'Components/Textarea',
@@ -20,19 +26,33 @@ const meta = {
   argTypes: {
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    optional: {
+      control: 'boolean',
+      description:
+        'Fields are required by default (`aria-required="true"`). Story control for the wrapping `<Field optional>`: the label gets "(optioneel)" and the control drops `aria-required`.',
+      table: { defaultValue: { summary: 'false' } },
+    },
   },
   args: {
     placeholder: 'Type something…',
     disabled: false,
+    optional: false,
   },
-} satisfies Meta<typeof Textarea>;
+} satisfies Meta<TextareaArgs>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<TextareaArgs>;
 
-/** Default textarea — auto-sizes to content. */
-export const Default: Story = {};
+/** Default textarea with its label — auto-sizes to content; toggle `optional` to see the label suffix. */
+export const Default: Story = {
+  render: ({ optional, ...args }) => (
+    <Field optional={optional} className="w-72">
+      <FieldLabel htmlFor="textarea-default">Toelichting</FieldLabel>
+      <Textarea id="textarea-default" {...args} />
+    </Field>
+  ),
+};
 
 /** Disabled state. */
 export const Disabled: Story = {

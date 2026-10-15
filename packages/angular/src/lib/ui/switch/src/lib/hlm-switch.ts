@@ -16,6 +16,11 @@ import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
 import type { SwitchSizeName } from '@surfnet/curve-contracts';
 import { HlmSwitchThumb } from './hlm-switch-thumb';
+import {
+  ariaRequiredAttribute,
+  injectAriaRequired,
+  syncAriaRequired,
+} from '../../../field/src/lib/hlm-field-required';
 
 export const HLM_SWITCH_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -33,6 +38,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
     '[attr.aria-label]': 'null',
     '[attr.aria-labelledby]': 'null',
     '[attr.aria-describedby]': 'null',
+    '[attr.aria-required]': 'null',
   },
   template: `
     <brn-switch
@@ -89,6 +95,17 @@ export class HlmSwitch implements ControlValueAccessor {
   public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
   protected readonly _disabled = linkedSignal(this.disabled);
+
+  /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
+  public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {
+    alias: 'aria-required',
+    transform: ariaRequiredAttribute,
+  });
+
+  constructor() {
+    // CURVE: required by default unless inside an optional field (issue #144).
+    syncAriaRequired('button[role="switch"]', injectAriaRequired(this.ariaRequiredOverride));
+  }
 
   protected _onChange?: ChangeFn<boolean>;
   protected _onTouched?: TouchFn;
