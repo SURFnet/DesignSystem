@@ -143,7 +143,7 @@
   height: 1rem;
 }
 
-.control {
+.group .control {
   flex: 1;
   border-radius: 0;
   border: 0;
@@ -151,19 +151,19 @@
   box-shadow: none;
 }
 
-.control:focus-visible {
+.group .control:focus-visible {
   box-shadow: none;
 }
 
-.control[aria-invalid='true'] {
+.group .control[aria-invalid='true'] {
   box-shadow: none;
 }
 
-:global(.dark) .control {
+:global(.dark) .group .control {
   background-color: transparent;
 }
 
-.controlTextarea {
+.group .controlTextarea {
   resize: none;
   padding-block: calc(var(--spacing, 0.25rem) * 2);
 }
