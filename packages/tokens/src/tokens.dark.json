@@ -65,7 +65,7 @@
   },
   "input": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(115, 115, 115, 1)"
   },
   "ring": {
     "$type": "color",
@@ -134,6 +134,30 @@
   "border-subtle": {
     "$type": "color",
     "$value": "rgba(255, 255, 255, 0.06)"
+  },
+  "danger": {
+    "$type": "color",
+    "$value": "rgba(237, 130, 124, 1)"
+  },
+  "danger-hover": {
+    "$type": "color",
+    "$value": "rgba(237, 130, 124, 1)"
+  },
+  "danger-foreground": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 1)"
+  },
+  "danger-subtle": {
+    "$type": "color",
+    "$value": "rgba(114, 28, 24, 1)"
+  },
+  "danger-subtle-hover": {
+    "$type": "color",
+    "$value": "rgba(131, 32, 27, 1)"
+  },
+  "danger-subtle-foreground": {
+    "$type": "color",
+    "$value": "rgba(255, 224, 222, 1)"
   },
   "destructive-foreground": {
     "$type": "color",
@@ -210,30 +234,6 @@
   "warning": {
     "$type": "color",
     "$value": "rgba(255, 235, 117, 1)"
-  },
-  "danger": {
-    "$type": "color",
-    "$value": "rgba(237, 130, 124, 1)"
-  },
-  "danger-hover": {
-    "$type": "color",
-    "$value": "rgba(237, 130, 124, 1)"
-  },
-  "danger-foreground": {
-    "$type": "color",
-    "$value": "rgba(0, 0, 0, 1)"
-  },
-  "danger-subtle": {
-    "$type": "color",
-    "$value": "rgba(114, 28, 24, 1)"
-  },
-  "danger-subtle-hover": {
-    "$type": "color",
-    "$value": "rgba(131, 32, 27, 1)"
-  },
-  "danger-subtle-foreground": {
-    "$type": "color",
-    "$value": "rgba(255, 224, 222, 1)"
   },
   "border-strong": {
     "$type": "color",
@@ -393,7 +393,7 @@
   },
   "custom-dark-input": {
     "$type": "color",
-    "$value": "rgba(255, 255, 255, 0.15)"
+    "$value": "rgba(115, 115, 115, 1)"
   },
   "custom-blue-500-dark-blue-600": {
     "$type": "color",
