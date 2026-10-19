@@ -1,5 +1,11 @@
 # @surfnet/curve-tokens
 
+## 0.8.2
+
+### Patch Changes
+
+- 40df347: Changes the value of the --input color variable to increase contrast of form and field elements.
+
 ## 0.8.1
 
 No changes in this release.
