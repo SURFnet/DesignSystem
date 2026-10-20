@@ -10,7 +10,10 @@ import { inputContract } from '@surfnet/curve-contracts';
 import { HlmInput, HlmInputImports } from '..';
 import { HlmButton, HlmLabel } from '../../../../../public-api';
 
-const meta: Meta<HlmInput> = {
+// Args are native <input> attributes, not HlmInput inputs.
+type InputArgs = HlmInput & { type: string; placeholder: string; disabled: boolean };
+
+const meta: Meta<InputArgs> = {
   title: 'Components/Input',
   // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
   tags: ['a11y-minor'],
@@ -48,7 +51,7 @@ const meta: Meta<HlmInput> = {
 };
 
 export default meta;
-type Story = StoryObj<HlmInput>;
+type Story = StoryObj<InputArgs>;
 
 /** The default input — tweak it via the controls. */
 export const Default: Story = {

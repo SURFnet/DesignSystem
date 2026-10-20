@@ -11,6 +11,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCalendar, phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { HlmButtonImports } from '../../../button/src';
 import { HlmInputGroupImports } from '../../../input-group/src';
+import { ariaInvalidOverride } from '../../../utils/src';
 import { HlmDatePickerAnchor } from './hlm-date-picker-anchor';
 import {
   HlmDatePickerTriggerBase,
@@ -26,6 +27,14 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
     provideHlmDatePickerTrigger(HlmDatePickerInput),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    // Forwarded to the inner <input>; keep them off the host so they aren't duplicated
+    // on an element without a role.
+    '[attr.aria-label]': 'null',
+    '[attr.aria-labelledby]': 'null',
+    '[attr.aria-describedby]': 'null',
+    '[attr.aria-invalid]': 'null',
+  },
   template: `
     <hlm-input-group hlmDatePickerAnchor [hlmDatePickerAnchorFor]="_popover()">
       <input
@@ -35,6 +44,10 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
         [placeholder]="placeholder()"
         [disabled]="_disabled()"
         [forceInvalid]="forceInvalid()"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
+        [aria-describedby]="ariaDescribedby()"
+        [aria-invalid]="ariaInvalid()"
         (click)="_handleClick()"
         (keydown.arrowDown)="_open()"
         (keydown.enter)="_handleEnter($event)"
@@ -100,6 +113,21 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
   /** Open the popover on input click. */
   public readonly openOnClick = input<boolean, BooleanInput>(false, {
     transform: booleanAttribute,
+  });
+
+  /** Forwarded to the inner input. */
+  public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
+
+  /** Forwarded to the inner input. */
+  public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
+
+  /** Forwarded to the inner input, merged with the ids from a surrounding hlmField. */
+  public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
+
+  /** Forwarded to the inner input; overrides the form control's invalid state. */
+  public readonly ariaInvalid = input<boolean | undefined, BooleanInput>(undefined, {
+    alias: 'aria-invalid',
+    transform: ariaInvalidOverride,
   });
 
   /** Accessible label for the clear button. */

@@ -173,3 +173,21 @@ export const WithFooterActions: Story = {
     `,
   }),
 };
+
+export const fixFor210: Story = {
+  render: () => ({
+    props: { date: undefined as Date | undefined },
+    template: `
+      <hlm-date-picker>
+        <hlm-date-picker-input
+            inputId="date"
+            aria-label="test van Anneke"
+            aria-describedby="date-error"
+            aria-invalid="true"
+            [forceInvalid]="true"
+        />
+      </hlm-date-picker>
+      <p id="date-error">Invalid date</p>
+      `,
+  }),
+};
