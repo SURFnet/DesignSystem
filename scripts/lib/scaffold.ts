@@ -13,7 +13,8 @@
  * with the list of what's left to do by hand.
  *
  * Options: [--react] [--angular] [--description "…"] [--axis variants=a,b]…
- * No --react/--angular → both. No --description → asks.
+ * No --react/--angular → both. No --description → asks on a terminal, fails
+ * otherwise (agents and CI have no stdin to answer).
  */
 
 import { cpSync, existsSync, mkdirSync } from 'node:fs';
@@ -124,6 +125,9 @@ export async function scaffold(mode: ScaffoldMode): Promise<void> {
 
   let description = args.description;
   if (!description && !contractExists) {
+    if (!process.stdin.isTTY) {
+      fail(`Missing --description. Usage: ${command} ${input} --description "One sentence."`);
+    }
     const rl = createInterface({ input: process.stdin, output: process.stdout });
     description = (await rl.question(`One-sentence description of ${pascal(name)}: `)).trim();
     rl.close();
