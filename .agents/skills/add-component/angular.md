@@ -1,167 +1,90 @@
 # Add an Angular component (`@surfnet/curve-angular`)
 
-Part of the **add-component** skill — see [`SKILL.md`](SKILL.md) for scope/parity.
+Part of the **add-component** skill — see [`SKILL.md`](SKILL.md). This covers what's left
+**after** `pnpm import:component` / `pnpm new:component` (or [`manual.md`](manual.md)) has
+generated the helm code, run `fix-helm-imports`, and added the contract, CSS stub (imported
+in `src/styles.css`), public-API export and story stub. Don't hand-write helm code.
 
-Spartan splits each component in two: the `brain` primitive (installed from npm) and the
-`helm` styled directive/component (**copied into the package**). Vendor with the CLI —
-don't hand-write helm code. Config lives in `packages/angular/components.json`
-(`componentsPath: src/lib/ui`, `importAlias: @spartan-ng/helm`).
+## 1. Move Tailwind into `hlm-<name>.css`
 
-> **Available tooling:** the **`spartan` skill** (`.agents/skills/spartan/`) is the deep
-> reference for spartan/ui, the Brain/Helm layers, and component APIs, and the repo
-> exposes a **`spartan-ui` MCP server** (`.mcp.json` / `.vscode/mcp.json`) for looking up
-> Spartan docs, APIs, and examples. The MCP is read-only — install code with the CLI below.
+Spartan emits Tailwind; Curve ships none, so a leftover class simply has no effect (and
+shows up as a visual difference). Replace the class strings in the helm directives:
 
-## Steps
+- Name classes `curve-<component>[-part]` with BEM modifiers (`curve-card--size-sm`), set
+  via `classes(() => 'curve-card')`. Keep Tailwind `group/*` / `peer/*` marker classes the
+  helm code had — consumers' Tailwind may use them.
+- Use Curve tokens (`var(--primary)`, `calc(var(--spacing, 0.25rem) * 4)`,
+  `var(--radius-md, …)`) and Spartan's state attributes (`[data-state='open']`,
+  `[data-disabled]`, `[data-matches-spartan-invalid='true']`).
+- Translate faithfully — pitfalls (`ng-icon` host styles, runtime CSS layers, class strings
+  passed into other components) are in the Angular section of
+  `packages/react/docs/css-modules-pilot.md`.
+- Enter/exit animations go inside `@media (prefers-reduced-motion: no-preference)` and use
+  the shared `curve-enter` / `curve-exit` keyframes (`src/styles/motion.css`).
 
-> `pnpm import:component <name>` does steps 1–2 (including `fix-helm-imports`, the CSS stub and its `styles.css` import), the export and a story stub for you (see [`SKILL.md`](SKILL.md)).
-> Follow the steps below for the rest, or all of them if you can't use the script.
+## 2. Wire the contract axes
 
-1. **Define the contract first.** Before generating, add `<name>Contract` to
-   `@surfnet/curve-contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
-   is required for **every** component, including structural primitives that get a
-   description-only contract. It settles the axis names before the helm directive is written.
-   When building for parity, the React side defines the contract; reuse the same one here.
+For every axis in `packages/contracts/src/<name>.ts`, import its `*Name` union:
 
-2. **Generate the component:**
+**a. Variant → class map with `satisfies Record<…>`** (adapted from `hlm-button.ts`, no
+`cva`):
 
-   ```bash
-   cd packages/angular
-   pnpm exec ng g @spartan-ng/cli:ui <component>   # e.g. card, dialog, input
-   ```
+```ts
+import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
 
-   This copies helm code into `src/lib/ui/<component>/`, installs the matching
-   `@spartan-ng/brain` primitive, and adds a `@spartan-ng/helm/<component>` path mapping
-   to `tsconfig.json`. The schematic is interactive unless `components.json` already
-   exists (it does) — pass `--defaults` for non-interactive runs.
+const cardVariantClasses = {
+  default: 'curve-card--variant-default',
+  outline: 'curve-card--variant-outline',
+} satisfies Record<CardVariantName, string>;
+```
 
-   Immediately after generating, run `pnpm --filter @surfnet/curve-angular fix-helm-imports` —
-   see the note below on why the alias must not survive into the vendored files.
+**b. Inline-union input → type the input** as the contract's `*Name`.
 
-   **Replace the generated Tailwind class strings with CSS.** Spartan emits Tailwind; Curve
-   ships none. Add `src/lib/ui/<component>/src/lib/hlm-<component>.css` next to the helm code
-   and import it from `src/styles.css` (primitives section first, composites after — a
-   composite that restyles a primitive inside it must come later). Then:
+A description-only contract has nothing to wire. `pnpm lint` fails on any name mismatch.
 
-   - Name classes `curve-<component>[-part]` with BEM modifiers
-     (`curve-card--size-sm`), and set them via `classes(() => 'curve-card')`. Keep Tailwind
-     `group/*` / `peer/*` marker classes the helm code had — consumers' Tailwind may use them.
-   - Use Curve tokens (`var(--primary)`, `calc(var(--spacing, 0.25rem) * 4)`,
-     `var(--radius-md, …)`) and Spartan's state attributes (`[data-state='open']`,
-     `[data-disabled]`, `[data-matches-spartan-invalid='true']`).
-   - Translate faithfully — see `packages/react/docs/css-modules-pilot.md` (Angular section)
-     for the pitfalls: `ng-icon` host styles, runtime CSS layers, class strings passed into
-     other components.
-   - Enter/exit animations go inside `@media (prefers-reduced-motion: no-preference)` and use
-     the shared `curve-enter` / `curve-exit` keyframes (`src/styles/motion.css`).
-   - Leave no Tailwind in the component — nothing generates Tailwind utilities anymore, so a
-     leftover class simply has no effect (and shows up as a visual difference).
+## 3. New runtime dependencies
 
-3. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
-   from `@surfnet/curve-contracts` and wire them in. Two styles, by how the helm code models the
-   axis:
+If the component introduced a brand-new npm runtime package (a new `@spartan-ng/brain/*`
+entry point is fine), add it to `ng-package.json` → `allowedNonPeerDependencies`, or
+`ng-packagr` fails with "must be explicitly allowed".
 
-   **a. variant → class map with `satisfies Record<…>`** (the common case; adapted from
-   `hlm-button.ts` — no `cva`):
+## 4. Fill in the story
 
-   ```ts
-   import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
+Expand the stub next to the helm source, mirroring
+`src/lib/ui/button/src/lib/hlm-button.stories.ts` (`Meta`, `StoryObj`, `moduleMetadata`,
+template-based `render`), covering every variant/size/state with **the same story names as
+React**. Source the description and axis lists from the contract object instead of
+literals. If an input comes from a host directive (like `disabled` on the button), widen the
+args type with an intersection so it shows as a control.
 
-   const cardVariantClasses = {
-     default: 'curve-card--variant-default',
-     outline: 'curve-card--variant-outline',
-   } satisfies Record<CardVariantName, string>;
-
-   const cardSizeClasses = {
-     default: 'curve-card--size-default',
-     sm: 'curve-card--size-sm',
-   } satisfies Record<CardSizeName, string>;
-   ```
-
-   **b. inline-union input → type the input** as the contract's `*Name` instead of a
-   hand-written union.
-
-   A **description-only** contract has no axis, so there's nothing to wire — skip to the
-   public-API export. Confirm `pnpm lint` passes — a name mismatch between the component and
-   the contract type is a compile error.
-
-4. **Export from the public API** `src/public-api.ts`:
-
-   ```ts
-   export * from './lib/ui/card/src';
-   ```
-
-5. **Declare new runtime deps as allowed.** If the component introduced a new npm runtime
-   dependency (a new `@spartan-ng/brain/*` entry point is fine, but a brand-new package
-   isn't), add it to `ng-package.json` → `allowedNonPeerDependencies`, or `ng-packagr`
-   fails with "must be explicitly allowed".
-
-6. **Add a story** next to the helm source, e.g.
-   `src/lib/ui/card/src/lib/card.stories.ts`. Mirror
-   `src/lib/ui/button/src/lib/hlm-button.stories.ts`: use `@storybook/angular`
-   (`Meta`, `StoryObj`, `moduleMetadata`), import the helm directive/component, and write
-   template-based `render` stories covering every variant/size/state. Source the docs
-   description **and** any axis lists from the contract object (`cardContract.description`,
-   `cardContract.variants`, `cardContract.variantDocs`, etc.) instead of duplicating
-   literals — a description-only component still pulls its docs description from the
-   contract. If an input comes from a host directive (like
-   `disabled` on the button), widen the args type with an intersection so it shows as a
-   control.
-
-   **Every control you declare must be live.** A control in `argTypes`/`args` only does
-   something if a story binds those args into its template (e.g.
-   `props: args` with `[orientation]="orientation"`). If every story hardcodes its template,
-   the control shows in the panel but moving it changes nothing. Keep one args-driven
-   Playground per declared control, reserve hardcoded templates for static showcase stories,
-   and don't declare a control no story consumes.
+**Every control you declare must be live**: bind args into at least one template
+(`props: args` with `[orientation]="orientation"`). Keep one args-driven Playground per
+control and don't declare a control no story consumes. Tag stories `skip-visual` if they
+can't be snapshotted stably.
 
 ## Verify
 
 ```bash
-pnpm --filter @surfnet/curve-contracts lint       # contract types still compile
-pnpm --filter @surfnet/curve-angular build        # ng-packagr (FESM + d.ts); satisfies check runs here
+pnpm check:conventions
+pnpm --filter @surfnet/curve-angular build     # satisfies check runs here
 pnpm --filter @surfnet/curve-angular build-storybook
-pnpm format
-pnpm test:visual   # after both Storybooks are built
+grep -r "@spartan-ng/helm" packages/angular/dist   # must find nothing
+pnpm format && pnpm test:visual
 ```
-
-## Definition of done
-
-- Component generated via the Spartan CLI — never hand-written.
-- A `<name>Contract` entry exists in `@surfnet/curve-contracts` (description-only if the component
-  has no axis). For every axis, the component is tied to the contract — class maps carry
-  `satisfies Record<...>`, inline-union inputs are typed as the contract's `*Name`; `pnpm
-  lint` (or the build) fails if either side adds or removes a name.
-- Component exported from `src/public-api.ts`.
-- Styling in a co-located `hlm-<name>.css` imported from `src/styles.css`; no Tailwind
-  utility strings left in the helm code or its templates.
-- Story covers full variant/size/state surface, sourcing its description and axis lists from
-  the contract object.
-- `pnpm build`, `pnpm format`, and `build-storybook` all pass.
-- Visual tests pass (`pnpm test:visual`). Parity screenshots compare this story to its React
-  counterpart by story id — keep the story names in sync. Tag stories `skip-visual` if they
-  cannot be snapshotted stably.
 
 ## Updating an existing component
 
-Do not re-run `ng g @spartan-ng/cli:ui` on a component that is already vendored
-— the generator overwrites helm. Follow
-[`update-component/angular.md`](../update-component/angular.md). Restyling or
-merging upstream can have an effect on accessibility.
+Do not re-run `ng g @spartan-ng/cli:ui` on a vendored component — the generator
+overwrites helm. Use `pnpm update:component` or
+[`update-component/angular.md`](../update-component/angular.md). Restyling or merging
+upstream can have an effect on accessibility.
 
 ## Notes
 
-- The Spartan CLI always vendors cross-component imports through the `@spartan-ng/helm/*`
-  alias. `@spartan-ng/helm` isn't a real npm package — the alias only resolves when a
-  consuming *app*'s own bundler reads the tsconfig `paths` mapping at build time.
-  `@surfnet/curve-angular` instead builds itself into a redistributable package via `ng-packagr`,
-  which does not consult tsconfig `paths`: it leaves the alias as an unresolved external
-  import in the published bundle (and can leave the real symbol duplicated wherever it's
-  also reached via a relative import elsewhere). Run
-  `pnpm --filter @surfnet/curve-angular fix-helm-imports` (`packages/angular/scripts/rewrite-helm-imports.ts`)
-  after every `ng g` to rewrite the new alias imports to relative ones — verify with
-  `pnpm --filter @surfnet/curve-angular build` and confirm `dist` has no `@spartan-ng/helm` left
-  (`grep -r "@spartan-ng/helm" packages/angular/dist`).
+- Cross-component helm imports must be relative, never `@spartan-ng/helm/*` (the alias
+  isn't a real package and `ng-packagr` ignores tsconfig `paths`). Rerun
+  `pnpm --filter @surfnet/curve-angular fix-helm-imports` if you add one; background in
+  [`manual.md`](manual.md).
 - `src/styles.css` is bundled into the published `dist/styles.css` by
   `scripts/build-css.ts` (Lightning CSS, no Tailwind): tokens, reset, base styles and every
   component stylesheet. Storybook loads the same file via the `styles` option, plus the
