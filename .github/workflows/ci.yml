@@ -68,7 +68,7 @@ jobs:
 
       - name: Upload a11y reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: a11y-reports
           path: packages/*/.a11y-report/**
@@ -91,7 +91,7 @@ jobs:
       # One sticky comment, updated in place.
       - name: Comment a11y findings on PR
         if: always() && github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: a11y-audit
           path: .a11y-report/comment.md
