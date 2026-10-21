@@ -1,5 +1,24 @@
 {
-  "react-story": ["command"],
-  "angular-story": ["command"],
-  "story-title-parity": ["dropdown-menu", "input-group"]
+  "react-story": [
+    {
+      "subject": "command",
+      "reason": "Command was deliberately taken out of Curve: it has accessibility problems and is a very complex component. No story, so it does not appear in Storybook."
+    }
+  ],
+  "angular-story": [
+    {
+      "subject": "command",
+      "reason": "Command was deliberately taken out of Curve: it has accessibility problems and is a very complex component. No story, so it does not appear in Storybook."
+    }
+  ],
+  "story-title-parity": [
+    {
+      "subject": "dropdown-menu",
+      "reason": "React uses 'Components/Dropdown Menu', Angular 'Components/DropdownMenu'. Aligning them changes the Angular story ids, so it needs new visual-test baselines; left for a separate change."
+    },
+    {
+      "subject": "input-group",
+      "reason": "React uses 'Components/Input Group', Angular 'Components/InputGroup'. Aligning them changes the Angular story ids, so it needs new visual-test baselines; left for a separate change."
+    }
+  ]
 }
