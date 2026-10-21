@@ -1,11 +1,11 @@
 /**
- * Runs the upstream CLIs (shadcn for React, Spartan for Angular) and applies the
- * mechanical fix-ups Curve always needs afterwards. Used by import:component (in the
+ * Gets a component from upstream (shadcn for React, Spartan for Angular) and
+ * applies the mechanical fix-ups Curve always needs afterwards. Used by component:import (in the
  * repo) and update-component (in a throwaway worktree), so both see identical
  * upstream output.
  */
 
-import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 
@@ -29,8 +29,9 @@ interface VendorOptions {
   /** Checkout root to run in: the repo itself, or a temp worktree. */
   root: string;
   /**
-   * True when running in the real repo: undo dependency bumps and edits to
-   * already-tracked files the CLI made as a side effect.
+   * True when running in the real repo: install new npm dependencies (React),
+   * and undo the dependency bumps and edits to already-tracked files the
+   * Spartan CLI makes as a side effect (Angular).
    */
   live: boolean;
 }
@@ -41,61 +42,117 @@ export function vendor(framework: Framework, name: string, options: VendorOption
 
 // ── React (shadcn) ───────────────────────────────────────────────────────────
 
+/**
+ * Whether the shadcn registry (the style in components.json) has `name`, or
+ * undefined when the registry could not be reached.
+ */
+export function shadcnHas(name: string, root: string): boolean | undefined {
+  try {
+    capture(`pnpm dlx shadcn@latest view ${name}`, join(root, packageDir.react));
+    return true;
+  } catch (error) {
+    const { stdout = '', stderr = '' } = error as { stdout?: string; stderr?: string };
+    return /was not found/.test(`${stdout}${stderr}`) ? false : undefined;
+  }
+}
+
+/**
+ * Asks shadcn what `add` would write (`--dry-run`, which writes nothing) and
+ * writes only the files Curve needs itself. Unlike a real `add`, nothing has to
+ * be undone afterwards: no dependency bumps, no rewritten shared files.
+ */
 function vendorReact(name: string, { root, live }: VendorOptions): VendorResult {
   const pkgRoot = join(root, packageDir.react);
-  const uiRoot = join(pkgRoot, 'src/components/ui');
-  const target = componentDir('react', name);
+  const shadcn = (args: string) => capture(`pnpm dlx shadcn@latest add ${name} ${args}`, pkgRoot);
   const warnings: string[] = [];
 
-  const guard = live ? startGuard(root, 'react') : undefined;
-  const before = new Set(listFiles(uiRoot));
-
-  // Trailing slash → files land in src/components/ui/<name>/.
-  run(`pnpm dlx shadcn@latest add ${name} --path ${target}/ --yes`, pkgRoot);
+  console.log(`\n$ pnpm dlx shadcn@latest add ${name} --dry-run   (in ${packageDir.react})`);
+  const plan = parseDryRun(shadcn('--dry-run'));
 
   const files: string[] = [];
-  const droppedDeps: string[] = [];
-  for (const file of listFiles(uiRoot).filter((f) => !before.has(f))) {
-    const full = join(uiRoot, file);
-    const isOwn = file.startsWith(`${name}/`) && file.endsWith(`/${name}.tsx`);
-    if (isOwn) {
-      files.push(join('src/components/ui', file));
+  for (const file of plan.files) {
+    const ui = /^src\/components\/ui\/([^/]+)\.tsx$/.exec(file)?.[1];
+    // The component itself goes in its own directory; shadcn plans it flat.
+    let target = file;
+    if (ui === name) {
+      target = join(componentDir('react', name), `${name}.tsx`);
+    } else if (ui && existsSync(join(pkgRoot, 'src/components/ui', ui, 'index.ts'))) {
+      // A registry dependency (e.g. `button`) Curve already vendors: its
+      // `@/components/ui/button` import already resolves to our barrel.
+      continue;
+    } else if (existsSync(join(pkgRoot, file))) {
+      // A shared file Curve already has (a hook, a lib helper): keep ours.
+      continue;
+    } else if (ui) {
+      warnings.push(
+        `shadcn also needs "${ui}", which Curve does not have yet. It was written to ${file}; ` +
+          `delete it and run \`pnpm component:import ${ui}\` first.`,
+      );
+    } else {
+      warnings.push(`shadcn also added ${file}. Check it belongs there.`);
+    }
+
+    // --view <file> prints that one file as `add` would write it (aliases and
+    // icons already resolved). Without a path it stops after five files.
+    const text = parseViewedFile(shadcn(`--dry-run --view ${file}`), file)
+      // Same reason as UNWANTED_DEPENDENCIES: point `cn` at the local helper.
+      .replace(/from (['"])cn\1/g, "from '@/lib/utils'");
+    mkdirSync(dirname(join(pkgRoot, target)), { recursive: true });
+    writeFileSync(join(pkgRoot, target), text);
+    files.push(target);
+  }
+  if (!files.includes(join(componentDir('react', name), `${name}.tsx`))) {
+    throw new Error(`shadcn planned no src/components/ui/${name}.tsx for "${name}".`);
+  }
+
+  const pkg = JSON.parse(readFileSync(join(pkgRoot, 'package.json'), 'utf8'));
+  const installed = { ...pkg.dependencies, ...pkg.devDependencies, ...pkg.peerDependencies };
+  const missing = plan.dependencies.filter((spec) => {
+    const dep = spec.replace(/(?<=.)@.*$/, '');
+    return !UNWANTED_DEPENDENCIES.react.includes(dep) && !(dep in installed);
+  });
+  if (missing.length) {
+    if (live) run(`pnpm add ${missing.join(' ')}`, pkgRoot);
+    warnings.push(`New dependencies: ${missing.join(', ')}. Check they belong there.`);
+  }
+
+  return { files, warnings };
+}
+
+/** The file paths and npm dependencies from `shadcn add --dry-run`. */
+function parseDryRun(output: string): { files: string[]; dependencies: string[] } {
+  const result = { files: [] as string[], dependencies: [] as string[] };
+  let section: string[] | undefined;
+  for (const line of output.split('\n')) {
+    // A bare `│` ends a section; the summary (`│ 2 files, 2 deps`) follows one.
+    if (line.trim() === '│') section = undefined;
+    if (line.startsWith('├ ')) {
+      section = /^├ Files\b/.test(line)
+        ? result.files
+        : /^├ Dependencies\b/.test(line)
+          ? result.dependencies
+          : undefined;
       continue;
     }
-    // A registry dependency (e.g. `button`). If Curve already vendors it in its
-    // own directory, the fresh flat copy is redundant: `@/components/ui/button`
-    // already resolves to our barrel.
-    const dep = file
-      .split('/')
-      .pop()!
-      .replace(/\.tsx?$/, '');
-    if (existsSync(join(uiRoot, dep, 'index.ts'))) {
-      rmSync(full);
-      droppedDeps.push(dep);
-    } else {
-      files.push(join('src/components/ui', file));
-      warnings.push(
-        `shadcn also vendored "${dep}" (${file}), which Curve does not have yet. ` +
-          `Move it into src/components/ui/${dep}/ or add it with \`pnpm import:component ${dep}\`.`,
-      );
-    }
+    // `│ + src/components/ui/dialog.tsx  create` or `│ + cn`
+    const item = /^│ \S (\S+)/.exec(line)?.[1];
+    if (section && item) section.push(item);
   }
+  if (result.files.length === 0) throw new Error(`Could not read shadcn's dry run:\n${output}`);
+  return result;
+}
 
-  for (const file of files) {
-    const full = join(pkgRoot, file);
-    // Same reason as UNWANTED_DEPENDENCIES: point `cn` at the local helper.
-    let text = readFileSync(full, 'utf8').replace(/from (['"])cn\1/g, "from '@/lib/utils'");
-    // With --path, the CLI points dependency imports at its copy next to this
-    // component (`@/components/ui/<name>/button`); use Curve's own instead.
-    for (const dep of droppedDeps) {
-      text = text.replaceAll(`@/components/ui/${name}/${dep}'`, `@/components/ui/${dep}'`);
-      text = text.replaceAll(`@/components/ui/${name}/${dep}"`, `@/components/ui/${dep}"`);
-    }
-    writeFileSync(full, text);
+/** The content of `file` from `shadcn add --dry-run --view <file>`. */
+function parseViewedFile(output: string, file: string): string {
+  const lines = output.split('\n');
+  const header = lines.findIndex((l) => l.startsWith(`├ ${file} `));
+  const count = Number(/(\d+) lines$/.exec(lines[header] ?? '')?.[1]);
+  // The header is followed by a `│ ┌───` line, then one `│ │ ` line per source line.
+  const body = lines.slice(header + 2, header + 2 + count);
+  if (header === -1 || !count || body.some((l) => !l.startsWith('│ │'))) {
+    throw new Error(`Could not read ${file} from shadcn's dry run.`);
   }
-
-  if (guard) warnings.push(...guard.finish());
-  return { files, warnings };
+  return `${body.map((l) => l.replace(/^│ │ ?/, '')).join('\n')}\n`;
 }
 
 // ── Angular (Spartan) ────────────────────────────────────────────────────────
@@ -170,7 +227,7 @@ function vendorAngular(name: string, { root, live }: VendorOptions): VendorResul
 // ── Side-effect guard ────────────────────────────────────────────────────────
 
 /**
- * The CLIs "helpfully" bump dependencies and re-write shared files. Snapshot
+ * The Spartan CLI "helpfully" bumps dependencies and re-writes shared files. Snapshot
  * package.json and the tracked source files first, then undo anything that
  * wasn't there before: version bumps of existing deps, unwanted new deps, and
  * edits to tracked files under src/.
