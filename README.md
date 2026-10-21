@@ -193,7 +193,8 @@ newer `@spartan-ng/brain` than the repo has. It finishes with the list of what's
 `pnpm check:conventions` (also run in CI) fails until those are done: it flags leftover
 Tailwind, `TODO`s in contracts, missing barrels, exports, stories or contracts, and
 React/Angular story-title drift. Accepted exceptions go in
-[`scripts/conventions.allowlist.json`](scripts/conventions.allowlist.json).
+[`scripts/conventions.allowlist.json`](scripts/conventions.allowlist.json), each with a
+`reason` explaining why.
 
 The resulting layout:
 

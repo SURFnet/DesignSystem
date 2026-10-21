@@ -3,8 +3,9 @@
  * the add-component skill, so people and agents get the same guardrails in CI.
  *
  * Known, accepted exceptions live in scripts/conventions.allowlist.json as
- * { "<rule>": ["<subject>", …] }. Allowlist entries that no longer fail are
- * reported so the list only ever shrinks.
+ * { "<rule>": [{ "subject": "<subject>", "reason": "<why this is accepted>" }, …] }.
+ * Every entry needs a reason. Entries that no longer fail are reported so the
+ * list only ever shrinks.
  *
  * Usage: pnpm check:conventions
  */
@@ -174,16 +175,30 @@ for (const name of reactNames.filter((n) => angularNames.includes(n))) {
 // ── Report ───────────────────────────────────────────────────────────────────
 
 const allowlistPath = join(repoRoot, 'scripts/conventions.allowlist.json');
-const allowlist: Record<string, string[]> = existsSync(allowlistPath)
+const allowlist: Record<string, { subject: string; reason: string }[]> = existsSync(allowlistPath)
   ? JSON.parse(readFileSync(allowlistPath, 'utf8'))
   : {};
-const allowed = (v: Violation) => allowlist[v.rule]?.includes(v.subject) ?? false;
+const allowed = (v: Violation) =>
+  allowlist[v.rule]?.some((entry) => entry.subject === v.subject) ?? false;
+
+// An exception nobody can explain is one nobody dares to remove.
+for (const [rule, entries] of Object.entries(allowlist)) {
+  for (const { subject, reason } of entries) {
+    if (!reason?.trim()) {
+      fail(
+        'allowlist-reason',
+        `${rule}: ${subject}`,
+        `Allowlist entry ${rule}: ${subject} has no reason`,
+      );
+    }
+  }
+}
 
 const errors = violations.filter((v) => !allowed(v));
-const stale = Object.entries(allowlist).flatMap(([rule, subjects]) =>
-  subjects
-    .filter((s) => !violations.some((v) => v.rule === rule && v.subject === s))
-    .map((s) => `${rule}: ${s}`),
+const stale = Object.entries(allowlist).flatMap(([rule, entries]) =>
+  entries
+    .filter(({ subject }) => !violations.some((v) => v.rule === rule && v.subject === subject))
+    .map(({ subject }) => `${rule}: ${subject}`),
 );
 
 if (stale.length) {
@@ -197,7 +212,7 @@ if (errors.length) {
   console.error(`\n${errors.length} convention violation(s):`);
   for (const v of errors) console.error(`  ✗ [${v.rule}] ${v.message}`);
   console.error(
-    '\nFix them, or (for an accepted exception) add the subject to scripts/conventions.allowlist.json.',
+    '\nFix them, or (for an accepted exception) add the subject with a reason to scripts/conventions.allowlist.json.',
   );
   process.exit(1);
 }
