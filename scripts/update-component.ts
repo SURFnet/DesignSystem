@@ -13,7 +13,7 @@
  * Components vendored before this script existed have no .upstream copy; for
  * those, follow the manual flow in .agents/skills/update-component/.
  *
- * Usage: pnpm update:component <name> [--react] [--angular]
+ * Usage: pnpm component:update <name> [--react] [--angular]
  */
 
 import { execSync } from 'node:child_process';
@@ -52,7 +52,7 @@ const { values: args, positionals } = parseArgs({
 
 const name = positionals[0];
 if (!name || !isKebab(name)) {
-  console.error('Usage: pnpm update:component <kebab-name> [--react] [--angular]');
+  console.error('Usage: pnpm component:update <kebab-name> [--react] [--angular]');
   process.exit(1);
 }
 if (name.startsWith('curve-')) {

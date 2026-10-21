@@ -1,7 +1,7 @@
 # Add an Angular component (`@surfnet/curve-angular`)
 
 Part of the **add-component** skill — see [`SKILL.md`](SKILL.md). This covers what's left
-**after** `pnpm import:component` / `pnpm new:component` (or [`manual.md`](manual.md)) has
+**after** `pnpm component:import` / `pnpm component:new` (or [`manual.md`](manual.md)) has
 generated the helm code, run `fix-helm-imports`, and added the contract, CSS stub (imported
 in `src/styles.css`), public-API export and story stub. Don't hand-write helm code.
 
@@ -75,7 +75,7 @@ pnpm format && pnpm test:visual
 ## Updating an existing component
 
 Do not re-run `ng g @spartan-ng/cli:ui` on a vendored component — the generator
-overwrites helm. Use `pnpm update:component` or
+overwrites helm. Use `pnpm component:update` or
 [`update-component/angular.md`](../update-component/angular.md). Restyling or merging
 upstream can have an effect on accessibility.
 

@@ -1,9 +1,9 @@
 /**
  * Vendors a shadcn (React) and/or Spartan (Angular) component and wires it into
- * Curve, keeping a pristine upstream copy for `pnpm update:component`. For a
- * home-grown component, use `pnpm new:component`.
+ * Curve, keeping a pristine upstream copy for `pnpm component:update`. For a
+ * home-grown component, use `pnpm component:new`.
  *
- * Usage: pnpm import:component <name> [--react] [--angular] [--description "…"]
+ * Usage: pnpm component:import <name> [--react] [--angular] [--description "…"]
  *                                     [--axis variants=default,outline]
  *
  * See scripts/lib/scaffold.ts.

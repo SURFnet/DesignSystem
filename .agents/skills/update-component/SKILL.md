@@ -23,13 +23,13 @@ instead.
 running them again on an existing component can wipe Curve edits. Git is the
 source of truth. Diff, then merge.
 
-## Start here: `pnpm update:component`
+## Start here: `pnpm component:update`
 
 If `packages/<fw>/.upstream/<name>/` exists (every component added with
-`pnpm import:component`), run:
+`pnpm component:import`), run:
 
 ```bash
-pnpm update:component <name>          # or --react / --angular
+pnpm component:update <name>          # or --react / --angular
 ```
 
 It fetches today's upstream in a temp git worktree (never touching the repo's

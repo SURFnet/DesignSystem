@@ -1,7 +1,7 @@
 # Add a React component (`@surfnet/curve-react`)
 
 Part of the **add-component** skill — see [`SKILL.md`](SKILL.md). This covers what's left
-**after** `pnpm import:component` / `pnpm new:component` (or [`manual.md`](manual.md)) has
+**after** `pnpm component:import` / `pnpm component:new` (or [`manual.md`](manual.md)) has
 vendored the component, barrel, exports, contract and stubs.
 
 Never hand-write a primitive or switch `components.json` `style` to a Radix value.
@@ -93,7 +93,7 @@ pnpm format && pnpm test:visual
 ## Updating an existing component
 
 Do not re-run `shadcn add` (or `--overwrite`) on a vendored component. Use
-`pnpm update:component` or [`update-component/react.md`](../update-component/react.md).
+`pnpm component:update` or [`update-component/react.md`](../update-component/react.md).
 Restyling or merging upstream can have an effect on accessibility.
 
 ## Notes

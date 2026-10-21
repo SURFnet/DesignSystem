@@ -1,8 +1,8 @@
 /**
  * Creates a home-grown component (curve-<name>) in contracts plus React and/or
- * Angular. For shadcn / Spartan components, use `pnpm import:component`.
+ * Angular. For shadcn / Spartan components, use `pnpm component:import`.
  *
- * Usage: pnpm new:component <name> [--react] [--angular] [--description "…"]
+ * Usage: pnpm component:new <name> [--react] [--angular] [--description "…"]
  *                                  [--axis variants=default,outline]
  *
  * See scripts/lib/scaffold.ts.
