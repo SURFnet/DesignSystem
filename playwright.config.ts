@@ -3,7 +3,6 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/visual',
   testMatch: '*.spec.ts',
-  testIgnore: ['**/parity.spec.ts'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -39,6 +38,11 @@ export default defineConfig({
       name: 'angular',
       testMatch: /angular\.spec\.ts/,
       snapshotPathTemplate: '{testDir}/__screenshots__/angular/{arg}{ext}',
+    },
+    {
+      name: 'parity',
+      testMatch: /parity\.spec\.ts/,
+      default: false,
     },
   ],
   webServer: [
