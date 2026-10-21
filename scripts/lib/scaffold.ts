@@ -234,6 +234,19 @@ export async function scaffold(mode: ScaffoldMode): Promise<void> {
   todo.forEach((item, i) => console.log(`  ${i + 1}. ${item}`));
 }
 
+const UPSTREAM_LABEL: Record<Framework, string> = {
+  react: 'shadcn (React)',
+  angular: 'Spartan (Angular)',
+};
+
+/** Which upstream library has `name`; undefined where it could not be checked. */
+function findUpstream(name: string): Record<Framework, boolean | undefined> {
+  return {
+    react: shadcnHas(name, repoRoot),
+    angular: Boolean(spartanPrimitives(repoRoot)[name]),
+  };
+}
+
 function fail(message: string): never {
   console.error(message);
   process.exit(1);

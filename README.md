@@ -168,13 +168,14 @@ contract, barrel, exports and Angular `styles.css` import are wired up as below.
 
 For each framework it:
 
-1. writes the contract (`packages/contracts/src/card.ts`) and exports it;
-2. vendors the component with the upstream CLI: shadcn (Base UI + Phosphor, per
-   [`components.json`](packages/react/components.json)) or Spartan (`ng g @spartan-ng/cli:ui`,
-   followed by `fix-helm-imports`);
-3. undoes the CLIs' side effects: dependency bumps, unwanted packages (`cn`,
-   `tw-animate-css`), edits to other tracked files, and duplicate copies of components
-   Curve already has;
+1. checks which upstream has the component (shadcn for React, Spartan for Angular) and
+   stops with a clear message when one of the frameworks you asked for has none;
+2. writes the contract (`packages/contracts/src/card.ts`) and exports it;
+3. vendors the component. React: asks shadcn what `add` would write (`--dry-run`, Base UI +
+   Phosphor per [`components.json`](packages/react/components.json)) and writes only the
+   component itself, plus any new npm dependency, so there is nothing to undo. Angular: runs
+   `ng g @spartan-ng/cli:ui` and `fix-helm-imports`, then undoes the CLI's side effects
+   (dependency bumps, `tw-animate-css`, edits to other tracked files);
 4. adds the barrel, the package export, a CSS stub (`card.module.css` /
    `hlm-card.css`, imported in `styles.css`) and a story stub;
 5. saves a pristine upstream copy in `packages/<fw>/.upstream/card/`, for
