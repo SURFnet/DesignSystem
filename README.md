@@ -147,15 +147,15 @@ There are two generators with the same options:
 
 ```bash
 # A shadcn / Spartan component: vendored through the upstream CLIs
-pnpm import:component card                                # React + Angular
-pnpm import:component card --react                        # one framework only
-pnpm import:component card --description "A bordered surface…" --axis variants=default,outline
+pnpm component:import card                                # React + Angular
+pnpm component:import card --react                        # one framework only
+pnpm component:import card --description "A bordered surface…" --axis variants=default,outline
 
 # A home-grown component: no upstream, named curve-<name>
-pnpm new:component pill --axis variants=default,outline   # creates curve-pill
+pnpm component:new pill --axis variants=default,outline   # creates curve-pill
 ```
 
-### Home-grown: `new:component`
+### Home-grown: `component:new`
 
 No CLI runs and there is no upstream snapshot. The name always gets the `curve-` prefix (like
 `curve-data-table`), so it never collides with an upstream component. Bare names that Spartan
@@ -164,7 +164,7 @@ framework: each contract axis becomes a typed prop that sets a `data-*` attribut
 stub per value and Playground + per-axis stories with the same names in both Storybooks. The
 contract, barrel, exports and Angular `styles.css` import are wired up as below.
 
-### Upstream: `import:component`
+### Upstream: `component:import`
 
 For each framework it:
 
@@ -178,7 +178,7 @@ For each framework it:
 4. adds the barrel, the package export, a CSS stub (`card.module.css` /
    `hlm-card.css`, imported in `styles.css`) and a story stub;
 5. saves a pristine upstream copy in `packages/<fw>/.upstream/card/`, for
-   `pnpm update:component` later.
+   `pnpm component:update` later.
 
 It stops before touching anything if the component already exists, or if Spartan needs a
 newer `@spartan-ng/brain` than the repo has. It finishes with the list of what's left to do by hand:
@@ -306,7 +306,7 @@ edit done.
 To refresh a component from upstream:
 
 ```bash
-pnpm update:component card            # or --react / --angular
+pnpm component:update card            # or --react / --angular
 ```
 
 This fetches today's upstream in a throwaway git worktree and three-way merges it into

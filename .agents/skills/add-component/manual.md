@@ -1,7 +1,7 @@
 # Manual fallback (no generator)
 
 Part of the **add-component** skill — see [`SKILL.md`](SKILL.md). **Only read this when you
-can't use `pnpm import:component`** (e.g. the script fails on an upstream CLI change). It
+can't use `pnpm component:import`** (e.g. the script fails on an upstream CLI change). It
 covers the mechanical steps the script normally does; afterwards continue with the
 finishing steps in [`react.md`](react.md) / [`angular.md`](angular.md).
 
@@ -85,5 +85,5 @@ src/components/ui/card/
 ## 4. Snapshot (optional)
 
 Without a `packages/<fw>/.upstream/<name>/` copy of the pristine vendored files,
-`pnpm update:component` can't three-way merge later; updates then follow the manual flow in
+`pnpm component:update` can't three-way merge later; updates then follow the manual flow in
 `update-component`.

@@ -12,15 +12,16 @@ are merged, not overwritten.
 ## 1. Run the generator
 
 ```bash
-pnpm import:component <name> --description "One sentence." [--axis variants=a,b] [--react|--angular]
-pnpm new:component    <name> --description "One sentence." [--axis variants=a,b] [--react|--angular]
+pnpm component:import <name> --description "One sentence." [--axis variants=a,b] [--react|--angular]
+pnpm component:new    <name> --description "One sentence." [--axis variants=a,b] [--react|--angular]
 ```
 
-- **`import:component`** — a shadcn / Spartan component. Writes the contract, vendors
-  through the CLI, undoes CLI side effects (dependency and brain bumps, the bogus `cn`
-  package, duplicate dependency components), adds barrel, exports, CSS stub (imported in
-  Angular `styles.css`), story stub and the `.upstream/` snapshot.
-- **`new:component`** — home-grown, no upstream. Names get the `curve-` prefix (`pill` →
+- **`component:import`** — a shadcn / Spartan component. Checks which upstream has it
+  (fails if a requested framework has none), writes the contract, vendors it (React via
+  `shadcn add --dry-run`, writing only the component; Angular via the Spartan CLI, undoing
+  its dependency and brain bumps), adds barrel, exports, CSS stub (imported in Angular
+  `styles.css`), story stub and the `.upstream/` snapshot.
+- **`component:new`** — home-grown, no upstream. Names get the `curve-` prefix (`pill` →
   `curve-pill`, React `CurvePill`, Angular `CurvePillComponent`). You get a small working
   component per framework with each axis wired to a typed prop + `data-*` attribute, a CSS
   rule stub per value, and Playground + per-axis stories.
@@ -28,7 +29,7 @@ pnpm new:component    <name> --description "One sentence." [--axis variants=a,b]
   script asks on stdin, and fails when there's no terminal.
 - `--axis` is repeatable (`--axis variants=default,outline --axis sizes=default,sm`). Pick
   axes from what the component actually exposes; shapes are in [`contract.md`](contract.md).
-- It refuses up front when the component exists, when a bare `new:component` name is an
+- It refuses up front when the component exists, when a bare `component:new` name is an
   upstream component, or when Spartan needs a newer `@spartan-ng/brain`. For the last,
   rerun with `--react` and document the Angular gap.
 

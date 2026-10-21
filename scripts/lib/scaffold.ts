@@ -1,13 +1,13 @@
 /**
  * Shared implementation of the two component generators:
  *
- * - `pnpm new:component <name>` builds a home-grown component (named
+ * - `pnpm component:new <name>` builds a home-grown component (named
  *   curve-<name>, like curve-data-table). No CLI and no .upstream/ snapshot;
  *   it writes a small working component with every contract axis wired to a
  *   typed prop + data-* attribute.
- * - `pnpm import:component <name>` vendors a shadcn / Spartan component with
- *   the upstream CLI, undoes the CLI's side effects, and saves a pristine copy
- *   in .upstream/ so `pnpm update:component` can three-way merge later changes.
+ * - `pnpm component:import <name>` vendors a shadcn / Spartan component (see
+ *   vendor.ts) and saves a pristine copy in .upstream/ so
+ *   `pnpm component:update` can three-way merge later changes.
  *
  * Both write the contract, barrel, package exports, CSS and stories, and end
  * with the list of what's left to do by hand.
@@ -36,14 +36,14 @@ import {
   writeNew,
 } from './repo';
 import * as t from './templates';
-import { spartanBlocker, spartanPrimitives, vendor } from './vendor';
+import { shadcnHas, spartanBlocker, spartanPrimitives, vendor } from './vendor';
 
 export type ScaffoldMode = 'new' | 'import';
 
 const HOME_GROWN_PREFIX = 'curve-';
 
 export async function scaffold(mode: ScaffoldMode): Promise<void> {
-  const command = `pnpm ${mode}:component`;
+  const command = `pnpm component:${mode}`;
   const { values: args, positionals } = parseArgs({
     allowPositionals: true,
     options: {
@@ -66,10 +66,14 @@ export async function scaffold(mode: ScaffoldMode): Promise<void> {
   let name = input;
   if (mode === 'new') {
     if (!input.startsWith(HOME_GROWN_PREFIX)) {
-      if (spartanPrimitives(repoRoot)[input]) {
+      const upstream = findUpstream(input);
+      const sources = (['react', 'angular'] as const)
+        .filter((f) => upstream[f])
+        .map((f) => UPSTREAM_LABEL[f]);
+      if (sources.length) {
         fail(
-          `"${input}" is an upstream component. To vendor it: pnpm import:component ${input}\n` +
-            `To build your own instead, name it explicitly: pnpm new:component ${HOME_GROWN_PREFIX}${input}`,
+          `"${input}" is an upstream component (${sources.join(' and ')}). To vendor it: pnpm component:import ${input}\n` +
+            `To build your own instead, name it explicitly: pnpm component:new ${HOME_GROWN_PREFIX}${input}`,
         );
       }
       // Home-grown names carry the prefix, so they never collide with upstream.
@@ -78,7 +82,7 @@ export async function scaffold(mode: ScaffoldMode): Promise<void> {
     }
   } else if (input.startsWith(HOME_GROWN_PREFIX)) {
     fail(
-      `"${input}" is a home-grown name; there is nothing to import. Use: pnpm new:component ${input}`,
+      `"${input}" is a home-grown name; there is nothing to import. Use: pnpm component:new ${input}`,
     );
   }
 
@@ -111,15 +115,37 @@ export async function scaffold(mode: ScaffoldMode): Promise<void> {
     if (existsSync(dir)) {
       fail(
         mode === 'import'
-          ? `${dir} already exists. To refresh it from upstream, run: pnpm update:component ${name}`
+          ? `${dir} already exists. To refresh it from upstream, run: pnpm component:update ${name}`
           : `${dir} already exists.`,
       );
     }
   }
-  if (mode === 'import' && frameworks.includes('angular')) {
-    const blocker = spartanBlocker(name, repoRoot);
-    if (blocker) {
-      fail(`${blocker}\nRun with --react to add only the React version, and document the gap.`);
+  if (mode === 'import') {
+    const upstream = findUpstream(name);
+    console.log(`\nUpstream "${name}":`);
+    for (const f of ['react', 'angular'] as const) {
+      const has = upstream[f];
+      const state = has === undefined ? '? could not check' : has ? '✔ yes' : '✘ no';
+      console.log(`  ${UPSTREAM_LABEL[f].padEnd(18)} ${state}`);
+    }
+    if (upstream.react === false && upstream.angular === false) {
+      fail(
+        `Neither shadcn nor Spartan has "${name}". To build it yourself: pnpm component:new ${name}`,
+      );
+    }
+    const lacking = frameworks.filter((f) => upstream[f] === false);
+    if (lacking.length) {
+      const other = (['react', 'angular'] as const).find((f) => !lacking.includes(f))!;
+      fail(
+        `"${name}" exists only in ${UPSTREAM_LABEL[other]}, so Curve cannot keep both frameworks in parity.\n` +
+          `Run with --${other} to import only that version, and document the gap.`,
+      );
+    }
+    if (frameworks.includes('angular')) {
+      const blocker = spartanBlocker(name, repoRoot);
+      if (blocker) {
+        fail(`${blocker}\nRun with --react to add only the React version, and document the gap.`);
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 /**
- * File templates for `pnpm new:component` and `pnpm import:component`. Each returns a starting point that
+ * File templates for `pnpm component:new` and `pnpm component:import`. Each returns a starting point that
  * compiles and passes the conventions check; the TODOs mark what a person still
  * has to fill in.
  */
@@ -26,9 +26,9 @@ const key = (s: string) => (/^[a-zA-Z_$][\w$]*$/.test(s) ? s : q(s));
 
 export function contract(name: string, description: string, axes: Axes): string {
   const id = `${camel(name)}Contract`;
-  const entries = Object.entries(axes);
+  const axesEntries = Object.entries(axes);
 
-  if (entries.length === 0) {
+  if (axesEntries.length === 0) {
     return `import { defineContract } from './define-contract.js';
 
 export const ${id} = defineContract({
@@ -39,13 +39,13 @@ export const ${id} = defineContract({
 `;
   }
 
-  const props = entries.map(([axis, values]) => `    ${axis}: [${values.map(q).join(', ')}],`);
-  const defaults = entries.map(([axis, values]) => `    ${axis}: ${q(values[0]!)},`);
-  const docs = entries.map(
+  const props = axesEntries.map(([axis, values]) => `    ${axis}: [${values.map(q).join(', ')}],`);
+  const defaults = axesEntries.map(([axis, values]) => `    ${axis}: ${q(values[0]!)},`);
+  const docs = axesEntries.map(
     ([axis, values]) =>
       `    ${axis}: {\n${values.map((v) => `      ${key(v)}: 'TODO: describe for consumers.',`).join('\n')}\n    },`,
   );
-  const types = entries.map(
+  const types = axesEntries.map(
     ([axis]) => `export type ${axisTypeName(name, axis)} = (typeof ${id}.props.${axis})[number];`,
   );
 
@@ -170,7 +170,7 @@ export const Default: Story = {
 `;
 }
 
-// ── Home-grown (new:component) ────────────────────────────────────────────────────
+// ── Home-grown (component:new) ────────────────────────────────────────────────────
 //
 // No upstream CLI: the generator writes a small working component instead, in
 // the shape of curve-data-table. Each contract axis becomes a typed prop that
@@ -207,9 +207,9 @@ function axisCssRules(selector: string, axes: Axes): string {
 /** Story args/argTypes for each axis, sourced from the contract. */
 function axisStoryMeta(name: string, axes: Axes): string {
   const c = `${camel(name)}Contract`;
-  const entries = Object.keys(axes);
-  if (!entries.length) return '';
-  const argTypes = entries.map(
+  const axisNames = Object.keys(axes);
+  if (!axisNames.length) return '';
+  const argTypes = axisNames.map(
     (axis) => `    ${axisProp(axis)}: {
       control: 'radio',
       options: ${c}.props.${axis},
@@ -217,16 +217,18 @@ function axisStoryMeta(name: string, axes: Axes): string {
       table: { defaultValue: { summary: ${c}.defaults.${axis} } },
     },`,
   );
-  const args = entries.map((axis) => `    ${axisProp(axis)}: ${c}.defaults.${axis},`);
+  const args = axisNames.map((axis) => `    ${axisProp(axis)}: ${c}.defaults.${axis},`);
   return `  argTypes: {\n${argTypes.join('\n')}\n  },\n  args: {\n${args.join('\n')}\n  },\n`;
 }
 
 export function reactCustomComponent(name: string, axes: Axes): string {
   const P = pascal(name);
-  const entries = Object.entries(axes);
-  const destructure = entries.map(([axis, values]) => `  ${axisProp(axis)} = ${q(values[0]!)},`);
-  const propTypes = entries.map(([axis]) => `${axisProp(axis)}?: ${axisTypeName(name, axis)}`);
-  const dataAttrs = entries.map(
+  const axesEntries = Object.entries(axes);
+  const destructure = axesEntries.map(
+    ([axis, values]) => `  ${axisProp(axis)} = ${q(values[0]!)},`,
+  );
+  const propTypes = axesEntries.map(([axis]) => `${axisProp(axis)}?: ${axisTypeName(name, axis)}`);
+  const dataAttrs = axesEntries.map(
     ([axis]) => `      data-${kebab(axisProp(axis))}={${axisProp(axis)}}`,
   );
   return `import * as React from 'react';
@@ -311,15 +313,15 @@ ${axisStories.join('')}`;
 
 export function angularCustomComponent(name: string, axes: Axes): string {
   const P = pascal(name);
-  const entries = Object.entries(axes);
-  const hostAttrs = entries.map(
+  const axesEntries = Object.entries(axes);
+  const hostAttrs = axesEntries.map(
     ([axis]) => `    '[attr.data-${kebab(axisProp(axis))}]': '${axisProp(axis)}()',`,
   );
-  const inputs = entries.map(
+  const inputs = axesEntries.map(
     ([axis, values]) =>
       `  public readonly ${axisProp(axis)} = input<${axisTypeName(name, axis)}>(${q(values[0]!)});`,
   );
-  return `import { ChangeDetectionStrategy, Component${entries.length ? ', input' : ''} } from '@angular/core';
+  return `import { ChangeDetectionStrategy, Component${axesEntries.length ? ', input' : ''} } from '@angular/core';
 ${axisTypesImport(name, axes)}
 @Component({
   selector: '${name}',
