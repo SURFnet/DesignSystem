@@ -4,13 +4,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   linkedSignal,
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCalendar, phosphorX } from '@ng-icons/phosphor-icons/regular';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { HlmButtonImports } from '../../../button/src';
 import { HlmInputGroupImports } from '../../../input-group/src';
+import { ariaInvalidOverride } from '../../../utils/src';
 import { HlmDatePickerAnchor } from './hlm-date-picker-anchor';
 import {
   HlmDatePickerTriggerBase,
@@ -26,6 +29,14 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
     provideHlmDatePickerTrigger(HlmDatePickerInput),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    // Forwarded to the inner <input>; keep them off the host so they aren't duplicated
+    // on an element without a role.
+    '[attr.aria-label]': 'null',
+    '[attr.aria-labelledby]': 'null',
+    '[attr.aria-describedby]': 'null',
+    '[attr.aria-invalid]': 'null',
+  },
   template: `
     <hlm-input-group hlmDatePickerAnchor [hlmDatePickerAnchorFor]="_popover()">
       <input
@@ -35,6 +46,15 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
         [placeholder]="placeholder()"
         [disabled]="_disabled()"
         [forceInvalid]="forceInvalid()"
+        [attr.aria-invalid]="_ariaInvalid()"
+        [attr.data-invalid]="_ariaInvalid()"
+        [attr.data-touched]="_touched?.() ? 'true' : null"
+        [attr.data-dirty]="_dirty?.() ? 'true' : null"
+        [attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-labelledby]="ariaLabelledby()"
+        [aria-describedby]="ariaDescribedby()"
+        [aria-invalid]="ariaInvalid()"
         (click)="_handleClick()"
         (keydown.arrowDown)="_open()"
         (keydown.enter)="_handleEnter($event)"
@@ -71,6 +91,16 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
   private static _nextId = 0;
   private readonly _datePicker = injectHlmDatePicker<T>();
   private readonly _config = injectHlmDatePickerConfig<T>();
+  private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+
+  private readonly _invalid = this._fieldControl?.invalid;
+  protected readonly _spartanInvalid = computed(
+    () => this.forceInvalid() || this._fieldControl?.spartanInvalid(),
+  );
+  protected readonly _dirty = this._fieldControl?.dirty;
+  protected readonly _touched = this._fieldControl?.touched;
+
+  protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
 
   protected readonly _popover = this._datePicker.popover;
   protected readonly _disabled = this._datePicker.disabledState;
@@ -100,6 +130,21 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
   /** Open the popover on input click. */
   public readonly openOnClick = input<boolean, BooleanInput>(false, {
     transform: booleanAttribute,
+  });
+
+  /** Forwarded to the inner input. */
+  public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
+
+  /** Forwarded to the inner input. */
+  public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
+
+  /** Forwarded to the inner input, merged with the ids from a surrounding hlmField. */
+  public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
+
+  /** Forwarded to the inner input; overrides the form control's invalid state. */
+  public readonly ariaInvalid = input<boolean | undefined, BooleanInput>(undefined, {
+    alias: 'aria-invalid',
+    transform: ariaInvalidOverride,
   });
 
   /** Accessible label for the clear button. */
