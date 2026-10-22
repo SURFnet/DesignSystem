@@ -4,8 +4,10 @@
  *
  * Known, accepted exceptions live in scripts/conventions.allowlist.json as
  * { "<rule>": [{ "subject": "<subject>", "reason": "<why this is accepted>" }, …] }.
- * Every entry needs a reason. Entries that no longer fail are reported so the
- * list only ever shrinks.
+ * Every entry needs a reason. Rules that check each file of a component
+ * (react-no-tailwind, angular-no-tailwind, angular-css-imported) also need a
+ * "file" (relative to the component directory), so the entry covers only that
+ * file. Entries that no longer fail are reported so the list only ever shrinks.
  *
  * Usage: pnpm check:conventions
  */
@@ -18,12 +20,14 @@ import { camel, listFiles, packageDir, repoRoot } from './lib/repo';
 interface Violation {
   rule: string;
   subject: string;
+  /** Set by rules that check each file of a component, relative to its directory. */
+  file?: string;
   message: string;
 }
 
 const violations: Violation[] = [];
-const fail = (rule: string, subject: string, message: string) =>
-  violations.push({ rule, subject, message });
+const fail = (rule: string, subject: string, message: string, file?: string) =>
+  violations.push({ rule, subject, file, message });
 
 const read = (rel: string) => readFileSync(join(repoRoot, rel), 'utf8');
 const subdirs = (rel: string) =>
@@ -83,6 +87,7 @@ for (const name of reactNames) {
         'react-no-tailwind',
         name,
         `${dir}/${file} has Tailwind utility classes; move them to a CSS module`,
+        file,
       );
     }
   }
@@ -127,6 +132,7 @@ for (const name of angularNames) {
           'angular-no-tailwind',
           name,
           `${dir}/${file} sets non-curve classes (${stray.slice(0, 3).join(' ')}…); move them to CSS`,
+          file,
         );
         break;
       }
@@ -134,7 +140,7 @@ for (const name of angularNames) {
   }
   for (const css of files.filter((f) => f.endsWith('.css'))) {
     if (!stylesCss.includes(`./lib/ui/${name}/${css}`)) {
-      fail('angular-css-imported', name, `${dir}/${css} is not imported in src/styles.css`);
+      fail('angular-css-imported', name, `${dir}/${css} is not imported in src/styles.css`, css);
     }
   }
 }
@@ -175,20 +181,38 @@ for (const name of reactNames.filter((n) => angularNames.includes(n))) {
 // ── Report ───────────────────────────────────────────────────────────────────
 
 const allowlistPath = join(repoRoot, 'scripts/conventions.allowlist.json');
-const allowlist: Record<string, { subject: string; reason: string }[]> = existsSync(allowlistPath)
+interface AllowlistEntry {
+  subject: string;
+  /** Required for per-file rules, so a new violation in another file still fails. */
+  file?: string;
+  reason: string;
+}
+const allowlist: Record<string, AllowlistEntry[]> = existsSync(allowlistPath)
   ? JSON.parse(readFileSync(allowlistPath, 'utf8'))
   : {};
+const covers = (entry: AllowlistEntry, rule: string, v: Violation) =>
+  v.rule === rule && v.subject === entry.subject && v.file === entry.file;
 const allowed = (v: Violation) =>
-  allowlist[v.rule]?.some((entry) => entry.subject === v.subject) ?? false;
+  allowlist[v.rule]?.some((entry) => covers(entry, v.rule, v)) ?? false;
+const label = ({ subject, file }: AllowlistEntry) => (file ? `${subject} (${file})` : subject);
+// The rule fails per file for this subject, but the entry names no file.
+const missesFile = (entry: AllowlistEntry, rule: string) =>
+  !entry.file && violations.some((v) => v.rule === rule && v.subject === entry.subject && v.file);
 
-// An exception nobody can explain is one nobody dares to remove.
 for (const [rule, entries] of Object.entries(allowlist)) {
-  for (const { subject, reason } of entries) {
-    if (!reason?.trim()) {
+  for (const entry of entries) {
+    if (!entry.reason?.trim()) {
       fail(
         'allowlist-reason',
-        `${rule}: ${subject}`,
-        `Allowlist entry ${rule}: ${subject} has no reason`,
+        `${rule}: ${label(entry)}`,
+        `Allowlist entry ${rule}: ${label(entry)} has no reason`,
+      );
+    }
+    if (missesFile(entry, rule)) {
+      fail(
+        'allowlist-file',
+        `${rule}: ${label(entry)}`,
+        `Allowlist entry ${rule}: ${label(entry)} needs a "file": this rule checks each file separately`,
       );
     }
   }
@@ -197,8 +221,8 @@ for (const [rule, entries] of Object.entries(allowlist)) {
 const errors = violations.filter((v) => !allowed(v));
 const stale = Object.entries(allowlist).flatMap(([rule, entries]) =>
   entries
-    .filter(({ subject }) => !violations.some((v) => v.rule === rule && v.subject === subject))
-    .map(({ subject }) => `${rule}: ${subject}`),
+    .filter((entry) => !violations.some((v) => covers(entry, rule, v)) && !missesFile(entry, rule))
+    .map((entry) => `${rule}: ${label(entry)}`),
 );
 
 if (stale.length) {
@@ -212,7 +236,7 @@ if (errors.length) {
   console.error(`\n${errors.length} convention violation(s):`);
   for (const v of errors) console.error(`  ✗ [${v.rule}] ${v.message}`);
   console.error(
-    '\nFix them, or (for an accepted exception) add the subject with a reason to scripts/conventions.allowlist.json.',
+    '\nFix them, or (for an accepted exception) add the subject (plus the file, for per-file rules) with a reason to scripts/conventions.allowlist.json.',
   );
   process.exit(1);
 }
