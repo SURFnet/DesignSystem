@@ -235,9 +235,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** Semantic, chart, sidebar, alpha and internal colour tokens. */
 export const Colors: Story = {
-  render: () => <Sections ids={['semantic', 'chart', 'sidebar', 'alpha', 'custom']} />,
+  render: () => <Sections ids={['semantic', 'primitive', 'chart', 'sidebar', 'alpha', 'custom']} />,
 };
 
 /** The type scale, font families and font weights. */
