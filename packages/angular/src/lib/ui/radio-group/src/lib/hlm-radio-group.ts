@@ -50,6 +50,6 @@ export class HlmRadioGroup {
       this.userClass(),
       this._errorState() ? 'curve-radio-group--invalid' : '',
     ]);
-    ariaInvalid(this.ariaInvalid, this._controlInvalid);
+    ariaInvalid(this.ariaInvalid, () => false, this._controlInvalid);
   }
 }
