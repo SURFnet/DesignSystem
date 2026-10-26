@@ -1,5 +1,16 @@
 # @surfnet/curve-angular
 
+## 0.9.0
+
+### Patch Changes
+
+- b8e57c0: Stop `hlmInput`, `hlmTextarea` and `hlmRadioGroup` from dropping consumer ARIA attributes:
+
+  - `aria-describedby` is now merged with the ids from `hlmField` instead of being overwritten.
+  - `aria-invalid` is now accepted as an override of the form control's invalid state (as Spartan's combobox does). Without it, the control state still drives the attribute.
+
+  `hlm-date-picker-input` now forwards `aria-label`, `aria-labelledby`, `aria-describedby` and `aria-invalid` to its inner `<input>`.
+
 ## 0.8.2
 
 No changes in this release.

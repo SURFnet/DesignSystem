@@ -1,5 +1,11 @@
 # @surfnet/curve-tokens
 
+## 0.9.0
+
+### Minor Changes
+
+- 6c21776: Tokens: export the primitive colour palettes from Figma (e.g. `--surf-green-50`, `--surf-purple-200`, plus the Groenvermogen and Studielink palettes) as CSS custom properties on `:root`
+
 ## 0.8.2
 
 ### Patch Changes
