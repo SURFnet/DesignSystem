@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { checkboxContract } from '@surfnet/curve-contracts';
+import { useState } from 'react';
 
 import { Label } from '@/components/ui/label';
 
@@ -44,9 +44,9 @@ export const Default: Story = {
 
 /** A checkbox paired with a clickable label. */
 export const WithLabel: Story = {
-  render: () => (
+  render: (args) => (
     <Label className="gap-2">
-      <Checkbox defaultChecked />
+      <Checkbox defaultChecked {...args} />
       Accept terms and conditions
     </Label>
   ),
@@ -78,4 +78,9 @@ export const States: Story = {
       </Label>
     </div>
   ),
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
 };
