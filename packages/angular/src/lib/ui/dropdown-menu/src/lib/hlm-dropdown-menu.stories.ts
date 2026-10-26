@@ -7,7 +7,7 @@ import { HlmButton, HlmButtonImports } from '../../../../../public-api';
 import { dropdownMenuContract } from '@surfnet/curve-contracts';
 
 const meta: Meta<HlmDropdownMenu> = {
-  title: 'Components/Dropdown Menu',
+  title: 'Components/DropdownMenu',
   component: HlmDropdownMenu,
   decorators: [
     moduleMetadata({
