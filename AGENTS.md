@@ -39,7 +39,7 @@ utilities resolve to the same `@surfnet/curve-tokens` variables as the component
 
 ## Environment
 
-- **Node 22 LTS** (pinned in `.nvmrc`; `engines` also allows 24). Other versions only
+- **Node 24 LTS** (pinned in `.nvmrc`; `engines` also allows 22). Other versions only
   warn on install. Run `nvm use` first.
 - **pnpm 11** (pinned via `packageManager`). Always use pnpm, never npm/yarn.
 

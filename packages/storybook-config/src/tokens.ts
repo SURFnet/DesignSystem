@@ -124,6 +124,16 @@ export const TOKEN_GROUPS: TokenGroup[] = [
     match: (n) => n.startsWith('custom-'),
   },
   {
+    id: 'primitive',
+    title: 'Primitive colours',
+    description:
+      'The raw brand palettes (SURF, Groenvermogen, Studielink) in steps from 50 to 950. ' +
+      'They are the same in every theme and mode; prefer the semantic colours in components.',
+    kind: 'color',
+    // `<palette>-<hue>-<step>`, e.g. `surf-green-50` — after `alpha-` so `alpha-50` isn't claimed.
+    match: (n) => /-(50|[1-9]00|950)$/.test(n),
+  },
+  {
     id: 'semantic',
     title: 'Semantic colours',
     description:

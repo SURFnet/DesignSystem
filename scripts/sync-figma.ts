@@ -105,6 +105,10 @@ console.log(`Default theme: "${DEFAULT_THEME}" — syncing ${allThemeModes.lengt
 const twCol = findCollection('1. TailwindCSS');
 const twModeId = twCol?.modes[0]?.modeId ?? null;
 
+// "6. Custom colors" — primitive palettes (SURF/Green/50 …), single mode
+const primitiveCol = findCollection('6. Custom colors');
+const primitiveModeId = primitiveCol?.modes[0]?.modeId ?? null;
+
 // Stop boundary so resolveAlias doesn't cross into the theme layer with a
 // semantic mode ID; a second pass then applies the correct theme mode.
 const themeModeIds = new Set(themeCol.modes.map((m) => m.modeId));
@@ -197,6 +201,22 @@ function collectColorTokens(semanticModeId: string, themeModeId: string): TokenM
     if (!v || v.resolvedType !== 'COLOR') continue;
     const val = resolveColor(varId, semanticModeId, themeModeId);
     if (val) tokens[figmaNameToCssProp(v.name)] = val;
+  }
+  return tokens;
+}
+
+/** Primitive palette colours from "6. Custom colors" (theme- and mode-independent).
+ *  "SURF/Green/50" → "surf-green-50". */
+function collectPrimitiveColorTokens(): TokenMap {
+  const tokens: TokenMap = {};
+  if (!primitiveCol || !primitiveModeId) return tokens;
+
+  for (const varId of primitiveCol.variableIds) {
+    const v = variables[varId];
+    const raw = v?.valuesByMode[primitiveModeId];
+    if (!v || v.resolvedType !== 'COLOR' || raw === undefined) continue;
+    const val = resolveAlias(raw, primitiveModeId);
+    if (isColor(val)) tokens[figmaNameToCssProp(v.name).toLowerCase()] = figmaColorToRgba(val);
   }
   return tokens;
 }
@@ -349,6 +369,8 @@ function writeJson(filename: string, map: TokenMap): number {
 }
 
 const { radius: twRadius, font: twFont } = collectTailwindTokens();
+const primitives = collectPrimitiveColorTokens();
+if (!primitiveCol) console.warn('Could not find "6. Custom colors" — skipping primitive colours');
 
 // Drop stale per-theme files from previous syncs (keep the default dark pair).
 for (const f of readdirSync(outDir)) {
@@ -360,11 +382,18 @@ console.log('\nWriting token files:');
 
 for (const { modeId, name } of allThemeModes) {
   const shared = { ...collectThemeNonColorTokens(modeId), ...twFont, ...twRadius };
-  const light = { ...collectColorTokens(lightModeId, modeId), ...shared };
-  const dark = { ...collectColorTokens(darkModeId, modeId), ...shared };
-
   const cls = themeNameToClass(name);
   const isDefault = name === DEFAULT_THEME;
+
+  // Primitives are identical across themes and modes, so only the default
+  // tokens.json (→ :root) carries them; every theme inherits them from there.
+  const light = {
+    ...collectColorTokens(lightModeId, modeId),
+    ...shared,
+    ...(isDefault ? primitives : {}),
+  };
+  const dark = { ...collectColorTokens(darkModeId, modeId), ...shared };
+
   const lightFile = isDefault ? 'tokens.json' : `tokens.${cls}.json`;
   const darkFile = isDefault ? 'tokens.dark.json' : `tokens.${cls}.dark.json`;
 

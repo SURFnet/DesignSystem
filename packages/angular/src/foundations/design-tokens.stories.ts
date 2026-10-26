@@ -185,8 +185,14 @@ const story = (ids: string[]): Story => ({
   }),
 });
 
-/** Semantic, chart, sidebar, alpha and internal colour tokens. */
-export const Colors: Story = story(['semantic', 'chart', 'sidebar', 'alpha', 'custom']);
+export const Colors: Story = story([
+  'semantic',
+  'primitive',
+  'chart',
+  'sidebar',
+  'alpha',
+  'custom',
+]);
 
 /** The type scale, font families and font weights. */
 export const Typography: Story = story(['typography', 'font-family', 'font-weight']);
