@@ -44,11 +44,8 @@
   color: var(--secondary-foreground);
 }
 
-.curve-toggle:focus {
-  border-color: var(--ring);
-}
-
 .curve-toggle:focus-visible {
+  border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
 }
 

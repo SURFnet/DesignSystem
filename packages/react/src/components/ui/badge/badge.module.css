@@ -17,11 +17,8 @@
   transition: all 150ms ease;
 }
 
-.badge:focus {
-  border-color: var(--ring);
-}
-
 .badge:focus-visible {
+  border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
