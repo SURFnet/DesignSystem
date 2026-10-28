@@ -30,11 +30,8 @@
   transform: translateY(1px);
 }
 
-.curve-button:focus {
-  border-color: var(--ring);
-}
-
 .curve-button:focus-visible {
+  border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
