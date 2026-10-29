@@ -1,5 +1,15 @@
 # @surfnet/curve-react
 
+## 0.10.0
+
+### Minor Changes
+
+- de613d0: Breaking (react): default of alignItemWithTrigger prop on SelectContent is now `false`
+
+### Patch Changes
+
+- 05d347d: Fix controls keeping a thin border after a mouse click (button, toggle, badge, tabs, accordion, checkbox, switch, radio group, item, select). The focus border colour is now only applied on keyboard focus (`:focus-visible`), together with the focus ring.
+
 ## 0.9.0
 
 ### Minor Changes

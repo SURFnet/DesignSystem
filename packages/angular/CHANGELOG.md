@@ -1,5 +1,16 @@
 # @surfnet/curve-angular
 
+## 0.10.0
+
+### Minor Changes
+
+- de613d0: Breaking (react): default of alignItemWithTrigger prop on SelectContent is now `false`
+
+### Patch Changes
+
+- 05d347d: Fix controls keeping a thin border after a mouse click (button, toggle, badge, tabs, accordion, checkbox, switch, radio group, item, select). The focus border colour is now only applied on keyboard focus (`:focus-visible`), together with the focus ring.
+- 645bd77: `forceInvalid` now also sets `aria-invalid="true"` on the native control, so the visual and accessible invalid states stay together. This applies to `hlmInput`, `hlmTextarea`, `hlm-native-select`, and the inputs of `hlm-date-picker-input` and `hlm-combobox-input`. An explicit `aria-invalid` still takes precedence. You still link the error message yourself with `aria-describedby`.
+
 ## 0.9.0
 
 ### Patch Changes
