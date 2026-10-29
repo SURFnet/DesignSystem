@@ -1,11 +1,11 @@
 'use client';
 
-import * as React from 'react';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 import type { SelectTriggerSizeName } from '@surfnet/curve-contracts';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import { CaretUpDownIcon, CheckIcon, CaretUpIcon, CaretDownIcon } from '@phosphor-icons/react';
+import { CaretDownIcon, CaretUpDownIcon, CaretUpIcon, CheckIcon } from '@phosphor-icons/react';
 
 import styles from './select.module.css';
 
@@ -59,7 +59,7 @@ function SelectContent({
   sideOffset = 4,
   align = 'center',
   alignOffset = 0,
-  alignItemWithTrigger = true,
+  alignItemWithTrigger = false,
   ...props
 }: SelectPrimitive.Popup.Props &
   Pick<
