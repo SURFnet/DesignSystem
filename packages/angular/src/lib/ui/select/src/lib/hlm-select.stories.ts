@@ -1,7 +1,12 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+  componentWrapperDecorator,
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+} from '@storybook/angular';
 import { selectContract } from '@surfnet/curve-contracts';
-import { HlmSelect } from './hlm-select';
 import { HlmSelectImports } from '..';
+import { HlmSelect } from './hlm-select';
 
 const meta: Meta<HlmSelect> = {
   title: 'Components/Select',
@@ -10,6 +15,28 @@ const meta: Meta<HlmSelect> = {
     moduleMetadata({
       imports: [HlmSelectImports],
     }),
+    componentWrapperDecorator(
+      (story) => story,
+      () => ({
+        items: [
+          { label: 'All', value: 'all' },
+          { label: 'Identity', value: 'identity' },
+          { label: 'Storage', value: 'storage' },
+          { label: 'Marketplace', value: 'marketplace' },
+        ],
+        fruitItems: [
+          { label: 'Apple', value: 'apple' },
+          { label: 'Banana', value: 'banana' },
+          { label: 'Orange', value: 'orange' },
+        ],
+        veggieItems: [
+          { label: 'Carrot', value: 'carrot' },
+          { label: 'Cucumber', value: 'cucumber' },
+          { label: 'Tomato', value: 'tomato' },
+        ],
+        valueToLabel: (value: string) => value.toUpperCase(),
+      }),
+    ),
   ],
   parameters: {
     docs: {
@@ -33,13 +60,12 @@ export const Default: Story = {
     template: `
 			<hlm-select>
 				<hlm-select-trigger class="w-56" aria-label="Category">
-					<hlm-select-value placeholder="Category: All" />
+					<hlm-select-value placeholder="Pick a category" />
 				</hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
-					<hlm-select-item value="all">All</hlm-select-item>
-					<hlm-select-item value="identity">Identity</hlm-select-item>
-					<hlm-select-item value="storage">Storage</hlm-select-item>
-					<hlm-select-item value="marketplace">Marketplace</hlm-select-item>
+          @for (item of items; track item.value) {
+  					<hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
+          }
 				</hlm-select-content>
 			</hlm-select>
 		`,
@@ -50,16 +76,23 @@ export const Default: Story = {
 export const Grouped: Story = {
   render: () => ({
     template: `
-			<hlm-select value="identity">
+			<hlm-select>
 				<hlm-select-trigger class="w-56" aria-label="Category">
-					<hlm-select-value placeholder="Pick a category" />
+					<hlm-select-value placeholder="Pick a food" />
 				</hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
-						<hlm-select-label>Categories</hlm-select-label>
-						<hlm-select-item value="identity">Identity</hlm-select-item>
-						<hlm-select-item value="storage">Storage</hlm-select-item>
-						<hlm-select-item value="marketplace">Marketplace</hlm-select-item>
+						<hlm-select-label>Fruit</hlm-select-label>
+						@for (fruit of fruitItems; track fruit.value) {
+    					<hlm-select-item [value]="fruit">{{ fruit.label }}</hlm-select-item>
+            }
+					</hlm-select-group>
+					<hlm-select-separator />
+					<hlm-select-group>
+						<hlm-select-label>Veggies</hlm-select-label>
+						@for (veggie of veggieItems; track veggie.value) {
+    					<hlm-select-item [value]="veggie">{{ veggie.label }}</hlm-select-item>
+            }
 					</hlm-select-group>
 				</hlm-select-content>
 			</hlm-select>
@@ -76,7 +109,9 @@ export const Disabled: Story = {
 					<hlm-select-value placeholder="Category: All" />
 				</hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
-					<hlm-select-item value="all">All</hlm-select-item>
+          @for (item of items; track item.value) {
+  					<hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
+          }
 				</hlm-select-content>
 			</hlm-select>
 		`,
@@ -91,13 +126,15 @@ export const Sizes: Story = {
 				${selectContract.props.sizes
           .map(
             (size) => `
-							<hlm-select key="${size}" value="all">
+              <!-- You can also use [itemToString] to convert values to labels if you don't have a dedicated label per item -->
+							<hlm-select key="${size}" value="all" [itemToString]="valueToLabel">
 								<hlm-select-trigger class="w-40" size="${size}" aria-label="Category">
 									<hlm-select-value />
 								</hlm-select-trigger>
 								<hlm-select-content *hlmSelectPortal>
-									<hlm-select-item value="all" selected>All</hlm-select-item>
-									<hlm-select-item value="identity">Identity</hlm-select-item>
+  								@for (item of items; track item.value) {
+          					<hlm-select-item value="{{item.value}}">{{ valueToLabel(item.value) }}</hlm-select-item>
+                  }
 								</hlm-select-content>
 							</hlm-select>
 						`,
