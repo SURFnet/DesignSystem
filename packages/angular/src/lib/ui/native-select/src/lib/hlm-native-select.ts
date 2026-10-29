@@ -96,13 +96,17 @@ export class HlmNativeSelect implements ControlValueAccessor {
     transform: booleanAttribute,
   });
 
-  /** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+  /** Manual override for aria-invalid. When not set, follows `forceInvalid` and the form control. */
   public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
     transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
     alias: 'aria-invalid',
   });
 
-  protected readonly _ariaInvalid = computed(() => this.ariaInvalidOverride() ?? this._invalid?.());
+  protected readonly _ariaInvalid = computed(
+    // CURVE: a11y — forceInvalid also sets aria-invalid, so the visual and accessible
+    // invalid states stay together.
+    () => this.ariaInvalidOverride() ?? (this.forceInvalid() || this._invalid?.()),
+  );
 
   public readonly valueInput = input<string | undefined | null>('', { alias: 'value' });
   public readonly value = linkedSignal(this.valueInput);

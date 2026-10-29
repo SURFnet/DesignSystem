@@ -10,33 +10,39 @@ export function ariaInvalidOverride(value: BooleanInput): boolean | undefined {
 }
 
 /**
- * Applies a consumer's `aria-invalid` override on the host. Brain binds `aria-invalid` to the
- * form control's state only, which overwrites a consumer's attribute; this runs after render
- * so the override wins. While no override is set, Brain's binding is left alone.
+ * Keeps `aria-invalid` on the host in step with Curve's invalid inputs. Brain binds
+ * `aria-invalid` to the form control's state only, which ignores both a consumer's attribute
+ * and `forceInvalid`; this runs after render so Curve's value wins.
+ *
+ * Precedence: an explicit `aria-invalid` override, then `forceInvalid` (so the visual and
+ * accessible invalid states stay together), then the form control. While neither an override
+ * nor `forceInvalid` is set, Brain's binding is left alone.
  */
 export function ariaInvalid(
   override: () => boolean | undefined,
+  forceInvalid: () => boolean,
   controlInvalid: () => boolean | null | undefined,
 ) {
   const host = inject(ElementRef<HTMLElement>).nativeElement;
   const renderer = inject(Renderer2);
-  let overridden = false;
+  let active = false;
 
   afterRenderEffect({
     write: () => {
-      // Read both so a control-state change (which Brain re-renders) re-applies the override.
+      // Read all three so a control-state change (which Brain re-renders) re-applies ours.
       const value = override();
+      const forced = forceInvalid();
       const invalid = controlInvalid();
 
-      if (value === undefined) {
-        if (!overridden) return;
-        // Override removed: restore what Brain's binding would show.
-        overridden = false;
+      if (value === undefined && !forced) {
+        if (!active) return;
+        // Override and forceInvalid removed: restore what Brain's binding would show.
+        active = false;
       } else {
-        overridden = true;
+        active = true;
       }
 
-      if (value ?? invalid) {
+      if (value ?? (forced || invalid)) {
         renderer.setAttribute(host, 'aria-invalid', 'true');
       } else {
         renderer.removeAttribute(host, 'aria-invalid');

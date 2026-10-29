@@ -16,8 +16,9 @@ import { ariaInvalid, ariaInvalidOverride, classes } from '../../../utils/src';
 })
 export class HlmTextarea {
   private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+  private readonly _brn = inject(BrnTextarea);
 
-  /** Overrides the form control's invalid state for `aria-invalid`. */
+  /** Overrides `forceInvalid` and the form control's invalid state for `aria-invalid`. */
   public readonly ariaInvalid = input<boolean | undefined, BooleanInput>(undefined, {
     alias: 'aria-invalid',
     transform: ariaInvalidOverride,
@@ -25,6 +26,6 @@ export class HlmTextarea {
 
   constructor() {
     classes(() => 'curve-textarea');
-    ariaInvalid(this.ariaInvalid, () => this._fieldControl?.invalid());
+    ariaInvalid(this.ariaInvalid, this._brn.forceInvalid, () => this._fieldControl?.invalid());
   }
 }
