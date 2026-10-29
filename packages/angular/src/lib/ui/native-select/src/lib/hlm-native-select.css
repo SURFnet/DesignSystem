@@ -51,11 +51,8 @@
   background-color: color-mix(in oklab, var(--input) 50%, transparent);
 }
 
-.curve-native-select:focus {
-  border-color: var(--ring);
-}
-
 .curve-native-select:focus-visible {
+  border-color: var(--ring);
   box-shadow:
     0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent),
     var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));

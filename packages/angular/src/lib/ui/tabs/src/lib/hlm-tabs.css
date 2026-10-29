@@ -83,11 +83,8 @@
   justify-content: flex-start;
 }
 
-.curve-tabs-trigger:focus {
-  border-color: var(--ring);
-}
-
 .curve-tabs-trigger:focus-visible {
+  border-color: var(--ring);
   outline: 1px solid var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 32%, transparent);
 }

@@ -30,11 +30,8 @@
   transform: translateY(1px);
 }
 
-.curve-button:focus {
-  border-color: var(--ring);
-}
-
 .curve-button:focus-visible {
+  border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
 }
 
@@ -137,11 +134,8 @@
   background-color: color-mix(in oklch, var(--destructive) 90%, transparent);
 }
 
-.curve-button--variant-destructive:focus {
-  border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
-}
-
 .curve-button--variant-destructive:focus-visible {
+  border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
 }
 
