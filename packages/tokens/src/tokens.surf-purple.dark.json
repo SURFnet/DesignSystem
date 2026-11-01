@@ -213,7 +213,7 @@
   },
   "warning-hover": {
     "$type": "color",
-    "$value": "rgba(255, 232, 74, 1)"
+    "$value": "rgba(255, 153, 89, 1)"
   },
   "warning-foreground": {
     "$type": "color",
@@ -221,19 +221,19 @@
   },
   "warning-subtle": {
     "$type": "color",
-    "$value": "rgba(97, 84, 0, 1)"
+    "$value": "rgba(115, 52, 18, 1)"
   },
   "warning-subtle-hover": {
     "$type": "color",
-    "$value": "rgba(58, 50, 0, 1)"
+    "$value": "rgba(66, 28, 8, 1)"
   },
   "warning-subtle-foreground": {
     "$type": "color",
-    "$value": "rgba(255, 247, 202, 1)"
+    "$value": "rgba(255, 233, 217, 1)"
   },
   "warning": {
     "$type": "color",
-    "$value": "rgba(255, 235, 117, 1)"
+    "$value": "rgba(255, 177, 128, 1)"
   },
   "border-strong": {
     "$type": "color",
