@@ -84,7 +84,7 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
 ### React (`@surfnet/curve-react`)
 
 - Components are **vendored** via the shadcn CLI. The package is configured for **Base
-  UI** primitives (`components.json` → `"style": "base-nova"`) and **Phosphor** icons
+  UI** primitives (`components.json` → `"style": "base-vega"`) and **Phosphor** icons
   (`"iconLibrary": "phosphor"`). **Do not** switch `style` back to a Radix value.
 - **One directory per component**: `src/components/ui/<name>/` holds `<name>.tsx`, its
   story, an `index.ts` barrel, and (later) tests. The barrel keeps `@/components/ui/<name>`
