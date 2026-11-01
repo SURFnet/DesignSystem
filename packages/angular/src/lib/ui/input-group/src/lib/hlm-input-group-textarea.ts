@@ -4,7 +4,7 @@ import { classes } from '../../../utils/src';
 
 @Directive({
   selector: 'textarea[hlmInputGroupTextarea]',
-  hostDirectives: [HlmTextarea],
+  hostDirectives: [{ directive: HlmTextarea, inputs: ['aria-required'] }],
   host: { 'data-slot': 'input-group-control' },
 })
 export class HlmInputGroupTextarea {

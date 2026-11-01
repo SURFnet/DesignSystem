@@ -37,9 +37,19 @@ const meta: Meta<HlmField> = {
         defaultValue: { summary: fieldContract.defaults.orientations },
       },
     },
+    optional: {
+      control: 'boolean',
+      description: fieldContract.props.necessities
+        .map((necessity) => `\`${necessity}\` — ${fieldContract.docs.necessities[necessity]}`)
+        .join('\n\n'),
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
   },
   args: {
     orientation: fieldContract.defaults.orientations,
+    optional: false,
   },
 };
 
@@ -115,6 +125,57 @@ export const Group: Story = {
 						<input hlmInput id="g-password" type="password" />
 					</div>
 				</fieldset>
+			</div>
+		`,
+  }),
+};
+
+/**
+ * Fields are required by default. Mark the exception with `optional`: the label gets an
+ * "(optioneel)" suffix and the control loses `aria-required`.
+ */
+export const Optional: Story = {
+  render: () => ({
+    template: `
+			<div class="w-full max-w-md">
+				<div hlmField optional class="w-72">
+					<label hlmFieldLabel for="phone">Telefoonnummer</label>
+					<input hlmInput id="phone" type="tel" autocomplete="tel" />
+				</div>
+			</div>
+		`,
+  }),
+};
+
+/**
+ * Required and optional fields side by side. Only the optional ones are marked; `optionalText`
+ * swaps the suffix for an English form. A consent checkbox stays required, a newsletter one is optional.
+ */
+export const MixedForm: Story = {
+  render: () => ({
+    template: `
+			<div hlmFieldGroup class="w-72">
+				<div hlmField>
+					<label hlmFieldLabel for="mixed-name">Full name</label>
+					<input hlmInput id="mixed-name" autocomplete="name" />
+				</div>
+				<div hlmField>
+					<label hlmFieldLabel for="mixed-email">Email</label>
+					<input hlmInput id="mixed-email" type="email" autocomplete="email" />
+				</div>
+				<div hlmField optional>
+					<label hlmFieldLabel for="mixed-phone" optionalText="(optional)">Phone number</label>
+					<input hlmInput id="mixed-phone" type="tel" autocomplete="tel" />
+					<p hlmFieldDescription>Only used if we can't reach you by email.</p>
+				</div>
+				<div hlmField orientation="horizontal" optional>
+					<hlm-checkbox inputId="mixed-newsletter" />
+					<label hlmFieldLabel for="mixed-newsletter" optionalText="(optional)">Send me the newsletter</label>
+				</div>
+				<div hlmField orientation="horizontal">
+					<hlm-checkbox inputId="mixed-terms" />
+					<label hlmFieldLabel for="mixed-terms">I accept the terms of use</label>
+				</div>
 			</div>
 		`,
   }),

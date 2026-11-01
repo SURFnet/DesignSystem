@@ -13,12 +13,17 @@ import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { hlm } from '../../../utils/src';
 import type { SelectTriggerSizeName } from '@surfnet/curve-contracts';
 import type { ClassValue } from 'clsx';
+import {
+  ariaRequiredAttribute,
+  injectAriaRequired,
+} from '../../../field/src/lib/hlm-field-required';
 
 @Component({
   selector: 'hlm-select-trigger',
   imports: [NgIcon, BrnSelectTrigger, BrnFieldControlDescribedBy],
   providers: [provideIcons({ phosphorCaretUpDown })],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.aria-required]': 'null' },
   template: `
     <button
       brnSelectTrigger
@@ -28,6 +33,7 @@ import type { ClassValue } from 'clsx';
       [class]="_computedClass()"
       [attr.data-size]="size()"
       [attr.aria-label]="ariaLabel()"
+      [attr.aria-required]="_ariaRequired()"
       data-slot="select-trigger"
     >
       <ng-content />
@@ -47,6 +53,14 @@ export class HlmSelectTrigger {
   public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 
   public readonly size = input<SelectTriggerSizeName>('default');
+
+  /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
+  public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {
+    alias: 'aria-required',
+    transform: ariaRequiredAttribute,
+  });
+
+  protected readonly _ariaRequired = injectAriaRequired(this.ariaRequiredOverride);
 
   /** Whether to force the trigger into an invalid state. */
   public readonly forceInvalid = input<boolean, BooleanInput>(false, {

@@ -40,9 +40,19 @@ const meta = {
         defaultValue: { summary: fieldContract.defaults.orientations },
       },
     },
+    optional: {
+      control: 'boolean',
+      description: fieldContract.props.necessities
+        .map((necessity) => `\`${necessity}\` — ${fieldContract.docs.necessities[necessity]}`)
+        .join('\n\n'),
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
   },
   args: {
     orientation: fieldContract.defaults.orientations,
+    optional: false,
   },
 } satisfies Meta<typeof Field>;
 
@@ -94,6 +104,55 @@ export const Group: Story = {
       <Field>
         <FieldLabel htmlFor="g-password">Password</FieldLabel>
         <Input id="g-password" type="password" />
+      </Field>
+    </FieldGroup>
+  ),
+};
+
+/**
+ * Fields are required by default. Mark the exception with `optional`: the label gets an
+ * "(optioneel)" suffix and the control loses `aria-required`.
+ */
+export const Optional: Story = {
+  render: () => (
+    <Field optional className="w-72">
+      <FieldLabel htmlFor="phone">Telefoonnummer</FieldLabel>
+      <Input id="phone" type="tel" autoComplete="tel" />
+    </Field>
+  ),
+};
+
+/**
+ * Required and optional fields side by side. Only the optional ones are marked; `optionalText`
+ * swaps the suffix for an English form. A consent checkbox stays required, a newsletter one is optional.
+ */
+export const MixedForm: Story = {
+  render: () => (
+    <FieldGroup className="w-72">
+      <Field>
+        <FieldLabel htmlFor="mixed-name">Full name</FieldLabel>
+        <Input id="mixed-name" autoComplete="name" />
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="mixed-email">Email</FieldLabel>
+        <Input id="mixed-email" type="email" autoComplete="email" />
+      </Field>
+      <Field optional>
+        <FieldLabel htmlFor="mixed-phone" optionalText="(optional)">
+          Phone number
+        </FieldLabel>
+        <Input id="mixed-phone" type="tel" autoComplete="tel" />
+        <FieldDescription>Only used if we can't reach you by email.</FieldDescription>
+      </Field>
+      <Field orientation="horizontal" optional>
+        <Checkbox id="mixed-newsletter" />
+        <FieldLabel htmlFor="mixed-newsletter" optionalText="(optional)">
+          Send me the newsletter
+        </FieldLabel>
+      </Field>
+      <Field orientation="horizontal">
+        <Checkbox id="mixed-terms" />
+        <FieldLabel htmlFor="mixed-terms">I accept the terms of use</FieldLabel>
       </Field>
     </FieldGroup>
   ),
