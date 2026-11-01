@@ -147,7 +147,7 @@ so app utilities like `bg-primary` resolve to the same `@surfnet/curve-tokens` v
 
 shadcn components are **vendored** — copied into the package so you own and can edit
 them. The package is configured (in [`components.json`](packages/react/components.json))
-for **Base UI** primitives (`"style": "base-nova"`) and **Phosphor** icons
+for **Base UI** primitives (`"style": "base-vega"`) and **Phosphor** icons
 (`"iconLibrary": "phosphor"` → `@phosphor-icons/react`).
 
 We keep **one directory per component** (component + stories + future tests live

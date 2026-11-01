@@ -25,28 +25,29 @@ the replacement.
 
 ## Index
 
-| #   | Decision                                                                                                             | Status   | Date       |
-| --- | -------------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
-| 01  | [Monorepo structure](#adr-001--monorepo-structure)                                                                   | Accepted | 2026-06-30 |
-| 02  | [Base UI over Radix (React)](#adr-002--base-ui-over-radix-react)                                                     | Accepted | 2026-06-30 |
-| 03  | [Phosphor icons](#adr-003--phosphor-icons)                                                                           | Accepted | 2026-06-30 |
-| 04  | [Tokens as single source of truth](#adr-004--tokens-as-single-source-of-truth)                                       | Accepted | 2026-06-30 |
-| 05  | [Figma → code sync](#adr-005--figma--code-sync)                                                                      | Accepted | 2026-06-30 |
-| 06  | [Theming via a class on `<html>`](#adr-006--theming-via-a-class-on-html)                                             | Accepted | 2026-06-30 |
-| 07  | [Token naming & roles](#adr-007--token-naming--roles)                                                                | Accepted | 2026-06-29 |
-| 08  | [Explicit colors over opacity](#adr-008--explicit-colors-over-opacity)                                               | Accepted | 2026-06-29 |
-| 09  | [Modes vs themes](#adr-009--modes-vs-themes)                                                                         | Accepted | 2026-06-29 |
-| 10  | [Deviating from shadcn is manageable](#adr-010--deviating-from-shadcn-is-manageable)                                 | Accepted | 2026-06-29 |
-| 11  | [Cross-framework parity via contracts](#adr-011--cross-framework-parity-via-contracts)                               | Accepted | 2026-06-30 |
-| 12  | [Tailwind v4 for styling](#adr-012--tailwind-v4-for-styling)                                                         | Proposed | 2026-06-30 |
-| 13  | [Storybook + token docs](#adr-013--storybook--token-docs)                                                            | Accepted | 2026-06-30 |
-| 14  | [Versioning & publishing via Changesets](#adr-014--versioning--publishing-via-changesets)                            | Accepted | 2026-06-30 |
-| 15  | [Tree-shakeable React build](#adr-015--tree-shakeable-react-build)                                                   | Accepted | 2026-06-30 |
-| 16  | [Component scope built in parity](#adr-016--component-scope-built-in-parity)                                         | Accepted | 2026-06-30 |
-| 17  | [Prove it in a real app](#adr-017--prove-it-in-a-real-app)                                                           | Proposed | 2026-06-30 |
-| 18  | [Relative imports for vendored helm cross-references](#adr-018--relative-imports-for-vendored-helm-cross-references) | Accepted | 2026-07-01 |
-| 19  | [Only add components available in both frameworks](#adr-019--only-add-components-available-in-both-frameworks)       | Accepted | 2026-07-13 |
-| 20  | [Keep Command off Storybook until we use it](#adr-020--keep-command-off-storybook-until-we-use-it)                   | Accepted | 2026-09-01 |
+| #   | Decision                                                                                                             | Status                                                         | Date       |
+| --- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ---------- |
+| 01  | [Monorepo structure](#adr-001--monorepo-structure)                                                                   | Accepted                                                       | 2026-06-30 |
+| 02  | [Base UI over Radix (React)](#adr-002--base-ui-over-radix-react)                                                     | Accepted                                                       | 2026-06-30 |
+| 03  | [Phosphor icons](#adr-003--phosphor-icons)                                                                           | Accepted                                                       | 2026-06-30 |
+| 04  | [Tokens as single source of truth](#adr-004--tokens-as-single-source-of-truth)                                       | Accepted                                                       | 2026-06-30 |
+| 05  | [Figma → code sync](#adr-005--figma--code-sync)                                                                      | Accepted                                                       | 2026-06-30 |
+| 06  | [Theming via a class on `<html>`](#adr-006--theming-via-a-class-on-html)                                             | Accepted                                                       | 2026-06-30 |
+| 07  | [Token naming & roles](#adr-007--token-naming--roles)                                                                | Accepted                                                       | 2026-06-29 |
+| 08  | [Explicit colors over opacity](#adr-008--explicit-colors-over-opacity)                                               | Accepted                                                       | 2026-06-29 |
+| 09  | [Modes vs themes](#adr-009--modes-vs-themes)                                                                         | Accepted                                                       | 2026-06-29 |
+| 10  | [Deviating from shadcn is manageable](#adr-010--deviating-from-shadcn-is-manageable)                                 | Accepted                                                       | 2026-06-29 |
+| 11  | [Cross-framework parity via contracts](#adr-011--cross-framework-parity-via-contracts)                               | Accepted                                                       | 2026-06-30 |
+| 12  | [Tailwind v4 for styling](#adr-012--tailwind-v4-for-styling)                                                         | Superseded by [ADR-021](#adr-021--plain-css-in-cascade-layers) | 2026-06-30 |
+| 13  | [Storybook + token docs](#adr-013--storybook--token-docs)                                                            | Accepted                                                       | 2026-06-30 |
+| 14  | [Versioning & publishing via Changesets](#adr-014--versioning--publishing-via-changesets)                            | Accepted                                                       | 2026-06-30 |
+| 15  | [Tree-shakeable React build](#adr-015--tree-shakeable-react-build)                                                   | Accepted                                                       | 2026-06-30 |
+| 16  | [Component scope built in parity](#adr-016--component-scope-built-in-parity)                                         | Accepted                                                       | 2026-06-30 |
+| 17  | [Prove it in a real app](#adr-017--prove-it-in-a-real-app)                                                           | Proposed                                                       | 2026-06-30 |
+| 18  | [Relative imports for vendored helm cross-references](#adr-018--relative-imports-for-vendored-helm-cross-references) | Accepted                                                       | 2026-07-01 |
+| 19  | [Only add components available in both frameworks](#adr-019--only-add-components-available-in-both-frameworks)       | Accepted                                                       | 2026-07-13 |
+| 20  | [Keep Command off Storybook until we use it](#adr-020--keep-command-off-storybook-until-we-use-it)                   | Accepted                                                       | 2026-09-01 |
+| 21  | [Plain CSS in cascade layers](#adr-021--plain-css-in-cascade-layers)                                                 | Accepted                                                       | 2026-10-05 |
 
 ### Open questions (not yet decided)
 
@@ -122,6 +123,10 @@ and any consumer.
 **Decision.** **DTCG JSON is the only place tokens live** (`packages/tokens/src/tokens*.json`).
 **Style Dictionary** builds it into `tokens.css` plus a typed TS map. `@surfnet/curve-tokens` is
 published as the **only public package**.
+
+_Update (2026-07-07):_ `@surfnet/curve-tokens` is now **private** (`"private": true`). The
+public packages are `@surfnet/curve-react` and `@surfnet/curve-angular`, which inline the
+token CSS into their published `styles.css`. See [ADR-014](#adr-014--versioning--publishing-via-changesets).
 
 **Rationale.** A single typed source removes hand-edited drift between stylesheets and
 frameworks. Both component packages `@import` the generated CSS.
@@ -272,7 +277,7 @@ satisfy it.
 
 ## ADR-012 — Tailwind v4 for styling
 
-**Status:** Proposed · **Date:** 2026-06-30
+**Status:** Superseded by [ADR-021](#adr-021--plain-css-in-cascade-layers) · **Date:** 2026-06-30
 
 **Context.** There was pushback that utility-first CSS is "disguised inline styling."
 
@@ -317,6 +322,11 @@ Angular components moved to plain CSS; both Storybooks share
 
 **Decision.** Use **Changesets** for versioning and changelog. Publish to public npm from
 **GitHub Actions**. Only `@surfnet/curve-tokens` is public today.
+
+_Update (2026-07-07):_ that changed — `@surfnet/curve-react` and `@surfnet/curve-angular` are
+the public packages. `@surfnet/curve-tokens`, `@surfnet/curve-contracts`,
+`@surfnet/curve-storybook-config` and `@surfnet/curve-typescript-config` are private:
+Changesets versions them but never publishes them.
 
 **Rationale.** Changesets ties each change to a semver bump and a consumer-facing
 changelog entry; CI owns version/publish so contributors only commit the changeset file.
@@ -484,3 +494,27 @@ later.
 `packages/angular/src/lib/ui/command/src/lib/hlm-command.stories.ts` (git history has the
 last versions), covering the full surface the way the other components do. Until then,
 treat Command as internal plumbing, not a documented Curve component.
+
+---
+
+## ADR-021 — Plain CSS in cascade layers
+
+**Status:** Accepted · **Date:** 2026-10-05 · **Supersedes:** [ADR-012](#adr-012--tailwind-v4-for-styling)
+
+**Context.** [ADR-012](#adr-012--tailwind-v4-for-styling) put Tailwind v4 in both component
+packages as a PoC trial. In practice that tied consumers to our Tailwind setup and kept the
+"disguised inline styling" concern alive.
+
+**Decision.** Both component packages style with **plain CSS in cascade layers**, without
+Tailwind. React uses co-located **CSS Modules**; Angular uses a co-located `hlm-<name>.css`
+per component (`curve-*` classes). The layers use Tailwind v4's names and order
+(`@layer theme, base, components, utilities;`). Design tokens still come from
+`@surfnet/curve-tokens` as unlayered custom properties.
+
+**Rationale.** Plain CSS removes Tailwind as a hidden dependency of the published packages.
+Matching Tailwind's layer names means a consumer's own Tailwind build merges into the same
+layers, so app utilities still beat component styles in a predictable way.
+
+**Consequences.** Neither published `styles.css` contains Tailwind; apps can add their own
+Tailwind on top (the demo app does, see [AGENTS.md](../AGENTS.md)). Storybook uses no
+Tailwind either: story layout classes live in `@surfnet/curve-storybook-config/story-chrome.css`.
