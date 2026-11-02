@@ -1,183 +1,99 @@
 # Add a React component (`@surfnet/curve-react`)
 
-Part of the **add-component** skill — see [`SKILL.md`](SKILL.md) for scope/parity.
+Part of the **add-component** skill — see [`SKILL.md`](SKILL.md). This covers what's left
+**after** `pnpm component:import` / `pnpm component:new` (or [`manual.md`](manual.md)) has
+vendored the component, barrel, exports, contract and stubs.
 
-Components are **vendored** with the shadcn CLI — copied into the package so we own and
-edit them. The package is pre-configured (`packages/react/components.json`) for **Base
-UI** primitives (`"style": "base-vega"`) and **Phosphor** icons (`"iconLibrary": "phosphor"`).
-Never hand-write a primitive or switch `style` to a Radix value.
+Never hand-write a primitive or switch `components.json` `style` to a Radix value.
 
-**Styling:** library components use **co-located CSS Modules** (`*.module.css`) and Curve
-tokens (`var(--primary)`, `var(--border)`, …). The shadcn CLI may still emit Tailwind
-utility strings — **migrate them to a module** before considering the component done. See
-[`packages/react/docs/css-modules-pilot.md`](../../packages/react/docs/css-modules-pilot.md)
-for the pattern, migration table, and gaps (e.g. overlay motion not ported).
+## 1. Move Tailwind into `<name>.module.css`
 
-> **Available tooling:** the **`shadcn` skill** (`.agents/skills/shadcn/`) is the deep
-> reference for component APIs, registries, and presets, and the repo exposes a **shadcn
-> MCP server** (`.mcp.json` / `.vscode/mcp.json`, scoped to this package) for
-> browsing/searching/installing via natural language. The MCP adds files **flat**, so for
-> the per-directory layout below either use the CLI `--path` flow or move the file + add a
-> barrel after an MCP install.
+Library components use **co-located CSS Modules** and Curve tokens (`var(--primary)`,
+`var(--border)`, …). The shadcn CLI emits Tailwind utility strings — migrate them to the
+module stub. Pattern, migration table and gaps (e.g. overlay motion not ported):
+[`packages/react/docs/css-modules-pilot.md`](../../packages/react/docs/css-modules-pilot.md).
 
-## Steps
+- Prefer semantic tokens, not Tailwind utilities or `--color-*` scales.
+- Put layout, states and variant rules in the module; use `data-variant`, `data-size`,
+  `data-orientation`, etc. on the element when selectors need them.
+- Merge with `cn(styles.root, className)` from `@/lib/utils` (consumers can still pass
+  classes, including app-level Tailwind).
+- With `noUncheckedIndexedAccess`, assert the import when you need dotted access:
 
-1. **Define the contract first.** Before vendoring, add `<name>Contract` to
-   `@surfnet/curve-contracts` (see the [Contract step in SKILL.md](SKILL.md#contract-step)) — this
-   is required for **every** component, including structural primitives that get a
-   description-only contract. It settles the axis names before the component is written.
+  ```ts
+  type CardModuleClasses = { root: string; variantOutline: string };
+  const styles = cardStyles as CardModuleClasses;
+  ```
 
-2. **Vendor the component into its own directory.** Pass `--path` with a trailing slash
-   so the file lands inside a folder named after the component:
+- **Do not** add `class-variance-authority` / `cva` maps — use module classes + optional
+  exported `cardVariants()` helpers (see `button.tsx`).
 
-   ```bash
-   cd packages/react
-   # trailing slash → src/components/ui/card/card.tsx
-   pnpm dlx shadcn@latest add card --path src/components/ui/card/
-   ```
+## 2. Wire the contract axes
 
-   The CLI resolves Base UI source and Phosphor icon imports automatically from
-   `components.json`. (A `--dry-run` preview _displays_ a flat path — ignore that; the
-   real write nests correctly.)
+For every axis in `packages/contracts/src/<name>.ts`, import its `*Name` union:
 
-3. **Add `card.module.css` and wire styles.** Prefer semantic tokens, not Tailwind
-   utilities or shadcn/css `--color-*` scales.
+**a. Variant / size class map → `satisfies Record<…>`** (e.g. `button`, `badge`, `toggle`):
 
-   - Put layout, states, and variant rules in the module; use `data-variant`, `data-size`,
-     `data-orientation`, etc. on the element when selectors need them.
-   - Import the module in `card.tsx` and merge with `cn(styles.root, className)` from
-     `@/lib/utils` (lets consumers pass extra classes, including app-level Tailwind).
-   - TypeScript: `packages/react/src/vite-env.d.ts` already declares `*.module.css`. With
-     `noUncheckedIndexedAccess`, assert the import when you need dotted access:
+```ts
+import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
 
-     ```ts
-     type CardModuleClasses = { root: string; variantOutline: string };
-     const styles = cardStyles as CardModuleClasses;
-     ```
+const variantClass = {
+  default: styles.variantDefault,
+  outline: styles.variantOutline,
+} satisfies Record<CardVariantName, string>;
 
-   - **Do not** add new `class-variance-authority` / Tailwind `cva` maps in React — use
-     module classes + optional exported `cardVariants()` helpers (see `button.tsx`).
-
-4. **Tie the component to the contract — for every axis it has.** Import the `*Name` unions
-   from `@surfnet/curve-contracts` and wire them in:
-
-   **a. Variant / size class map → `satisfies Record<…>`** (e.g. `button`, `badge`,
-   `toggle`):
-
-   ```ts
-   import type { CardVariantName, CardSizeName } from '@surfnet/curve-contracts';
-
-   const variantClass: Record<CardVariantName, string> = {
-     default: styles.variantDefault,
-     outline: styles.variantOutline,
-   } satisfies Record<CardVariantName, string>;
-
-   export function cardVariants({
-     variant = 'default',
-     size = 'default',
-     className,
-   }: {
-     variant?: CardVariantName;
-     size?: CardSizeName;
-     className?: string;
-   } = {}) {
-     return cn(styles.card, variantClass[variant], sizeClass[size], className);
-   }
-   ```
-
-   Export `cardVariants` when another component composes your styles (Calendar →
-   `buttonVariants`, Toggle group → `toggleVariants`).
-
-   **b. Inline-union prop → type the prop** (e.g. `select` trigger size, `dropdown-menu`
-   item variant):
-
-   ```ts
-   import type { AvatarSizeName } from '@surfnet/curve-contracts';
-
-   function Avatar({ size = 'default', ...props }: AvatarPrimitive.Root.Props & {
-     size?: AvatarSizeName;
-   }) {
-     return (
-       <AvatarPrimitive.Root data-size={size} className={cn(styles.root, className)} />
-     );
-   }
-   ```
-
-   A **description-only** contract has no axis to enforce — skip wiring, but still add a
-   module and pull `docs.description` from the contract in Storybook.
-
-   Confirm `pnpm lint` passes — a name mismatch between the component and the contract
-   type is a compile error.
-
-5. **Add a barrel** `src/components/ui/card/index.ts`:
-
-   ```ts
-   export * from './card';
-   ```
-
-   This keeps `@/components/ui/card` imports resolving for other shadcn components.
-
-6. **Re-export from the package entry** `src/index.ts`:
-
-   ```ts
-   export * from '@/components/ui/card';
-   ```
-
-7. **Add a story** `src/components/ui/card/card.stories.tsx`. Mirror
-   `src/components/ui/button/button.stories.tsx`: a `Playground` with `argTypes`/`args`,
-   plus stories covering every variant/size/state the component offers. Source the docs
-   description **and** any axis lists from the contract object (`cardContract.description`,
-   `cardContract.variants`, `cardContract.variantDocs`, etc.) instead of duplicating
-   literals.
-
-   **Story layout:** Tailwind utilities in `*.stories.tsx` are fine for demo chrome
-   (`flex gap-3`, `w-80`) — they are not shipped as the component API. Keep component
-   `className` overrides in stories minimal so visuals reflect the module.
-
-   **Every control you declare must be live.** A control in `argTypes`/`args` only does
-   something if a story actually consumes those args — an args-driven Playground (`export
-   const Default: Story = {}`, or `render: (args) => <Card {...args} />`). If _every_ story
-   hardcodes its props in `render`, the control is dead. See existing button stories.
-
-## Target layout
-
+export function cardVariants({
+  variant = 'default',
+  size = 'default',
+  className,
+}: { variant?: CardVariantName; size?: CardSizeName; className?: string } = {}) {
+  return cn(styles.card, variantClass[variant], sizeClass[size], className);
+}
 ```
-src/components/ui/card/
-├── card.tsx           # vendored component (Base UI + module classes)
-├── card.module.css    # component styles (Curve tokens)
-├── card.stories.tsx   # Storybook story
-└── index.ts           # export * from './card'
+
+Export `cardVariants` when another component composes your styles (Calendar →
+`buttonVariants`, Toggle group → `toggleVariants`).
+
+**b. Inline-union prop → type the prop** (e.g. `select` trigger size):
+
+```ts
+function Avatar({ size = 'default', ...props }: AvatarPrimitive.Root.Props & {
+  size?: AvatarSizeName;
+}) {
+  return <AvatarPrimitive.Root data-size={size} className={cn(styles.root, className)} />;
+}
 ```
+
+A description-only contract has nothing to wire. `pnpm lint` fails on any name mismatch.
+
+## 3. Fill in the story
+
+Expand the stub `<name>.stories.tsx`, mirroring
+`src/components/ui/button/button.stories.tsx`: a `Playground` with `argTypes`/`args`, plus
+stories for every variant/size/state. Source the description **and** axis lists from the
+contract (`cardContract.description`, `.variants`, `.variantDocs`, …) instead of literals.
+
+- Layout classes come from `story-chrome.css` (`flex gap-3`, `w-80`); add one there if
+  needed. Keep component `className` overrides minimal so visuals reflect the module.
+- **Every control you declare must be live**: at least one args-driven story
+  (`export const Default: Story = {}` or `render: (args) => <Card {...args} />`) must consume
+  it. Don't declare a control no story uses.
+- Tag stories `skip-visual` if they can't be snapshotted stably.
 
 ## Verify
 
 ```bash
-pnpm --filter @surfnet/curve-contracts lint       # contract types still compile
-pnpm --filter @surfnet/curve-react lint           # tsc --noEmit (satisfies check runs here)
-pnpm --filter @surfnet/curve-react build          # vite lib build + d.ts; CSS → dist/styles.css
+pnpm check:conventions
+pnpm --filter @surfnet/curve-react lint     # satisfies check runs here
+pnpm --filter @surfnet/curve-react build
 pnpm --filter @surfnet/curve-react build-storybook
-pnpm format
-pnpm test:visual   # after both Storybooks are built
+pnpm format && pnpm test:visual
 ```
-
-## Definition of done
-
-- Component vendored via the shadcn CLI — never hand-written.
-- Co-located `*.module.css`; no Tailwind utility strings left in the component `.tsx`.
-- A `<name>Contract` entry exists in `@surfnet/curve-contracts` (description-only if the
-  component has no axis). For every axis, the component is tied to the contract via
-  `satisfies Record<...>` and/or `*Name` prop types; `pnpm lint` fails on name drift.
-- Barrel `index.ts` in place; component exported from `src/index.ts`.
-- Story covers full variant/size/state surface, sourcing its description and axis lists from
-  the contract object.
-- `pnpm build`, `pnpm lint`, `pnpm format`, and `build-storybook` all pass.
-- Visual tests pass (`pnpm test:visual`). Refresh baselines with `pnpm test:visual:update`
-  when appearance changed. Tag stories `skip-visual` if they cannot be snapshotted stably.
 
 ## Updating an existing component
 
-Do not re-run `shadcn add` (or `--overwrite`) on a component that is already
-vendored. Follow [`update-component/react.md`](../update-component/react.md).
+Do not re-run `shadcn add` (or `--overwrite`) on a vendored component. Use
+`pnpm component:update` or [`update-component/react.md`](../update-component/react.md).
 Restyling or merging upstream can have an effect on accessibility.
 
 ## Notes
@@ -193,8 +109,8 @@ Restyling or merging upstream can have an effect on accessibility.
 - **Native alternatives:** for simple form controls, consider a `Native*` sibling +
   description-only contract (see `css-modules-pilot.md` table). Do not replace Base UI
   overlays without an explicit product decision.
-- If the component pulls in sibling shadcn components, apply the same per-directory +
-  barrel + module treatment to each.
+- If the component pulls in sibling shadcn components, give each the same module
+  treatment.
 - The `@surfnet/curve-contracts` import is a `devDependency` only — it must not appear in
   published `dist`. Types and `satisfies` erase at compile time.
 - **No Tailwind in `@surfnet/curve-react`** — not in the lib build or Storybook. New story
