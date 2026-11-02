@@ -1,5 +1,18 @@
 # @surfnet/curve-react
 
+## 0.10.0
+
+### Minor Changes
+
+- de613d0: Breaking (react): default of alignItemWithTrigger prop on SelectContent is now `false`
+- 02f4a66: Form fields are now required by default. Input, Textarea, NativeSelect, Select, Checkbox, Switch, RadioGroup and InputOTP get `aria-required="true"` unless they sit in an optional field, so screen readers announce them as required. Mark the exceptions with `<Field optional>` (React) or `<div hlmField optional>` (Angular): the label then shows an "(optioneel)" suffix (override with `optionalText`) and the control drops `aria-required`. An explicit `aria-required` on a control still wins. This only affects what is announced, not validation.
+
+  **Action needed:** add `optional` to the Fields in your forms that are not required, or they will be announced as required.
+
+### Patch Changes
+
+- 05d347d: Fix controls keeping a thin border after a mouse click (button, toggle, badge, tabs, accordion, checkbox, switch, radio group, item, select). The focus border colour is now only applied on keyboard focus (`:focus-visible`), together with the focus ring.
+
 ## 0.9.0
 
 ### Minor Changes
