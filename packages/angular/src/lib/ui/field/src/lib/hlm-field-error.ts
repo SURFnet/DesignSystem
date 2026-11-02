@@ -15,7 +15,7 @@ import { phosphorWarningCircle } from '@ng-icons/phosphor-icons/regular';
 import { BrnField, BrnFieldA11yService } from '@spartan-ng/brain/field';
 import { HlmIcon } from '../../../icon/src';
 import { classes } from '../../../utils/src';
-import { fieldErrorMessage, HLM_FIELD_ERROR_MESSAGES } from './hlm-field-error-messages';
+import { fieldErrorMessages, HLM_FIELD_ERROR_MESSAGES } from './hlm-field-error-messages';
 
 @Component({
   selector: 'hlm-field-error',
@@ -31,14 +31,21 @@ import { fieldErrorMessage, HLM_FIELD_ERROR_MESSAGES } from './hlm-field-error-m
     '[hidden]': '!_display()',
   },
   // CURVE: a11y (issue #273) — an icon so the error isn't shown by colour alone, and when no
-  // content is given, a message from the control's errors (see provideHlmFieldErrorMessages).
+  // content is given, the messages from the control's errors (see provideHlmFieldErrorMessages);
+  // several become a list, as in React's FieldError.
   // The CSS hides that message while the projected content isn't empty.
   template: `
     @if (_display()) {
       <ng-icon hlm size="16px" name="phosphorWarningCircle" class="curve-field-error-icon" />
       <span class="curve-field-error-text"><ng-content /></span>
-      @if (_message(); as message) {
-        <span class="curve-field-error-message">{{ message }}</span>
+      @if (_messages().length === 1) {
+        <span class="curve-field-error-message">{{ _messages()[0] }}</span>
+      } @else if (_messages().length > 1) {
+        <ul class="curve-field-error-message curve-field-error-list">
+          @for (message of _messages(); track message) {
+            <li>{{ message }}</li>
+          }
+        </ul>
       }
     }
   `,
@@ -48,7 +55,7 @@ export class HlmFieldError implements OnDestroy {
 
   private readonly _field = inject(BrnField, { optional: true });
   private readonly _a11y = inject(BrnFieldA11yService, { optional: true, host: true });
-  private readonly _messages = inject(HLM_FIELD_ERROR_MESSAGES);
+  private readonly _errorMessages = inject(HLM_FIELD_ERROR_MESSAGES);
 
   private _registeredId?: string | undefined;
 
@@ -82,9 +89,9 @@ export class HlmFieldError implements OnDestroy {
     return validator ? validator in errors : Object.keys(errors).length > 0;
   });
 
-  protected readonly _message = computed(() => {
+  protected readonly _messages = computed(() => {
     const errors = this._hasError() ? this._field?.errors() : null;
-    return errors ? fieldErrorMessage(errors, this._messages, this.validator()) : null;
+    return errors ? fieldErrorMessages(errors, this._errorMessages, this.validator()) : [];
   });
 
   private readonly _cleanup: EffectRef | null = this._a11y

@@ -92,6 +92,23 @@ export const WithError: Story = {
   ),
 };
 
+/** Several errors (e.g. from a form library's `errors`) render as a list. */
+export const WithErrors: Story = {
+  render: () => (
+    <Field data-invalid className="w-72">
+      <FieldLabel htmlFor="code">Code</FieldLabel>
+      <Input id="code" defaultValue="a1" aria-invalid aria-describedby="code-error" />
+      <FieldError
+        id="code-error"
+        errors={[
+          { message: 'Vul minimaal 6 tekens in.' },
+          { message: 'De invoer heeft niet het juiste formaat.' },
+        ]}
+      />
+    </Field>
+  ),
+};
+
 /** Several fields grouped, with a labelled separator. */
 export const Group: Story = {
   render: () => (

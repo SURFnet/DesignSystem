@@ -198,6 +198,17 @@
   margin-block-start: 0.125rem;
 }
 
+/* Several messages: a list, as in React's FieldError. */
+.curve-field-error-list {
+  margin: 0;
+  margin-left: 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing, 0.25rem) * 1);
+  list-style: disc;
+}
+
 /* Projected content wins over the automatic message. */
 .curve-field-error-text:empty,
 .curve-field-error-text:not(:empty) + .curve-field-error-message {

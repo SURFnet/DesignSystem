@@ -39,23 +39,24 @@ export function provideHlmFieldErrorMessages(messages: HlmFieldErrorMessages): P
 }
 
 /**
- * The message for a control's errors: the first error (or `validator`'s) whose value is a string
- * — e.g. a JsonForms or server message — or whose key has a message; otherwise `default`.
+ * The messages for a control's errors (or only `validator`'s), without duplicates: a string error
+ * as-is — e.g. a JsonForms or server message — else the message for its key, else `default`.
  */
-export function fieldErrorMessage(
+export function fieldErrorMessages(
   errors: Record<string, unknown>,
   messages: HlmFieldErrorMessages,
   validator?: string,
-): string | null {
+): string[] {
+  const resolve = (message: HlmFieldErrorMessage | undefined, error: unknown) =>
+    typeof message === 'function' ? message(error) : message;
   const keys = validator ? [validator] : Object.keys(errors);
-  for (const key of keys) {
-    if (!(key in errors)) continue;
-    const error = errors[key];
-    if (typeof error === 'string' && error.trim()) return error;
-    const message = messages[key];
-    if (message !== undefined) return typeof message === 'function' ? message(error) : message;
-  }
-  const fallback = messages['default'];
-  if (fallback === undefined) return null;
-  return typeof fallback === 'function' ? fallback(undefined) : fallback;
+  const result = keys
+    .filter((key) => key in errors)
+    .map((key) => {
+      const error = errors[key];
+      if (typeof error === 'string' && error.trim()) return error;
+      return resolve(messages[key] ?? messages['default'], error);
+    })
+    .filter((message): message is string => !!message);
+  return [...new Set(result)];
 }

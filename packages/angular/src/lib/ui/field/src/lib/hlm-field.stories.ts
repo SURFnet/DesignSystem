@@ -111,7 +111,8 @@ export const WithError: Story = {
 
 /**
  * An empty `hlm-field-error` shows a message from the control's errors: a string error as-is
- * (e.g. a JsonForms or server message), else Curve's message for the validator key.
+ * (e.g. a JsonForms or server message), else Curve's message for the validator key. Several
+ * errors become a list.
  */
 export const AutomaticMessages: Story = {
   render: () => {
@@ -120,6 +121,9 @@ export const AutomaticMessages: Story = {
       name: new FormControl('Al', { validators: [Validators.minLength(3)] }),
       postcode: new FormControl('1234', {
         validators: [() => ({ error: 'Vul een postcode in zoals 1234 AB.' })],
+      }),
+      code: new FormControl('a1', {
+        validators: [Validators.minLength(6), Validators.pattern(/^[A-Z0-9]*$/)],
       }),
     });
     form.markAllAsTouched();
@@ -141,6 +145,11 @@ export const AutomaticMessages: Story = {
 					<div hlmField>
 						<label hlmFieldLabel for="auto-postcode">Postcode</label>
 						<input hlmInput formControlName="postcode" id="auto-postcode" />
+						<hlm-field-error />
+					</div>
+					<div hlmField>
+						<label hlmFieldLabel for="auto-code">Code</label>
+						<input hlmInput formControlName="code" id="auto-code" />
 						<hlm-field-error />
 					</div>
 				</form>
