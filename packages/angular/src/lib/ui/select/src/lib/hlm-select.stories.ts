@@ -4,6 +4,7 @@ import {
   type Meta,
   type StoryObj,
 } from '@storybook/angular';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectContract } from '@surfnet/curve-contracts';
 import { HlmSelectImports } from '..';
 import { HlmSelect } from './hlm-select';
@@ -13,7 +14,7 @@ const meta: Meta<HlmSelect> = {
   component: HlmSelect,
   decorators: [
     moduleMetadata({
-      imports: [HlmSelectImports],
+      imports: [HlmSelectImports, ReactiveFormsModule],
     }),
     componentWrapperDecorator(
       (story) => story,
@@ -141,6 +142,44 @@ export const Sizes: Story = {
           )
           .join('')}
 			</div>
+		`,
+  }),
+};
+
+/**
+ * Invalid state. The first select is required: tab past it (or open and close it) without
+ * choosing to see the error. The second uses `forceInvalid`.
+ */
+export const Error: Story = {
+  render: () => ({
+    props: {
+      form: new FormGroup({
+        category: new FormControl<string | null>(null, { validators: [Validators.required] }),
+      }),
+    },
+    template: `
+			<form [formGroup]="form" class="flex items-center gap-3">
+				<hlm-select formControlName="category">
+					<hlm-select-trigger class="w-56" aria-label="Category">
+						<hlm-select-value placeholder="Pick a category" />
+					</hlm-select-trigger>
+					<hlm-select-content *hlmSelectPortal>
+						@for (item of items; track item.value) {
+							<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+						}
+					</hlm-select-content>
+				</hlm-select>
+				<hlm-select>
+					<hlm-select-trigger class="w-56" aria-label="Category (forced invalid)" forceInvalid>
+						<hlm-select-value placeholder="Pick a category" />
+					</hlm-select-trigger>
+					<hlm-select-content *hlmSelectPortal>
+						@for (item of items; track item.value) {
+							<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+						}
+					</hlm-select-content>
+				</hlm-select>
+			</form>
 		`,
   }),
 };
