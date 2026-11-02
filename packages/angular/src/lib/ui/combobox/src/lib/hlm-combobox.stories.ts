@@ -1,9 +1,11 @@
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, signal } from '@angular/core';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { comboboxContract } from '@surfnet/curve-contracts';
 
 import { HlmCombobox } from './hlm-combobox';
 import { HlmComboboxImports } from '..';
+import { HlmFieldImports } from '../../../field/src';
 
 const meta: Meta<HlmCombobox> = {
   title: 'Components/Combobox',
@@ -12,7 +14,7 @@ const meta: Meta<HlmCombobox> = {
   component: HlmCombobox,
   decorators: [
     moduleMetadata({
-      imports: [HlmComboboxImports],
+      imports: [HlmComboboxImports, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -140,4 +142,36 @@ export const Disabled: Story = {
 			</hlm-combobox>
 		`,
   }),
+};
+
+/** A required combobox left empty: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const form = new FormGroup({
+      country: new FormControl<string | null>(null, { validators: [Validators.required] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="w-64">
+					<div hlmField>
+						<label hlmFieldLabel>Country</label>
+						<hlm-combobox formControlName="country">
+							<hlm-combobox-input placeholder="Search a country…" />
+							<hlm-combobox-content *hlmComboboxPortal>
+								<hlm-combobox-empty>No countries found.</hlm-combobox-empty>
+								<div hlmComboboxList>
+									<hlm-combobox-item value="Belgium">Belgium</hlm-combobox-item>
+									<hlm-combobox-item value="Netherlands">Netherlands</hlm-combobox-item>
+								</div>
+							</hlm-combobox-content>
+						</hlm-combobox>
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };

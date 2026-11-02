@@ -1,15 +1,17 @@
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { HlmCheckbox, HlmCheckboxImports } from '..';
 import { HlmLabel } from '../../../label/src/lib/hlm-label';
 import { checkboxContract } from '@surfnet/curve-contracts';
+import { HlmFieldImports } from '../../../field/src';
 
 const meta: Meta<HlmCheckbox> = {
   title: 'Components/Checkbox',
   component: HlmCheckbox,
   decorators: [
     moduleMetadata({
-      imports: [HlmCheckboxImports, HlmLabel],
+      imports: [HlmCheckboxImports, HlmLabel, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -79,4 +81,29 @@ export const States: Story = {
 			</div>
     `,
   }),
+};
+
+/** A required checkbox left unchecked: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const form = new FormGroup({
+      terms: new FormControl(false, { validators: [Validators.requiredTrue] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form">
+					<div hlmField orientation="horizontal">
+						<hlm-checkbox inputId="invalid-terms" formControlName="terms" />
+						<div hlmFieldContent>
+							<label hlmFieldLabel for="invalid-terms">I accept the terms</label>
+							<hlm-field-error />
+						</div>
+					</div>
+				</form>
+			`,
+    };
+  },
 };

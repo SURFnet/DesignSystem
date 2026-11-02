@@ -109,18 +109,25 @@ export const Disabled: Story = {
   }),
 };
 
-/** Invalid state. Touch the input to test the required validator. */
+/** Invalid state: a required field left empty shows its error message. */
 export const Error: Story = {
-  render: () => ({
-    props: {
-      form: new FormGroup({
-        test: new FormControl('', { validators: [Validators.required] }),
-      }),
-    },
-    template: `
-			<form [formGroup]="form" class="w-full max-w-md">
-    		<input hlmInput formControlName="test" class="w-72" placeholder="Invalid value" />
-			</form>
-    `,
-  }),
+  render: () => {
+    const form = new FormGroup({
+      email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="w-full max-w-md">
+					<div hlmField class="w-72">
+						<label hlmFieldLabel for="invalid-email">Email</label>
+						<input hlmInput formControlName="email" id="invalid-email" type="email" />
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };

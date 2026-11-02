@@ -187,6 +187,23 @@
   color: var(--destructive);
 }
 
+.curve-field-error:not([hidden]) {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
+}
+
+.curve-field-error-icon {
+  flex-shrink: 0;
+  margin-block-start: 0.125rem;
+}
+
+/* Projected content wins over the automatic message. */
+.curve-field-error-text:empty,
+.curve-field-error-text:not(:empty) + .curve-field-error-message {
+  display: none;
+}
+
 .curve-field-set {
   display: flex;
   flex-direction: column;

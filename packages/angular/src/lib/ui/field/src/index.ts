@@ -13,6 +13,7 @@ export * from './lib/hlm-field';
 export * from './lib/hlm-field-content';
 export * from './lib/hlm-field-description';
 export * from './lib/hlm-field-error';
+export * from './lib/hlm-field-error-messages';
 export * from './lib/hlm-field-group';
 export * from './lib/hlm-field-label';
 export * from './lib/hlm-field-legend';

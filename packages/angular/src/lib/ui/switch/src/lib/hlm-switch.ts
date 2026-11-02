@@ -21,6 +21,7 @@ import {
   injectAriaRequired,
   syncAriaRequired,
 } from '../../../field/src/lib/hlm-field-required';
+import { injectFieldDescribedBy } from '../../../field/src/lib/hlm-field-a11y';
 
 export const HLM_SWITCH_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -51,7 +52,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
       [id]="inputId()"
       [aria-label]="ariaLabel()"
       [aria-labelledby]="ariaLabelledby()"
-      [aria-describedby]="ariaDescribedby()"
+      [aria-describedby]="_describedBy()"
     >
       <brn-switch-thumb hlm />
     </brn-switch>
@@ -93,6 +94,9 @@ export class HlmSwitch implements ControlValueAccessor {
 
   /** Used to set the aria-describedby attribute on the underlying brn element. */
   public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
+
+  // CURVE: a11y (issue #273) — also link the field's description and error.
+  protected readonly _describedBy = injectFieldDescribedBy(this.ariaDescribedby);
 
   protected readonly _disabled = linkedSignal(this.disabled);
 

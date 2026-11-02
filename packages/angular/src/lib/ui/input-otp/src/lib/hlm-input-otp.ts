@@ -1,4 +1,13 @@
-import { afterRenderEffect, Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import {
+  afterRenderEffect,
+  computed,
+  Directive,
+  ElementRef,
+  inject,
+  input,
+  Renderer2,
+} from '@angular/core';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
 import { classes } from '../../../utils/src';
 import {
@@ -6,9 +15,13 @@ import {
   injectAriaRequired,
   syncAriaRequired,
 } from '../../../field/src/lib/hlm-field-required';
+import { injectFieldDescribedBy, syncAttribute } from '../../../field/src/lib/hlm-field-a11y';
 
 @Directive({
   selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
+  // CURVE: a11y (issue #273) — Brain's OTP doesn't report its form control to hlmField, so the
+  // field never showed its error. The group and slots read this for their invalid styling.
+  hostDirectives: [BrnFieldControl],
   host: {
     'data-slot': 'input-otp',
     // Consume aria-label on the host so it can be forwarded to the inner <input>.
@@ -20,6 +33,7 @@ export class HlmInputOtp {
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
   private readonly _renderer = inject(Renderer2);
   private readonly _otp = inject(BrnInputOtp);
+  private readonly _fieldControl = inject(BrnFieldControl);
 
   private _statusEl: HTMLElement | null = null;
 
@@ -39,6 +53,12 @@ export class HlmInputOtp {
     classes(() => 'curve-input-otp');
     // CURVE: required by default unless inside an optional field (issue #144).
     syncAriaRequired('input[data-slot="input-otp"]', injectAriaRequired(this.ariaRequiredOverride));
+    syncAttribute(
+      'input[data-slot="input-otp"]',
+      'aria-invalid',
+      computed(() => (this._fieldControl.invalid() ? 'true' : null)),
+    );
+    syncAttribute('input[data-slot="input-otp"]', 'aria-describedby', injectFieldDescribedBy());
 
     afterRenderEffect(() => {
       const label = this.ariaLabel();

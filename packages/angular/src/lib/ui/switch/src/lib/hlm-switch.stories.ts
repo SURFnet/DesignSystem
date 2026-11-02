@@ -1,15 +1,17 @@
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { switchContract } from '@surfnet/curve-contracts';
 
 import { HlmSwitch, HlmSwitchImports } from '..';
 import { HlmLabel } from '../../../label/src/lib/hlm-label';
+import { HlmFieldImports } from '../../../field/src';
 
 const meta: Meta<HlmSwitch> = {
   title: 'Components/Switch',
   component: HlmSwitch,
   decorators: [
     moduleMetadata({
-      imports: [HlmSwitchImports, HlmLabel],
+      imports: [HlmSwitchImports, HlmLabel, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -110,4 +112,29 @@ export const States: Story = {
       </div>
     `,
   }),
+};
+
+/** A switch that must be on: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const form = new FormGroup({
+      consent: new FormControl(false, { validators: [Validators.requiredTrue] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form">
+					<div hlmField orientation="horizontal">
+						<hlm-switch inputId="invalid-consent" formControlName="consent" />
+						<div hlmFieldContent>
+							<label hlmFieldLabel for="invalid-consent">Share usage data</label>
+							<hlm-field-error />
+						</div>
+					</div>
+				</form>
+			`,
+    };
+  },
 };

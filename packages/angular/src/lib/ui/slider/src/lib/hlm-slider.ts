@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { BrnSlider, BrnSliderImports, injectBrnSlider } from '@spartan-ng/brain/slider';
 import { classes } from '../../../utils/src';
+import { injectFieldDescribedBy } from '../../../field/src/lib/hlm-field-a11y';
 
 @Component({
   selector: 'hlm-slider, brn-slider [hlm]',
@@ -38,7 +40,12 @@ import { classes } from '../../../utils/src';
       </div>
 
       @for (i of _slider.thumbIndexes(); track i) {
-        <span class="curve-slider-thumb" brnSliderThumb></span>
+        <span
+          class="curve-slider-thumb"
+          brnSliderThumb
+          [attr.aria-invalid]="_fieldControl?.invalid() ? 'true' : null"
+          [attr.aria-describedby]="_describedBy()"
+        ></span>
       }
     </div>
 
@@ -57,6 +64,11 @@ import { classes } from '../../../utils/src';
 })
 export class HlmSlider {
   protected readonly _slider = injectBrnSlider();
+
+  // CURVE: a11y (issue #273) — Brain sets aria-invalid on the host; the focusable thumbs need it,
+  // and the field's description and error.
+  protected readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+  protected readonly _describedBy = injectFieldDescribedBy();
 
   constructor() {
     // Styling lives in ./hlm-slider.css; `group` stays as a hook for consumers' Tailwind.

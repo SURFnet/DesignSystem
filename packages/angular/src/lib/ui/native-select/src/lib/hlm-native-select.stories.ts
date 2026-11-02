@@ -1,15 +1,17 @@
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { nativeSelectContract } from '@surfnet/curve-contracts';
 
 import { HlmNativeSelect, HlmNativeSelectImports } from '..';
 import { HlmLabel } from '../../../label/src';
+import { HlmFieldImports } from '../../../field/src';
 
 const meta: Meta<HlmNativeSelect> = {
   title: 'Components/NativeSelect',
   component: HlmNativeSelect,
   decorators: [
     moduleMetadata({
-      imports: [HlmNativeSelectImports, HlmLabel],
+      imports: [HlmNativeSelectImports, HlmLabel, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -117,16 +119,29 @@ export const Disabled: Story = {
   }),
 };
 
-/** Invalid state, forced via `forceInvalid`. */
+/** A required select left empty: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => ({
-    template: `
-    <label hlmLabel for="invalid-select" class="sr-only">Invalid select</label>
-      <hlm-native-select selectId="invalid-select" forceInvalid value="">
-        <option hlmNativeSelectOption value="" disabled>Choose an option</option>
-        <option hlmNativeSelectOption value="apple">Apple</option>
-        <option hlmNativeSelectOption value="banana">Banana</option>
-      </hlm-native-select>
-    `,
-  }),
+  render: () => {
+    const form = new FormGroup({
+      fruit: new FormControl('', { validators: [Validators.required] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="w-72">
+					<div hlmField>
+						<label hlmFieldLabel for="invalid-select">Fruit</label>
+						<hlm-native-select selectId="invalid-select" formControlName="fruit">
+							<option hlmNativeSelectOption value="" disabled>Choose an option</option>
+							<option hlmNativeSelectOption value="apple">Apple</option>
+							<option hlmNativeSelectOption value="banana">Banana</option>
+						</hlm-native-select>
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };
