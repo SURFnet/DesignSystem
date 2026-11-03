@@ -1,5 +1,12 @@
 # @surfnet/curve-react
 
+## 0.11.0
+
+### Patch Changes
+
+- 4f36417: `FieldError` shows a warning icon before its message, so an error isn't communicated by colour alone. Matches `hlm-field-error` in `@surfnet/curve-angular`.
+- b31a8cf: `Item` now renders an `<li>` by default when placed inside an `ItemGroup`, fixing the axe `list` violation (`<ul>` with `<div>` children). Outside a group it still renders a `<div>`, and an explicit `render` prop still wins.
+
 ## 0.10.0
 
 ### Minor Changes
