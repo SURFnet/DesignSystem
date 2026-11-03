@@ -33,7 +33,7 @@
 .sbdocs-content dd:last-child {
   margin-block-end: 0;
 }
-.sbdocs-content table :where(th, td) {
+.sbdocs-content > table :where(th, td) {
   vertical-align: top;
   text-align: left;
 }
