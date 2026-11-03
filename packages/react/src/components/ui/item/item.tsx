@@ -57,8 +57,15 @@ function itemVariants({
   return cn(styles.item, variantClass[variant], sizeClass[size], className);
 }
 
+const ItemGroupContext = React.createContext(false);
+
+/** Renders a `<ul>`; `Item`s inside it default to `<li>` so the list stays valid. */
 function ItemGroup({ className, ...props }: React.ComponentProps<'ul'>) {
-  return <ul data-slot="item-group" className={cn(styles.itemGroup, className)} {...props} />;
+  return (
+    <ItemGroupContext.Provider value>
+      <ul data-slot="item-group" className={cn(styles.itemGroup, className)} {...props} />
+    </ItemGroupContext.Provider>
+  );
 }
 
 function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
@@ -81,8 +88,10 @@ function Item({
   render,
   ...props
 }: useRender.ComponentProps<'div'> & ItemVariantsOptions) {
+  const inGroup = React.useContext(ItemGroupContext);
+
   return useRender({
-    defaultTagName: 'div',
+    defaultTagName: inGroup ? 'li' : 'div',
     props: mergeProps<'div'>(
       {
         className: itemVariants({ variant, size, className }),
