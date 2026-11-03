@@ -70,21 +70,27 @@ export const Disabled: Story = {
   }),
 };
 
-/** Invalid state (e.g. after failed form validation). Touch the field to test the minimum of 8 characters. */
+/** Invalid state: a field below its minimum length shows its error message. */
 export const Invalid: Story = {
-  render: () => ({
-    props: {
-      placeholder: 'This field has an error',
-      form: new FormGroup({
-        test: new FormControl('', { validators: [Validators.required, Validators.minLength(8)] }),
+  render: () => {
+    const form = new FormGroup({
+      message: new FormControl('Hi', {
+        validators: [Validators.required, Validators.minLength(8)],
       }),
-    },
-    template: `
-			<form [formGroup]="form" class="w-full max-w-md">
-				<div hlmField>
-					<textarea hlmTextarea formControlName="test" [placeholder]="placeholder"></textarea>
-				</div>
-			</form>
-		`,
-  }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="w-full max-w-md">
+					<div hlmField>
+						<label hlmFieldLabel for="invalid-message">Message</label>
+						<textarea hlmTextarea formControlName="message" id="invalid-message"></textarea>
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };

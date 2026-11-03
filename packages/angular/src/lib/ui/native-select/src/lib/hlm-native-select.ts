@@ -20,6 +20,7 @@ import {
   ariaRequiredAttribute,
   injectAriaRequired,
 } from '../../../field/src/lib/hlm-field-required';
+import { injectFieldDescribedBy } from '../../../field/src/lib/hlm-field-a11y';
 import type { ClassValue } from 'clsx';
 import type { NativeSelectSizeName } from '@surfnet/curve-contracts';
 
@@ -43,6 +44,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
     'data-slot': 'native-select-wrapper',
     '[attr.data-size]': 'size()',
     '[attr.aria-required]': 'null',
+    '[attr.aria-describedby]': 'null',
   },
   template: `
     <select
@@ -51,6 +53,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
       [class]="_computedSelectClass()"
       [attr.data-size]="size()"
       [attr.aria-required]="_ariaRequired()"
+      [attr.aria-describedby]="_describedBy()"
       [attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
       [attr.data-invalid]="_ariaInvalid() ? 'true' : null"
       [attr.data-dirty]="_dirty?.() ? 'true' : null"
@@ -115,6 +118,12 @@ export class HlmNativeSelect implements ControlValueAccessor {
   });
 
   protected readonly _ariaRequired = injectAriaRequired(this.ariaRequiredOverride);
+
+  /** Used to set the aria-describedby attribute on the underlying select. */
+  public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
+
+  // CURVE: a11y (issue #273) — also link the field's description and error.
+  protected readonly _describedBy = injectFieldDescribedBy(this.ariaDescribedby);
 
   protected readonly _ariaInvalid = computed(
     // CURVE: a11y — forceInvalid also sets aria-invalid, so the visual and accessible

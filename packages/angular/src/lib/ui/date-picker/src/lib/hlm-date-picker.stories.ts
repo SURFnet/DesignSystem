@@ -1,8 +1,10 @@
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import { datePickerContract } from '@surfnet/curve-contracts';
 
 import { HlmButtonImports } from '../../../button/src';
 import { HlmDatePicker, HlmDatePickerImports } from '..';
+import { HlmFieldImports } from '../../../field/src';
 
 const meta: Meta<HlmDatePicker<Date>> = {
   title: 'Components/DatePicker',
@@ -11,7 +13,7 @@ const meta: Meta<HlmDatePicker<Date>> = {
   component: HlmDatePicker,
   decorators: [
     moduleMetadata({
-      imports: [HlmDatePickerImports, HlmButtonImports],
+      imports: [HlmDatePickerImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -172,4 +174,29 @@ export const WithFooterActions: Story = {
       </hlm-date-picker>
     `,
   }),
+};
+
+/** A required date left empty: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const form = new FormGroup({
+      date: new FormControl<Date | null>(null, { validators: [Validators.required] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="w-64">
+					<div hlmField>
+						<label hlmFieldLabel>Start date</label>
+						<hlm-date-picker formControlName="date">
+							<hlm-date-picker-trigger>Pick a date</hlm-date-picker-trigger>
+						</hlm-date-picker>
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };

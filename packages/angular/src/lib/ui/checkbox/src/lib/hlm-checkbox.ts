@@ -15,7 +15,6 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { BrnCheckbox } from '@spartan-ng/brain/checkbox';
-import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { HlmIcon } from '../../../icon/src';
 import { hlm } from '../../../utils/src';
@@ -25,6 +24,7 @@ import {
   injectAriaRequired,
   syncAriaRequired,
 } from '../../../field/src/lib/hlm-field-required';
+import { injectFieldDescribedBy, syncAttribute } from '../../../field/src/lib/hlm-field-a11y';
 
 export const HLM_CHECKBOX_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -38,13 +38,13 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
   providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
   viewProviders: [provideIcons({ phosphorCheck })],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  hostDirectives: [BrnFieldControlDescribedBy],
   host: {
     // `peer` stays as a hook: labels (and consumers' Tailwind) react to the checkbox state.
     class: 'curve-checkbox-root peer',
     'data-slot': 'checkbox',
     '[attr.aria-label]': 'null',
     '[attr.aria-labelledby]': 'null',
+    '[attr.aria-describedby]': 'null',
     '[attr.aria-required]': 'null',
     '[attr.data-disabled]': '_disabled() ? "" : null',
   },
@@ -59,7 +59,7 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
       [required]="required()"
       [aria-label]="ariaLabel()"
       [aria-labelledby]="ariaLabelledby()"
-      [aria-describedby]="ariaDescribedby()"
+      [aria-describedby]="_describedBy()"
       [forceInvalid]="forceInvalid()"
       (checkedChange)="_handleChange($event)"
       (touched)="_onTouched?.()"
@@ -90,6 +90,10 @@ export class HlmCheckbox implements ControlValueAccessor {
 
   /** Used to set the aria-describedby attribute on the underlying brn element. */
   public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
+
+  // CURVE: a11y (issue #273) — link the field's description and error to the focusable button,
+  // not the host element.
+  protected readonly _describedBy = injectFieldDescribedBy(this.ariaDescribedby);
 
   /** The checked state of the checkbox. */
   public readonly checkedInput = input<boolean, BooleanInput>(false, {
@@ -132,6 +136,13 @@ export class HlmCheckbox implements ControlValueAccessor {
   constructor() {
     // CURVE: required by default unless inside an optional field (issue #144).
     syncAriaRequired('button[role="checkbox"]', injectAriaRequired(this.ariaRequiredOverride));
+    // CURVE: a11y (issue #273) — Brain sets aria-invalid on brn-checkbox, not on the button.
+    // Brain's raw invalid state is protected, so this follows the shown error (touched/submitted).
+    syncAttribute(
+      'button[role="checkbox"]',
+      'aria-invalid',
+      computed(() => (this._brnCheckbox().spartanInvalid() ? 'true' : null)),
+    );
   }
 
   private readonly _brnCheckbox = viewChild.required(BrnCheckbox);

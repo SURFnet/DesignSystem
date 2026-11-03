@@ -1,3 +1,4 @@
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { sliderContract, type SliderOrientationName } from '@surfnet/curve-contracts';
 
@@ -18,7 +19,7 @@ const meta: Meta<SliderArgs> = {
   component: HlmSlider,
   decorators: [
     moduleMetadata({
-      imports: [HlmSliderImports, HlmFieldImports],
+      imports: [HlmSliderImports, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -123,4 +124,32 @@ export const WithField: Story = {
 			</div>
 		`,
   }),
+};
+
+/** A value below the minimum: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const form = new FormGroup({
+      volume: new FormControl([20], {
+        validators: [
+          (control) =>
+            control.value[0] >= 50 ? null : { min: { min: 50, actual: control.value[0] } },
+        ],
+      }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="w-72">
+					<div hlmField>
+						<label hlmFieldLabel>Volume</label>
+						<hlm-slider formControlName="volume" aria-label="Volume" />
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };

@@ -2,7 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import { fieldContract } from '@surfnet/curve-contracts';
-import { HlmField, HlmFieldImports } from '..';
+import { HlmField, HlmFieldImports, provideHlmFieldErrorMessages } from '..';
 import { HlmCheckbox, HlmInputImports } from '../../../../../public-api';
 
 const meta: Meta<HlmField> = {
@@ -107,6 +107,94 @@ export const WithError: Story = {
 			</form>
 		`,
   }),
+};
+
+/**
+ * An empty `hlm-field-error` shows a message from the control's errors: a string error as-is
+ * (e.g. a JsonForms or server message), else Curve's message for the validator key. Several
+ * errors become a list.
+ */
+export const AutomaticMessages: Story = {
+  render: () => {
+    const form = new FormGroup({
+      email: new FormControl('not-an-email', { validators: [Validators.email] }),
+      name: new FormControl('Al', { validators: [Validators.minLength(3)] }),
+      postcode: new FormControl('1234', {
+        validators: [() => ({ error: 'Vul een postcode in zoals 1234 AB.' })],
+      }),
+      code: new FormControl('a1', {
+        validators: [Validators.minLength(6), Validators.pattern(/^[A-Z0-9]*$/)],
+      }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="flex w-72 flex-col gap-6">
+					<div hlmField>
+						<label hlmFieldLabel for="auto-email">Email</label>
+						<input hlmInput formControlName="email" id="auto-email" type="email" />
+						<hlm-field-error />
+					</div>
+					<div hlmField>
+						<label hlmFieldLabel for="auto-name">Name</label>
+						<input hlmInput formControlName="name" id="auto-name" />
+						<hlm-field-error />
+					</div>
+					<div hlmField>
+						<label hlmFieldLabel for="auto-postcode">Postcode</label>
+						<input hlmInput formControlName="postcode" id="auto-postcode" />
+						<hlm-field-error />
+					</div>
+					<div hlmField>
+						<label hlmFieldLabel for="auto-code">Code</label>
+						<input hlmInput formControlName="code" id="auto-code" />
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
+};
+
+/** App-wide messages via `provideHlmFieldErrorMessages`, merged over Curve's defaults. */
+export const CustomMessages: Story = {
+  decorators: [
+    moduleMetadata({
+      providers: [
+        provideHlmFieldErrorMessages({
+          required: 'Please fill in this field.',
+          minlength: ({ requiredLength }) => `Use at least ${requiredLength} characters.`,
+        }),
+      ],
+    }),
+  ],
+  render: () => {
+    const form = new FormGroup({
+      username: new FormControl('', { validators: [Validators.required] }),
+      password: new FormControl('secret', { validators: [Validators.minLength(8)] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form" class="flex w-72 flex-col gap-6">
+					<div hlmField>
+						<label hlmFieldLabel for="custom-username">Username</label>
+						<input hlmInput formControlName="username" id="custom-username" />
+						<hlm-field-error />
+					</div>
+					<div hlmField>
+						<label hlmFieldLabel for="custom-password">Password</label>
+						<input hlmInput formControlName="password" id="custom-password" type="password" />
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };
 
 /** Several fields grouped, with a labelled separator. */

@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { WarningCircleIcon } from '@phosphor-icons/react';
 import type { FieldNecessityName, FieldOrientationName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
@@ -175,8 +176,10 @@ function FieldError({
   // CURVE: a11y — no role="alert" (upstream adds it): one live region per invalid field means a
   // pile of interrupting announcements on submit. Errors are announced through a focused error
   // summary above the form; link this message to its control with aria-describedby instead.
+  // CURVE: a11y (issue #273) — an icon so the error isn't shown by colour alone.
   return (
     <div data-slot="field-error" className={cn(styles.error, className)} {...props}>
+      <WarningCircleIcon aria-hidden size={16} className={styles.errorIcon} />
       {content}
     </div>
   );

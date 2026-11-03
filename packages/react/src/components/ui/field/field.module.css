@@ -164,9 +164,18 @@
 }
 
 .error {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing, 0.25rem) * 1.5);
   font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
   color: var(--destructive);
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  margin-block-start: 0.125rem;
 }
 
 .errorList {

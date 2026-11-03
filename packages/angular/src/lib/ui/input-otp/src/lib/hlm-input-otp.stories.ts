@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import { inputOtpContract } from '@surfnet/curve-contracts';
 import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
@@ -17,7 +17,7 @@ const meta: Meta<InputOtpArgs> = {
   component: HlmInputOtp,
   decorators: [
     moduleMetadata({
-      imports: [HlmInputOtpImports, BrnInputOtpImports],
+      imports: [HlmInputOtpImports, BrnInputOtpImports, HlmFieldImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -148,4 +148,36 @@ export const VerificationForm: Story = {
       </form>
     `,
   }),
+};
+
+/** A required code left empty: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const form = new FormGroup({
+      code: new FormControl('', { validators: [Validators.required] }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { form },
+      template: `
+				<form [formGroup]="form">
+					<div hlmField>
+						<label hlmFieldLabel>Verification code</label>
+						<brn-input-otp hlmInputOtp maxLength="6" formControlName="code" aria-label="Verification code">
+							<hlm-input-otp-group>
+								<hlm-input-otp-slot index="0" />
+								<hlm-input-otp-slot index="1" />
+								<hlm-input-otp-slot index="2" />
+								<hlm-input-otp-slot index="3" />
+								<hlm-input-otp-slot index="4" />
+								<hlm-input-otp-slot index="5" />
+							</hlm-input-otp-group>
+						</brn-input-otp>
+						<hlm-field-error />
+					</div>
+				</form>
+			`,
+    };
+  },
 };

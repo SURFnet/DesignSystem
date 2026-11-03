@@ -207,7 +207,7 @@ export const Disabled: Story = {
   }),
 };
 
-/** Invalid state via a required reactive-form control, pre-touched so the error shows immediately. */
+/** Invalid state via a required reactive-form control, pre-touched so the error message shows immediately. */
 export const Invalid: Story = {
   render: () => {
     const form = new FormGroup({
@@ -219,20 +219,24 @@ export const Invalid: Story = {
       props: { form },
       template: `
 				<form [formGroup]="form" class="w-fit">
-					<hlm-radio-group formControlName="plan">
-						<div class="flex items-center gap-3">
-							<hlm-radio value="one" inputId="i1">
-								<hlm-radio-indicator indicator />
-							</hlm-radio>
-							<label hlmLabel for="i1">Option one</label>
-						</div>
-						<div class="flex items-center gap-3">
-							<hlm-radio value="two" inputId="i2">
-								<hlm-radio-indicator indicator />
-							</hlm-radio>
-							<label hlmLabel for="i2">Option two</label>
-						</div>
-					</hlm-radio-group>
+					<div hlmField>
+						<label hlmFieldLabel id="invalid-plan">Plan</label>
+						<hlm-radio-group formControlName="plan" aria-labelledby="invalid-plan">
+							<div class="flex items-center gap-3">
+								<hlm-radio value="one" inputId="i1">
+									<hlm-radio-indicator indicator />
+								</hlm-radio>
+								<label hlmLabel for="i1">Option one</label>
+							</div>
+							<div class="flex items-center gap-3">
+								<hlm-radio value="two" inputId="i2">
+									<hlm-radio-indicator indicator />
+								</hlm-radio>
+								<label hlmLabel for="i2">Option two</label>
+							</div>
+						</hlm-radio-group>
+						<hlm-field-error />
+					</div>
 				</form>
 			`,
     };
