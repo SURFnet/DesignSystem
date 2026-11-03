@@ -330,6 +330,8 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
 
+  packages/microcopy: {}
+
   packages/react:
     dependencies:
       '@base-ui/react':
@@ -459,6 +461,9 @@ importers:
       '@storybook/icons':
         specifier: 2.0.2
         version: 2.0.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@surfnet/curve-microcopy':
+        specifier: workspace:*
+        version: link:../microcopy
       '@surfnet/curve-tokens':
         specifier: workspace:*
         version: link:../tokens

@@ -1,0 +1,139 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import microcopy from '@surfnet/curve-microcopy/microcopy.json';
+
+<Meta title="Curve/Voor developers" name="Microcopy" />
+
+export const entries = Object.entries(microcopy.entries);
+export const components = [...new Set(entries.map(([, entry]) => entry.component))];
+export const kinds = {
+  zichtbaar: 'Zichtbaar',
+  screenreader: 'Alleen screenreader',
+  foutmelding: 'Foutmelding',
+};
+
+export const Inline = ({ text }) =>
+  text.split('`').map((part, index) => (index % 2 ? <code key={index}>{part}</code> : part));
+
+export const Copy = ({ value }) =>
+  value ? (
+    <>
+      <strong>“{value.text}”</strong>
+      <br />
+      <code>{value.where}</code>
+      <br />
+      <small>{value.change ? <>Aanpassen: <Inline text={value.change} /></> : 'Vast in de component'}</small>
+    </>
+  ) : (
+    <small>Geen standaardtekst</small>
+  );
+
+export const differs = (entry) =>
+  entry.angular && entry.react && entry.angular.text !== entry.react.text;
+
+# Microcopy
+
+Curve's componenten hebben teksten ingebouwd: een knop "Previous", een sluitknop die "Close" voorleest,
+een foutmelding "Dit veld is verplicht." Hieronder staan ze allemaal, met per framework de huidige
+tekst, de component waarin hij staat, en hoe je hem in je app aanpast.
+
+Hoe je zelf goede teksten schrijft, staat bij [Microcopy voor designers](?path=/docs/curve-voor-designers--microcopy).
+
+## Zo lees je de lijst
+
+- **Sleutel**: een vaste naam voor de tekst, bijvoorbeeld `field.error.required`. Gebruik die als je
+  het in een issue of met een designer over een tekst hebt.
+- **Soort**: _zichtbaar_ staat op het scherm, _alleen screenreader_ wordt alleen voorgelezen (een
+  `aria-label` of verborgen tekst), _foutmelding_ verschijnt bij een veld dat niet goed is ingevuld.
+- **Aanpassen**: de input (Angular) of prop (React) waarmee je de tekst vervangt. Staat er _vast in de
+  component_, dan kun je hem nu nog niet aanpassen.
+- **⚠ verschilt**: Angular en React gebruiken nu een andere tekst.
+
+Veel teksten zijn nog Engels, terwijl Curve verder Nederlands is. Deze lijst maakt dat zichtbaar; de
+teksten zelf veranderen we later.
+
+## Foutmeldingen aanpassen (Angular)
+
+Een lege `<hlm-field-error />` toont automatisch een melding bij de fout van het veld. De sleutels
+`field.error.*` hieronder horen bij de validators van Angular: `field.error.minlength` is de melding
+voor `Validators.minLength`. Vervang ze voor je hele app met `provideHlmFieldErrorMessages`, met
+hetzelfde laatste deel van de sleutel:
+
+```ts
+// app.config.ts
+import { provideHlmFieldErrorMessages } from '@surfnet/curve-angular';
+
+export const appConfig = {
+  providers: [
+    provideHlmFieldErrorMessages({
+      required: 'Vul dit veld in.', // field.error.required
+      minlength: ({ requiredLength }) => `Gebruik minimaal ${requiredLength} tekens.`, // field.error.minlength
+    }),
+  ],
+};
+```
+
+Wat je niet noemt, houdt de standaardtekst. Een `{placeholder}` in de tekst, zoals `{requiredLength}`,
+komt uit de fout van de validator; geef dan een functie in plaats van een tekst. Tekst die je zelf in
+`<hlm-field-error>` zet, gaat altijd voor.
+
+React heeft geen standaard foutmeldingen: daar geef je de meldingen van je formulierbibliotheek mee
+aan `<FieldError errors={…} />`.
+
+## Alle teksten
+
+{components.map((component) => (
+  <section key={component}>
+    <h3>{component}</h3>
+    <table style={{ width: '100%', tableLayout: 'fixed' }}>
+      <thead>
+        <tr>
+          <th>Sleutel en soort</th>
+          <th>Wanneer</th>
+          <th>Angular</th>
+          <th>React</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries
+          .filter(([, entry]) => entry.component === component)
+          .map(([key, entry]) => (
+            <tr key={key}>
+              <td>
+                <code>{key}</code>
+                <br />
+                <small>{kinds[entry.kind]}</small>
+                {differs(entry) && (
+                  <>
+                    <br />
+                    <small>⚠ verschilt</small>
+                  </>
+                )}
+              </td>
+              <td>
+                <Inline text={entry.description} />
+              </td>
+              <td>
+                <Copy value={entry.angular} />
+              </td>
+              <td>
+                <Copy value={entry.react} />
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </section>
+))}
+
+## Een tekst toevoegen of wijzigen
+
+De lijst komt uit `packages/microcopy/src/microcopy.json`. Voeg je een standaardtekst toe aan een
+component, of verander je er een, pas dan ook dat bestand aan:
+
+1. Kies een sleutel als `<component>.<onderdeel>`, bijvoorbeeld `dialog.close`.
+2. Vul `component`, `kind` (`zichtbaar`, `screenreader` of `foutmelding`) en een korte `description`
+   in: wanneer ziet of hoort iemand deze tekst?
+3. Geef per framework `text`, `where` (de selector of componentnaam) en `change` (de input of prop,
+   of `null` als hij vast staat). Heeft een framework de tekst niet, zet het framework dan op `null`.
+
+Later halen we deze teksten ook uit Figma, net als de design tokens.

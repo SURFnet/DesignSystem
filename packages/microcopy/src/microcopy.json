@@ -1,0 +1,498 @@
+{
+  "$comment": "Microcopy in Curve's components: every text a component shows or reads out by default. Per framework: `text` is the current default, `where` the component, `change` how an app changes it (null: fixed in the component). Documented in Storybook under Curve > Voor developers > Microcopy. Placeholders like {requiredLength} are filled in from the validator's error.",
+  "entries": {
+    "field.label.optional": {
+      "component": "Field",
+      "kind": "zichtbaar",
+      "description": "Achter het label van een optioneel veld (`hlmField optional` / `<Field optional>`).",
+      "angular": {
+        "text": "(optioneel)",
+        "where": "hlmFieldLabel",
+        "change": "input `optionalText`"
+      },
+      "react": { "text": "(optioneel)", "where": "FieldLabel", "change": "prop `optionalText`" }
+    },
+    "field.error.required": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "Een verplicht veld is leeg (validator `required` of `requiredTrue`). Schrijf liever per veld wat er moet: \"Vul een e-mailadres in\".",
+      "angular": {
+        "text": "Dit veld is verplicht.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ required: '…' }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.email": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "De invoer is geen geldig e-mailadres (validator `email`).",
+      "angular": {
+        "text": "Vul een geldig e-mailadres in.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ email: '…' }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.minlength": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "De tekst is te kort (validator `minLength`). {requiredLength} is het minimum aantal tekens.",
+      "angular": {
+        "text": "Vul minimaal {requiredLength} tekens in.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ minlength: ({ requiredLength }) => `…` }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.maxlength": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "De tekst is te lang (validator `maxLength`). {requiredLength} is het maximum aantal tekens.",
+      "angular": {
+        "text": "Vul maximaal {requiredLength} tekens in.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ maxlength: ({ requiredLength }) => `…` }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.min": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "Het getal is te laag (validator `min`). {min} is de laagste toegestane waarde.",
+      "angular": {
+        "text": "De waarde moet minimaal {min} zijn.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ min: ({ min }) => `…` }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.max": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "Het getal is te hoog (validator `max`). {max} is de hoogste toegestane waarde.",
+      "angular": {
+        "text": "De waarde mag maximaal {max} zijn.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ max: ({ max }) => `…` }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.pattern": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "De invoer past niet bij het verwachte formaat (validator `pattern`). Zeg liever per veld welk formaat wél mag, met een voorbeeld.",
+      "angular": {
+        "text": "De invoer heeft niet het juiste formaat.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ pattern: '…' }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "field.error.default": {
+      "component": "Field",
+      "kind": "foutmelding",
+      "description": "Vangnet voor een fout zonder eigen melding. Zegt niet wát er mis is: geef elke validator die je gebruikt een eigen melding.",
+      "angular": {
+        "text": "Deze invoer is ongeldig.",
+        "where": "hlm-field-error",
+        "change": "provideHlmFieldErrorMessages({ default: '…' }), of tekst in hlm-field-error"
+      },
+      "react": null
+    },
+    "input-otp.complete": {
+      "component": "InputOTP",
+      "kind": "screenreader",
+      "description": "Wordt voorgelezen zodra alle vakjes van de code gevuld zijn.",
+      "angular": {
+        "text": "Verification code complete",
+        "where": "hlmInputOtp",
+        "change": "input `completeAnnouncement`"
+      },
+      "react": {
+        "text": "Verification code complete",
+        "where": "InputOTP",
+        "change": "prop `completeAnnouncement`"
+      }
+    },
+    "pagination.label": {
+      "component": "Pagination",
+      "kind": "screenreader",
+      "description": "Naam van de paginering als navigatiegebied.",
+      "angular": {
+        "text": "pagination",
+        "where": "hlm-pagination",
+        "change": "input `aria-label`"
+      },
+      "react": { "text": "pagination", "where": "Pagination", "change": "prop `aria-label`" }
+    },
+    "pagination.previous": {
+      "component": "Pagination",
+      "kind": "zichtbaar",
+      "description": "Tekst van de link naar de vorige pagina.",
+      "angular": {
+        "text": "Previous",
+        "where": "hlm-pagination-previous",
+        "change": "input `text`"
+      },
+      "react": { "text": "Previous", "where": "PaginationPrevious", "change": "prop `text`" }
+    },
+    "pagination.previous.label": {
+      "component": "Pagination",
+      "kind": "screenreader",
+      "description": "Toegankelijke naam van de link naar de vorige pagina.",
+      "angular": {
+        "text": "Go to previous page",
+        "where": "hlm-pagination-previous",
+        "change": "input `aria-label`"
+      },
+      "react": {
+        "text": "Go to previous page",
+        "where": "PaginationPrevious",
+        "change": "prop `aria-label`"
+      }
+    },
+    "pagination.next": {
+      "component": "Pagination",
+      "kind": "zichtbaar",
+      "description": "Tekst van de link naar de volgende pagina.",
+      "angular": { "text": "Next", "where": "hlm-pagination-next", "change": "input `text`" },
+      "react": { "text": "Next", "where": "PaginationNext", "change": "prop `text`" }
+    },
+    "pagination.next.label": {
+      "component": "Pagination",
+      "kind": "screenreader",
+      "description": "Toegankelijke naam van de link naar de volgende pagina.",
+      "angular": {
+        "text": "Go to next page",
+        "where": "hlm-pagination-next",
+        "change": "input `aria-label`"
+      },
+      "react": {
+        "text": "Go to next page",
+        "where": "PaginationNext",
+        "change": "prop `aria-label`"
+      }
+    },
+    "pagination.ellipsis": {
+      "component": "Pagination",
+      "kind": "screenreader",
+      "description": "Voorgelezen bij de puntjes tussen paginanummers.",
+      "angular": {
+        "text": "More pages",
+        "where": "hlm-pagination-ellipsis",
+        "change": "input `srOnlyText`"
+      },
+      "react": {
+        "text": "More pages",
+        "where": "PaginationEllipsis",
+        "change": "prop `srOnlyText`"
+      }
+    },
+    "pagination.items-per-page": {
+      "component": "Pagination",
+      "kind": "screenreader",
+      "description": "Toegankelijke naam van de keuzelijst voor het aantal items per pagina.",
+      "angular": { "text": "Items per page", "where": "hlm-numbered-pagination", "change": null },
+      "react": { "text": "Items per page", "where": "NumberedPagination", "change": null }
+    },
+    "breadcrumb.label": {
+      "component": "Breadcrumb",
+      "kind": "screenreader",
+      "description": "Naam van de kruimelpad-navigatie.",
+      "angular": {
+        "text": "You are here: ",
+        "where": "hlm-breadcrumb",
+        "change": "input `aria-label`"
+      },
+      "react": { "text": "You are here: ", "where": "Breadcrumb", "change": "prop `aria-label`" }
+    },
+    "breadcrumb.ellipsis": {
+      "component": "Breadcrumb",
+      "kind": "screenreader",
+      "description": "Voorgelezen bij de puntjes voor ingeklapte stappen.",
+      "angular": {
+        "text": "More",
+        "where": "hlm-breadcrumb-ellipsis",
+        "change": "input `srOnlyText`"
+      },
+      "react": { "text": "More", "where": "BreadcrumbEllipsis", "change": null }
+    },
+    "spinner.label": {
+      "component": "Spinner",
+      "kind": "screenreader",
+      "description": "Voorgelezen bij een laadindicator.",
+      "angular": { "text": "Loading", "where": "hlm-spinner", "change": "input `aria-label`" },
+      "react": { "text": "Loading", "where": "Spinner", "change": "prop `aria-label`" }
+    },
+    "dialog.close": {
+      "component": "Dialog",
+      "kind": "screenreader",
+      "description": "Naam van de sluitknop (kruisje) rechtsboven in een dialoog.",
+      "angular": { "text": "close", "where": "hlm-dialog-content", "change": null },
+      "react": { "text": "Close", "where": "DialogContent", "change": null }
+    },
+    "sheet.close": {
+      "component": "Sheet",
+      "kind": "screenreader",
+      "description": "Naam van de sluitknop (kruisje) in een sheet.",
+      "angular": { "text": "Close", "where": "hlm-sheet-content", "change": null },
+      "react": { "text": "Close", "where": "SheetContent", "change": null }
+    },
+    "sidebar.toggle": {
+      "component": "Sidebar",
+      "kind": "screenreader",
+      "description": "Naam van de knop die de zijbalk in- en uitklapt.",
+      "angular": {
+        "text": "Toggle Sidebar",
+        "where": "hlm-sidebar-trigger",
+        "change": "input `srOnlyText`"
+      },
+      "react": { "text": "Toggle Sidebar", "where": "SidebarTrigger", "change": null }
+    },
+    "sidebar.rail": {
+      "component": "Sidebar",
+      "kind": "screenreader",
+      "description": "Naam en tooltip van de rand waarmee je de zijbalk in- en uitklapt.",
+      "angular": null,
+      "react": {
+        "text": "Toggle Sidebar",
+        "where": "SidebarRail",
+        "change": "props `aria-label` en `title`"
+      }
+    },
+    "carousel.label": {
+      "component": "Carousel",
+      "kind": "screenreader",
+      "description": "Voorgelezen type van het gebied (aria-roledescription).",
+      "angular": { "text": "carousel", "where": "hlm-carousel", "change": null },
+      "react": { "text": "carousel", "where": "Carousel", "change": "prop `aria-roledescription`" }
+    },
+    "carousel.slide": {
+      "component": "Carousel",
+      "kind": "screenreader",
+      "description": "Voorgelezen type van een dia (aria-roledescription).",
+      "angular": { "text": "slide", "where": "hlm-carousel-item", "change": null },
+      "react": { "text": "slide", "where": "CarouselItem", "change": null }
+    },
+    "carousel.slide-display": {
+      "component": "Carousel",
+      "kind": "zichtbaar",
+      "description": "Woord voor de teller van dia's (\"Slide 2 of 5\").",
+      "angular": {
+        "text": "Slide",
+        "where": "hlm-carousel-slide-display",
+        "change": "input `label`"
+      },
+      "react": null
+    },
+    "carousel.previous": {
+      "component": "Carousel",
+      "kind": "screenreader",
+      "description": "Naam van de knop naar de vorige dia.",
+      "angular": { "text": "Previous slide", "where": "hlm-carousel-previous", "change": null },
+      "react": { "text": "Previous slide", "where": "CarouselPrevious", "change": null }
+    },
+    "carousel.next": {
+      "component": "Carousel",
+      "kind": "screenreader",
+      "description": "Naam van de knop naar de volgende dia.",
+      "angular": { "text": "Next slide", "where": "hlm-carousel-next", "change": null },
+      "react": { "text": "Next slide", "where": "CarouselNext", "change": null }
+    },
+    "combobox.open": {
+      "component": "Combobox",
+      "kind": "screenreader",
+      "description": "Naam van de knop die de lijst met opties opent.",
+      "angular": { "text": "Open combobox", "where": "hlm-combobox-input", "change": null },
+      "react": {
+        "text": "Open combobox",
+        "where": "ComboboxTrigger",
+        "change": "prop `aria-label`"
+      }
+    },
+    "combobox.open-trigger": {
+      "component": "Combobox",
+      "kind": "screenreader",
+      "description": "Naam van de losse knop die de lijst met opties opent.",
+      "angular": {
+        "text": "Open combobox trigger",
+        "where": "hlm-combobox-trigger",
+        "change": null
+      },
+      "react": null
+    },
+    "combobox.clear": {
+      "component": "Combobox",
+      "kind": "screenreader",
+      "description": "Naam van de knop die de invoer leegmaakt.",
+      "angular": { "text": "Clear", "where": "hlm-combobox-input", "change": null },
+      "react": { "text": "Clear", "where": "ComboboxClear", "change": "prop `aria-label`" }
+    },
+    "combobox.chip-remove": {
+      "component": "Combobox",
+      "kind": "screenreader",
+      "description": "Naam van het kruisje waarmee je een gekozen optie (chip) verwijdert.",
+      "angular": {
+        "text": "Remove",
+        "where": "hlm-combobox-chip",
+        "change": "input `removeLabel`"
+      },
+      "react": { "text": "Remove", "where": "ComboboxChip", "change": "prop `removeLabel`" }
+    },
+    "command.label": {
+      "component": "Command",
+      "kind": "screenreader",
+      "description": "Toegankelijke naam van het zoekveld in het commandomenu.",
+      "angular": null,
+      "react": {
+        "text": "Type a command or search...",
+        "where": "Command",
+        "change": "prop `label`"
+      }
+    },
+    "command.dialog.title": {
+      "component": "Command",
+      "kind": "screenreader",
+      "description": "Titel van de dialoog met het commandomenu.",
+      "angular": {
+        "text": "Command Palette",
+        "where": "hlm-command-dialog",
+        "change": "input `title`"
+      },
+      "react": { "text": "Command Palette", "where": "CommandDialog", "change": "prop `title`" }
+    },
+    "command.dialog.description": {
+      "component": "Command",
+      "kind": "screenreader",
+      "description": "Beschrijving van de dialoog met het commandomenu.",
+      "angular": {
+        "text": "Search for a command to run...",
+        "where": "hlm-command-dialog",
+        "change": "input `description`"
+      },
+      "react": {
+        "text": "Search for a command to run...",
+        "where": "CommandDialog",
+        "change": "prop `description`"
+      }
+    },
+    "data-table.no-results": {
+      "component": "DataTable",
+      "kind": "zichtbaar",
+      "description": "In de tabel als er geen rijen zijn.",
+      "angular": {
+        "text": "No results.",
+        "where": "hlm-data-table-content",
+        "change": "input `noResultsLabel`"
+      },
+      "react": {
+        "text": "No results.",
+        "where": "DataTableContent",
+        "change": "prop `noResultsLabel`"
+      }
+    },
+    "data-table.previous": {
+      "component": "DataTable",
+      "kind": "zichtbaar",
+      "description": "Knop naar de vorige pagina van de tabel.",
+      "angular": {
+        "text": "Previous",
+        "where": "hlm-data-table-pagination",
+        "change": "input `previousLabel`"
+      },
+      "react": {
+        "text": "Previous",
+        "where": "DataTablePagination",
+        "change": "prop `previousLabel`"
+      }
+    },
+    "data-table.next": {
+      "component": "DataTable",
+      "kind": "zichtbaar",
+      "description": "Knop naar de volgende pagina van de tabel.",
+      "angular": {
+        "text": "Next",
+        "where": "hlm-data-table-pagination",
+        "change": "input `nextLabel`"
+      },
+      "react": { "text": "Next", "where": "DataTablePagination", "change": "prop `nextLabel`" }
+    },
+    "data-table.select-all": {
+      "component": "DataTable",
+      "kind": "screenreader",
+      "description": "Naam van het selectievakje dat alle rijen selecteert.",
+      "angular": { "text": "Select all", "where": "data-table-select-all", "change": null },
+      "react": null
+    },
+    "data-table.select-row": {
+      "component": "DataTable",
+      "kind": "screenreader",
+      "description": "Naam van het selectievakje van één rij.",
+      "angular": { "text": "Select row", "where": "data-table-select-row", "change": null },
+      "react": null
+    },
+    "date-picker.placeholder": {
+      "component": "DatePicker",
+      "kind": "zichtbaar",
+      "description": "Tekst in de knop zolang er geen datum gekozen is.",
+      "angular": null,
+      "react": { "text": "Pick a date", "where": "DatePicker", "change": "prop `placeholder`" }
+    },
+    "date-picker.range-placeholder": {
+      "component": "DatePicker",
+      "kind": "zichtbaar",
+      "description": "Tekst in de knop zolang er geen periode gekozen is.",
+      "angular": null,
+      "react": {
+        "text": "Pick a date range",
+        "where": "DateRangePicker",
+        "change": "prop `placeholder`"
+      }
+    },
+    "date-picker.clear": {
+      "component": "DatePicker",
+      "kind": "screenreader",
+      "description": "Naam van de knop die de ingevulde datum wist.",
+      "angular": {
+        "text": "Clear date",
+        "where": "hlm-date-picker-input",
+        "change": "input `clearAriaLabel`"
+      },
+      "react": {
+        "text": "Clear date",
+        "where": "DatePickerInput",
+        "change": "prop `clearAriaLabel`"
+      }
+    },
+    "date-picker.calendar": {
+      "component": "DatePicker",
+      "kind": "screenreader",
+      "description": "Naam van de knop die de kalender opent.",
+      "angular": {
+        "text": "Open calendar",
+        "where": "hlm-date-picker-input",
+        "change": "input `calendarAriaLabel`"
+      },
+      "react": {
+        "text": "Select date",
+        "where": "DatePickerInput",
+        "change": "prop `calendarAriaLabel`"
+      }
+    },
+    "calendar.month": {
+      "component": "Calendar",
+      "kind": "screenreader",
+      "description": "Naam van de keuzelijst voor de maand.",
+      "angular": { "text": "Select month", "where": "hlm-calendar", "change": null },
+      "react": null
+    },
+    "calendar.year": {
+      "component": "Calendar",
+      "kind": "screenreader",
+      "description": "Naam van de keuzelijst voor het jaar.",
+      "angular": { "text": "Select year", "where": "hlm-calendar", "change": null },
+      "react": null
+    }
+  }
+}
