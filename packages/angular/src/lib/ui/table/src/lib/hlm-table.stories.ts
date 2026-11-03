@@ -63,7 +63,7 @@ class SimpleTable {
 }
 
 /** A basic table with a header, body, and caption. */
-export const MenuButtonVariants: Story = {
+export const Default: Story = {
   render: () => ({
     moduleMetadata: {
       imports: [SimpleTable],
