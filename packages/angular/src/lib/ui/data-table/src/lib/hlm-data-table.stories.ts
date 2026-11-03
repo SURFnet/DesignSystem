@@ -7,18 +7,17 @@ import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import { HlmInput } from '../../../input/src';
 import { type Meta, type StoryObj } from '@storybook/angular';
 import { dataTableContract } from '@surfnet/curve-contracts';
-import {
-  flexRenderComponent,
-  type Column,
-  type ColumnDef,
-  type Row,
-  type Table,
-} from '@tanstack/angular-table';
+import { flexRenderComponent, type Column, type Row } from '@tanstack/angular-table';
 
 import { HlmDataTableContent } from './hlm-data-table-content';
 import { HlmDataTablePagination } from './hlm-data-table-pagination';
 import { HlmDataTableToolbar } from './hlm-data-table-toolbar';
-import { injectDataTable } from './inject-data-table';
+import {
+  injectDataTable,
+  type DataTable,
+  type DataTableColumnDef,
+  type DataTableFeatures,
+} from './inject-data-table';
 
 // ---------------------------------------------------------------------------
 // Shared fixtures
@@ -53,13 +52,13 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: '
     <hlm-checkbox
       aria-label="Select all"
       [checked]="table().getIsAllPageRowsSelected()"
-      [indeterminate]="table().getIsSomePageRowsSelected()"
+      [indeterminate]="table().getIsSomePageRowsSelected() && !table().getIsAllPageRowsSelected()"
       (checkedChange)="table().toggleAllPageRowsSelected($event)"
     />
   `,
 })
 class DataTableSelectAll {
-  public readonly table = input.required<Table<Payment>>();
+  public readonly table = input.required<DataTable<Payment>>();
 }
 
 @Component({
@@ -75,7 +74,7 @@ class DataTableSelectAll {
   `,
 })
 class DataTableSelectRow {
-  public readonly row = input.required<Row<Payment>>();
+  public readonly row = input.required<Row<DataTableFeatures, Payment>>();
 }
 
 @Component({
@@ -96,7 +95,7 @@ class DataTableSelectRow {
   `,
 })
 class DataTableEmailHeader {
-  public readonly column = input.required<Column<Payment>>();
+  public readonly column = input.required<Column<DataTableFeatures, Payment, unknown>>();
 }
 
 @Component({
@@ -179,7 +178,7 @@ class DataTableAmountCell {
 // Shared columns
 // ---------------------------------------------------------------------------
 
-const columns: ColumnDef<Payment, unknown>[] = [
+const columns: DataTableColumnDef<Payment>[] = [
   {
     id: 'select',
     header: ({ table }) => flexRenderComponent(DataTableSelectAll, { inputs: { table } }),

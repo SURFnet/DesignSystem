@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmTableImports } from '../../../table/src';
-import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angular-table';
+import { FlexRenderDirective, type RowData } from '@tanstack/angular-table';
+import type { DataTable, DataTableColumnDef } from './inject-data-table';
 
 /**
  * Renders a TanStack table instance into the styled helm `table` directives. Mirrors React's
@@ -75,12 +76,12 @@ import { FlexRenderDirective, type ColumnDef, type Table } from '@tanstack/angul
     </div>
   `,
 })
-export class HlmDataTableContent<TData> {
+export class HlmDataTableContent<TData extends RowData> {
   /** The TanStack table instance, e.g. from `injectDataTable`. */
-  public readonly table = input.required<Table<TData>>();
+  public readonly table = input.required<DataTable<TData>>();
 
   /** The column defs — used to span the empty-state row across all columns. */
-  public readonly columns = input.required<ColumnDef<TData, unknown>[]>();
+  public readonly columns = input.required<DataTableColumnDef<TData>[]>();
 
   /** Content shown in the body when there are no rows. */
   public readonly noResultsLabel = input<string>('No results.');

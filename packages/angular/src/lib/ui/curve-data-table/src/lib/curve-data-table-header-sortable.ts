@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorArrowsDownUp } from '@ng-icons/phosphor-icons/regular';
-import { Column } from '@tanstack/angular-table';
+import { type Column, type RowData } from '@tanstack/angular-table';
 import { HlmButton } from '../../../button/src';
+import type { DataTableFeatures } from '../../../data-table/src';
 
 @Component({
   selector: 'data-table-header-sortable',
@@ -21,7 +22,7 @@ import { HlmButton } from '../../../button/src';
     </button>
   `,
 })
-export class DataTableHeaderSortable<TData> {
+export class DataTableHeaderSortable<TData extends RowData> {
   public readonly label = input.required<string>();
-  public readonly column = input.required<Column<TData>>();
+  public readonly column = input.required<Column<DataTableFeatures, TData, unknown>>();
 }

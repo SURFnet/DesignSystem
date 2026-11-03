@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
-import { Row } from '@tanstack/angular-table';
+import { type Row, type RowData } from '@tanstack/angular-table';
+import type { DataTableFeatures } from '../../../data-table/src';
 import { HlmCheckbox } from '../../../checkbox/src';
 
 @Component({
@@ -14,6 +15,6 @@ import { HlmCheckbox } from '../../../checkbox/src';
     />
   `,
 })
-export class DataTableSelectRowCell<TRecord> {
-  public readonly row = input.required<Row<TRecord>>();
+export class DataTableSelectRowCell<TRecord extends RowData> {
+  public readonly row = input.required<Row<DataTableFeatures, TRecord>>();
 }

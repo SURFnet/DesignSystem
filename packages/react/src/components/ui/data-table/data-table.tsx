@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { flexRender, type ColumnDef, type Table as TanStackTable } from '@tanstack/react-table';
+import { flexRender, type RowData } from '@tanstack/react-table';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/table';
 
 import styles from './data-table.module.css';
+import type { DataTable, DataTableColumnDef } from './use-data-table';
 
 interface DataTableToolbarProps extends React.ComponentProps<'div'> {}
 
@@ -24,14 +25,14 @@ function DataTableToolbar({ className, ...props }: DataTableToolbarProps) {
   );
 }
 
-interface DataTableContentProps<TData> extends React.ComponentProps<'div'> {
-  table: TanStackTable<TData>;
-  columns: ColumnDef<TData, unknown>[];
+interface DataTableContentProps<TData extends RowData> extends React.ComponentProps<'div'> {
+  table: DataTable<TData>;
+  columns: DataTableColumnDef<TData>[];
   /** Content shown in the body when there are no rows. */
   noResultsLabel?: React.ReactNode;
 }
 
-function DataTableContent<TData>({
+function DataTableContent<TData extends RowData>({
   table,
   columns,
   noResultsLabel = 'No results.',
@@ -78,8 +79,8 @@ function DataTableContent<TData>({
   );
 }
 
-interface DataTablePaginationProps<TData> extends React.ComponentProps<'div'> {
-  table: TanStackTable<TData>;
+interface DataTablePaginationProps<TData extends RowData> extends React.ComponentProps<'div'> {
+  table: DataTable<TData>;
   /** Label for the "previous page" button. */
   previousLabel?: React.ReactNode;
   /** Label for the "next page" button. */
@@ -88,7 +89,7 @@ interface DataTablePaginationProps<TData> extends React.ComponentProps<'div'> {
   selectionLabel?: (selectedCount: number, totalCount: number) => React.ReactNode;
 }
 
-function DataTablePagination<TData>({
+function DataTablePagination<TData extends RowData>({
   table,
   previousLabel = 'Previous',
   nextLabel = 'Next',

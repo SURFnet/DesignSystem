@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { dataTableContract } from '@surfnet/curve-contracts';
-import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowsDownUpIcon, DotsThreeIcon } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';
@@ -18,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input';
 
 import { DataTableContent, DataTablePagination, DataTableToolbar } from './data-table';
-import { useDataTable } from './use-data-table';
+import { useDataTable, type DataTableColumnDef } from './use-data-table';
 
 // ---------------------------------------------------------------------------
 // Shared fixtures
@@ -39,13 +38,13 @@ const data: Payment[] = [
   { id: 'bhqecj4p', amount: 275.43, status: 'failed', email: 'dolores.chambers@example.com' },
 ];
 
-const columns: ColumnDef<Payment>[] = [
+const columns: DataTableColumnDef<Payment>[] = [
   {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
-        indeterminate={table.getIsSomePageRowsSelected()}
+        indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
