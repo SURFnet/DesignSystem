@@ -17,11 +17,14 @@ export function ariaInvalidOverride(value: BooleanInput): boolean | undefined {
  * Precedence: an explicit `aria-invalid` override, then `forceInvalid` (so the visual and
  * accessible invalid states stay together), then the form control. While neither an override
  * nor `forceInvalid` is set, Brain's binding is left alone.
+ *
+ * Pass `target` when Brain's element isn't the host (e.g. a component wrapping a `<button>`).
  */
 export function ariaInvalid(
   override: () => boolean | undefined,
   forceInvalid: () => boolean,
   controlInvalid: () => boolean | null | undefined,
+  target?: () => HTMLElement | undefined,
 ) {
   const host = inject(ElementRef<HTMLElement>).nativeElement;
   const renderer = inject(Renderer2);
@@ -33,6 +36,8 @@ export function ariaInvalid(
       const value = override();
       const forced = forceInvalid();
       const invalid = controlInvalid();
+      const element = target ? target() : host;
+      if (!element) return;
 
       if (value === undefined && !forced) {
         if (!active) return;
@@ -43,9 +48,9 @@ export function ariaInvalid(
       }
 
       if (value ?? (forced || invalid)) {
-        renderer.setAttribute(host, 'aria-invalid', 'true');
+        renderer.setAttribute(element, 'aria-invalid', 'true');
       } else {
-        renderer.removeAttribute(host, 'aria-invalid');
+        renderer.removeAttribute(element, 'aria-invalid');
       }
     },
   });
