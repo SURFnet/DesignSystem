@@ -163,7 +163,7 @@ export const MediaVariants: Story = {
 export const Group: Story = {
   render: () => (
     <ItemGroup className="w-full max-w-md">
-      <Item render={<li />}>
+      <Item>
         <ItemMedia variant="icon">
           <UserIcon />
         </ItemMedia>
@@ -178,7 +178,7 @@ export const Group: Story = {
         </ItemActions>
       </Item>
       <ItemSeparator />
-      <Item render={<li />}>
+      <Item>
         <ItemMedia variant="icon">
           <CreditCardIcon />
         </ItemMedia>
@@ -193,7 +193,7 @@ export const Group: Story = {
         </ItemActions>
       </Item>
       <ItemSeparator />
-      <Item render={<li />}>
+      <Item>
         <ItemMedia variant="icon">
           <BellIcon />
         </ItemMedia>
