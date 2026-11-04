@@ -8,7 +8,7 @@ import {
   injectBrnComboboxBase,
 } from '@spartan-ng/brain/combobox';
 import { HlmInputGroupImports } from '../../../input-group/src';
-import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
+import { injectHlmComboboxAria, injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
 
 @Component({
   selector: 'hlm-combobox-input',
@@ -26,6 +26,8 @@ import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
         [placeholder]="placeholder()"
         [forceInvalid]="forceInvalid()"
         [aria-invalid]="ariaInvalidOverride()"
+        [attr.aria-controls]="_aria.controls()"
+        [attr.aria-activedescendant]="_aria.activeDescendant()"
       />
 
       <hlm-input-group-addon align="inline-end">
@@ -72,6 +74,7 @@ export class HlmComboboxInput {
   private readonly _combobox = injectBrnComboboxBase();
   protected readonly _listboxId = injectHlmComboboxListboxId();
   protected readonly _isExpanded = this._combobox.isExpanded;
+  protected readonly _aria = injectHlmComboboxAria();
 
   public readonly inputId = input<string>(`hlm-combobox-input-${HlmComboboxInput._id++}`);
   public readonly placeholder = input<string>('');
