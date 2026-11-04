@@ -4,6 +4,42 @@ type Defaults<A extends AxisMap> = { [K in keyof A]: A[K][number] };
 
 type AxisDocs<A extends AxisMap> = { [K in keyof A]: Record<A[K][number], string> };
 
+// type PropType = 'string' | 'number' | 'boolean' | 'function' | 'enum';
+
+type PropTypeMap = {
+  string: string;
+  number: number;
+  boolean: boolean;
+  function: (...args: any[]) => any;
+  enum: string;
+};
+
+type PropGeneric<T extends keyof PropTypeMap, R extends boolean> = {
+  description: string;
+  type: T;
+  typeValues?: T extends 'enum' ? string[] : never;
+  required: R;
+  default: R extends false ? PropTypeMap[T] : never;
+  isVisualVariant: boolean;
+};
+
+type Prop = {
+  [K in keyof PropTypeMap]: PropGeneric<K, true> | PropGeneric<K, false>;
+}[keyof PropTypeMap];
+
+type Framework = 'react' | 'angular';
+
+type PerFramework<T> = Record<Framework, T>;
+
+type ChildType = NewContract | 'any' | 'string';
+
+export type NewContract = {
+  name: PerFramework<string | string[]>;
+  description: string;
+  props?: Record<string, Prop>;
+  children?: ChildType[];
+};
+
 type Contract<A extends AxisMap> = {
   props: A;
   defaults: Defaults<A>;
