@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
+import { DialogTests } from '@surfnet/curve-contracts/tests';
+
 import {
   Dialog,
   DialogClose,
@@ -40,8 +42,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger render={<Button variant="outline">Edit profile</Button>} />
-      <DialogContent>
+      <DialogTrigger
+        render={
+          <Button data-testid={DialogTests.testIds.trigger} variant="outline">
+            Edit profile
+          </Button>
+        }
+      />
+      <DialogContent data-testid={DialogTests.testIds.content}>
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
@@ -59,12 +67,19 @@ export const Default: Story = {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline">Cancel</Button>} />
+          <DialogClose
+            render={
+              <Button variant="outline" data-testid={DialogTests.testIds.close}>
+                Cancel
+              </Button>
+            }
+          />
           <Button type="submit">Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   ),
+  play: DialogTests.DefaultTest(),
 };
 
 /**
