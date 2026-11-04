@@ -10,6 +10,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./tests": {
+      "types": "./dist/tests/index.d.ts",
+      "import": "./dist/tests/index.js"
     }
   },
   "scripts": {
@@ -17,7 +21,9 @@
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
+    "@storybook/test": "^8.6.15",
     "@surfnet/curve-typescript-config": "workspace:*",
+    "storybook": "10.4.5",
     "typescript": "6.0.3"
   }
 }

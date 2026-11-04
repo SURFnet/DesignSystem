@@ -32,7 +32,7 @@
   "devDependencies": {
     "@changesets/cli": "3.0.2",
     "@figma/rest-api-spec": "0.40.0",
-    "@playwright/test": "1.64.1",
+    "@playwright/test": "1.63.0",
     "@types/node": "^22.19.21",
     "@types/pngjs": "6.0.5",
     "dotenv": "17.4.2",
