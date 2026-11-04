@@ -9,8 +9,6 @@ import { DatePickerInput } from './date-picker-input';
 
 const meta = {
   title: 'Components/DatePicker',
-  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
-  tags: ['a11y-minor'],
   component: DatePicker,
   parameters: {
     docs: {
