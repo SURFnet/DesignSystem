@@ -1,0 +1,5 @@
+/* Same focus outline as Button: the trigger is focusable so keyboard users can open the menu. */
+[data-slot='context-menu-trigger']:focus-visible {
+  outline: 2px solid var(--primary-strong);
+  outline-offset: 2px;
+}
