@@ -22,3 +22,8 @@
 .curve-data-table-value--end {
   text-align: right;
 }
+
+/* Pull the sort button left by its own padding so the header text lines up with the cells. */
+.curve-button.curve-data-table-sort-button {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * -2.5);
+}

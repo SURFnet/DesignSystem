@@ -9,9 +9,9 @@ import { phosphorImage } from '@ng-icons/phosphor-icons/regular';
   providers: [provideIcons({ phosphorImage })],
   template: `
     @if (imageUrl()) {
-      <img [src]="imageUrl()" width="40" height="40" />
+      <img [src]="imageUrl()" width="40" height="40" alt="" />
     } @else {
-      <ng-icon name="phosphorImage" size="40" />
+      <ng-icon name="phosphorImage" size="40" aria-hidden="true" />
     }
   `,
 })

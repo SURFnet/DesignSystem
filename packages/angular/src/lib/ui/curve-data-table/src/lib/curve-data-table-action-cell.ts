@@ -1,32 +1,29 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorDotsThree } from '@ng-icons/phosphor-icons/regular';
+import { HlmButton } from '../../../button/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
 
 @Component({
   selector: 'data-table-action-cell',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [HlmDropdownMenuImports, NgIcon],
+  imports: [HlmButton, HlmDropdownMenuImports, NgIcon],
   providers: [provideIcons({ phosphorDotsThree })],
   template: `
     <button
       hlmBtn
       variant="ghost"
-      size="sm"
+      size="icon-sm"
       [hlmDropdownMenuTrigger]="menu"
-      aria-label="Open action menu for {{ record() }}"
+      aria-label="Open action menu"
     >
       <ng-icon name="phosphorDotsThree" />
     </button>
     <ng-template #menu>
       <hlm-dropdown-menu align="start" class="curve-data-table-actions-menu">
         @for (action of actions(); track action) {
-          <button
-            hlmDropdownMenuItem
-            (click)="onActionClick(action)"
-            aria-label="Execute action {{ action }}"
-          >
+          <button hlmDropdownMenuItem (click)="onActionClick(action)">
             {{ action }}
           </button>
         }
