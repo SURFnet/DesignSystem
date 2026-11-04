@@ -10,8 +10,6 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './inpu
 
 const meta = {
   title: 'Components/InputOTP',
-  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
-  tags: ['a11y-gap'],
   component: InputOTP,
   parameters: {
     docs: {
