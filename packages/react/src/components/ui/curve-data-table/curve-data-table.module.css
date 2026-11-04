@@ -1,0 +1,40 @@
+/* Curve data table — the ready-made table (search, column toggles, row actions).
+   Same rules as the Angular hlm `curve-data-table.css`. */
+.root {
+  display: block;
+  width: 100%;
+}
+
+.search {
+  max-width: 20rem;
+}
+
+.columnsButton {
+  margin-left: auto;
+}
+
+.columnsMenu {
+  width: 10rem;
+}
+
+.actionsMenu {
+  width: 12rem;
+}
+
+.columnToggle {
+  text-transform: capitalize;
+}
+
+/* Pull the sort button left by its own padding so the header text lines up with the cells. */
+.sortButton {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * -2.5);
+}
+
+.valueEnd {
+  text-align: right;
+}
+
+.image {
+  display: block;
+  object-fit: cover;
+}
