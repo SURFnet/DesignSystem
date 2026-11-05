@@ -42,6 +42,12 @@ export class HlmRadioGroup {
   // CURVE: required by default unless inside an optional field (issue #144).
   protected readonly _ariaRequired = injectAriaRequired();
 
+  /**
+   * @internal Whether the group is required. Each `hlm-radio` puts the native `required` on its
+   * input from this, so screen readers announce "required" on every option, not only the group.
+   */
+  public readonly _required = computed(() => this._ariaRequired() === 'true');
+
   protected readonly _touched = computed(() => this._brnRadioGroup.controlState?.()?.touched);
   protected readonly _dirty = computed(() => this._brnRadioGroup.controlState?.()?.dirty);
 

@@ -285,3 +285,8 @@
   padding-inline: calc(var(--spacing, 0.25rem) * 2);
   color: var(--muted-foreground);
 }
+
+/* CURVE: the legend isn't a flex row like the label, so the suffix needs its own 4px gap (issue #144). */
+.curve-field-legend > .curve-field-optional {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * 1);
+}

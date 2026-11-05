@@ -8,31 +8,13 @@ import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 
-import { FieldContext, useFieldRequired } from './field-context';
+import {
+  FieldContext,
+  FieldSetContext,
+  useFieldRequired,
+  useFieldSetRequired,
+} from './field-context';
 import styles from './field.module.css';
-
-function FieldSet({ className, ...props }: React.ComponentProps<'fieldset'>) {
-  return <fieldset data-slot="field-set" className={cn(styles.set, className)} {...props} />;
-}
-
-function FieldLegend({
-  className,
-  variant = 'legend',
-  ...props
-}: React.ComponentProps<'legend'> & { variant?: 'legend' | 'label' }) {
-  return (
-    <legend
-      data-slot="field-legend"
-      data-variant={variant}
-      className={cn(styles.legend, className)}
-      {...props}
-    />
-  );
-}
-
-function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="field-group" className={cn(styles.group, className)} {...props} />;
-}
 
 // CURVE: `Field optional` drives both the label's "(optioneel)" suffix and the controls'
 // `aria-required` (issue #144); see ./field-context.
@@ -40,6 +22,63 @@ const fieldNecessityAttrs = {
   required: undefined,
   optional: 'true',
 } satisfies Record<FieldNecessityName, string | undefined>;
+
+// CURVE: `FieldSet optional` marks the whole group optional (issue #144): the legend gets the
+// "(optioneel)" suffix and the controls inside drop `aria-required`.
+function FieldSet({
+  className,
+  optional = false,
+  ...props
+}: React.ComponentProps<'fieldset'> & {
+  /** Mark this group of fields optional. Groups are required by default. */
+  optional?: boolean;
+}) {
+  const necessity: FieldNecessityName = optional ? 'optional' : 'required';
+  const context = useMemo(() => ({ necessity }), [necessity]);
+  return (
+    <FieldSetContext.Provider value={context}>
+      <fieldset
+        data-slot="field-set"
+        data-optional={fieldNecessityAttrs[necessity]}
+        className={cn(styles.set, className)}
+        {...props}
+      />
+    </FieldSetContext.Provider>
+  );
+}
+
+function FieldLegend({
+  className,
+  children,
+  variant = 'legend',
+  optionalText = '(optioneel)',
+  ...props
+}: React.ComponentProps<'legend'> & {
+  variant?: 'legend' | 'label';
+  /** Suffix shown when the surrounding FieldSet is `optional`. */
+  optionalText?: React.ReactNode;
+}) {
+  const required = useFieldSetRequired();
+  return (
+    <legend
+      data-slot="field-legend"
+      data-variant={variant}
+      className={cn(styles.legend, className)}
+      {...props}
+    >
+      {children}
+      {!required && (
+        <span data-slot="field-optional" className={styles.optional}>
+          {optionalText}
+        </span>
+      )}
+    </legend>
+  );
+}
+
+function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="field-group" className={cn(styles.group, className)} {...props} />;
+}
 
 export type FieldVariantsOptions = {
   orientation?: FieldOrientationName;

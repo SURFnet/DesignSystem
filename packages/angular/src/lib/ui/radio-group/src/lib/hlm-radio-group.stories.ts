@@ -105,6 +105,36 @@ export const InFieldset: Story = {
 };
 
 /**
+ * Mark the whole group optional with `fieldset[hlmFieldSet] optional`: the legend gets the
+ * "(optioneel)" suffix (change it with `optionalText`), the radio group drops `aria-required` and
+ * the radios drop `required`. The option labels stay unmarked. Outside an optional fieldset every
+ * radio gets the native `required`.
+ */
+export const OptionalFieldset: Story = {
+  render: () => ({
+    template: `
+			<fieldset hlmFieldSet optional class="w-80">
+				<legend hlmFieldLegend>Preferred contact time</legend>
+				<hlm-radio-group>
+					<div class="flex items-center gap-3">
+						<hlm-radio value="morning" inputId="time-morning">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+						<label hlmFieldLabel for="time-morning">Morning</label>
+					</div>
+					<div class="flex items-center gap-3">
+						<hlm-radio value="afternoon" inputId="time-afternoon">
+							<hlm-radio-indicator indicator />
+						</hlm-radio>
+						<label hlmFieldLabel for="time-afternoon">Afternoon</label>
+					</div>
+				</hlm-radio-group>
+			</fieldset>
+		`,
+  }),
+};
+
+/**
  * Choice cards: wrap each option's `hlmField` in a `label[hlmFieldLabel]` and the whole
  * label becomes a selectable card. The selected card gets a primary-tinted border and
  * background. The group is named by a visible `label[hlmLabel]` via `aria-labelledby`.
