@@ -29,7 +29,7 @@ const data: Payment[] = [
   { id: 'bhqecj4p', amount: 275.43, status: 'failed', email: 'dolores.chambers@example.com' },
 ];
 
-const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' });
 
 // ---------------------------------------------------------------------------
 // Shared columns

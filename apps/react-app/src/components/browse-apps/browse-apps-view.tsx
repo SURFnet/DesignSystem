@@ -25,7 +25,7 @@ import { CategoryFilter } from '@/components/browse-apps/category-filter';
 import { LoadMore } from '@/components/browse-apps/load-more';
 import { RowActions } from '@/components/browse-apps/row-actions';
 
-const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' });
 
 const columns: DataTableColumnDef<AppRecord>[] = [
   {
