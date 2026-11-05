@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@storybook/icons": "2.0.2",
+    "@surfnet/curve-microcopy": "workspace:*",
     "@surfnet/curve-tokens": "workspace:*",
     "axe-playwright": "2.2.2"
   },

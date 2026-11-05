@@ -58,6 +58,7 @@ export default {
             [
               'Curve gebruiken',
               'Formulieren bouwen',
+              'Microcopy',
               'Toegankelijk bouwen',
               'Je werk testen',
               [

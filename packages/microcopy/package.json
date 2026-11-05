@@ -1,0 +1,12 @@
+{
+  "name": "@surfnet/curve-microcopy",
+  "version": "0.10.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./microcopy.json": "./src/microcopy.json"
+  }
+}
