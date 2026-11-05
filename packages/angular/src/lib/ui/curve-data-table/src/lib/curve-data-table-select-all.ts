@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
-import { Table } from '@tanstack/angular-table';
+import { type RowData } from '@tanstack/angular-table';
+import type { DataTable } from '../../../data-table/src';
 import { HlmCheckbox } from '../../../checkbox/src';
 
 @Component({
@@ -10,11 +11,11 @@ import { HlmCheckbox } from '../../../checkbox/src';
     <hlm-checkbox
       aria-label="Select all"
       [checked]="table().getIsAllPageRowsSelected()"
-      [indeterminate]="table().getIsSomePageRowsSelected()"
+      [indeterminate]="table().getIsSomePageRowsSelected() && !table().getIsAllPageRowsSelected()"
       (checkedChange)="table().toggleAllPageRowsSelected($event)"
     />
   `,
 })
-export class DataTableSelectAll<TRecord> {
-  public readonly table = input.required<Table<TRecord>>();
+export class DataTableSelectAll<TRecord extends RowData> {
+  public readonly table = input.required<DataTable<TRecord>>();
 }

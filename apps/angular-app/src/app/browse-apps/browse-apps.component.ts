@@ -9,8 +9,11 @@ import {
   HlmCheckboxImports,
   HlmDataTableImports,
   injectDataTable,
+  type DataTable,
+  type DataTableColumnDef,
+  type DataTableFeatures,
 } from '@surfnet/curve-angular';
-import { flexRenderComponent, type ColumnDef, type Row, type Table } from '@tanstack/angular-table';
+import { flexRenderComponent, type Row, type RowData } from '@tanstack/angular-table';
 import { getApps, parseCategory, parsePage } from '../lib/apps';
 import type { AppCategoryFilter, AppRecord } from '../lib/mock-data';
 import { AppsSearchComponent } from './apps-search.component';
@@ -27,13 +30,13 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: '
     <hlm-checkbox
       aria-label="Select all"
       [checked]="table().getIsAllPageRowsSelected()"
-      [indeterminate]="table().getIsSomePageRowsSelected()"
+      [indeterminate]="table().getIsSomePageRowsSelected() && !table().getIsAllPageRowsSelected()"
       (checkedChange)="table().toggleAllPageRowsSelected($event)"
     />
   `,
 })
-class SelectAllCell<TRecord> {
-  public readonly table = input.required<Table<TRecord>>();
+class SelectAllCell<TRecord extends RowData> {
+  public readonly table = input.required<DataTable<TRecord>>();
 }
 
 @Component({
@@ -48,8 +51,8 @@ class SelectAllCell<TRecord> {
     />
   `,
 })
-class SelectRowCell<TRecord> {
-  public readonly row = input.required<Row<TRecord>>();
+class SelectRowCell<TRecord extends RowData> {
+  public readonly row = input.required<Row<DataTableFeatures, TRecord>>();
 }
 
 @Component({
@@ -83,7 +86,7 @@ class MutedCell {
   public readonly value = input.required<string>();
 }
 
-const columns: ColumnDef<AppRecord, unknown>[] = [
+const columns: DataTableColumnDef<AppRecord>[] = [
   {
     id: 'select',
     header: ({ table }) => flexRenderComponent(SelectAllCell<AppRecord>, { inputs: { table } }),

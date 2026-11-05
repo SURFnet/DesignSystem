@@ -1,7 +1,17 @@
-import { ChangeDetectionStrategy, Component, input, OnInit, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Injector,
+  input,
+  OnInit,
+  output,
+  runInInjectionContext,
+  signal,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorMagnifyingGlass } from '@ng-icons/phosphor-icons/regular';
-import { flexRenderComponent, type ColumnDef, type Table } from '@tanstack/angular-table';
+import { flexRenderComponent, type RowData } from '@tanstack/angular-table';
 import { DataTableActionCell } from './curve-data-table-action-cell';
 import { DataTableImageCell } from './curve-data-table-image-cell';
 import { DataTableSelectAll } from './curve-data-table-select-all';
@@ -17,7 +27,12 @@ import {
   CurveDataTableStringColumn,
   ICurveDataTableColumn,
 } from '..';
-import { HlmDataTableImports, injectDataTable } from '../../../data-table/src';
+import {
+  HlmDataTableImports,
+  injectDataTable,
+  type DataTable,
+  type DataTableColumnDef,
+} from '../../../data-table/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import { HlmInputImports } from '../../../input/src';
 import { HlmInputGroupImports } from '../../../input-group/src';
@@ -40,21 +55,26 @@ import { HlmInputGroupImports } from '../../../input-group/src';
     }),
   ],
 })
-export class CurveDataTableComponent<TData> implements OnInit {
+export class CurveDataTableComponent<TData extends RowData> implements OnInit {
   public data = input.required<TData[]>();
   public columns = input.required<ICurveDataTableColumn[]>();
   public searchColumn = input<string | null>(null);
   public hasColumnFilter = input<boolean>(true);
   public rowActionTriggered = output<CurveDataTableRowEvent<TData>>();
 
-  protected tanstackColumns!: ColumnDef<TData, unknown>[];
-  protected table!: Table<TData>;
+  protected tanstackColumns!: DataTableColumnDef<TData>[];
+  protected table!: DataTable<TData>;
   protected readonly appFilter = signal('');
+  private readonly injector = inject(Injector);
 
   ngOnInit(): void {
     this.tanstackColumns = this.createColumns();
 
-    this.table = injectDataTable(() => ({ data: this.data(), columns: this.tanstackColumns }));
+    // The column inputs are only set by now, so build the table here inside the component's
+    // injection context (`injectTable` needs one).
+    this.table = runInInjectionContext(this.injector, () =>
+      injectDataTable(() => ({ data: this.data(), columns: this.tanstackColumns })),
+    );
   }
 
   protected hideableColumns() {
@@ -67,8 +87,8 @@ export class CurveDataTableComponent<TData> implements OnInit {
     this.table.getColumn(this.searchColumn()!)?.setFilterValue(value);
   }
 
-  private createColumns(): ColumnDef<TData, unknown>[] {
-    const columns: ColumnDef<TData, unknown>[] = [];
+  private createColumns(): DataTableColumnDef<TData>[] {
+    const columns: DataTableColumnDef<TData>[] = [];
 
     this.columns().forEach((column) => {
       if (column instanceof CurveDataTableSelectionColumn) {
@@ -93,8 +113,8 @@ export class CurveDataTableComponent<TData> implements OnInit {
     return columns;
   }
 
-  private createCheckboxColumn(): ColumnDef<TData, unknown> {
-    const column: ColumnDef<TData, unknown> = {
+  private createCheckboxColumn(): DataTableColumnDef<TData> {
+    const column: DataTableColumnDef<TData> = {
       id: 'select',
       header: ({ table }) => flexRenderComponent(DataTableSelectAll<TData>, { inputs: { table } }),
       cell: ({ row }) => flexRenderComponent(DataTableSelectRowCell<TData>, { inputs: { row } }),
@@ -110,8 +130,8 @@ export class CurveDataTableComponent<TData> implements OnInit {
     header?: string,
     displayMethod?: (value: any) => string,
     sortable: boolean = false,
-  ): ColumnDef<TData, unknown> {
-    const column: ColumnDef<TData, unknown> = {
+  ): DataTableColumnDef<TData> {
+    const column: DataTableColumnDef<TData> = {
       accessorKey: fieldName,
       header: sortable
         ? ({ column }) =>
@@ -132,8 +152,8 @@ export class CurveDataTableComponent<TData> implements OnInit {
     return column;
   }
 
-  private createImageColumn(fieldName: string, header?: string): ColumnDef<TData, unknown> {
-    const column: ColumnDef<TData, unknown> = {
+  private createImageColumn(fieldName: string, header?: string): DataTableColumnDef<TData> {
+    const column: DataTableColumnDef<TData> = {
       accessorKey: fieldName,
       header: header,
       cell: ({ row }) =>
@@ -145,8 +165,8 @@ export class CurveDataTableComponent<TData> implements OnInit {
     return column;
   }
 
-  private createActionColumn(actions: string[], header?: string): ColumnDef<TData, unknown> {
-    const column: ColumnDef<TData, unknown> = {
+  private createActionColumn(actions: string[], header?: string): DataTableColumnDef<TData> {
+    const column: DataTableColumnDef<TData> = {
       id: 'actions',
       header: header,
       enableHiding: false,

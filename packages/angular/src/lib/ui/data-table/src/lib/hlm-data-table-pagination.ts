@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmButton } from '../../../button/src';
-import { type Table } from '@tanstack/angular-table';
+import { type RowData } from '@tanstack/angular-table';
+import type { DataTable } from './inject-data-table';
 
 /**
  * Selection summary plus Previous / Next paging controls. Mirrors React's
@@ -45,9 +46,9 @@ import { type Table } from '@tanstack/angular-table';
     </div>
   `,
 })
-export class HlmDataTablePagination<TData> {
+export class HlmDataTablePagination<TData extends RowData> {
   /** The TanStack table instance, e.g. from `injectDataTable`. */
-  public readonly table = input.required<Table<TData>>();
+  public readonly table = input.required<DataTable<TData>>();
 
   /** Label for the "previous page" button. */
   public readonly previousLabel = input<string>('Previous');

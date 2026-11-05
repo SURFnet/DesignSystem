@@ -14,8 +14,8 @@ import {
   Checkbox,
   DataTableContent,
   useDataTable,
+  type DataTableColumnDef,
 } from '@surfnet/curve-react';
-import type { ColumnDef } from '@tanstack/react-table';
 import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 
 import type { AppRecord } from '@/lib/mock-data';
@@ -27,13 +27,13 @@ import { RowActions } from '@/components/browse-apps/row-actions';
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
-const columns: ColumnDef<AppRecord, unknown>[] = [
+const columns: DataTableColumnDef<AppRecord>[] = [
   {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
-        indeterminate={table.getIsSomePageRowsSelected()}
+        indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
