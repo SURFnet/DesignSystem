@@ -66,7 +66,7 @@ function PaginationPrevious({
       className={cn(!iconOnly && styles.linkPaddingStart, className)}
       {...props}
     >
-      <CaretLeftIcon data-icon="inline-start" className={styles.rtlFlip} />
+      <CaretLeftIcon data-icon="inline-start" />
       <span className={iconOnly ? styles.srOnly : styles.hideSm}>{text}</span>
     </PaginationLink>
   );
@@ -87,7 +87,7 @@ function PaginationNext({
       {...props}
     >
       <span className={iconOnly ? styles.srOnly : styles.hideSm}>{text}</span>
-      <CaretRightIcon data-icon="inline-end" className={styles.rtlFlip} />
+      <CaretRightIcon data-icon="inline-end" />
     </PaginationLink>
   );
 }
