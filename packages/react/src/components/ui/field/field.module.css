@@ -197,3 +197,8 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+/* CURVE: the legend isn't a flex row like the label, so the suffix needs its own 4px gap (issue #144). */
+.legend > .optional {
+  margin-inline-start: calc(var(--spacing, 0.25rem) * 1);
+}
