@@ -97,7 +97,7 @@ export class CustomDataTableComponent {
 
   private currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'EUR',
   });
 
   protected rowActionTriggered(event: CurveDataTableRowEvent<App>) {

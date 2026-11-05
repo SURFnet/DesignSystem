@@ -3,14 +3,15 @@
   @if (searchColumn()) {
   <div hlmInputGroup class="curve-data-table-search">
     <div hlmInputGroupAddon>
-      <ng-icon name="phosphorMagnifyingGlass" />
-      <input
-        hlmInputGroupInput
-        [placeholder]="`Search ${searchColumn()}...`"
-        [value]="appFilter()"
-        (input)="setAppFilter($event)"
-      />
+      <ng-icon name="phosphorMagnifyingGlass" aria-hidden="true" />
     </div>
+    <input
+      hlmInputGroupInput
+      [attr.aria-label]="`Search ${searchColumn()}`"
+      [placeholder]="`Search ${searchColumn()}...`"
+      [value]="appFilter()"
+      (input)="setAppFilter($event)"
+    />
   </div>
   } @if (hasColumnFilter()) {
   <button

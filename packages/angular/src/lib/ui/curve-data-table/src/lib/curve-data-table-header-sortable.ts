@@ -15,6 +15,7 @@ import type { DataTableFeatures } from '../../../data-table/src';
       hlmBtn
       variant="ghost"
       size="sm"
+      class="curve-data-table-sort-button"
       (click)="column().toggleSorting(column().getIsSorted() === 'asc')"
     >
       {{ label() }}

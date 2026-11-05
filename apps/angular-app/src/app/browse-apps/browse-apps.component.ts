@@ -20,7 +20,7 @@ import { AppsSearchComponent } from './apps-search.component';
 import { CategoryFilterComponent } from './category-filter.component';
 import { RowActionsComponent } from './row-actions.component';
 
-const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' });
 
 @Component({
   selector: 'app-select-all-cell',
