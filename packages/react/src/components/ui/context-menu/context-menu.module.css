@@ -2,6 +2,12 @@
   user-select: none;
 }
 
+/* Same focus outline as Button. */
+.trigger:focus-visible {
+  outline: 2px solid var(--primary-strong);
+  outline-offset: 2px;
+}
+
 .positioner {
   isolation: isolate;
   z-index: 50;

@@ -11,7 +11,6 @@ import {
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
   ContextMenuSeparator,
-  ContextMenuShortcut,
   ContextMenuSub,
   ContextMenuSubContent,
   ContextMenuSubTrigger,
@@ -20,8 +19,6 @@ import {
 
 const meta = {
   title: 'Components/ContextMenu',
-  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
-  tags: ['a11y-gap'],
   component: ContextMenu,
   parameters: {
     docs: {
@@ -47,14 +44,13 @@ const triggerAreaClassName =
 export const Default: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className={triggerAreaClassName}>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={triggerAreaClassName}>
+        Right-click here, or focus and press Shift+F10
+      </ContextMenuTrigger>
       <ContextMenuContent className="w-48">
         <ContextMenuGroup>
           <ContextMenuLabel>My account</ContextMenuLabel>
-          <ContextMenuItem>
-            Profile
-            <ContextMenuShortcut>⇧⌘P</ContextMenuShortcut>
-          </ContextMenuItem>
+          <ContextMenuItem>Profile</ContextMenuItem>
           <ContextMenuItem>Settings</ContextMenuItem>
         </ContextMenuGroup>
         <ContextMenuSeparator />
@@ -68,7 +64,9 @@ export const Default: Story = {
 export const WithCheckboxItems: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className={triggerAreaClassName}>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={triggerAreaClassName}>
+        Right-click here, or focus and press Shift+F10
+      </ContextMenuTrigger>
       <ContextMenuContent className="w-44">
         <ContextMenuGroup>
           <ContextMenuLabel>Toggle columns</ContextMenuLabel>
@@ -85,7 +83,9 @@ export const WithCheckboxItems: Story = {
 export const WithRadioItems: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className={triggerAreaClassName}>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={triggerAreaClassName}>
+        Right-click here, or focus and press Shift+F10
+      </ContextMenuTrigger>
       <ContextMenuContent className="w-44">
         <ContextMenuRadioGroup defaultValue="list">
           <ContextMenuLabel>View</ContextMenuLabel>
@@ -102,7 +102,9 @@ export const WithRadioItems: Story = {
 export const WithSubmenu: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className={triggerAreaClassName}>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={triggerAreaClassName}>
+        Right-click here, or focus and press Shift+F10
+      </ContextMenuTrigger>
       <ContextMenuContent className="w-48">
         <ContextMenuItem>Back</ContextMenuItem>
         <ContextMenuItem>Forward</ContextMenuItem>

@@ -19,6 +19,7 @@ import {
   ComboboxValue,
   useComboboxAnchor,
 } from './combobox';
+import { Label } from '@/components/ui/label';
 
 const countries = [
   'Belgium',
@@ -42,8 +43,6 @@ const languages = ['TypeScript', 'JavaScript', 'Python', 'Rust', 'Go'];
 
 const meta = {
   title: 'Components/Combobox',
-  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
-  tags: ['a11y-gap'],
   component: Combobox,
   parameters: {
     docs: {
@@ -65,75 +64,17 @@ type Story = StoryObj<typeof meta>;
 /** A searchable, filterable select — type to filter, with a trigger and clear button. */
 export const Default: Story = {
   render: () => (
-    <Combobox items={countries}>
-      <ComboboxInput placeholder="Search a country…" showClear className="w-64" />
-      <ComboboxContent>
-        <ComboboxEmpty>No countries found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item: string) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
-    </Combobox>
-  ),
-};
-
-/** Options organized into labelled, independently-filtered groups. */
-export const Grouped: Story = {
-  render: () => (
-    <Combobox items={frameworkGroups}>
-      <ComboboxInput placeholder="Search a framework…" className="w-64" />
-      <ComboboxContent>
-        <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
-        <ComboboxList>
-          {(group: (typeof frameworkGroups)[number], index: number) => (
-            <React.Fragment key={group.value}>
-              {index > 0 && <ComboboxSeparator />}
-              <ComboboxGroup items={group.items}>
-                <ComboboxLabel>{group.value}</ComboboxLabel>
-                <ComboboxCollection>
-                  {(item: string) => (
-                    <ComboboxItem key={item} value={item}>
-                      {item}
-                    </ComboboxItem>
-                  )}
-                </ComboboxCollection>
-              </ComboboxGroup>
-            </React.Fragment>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
-    </Combobox>
-  ),
-};
-
-/** Multi-select with removable chips, anchored to the chips row instead of the input. */
-export const Multiple: Story = {
-  render: function MultipleCombobox() {
-    const anchor = useComboboxAnchor();
-    return (
-      <Combobox items={languages} multiple defaultValue={['TypeScript']}>
-        <div ref={anchor}>
-          <ComboboxChips>
-            <ComboboxValue>
-              {(value: string[]) => (
-                <>
-                  {value.map((language) => (
-                    <ComboboxChip key={language} removeLabel={`Remove ${language}`}>
-                      {language}
-                    </ComboboxChip>
-                  ))}
-                  <ComboboxChipsInput placeholder="Add a language…" />
-                </>
-              )}
-            </ComboboxValue>
-          </ComboboxChips>
-        </div>
-        <ComboboxContent anchor={anchor}>
-          <ComboboxEmpty>No languages found.</ComboboxEmpty>
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="combobox-country">Country</Label>
+      <Combobox items={countries}>
+        <ComboboxInput
+          id="combobox-country"
+          placeholder="Search a country…"
+          showClear
+          className="w-64"
+        />
+        <ComboboxContent>
+          <ComboboxEmpty>No countries found.</ComboboxEmpty>
           <ComboboxList>
             {(item: string) => (
               <ComboboxItem key={item} value={item}>
@@ -143,6 +84,78 @@ export const Multiple: Story = {
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
+    </div>
+  ),
+};
+
+/** Options organized into labelled, independently-filtered groups. */
+export const Grouped: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="combobox-framework">Framework</Label>
+      <Combobox items={frameworkGroups}>
+        <ComboboxInput id="combobox-framework" placeholder="Search a framework…" className="w-64" />
+        <ComboboxContent>
+          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
+          <ComboboxList>
+            {(group: (typeof frameworkGroups)[number], index: number) => (
+              <React.Fragment key={group.value}>
+                {index > 0 && <ComboboxSeparator />}
+                <ComboboxGroup items={group.items}>
+                  <ComboboxLabel>{group.value}</ComboboxLabel>
+                  <ComboboxCollection>
+                    {(item: string) => (
+                      <ComboboxItem key={item} value={item}>
+                        {item}
+                      </ComboboxItem>
+                    )}
+                  </ComboboxCollection>
+                </ComboboxGroup>
+              </React.Fragment>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    </div>
+  ),
+};
+
+/** Multi-select with removable chips, anchored to the chips row instead of the input. */
+export const Multiple: Story = {
+  render: function MultipleCombobox() {
+    const anchor = useComboboxAnchor();
+    return (
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="combobox-languages">Languages</Label>
+        <Combobox items={languages} multiple defaultValue={['TypeScript']}>
+          <div ref={anchor}>
+            <ComboboxChips>
+              <ComboboxValue>
+                {(value: string[]) => (
+                  <>
+                    {value.map((language) => (
+                      <ComboboxChip key={language} removeLabel={`Remove ${language}`}>
+                        {language}
+                      </ComboboxChip>
+                    ))}
+                    <ComboboxChipsInput id="combobox-languages" placeholder="Add a language…" />
+                  </>
+                )}
+              </ComboboxValue>
+            </ComboboxChips>
+          </div>
+          <ComboboxContent anchor={anchor}>
+            <ComboboxEmpty>No languages found.</ComboboxEmpty>
+            <ComboboxList>
+              {(item: string) => (
+                <ComboboxItem key={item} value={item}>
+                  {item}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
+      </div>
     );
   },
 };
@@ -150,17 +163,25 @@ export const Multiple: Story = {
 /** Disabled state — the input, trigger, and clear button all ignore interaction. */
 export const Disabled: Story = {
   render: () => (
-    <Combobox items={countries} defaultValue="Netherlands" disabled>
-      <ComboboxInput placeholder="Search a country…" showClear className="w-64" />
-      <ComboboxContent>
-        <ComboboxList>
-          {(item: string) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
-    </Combobox>
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="combobox-country-disabled">Country</Label>
+      <Combobox items={countries} defaultValue="Netherlands" disabled>
+        <ComboboxInput
+          id="combobox-country-disabled"
+          placeholder="Search a country…"
+          showClear
+          className="w-64"
+        />
+        <ComboboxContent>
+          <ComboboxList>
+            {(item: string) => (
+              <ComboboxItem key={item} value={item}>
+                {item}
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    </div>
   ),
 };

@@ -6,15 +6,14 @@ import { comboboxContract } from '@surfnet/curve-contracts';
 import { HlmCombobox } from './hlm-combobox';
 import { HlmComboboxImports } from '..';
 import { HlmFieldImports } from '../../../field/src';
+import { HlmLabelImports } from '../../../label/src';
 
 const meta: Meta<HlmCombobox> = {
   title: 'Components/Combobox',
-  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
-  tags: ['a11y-gap'],
   component: HlmCombobox,
   decorators: [
     moduleMetadata({
-      imports: [HlmComboboxImports, HlmFieldImports, ReactiveFormsModule],
+      imports: [HlmComboboxImports, HlmFieldImports, HlmLabelImports, ReactiveFormsModule],
     }),
   ],
   parameters: {
@@ -37,8 +36,10 @@ type Story = StoryObj<HlmCombobox>;
 export const Default: Story = {
   render: () => ({
     template: `
-			<hlm-combobox>
-				<hlm-combobox-input placeholder="Search a country…" showClear class="w-64" />
+			<div class="flex flex-col gap-2">
+<label hlmLabel for="combobox-country">Country</label>
+<hlm-combobox>
+				<hlm-combobox-input inputId="combobox-country" placeholder="Search a country…" showClear class="w-64" />
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-empty>No countries found.</hlm-combobox-empty>
 					<div hlmComboboxList>
@@ -55,6 +56,7 @@ export const Default: Story = {
 					</div>
 				</hlm-combobox-content>
 			</hlm-combobox>
+</div>
 		`,
   }),
 };
@@ -63,8 +65,10 @@ export const Default: Story = {
 export const Grouped: Story = {
   render: () => ({
     template: `
-			<hlm-combobox>
-				<hlm-combobox-input placeholder="Search a framework…" class="w-64" />
+			<div class="flex flex-col gap-2">
+<label hlmLabel for="combobox-framework">Framework</label>
+<hlm-combobox>
+				<hlm-combobox-input inputId="combobox-framework" placeholder="Search a framework…" class="w-64" />
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-empty>No frameworks found.</hlm-combobox-empty>
 					<div hlmComboboxList>
@@ -86,34 +90,38 @@ export const Grouped: Story = {
 					</div>
 				</hlm-combobox-content>
 			</hlm-combobox>
+</div>
 		`,
   }),
 };
 
 @Component({
   selector: 'combobox-multiple-demo',
-  imports: [HlmComboboxImports],
+  imports: [HlmComboboxImports, HlmLabelImports],
   template: `
-    <hlm-combobox-multiple [(value)]="values">
-      <hlm-combobox-chips class="w-64">
-        <ng-template hlmComboboxValues let-values>
-          @for (value of values; track value) {
-            <hlm-combobox-chip [value]="value">{{ value }}</hlm-combobox-chip>
-          }
-        </ng-template>
-        <input hlmComboboxChipInput placeholder="Add a language…" />
-      </hlm-combobox-chips>
-      <hlm-combobox-content *hlmComboboxPortal>
-        <hlm-combobox-empty>No languages found.</hlm-combobox-empty>
-        <div hlmComboboxList>
-          <hlm-combobox-item value="TypeScript">TypeScript</hlm-combobox-item>
-          <hlm-combobox-item value="JavaScript">JavaScript</hlm-combobox-item>
-          <hlm-combobox-item value="Python">Python</hlm-combobox-item>
-          <hlm-combobox-item value="Rust">Rust</hlm-combobox-item>
-          <hlm-combobox-item value="Go">Go</hlm-combobox-item>
-        </div>
-      </hlm-combobox-content>
-    </hlm-combobox-multiple>
+    <div class="flex flex-col gap-2">
+      <label hlmLabel for="combobox-languages">Languages</label>
+      <hlm-combobox-multiple [(value)]="values">
+        <hlm-combobox-chips class="w-64">
+          <ng-template hlmComboboxValues let-values>
+            @for (value of values; track value) {
+              <hlm-combobox-chip [value]="value">{{ value }}</hlm-combobox-chip>
+            }
+          </ng-template>
+          <input hlmComboboxChipInput id="combobox-languages" placeholder="Add a language…" />
+        </hlm-combobox-chips>
+        <hlm-combobox-content *hlmComboboxPortal>
+          <hlm-combobox-empty>No languages found.</hlm-combobox-empty>
+          <div hlmComboboxList>
+            <hlm-combobox-item value="TypeScript">TypeScript</hlm-combobox-item>
+            <hlm-combobox-item value="JavaScript">JavaScript</hlm-combobox-item>
+            <hlm-combobox-item value="Python">Python</hlm-combobox-item>
+            <hlm-combobox-item value="Rust">Rust</hlm-combobox-item>
+            <hlm-combobox-item value="Go">Go</hlm-combobox-item>
+          </div>
+        </hlm-combobox-content>
+      </hlm-combobox-multiple>
+    </div>
   `,
 })
 class ComboboxMultipleDemo {
@@ -134,12 +142,15 @@ export const Multiple: Story = {
 export const Disabled: Story = {
   render: () => ({
     template: `
-			<hlm-combobox disabled>
-				<hlm-combobox-input placeholder="Search a country…" class="w-64" />
+			<div class="flex flex-col gap-2">
+<label hlmLabel for="combobox-country-disabled">Country</label>
+<hlm-combobox disabled>
+				<hlm-combobox-input inputId="combobox-country-disabled" placeholder="Search a country…" class="w-64" />
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-item value="Netherlands">Netherlands</hlm-combobox-item>
 				</hlm-combobox-content>
 			</hlm-combobox>
+</div>
 		`,
   }),
 };

@@ -32,8 +32,10 @@ export class HlmCommandInput {
   public readonly inputId = input<string | undefined>();
   public readonly placeholder = input<string>('');
 
-  /** Accessible name applied to the underlying combobox input. */
-  public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
+  /** Accessible name applied to the underlying combobox input. Same default as React. */
+  public readonly ariaLabel = input<string | null>('Type a command or search...', {
+    alias: 'aria-label',
+  });
 
   /** Accessible name applied to the underlying combobox input via a visible label. */
   public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });

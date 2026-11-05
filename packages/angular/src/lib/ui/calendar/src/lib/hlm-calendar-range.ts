@@ -85,15 +85,19 @@ import type { ClassValue } from 'clsx';
                 }
                 @case ('dropdown-months') {
                   <ng-container [ngTemplateOutlet]="month" />
-                  <div brnCalendarHeader class="curve-calendar-heading">{{ heading.year }}</div>
+                  <div class="curve-calendar-heading" aria-hidden="true">{{ heading.year }}</div>
                 }
                 @case ('dropdown-years') {
-                  <div brnCalendarHeader class="curve-calendar-heading">{{ heading.month }}</div>
+                  <div class="curve-calendar-heading" aria-hidden="true">{{ heading.month }}</div>
                   <ng-container [ngTemplateOutlet]="year" />
                 }
                 @case ('label') {
                   <div brnCalendarHeader class="curve-calendar-heading">{{ heading.header }}</div>
                 }
+              }
+              <!-- Full month + year for screen readers: names the grid and announces month changes. -->
+              @if (captionLayout() !== 'label') {
+                <div brnCalendarHeader class="curve-calendar-sr-only">{{ heading.header }}</div>
               }
             </div>
 
@@ -133,7 +137,12 @@ import type { ClassValue } from 'clsx';
             <tr *brnCalendarWeek="let week" class="curve-calendar-week">
               @for (date of week; track _dateAdapter.getTime(date)) {
                 <td brnCalendarCell class="curve-calendar-cell curve-calendar-cell--range">
-                  <button brnCalendarCellButton [date]="date" [class]="_btnClass">
+                  <button
+                    brnCalendarCellButton
+                    [date]="date"
+                    [class]="_btnClass"
+                    [attr.aria-label]="_labelDay(date)"
+                  >
                     {{ _dateAdapter.getDate(date) }}
                   </button>
                 </td>
@@ -218,4 +227,18 @@ export class HlmCalendarRange<T> {
   );
 
   protected readonly _selectClass = 'curve-calendar-select-trigger';
+
+  /** Full date for screen readers, e.g. "Wednesday, 4 November 2026" (the button only shows "4"). */
+  protected _labelDay(date: T): string {
+    return new Date(
+      this._dateAdapter.getYear(date),
+      this._dateAdapter.getMonth(date),
+      this._dateAdapter.getDate(date),
+    ).toLocaleDateString(undefined, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  }
 }

@@ -17,11 +17,44 @@ function ContextMenuPortal({ ...props }: ContextMenuPrimitive.Portal.Props) {
   return <ContextMenuPrimitive.Portal data-slot="context-menu-portal" {...props} />;
 }
 
-function ContextMenuTrigger({ className, ...props }: ContextMenuPrimitive.Trigger.Props) {
+/** Shift+F10 or the Menu key: the keyboard way to open a context menu. */
+function isContextMenuKey(event: React.KeyboardEvent) {
+  return event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10');
+}
+
+/**
+ * Focusable by default (`tabIndex={0}`) so keyboard users can open the menu with Shift+F10
+ * or the Menu key (WCAG 2.1.1). Offer the same actions somewhere visible as well.
+ */
+function ContextMenuTrigger({
+  className,
+  tabIndex = 0,
+  onKeyDown,
+  ...props
+}: ContextMenuPrimitive.Trigger.Props) {
+  const handleKeyDown: ContextMenuPrimitive.Trigger.Props['onKeyDown'] = (event) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented || !isContextMenuKey(event)) return;
+    // Not every browser fires `contextmenu` for these keys, so fire it ourselves,
+    // positioned at the bottom-left corner of the trigger.
+    event.preventDefault();
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.dispatchEvent(
+      new MouseEvent('contextmenu', {
+        bubbles: true,
+        cancelable: true,
+        clientX: rect.left,
+        clientY: rect.bottom,
+      }),
+    );
+  };
+
   return (
     <ContextMenuPrimitive.Trigger
       data-slot="context-menu-trigger"
       className={cn(styles.trigger, className)}
+      tabIndex={tabIndex}
+      onKeyDown={handleKeyDown}
       {...props}
     />
   );
@@ -198,6 +231,7 @@ function ContextMenuSeparator({ className, ...props }: ContextMenuPrimitive.Sepa
   );
 }
 
+/** Only show a shortcut that really works, and set `aria-keyshortcuts` on its item. */
 function ContextMenuShortcut({ className, ...props }: React.ComponentProps<'span'>) {
   return (
     <span data-slot="context-menu-shortcut" className={cn(styles.shortcut, className)} {...props} />
