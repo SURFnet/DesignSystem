@@ -92,6 +92,30 @@ export const InFieldset: Story = {
 };
 
 /**
+ * Mark the whole group optional with `<FieldSet optional>`: the legend gets the "(optioneel)"
+ * suffix (change it with `optionalText`), the radio group drops `aria-required` and the radios
+ * drop `required`. The option labels stay unmarked. Outside an optional fieldset every radio is
+ * marked required.
+ */
+export const OptionalFieldset: Story = {
+  render: () => (
+    <FieldSet optional className="w-80">
+      <FieldLegend>Preferred contact time</FieldLegend>
+      <RadioGroup>
+        <div className="flex items-center gap-3">
+          <RadioGroupItem value="morning" id="time-morning" />
+          <FieldLabel htmlFor="time-morning">Morning</FieldLabel>
+        </div>
+        <div className="flex items-center gap-3">
+          <RadioGroupItem value="afternoon" id="time-afternoon" />
+          <FieldLabel htmlFor="time-afternoon">Afternoon</FieldLabel>
+        </div>
+      </RadioGroup>
+    </FieldSet>
+  ),
+};
+
+/**
  * Choice cards: wrap each option's `Field` in a `FieldLabel` and the whole label becomes a
  * selectable card. The selected card gets a primary-tinted border and background. The group
  * is named by a visible `Label` via `aria-labelledby`.
