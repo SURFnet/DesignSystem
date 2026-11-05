@@ -1,5 +1,30 @@
 # @surfnet/curve-react
 
+## 1.0.0
+
+### Major Changes
+
+- bc34b01: Data tables now run on TanStack Table v9 (`@tanstack/react-table` / `@tanstack/angular-table` 9.x).
+
+  Breaking for code that types its columns or table:
+
+  - Type columns with the new `DataTableColumnDef<TData>` (exported from Curve) instead of TanStack's `ColumnDef<TData>`. The table is typed `DataTable<TData>`. Use `DataTableFeatures` where TanStack types need a features type, e.g. `Row<DataTableFeatures, TData>`.
+  - TanStack v9 changed some APIs: see its [migration guide](https://tanstack.com/table/latest/docs/framework/react/guide/migrating). For example, `getIsSomePageRowsSelected()` now stays `true` when every row is selected, so a "select all" checkbox should use `getIsSomePageRowsSelected() && !getIsAllPageRowsSelected()` for its indeterminate state.
+  - String `filterFn` / `sortFn` names only work for the built-ins Curve registers (the ones `'auto'` picks: `includesString`, `inNumberRange`, `equals`, `arrIncludes`, `inDateRange`, `weakEquals`; `alphanumeric`, `text`, `datetime`, `basic`). Pass any other filter or sort function directly.
+  - Angular: `injectDataTable` must be called from an injection context.
+
+### Minor Changes
+
+- c782f93: Add `optional` to `FieldSet` / `hlmFieldSet`. The legend gets the "(optioneel)" suffix (change it with `optionalText` on the legend) and controls inside the fieldset no longer get `aria-required`.
+
+  Radios in a required radio group now each get the native `required` attribute, so screen readers announce "required" on every option. In an optional field or fieldset they don't.
+
+- 2f06a83: New `CurveDataTable` component: the ready-made data table that Angular already had. It shows search, column toggles, row selection, sorting, row actions and paging, configured with the same column classes as Angular (`CurveDataTableSelectionColumn`, `CurveDataTableStringColumn`, `CurveDataTableImageColumn`, `CurveDataTableActionColumn`). Row actions call `onRowActionTriggered`.
+
+### Patch Changes
+
+- 2defddb: `FieldError` shows a warning icon before its message, so an error isn't communicated by colour alone. Matches `hlm-field-error` in `@surfnet/curve-angular`.
+
 ## 0.11.0
 
 ### Patch Changes

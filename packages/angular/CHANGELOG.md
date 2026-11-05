@@ -1,5 +1,40 @@
 # @surfnet/curve-angular
 
+## 1.0.0
+
+### Major Changes
+
+- bc34b01: Data tables now run on TanStack Table v9 (`@tanstack/react-table` / `@tanstack/angular-table` 9.x).
+
+  Breaking for code that types its columns or table:
+
+  - Type columns with the new `DataTableColumnDef<TData>` (exported from Curve) instead of TanStack's `ColumnDef<TData>`. The table is typed `DataTable<TData>`. Use `DataTableFeatures` where TanStack types need a features type, e.g. `Row<DataTableFeatures, TData>`.
+  - TanStack v9 changed some APIs: see its [migration guide](https://tanstack.com/table/latest/docs/framework/react/guide/migrating). For example, `getIsSomePageRowsSelected()` now stays `true` when every row is selected, so a "select all" checkbox should use `getIsSomePageRowsSelected() && !getIsAllPageRowsSelected()` for its indeterminate state.
+  - String `filterFn` / `sortFn` names only work for the built-ins Curve registers (the ones `'auto'` picks: `includesString`, `inNumberRange`, `equals`, `arrIncludes`, `inDateRange`, `weakEquals`; `alphanumeric`, `text`, `datetime`, `basic`). Pass any other filter or sort function directly.
+  - Angular: `injectDataTable` must be called from an injection context.
+
+### Minor Changes
+
+- 2defddb: Form fields show and announce their validation errors consistently.
+
+  - An empty `<hlm-field-error />` now shows the messages from the control's errors: a string error as-is (e.g. a JsonForms or server message), otherwise a message for the validator key. Several errors show as a list, as in React's `FieldError`. Curve ships Dutch defaults for Angular's built-in validators; override or add messages app-wide with `provideHlmFieldErrorMessages({ ... })`. Text you put inside `hlm-field-error` still wins.
+  - `hlm-field-error` shows a warning icon, so an error isn't communicated by colour alone.
+  - The field's error is now linked (`aria-describedby`) and `aria-invalid` is set on the focusable element of Checkbox, Switch, NativeSelect, Slider and InputOTP. NativeSelect gains an `aria-describedby` input.
+  - InputOTP now reports its form control to `hlmField`, so the field shows its error and the slots their invalid styling.
+
+- c782f93: Add `optional` to `FieldSet` / `hlmFieldSet`. The legend gets the "(optioneel)" suffix (change it with `optionalText` on the legend) and controls inside the fieldset no longer get `aria-required`.
+
+  Radios in a required radio group now each get the native `required` attribute, so screen readers announce "required" on every option. In an optional field or fieldset they don't.
+
+### Patch Changes
+
+- 2f06a83: Curve Data Table:
+
+  - The row-action "⋯" button is now a real 32×32 Curve button with hover and focus styles. Its label is "Open action menu" (was "Open action menu for [object Object]").
+  - The search field's icon and input now sit side by side, and the field has an accessible name ("Search <column>").
+  - The sortable column header text lines up with the cells.
+  - Images in image columns have an empty `alt`, so screen readers skip them.
+
 ## 0.11.0
 
 ### Minor Changes

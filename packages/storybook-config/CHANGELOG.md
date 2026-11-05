@@ -1,5 +1,12 @@
 # @surfnet/curve-storybook-config
 
+## 1.0.0
+
+### Patch Changes
+
+- @surfnet/curve-microcopy@1.0.0
+  - @surfnet/curve-tokens@1.0.0
+
 ## 0.11.0
 
 ### Patch Changes
