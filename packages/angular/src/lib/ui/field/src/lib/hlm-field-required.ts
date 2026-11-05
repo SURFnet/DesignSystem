@@ -8,19 +8,22 @@ import {
   type Signal,
 } from '@angular/core';
 import { HlmField } from './hlm-field';
+import { HlmFieldSet } from './hlm-field-set';
 
 // CURVE: fields are required by default (issue #144). Internal: not re-exported from the
-// field barrel, so `hlmField optional` stays the only public way to mark a field optional.
+// field barrel, so `hlmField optional` / `hlmFieldSet optional` stay the only public way to mark a field optional.
 
 /**
  * `aria-required` for a form control: an explicit value wins, otherwise the surrounding
- * `hlmField` decides (required unless `optional`). Returns `'true'` or `null` for `[attr.aria-required]`.
+ * `hlmField` or `hlmFieldSet` decides (required unless either is `optional`). Returns `'true'` or
+ * `null` for `[attr.aria-required]`.
  */
 export function injectAriaRequired(
   own: Signal<boolean | undefined> = signal(undefined),
 ): Signal<'true' | null> {
   const field = inject(HlmField, { optional: true });
-  return computed(() => ((own() ?? !field?.optional()) ? 'true' : null));
+  const fieldSet = inject(HlmFieldSet, { optional: true });
+  return computed(() => ((own() ?? !(field?.optional() || fieldSet?.optional())) ? 'true' : null));
 }
 
 /** Writes `aria-required` onto an element a Brain component renders inside this host. */
