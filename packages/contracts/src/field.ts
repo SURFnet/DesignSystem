@@ -11,7 +11,7 @@ export const fieldContract = defineContract({
   },
   docs: {
     description:
-      'A form-field wrapper that lays out a label, control, description, and error message. Fields are required by default; mark the exceptions with `optional`.',
+      'A form-field wrapper that lays out a label, control, description, and error message. Fields are required by default; mark the exceptions with `optional` (on a field, or on a fieldset to mark a whole group).',
     orientations: {
       vertical: 'Label stacked above the control — the default.',
       horizontal: 'Label beside the control — e.g. a checkbox row.',
