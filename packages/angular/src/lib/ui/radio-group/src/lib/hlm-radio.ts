@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import { BrnRadio, BrnRadioGroup, type BrnRadioChange } from '@spartan-ng/brain/radio-group';
 import { hlm } from '../../../utils/src';
+import { HlmRadioGroup } from './hlm-radio-group';
 import type { ClassValue } from 'clsx';
 
 @Component({
@@ -34,7 +35,7 @@ import type { ClassValue } from 'clsx';
       [id]="inputId()"
       [class]="_computedClass()"
       [value]="value()"
-      [required]="required()"
+      [required]="_required()"
       [disabled]="disabled()"
       [attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
       [attr.data-invalid]="_ariaInvalid() ? 'true' : null"
@@ -57,6 +58,7 @@ export class HlmRadio<T = unknown> {
   private readonly _elementRef = inject(ElementRef);
   private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly _radioGroup = inject(BrnRadioGroup, { optional: true });
+  private readonly _hlmRadioGroup = inject(HlmRadioGroup, { optional: true });
 
   protected readonly _ariaInvalid = computed(() => this._radioGroup?.controlState?.()?.invalid);
 
@@ -97,8 +99,14 @@ export class HlmRadio<T = unknown> {
    */
   public readonly value = input.required<T>();
 
-  /** Whether the checkbox is required. */
+  /** Whether the radio is required. Inside a required `hlm-radio-group` it always is. */
   public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+  // CURVE: a11y (issue #289) — native `required` on every option of a required group (not
+  // `aria-required`, which ARIA doesn't allow on a radio). Off inside an optional field/fieldset.
+  protected readonly _required = computed(
+    () => this.required() || !!this._hlmRadioGroup?._required(),
+  );
 
   /** Whether the checkbox is disabled. */
   public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
