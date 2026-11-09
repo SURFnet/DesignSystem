@@ -1,5 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { dialogContract } from '@surfnet/curve-contracts';
+import { DialogTests } from '@surfnet/curve-contracts/tests';
 
 import { HlmButton } from '../../../button/src';
 import { HlmInput } from '../../../input/src';
@@ -36,8 +37,8 @@ export const Default: Story = {
   render: () => ({
     template: `
       <hlm-dialog>
-        <button hlmDialogTrigger hlmBtn variant="outline">Edit profile</button>
-        <hlm-dialog-content *hlmDialogPortal="let ctx">
+        <button hlmDialogTrigger hlmBtn variant="outline" data-testid="${DialogTests.testIds.trigger}">Edit profile</button>
+        <hlm-dialog-content *hlmDialogPortal="let ctx" data-testid="${DialogTests.testIds.content}">
           <hlm-dialog-header>
             <h2 hlmDialogTitle>Edit profile</h2>
             <p hlmDialogDescription>
@@ -55,13 +56,14 @@ export const Default: Story = {
             </div>
           </div>
           <hlm-dialog-footer>
-            <button hlmDialogClose hlmBtn variant="outline">Cancel</button>
+            <button hlmDialogClose hlmBtn variant="outline" data-testid="${DialogTests.testIds.close}">Cancel</button>
             <button hlmBtn type="submit">Save changes</button>
           </hlm-dialog-footer>
         </hlm-dialog-content>
       </hlm-dialog>
     `,
   }),
+  play: DialogTests.DefaultTest('.curve-dialog-overlay'),
 };
 
 /**

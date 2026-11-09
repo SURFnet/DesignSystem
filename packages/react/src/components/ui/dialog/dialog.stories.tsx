@@ -79,7 +79,7 @@ export const Default: Story = {
       </DialogContent>
     </Dialog>
   ),
-  play: DialogTests.DefaultTest(),
+  play: DialogTests.DefaultTest('[data-slot="dialog-overlay"]'),
 };
 
 /**
