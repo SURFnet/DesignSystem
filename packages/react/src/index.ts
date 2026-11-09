@@ -17,6 +17,7 @@ export * from '@/components/ui/combobox';
 export * from '@/components/ui/command';
 export * from '@/components/ui/context-menu';
 export * from '@/components/ui/curve-data-table';
+export * from '@/components/ui/curve-page-header';
 export * from '@/components/ui/data-table';
 export * from '@/components/ui/date-picker';
 export * from '@/components/ui/dialog';
