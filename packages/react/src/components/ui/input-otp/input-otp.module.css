@@ -65,12 +65,34 @@
   border-bottom-right-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
 }
 
-.slot[aria-invalid='true'] {
-  border-color: var(--destructive);
-}
-
 :global(.dark) .slot {
   background-color: color-mix(in oklch, var(--input) 30%, transparent);
+}
+
+/* `with-spacing` variant (issue #262): separate rounded slots with a gap. */
+.groupWithSpacing {
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.groupWithSpacing:has([aria-invalid='true']),
+:global(.dark) .groupWithSpacing:has([aria-invalid='true']) {
+  box-shadow: none;
+}
+
+.groupWithSpacing .slot {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Background only, so the invalid/active border rules below still win. */
+:global(.dark) .groupWithSpacing .slot {
+  background-color: var(--background);
+}
+
+.slot[aria-invalid='true'] {
+  border-color: var(--destructive);
 }
 
 .slot:hover:not([aria-invalid='true']) {
