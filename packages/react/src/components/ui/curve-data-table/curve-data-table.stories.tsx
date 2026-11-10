@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { curveDataTableContract } from '@surfnet/curve-contracts';
 
+import { Badge } from '@/components/ui/badge';
 import { CurveDataTable } from './curve-data-table';
 import {
   CurveDataTableActionColumn,
+  CurveDataTableCustomColumn,
   CurveDataTableSelectionColumn,
   CurveDataTableStringColumn,
   type CurveDataTableRowEvent,
@@ -34,7 +36,16 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: '
 // Defined once, outside the story, so the table isn't rebuilt on every render.
 const columns: ICurveDataTableColumn[] = [
   new CurveDataTableSelectionColumn(),
-  new CurveDataTableStringColumn('status', 'Status'),
+  new CurveDataTableCustomColumn<Payment>('status', 'Status', (payment) => {
+    const variants = {
+      pending: 'secondary',
+      processing: 'outline',
+      success: 'success',
+      failed: 'danger',
+    } as const;
+
+    return <Badge variant={variants[payment.status]}>{payment.status}</Badge>;
+  }),
   new CurveDataTableStringColumn('email', 'Email', undefined, true),
   new CurveDataTableStringColumn<number>('amount', 'Amount', (value) => currency.format(value)),
   new CurveDataTableActionColumn(['Copy payment ID', 'View customer', 'View payment details']),

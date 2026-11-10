@@ -2,6 +2,7 @@
  * Column descriptions for `CurveDataTable`. Same classes and constructor arguments as the
  * Angular `curve-data-table`, so a table is configured the same way in both frameworks.
  */
+import type { ReactNode } from 'react';
 
 /** Base shape of every Curve data table column. */
 export interface ICurveDataTableColumn {
@@ -60,4 +61,13 @@ export class CurveDataTableActionColumn implements ICurveDataTableColumn {
 export interface CurveDataTableRowEvent<TData> {
   action: string;
   record: TData;
+}
+
+/** A custom React column that renders a cell using the complete row record. */
+export class CurveDataTableCustomColumn<TData = unknown> implements ICurveDataTableColumn {
+  constructor(
+    public id: string,
+    public header: string,
+    public render: (record: TData) => ReactNode,
+  ) {}
 }

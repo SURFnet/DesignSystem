@@ -30,6 +30,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/in
 
 import {
   CurveDataTableActionColumn,
+  CurveDataTableCustomColumn,
   CurveDataTableImageColumn,
   CurveDataTableSelectionColumn,
   CurveDataTableStringColumn,
@@ -147,6 +148,8 @@ function createColumns<TData extends RowData>(
       result.push(createSelectionColumn<TData>());
     } else if (column instanceof CurveDataTableStringColumn) {
       result.push(createStringColumn<TData>(column));
+    } else if (column instanceof CurveDataTableCustomColumn) {
+      result.push(createCustomColumn<TData>(column));
     } else if (column instanceof CurveDataTableImageColumn) {
       result.push(createImageColumn<TData>(column));
     } else if (column instanceof CurveDataTableActionColumn) {
@@ -207,6 +210,19 @@ function createStringColumn<TData extends RowData>(
       return <div className={isNumber ? styles.valueEnd : undefined}>{displayMethod(value)}</div>;
     },
   } as DataTableColumnDef<TData>;
+}
+
+function createCustomColumn<TData extends RowData>(
+  column: CurveDataTableCustomColumn<TData>,
+): DataTableColumnDef<TData> {
+  const { id, header, render } = column;
+
+  return {
+    id,
+    accessorFn: () => undefined,
+    header,
+    cell: ({ row }) => render(row.original),
+  };
 }
 
 function createImageColumn<TData extends RowData>(
