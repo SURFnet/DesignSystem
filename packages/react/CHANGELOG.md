@@ -1,5 +1,11 @@
 # @surfnet/curve-react
 
+## 1.1.0
+
+### Minor Changes
+
+- 77db44e: Add a `with-spacing` variant to the Input OTP group: set `variant="with-spacing"` on `InputOTPGroup` (React) or `hlm-input-otp-group` (Angular) to give each slot its own rounded border, with a gap between slots.
+
 ## 1.0.0
 
 ### Major Changes
