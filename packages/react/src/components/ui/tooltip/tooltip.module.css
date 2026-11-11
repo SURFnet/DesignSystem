@@ -11,11 +11,11 @@
   align-items: center;
   gap: calc(var(--spacing, 0.25rem) * 1.5);
   border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
-  background-color: var(--foreground);
+  background-color: var(--background-black);
   padding: calc(var(--spacing, 0.25rem) * 1.5) calc(var(--spacing, 0.25rem) * 3);
   font-size: 0.75rem;
   line-height: 1rem;
-  color: var(--background);
+  color: var(--primary-foreground);
 }
 
 .content:has([data-slot='kbd']) {
@@ -29,8 +29,8 @@
   translate: 0 calc(-50% - 2px);
   rotate: 45deg;
   border-radius: 2px;
-  background-color: var(--foreground);
-  fill: var(--foreground);
+  background-color: var(--background-black);
+  fill: var(--background-black);
 }
 
 /*
