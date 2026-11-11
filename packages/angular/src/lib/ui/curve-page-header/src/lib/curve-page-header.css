@@ -1,0 +1,177 @@
+/* CurvePageHeader — top section of a page. Mirrors the React `curve-page-header.module.css`.
+   The root is a wrapping flex row: media, content and actions share a line; every other
+   child (breadcrumb, tabs) takes a full line. Narrow first: actions wrap below the
+   content, primary first, extra actions in a menu. From a 48rem container the actions move
+   to the right of the title. */
+.curve-page-header {
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.curve-page-header
+  > :not(
+    [data-slot='curve-page-header-media'],
+    [data-slot='curve-page-header-content'],
+    [data-slot='curve-page-header-actions']
+  ) {
+  flex-basis: 100%;
+}
+
+/* Media */
+.curve-page-header-media {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Default: no tile, the media keeps its own size and colors. */
+.curve-page-header-media--variant-default {
+  color: inherit;
+}
+
+.curve-page-header-media--variant-icon,
+.curve-page-header-media--variant-image {
+  width: calc(var(--spacing, 0.25rem) * 12);
+  height: calc(var(--spacing, 0.25rem) * 12);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+}
+
+.curve-page-header-media--variant-icon {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.curve-page-header-media--variant-icon svg {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+}
+
+/* ng-icon sizes itself by font-size; match the 1.5rem svg above. */
+.curve-page-header-media--variant-icon ng-icon {
+  font-size: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.curve-page-header-media--variant-image {
+  overflow: hidden;
+}
+
+.curve-page-header-media--variant-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content: title and badges share a line, the description wraps below. */
+.curve-page-header-content {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 3);
+  min-width: 0;
+}
+
+.curve-page-header-title {
+  margin: 0;
+  font-size: var(--text-2xl-font-size, 1.5rem);
+  line-height: var(--text-2xl-line-height, 2rem);
+  font-weight: var(--font-weight-semibold, 600);
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+}
+
+.curve-page-header-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-page-header-description {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: var(--text-sm-font-size, 0.875rem);
+  line-height: var(--text-sm-line-height, 1.25rem);
+  color: var(--muted-foreground);
+}
+
+/* Actions */
+.curve-page-header-actions {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-page-header-actions .curve-page-header-primary-action {
+  order: -1;
+}
+
+.curve-page-header-actions .curve-page-header-overflow-action {
+  display: none;
+}
+
+@container (min-width: 48rem) {
+  .curve-page-header-actions {
+    flex-basis: auto;
+    margin-inline-start: auto;
+  }
+
+  .curve-page-header-actions .curve-page-header-primary-action {
+    order: 0;
+  }
+
+  .curve-page-header-actions .curve-page-header-overflow-action {
+    display: inline-flex;
+  }
+
+  .curve-page-header-actions .curve-page-header-more-actions {
+    display: none;
+  }
+}
+
+.curve-dropdown-menu.curve-page-header-more-actions-menu {
+  min-width: 10rem;
+}
+
+/* Tabs */
+.curve-page-header-tabs {
+  display: flex;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.curve-page-header-tab {
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 1);
+  font-size: var(--text-sm-font-size, 0.875rem);
+  line-height: var(--text-sm-line-height, 1.25rem);
+  font-weight: var(--font-weight-medium, 500);
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.curve-page-header-tab:hover {
+  color: var(--foreground);
+}
+
+.curve-page-header-tab:focus-visible {
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+.curve-page-header-tab[aria-current='page'] {
+  border-bottom-color: var(--foreground);
+  color: var(--foreground);
+}

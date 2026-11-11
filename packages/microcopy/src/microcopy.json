@@ -432,6 +432,36 @@
       "angular": { "text": "Select row", "where": "data-table-select-row", "change": null },
       "react": null
     },
+    "curve-page-header.more-actions": {
+      "component": "CurvePageHeader",
+      "kind": "screenreader",
+      "description": "Naam van de ⋮-knop met de overige pagina-acties op smalle schermen.",
+      "angular": {
+        "text": "More actions",
+        "where": "curve-page-header-actions",
+        "change": "input `moreActionsLabel`"
+      },
+      "react": {
+        "text": "More actions",
+        "where": "CurvePageHeaderActions",
+        "change": "prop `moreActionsLabel`"
+      }
+    },
+    "curve-page-header.tabs-label": {
+      "component": "CurvePageHeader",
+      "kind": "screenreader",
+      "description": "Naam van de tab-navigatie onder de paginakop.",
+      "angular": {
+        "text": "Page navigation",
+        "where": "curvePageHeaderTabs",
+        "change": "input `aria-label`"
+      },
+      "react": {
+        "text": "Page navigation",
+        "where": "CurvePageHeaderTabs",
+        "change": "prop `aria-label`"
+      }
+    },
     "date-picker.placeholder": {
       "component": "DatePicker",
       "kind": "zichtbaar",

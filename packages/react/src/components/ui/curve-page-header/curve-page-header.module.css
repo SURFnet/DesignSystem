@@ -1,0 +1,172 @@
+/* CurvePageHeader — top section of a page. Same rules as the Angular `curve-page-header.css`.
+   The root is a wrapping flex row: media, content and actions share a line; every other
+   child (breadcrumb, tabs) takes a full line. Narrow first: actions wrap below the
+   content, primary first, extra actions in a menu. From a 48rem container the actions move
+   to the right of the title. */
+.root {
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+}
+
+.root
+  > :not(
+    [data-slot='curve-page-header-media'],
+    [data-slot='curve-page-header-content'],
+    [data-slot='curve-page-header-actions']
+  ) {
+  flex-basis: 100%;
+}
+
+/* Media */
+.media {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Default: no tile, the media keeps its own size and colors. */
+.mediaDefault {
+  color: inherit;
+}
+
+.mediaIcon,
+.mediaImage {
+  width: calc(var(--spacing, 0.25rem) * 12);
+  height: calc(var(--spacing, 0.25rem) * 12);
+  border-radius: var(--radius-lg, var(--radius, 0.625rem));
+}
+
+.mediaIcon {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.mediaIcon svg {
+  width: calc(var(--spacing, 0.25rem) * 6);
+  height: calc(var(--spacing, 0.25rem) * 6);
+}
+
+.mediaImage {
+  overflow: hidden;
+}
+
+.mediaImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content: title and badges share a line, the description wraps below. */
+.content {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 3);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-2xl-font-size, 1.5rem);
+  line-height: var(--text-2xl-line-height, 2rem);
+  font-weight: var(--font-weight-semibold, 600);
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.description {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: var(--text-sm-font-size, 0.875rem);
+  line-height: var(--text-sm-line-height, 1.25rem);
+  color: var(--muted-foreground);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.actions .primaryAction {
+  order: -1;
+}
+
+.actions .overflowAction {
+  display: none;
+}
+
+@container (min-width: 48rem) {
+  .actions {
+    flex-basis: auto;
+    margin-inline-start: auto;
+  }
+
+  .actions .primaryAction {
+    order: 0;
+  }
+
+  .actions .overflowAction {
+    display: inline-flex;
+  }
+
+  .actions .moreActions {
+    display: none;
+  }
+}
+
+.moreActionsMenu {
+  min-width: 10rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: calc(var(--spacing, 0.25rem) * 4);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  padding: calc(var(--spacing, 0.25rem) * 2) calc(var(--spacing, 0.25rem) * 1);
+  font-size: var(--text-sm-font-size, 0.875rem);
+  line-height: var(--text-sm-line-height, 1.25rem);
+  font-weight: var(--font-weight-medium, 500);
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.tab:hover {
+  color: var(--foreground);
+}
+
+.tab:focus-visible {
+  border-radius: var(--radius-sm, calc(var(--radius, 0.625rem) * 0.6));
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+.tab[aria-current='page'] {
+  border-bottom-color: var(--foreground);
+  color: var(--foreground);
+}

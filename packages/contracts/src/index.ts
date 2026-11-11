@@ -14,6 +14,10 @@ export { checkboxContract } from './checkbox.js';
 export { comboboxContract } from './combobox.js';
 export { commandContract } from './command.js';
 export { contextMenuContract, type ContextMenuItemVariantName } from './context-menu.js';
+export {
+  curvePageHeaderContract,
+  type CurvePageHeaderMediaVariantName,
+} from './curve-page-header.js';
 export { dataTableContract } from './data-table.js';
 export { curveDataTableContract } from './curve-data-table.js';
 export { datePickerContract } from './date-picker.js';

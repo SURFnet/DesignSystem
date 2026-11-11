@@ -87,6 +87,7 @@
 @import './lib/ui/tabs/src/lib/hlm-tabs.css' layer(components);
 @import './lib/ui/toggle-group/src/lib/hlm-toggle-group.css' layer(components);
 @import './lib/ui/tooltip/src/lib/hlm-tooltip.css' layer(components);
+@import './lib/ui/curve-page-header/src/lib/curve-page-header.css' layer(components);
 /* curve-components:end */
 
 :root {
