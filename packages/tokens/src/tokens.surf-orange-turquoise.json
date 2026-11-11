@@ -131,6 +131,10 @@
     "$type": "fontFamily",
     "$value": "\"Geist Mono\", monospace"
   },
+  "background-black": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 1)"
+  },
   "border-subtle": {
     "$type": "color",
     "$value": "rgba(0, 0, 0, 0.06)"
