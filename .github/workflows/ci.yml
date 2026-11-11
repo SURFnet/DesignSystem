@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # The a11y steps write a PR comment and push violation screenshots to the
     # a11y-screenshots branch.
     permissions:
