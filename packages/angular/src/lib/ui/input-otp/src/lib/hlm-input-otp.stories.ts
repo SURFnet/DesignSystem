@@ -88,6 +88,39 @@ export const WithSeparator: Story = {
   }),
 };
 
+/**
+ * The `with-spacing` variant: set `variant="with-spacing"` on `hlm-input-otp-group` to give
+ * each slot its own rounded border, with a gap between slots.
+ */
+export const WithSpacing: Story = {
+  render: () => ({
+    template: `
+      <div class="flex flex-col gap-4">
+        <brn-input-otp hlmInputOtp aria-label="One-time password" maxLength="6">
+          <hlm-input-otp-group variant="with-spacing">
+            <hlm-input-otp-slot index="0" />
+            <hlm-input-otp-slot index="1" />
+            <hlm-input-otp-slot index="2" />
+            <hlm-input-otp-slot index="3" />
+            <hlm-input-otp-slot index="4" />
+            <hlm-input-otp-slot index="5" />
+          </hlm-input-otp-group>
+        </brn-input-otp>
+        <brn-input-otp hlmInputOtp aria-label="One-time password, disabled" value="123456" disabled maxLength="6">
+          <hlm-input-otp-group variant="with-spacing">
+            <hlm-input-otp-slot index="0" />
+            <hlm-input-otp-slot index="1" />
+            <hlm-input-otp-slot index="2" />
+            <hlm-input-otp-slot index="3" />
+            <hlm-input-otp-slot index="4" />
+            <hlm-input-otp-slot index="5" />
+          </hlm-input-otp-group>
+        </brn-input-otp>
+      </div>
+    `,
+  }),
+};
+
 /** Disabled state, pre-filled with a value. */
 export const Disabled: Story = {
   render: () => ({

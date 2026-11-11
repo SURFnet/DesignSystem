@@ -24,7 +24,7 @@ export { fieldContract, type FieldNecessityName, type FieldOrientationName } fro
 export { hoverCardContract } from './hover-card.js';
 export { inputContract } from './input.js';
 export { inputGroupContract } from './input-group.js';
-export { inputOtpContract } from './input-otp.js';
+export { inputOtpContract, type InputOtpVariantName } from './input-otp.js';
 export {
   itemContract,
   type ItemVariantName,

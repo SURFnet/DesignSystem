@@ -61,6 +61,29 @@
   background-color: color-mix(in oklab, var(--input) 30%, transparent);
 }
 
+/* `with-spacing` variant (issue #262): separate rounded slots with a gap. */
+.curve-input-otp-group--variant-with-spacing {
+  gap: calc(var(--spacing, 0.25rem) * 2);
+}
+
+.curve-input-otp-group--variant-with-spacing[data-matches-spartan-invalid='true'],
+.dark .curve-input-otp-group--variant-with-spacing[data-matches-spartan-invalid='true'] {
+  box-shadow: none;
+}
+
+.curve-input-otp-group--variant-with-spacing .curve-input-otp-slot {
+  border-width: 1px;
+  border-color: var(--border);
+  border-radius: var(--radius-md, calc(var(--radius, 0.625rem) * 0.8));
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Background only, so the invalid/active border rules below still win. */
+.dark .curve-input-otp-group--variant-with-spacing .curve-input-otp-slot {
+  background-color: var(--background);
+}
+
 .curve-input-otp-slot[data-matches-spartan-invalid='true'] {
   border-color: var(--destructive);
 }

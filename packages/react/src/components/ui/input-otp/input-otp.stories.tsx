@@ -78,6 +78,43 @@ export const WithSeparator: Story = {
   ),
 };
 
+/**
+ * The `with-spacing` variant: set `variant="with-spacing"` on `InputOTPGroup` to give
+ * each slot its own rounded border, with a gap between slots.
+ */
+export const WithSpacing: Story = {
+  args: { maxLength: 6, children: null },
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <InputOTP maxLength={6} aria-label="One-time password">
+        <InputOTPGroup variant="with-spacing">
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+      <InputOTP
+        maxLength={6}
+        disabled
+        defaultValue="123456"
+        aria-label="One-time password, disabled"
+      >
+        <InputOTPGroup variant="with-spacing">
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
+    </div>
+  ),
+};
+
 /** Disabled state, pre-filled with a value. */
 export const Disabled: Story = {
   args: { maxLength: 6, children: null },

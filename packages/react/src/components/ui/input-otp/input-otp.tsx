@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from '@phosphor-icons/react';
+import type { InputOtpVariantName } from '@surfnet/curve-contracts';
 
 import { cn } from '@/lib/utils';
 import { useAriaRequired } from '@/components/ui/field/field-context';
@@ -62,8 +63,28 @@ function InputOTP({
   );
 }
 
-function InputOTPGroup({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="input-otp-group" className={cn(styles.group, className)} {...props} />;
+// CURVE: `with-spacing` variant from Figma (issue #262).
+const groupVariantClass = {
+  default: '',
+  'with-spacing': styles.groupWithSpacing ?? '',
+} satisfies Record<InputOtpVariantName, string>;
+
+function InputOTPGroup({
+  className,
+  variant = 'default',
+  ...props
+}: React.ComponentProps<'div'> & {
+  /** `with-spacing` gives each slot its own rounded border, with a gap between slots. */
+  variant?: InputOtpVariantName;
+}) {
+  return (
+    <div
+      data-slot="input-otp-group"
+      data-variant={variant}
+      className={cn(styles.group, groupVariantClass[variant], className)}
+      {...props}
+    />
+  );
 }
 
 function InputOTPSlot({
