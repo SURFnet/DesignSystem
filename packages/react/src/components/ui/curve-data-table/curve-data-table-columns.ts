@@ -4,9 +4,16 @@
  */
 import type { ReactNode } from 'react';
 
+export type CurveDataTableAlignment = 'left' | 'center' | 'right';
+export interface CurveDataTableColumnOptions {
+  align?: CurveDataTableAlignment;
+  sortable?: boolean;
+}
+
 /** Base shape of every Curve data table column. */
 export interface ICurveDataTableColumn {
   header?: string;
+  options?: CurveDataTableColumnOptions;
 }
 
 /** A checkbox column for selecting rows, with a "select all" checkbox in the header. */
@@ -18,20 +25,19 @@ export class CurveDataTableSelectionColumn implements ICurveDataTableColumn {
 export class CurveDataTableStringColumn<TFieldType = unknown> implements ICurveDataTableColumn {
   public header?: string;
   public fieldName: string;
-  public sortable: boolean;
   public displayMethod: (fieldValue: TFieldType) => string;
+  public options: CurveDataTableColumnOptions;
 
   constructor(
     fieldName: string,
     header?: string,
     displayMethod?: (fieldValue: TFieldType) => string,
-    sortable = false,
+    options: CurveDataTableColumnOptions = {},
   ) {
-    this.header = header;
     this.fieldName = fieldName;
-    this.sortable = sortable;
-    // Without a display method the value is shown as plain text.
-    this.displayMethod = displayMethod ?? ((fieldValue: TFieldType) => `${fieldValue}`);
+    this.header = header;
+    this.displayMethod = displayMethod ?? ((fieldValue) => `${fieldValue}`);
+    this.options = options;
   }
 }
 
@@ -50,10 +56,12 @@ export class CurveDataTableImageColumn implements ICurveDataTableColumn {
 export class CurveDataTableActionColumn implements ICurveDataTableColumn {
   public header?: string;
   public actions: string[];
+  public options: CurveDataTableColumnOptions;
 
-  constructor(actions: string[], header?: string) {
+  constructor(actions: string[], header?: string, options: CurveDataTableColumnOptions = {}) {
     this.header = header;
     this.actions = actions;
+    this.options = options;
   }
 }
 
