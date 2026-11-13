@@ -30,9 +30,11 @@
   transform: translateY(1px);
 }
 
+/* Solid 2px outline with a 2px gap: >= 3:1 against the page in every theme and mode.
+   --primary-strong is used because --ring is below 3:1 in several themes (see #250). */
 .curve-button:focus-visible {
-  border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 32%, transparent);
+  outline: 2px solid var(--primary-strong);
+  outline-offset: 2px;
 }
 
 .curve-button:disabled,
@@ -135,12 +137,7 @@
 }
 
 .curve-button--variant-destructive:focus-visible {
-  border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent);
-}
-
-.dark .curve-button--variant-destructive:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 40%, transparent);
+  outline-color: var(--destructive);
 }
 
 .curve-button--variant-link {

@@ -5,8 +5,6 @@ import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 
 const meta: Meta<HlmContextMenuTrigger> = {
   title: 'Components/ContextMenu',
-  // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
-  tags: ['a11y-gap'],
   component: HlmContextMenuTrigger,
   decorators: [
     moduleMetadata({
@@ -37,7 +35,7 @@ export const Default: Story = {
   render: () => ({
     template: `
 			<div [hlmContextMenuTrigger]="menu" align="start" side="right" class="${triggerAreaClass}">
-				Right click here
+				Right-click here, or focus and press Shift+F10
 			</div>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-48">
@@ -45,7 +43,6 @@ export const Default: Story = {
 						<hlm-dropdown-menu-label>My Account</hlm-dropdown-menu-label>
 						<button hlmDropdownMenuItem>
 							<span>Profile</span>
-							<hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
 						</button>
 						<button hlmDropdownMenuItem>Settings</button>
 					</hlm-dropdown-menu-group>
@@ -62,7 +59,7 @@ export const WithCheckboxItems: Story = {
   render: () => ({
     template: `
 			<div [hlmContextMenuTrigger]="menu" align="start" side="right" class="${triggerAreaClass}">
-				Right click here
+				Right-click here, or focus and press Shift+F10
 			</div>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-44">
@@ -90,7 +87,7 @@ export const WithRadioItems: Story = {
   render: () => ({
     template: `
 			<div [hlmContextMenuTrigger]="menu" align="start" side="right" class="${triggerAreaClass}">
-				Right click here
+				Right-click here, or focus and press Shift+F10
 			</div>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-44">
@@ -118,7 +115,7 @@ export const WithSubmenu: Story = {
   render: () => ({
     template: `
 			<div [hlmContextMenuTrigger]="menu" align="start" side="right" class="${triggerAreaClass}">
-				Right click here
+				Right-click here, or focus and press Shift+F10
 			</div>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-48">

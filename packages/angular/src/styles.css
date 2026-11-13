@@ -60,6 +60,7 @@
 @import './lib/ui/carousel/src/lib/hlm-carousel.css' layer(components);
 @import './lib/ui/combobox/src/lib/hlm-combobox.css' layer(components);
 @import './lib/ui/command/src/lib/hlm-command.css' layer(components);
+@import './lib/ui/context-menu/src/lib/hlm-context-menu.css' layer(components);
 @import './lib/ui/curve-data-table/src/lib/curve-data-table.css' layer(components);
 @import './lib/ui/data-table/src/lib/hlm-data-table.css' layer(components);
 @import './lib/ui/date-picker/src/lib/hlm-date-picker.css' layer(components);

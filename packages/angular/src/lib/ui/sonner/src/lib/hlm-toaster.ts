@@ -79,13 +79,13 @@ export class HlmToaster {
   public readonly expand = input<ToasterProps['expand'], BooleanInput>(false, {
     transform: booleanAttribute,
   });
-  public readonly duration = input<ToasterProps['duration'], NumberInput>(4000, {
+  public readonly duration = input<ToasterProps['duration'], NumberInput>(8000, {
     transform: numberAttribute,
   });
   public readonly visibleToasts = input<ToasterProps['visibleToasts'], NumberInput>(3, {
     transform: numberAttribute,
   });
-  public readonly closeButton = input<ToasterProps['closeButton'], BooleanInput>(false, {
+  public readonly closeButton = input<ToasterProps['closeButton'], BooleanInput>(true, {
     transform: booleanAttribute,
   });
   public readonly toastOptions = input<ToasterProps['toastOptions']>({});
