@@ -186,7 +186,8 @@ function createSelectionColumn<TData extends RowData>(): DataTableColumnDef<TDat
 function createStringColumn<TData extends RowData>(
   column: CurveDataTableStringColumn,
 ): DataTableColumnDef<TData> {
-  const { fieldName, header, displayMethod, sortable } = column;
+  const { fieldName, header, displayMethod, options } = column;
+  const { align, sortable = false } = options;
 
   return {
     accessorKey: fieldName,
@@ -205,9 +206,21 @@ function createStringColumn<TData extends RowData>(
       : header,
     cell: ({ row }) => {
       const value = row.getValue(fieldName);
-      // Numbers are right-aligned, like in the Angular version.
-      const isNumber = typeof value === 'number';
-      return <div className={isNumber ? styles.valueEnd : undefined}>{displayMethod(value)}</div>;
+
+      // Numbers are right-aligned by default, like in the Angular version.
+      const alignment = align ?? (typeof value === 'number' ? 'right' : 'left');
+
+      return (
+        <div
+          className={cn({
+            'text-left': alignment === 'left',
+            'text-center': alignment === 'center',
+            'text-right': alignment === 'right',
+          })}
+        >
+          {displayMethod(value)}
+        </div>
+      );
     },
   } as DataTableColumnDef<TData>;
 }
@@ -248,32 +261,41 @@ function createActionColumn<TData extends RowData>(
   column: CurveDataTableActionColumn,
   onRowAction: (event: CurveDataTableRowEvent<TData>) => void,
 ): DataTableColumnDef<TData> {
-  const { actions, header } = column;
+  const { actions, header, options } = column;
+  const { align } = options;
 
   return {
     id: 'actions',
     header,
     enableHiding: false,
     cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          render={
-            <Button variant="ghost" size="icon-sm" aria-label="Open action menu">
-              <DotsThreeIcon />
-            </Button>
-          }
-        />
-        <DropdownMenuContent align="start" className={styles.actionsMenu}>
-          {actions.map((action) => (
-            <DropdownMenuItem
-              key={action}
-              onClick={() => onRowAction({ action, record: row.original })}
-            >
-              {action}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div
+        className={cn({
+          'text-left': align === 'left',
+          'text-center': align === 'center',
+          'text-right': align === 'right',
+        })}
+      >
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="ghost" size="icon-sm" aria-label="Open action menu">
+                <DotsThreeIcon />
+              </Button>
+            }
+          />
+          <DropdownMenuContent align="start" className={styles.actionsMenu}>
+            {actions.map((action) => (
+              <DropdownMenuItem
+                key={action}
+                onClick={() => onRowAction({ action, record: row.original })}
+              >
+                {action}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     ),
   };
 }

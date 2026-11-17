@@ -27,7 +27,7 @@ const data: Payment[] = [
   { id: 'm5gr84i9', amount: 630.44, status: 'success', email: 'Michael.MITC@example.com' },
   { id: '3u1reuv4', amount: 767.5, status: 'success', email: 'felicia.reid@example.com' },
   { id: 'derv1ws0', amount: 396.84, status: 'processing', email: 'Georgia.Young@example.com' },
-  { id: '5kma53ae', amount: 475.22, status: 'success', email: 'alma.lawson@example.com' },
+  { id: '5kma53ae', amount: 47512, status: 'success', email: 'alma.lawson@example.com' },
   { id: 'bhqecj4p', amount: 275.43, status: 'failed', email: 'dolores.chambers@example.com' },
 ];
 
@@ -46,8 +46,13 @@ const columns: ICurveDataTableColumn[] = [
 
     return <Badge variant={variants[payment.status]}>{payment.status}</Badge>;
   }),
-  new CurveDataTableStringColumn('email', 'Email', undefined, true),
-  new CurveDataTableStringColumn<number>('amount', 'Amount', (value) => currency.format(value)),
+  new CurveDataTableStringColumn('email', 'Email', undefined, {
+    sortable: true,
+  }),
+  new CurveDataTableStringColumn<number>('amount', 'Amount', (value) => currency.format(value), {
+    sortable: true,
+    align: 'left',
+  }),
   new CurveDataTableActionColumn(['Copy payment ID', 'View customer', 'View payment details']),
 ];
 
@@ -116,9 +121,18 @@ export const Default: Story = {
       source: {
         code: `const columns: ICurveDataTableColumn[] = [
   new CurveDataTableSelectionColumn(),
-  new CurveDataTableStringColumn('status', 'Status'),
-  new CurveDataTableStringColumn('email', 'Email', undefined, true), // sortable
-  new CurveDataTableStringColumn<number>('amount', 'Amount', (value) => currency.format(value)),
+  new CurveDataTableCustomColumn('status', 'Status', (payment) => {
+    const variants = {
+      pending: 'secondary',
+      processing: 'outline',
+      success: 'success',
+      failed: 'danger',
+    } as const;
+
+    return <Badge variant={variants[payment.status]}>{payment.status}</Badge>;
+  }),
+  new CurveDataTableStringColumn('email', 'Email', undefined, {sortable: true}),
+  new CurveDataTableStringColumn<number>('amount', 'Amount', (value) => currency.format(value), {align: 'left'}),
   new CurveDataTableActionColumn(['Copy payment ID', 'View customer', 'View payment details']),
 ];
 
