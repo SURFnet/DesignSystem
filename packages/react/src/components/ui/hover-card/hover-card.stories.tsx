@@ -60,18 +60,58 @@ export const Default: Story = {
   ),
 };
 
-/** The popup can open on any side of the trigger, flipping to stay in view. */
-export const Placement: Story = {
+/** HoverCard opens above the trigger. */
+export const SideTop: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center justify-center gap-8 p-12">
-      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
-        <HoverCard key={side}>
-          <HoverCardTrigger render={<Button variant="outline">{side}</Button>} />
-          <HoverCardContent side={side} className="w-48">
-            <p className="text-sm">Positioned on the {side}.</p>
-          </HoverCardContent>
-        </HoverCard>
-      ))}
+    <div className="flex items-center justify-center p-12">
+      <HoverCard>
+        <HoverCardTrigger render={<Button variant="outline">Top</Button>} />
+        <HoverCardContent side="top" className="w-48">
+          <p className="text-sm">Positioned on the top.</p>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  ),
+};
+
+/** HoverCard opens to the right of the trigger. */
+export const SideRight: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <HoverCard>
+        <HoverCardTrigger render={<Button variant="outline">Right</Button>} />
+        <HoverCardContent side="right" className="w-48">
+          <p className="text-sm">Positioned on the right.</p>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  ),
+};
+
+/** HoverCard opens below the trigger. */
+export const SideBottom: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <HoverCard>
+        <HoverCardTrigger render={<Button variant="outline">Bottom</Button>} />
+        <HoverCardContent side="bottom" className="w-48">
+          <p className="text-sm">Positioned on the bottom.</p>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  ),
+};
+
+/** HoverCard opens to the left of the trigger. */
+export const SideLeft: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <HoverCard>
+        <HoverCardTrigger render={<Button variant="outline">Left</Button>} />
+        <HoverCardContent side="left" className="w-48">
+          <p className="text-sm">Positioned on the left.</p>
+        </HoverCardContent>
+      </HoverCard>
     </div>
   ),
 };

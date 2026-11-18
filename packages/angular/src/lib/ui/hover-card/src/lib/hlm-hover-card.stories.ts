@@ -62,29 +62,67 @@ export const Default: Story = {
   }),
 };
 
-/** The popup can open on any side of the trigger. */
-export const Placement: Story = {
+/** HoverCard opens above the trigger. */
+export const AlignTop: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-wrap items-center justify-center gap-8 p-12">
-        ${(['top', 'right', 'bottom', 'left'] as const)
-          .map(
-            (side) => `
-              <hlm-hover-card>
-                <button hlmBtn variant="outline" hlmHoverCardTrigger align="${side}">${side}</button>
-                <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
-                  <p class="text-sm">Positioned on the ${side}.</p>
-                </hlm-hover-card-content>
-              </hlm-hover-card>
-            `,
-          )
-          .join('')}
+      <hlm-hover-card>
+        <button hlmHoverCardTrigger hlmBtn variant="outline" align="top">Top</button>
+        <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
+          <p class="text-sm">Positioned on the top.</p>
+        </hlm-hover-card-content>
+      </hlm-hover-card>
+    `,
+  }),
+};
+
+/** HoverCard opens to the right of the trigger. */
+export const AlignRight: Story = {
+  render: () => ({
+    template: `
+      <hlm-hover-card>
+        <button hlmHoverCardTrigger hlmBtn variant="outline" align="right">Right</button>
+        <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
+          <p class="text-sm">Positioned on the right.</p>
+        </hlm-hover-card-content>
+      </hlm-hover-card>
+    `,
+  }),
+};
+
+/** HoverCard opens below the trigger. */
+export const AlignBottom: Story = {
+  render: () => ({
+    template: `
+      <div class="flex items-center justify-center p-12">
+        <hlm-hover-card>
+          <button hlmHoverCardTrigger hlmBtn variant="outline" align="bottom">Bottom</button>
+          <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
+            <p class="text-sm">Positioned on the bottom.</p>
+          </hlm-hover-card-content>
+        </hlm-hover-card>
       </div>
     `,
   }),
 };
 
-/** Any focusable element can act as the trigger, e.g. plain text. */
+/** HoverCard opens to the left of the trigger. */
+export const AlignLeft: Story = {
+  render: () => ({
+    template: `
+      <div class="flex items-center justify-center p-12">
+        <hlm-hover-card>
+          <button hlmHoverCardTrigger hlmBtn variant="outline" align="left">Left</button>
+          <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
+            <p class="text-sm">Positioned on the left.</p>
+          </hlm-hover-card-content>
+        </hlm-hover-card>
+      </div>
+    `,
+  }),
+};
+
+/** The trigger renders an anchor by default, so inline text links work without extra markup. */
 export const TextTrigger: Story = {
   render: () => ({
     template: `
