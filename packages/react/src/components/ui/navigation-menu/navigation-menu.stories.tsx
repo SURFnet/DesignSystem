@@ -187,30 +187,71 @@ export const SimpleLinks: Story = {
   ),
 };
 
-/** The `align` prop controls where the popup is anchored relative to its trigger. */
-export const Alignment: Story = {
+/** The popup is anchored to the start of the trigger. */
+export const AlignStart: Story = {
   render: () => (
-    <div className="flex flex-col gap-10">
-      {(['start', 'center', 'end'] as const).map((align) => (
-        <div key={align} className="flex flex-col items-center gap-2">
-          <span className="text-xs text-muted-foreground">align="{align}"</span>
-          <NavigationMenu align={align}>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[200px] gap-4">
-                    <li>
-                      <NavigationMenuLink href="#">Components</NavigationMenuLink>
-                      <NavigationMenuLink href="#">Documentation</NavigationMenuLink>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-      ))}
+    <div className="flex flex-col items-center gap-2">
+      <NavigationMenu align="start">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[200px] gap-4">
+                <li>
+                  <NavigationMenuLink href="#">Components</NavigationMenuLink>
+                  <NavigationMenuLink href="#">Documentation</NavigationMenuLink>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+  ),
+};
+
+/** The popup is centered relative to the trigger. */
+export const AlignCenter: Story = {
+  render: () => (
+    <div className="flex flex-col items-center gap-2">
+      <NavigationMenu align="center">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[200px] gap-4">
+                <li>
+                  <NavigationMenuLink href="#">Components</NavigationMenuLink>
+                  <NavigationMenuLink href="#">Documentation</NavigationMenuLink>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+  ),
+};
+
+/** The popup is anchored to the end of the trigger. */
+export const AlignEnd: Story = {
+  render: () => (
+    <div className="flex flex-col items-center gap-2">
+      <NavigationMenu align="end">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[200px] gap-4">
+                <li>
+                  <NavigationMenuLink href="#">Components</NavigationMenuLink>
+                  <NavigationMenuLink href="#">Documentation</NavigationMenuLink>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     </div>
   ),
 };

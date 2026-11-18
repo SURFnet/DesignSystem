@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorGauge, phosphorGearSix, phosphorUsers } from '@ng-icons/phosphor-icons/regular';
-import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { navigationMenuContract } from '@surfnet/curve-contracts';
 
 import { HlmNavigationMenu, HlmNavigationMenuImports } from '..';
@@ -31,97 +30,6 @@ const meta: Meta<HlmNavigationMenu> = {
 export default meta;
 type Story = StoryObj<HlmNavigationMenu>;
 
-const components = [
-  {
-    title: 'Alert Dialog',
-    href: '#alert-dialog',
-    description:
-      'A modal dialog that interrupts the user with important content and expects a response.',
-  },
-  {
-    title: 'Hover Card',
-    href: '#hover-card',
-    description: 'For sighted users to preview content available behind a link.',
-  },
-  {
-    title: 'Progress',
-    href: '#progress',
-    description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
-  },
-  {
-    title: 'Tabs',
-    href: '#tabs',
-    description: 'A set of layered sections of content that are displayed one at a time.',
-  },
-];
-
-@Component({
-  selector: 'navigation-menu-demo',
-  imports: [HlmNavigationMenuImports],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <nav hlmNavigationMenu>
-      <ul hlmNavigationMenuList>
-        <li hlmNavigationMenuItem>
-          <button hlmNavigationMenuTrigger>Home</button>
-          <hlm-navigation-menu-content *hlmNavigationMenuPortal>
-            <ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li class="row-span-3">
-                <a
-                  hlmNavigationMenuLink
-                  href="#"
-                  class="flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-4 no-underline select-none"
-                >
-                  <div class="mb-2 text-lg font-medium">Curve</div>
-                  <p class="text-sm leading-tight text-muted-foreground">
-                    SURF's design system, built on Spartan's Brain and Helm layers.
-                  </p>
-                </a>
-              </li>
-              @for (component of components; track component.title) {
-                <li>
-                  <a hlmNavigationMenuLink [href]="component.href">
-                    <div class="text-sm leading-none font-medium">{{ component.title }}</div>
-                    <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                      {{ component.description }}
-                    </p>
-                  </a>
-                </li>
-              }
-            </ul>
-          </hlm-navigation-menu-content>
-        </li>
-
-        <li hlmNavigationMenuItem>
-          <button hlmNavigationMenuTrigger>Components</button>
-          <hlm-navigation-menu-content *hlmNavigationMenuPortal>
-            <ul class="grid w-[300px] gap-4">
-              <li>
-                <a hlmNavigationMenuLink href="#">
-                  <div class="font-medium">Components</div>
-                  <div class="text-muted-foreground">Browse all components in the library.</div>
-                </a>
-                <a hlmNavigationMenuLink href="#">
-                  <div class="font-medium">Documentation</div>
-                  <div class="text-muted-foreground">Learn how to use the library.</div>
-                </a>
-              </li>
-            </ul>
-          </hlm-navigation-menu-content>
-        </li>
-
-        <li hlmNavigationMenuItem>
-          <a hlmNavigationMenuLink href="#">Docs</a>
-        </li>
-      </ul>
-    </nav>
-  `,
-})
-class NavigationMenuDemo {
-  @Input() components!: typeof components;
-}
-
 /**
  * A composed menu with a featured item, a grid of links, and a plain link item — the
  * `nav`/`ul`/`li`/`button`/`hlm-navigation-menu-content`/`a` structure every navigation
@@ -129,9 +37,85 @@ class NavigationMenuDemo {
  */
 export const Default: Story = {
   render: () => ({
-    moduleMetadata: { imports: [NavigationMenuDemo] },
-    props: { components },
-    template: '<navigation-menu-demo [components]="components" />',
+    template: `
+      <nav hlmNavigationMenu>
+        <ul hlmNavigationMenuList>
+          <li hlmNavigationMenuItem>
+            <button hlmNavigationMenuTrigger>Home</button>
+            <hlm-navigation-menu-content *hlmNavigationMenuPortal>
+              <ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <li class="row-span-3">
+                  <a
+                    hlmNavigationMenuLink
+                    href="#"
+                    class="story-nav-featured"
+                  >
+                    <div class="mb-2 text-lg font-medium">Curve</div>
+                    <p class="text-sm leading-tight text-muted-foreground">
+                      SURF's design system, built on Spartan's Brain and Helm layers.
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a hlmNavigationMenuLink href="#alert-dialog">
+                    <div class="text-sm leading-none font-medium">Alert Dialog</div>
+                    <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      A modal dialog that interrupts the user with important content and expects a response.
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a hlmNavigationMenuLink href="#hover-card">
+                    <div class="text-sm leading-none font-medium">Hover Card</div>
+                    <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      For sighted users to preview content available behind a link.
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a hlmNavigationMenuLink href="#progress">
+                    <div class="text-sm leading-none font-medium">Progress</div>
+                    <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      Displays an indicator showing the completion progress of a task.
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a hlmNavigationMenuLink href="#tabs">
+                    <div class="text-sm leading-none font-medium">Tabs</div>
+                    <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      A set of layered sections of content displayed one at a time.
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </hlm-navigation-menu-content>
+          </li>
+
+          <li hlmNavigationMenuItem>
+            <button hlmNavigationMenuTrigger>Components</button>
+            <hlm-navigation-menu-content *hlmNavigationMenuPortal>
+              <ul class="grid w-[300px] gap-4">
+                <li>
+                  <a hlmNavigationMenuLink href="#">
+                    <div class="font-medium">Components</div>
+                    <div class="text-muted-foreground">Browse all components in the library.</div>
+                  </a>
+                  <a hlmNavigationMenuLink href="#">
+                    <div class="font-medium">Documentation</div>
+                    <div class="text-muted-foreground">Learn how to use the library.</div>
+                  </a>
+                </li>
+              </ul>
+            </hlm-navigation-menu-content>
+          </li>
+
+          <li hlmNavigationMenuItem>
+            <a hlmNavigationMenuLink href="#">Docs</a>
+          </li>
+        </ul>
+      </nav>
+    `,
   }),
 };
 
@@ -192,40 +176,82 @@ export const SimpleLinks: Story = {
   }),
 };
 
-/** The `align` input on the trigger controls where the popup is anchored relative to it. */
-export const Alignment: Story = {
+/** The popup is anchored to the start of the trigger. */
+export const AlignStart: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-col gap-10">
-        @for (align of aligns; track align) {
-          <div class="flex flex-col items-center gap-2">
-            <span class="text-xs text-muted-foreground">align="{{ align }}"</span>
-            <nav hlmNavigationMenu>
-              <ul hlmNavigationMenuList>
-                <li hlmNavigationMenuItem>
-                  <button hlmNavigationMenuTrigger [align]="align">Menu</button>
-                  <hlm-navigation-menu-content *hlmNavigationMenuPortal>
-                    <ul class="grid w-[200px] gap-4">
-                      <li>
-                        <a hlmNavigationMenuLink href="#">Components</a>
-                        <a hlmNavigationMenuLink href="#">Documentation</a>
-                      </li>
-                    </ul>
-                  </hlm-navigation-menu-content>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        }
+      <div class="flex flex-col items-center gap-2">
+        <nav hlmNavigationMenu>
+          <ul hlmNavigationMenuList>
+            <li hlmNavigationMenuItem>
+              <button hlmNavigationMenuTrigger align="start">Menu</button>
+              <hlm-navigation-menu-content *hlmNavigationMenuPortal>
+                <ul class="grid w-[200px] gap-4">
+                  <li>
+                    <a hlmNavigationMenuLink href="#">Components</a>
+                    <a hlmNavigationMenuLink href="#">Documentation</a>
+                  </li>
+                </ul>
+              </hlm-navigation-menu-content>
+            </li>
+          </ul>
+        </nav>
       </div>
     `,
-    props: {
-      aligns: ['start', 'center', 'end'] as const,
-    },
   }),
 };
 
-/** The `orientation` input switches roving focus to the up/down arrow keys and stacks the list. */
+/** The popup is centered relative to the trigger. */
+export const AlignCenter: Story = {
+  render: () => ({
+    template: `
+      <div class="flex flex-col items-center gap-2">
+        <nav hlmNavigationMenu>
+          <ul hlmNavigationMenuList>
+            <li hlmNavigationMenuItem>
+              <button hlmNavigationMenuTrigger align="center">Menu</button>
+              <hlm-navigation-menu-content *hlmNavigationMenuPortal>
+                <ul class="grid w-[200px] gap-4">
+                  <li>
+                    <a hlmNavigationMenuLink href="#">Components</a>
+                    <a hlmNavigationMenuLink href="#">Documentation</a>
+                  </li>
+                </ul>
+              </hlm-navigation-menu-content>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    `,
+  }),
+};
+
+/** The popup is anchored to the end of the trigger. */
+export const AlignEnd: Story = {
+  render: () => ({
+    template: `
+      <div class="flex flex-col items-center gap-2">
+        <nav hlmNavigationMenu>
+          <ul hlmNavigationMenuList>
+            <li hlmNavigationMenuItem>
+              <button hlmNavigationMenuTrigger align="end">Menu</button>
+              <hlm-navigation-menu-content *hlmNavigationMenuPortal>
+                <ul class="grid w-[200px] gap-4">
+                  <li>
+                    <a hlmNavigationMenuLink href="#">Components</a>
+                    <a hlmNavigationMenuLink href="#">Documentation</a>
+                  </li>
+                </ul>
+              </hlm-navigation-menu-content>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    `,
+  }),
+};
+
+/** The `orientation` prop switches roving focus to the up/down arrow keys and stacks the list. */
 export const Vertical: Story = {
   render: () => ({
     template: `
