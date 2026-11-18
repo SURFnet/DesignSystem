@@ -1,4 +1,3 @@
-import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorCheck } from '@ng-icons/phosphor-icons/regular';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
@@ -56,31 +55,66 @@ export const Default: Story = {
   }),
 };
 
-@Component({
-  selector: 'badge-variants',
-  imports: [HlmBadgeImports],
-  template: `
-    <div class="flex flex-wrap items-center gap-3">
-      @for (variant of badgeContract.props.variants; track variant) {
-        <span hlmBadge [variant]="variant" [title]="badgeContract.docs.variants[variant]">
-          {{ variant.charAt(0).toUpperCase() + variant.slice(1) }}
-        </span>
-      }
-    </div>
-  `,
-})
-class BadgeVariants {
-  @Input() badgeContract!: typeof badgeContract;
-}
-
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Primary brand fill — the most prominent badge style. */
+export const DefaultVariant: Story = {
   render: () => ({
-    moduleMetadata: {
-      imports: [BadgeVariants],
-    },
-    props: { badgeContract: badgeContract },
-    template: '<badge-variants [badgeContract]="badgeContract"></badge-variants>',
+    template: `<span hlmBadge variant="default" title="${badgeContract.docs.variants['default']}">Default</span>`,
+  }),
+};
+
+/** Muted fill — general-purpose secondary label. */
+export const Secondary: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="secondary" title="${badgeContract.docs.variants['secondary']}">Secondary</span>`,
+  }),
+};
+
+/** Informational tint — does not require immediate action. */
+export const Info: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="info" title="${badgeContract.docs.variants['info']}">Info</span>`,
+  }),
+};
+
+/** Success tint — confirms a successful action or state. */
+export const Success: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="success" title="${badgeContract.docs.variants['success']}">Success</span>`,
+  }),
+};
+
+/** Warning tint — highlights something that needs attention. */
+export const Warning: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="warning" title="${badgeContract.docs.variants['warning']}">Warning</span>`,
+  }),
+};
+
+/** Danger tint — errors, warnings, or destructive states. */
+export const Danger: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="danger" title="${badgeContract.docs.variants['danger']}">Danger</span>`,
+  }),
+};
+
+/** Bordered, transparent fill — low-emphasis label. */
+export const Outline: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="outline" title="${badgeContract.docs.variants['outline']}">Outline</span>`,
+  }),
+};
+
+/** No background or border — minimal label. */
+export const Ghost: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="ghost" title="${badgeContract.docs.variants['ghost']}">Ghost</span>`,
+  }),
+};
+
+/** Looks like a hyperlink — inline actionable label. */
+export const Link: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="link" title="${badgeContract.docs.variants['link']}">Link</span>`,
   }),
 };
 
@@ -100,15 +134,24 @@ export const WithIcon: Story = {
   }),
 };
 
-/** Numeric counts, sized to stay circular at one or two digits. */
-export const Counts: Story = {
+/** Single-digit count. */
+export const CountSingleDigit: Story = {
   render: () => ({
-    template: `
-      <div class="flex flex-wrap items-center gap-3">
-        <span hlmBadge class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</span>
-        <span hlmBadge variant="danger" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">99</span>
-        <span hlmBadge variant="outline" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">20+</span>
-      </div>`,
+    template: `<span hlmBadge class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</span>`,
+  }),
+};
+
+/** Double-digit count. */
+export const CountDoubleDigit: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="danger" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">99</span>`,
+  }),
+};
+
+/** Count with plus suffix. */
+export const CountPlus: Story = {
+  render: () => ({
+    template: `<span hlmBadge variant="outline" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">20+</span>`,
   }),
 };
 
