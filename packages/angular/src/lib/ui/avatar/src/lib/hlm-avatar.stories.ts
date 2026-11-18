@@ -46,9 +46,33 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <hlm-avatar ${argsToTemplate(args)}>
+      <hlm-avatar title="${avatarContract.docs.sizes['default']}" ${argsToTemplate(args)}>
         <img hlmAvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace">
         <span hlmAvatarFallback>AL</span>
+      </hlm-avatar>
+    `,
+  }),
+};
+
+/** Compact size for dense lists and inline mentions. */
+export const Sm: Story = {
+  render: () => ({
+    template: `
+      <hlm-avatar size="sm" title="${avatarContract.docs.sizes['sm']}">
+        <img hlmAvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace">
+        <span hlmAvatarFallback>SM</span>
+      </hlm-avatar>
+    `,
+  }),
+};
+
+/** Large size for profile headers and prominent placements. */
+export const Lg: Story = {
+  render: () => ({
+    template: `
+      <hlm-avatar size="lg" title="${avatarContract.docs.sizes['lg']}">
+        <img hlmAvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace">
+        <span hlmAvatarFallback>LG</span>
       </hlm-avatar>
     `,
   }),
@@ -62,27 +86,6 @@ export const Fallback: Story = {
         <img hlmAvatarImage src="https://example.com/does-not-exist.jpg" alt="Grace Hopper">
         <span hlmAvatarFallback>GH</span>
       </hlm-avatar>
-    `,
-  }),
-};
-
-/** Every size declared in the contract. */
-export const Sizes: Story = {
-  render: () => ({
-    template: `
-      <div style="display:flex; align-items:center; gap:12px;">
-        ${avatarContract.props.sizes
-          .map(
-            (size) => `
-              <hlm-avatar size="${size}" title="${avatarContract.docs.sizes[size]}">
-                <span hlmAvatarFallback>
-                  ${size.slice(0, 2).toUpperCase()}
-                </span>
-              </hlm-avatar>
-            `,
-          )
-          .join('')}
-      </div>
     `,
   }),
 };
