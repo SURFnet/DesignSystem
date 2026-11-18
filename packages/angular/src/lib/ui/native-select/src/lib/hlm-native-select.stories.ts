@@ -64,6 +64,20 @@ export const Default: Story = {
   }),
 };
 
+/** Small size — compact forms and toolbars. */
+export const SizeSm: Story = {
+  render: () => ({
+    template: `
+      <label hlmLabel for="sm-select" class="sr-only">Small select</label>
+      <hlm-native-select size="sm" title="${nativeSelectContract.docs.sizes.sm}" selectId="sm-select">
+        <option hlmNativeSelectOption value="apple">Apple</option>
+        <option hlmNativeSelectOption value="banana">Banana</option>
+        <option hlmNativeSelectOption value="cherry">Cherry</option>
+      </hlm-native-select>
+    `,
+  }),
+};
+
 /** Composed usage with grouped options, mirroring a real form field. */
 export const WithOptionGroups: Story = {
   render: () => ({
@@ -80,28 +94,6 @@ export const WithOptionGroups: Story = {
           <option hlmNativeSelectOption value="potato">Potato</option>
         </optgroup>
       </hlm-native-select>
-    `,
-  }),
-};
-
-/** Both sizes side by side. */
-export const Sizes: Story = {
-  render: () => ({
-    template: `
-      <div class="flex flex-wrap items-center gap-3">
-        <label hlmLabel for="default-sized-select" class="sr-only">Default sized select</label>
-        <hlm-native-select size="default" title="${nativeSelectContract.docs.sizes.default}" selectId="default-sized-select">
-          <option hlmNativeSelectOption value="apple">Apple</option>
-          <option hlmNativeSelectOption value="banana">Banana</option>
-          <option hlmNativeSelectOption value="cherry">Cherry</option>
-        </hlm-native-select>
-        <label hlmLabel for="sm-select" class="sr-only">Small select</label>
-        <hlm-native-select size="sm" title="${nativeSelectContract.docs.sizes.sm}" selectId="sm-select">
-          <option hlmNativeSelectOption value="apple">Apple</option>
-          <option hlmNativeSelectOption value="banana">Banana</option>
-          <option hlmNativeSelectOption value="cherry">Cherry</option>
-        </hlm-native-select>
-      </div>
     `,
   }),
 };
@@ -130,18 +122,18 @@ export const Invalid: Story = {
     return {
       props: { form },
       template: `
-				<form [formGroup]="form" class="w-72">
-					<div hlmField>
-						<label hlmFieldLabel for="invalid-select">Fruit</label>
-						<hlm-native-select selectId="invalid-select" formControlName="fruit">
-							<option hlmNativeSelectOption value="" disabled>Choose an option</option>
-							<option hlmNativeSelectOption value="apple">Apple</option>
-							<option hlmNativeSelectOption value="banana">Banana</option>
-						</hlm-native-select>
-						<hlm-field-error />
-					</div>
-				</form>
-			`,
+        <form [formGroup]="form" class="w-72">
+          <div hlmField>
+            <label hlmFieldLabel for="invalid-select">Fruit</label>
+            <hlm-native-select selectId="invalid-select" formControlName="fruit">
+              <option hlmNativeSelectOption value="" disabled>Choose an option</option>
+              <option hlmNativeSelectOption value="apple">Apple</option>
+              <option hlmNativeSelectOption value="banana">Banana</option>
+            </hlm-native-select>
+            <hlm-field-error />
+          </div>
+        </form>
+      `,
     };
   },
 };
