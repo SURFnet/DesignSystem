@@ -63,34 +63,100 @@ export const Default: Story = {
   ),
 };
 
-/** The popup can open on any side of the trigger, flipping to stay in view. */
-export const Placement: Story = {
+/** The popup can open above the trigger. */
+export const SideTop: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center justify-center gap-8 p-12">
-      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
-        <Popover key={side}>
-          <PopoverTrigger render={<Button variant="outline">{side}</Button>} />
-          <PopoverContent side={side} className="w-48">
-            <p className="text-sm">Positioned on the {side}.</p>
-          </PopoverContent>
-        </Popover>
-      ))}
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">Top</Button>} />
+        <PopoverContent side="top" className="w-48">
+          <p className="text-sm">Positioned on the top.</p>
+        </PopoverContent>
+      </Popover>
     </div>
   ),
 };
 
-/** The popup can align to the start, center, or end of the trigger. */
-export const Align: Story = {
+/** The popup can open to the right of the trigger. */
+export const SideRight: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center justify-center gap-8 p-12">
-      {(['start', 'center', 'end'] as const).map((align) => (
-        <Popover key={align}>
-          <PopoverTrigger render={<Button variant="outline">{align}</Button>} />
-          <PopoverContent align={align} className="w-48">
-            <p className="text-sm">Aligned to {align}.</p>
-          </PopoverContent>
-        </Popover>
-      ))}
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">Right</Button>} />
+        <PopoverContent side="right" className="w-48">
+          <p className="text-sm">Positioned on the right.</p>
+        </PopoverContent>
+      </Popover>
+    </div>
+  ),
+};
+
+/** The popup can open below the trigger. */
+export const SideBottom: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">Bottom</Button>} />
+        <PopoverContent side="bottom" className="w-48">
+          <p className="text-sm">Positioned on the bottom.</p>
+        </PopoverContent>
+      </Popover>
+    </div>
+  ),
+};
+
+/** The popup can open to the left of the trigger. */
+export const SideLeft: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">Left</Button>} />
+        <PopoverContent side="left" className="w-48">
+          <p className="text-sm">Positioned on the left.</p>
+        </PopoverContent>
+      </Popover>
+    </div>
+  ),
+};
+
+/** The popup can align to the start of the trigger. */
+export const AlignStart: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">Start</Button>} />
+        <PopoverContent align="start" className="w-48">
+          <p className="text-sm">Aligned to start.</p>
+        </PopoverContent>
+      </Popover>
+    </div>
+  ),
+};
+
+/** The popup can align to the center of the trigger. */
+export const AlignCenter: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">Center</Button>} />
+        <PopoverContent align="center" className="w-48">
+          <p className="text-sm">Aligned to center.</p>
+        </PopoverContent>
+      </Popover>
+    </div>
+  ),
+};
+
+/** The popup can align to the end of the trigger. */
+export const AlignEnd: Story = {
+  render: () => (
+    <div className="flex items-center justify-center p-12">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline">End</Button>} />
+        <PopoverContent align="end" className="w-48">
+          <p className="text-sm">Aligned to end.</p>
+        </PopoverContent>
+      </Popover>
     </div>
   ),
 };
