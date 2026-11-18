@@ -52,35 +52,64 @@ export const WithLabel: Story = {
   ),
 };
 
-/** Every state side by side. */
-export const States: Story = {
+/** An unchecked checkbox. */
+export const Unchecked: Story = {
   render: () => (
-    <div className="flex flex-col gap-3">
-      <Label className="gap-2">
-        <Checkbox />
-        Unchecked
-      </Label>
-      <Label className="gap-2">
-        <Checkbox defaultChecked />
-        Checked
-      </Label>
-      <Label className="gap-2">
-        <Checkbox indeterminate />
-        Indeterminate
-      </Label>
-      <Label className="gap-2">
-        <Checkbox disabled />
-        Disabled
-      </Label>
-      <Label className="gap-2">
-        <Checkbox defaultChecked disabled />
-        Disabled checked
-      </Label>
-    </div>
+    <Label className="gap-2">
+      <Checkbox />
+      Unchecked
+    </Label>
   ),
-  parameters: {
-    controls: {
-      disable: true,
-    },
+};
+
+/** A checked checkbox. */
+export const Checked: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Checkbox defaultChecked />
+      Checked
+    </Label>
+  ),
+};
+
+/** An indeterminate checkbox. */
+export const Indeterminate: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Checkbox indeterminate />
+      Indeterminate
+    </Label>
+  ),
+};
+
+/** A disabled unchecked checkbox. */
+export const Disabled: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Checkbox disabled />
+      Disabled
+    </Label>
+  ),
+};
+
+/** A disabled checked checkbox. */
+export const DisabledChecked: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Checkbox defaultChecked disabled />
+      Disabled checked
+    </Label>
+  ),
+};
+
+/** A required checkbox left unchecked: the field shows its error message. */
+export const Invalid: Story = {
+  render: () => {
+    const [checked, setChecked] = useState(false);
+    return (
+      <Label className="gap-2" data-invalid>
+        <Checkbox checked={checked} onCheckedChange={setChecked} aria-invalid />I accept the terms
+      </Label>
+    );
   },
 };
