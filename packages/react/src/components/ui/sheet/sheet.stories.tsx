@@ -90,33 +90,74 @@ export const WithoutCloseButton: Story = {
   ),
 };
 
-/** Every edge the sheet can slide in from, set via `side` on `SheetContent`. */
-export const Sides: Story = {
+/** The sheet slides in from the top of the screen. */
+export const Top: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      {(
-        [
-          { side: 'top', label: 'Top' },
-          { side: 'right', label: 'Right' },
-          { side: 'bottom', label: 'Bottom' },
-          { side: 'left', label: 'Left' },
-        ] as const
-      ).map(({ side, label }) => (
-        <Sheet key={side}>
-          <SheetTrigger render={<Button variant="outline">{label}</Button>} />
-          <SheetContent side={side}>
-            <SheetHeader>
-              <SheetTitle>{label} sheet</SheetTitle>
-              <SheetDescription>
-                Slides in from the {label.toLowerCase()} of the screen.
-              </SheetDescription>
-            </SheetHeader>
-            <SheetFooter>
-              <SheetClose render={<Button variant="outline">Close</Button>} />
-            </SheetFooter>
-          </SheetContent>
-        </Sheet>
-      ))}
-    </div>
+    <Sheet>
+      <SheetTrigger render={<Button variant="outline">Top</Button>} />
+      <SheetContent side="top">
+        <SheetHeader>
+          <SheetTitle>Top sheet</SheetTitle>
+          <SheetDescription>Slides in from the top of the screen.</SheetDescription>
+        </SheetHeader>
+        <SheetFooter>
+          <SheetClose render={<Button variant="outline">Close</Button>} />
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+  ),
+};
+
+/** The sheet slides in from the right of the screen. */
+export const Right: Story = {
+  render: () => (
+    <Sheet>
+      <SheetTrigger render={<Button variant="outline">Right</Button>} />
+      <SheetContent side="right">
+        <SheetHeader>
+          <SheetTitle>Right sheet</SheetTitle>
+          <SheetDescription>Slides in from the right of the screen.</SheetDescription>
+        </SheetHeader>
+        <SheetFooter>
+          <SheetClose render={<Button variant="outline">Close</Button>} />
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+  ),
+};
+
+/** The sheet slides in from the bottom of the screen. */
+export const Bottom: Story = {
+  render: () => (
+    <Sheet>
+      <SheetTrigger render={<Button variant="outline">Bottom</Button>} />
+      <SheetContent side="bottom">
+        <SheetHeader>
+          <SheetTitle>Bottom sheet</SheetTitle>
+          <SheetDescription>Slides in from the bottom of the screen.</SheetDescription>
+        </SheetHeader>
+        <SheetFooter>
+          <SheetClose render={<Button variant="outline">Close</Button>} />
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+  ),
+};
+
+/** The sheet slides in from the left of the screen. */
+export const Left: Story = {
+  render: () => (
+    <Sheet>
+      <SheetTrigger render={<Button variant="outline">Left</Button>} />
+      <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>Left sheet</SheetTitle>
+          <SheetDescription>Slides in from the left of the screen.</SheetDescription>
+        </SheetHeader>
+        <SheetFooter>
+          <SheetClose render={<Button variant="outline">Close</Button>} />
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   ),
 };
