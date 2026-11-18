@@ -83,79 +83,138 @@ export const Default: Story = {
   ),
 };
 
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** No border, transparent background. */
+export const DefaultVariant: Story = {
   render: () => (
-    <div className="flex w-full max-w-md flex-col gap-3">
-      {itemContract.props.variants.map((variant) => (
-        <Item key={variant} variant={variant} title={itemContract.docs.variants[variant]}>
-          <ItemMedia variant="icon">
-            <GearSixIcon />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>{variant.charAt(0).toUpperCase() + variant.slice(1)}</ItemTitle>
-            <ItemDescription>{itemContract.docs.variants[variant]}</ItemDescription>
-          </ItemContent>
-        </Item>
-      ))}
-    </div>
+    <Item variant="default" className="w-full max-w-md">
+      <ItemMedia variant="icon">
+        <GearSixIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Default</ItemTitle>
+        <ItemDescription>{itemContract.docs.variants.default}</ItemDescription>
+      </ItemContent>
+    </Item>
   ),
 };
 
-/** Every size, from extra-compact to standard. */
-export const Sizes: Story = {
+/** Bordered container. */
+export const Outline: Story = {
   render: () => (
-    <div className="flex w-full max-w-md flex-col gap-3">
-      {itemContract.props.sizes.map((size) => (
-        <Item key={size} variant="outline" size={size} title={itemContract.docs.sizes[size]}>
-          <ItemMedia variant="icon">
-            <UserIcon />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>{size.charAt(0).toUpperCase() + size.slice(1)}</ItemTitle>
-            <ItemDescription>{itemContract.docs.sizes[size]}</ItemDescription>
-          </ItemContent>
-        </Item>
-      ))}
-    </div>
+    <Item variant="outline" className="w-full max-w-md">
+      <ItemMedia variant="icon">
+        <GearSixIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Outline</ItemTitle>
+        <ItemDescription>{itemContract.docs.variants.outline}</ItemDescription>
+      </ItemContent>
+    </Item>
   ),
 };
 
-/**
- * `ItemMedia`'s own `variant` — a distinct axis from `Item`'s. `icon` badges an icon,
- * `image` fixes a square thumbnail, `default` renders the media as-is.
- */
-export const MediaVariants: Story = {
+/** Subtle muted background, no border. */
+export const Muted: Story = {
   render: () => (
-    <div className="flex w-full max-w-md flex-col gap-3">
-      <Item variant="outline">
-        <ItemMedia variant="default" title={itemContract.docs.mediaVariants.default}>
-          <UserIcon className="size-8" />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle>Default</ItemTitle>
-          <ItemDescription>{itemContract.docs.mediaVariants.default}</ItemDescription>
-        </ItemContent>
-      </Item>
-      <Item variant="outline">
-        <ItemMedia variant="icon" title={itemContract.docs.mediaVariants.icon}>
-          <CreditCardIcon />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle>Icon</ItemTitle>
-          <ItemDescription>{itemContract.docs.mediaVariants.icon}</ItemDescription>
-        </ItemContent>
-      </Item>
-      <Item variant="outline">
-        <ItemMedia variant="image" title={itemContract.docs.mediaVariants.image}>
-          <img src="https://github.com/shadcn.png" alt="" />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle>Image</ItemTitle>
-          <ItemDescription>{itemContract.docs.mediaVariants.image}</ItemDescription>
-        </ItemContent>
-      </Item>
-    </div>
+    <Item variant="muted" className="w-full max-w-md">
+      <ItemMedia variant="icon">
+        <GearSixIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Muted</ItemTitle>
+        <ItemDescription>{itemContract.docs.variants.muted}</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+/** Standard padding and gaps. */
+export const SizeDefault: Story = {
+  render: () => (
+    <Item variant="outline" size="default" className="w-full max-w-md">
+      <ItemMedia variant="icon">
+        <UserIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Default</ItemTitle>
+        <ItemDescription>{itemContract.docs.sizes.default}</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+/** Compact padding and gaps. */
+export const SizeSm: Story = {
+  render: () => (
+    <Item variant="outline" size="sm" className="w-full max-w-md">
+      <ItemMedia variant="icon">
+        <UserIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Sm</ItemTitle>
+        <ItemDescription>{itemContract.docs.sizes.sm}</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+/** Extra compact — dense lists such as menus. */
+export const SizeXs: Story = {
+  render: () => (
+    <Item variant="outline" size="xs" className="w-full max-w-md">
+      <ItemMedia variant="icon">
+        <UserIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Xs</ItemTitle>
+        <ItemDescription>{itemContract.docs.sizes.xs}</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+/** No styling — media renders as-is. */
+export const MediaDefault: Story = {
+  render: () => (
+    <Item variant="outline" className="w-full max-w-md">
+      <ItemMedia variant="default" title={itemContract.docs.mediaVariants.default}>
+        <UserIcon className="size-8" />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Default</ItemTitle>
+        <ItemDescription>{itemContract.docs.mediaVariants.default}</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+/** Rounded icon badge background. */
+export const MediaIcon: Story = {
+  render: () => (
+    <Item variant="outline" className="w-full max-w-md">
+      <ItemMedia variant="icon" title={itemContract.docs.mediaVariants.icon}>
+        <CreditCardIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Icon</ItemTitle>
+        <ItemDescription>{itemContract.docs.mediaVariants.icon}</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+/** Fixed square image thumbnail. */
+export const MediaImage: Story = {
+  render: () => (
+    <Item variant="outline" className="w-full max-w-md">
+      <ItemMedia variant="image" title={itemContract.docs.mediaVariants.image}>
+        <img src="https://github.com/shadcn.png" alt="" />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Image</ItemTitle>
+        <ItemDescription>{itemContract.docs.mediaVariants.image}</ItemDescription>
+      </ItemContent>
+    </Item>
   ),
 };
 

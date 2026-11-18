@@ -1,4 +1,3 @@
-import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   phosphorBell,
@@ -93,108 +92,153 @@ export const Default: Story = {
   }),
 };
 
-@Component({
-  selector: 'item-variants',
-  imports: [HlmItemImports, NgIcon],
-  template: `
-    <div class="flex w-full max-w-md flex-col gap-3">
-      @for (variant of itemContract.props.variants; track variant) {
-        <div hlmItem [variant]="variant" [title]="itemContract.docs.variants[variant]">
-          <div hlmItemMedia variant="icon">
-            <ng-icon name="phosphorGearSix" />
-          </div>
-          <div hlmItemContent>
-            <div hlmItemTitle>{{ variant.charAt(0).toUpperCase() + variant.slice(1) }}</div>
-            <div hlmItemDescription>{{ itemContract.docs.variants[variant] }}</div>
-          </div>
-        </div>
-      }
-    </div>
-  `,
-})
-class ItemVariants {
-  @Input() itemContract!: typeof itemContract;
-}
-
-/** Every visual variant side by side. */
-export const Variants: Story = {
-  render: () => ({
-    moduleMetadata: {
-      imports: [ItemVariants],
-    },
-    props: { itemContract },
-    template: '<item-variants [itemContract]="itemContract"></item-variants>',
-  }),
-};
-
-@Component({
-  selector: 'item-sizes',
-  imports: [HlmItemImports, NgIcon],
-  template: `
-    <div class="flex w-full max-w-md flex-col gap-3">
-      @for (size of itemContract.props.sizes; track size) {
-        <div hlmItem variant="outline" [size]="size" [title]="itemContract.docs.sizes[size]">
-          <div hlmItemMedia variant="icon">
-            <ng-icon name="phosphorUser" />
-          </div>
-          <div hlmItemContent>
-            <div hlmItemTitle>{{ size.charAt(0).toUpperCase() + size.slice(1) }}</div>
-            <div hlmItemDescription>{{ itemContract.docs.sizes[size] }}</div>
-          </div>
-        </div>
-      }
-    </div>
-  `,
-})
-class ItemSizes {
-  @Input() itemContract!: typeof itemContract;
-}
-
-/** Every size, from extra-compact to standard. */
-export const Sizes: Story = {
-  render: () => ({
-    moduleMetadata: {
-      imports: [ItemSizes],
-    },
-    props: { itemContract },
-    template: '<item-sizes [itemContract]="itemContract"></item-sizes>',
-  }),
-};
-
-/**
- * `hlmItemMedia`'s own `variant` — a distinct axis from `hlmItem`'s. `icon` badges an icon,
- * `image` fixes a square thumbnail, `default` renders the media as-is.
- */
-export const MediaVariants: Story = {
+/** No border, transparent background. */
+export const DefaultVariant: Story = {
   render: () => ({
     template: `
-      <div class="flex w-full max-w-md flex-col gap-3">
-        <div hlmItem variant="outline">
-          <div hlmItemMedia variant="default" title="${itemContract.docs.mediaVariants.default}">
-            <ng-icon name="phosphorUser" size="2rem" />
-          </div>
-          <div hlmItemContent>
-            <div hlmItemTitle>Default</div>
-            <div hlmItemDescription>${itemContract.docs.mediaVariants.default}</div>
-          </div>
+      <div hlmItem variant="default" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon">
+          <ng-icon name="phosphorGearSix" />
         </div>
-        <div hlmItem variant="outline">
-          <div hlmItemMedia variant="icon" title="${itemContract.docs.mediaVariants.icon}">
-            <ng-icon name="phosphorCreditCard" />
-          </div>
-          <div hlmItemContent>
-            <div hlmItemTitle>Icon</div>
-            <div hlmItemDescription>${itemContract.docs.mediaVariants.icon}</div>
-          </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Default</div>
+          <div hlmItemDescription>${itemContract.docs.variants.default}</div>
         </div>
-        <div hlmItem variant="outline">
-          <div hlmItemMedia variant="image" title="${itemContract.docs.mediaVariants.image}">
-            <img src="https://github.com/shadcn.png" alt="" />
-          </div>
-          <div hlmItemContent>
-            <div hlmItemTitle>Image</div>
-            <div hlmItemDescription>${itemContract.docs.mediaVariants.image}</div>
-          </div>
+      </div>
+    `,
+  }),
+};
+
+/** Bordered container. */
+export const Outline: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon">
+          <ng-icon name="phosphorGearSix" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Outline</div>
+          <div hlmItemDescription>${itemContract.docs.variants.outline}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** Subtle muted background, no border. */
+export const Muted: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="muted" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon">
+          <ng-icon name="phosphorGearSix" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Muted</div>
+          <div hlmItemDescription>${itemContract.docs.variants.muted}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** Standard padding and gaps. */
+export const SizeDefault: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" size="default" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon">
+          <ng-icon name="phosphorUser" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Default</div>
+          <div hlmItemDescription>${itemContract.docs.sizes.default}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** Compact padding and gaps. */
+export const SizeSm: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" size="sm" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon">
+          <ng-icon name="phosphorUser" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Sm</div>
+          <div hlmItemDescription>${itemContract.docs.sizes.sm}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** Extra compact — dense lists such as menus. */
+export const SizeXs: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" size="xs" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon">
+          <ng-icon name="phosphorUser" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Xs</div>
+          <div hlmItemDescription>${itemContract.docs.sizes.xs}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** No styling — media renders as-is. */
+export const MediaDefault: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" class="w-full max-w-md">
+        <div hlmItemMedia variant="default" title="${itemContract.docs.mediaVariants.default}">
+          <ng-icon name="phosphorUser" size="2rem" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Default</div>
+          <div hlmItemDescription>${itemContract.docs.mediaVariants.default}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** Rounded icon badge background. */
+export const MediaIcon: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" class="w-full max-w-md">
+        <div hlmItemMedia variant="icon" title="${itemContract.docs.mediaVariants.icon}">
+          <ng-icon name="phosphorCreditCard" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Icon</div>
+          <div hlmItemDescription>${itemContract.docs.mediaVariants.icon}</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** Fixed square image thumbnail. */
+export const MediaImage: Story = {
+  render: () => ({
+    template: `
+      <div hlmItem variant="outline" class="w-full max-w-md">
+        <div hlmItemMedia variant="image" title="${itemContract.docs.mediaVariants.image}">
+          <img src="https://github.com/shadcn.png" alt="" />
+        </div>
+        <div hlmItemContent>
+          <div hlmItemTitle>Image</div>
+          <div hlmItemDescription>${itemContract.docs.mediaVariants.image}</div>
         </div>
       </div>
     `,
