@@ -131,6 +131,10 @@
     "$type": "fontFamily",
     "$value": "\"Geist Mono\", monospace"
   },
+  "background-strong": {
+    "$type": "color",
+    "$value": "rgba(64, 64, 64, 1)"
+  },
   "border-subtle": {
     "$type": "color",
     "$value": "rgba(255, 255, 255, 0.06)"
@@ -162,6 +166,10 @@
   "destructive-foreground": {
     "$type": "color",
     "$value": "rgba(69, 10, 10, 1)"
+  },
+  "foreground-strong": {
+    "$type": "color",
+    "$value": "rgba(255, 255, 255, 1)"
   },
   "info": {
     "$type": "color",
