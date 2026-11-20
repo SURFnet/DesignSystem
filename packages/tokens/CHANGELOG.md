@@ -1,5 +1,11 @@
 # @surfnet/curve-tokens
 
+## 2.0.0
+
+### Patch Changes
+
+- 46062ea: Tooltip now uses the new `background-strong` and `foreground-strong` tokens for its background, arrow and text.
+
 ## 1.0.0
 
 No changes in this release.

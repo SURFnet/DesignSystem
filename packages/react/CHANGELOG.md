@@ -1,5 +1,21 @@
 # @surfnet/curve-react
 
+## 2.0.0
+
+### Major Changes
+
+- 0af5552: add align option for curve datatable string and action columns
+
+### Minor Changes
+
+- 40df7d8: Add `CurvePageHeader` (`curve-page-header`): the top section of a page, composed from parts (media with `default`/`icon`/`image` variants, title, badges, description, page actions and tab navigation) next to the existing breadcrumb. On narrow containers the actions move below the description and extra actions collapse into a "More actions" menu.
+- 77db44e: Add a `with-spacing` variant to the Input OTP group: set `variant="with-spacing"` on `InputOTPGroup` (React) or `hlm-input-otp-group` (Angular) to give each slot its own rounded border, with a gap between slots.
+
+### Patch Changes
+
+- b753c9a: Curve data table: the column `align` option now works without Tailwind in your app.
+- 46062ea: Tooltip now uses the new `background-strong` and `foreground-strong` tokens for its background, arrow and text.
+
 ## 1.0.0
 
 ### Major Changes
