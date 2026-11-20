@@ -1,6 +1,7 @@
 /* Carousel — `hlm-carousel` (Embla) with content, items, previous/next buttons. */
 .curve-carousel {
   position: relative;
+  display: inline-block;
 }
 
 .curve-carousel-viewport {
