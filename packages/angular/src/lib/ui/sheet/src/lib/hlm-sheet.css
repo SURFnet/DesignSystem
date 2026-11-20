@@ -9,11 +9,6 @@
   }
 }
 
-.curve-sheet-overlay[data-starting-style],
-.curve-sheet-overlay[data-ending-style] {
-  opacity: 0;
-}
-
 .curve-sheet-content {
   position: fixed;
   display: flex;
@@ -107,9 +102,9 @@
  */
 @media (prefers-reduced-motion: no-preference) {
   .curve-sheet-overlay {
-    transition-property: opacity;
-    transition-duration: 150ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-duration: 100ms;
+    --curve-enter-opacity: 0;
+    --curve-exit-opacity: 0;
   }
 
   .curve-sheet-content {
@@ -144,5 +139,16 @@
   .curve-sheet-content[data-side='right'] {
     --curve-enter-translate-x: 100%;
     --curve-exit-translate-x: 100%;
+  }
+
+  .curve-sheet-overlay[data-state='open'] {
+    animation-name: curve-enter;
+    animation-timing-function: ease-out;
+  }
+
+  .curve-sheet-overlay[data-state='closed'] {
+    animation-name: curve-exit;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
   }
 }

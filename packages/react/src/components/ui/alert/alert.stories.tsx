@@ -1,17 +1,9 @@
 import { CheckCircleIcon, InfoIcon, WarningCircleIcon, WarningIcon } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { alertContract, type AlertVariantName } from '@surfnet/curve-contracts';
+import { alertContract } from '@surfnet/curve-contracts';
 
 import { Button } from '@/components/ui/button';
 import { Alert, AlertAction, AlertDescription, AlertTitle } from './alert';
-
-const variantIcons: Record<AlertVariantName, React.ReactNode> = {
-  default: <CheckCircleIcon />,
-  info: <InfoIcon />,
-  success: <CheckCircleIcon />,
-  warning: <WarningIcon />,
-  danger: <WarningCircleIcon />,
-};
 
 const meta = {
   title: 'Components/Alert',
@@ -57,22 +49,40 @@ export const Default: Story = {
   ),
 };
 
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Info variant with info icon. */
+export const Info: Story = {
   render: () => (
-    <div className="flex w-96 flex-col gap-3">
-      {alertContract.props.variants.map((variant) => (
-        <Alert key={variant} variant={variant} title={alertContract.docs.variants[variant]}>
-          {variantIcons[variant]}
-          <AlertTitle>{variant.charAt(0).toUpperCase() + variant.slice(1)}</AlertTitle>
-          <AlertDescription>{alertContract.docs.variants[variant]}</AlertDescription>
-        </Alert>
-      ))}
-    </div>
+    <Alert variant="info" className="w-96">
+      <InfoIcon />
+      <AlertTitle>Notification</AlertTitle>
+      <AlertDescription>New features are available in your dashboard.</AlertDescription>
+    </Alert>
   ),
 };
 
-/** Danger alert used to surface an error, with title and description. */
+/** Success variant with check icon. */
+export const Success: Story = {
+  render: () => (
+    <Alert variant="success" className="w-96">
+      <CheckCircleIcon />
+      <AlertTitle>Changes saved</AlertTitle>
+      <AlertDescription>Your preferences have been updated successfully.</AlertDescription>
+    </Alert>
+  ),
+};
+
+/** Warning variant with warning icon. */
+export const Warning: Story = {
+  render: () => (
+    <Alert variant="warning" className="w-96">
+      <WarningIcon />
+      <AlertTitle>Session expiring</AlertTitle>
+      <AlertDescription>Your session will expire in 5 minutes. Save your work.</AlertDescription>
+    </Alert>
+  ),
+};
+
+/** Danger variant with error icon. */
 export const Danger: Story = {
   render: () => (
     <Alert variant="danger" className="w-96">

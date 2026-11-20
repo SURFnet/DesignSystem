@@ -53,29 +53,35 @@ export const Default: Story = {
   ),
 };
 
-/**
- * The two `EmptyMedia` variants side by side — `icon` renders a rounded badge background,
- * `default` renders the media as-is (for a custom illustration), so it needs an explicit icon size.
- */
-export const MediaVariants: Story = {
+/** Default media variant — renders the media as-is for a custom illustration. */
+export const MediaDefault: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-8">
-      {emptyContract.props.variants.map((variant) => (
-        <Empty key={variant} className="w-64">
-          <EmptyHeader>
-            <EmptyMedia variant={variant} title={emptyContract.docs.variants[variant]}>
-              <FolderIcon className={variant === 'default' ? 'size-10' : undefined} />
-            </EmptyMedia>
-            <EmptyTitle>{variant.charAt(0).toUpperCase() + variant.slice(1)}</EmptyTitle>
-            <EmptyDescription>{emptyContract.docs.variants[variant]}</EmptyDescription>
-          </EmptyHeader>
-        </Empty>
-      ))}
-    </div>
+    <Empty className="w-64">
+      <EmptyHeader>
+        <EmptyMedia variant="default" title={emptyContract.docs.variants.default}>
+          <FolderIcon className="size-10" />
+        </EmptyMedia>
+        <EmptyTitle>Default</EmptyTitle>
+      </EmptyHeader>
+    </Empty>
   ),
 };
 
-/** A "no results" search state — plain (`default`) media lets a larger illustrative icon sit un-badged. */
+/** Icon media variant — adds a rounded badge background. */
+export const MediaIcon: Story = {
+  render: () => (
+    <Empty className="w-64">
+      <EmptyHeader>
+        <EmptyMedia variant="icon" title={emptyContract.docs.variants.icon}>
+          <FolderIcon />
+        </EmptyMedia>
+        <EmptyTitle>Icon</EmptyTitle>
+      </EmptyHeader>
+    </Empty>
+  ),
+};
+
+/** A "no results" search state — plain media lets a larger illustrative icon sit un-badged. */
 export const NoResults: Story = {
   render: () => (
     <Empty className="w-full max-w-sm">

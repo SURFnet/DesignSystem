@@ -66,6 +66,26 @@ export const Default: Story = {
   ),
 };
 
+/** Small size — compact forms and toolbars. */
+export const SizeSm: Story = {
+  render: () => (
+    <div className="flex items-center gap-3">
+      <Select items={items} defaultValue={items[0]}>
+        <SelectTrigger size="sm" className="w-40" title={selectContract.docs.sizes.sm}>
+          <SelectValue placeholder="Category" />
+        </SelectTrigger>
+        <SelectContent>
+          {items.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              {item.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  ),
+};
+
 /** A pre-selected value with grouped, labelled options. */
 export const Grouped: Story = {
   render: () => (
@@ -114,24 +134,20 @@ export const Disabled: Story = {
   ),
 };
 
-/** Every trigger size declared in the contract. */
-export const Sizes: Story = {
+/** Invalid state, driven by `aria-invalid` on the trigger. */
+export const Invalid: Story = {
   render: () => (
-    <div className="flex items-center gap-3">
-      {selectContract.props.sizes.map((size) => (
-        <Select key={size} items={items} defaultValue={items[0]}>
-          <SelectTrigger size={size} className="w-40" title={selectContract.docs.sizes[size]}>
-            <SelectValue placeholder="Category" />
-          </SelectTrigger>
-          <SelectContent>
-            {items.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                {item.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      ))}
-    </div>
+    <Select items={items} defaultValue="">
+      <SelectTrigger className="w-56" aria-label="Category" aria-invalid>
+        <SelectValue placeholder="Pick a category" />
+      </SelectTrigger>
+      <SelectContent>
+        {items.map((item) => (
+          <SelectItem key={item.value} value={item.value}>
+            {item.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   ),
 };

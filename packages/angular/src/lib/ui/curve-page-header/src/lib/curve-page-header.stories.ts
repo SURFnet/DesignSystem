@@ -15,7 +15,7 @@ import { HlmBreadcrumbImports } from '../../../breadcrumb/src';
 import { CurvePageHeaderComponent, CurvePageHeaderImports, type CurvePageHeaderAction } from '..';
 
 // ---------------------------------------------------------------------------
-// Shared fixtures (same data as the React story)
+// Shared fixtures
 // ---------------------------------------------------------------------------
 
 const actions: CurvePageHeaderAction[] = [
@@ -149,36 +149,38 @@ export const WithBreadcrumbs: Story = story(`
   </div>
 </curve-page-header>`);
 
-/** `default` keeps the media as-is, `icon` adds a muted tile, `image` crops a square thumbnail. */
-export const MediaVariants: Story = story(`
-<div class="flex flex-col gap-8">
-  <curve-page-header>
-    <div curvePageHeaderMedia variant="default">
-      <ng-icon name="phosphorGlobe" size="2rem" aria-hidden="true" />
-    </div>
-    <div curvePageHeaderContent>
-      <h1 curvePageHeaderTitle>Default media</h1>
-    </div>
-  </curve-page-header>
+/** Default media variant — keeps the media as-is. */
+export const MediaDefault: Story = story(`
+<curve-page-header>
+  <div curvePageHeaderMedia variant="default">
+    <ng-icon name="phosphorGlobe" size="2rem" aria-hidden="true" />
+  </div>
+  <div curvePageHeaderContent>
+    <h1 curvePageHeaderTitle>Default media</h1>
+  </div>
+</curve-page-header>`);
 
-  <curve-page-header>
-    <div curvePageHeaderMedia variant="icon">
-      <ng-icon name="phosphorGlobe" aria-hidden="true" />
-    </div>
-    <div curvePageHeaderContent>
-      <h1 curvePageHeaderTitle>Icon media</h1>
-    </div>
-  </curve-page-header>
+/** Icon media variant — adds a muted tile background. */
+export const MediaIcon: Story = story(`
+<curve-page-header>
+  <div curvePageHeaderMedia variant="icon">
+    <ng-icon name="phosphorGlobe" aria-hidden="true" />
+  </div>
+  <div curvePageHeaderContent>
+    <h1 curvePageHeaderTitle>Icon media</h1>
+  </div>
+</curve-page-header>`);
 
-  <curve-page-header>
-    <div curvePageHeaderMedia variant="image">
-      <img src="https://github.com/shadcn.png" alt="" />
-    </div>
-    <div curvePageHeaderContent>
-      <h1 curvePageHeaderTitle>Image media</h1>
-    </div>
-  </curve-page-header>
-</div>`);
+/** Image media variant — crops a square thumbnail. */
+export const MediaImage: Story = story(`
+<curve-page-header>
+  <div curvePageHeaderMedia variant="image">
+    <img src="https://github.com/shadcn.png" alt="" />
+  </div>
+  <div curvePageHeaderContent>
+    <h1 curvePageHeaderTitle>Image media</h1>
+  </div>
+</curve-page-header>`);
 
 export const WithBadges: Story = story(`
 <curve-page-header>

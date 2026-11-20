@@ -59,17 +59,37 @@ type Story = StoryObj<HlmSelect>;
 export const Default: Story = {
   render: () => ({
     template: `
-			<hlm-select>
-				<hlm-select-trigger class="w-56" aria-label="Category">
-					<hlm-select-value placeholder="Pick a category" />
-				</hlm-select-trigger>
+      <hlm-select [value]="items[0]">
+        <hlm-select-trigger class="w-56" aria-label="Category">
+          <hlm-select-value placeholder="Pick a category" />
+        </hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
           @for (item of items; track item.value) {
-  					<hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
+            <hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
           }
-				</hlm-select-content>
-			</hlm-select>
-		`,
+        </hlm-select-content>
+      </hlm-select>
+    `,
+  }),
+};
+
+/** Small size — compact forms and toolbars. */
+export const SizeSm: Story = {
+  render: () => ({
+    template: `
+      <div class="flex items-center gap-3">
+        <hlm-select [value]="items[0]">
+          <hlm-select-trigger class="w-40" size="sm" aria-label="Category" title="${selectContract.docs.sizes.sm}">
+            <hlm-select-value />
+          </hlm-select-trigger>
+          <hlm-select-content *hlmSelectPortal>
+            @for (item of items; track item.value) {
+              <hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
+            }
+          </hlm-select-content>
+        </hlm-select>
+      </div>
+    `,
   }),
 };
 
@@ -77,27 +97,27 @@ export const Default: Story = {
 export const Grouped: Story = {
   render: () => ({
     template: `
-			<hlm-select>
-				<hlm-select-trigger class="w-56" aria-label="Category">
-					<hlm-select-value placeholder="Pick a food" />
-				</hlm-select-trigger>
+      <hlm-select>
+        <hlm-select-trigger class="w-56" aria-label="Category">
+          <hlm-select-value placeholder="Pick a food" />
+        </hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
-					<hlm-select-group>
-						<hlm-select-label>Fruit</hlm-select-label>
-						@for (fruit of fruitItems; track fruit.value) {
-    					<hlm-select-item [value]="fruit">{{ fruit.label }}</hlm-select-item>
+          <hlm-select-group>
+            <hlm-select-label>Fruit</hlm-select-label>
+            @for (fruit of fruitItems; track fruit.value) {
+              <hlm-select-item [value]="fruit">{{ fruit.label }}</hlm-select-item>
             }
-					</hlm-select-group>
-					<hlm-select-separator />
-					<hlm-select-group>
-						<hlm-select-label>Veggies</hlm-select-label>
-						@for (veggie of veggieItems; track veggie.value) {
-    					<hlm-select-item [value]="veggie">{{ veggie.label }}</hlm-select-item>
+          </hlm-select-group>
+          <hlm-select-separator />
+          <hlm-select-group>
+            <hlm-select-label>Veggies</hlm-select-label>
+            @for (veggie of veggieItems; track veggie.value) {
+              <hlm-select-item [value]="veggie">{{ veggie.label }}</hlm-select-item>
             }
-					</hlm-select-group>
-				</hlm-select-content>
-			</hlm-select>
-		`,
+          </hlm-select-group>
+        </hlm-select-content>
+      </hlm-select>
+    `,
   }),
 };
 
@@ -105,52 +125,25 @@ export const Grouped: Story = {
 export const Disabled: Story = {
   render: () => ({
     template: `
-			<hlm-select disabled>
-				<hlm-select-trigger class="w-56" aria-label="Category">
-					<hlm-select-value placeholder="Category: All" />
-				</hlm-select-trigger>
+      <hlm-select disabled>
+        <hlm-select-trigger class="w-56" aria-label="Category">
+          <hlm-select-value placeholder="Category: All" />
+        </hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
           @for (item of items; track item.value) {
-  					<hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
+            <hlm-select-item [value]="item">{{ item.label }}</hlm-select-item>
           }
-				</hlm-select-content>
-			</hlm-select>
-		`,
-  }),
-};
-
-/** Every trigger size declared in the contract. */
-export const Sizes: Story = {
-  render: () => ({
-    template: `
-			<div class="flex items-center gap-3">
-				${selectContract.props.sizes
-          .map(
-            (size) => `
-              <!-- You can also use [itemToString] to convert values to labels if you don't have a dedicated label per item -->
-							<hlm-select key="${size}" value="all" [itemToString]="valueToLabel">
-								<hlm-select-trigger class="w-40" size="${size}" aria-label="Category">
-									<hlm-select-value />
-								</hlm-select-trigger>
-								<hlm-select-content *hlmSelectPortal>
-  								@for (item of items; track item.value) {
-          					<hlm-select-item value="{{item.value}}">{{ valueToLabel(item.value) }}</hlm-select-item>
-                  }
-								</hlm-select-content>
-							</hlm-select>
-						`,
-          )
-          .join('')}
-			</div>
-		`,
+        </hlm-select-content>
+      </hlm-select>
+    `,
   }),
 };
 
 /**
- * Invalid state. The first select is required: tab past it (or open and close it) without
- * choosing to see the error. The second uses `forceInvalid`.
+ * A required select left empty. tab past it (or open and close it) without
+ * choosing to see the invalid state.
  */
-export const Error: Story = {
+export const Invalid: Story = {
   render: () => ({
     props: {
       form: new FormGroup({
@@ -158,28 +151,40 @@ export const Error: Story = {
       }),
     },
     template: `
-			<form [formGroup]="form" class="flex items-center gap-3">
-				<hlm-select formControlName="category">
-					<hlm-select-trigger class="w-56" aria-label="Category">
-						<hlm-select-value placeholder="Pick a category" />
-					</hlm-select-trigger>
-					<hlm-select-content *hlmSelectPortal>
-						@for (item of items; track item.value) {
-							<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
-						}
-					</hlm-select-content>
-				</hlm-select>
-				<hlm-select>
-					<hlm-select-trigger class="w-56" aria-label="Category (forced invalid)" forceInvalid>
-						<hlm-select-value placeholder="Pick a category" />
-					</hlm-select-trigger>
-					<hlm-select-content *hlmSelectPortal>
-						@for (item of items; track item.value) {
-							<hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
-						}
-					</hlm-select-content>
-				</hlm-select>
-			</form>
-		`,
+      <form [formGroup]="form" class="w-fit">
+        <div hlmField>
+          <label hlmFieldLabel for="invalid-select">Category</label>
+          <hlm-select formControlName="category">
+            <hlm-select-trigger id="invalid-select" class="w-56" aria-label="Category">
+              <hlm-select-value placeholder="Pick a category" />
+            </hlm-select-trigger>
+            <hlm-select-content *hlmSelectPortal>
+              @for (item of items; track item.value) {
+                <hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+              }
+            </hlm-select-content>
+          </hlm-select>
+          <hlm-field-error />
+        </div>
+      </form>
+    `,
+  }),
+};
+
+/** Invalid state via `forceInvalid` on the trigger. */
+export const InvalidForce: Story = {
+  render: () => ({
+    template: `
+      <hlm-select>
+        <hlm-select-trigger class="w-56" aria-label="Category (forced invalid)" forceInvalid>
+          <hlm-select-value placeholder="Pick a category" />
+        </hlm-select-trigger>
+        <hlm-select-content *hlmSelectPortal>
+          @for (item of items; track item.value) {
+            <hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+          }
+        </hlm-select-content>
+      </hlm-select>
+    `,
   }),
 };

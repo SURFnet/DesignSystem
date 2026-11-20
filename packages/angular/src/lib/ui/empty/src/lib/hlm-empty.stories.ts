@@ -1,4 +1,3 @@
-import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   phosphorFolder,
@@ -63,44 +62,39 @@ export const Default: Story = {
   }),
 };
 
-@Component({
-  selector: 'empty-media-variants',
-  imports: [HlmEmptyImports, NgIcon],
-  template: `
-    <div class="flex flex-wrap gap-8">
-      @for (variant of emptyContract.props.variants; track variant) {
-        <div hlmEmpty class="w-64">
-          <div hlmEmptyHeader>
-            <div hlmEmptyMedia [variant]="variant" [title]="emptyContract.docs.variants[variant]">
-              <ng-icon name="phosphorFolder" [size]="variant === 'default' ? '2.5rem' : '1.5rem'" />
-            </div>
-            <div hlmEmptyTitle>{{ variant.charAt(0).toUpperCase() + variant.slice(1) }}</div>
-            <div hlmEmptyDescription>{{ emptyContract.docs.variants[variant] }}</div>
-          </div>
-        </div>
-      }
-    </div>
-  `,
-})
-class EmptyMediaVariants {
-  @Input() emptyContract!: typeof emptyContract;
-}
-
-/**
- * The two `EmptyMedia` variants side by side — `icon` renders a rounded badge background,
- * `default` renders the media as-is (for a custom illustration), so it needs an explicit icon size.
- */
-export const MediaVariants: Story = {
+/** Default media variant — renders the media as-is for a custom illustration. */
+export const MediaDefault: Story = {
   render: () => ({
-    moduleMetadata: {
-      imports: [EmptyMediaVariants],
-    },
-    props: { emptyContract },
-    template: '<empty-media-variants [emptyContract]="emptyContract"></empty-media-variants>',
+    template: `
+      <div hlmEmpty class="w-64">
+        <div hlmEmptyHeader>
+          <div hlmEmptyMedia variant="default" title="${emptyContract.docs.variants.default}">
+            <ng-icon name="phosphorFolder" class="size-10" />
+          </div>
+          <div hlmEmptyTitle>Default</div>
+        </div>
+      </div>
+    `,
   }),
 };
 
-/** A "no results" search state — plain (`default`) media lets a larger illustrative icon sit un-badged. */
+/** Icon media variant — adds a rounded badge background. */
+export const MediaIcon: Story = {
+  render: () => ({
+    template: `
+      <div hlmEmpty class="w-64">
+        <div hlmEmptyHeader>
+          <div hlmEmptyMedia variant="icon" title="${emptyContract.docs.variants.icon}">
+            <ng-icon name="phosphorFolder" />
+          </div>
+          <div hlmEmptyTitle>Icon</div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/** A "no results" search state — plain media lets a larger illustrative icon sit un-badged. */
 export const NoResults: Story = {
   render: () => ({
     template: `

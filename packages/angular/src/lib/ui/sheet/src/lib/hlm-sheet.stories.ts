@@ -89,60 +89,82 @@ export const WithoutCloseButton: Story = {
   }),
 };
 
-/** Every edge the sheet can slide in from, set via `side` on `hlm-sheet`. */
-export const Sides: Story = {
+/** The sheet slides in from the top of the screen. */
+export const Top: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-wrap items-center gap-3">
-        <hlm-sheet side="top">
-          <button hlmSheetTrigger hlmBtn variant="outline">Top</button>
-          <hlm-sheet-content *hlmSheetPortal="let ctx">
-            <hlm-sheet-header>
-              <h3 hlmSheetTitle>Top sheet</h3>
-              <p hlmSheetDescription>Slides in from the top of the screen.</p>
-            </hlm-sheet-header>
-            <hlm-sheet-footer>
-              <button hlmSheetClose hlmBtn variant="outline">Close</button>
-            </hlm-sheet-footer>
-          </hlm-sheet-content>
-        </hlm-sheet>
-        <hlm-sheet side="right">
-          <button hlmSheetTrigger hlmBtn variant="outline">Right</button>
-          <hlm-sheet-content *hlmSheetPortal="let ctx">
-            <hlm-sheet-header>
-              <h3 hlmSheetTitle>Right sheet</h3>
-              <p hlmSheetDescription>Slides in from the right of the screen.</p>
-            </hlm-sheet-header>
-            <hlm-sheet-footer>
-              <button hlmSheetClose hlmBtn variant="outline">Close</button>
-            </hlm-sheet-footer>
-          </hlm-sheet-content>
-        </hlm-sheet>
-        <hlm-sheet side="bottom">
-          <button hlmSheetTrigger hlmBtn variant="outline">Bottom</button>
-          <hlm-sheet-content *hlmSheetPortal="let ctx">
-            <hlm-sheet-header>
-              <h3 hlmSheetTitle>Bottom sheet</h3>
-              <p hlmSheetDescription>Slides in from the bottom of the screen.</p>
-            </hlm-sheet-header>
-            <hlm-sheet-footer>
-              <button hlmSheetClose hlmBtn variant="outline">Close</button>
-            </hlm-sheet-footer>
-          </hlm-sheet-content>
-        </hlm-sheet>
-        <hlm-sheet side="left">
-          <button hlmSheetTrigger hlmBtn variant="outline">Left</button>
-          <hlm-sheet-content *hlmSheetPortal="let ctx">
-            <hlm-sheet-header>
-              <h3 hlmSheetTitle>Left sheet</h3>
-              <p hlmSheetDescription>Slides in from the left of the screen.</p>
-            </hlm-sheet-header>
-            <hlm-sheet-footer>
-              <button hlmSheetClose hlmBtn variant="outline">Close</button>
-            </hlm-sheet-footer>
-          </hlm-sheet-content>
-        </hlm-sheet>
-      </div>
+      <hlm-sheet side="top">
+        <button hlmSheetTrigger hlmBtn variant="outline">Top</button>
+        <hlm-sheet-content *hlmSheetPortal="let ctx">
+          <hlm-sheet-header>
+            <h3 hlmSheetTitle>Top sheet</h3>
+            <p hlmSheetDescription>Slides in from the top of the screen.</p>
+          </hlm-sheet-header>
+          <hlm-sheet-footer>
+            <button hlmSheetClose hlmBtn variant="outline">Close</button>
+          </hlm-sheet-footer>
+        </hlm-sheet-content>
+      </hlm-sheet>
+    `,
+  }),
+};
+
+/** The sheet slides in from the right of the screen. */
+export const Right: Story = {
+  render: () => ({
+    template: `
+      <hlm-sheet side="right">
+        <button hlmSheetTrigger hlmBtn variant="outline">Right</button>
+        <hlm-sheet-content *hlmSheetPortal="let ctx">
+          <hlm-sheet-header>
+            <h3 hlmSheetTitle>Right sheet</h3>
+            <p hlmSheetDescription>Slides in from the right of the screen.</p>
+          </hlm-sheet-header>
+          <hlm-sheet-footer>
+            <button hlmSheetClose hlmBtn variant="outline">Close</button>
+          </hlm-sheet-footer>
+        </hlm-sheet-content>
+      </hlm-sheet>
+    `,
+  }),
+};
+
+/** The sheet slides in from the bottom of the screen. */
+export const Bottom: Story = {
+  render: () => ({
+    template: `
+      <hlm-sheet side="bottom">
+        <button hlmSheetTrigger hlmBtn variant="outline">Bottom</button>
+        <hlm-sheet-content *hlmSheetPortal="let ctx">
+          <hlm-sheet-header>
+            <h3 hlmSheetTitle>Bottom sheet</h3>
+            <p hlmSheetDescription>Slides in from the bottom of the screen.</p>
+          </hlm-sheet-header>
+          <hlm-sheet-footer>
+            <button hlmSheetClose hlmBtn variant="outline">Close</button>
+          </hlm-sheet-footer>
+        </hlm-sheet-content>
+      </hlm-sheet>
+    `,
+  }),
+};
+
+/** The sheet slides in from the left of the screen. */
+export const Left: Story = {
+  render: () => ({
+    template: `
+      <hlm-sheet side="left">
+        <button hlmSheetTrigger hlmBtn variant="outline">Left</button>
+        <hlm-sheet-content *hlmSheetPortal="let ctx">
+          <hlm-sheet-header>
+            <h3 hlmSheetTitle>Left sheet</h3>
+            <p hlmSheetDescription>Slides in from the left of the screen.</p>
+          </hlm-sheet-header>
+          <hlm-sheet-footer>
+            <button hlmSheetClose hlmBtn variant="outline">Close</button>
+          </hlm-sheet-footer>
+        </hlm-sheet-content>
+      </hlm-sheet>
     `,
   }),
 };
