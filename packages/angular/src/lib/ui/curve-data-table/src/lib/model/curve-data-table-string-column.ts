@@ -1,22 +1,20 @@
-import { ICurveDataTableColumn } from '../..';
+import { CurveDataTableColumnOptions, ICurveDataTableColumn } from '../..';
 
 export class CurveDataTableStringColumn<TFieldType> implements ICurveDataTableColumn {
   public header?: string;
   public fieldName!: string;
-  public sortable?: boolean;
-  public displayMethod?: (fieldValue: TFieldType) => string;
+  public displayMethod: (fieldValue: TFieldType) => string;
+  public options: CurveDataTableColumnOptions;
 
   constructor(
     fieldName: string,
     header?: string,
     displayMethod?: (fieldValue: TFieldType) => string,
-    sortable = false,
+    options: CurveDataTableColumnOptions = {},
   ) {
-    this.header = header;
     this.fieldName = fieldName;
-    this.sortable = sortable;
-    this.displayMethod = displayMethod
-      ? displayMethod
-      : (fieldValue: TFieldType) => `${fieldValue}`;
+    this.header = header;
+    this.displayMethod = displayMethod ?? ((fieldValue) => `${fieldValue}`);
+    this.options = options;
   }
 }

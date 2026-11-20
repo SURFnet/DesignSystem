@@ -22,6 +22,7 @@ import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
 import { HlmButtonImports } from '../../../button/src';
 import {
   CurveDataTableActionColumn,
+  CurveDataTableCustomColumn,
   CurveDataTableImageColumn,
   CurveDataTableSelectionColumn,
   CurveDataTableStringColumn,
@@ -95,18 +96,13 @@ export class CurveDataTableComponent<TData extends RowData> implements OnInit {
         columns.push(this.createCheckboxColumn());
       }
       if (column instanceof CurveDataTableStringColumn) {
-        columns.push(
-          this.createStringColumn(
-            column.fieldName,
-            column.header,
-            column.displayMethod,
-            column.sortable,
-          ),
-        );
+        columns.push(this.createStringColumn(column));
+      } else if (column instanceof CurveDataTableCustomColumn) {
+        columns.push(this.createCustomColumn(column));
       } else if (column instanceof CurveDataTableImageColumn) {
         columns.push(this.createImageColumn(column.fieldName, column.header));
       } else if (column instanceof CurveDataTableActionColumn) {
-        columns.push(this.createActionColumn(column.actions, column.header));
+        columns.push(this.createActionColumn(column));
       }
     });
 
@@ -126,12 +122,12 @@ export class CurveDataTableComponent<TData extends RowData> implements OnInit {
   }
 
   private createStringColumn(
-    fieldName: string,
-    header?: string,
-    displayMethod?: (value: any) => string,
-    sortable: boolean = false,
+    column: CurveDataTableStringColumn<unknown>,
   ): DataTableColumnDef<TData> {
-    const column: DataTableColumnDef<TData> = {
+    const { fieldName, header, displayMethod, options } = column;
+    const { align, sortable = false } = options;
+
+    const columnDef: DataTableColumnDef<TData> = {
       accessorKey: fieldName,
       header: sortable
         ? ({ column }) =>
@@ -140,16 +136,29 @@ export class CurveDataTableComponent<TData extends RowData> implements OnInit {
             })
         : header,
       cell: ({ row }) => {
-        const value = row.getValue<string>(fieldName);
-        const isNumber = typeof row.getValue(fieldName) === 'number';
-        const displayValue = displayMethod ? displayMethod(value) : value;
+        const value = row.getValue(fieldName);
+        // Numbers are right-aligned by default, unless the column sets its own alignment.
+        const alignment = align ?? (typeof value === 'number' ? 'right' : 'left');
         return flexRenderComponent(DataTableStringCell, {
-          inputs: { value: displayValue, alignRight: isNumber },
+          inputs: { value: displayMethod(value), align: alignment },
         });
       },
     };
 
-    return column;
+    return columnDef;
+  }
+
+  private createCustomColumn(column: CurveDataTableCustomColumn<TData>): DataTableColumnDef<TData> {
+    const { id, header, component, inputs } = column;
+
+    const columnDef: DataTableColumnDef<TData> = {
+      id,
+      accessorFn: () => undefined,
+      header,
+      cell: ({ row }) => flexRenderComponent(component, { inputs: inputs(row.original) }),
+    };
+
+    return columnDef;
   }
 
   private createImageColumn(fieldName: string, header?: string): DataTableColumnDef<TData> {
@@ -165,14 +174,16 @@ export class CurveDataTableComponent<TData extends RowData> implements OnInit {
     return column;
   }
 
-  private createActionColumn(actions: string[], header?: string): DataTableColumnDef<TData> {
-    const column: DataTableColumnDef<TData> = {
+  private createActionColumn(column: CurveDataTableActionColumn): DataTableColumnDef<TData> {
+    const { actions, header, options } = column;
+
+    const columnDef: DataTableColumnDef<TData> = {
       id: 'actions',
       header: header,
       enableHiding: false,
       cell: ({ row }) =>
         flexRenderComponent(DataTableActionCell, {
-          inputs: { record: row.original, actions: actions },
+          inputs: { record: row.original, actions: actions, align: options.align },
           outputs: {
             actionTriggered: (event: CurveDataTableRowEvent<TData>) => {
               this.rowActionTriggered.emit(event);
@@ -181,6 +192,6 @@ export class CurveDataTableComponent<TData extends RowData> implements OnInit {
         }),
     };
 
-    return column;
+    return columnDef;
   }
 }

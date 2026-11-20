@@ -30,7 +30,15 @@
   margin-inline-start: calc(var(--spacing, 0.25rem) * -2.5);
 }
 
-.valueEnd {
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
   text-align: right;
 }
 
