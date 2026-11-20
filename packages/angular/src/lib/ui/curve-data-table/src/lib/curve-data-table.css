@@ -19,7 +19,15 @@
   text-transform: capitalize;
 }
 
-.curve-data-table-value--end {
+.curve-data-table-value--left {
+  text-align: left;
+}
+
+.curve-data-table-value--center {
+  text-align: center;
+}
+
+.curve-data-table-value--right {
   text-align: right;
 }
 
