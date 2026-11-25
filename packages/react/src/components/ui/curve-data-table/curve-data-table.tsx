@@ -34,6 +34,7 @@ import {
   CurveDataTableImageColumn,
   CurveDataTableSelectionColumn,
   CurveDataTableStringColumn,
+  type CurveDataTableAlignment,
   type CurveDataTableRowEvent,
   type ICurveDataTableColumn,
 } from './curve-data-table-columns';
@@ -183,6 +184,12 @@ function createSelectionColumn<TData extends RowData>(): DataTableColumnDef<TDat
   };
 }
 
+const alignClasses: Record<CurveDataTableAlignment, string | undefined> = {
+  left: styles.alignLeft,
+  center: styles.alignCenter,
+  right: styles.alignRight,
+};
+
 function createStringColumn<TData extends RowData>(
   column: CurveDataTableStringColumn,
 ): DataTableColumnDef<TData> {
@@ -210,17 +217,7 @@ function createStringColumn<TData extends RowData>(
       // Numbers are right-aligned by default, like in the Angular version.
       const alignment = align ?? (typeof value === 'number' ? 'right' : 'left');
 
-      return (
-        <div
-          className={cn({
-            'text-left': alignment === 'left',
-            'text-center': alignment === 'center',
-            'text-right': alignment === 'right',
-          })}
-        >
-          {displayMethod(value)}
-        </div>
-      );
+      return <div className={alignClasses[alignment]}>{displayMethod(value)}</div>;
     },
   } as DataTableColumnDef<TData>;
 }
@@ -269,13 +266,7 @@ function createActionColumn<TData extends RowData>(
     header,
     enableHiding: false,
     cell: ({ row }) => (
-      <div
-        className={cn({
-          'text-left': align === 'left',
-          'text-center': align === 'center',
-          'text-right': align === 'right',
-        })}
-      >
+      <div className={align ? alignClasses[align] : undefined}>
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
