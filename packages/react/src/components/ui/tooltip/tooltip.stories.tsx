@@ -39,18 +39,50 @@ export const Default: Story = {
   ),
 };
 
-/** The popup can open on any side of the trigger, flipping to stay in view. */
-export const Placement: Story = {
+/** The tooltip opens above the trigger. */
+export const Top: Story = {
   render: () => (
     <TooltipProvider>
-      <div className="flex flex-wrap items-center justify-center gap-8 p-12">
-        {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
-          <Tooltip key={side}>
-            <TooltipTrigger render={<Button variant="outline">{side}</Button>} />
-            <TooltipContent side={side}>Positioned on the {side}.</TooltipContent>
-          </Tooltip>
-        ))}
-      </div>
+      <Tooltip>
+        <TooltipTrigger render={<Button variant="outline">Top</Button>} />
+        <TooltipContent side="top">Positioned on the top.</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  ),
+};
+
+/** The tooltip opens to the right of the trigger. */
+export const Right: Story = {
+  render: () => (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger render={<Button variant="outline">Right</Button>} />
+        <TooltipContent side="right">Positioned on the right.</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  ),
+};
+
+/** The tooltip opens below the trigger. */
+export const Bottom: Story = {
+  render: () => (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger render={<Button variant="outline">Bottom</Button>} />
+        <TooltipContent side="bottom">Positioned on the bottom.</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  ),
+};
+
+/** The tooltip opens to the left of the trigger. */
+export const Left: Story = {
+  render: () => (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger render={<Button variant="outline">Left</Button>} />
+        <TooltipContent side="left">Positioned on the left.</TooltipContent>
+      </Tooltip>
     </TooltipProvider>
   ),
 };
