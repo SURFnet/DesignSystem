@@ -186,10 +186,8 @@ export const DisabledTrigger: Story = {
         <TabsTrigger value="tab-2" disabled>
           Disabled tab
         </TabsTrigger>
-        <TabsTrigger value="tab-3">Third tab</TabsTrigger>
       </TabsList>
       <TabsContent value="tab-1">Content for the first tab.</TabsContent>
-      <TabsContent value="tab-3">Content for the third tab.</TabsContent>
     </Tabs>
   ),
 };

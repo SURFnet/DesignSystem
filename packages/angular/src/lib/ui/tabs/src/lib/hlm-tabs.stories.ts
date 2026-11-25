@@ -194,10 +194,8 @@ export const DisabledTrigger: Story = {
         <hlm-tabs-list>
           <button hlmTabsTrigger="tab-1">First tab</button>
           <button hlmTabsTrigger="tab-2" disabled>Disabled tab</button>
-          <button hlmTabsTrigger="tab-3">Third tab</button>
         </hlm-tabs-list>
         <div hlmTabsContent="tab-1">Content for the first tab.</div>
-        <div hlmTabsContent="tab-3">Content for the third tab.</div>
       </hlm-tabs>
     `,
   }),
