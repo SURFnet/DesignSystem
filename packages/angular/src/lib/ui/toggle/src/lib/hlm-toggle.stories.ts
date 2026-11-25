@@ -1,4 +1,3 @@
-import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   phosphorBookmarkSimple,
@@ -9,7 +8,7 @@ import {
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { toggleContract } from '@surfnet/curve-contracts';
 
-import { HlmToggle, HlmToggleImports } from '..';
+import { HlmToggle } from '..';
 
 // `disabled` is contributed by the BrnToggle host directive rather than HlmToggle
 // itself, so widen the story args to expose it as a control.
@@ -86,59 +85,36 @@ export const Default: Story = {
   }),
 };
 
-@Component({
-  selector: 'toggle-variants',
-  imports: [HlmToggleImports],
-  template: `
-    <div class="flex flex-wrap items-center gap-3">
-      @for (variant of toggleContract.props.variants; track variant) {
-        <button hlmToggle [variant]="variant" [title]="toggleContract.docs.variants[variant]">
-          {{ variant.charAt(0).toUpperCase() + variant.slice(1) }}
-        </button>
-      }
-    </div>
-  `,
-})
-class ToggleVariants {
-  @Input() toggleContract!: typeof toggleContract;
-}
-
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Outline variant — bordered, transparent fill. */
+export const Outline: Story = {
   render: () => ({
-    moduleMetadata: {
-      imports: [ToggleVariants],
-    },
-    props: { toggleContract: toggleContract },
-    template: '<toggle-variants [toggleContract]="toggleContract"></toggle-variants>',
+    template: `
+      <button hlmToggle variant="outline" title="${toggleContract.docs.variants.outline}">
+        Outline
+      </button>
+    `,
   }),
 };
 
-@Component({
-  selector: 'toggle-sizes',
-  imports: [HlmToggleImports],
-  template: `
-    <div class="flex flex-wrap items-center gap-3">
-      @for (size of toggleContract.props.sizes; track size) {
-        <button hlmToggle [size]="size" [title]="toggleContract.docs.sizes[size]">
-          {{ size.charAt(0).toUpperCase() + size.slice(1) }}
-        </button>
-      }
-    </div>
-  `,
-})
-class ToggleSizes {
-  @Input() toggleContract!: typeof toggleContract;
-}
-
-/** Every size side by side. */
-export const Sizes: Story = {
+/** Small size — compact toggle for toolbars. */
+export const Sm: Story = {
   render: () => ({
-    moduleMetadata: {
-      imports: [ToggleSizes],
-    },
-    props: { toggleContract: toggleContract },
-    template: '<toggle-sizes [toggleContract]="toggleContract"></toggle-sizes>',
+    template: `
+      <button hlmToggle size="sm" title="${toggleContract.docs.sizes.sm}" state="on">
+        Small
+      </button>
+    `,
+  }),
+};
+
+/** Large size — prominent controls. */
+export const Lg: Story = {
+  render: () => ({
+    template: `
+      <button hlmToggle size="lg" title="${toggleContract.docs.sizes.lg}" state="on">
+        Large
+      </button>
+    `,
   }),
 };
 
@@ -177,13 +153,20 @@ export const FormattingToolbar: Story = {
   }),
 };
 
-/** Disabled state across the main variants. */
-export const Disabled: Story = {
+/** Disabled default variant. */
+export const DisabledDefault: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-wrap items-center gap-3">
-        <button hlmToggle disabled>Default</button>
-        <button hlmToggle variant="outline" disabled>Outline</button>
-      </div>`,
+      <button hlmToggle disabled>Default</button>
+    `,
+  }),
+};
+
+/** Disabled outline variant. */
+export const DisabledOutline: Story = {
+  render: () => ({
+    template: `
+      <button hlmToggle variant="outline" disabled>Outline</button>
+    `,
   }),
 };

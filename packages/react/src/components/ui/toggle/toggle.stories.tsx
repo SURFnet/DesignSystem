@@ -57,29 +57,30 @@ type Story = StoryObj<typeof meta>;
 /** The default toggle — rendered with the default args; tweak them via the controls. */
 export const Default: Story = {};
 
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Outline variant — bordered, transparent fill. */
+export const Outline: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      {toggleContract.props.variants.map((variant) => (
-        <Toggle key={variant} variant={variant} title={toggleContract.docs.variants[variant]}>
-          {variant.charAt(0).toUpperCase() + variant.slice(1)}
-        </Toggle>
-      ))}
-    </div>
+    <Toggle variant="outline" title={toggleContract.docs.variants.outline}>
+      Outline
+    </Toggle>
   ),
 };
 
-/** Every size side by side. */
-export const Sizes: Story = {
+/** Small size — compact toggle for toolbars. */
+export const Sm: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      {toggleContract.props.sizes.map((size) => (
-        <Toggle key={size} size={size} title={toggleContract.docs.sizes[size]}>
-          {size.charAt(0).toUpperCase() + size.slice(1)}
-        </Toggle>
-      ))}
-    </div>
+    <Toggle size="sm" title={toggleContract.docs.sizes.sm} defaultPressed>
+      Small
+    </Toggle>
+  ),
+};
+
+/** Large size — prominent controls. */
+export const Lg: Story = {
+  render: () => (
+    <Toggle size="lg" title={toggleContract.docs.sizes.lg} defaultPressed>
+      Large
+    </Toggle>
   ),
 };
 
@@ -116,14 +117,16 @@ export const FormattingToolbar: Story = {
   ),
 };
 
-/** Disabled state across the main variants. */
-export const Disabled: Story = {
+/** Disabled default variant. */
+export const DisabledDefault: Story = {
+  render: () => <Toggle disabled>Default</Toggle>,
+};
+
+/** Disabled outline variant. */
+export const DisabledOutline: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Toggle disabled>Default</Toggle>
-      <Toggle variant="outline" disabled>
-        Outline
-      </Toggle>
-    </div>
+    <Toggle variant="outline" disabled>
+      Outline
+    </Toggle>
   ),
 };
