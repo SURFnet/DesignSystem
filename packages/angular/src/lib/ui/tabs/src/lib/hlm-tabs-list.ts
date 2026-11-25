@@ -9,9 +9,9 @@ const listVariantClasses = {
   line: 'curve-tabs-list--variant-line',
 } satisfies Record<TabsVariantName, string>;
 
-type ListVariants = { variant?: TabsVariantName | null };
+export type TabsListVariants = { variant?: TabsVariantName | null };
 
-export function listVariants({ variant }: ListVariants = {}): string {
+export function listVariants({ variant }: TabsListVariants = {}): string {
   return `curve-tabs-list group/tabs-list ${listVariantClasses[variant ?? 'default']}`;
 }
 
@@ -24,7 +24,7 @@ export function listVariants({ variant }: ListVariants = {}): string {
   },
 })
 export class HlmTabsList {
-  public readonly variant = input<ListVariants['variant']>('default');
+  public readonly variant = input<TabsListVariants['variant']>('default');
 
   constructor() {
     classes(() => listVariants({ variant: this.variant() }));

@@ -13,11 +13,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
+import { Tabs, TabsContent, TabsList, TabsListVariantsOptions, TabsTrigger } from './tabs';
+import { TabsRootProps } from '@base-ui/react';
 
 const meta = {
   title: 'Components/Tabs',
   component: Tabs,
+  subcomponents: { TabsList },
   parameters: {
     docs: {
       description: {
@@ -29,17 +31,35 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=183-417',
     },
   },
-} satisfies Meta<typeof Tabs>;
+  argTypes: {
+    orientation: {
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
+      description: 'The orientation of the tabs.',
+      table: {
+        category: 'Tabs',
+      },
+    },
+    variant: {
+      control: 'radio',
+      options: ['default', 'line'],
+      description: 'The variant of the tabs list.',
+      table: {
+        category: 'TabsList',
+      },
+    },
+  },
+} satisfies Meta<TabsRootProps & TabsListVariantsOptions>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<TabsRootProps & TabsListVariantsOptions>;
 
 /** A realistic composed example — a settings panel switching between two forms. */
 export const Default: Story = {
-  render: () => (
-    <Tabs defaultValue="account" className="w-96">
-      <TabsList>
+  render: (args) => (
+    <Tabs defaultValue="account" className="w-96" orientation={args.orientation}>
+      <TabsList variant={args.variant}>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
       </TabsList>
@@ -93,31 +113,59 @@ export const Default: Story = {
   ),
 };
 
-/** The `TabsList` variants declared in the contract. */
-export const Variants: Story = {
+/** Default variant — tabs with a bordered background. */
+export const DefaultVariant: Story = {
   render: () => (
-    <div className="flex flex-col gap-8">
-      {tabsContract.props.variants.map((variant) => (
-        <Tabs key={variant} defaultValue="tab-1" className="w-96">
-          <TabsList variant={variant} title={tabsContract.docs.variants[variant]}>
-            <TabsTrigger value="tab-1">First tab</TabsTrigger>
-            <TabsTrigger value="tab-2">Second tab</TabsTrigger>
-            <TabsTrigger value="tab-3">Third tab</TabsTrigger>
-          </TabsList>
-          <TabsContent value="tab-1" className="text-muted-foreground">
-            {tabsContract.docs.variants[variant]}
-          </TabsContent>
-        </Tabs>
-      ))}
-    </div>
+    <Tabs defaultValue="tab-1" className="w-96">
+      <TabsList variant="default" title={tabsContract.docs.variants.default}>
+        <TabsTrigger value="tab-1">First tab</TabsTrigger>
+        <TabsTrigger value="tab-2">Second tab</TabsTrigger>
+        <TabsTrigger value="tab-3">Third tab</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab-1" className="text-muted-foreground">
+        {tabsContract.docs.variants.default}
+      </TabsContent>
+    </Tabs>
   ),
 };
 
-/** Vertical orientation moves roving focus to the up/down arrow keys. */
+/** Underlined variant — tabs without a background, just an underline on the active tab. */
+export const Line: Story = {
+  render: () => (
+    <Tabs defaultValue="tab-1" className="w-96">
+      <TabsList variant="line" title={tabsContract.docs.variants.line}>
+        <TabsTrigger value="tab-1">First tab</TabsTrigger>
+        <TabsTrigger value="tab-2">Second tab</TabsTrigger>
+        <TabsTrigger value="tab-3">Third tab</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab-1" className="text-muted-foreground">
+        {tabsContract.docs.variants.line}
+      </TabsContent>
+    </Tabs>
+  ),
+};
+
+/** Vertical orientation */
 export const Vertical: Story = {
   render: () => (
     <Tabs defaultValue="tab-1" orientation="vertical" className="w-96">
       <TabsList>
+        <TabsTrigger value="tab-1">First tab</TabsTrigger>
+        <TabsTrigger value="tab-2">Second tab</TabsTrigger>
+        <TabsTrigger value="tab-3">Third tab</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab-1">Content for the first tab.</TabsContent>
+      <TabsContent value="tab-2">Content for the second tab.</TabsContent>
+      <TabsContent value="tab-3">Content for the third tab.</TabsContent>
+    </Tabs>
+  ),
+};
+
+/** Vertical orientation with line variant. */
+export const VerticalLine: Story = {
+  render: () => (
+    <Tabs defaultValue="tab-1" orientation="vertical" className="w-96">
+      <TabsList variant="line">
         <TabsTrigger value="tab-1">First tab</TabsTrigger>
         <TabsTrigger value="tab-2">Second tab</TabsTrigger>
         <TabsTrigger value="tab-3">Third tab</TabsTrigger>
