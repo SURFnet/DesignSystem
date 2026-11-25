@@ -68,40 +68,52 @@ export const WithLabel: Story = {
   ),
 };
 
-/** Every size declared in the contract. */
-export const Sizes: Story = {
+/** Small size — compact forms and toolbars. */
+export const Sm: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-6">
-      {switchContract.props.sizes.map((size) => (
-        <Label key={size} className="gap-2">
-          <Switch size={size} defaultChecked title={switchContract.docs.sizes[size]} />
-          {size}
-        </Label>
-      ))}
-    </div>
+    <Label className="gap-2">
+      <Switch size="sm" defaultChecked title={switchContract.docs.sizes.sm} />
+      Small switch
+    </Label>
   ),
 };
 
-/** Every state side by side. */
-export const States: Story = {
+/** An unchecked switch. */
+export const Unchecked: Story = {
   render: () => (
-    <div className="flex flex-col gap-3">
-      <Label className="gap-2">
-        <Switch />
-        Unchecked
-      </Label>
-      <Label className="gap-2">
-        <Switch defaultChecked />
-        Checked
-      </Label>
-      <Label className="gap-2">
-        <Switch disabled />
-        Disabled
-      </Label>
-      <Label className="gap-2">
-        <Switch defaultChecked disabled />
-        Disabled checked
-      </Label>
-    </div>
+    <Label className="gap-2">
+      <Switch />
+      Unchecked
+    </Label>
+  ),
+};
+
+/** A checked switch. */
+export const Checked: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Switch defaultChecked />
+      Checked
+    </Label>
+  ),
+};
+
+/** A disabled unchecked switch. */
+export const Disabled: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Switch disabled />
+      Disabled
+    </Label>
+  ),
+};
+
+/** A disabled checked switch. */
+export const DisabledChecked: Story = {
+  render: () => (
+    <Label className="gap-2">
+      <Switch defaultChecked disabled />
+      Disabled checked
+    </Label>
   ),
 };
