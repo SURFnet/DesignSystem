@@ -26,7 +26,7 @@ import {
 } from './curve-page-header';
 
 // ---------------------------------------------------------------------------
-// Shared fixtures (same data as the Angular story)
+// Shared fixtures
 // ---------------------------------------------------------------------------
 
 const actions: CurvePageHeaderAction[] = [
@@ -166,33 +166,45 @@ export const WithBreadcrumbs: Story = {
   ),
 };
 
-/** `default` keeps the media as-is, `icon` adds a muted tile, `image` crops a square thumbnail. */
-export const MediaVariants: Story = {
+/** Default media variant — keeps the media as-is. */
+export const MediaDefault: Story = {
   render: () => (
-    <div className="flex flex-col gap-8">
-      <CurvePageHeader>
-        <CurvePageHeaderMedia variant="default">
-          <GlobeIcon className="size-8" aria-hidden="true" />
-        </CurvePageHeaderMedia>
-        <CurvePageHeaderContent>
-          <CurvePageHeaderTitle>Default media</CurvePageHeaderTitle>
-        </CurvePageHeaderContent>
-      </CurvePageHeader>
-      <CurvePageHeader>
-        {iconMedia}
-        <CurvePageHeaderContent>
-          <CurvePageHeaderTitle>Icon media</CurvePageHeaderTitle>
-        </CurvePageHeaderContent>
-      </CurvePageHeader>
-      <CurvePageHeader>
-        <CurvePageHeaderMedia variant="image">
-          <img src="https://github.com/shadcn.png" alt="" />
-        </CurvePageHeaderMedia>
-        <CurvePageHeaderContent>
-          <CurvePageHeaderTitle>Image media</CurvePageHeaderTitle>
-        </CurvePageHeaderContent>
-      </CurvePageHeader>
-    </div>
+    <CurvePageHeader>
+      <CurvePageHeaderMedia variant="default">
+        <GlobeIcon className="size-8" aria-hidden="true" />
+      </CurvePageHeaderMedia>
+      <CurvePageHeaderContent>
+        <CurvePageHeaderTitle>Default media</CurvePageHeaderTitle>
+      </CurvePageHeaderContent>
+    </CurvePageHeader>
+  ),
+};
+
+/** Icon media variant — adds a muted tile background. */
+export const MediaIcon: Story = {
+  render: () => (
+    <CurvePageHeader>
+      <CurvePageHeaderMedia variant="icon">
+        <GlobeIcon aria-hidden="true" />
+      </CurvePageHeaderMedia>
+      <CurvePageHeaderContent>
+        <CurvePageHeaderTitle>Icon media</CurvePageHeaderTitle>
+      </CurvePageHeaderContent>
+    </CurvePageHeader>
+  ),
+};
+
+/** Image media variant — crops a square thumbnail. */
+export const MediaImage: Story = {
+  render: () => (
+    <CurvePageHeader>
+      <CurvePageHeaderMedia variant="image">
+        <img src="https://github.com/shadcn.png" alt="" />
+      </CurvePageHeaderMedia>
+      <CurvePageHeaderContent>
+        <CurvePageHeaderTitle>Image media</CurvePageHeaderTitle>
+      </CurvePageHeaderContent>
+    </CurvePageHeader>
   ),
 };
 

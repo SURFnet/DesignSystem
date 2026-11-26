@@ -62,23 +62,49 @@ export const Default: Story = {
   }),
 };
 
-/** The popup can align to the start, center, or end of the trigger. */
-export const Align: Story = {
+/** The popup can align to the start of the trigger. */
+export const AlignStart: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-wrap items-center justify-center gap-8 p-12">
-        ${(['start', 'center', 'end'] as const)
-          .map(
-            (align) => `
-              <hlm-popover sideOffset="5" align="${align}">
-                <button hlmPopoverTrigger hlmBtn variant="outline">${align}</button>
-                <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
-                  <p class="text-sm">Aligned to ${align}.</p>
-                </hlm-popover-content>
-              </hlm-popover>
-            `,
-          )
-          .join('')}
+      <div class="flex items-center justify-center p-12">
+        <hlm-popover sideOffset="5" align="start">
+          <button hlmPopoverTrigger hlmBtn variant="outline">Start</button>
+          <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
+            <p class="text-sm">Aligned to start.</p>
+          </hlm-popover-content>
+        </hlm-popover>
+      </div>
+    `,
+  }),
+};
+
+/** The popup can align to the center of the trigger. */
+export const AlignCenter: Story = {
+  render: () => ({
+    template: `
+      <div class="flex items-center justify-center p-12">
+        <hlm-popover sideOffset="5" align="center">
+          <button hlmPopoverTrigger hlmBtn variant="outline">Center</button>
+          <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
+            <p class="text-sm">Aligned to center.</p>
+          </hlm-popover-content>
+        </hlm-popover>
+      </div>
+    `,
+  }),
+};
+
+/** The popup can align to the end of the trigger. */
+export const AlignEnd: Story = {
+  render: () => ({
+    template: `
+      <div class="flex items-center justify-center p-12">
+        <hlm-popover sideOffset="5" align="end">
+          <button hlmPopoverTrigger hlmBtn variant="outline">End</button>
+          <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
+            <p class="text-sm">Aligned to end.</p>
+          </hlm-popover-content>
+        </hlm-popover>
       </div>
     `,
   }),

@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorInfo, phosphorPlus } from '@ng-icons/phosphor-icons/regular';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
@@ -72,35 +71,47 @@ export const Default: Story = {
   }),
 };
 
-@Component({
-  selector: 'tooltip-placement',
-  imports: [HlmTooltipImports, HlmButtonImports],
-  template: `
-    <div class="flex flex-wrap items-center justify-center gap-8 p-12">
-      @for (position of positions; track position) {
-        <button
-          hlmBtn
-          variant="outline"
-          [hlmTooltip]="'Positioned on the ' + position + '.'"
-          [position]="position"
-        >
-          {{ position }}
-        </button>
-      }
-    </div>
-  `,
-})
-class TooltipPlacement {
-  readonly positions = ['top', 'right', 'bottom', 'left'] as const;
-}
-
-/** The popup can open on any side of the trigger, flipping to stay in view. */
-export const Placement: Story = {
+/** The tooltip opens above the trigger. */
+export const Top: Story = {
   render: () => ({
-    moduleMetadata: {
-      imports: [TooltipPlacement],
-    },
-    template: '<tooltip-placement></tooltip-placement>',
+    template: `
+      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the top.'" position="top">
+        Top
+      </button>
+    `,
+  }),
+};
+
+/** The tooltip opens to the right of the trigger. */
+export const Right: Story = {
+  render: () => ({
+    template: `
+      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the right.'" position="right">
+        Right
+      </button>
+    `,
+  }),
+};
+
+/** The tooltip opens below the trigger. */
+export const Bottom: Story = {
+  render: () => ({
+    template: `
+      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the bottom.'" position="bottom">
+        Bottom
+      </button>
+    `,
+  }),
+};
+
+/** The tooltip opens to the left of the trigger. */
+export const Left: Story = {
+  render: () => ({
+    template: `
+      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the left.'" position="left">
+        Left
+      </button>
+    `,
   }),
 };
 

@@ -31,21 +31,19 @@ const meta: Meta<HlmSpinner> = {
 export default meta;
 type Story = StoryObj<HlmSpinner>;
 
-/** The default spinner at its default size. */
+/** The default spinner. Its size is 4x the spacing value (1rem). */
 export const Default: Story = {
   render: () => ({
     template: `<hlm-spinner />`,
   }),
 };
 
-/** Sizes are just utility classes — override the icon's text size to scale it. */
+/** You can override the size of the spinner directly by adding a css class that applies a different font size. */
 export const Sizes: Story = {
   render: () => ({
     template: `
       <div class="flex flex-wrap items-center gap-4">
-        <hlm-spinner class="text-[calc(var(--spacing)*4)]" />
         <hlm-spinner class="text-[calc(var(--spacing)*6)]" />
-        <hlm-spinner class="text-[calc(var(--spacing)*8)]" />
         <hlm-spinner class="text-[calc(var(--spacing)*10)]" />
       </div>
     `,

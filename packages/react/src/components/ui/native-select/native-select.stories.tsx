@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { nativeSelectContract } from '@surfnet/curve-contracts';
 
@@ -60,6 +58,22 @@ export const Default: Story = {
   ),
 };
 
+/** Small size — compact forms and toolbars. */
+export const SizeSm: Story = {
+  render: () => (
+    <>
+      <Label htmlFor="sm-select" className="sr-only">
+        Small select
+      </Label>
+      <NativeSelect size="sm" title={nativeSelectContract.docs.sizes.sm} id="sm-select">
+        <NativeSelectOption value="apple">Apple</NativeSelectOption>
+        <NativeSelectOption value="banana">Banana</NativeSelectOption>
+        <NativeSelectOption value="cherry">Cherry</NativeSelectOption>
+      </NativeSelect>
+    </>
+  ),
+};
+
 /** Composed usage with grouped options, mirroring a real form field. */
 export const WithOptionGroups: Story = {
   render: () => (
@@ -83,30 +97,6 @@ export const WithOptionGroups: Story = {
         </NativeSelectOptGroup>
       </NativeSelect>
     </>
-  ),
-};
-
-/** Both sizes side by side. */
-export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      {nativeSelectContract.props.sizes.map((size) => (
-        <React.Fragment key={size}>
-          <Label htmlFor={`${nativeSelectContract.docs.sizes[size]}-select`} className="sr-only">
-            {nativeSelectContract.docs.sizes[size]} select
-          </Label>
-          <NativeSelect
-            size={size}
-            title={nativeSelectContract.docs.sizes[size]}
-            id={`${nativeSelectContract.docs.sizes[size]}-select`}
-          >
-            <NativeSelectOption value="apple">Apple</NativeSelectOption>
-            <NativeSelectOption value="banana">Banana</NativeSelectOption>
-            <NativeSelectOption value="cherry">Cherry</NativeSelectOption>
-          </NativeSelect>
-        </React.Fragment>
-      ))}
-    </div>
   ),
 };
 

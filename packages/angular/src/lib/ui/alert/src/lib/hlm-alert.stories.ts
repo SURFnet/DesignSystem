@@ -1,4 +1,3 @@
-import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   phosphorCheckCircle,
@@ -7,18 +6,10 @@ import {
   phosphorWarningCircle,
 } from '@ng-icons/phosphor-icons/regular';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { alertContract, type AlertVariantName } from '@surfnet/curve-contracts';
+import { alertContract } from '@surfnet/curve-contracts';
 
 import { HlmButton } from '../../../button/src/lib/hlm-button';
 import { HlmAlert, HlmAlertImports } from '..';
-
-const variantIcons: Record<AlertVariantName, string> = {
-  default: 'phosphorCheckCircle',
-  info: 'phosphorInfo',
-  success: 'phosphorCheckCircle',
-  warning: 'phosphorWarning',
-  danger: 'phosphorWarningCircle',
-};
 
 const meta: Meta<HlmAlert> = {
   title: 'Components/Alert',
@@ -78,38 +69,46 @@ export const Default: Story = {
   }),
 };
 
-@Component({
-  selector: 'alert-variants',
-  imports: [HlmAlertImports, NgIcon],
-  template: `
-    <div class="flex w-96 flex-col gap-3">
-      @for (variant of alertContract.props.variants; track variant) {
-        <div hlmAlert [variant]="variant" [title]="alertContract.docs.variants[variant]">
-          <ng-icon [name]="variantIcons[variant]" />
-          <h5 hlmAlertTitle>{{ variant.charAt(0).toUpperCase() + variant.slice(1) }}</h5>
-          <p hlmAlertDescription>{{ alertContract.docs.variants[variant] }}</p>
-        </div>
-      }
-    </div>
-  `,
-})
-class AlertVariants {
-  @Input() alertContract!: typeof alertContract;
-  protected readonly variantIcons = variantIcons;
-}
-
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Info variant with info icon. */
+export const Info: Story = {
   render: () => ({
-    moduleMetadata: {
-      imports: [AlertVariants],
-    },
-    props: { alertContract },
-    template: '<alert-variants [alertContract]="alertContract"></alert-variants>',
+    template: `
+      <div hlmAlert variant="info" class="w-96">
+        <ng-icon name="phosphorInfo" />
+        <h5 hlmAlertTitle>Notification</h5>
+        <p hlmAlertDescription>New features are available in your dashboard.</p>
+      </div>
+    `,
   }),
 };
 
-/** Danger alert used to surface an error, with title and description. */
+/** Success variant with check icon. */
+export const Success: Story = {
+  render: () => ({
+    template: `
+      <div hlmAlert variant="success" class="w-96">
+        <ng-icon name="phosphorCheckCircle" />
+        <h5 hlmAlertTitle>Changes saved</h5>
+        <p hlmAlertDescription>Your preferences have been updated successfully.</p>
+      </div>
+    `,
+  }),
+};
+
+/** Warning variant with warning icon. */
+export const Warning: Story = {
+  render: () => ({
+    template: `
+      <div hlmAlert variant="warning" class="w-96">
+        <ng-icon name="phosphorWarning" />
+        <h5 hlmAlertTitle>Session expiring</h5>
+        <p hlmAlertDescription>Your session will expire in 5 minutes. Save your work.</p>
+      </div>
+    `,
+  }),
+};
+
+/** Danger variant with error icon. */
 export const Danger: Story = {
   render: () => ({
     template: `

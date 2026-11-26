@@ -41,16 +41,84 @@ type Story = StoryObj<typeof meta>;
 /** The default badge — rendered with the default args; tweak them via the controls. */
 export const Default: Story = {};
 
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Primary brand fill — the most prominent badge style. */
+export const DefaultVariant: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      {badgeContract.props.variants.map((variant) => (
-        <Badge key={variant} variant={variant} title={badgeContract.docs.variants[variant]}>
-          {variant.charAt(0).toUpperCase() + variant.slice(1)}
-        </Badge>
-      ))}
-    </div>
+    <Badge variant="default" title={badgeContract.docs.variants['default']}>
+      Default
+    </Badge>
+  ),
+};
+
+/** Muted fill — general-purpose secondary label. */
+export const Secondary: Story = {
+  render: () => (
+    <Badge variant="secondary" title={badgeContract.docs.variants['secondary']}>
+      Secondary
+    </Badge>
+  ),
+};
+
+/** Informational tint — does not require immediate action. */
+export const Info: Story = {
+  render: () => (
+    <Badge variant="info" title={badgeContract.docs.variants['info']}>
+      Info
+    </Badge>
+  ),
+};
+
+/** Success tint — confirms a successful action or state. */
+export const Success: Story = {
+  render: () => (
+    <Badge variant="success" title={badgeContract.docs.variants['success']}>
+      Success
+    </Badge>
+  ),
+};
+
+/** Warning tint — highlights something that needs attention. */
+export const Warning: Story = {
+  render: () => (
+    <Badge variant="warning" title={badgeContract.docs.variants['warning']}>
+      Warning
+    </Badge>
+  ),
+};
+
+/** Danger tint — errors, warnings, or destructive states. */
+export const Danger: Story = {
+  render: () => (
+    <Badge variant="danger" title={badgeContract.docs.variants['danger']}>
+      Danger
+    </Badge>
+  ),
+};
+
+/** Bordered, transparent fill — low-emphasis label. */
+export const Outline: Story = {
+  render: () => (
+    <Badge variant="outline" title={badgeContract.docs.variants['outline']}>
+      Outline
+    </Badge>
+  ),
+};
+
+/** No background or border — minimal label. */
+export const Ghost: Story = {
+  render: () => (
+    <Badge variant="ghost" title={badgeContract.docs.variants['ghost']}>
+      Ghost
+    </Badge>
+  ),
+};
+
+/** Looks like a hyperlink — inline actionable label. */
+export const Link: Story = {
+  render: () => (
+    <Badge variant="link" title={badgeContract.docs.variants['link']}>
+      Link
+    </Badge>
   ),
 };
 
@@ -69,18 +137,26 @@ export const WithIcon: Story = {
   ),
 };
 
-/** Numeric counts, sized to stay circular at one or two digits. */
-export const Counts: Story = {
+/** Single-digit count. */
+export const CountSingleDigit: Story = {
+  render: () => <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>,
+};
+
+/** Double-digit count. */
+export const CountDoubleDigit: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>
-      <Badge variant="danger" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
-        99
-      </Badge>
-      <Badge variant="outline" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
-        20+
-      </Badge>
-    </div>
+    <Badge variant="danger" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+      99
+    </Badge>
+  ),
+};
+
+/** Count with plus suffix. */
+export const CountPlus: Story = {
+  render: () => (
+    <Badge variant="outline" className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+      20+
+    </Badge>
   ),
 };
 

@@ -54,103 +54,176 @@ type Story = StoryObj<typeof meta>;
 /** The default button — rendered with the default args; tweak them via the controls. */
 export const Default: Story = {};
 
-/** Every visual variant side by side. */
-export const Variants: Story = {
+/** Primary brand fill — use for the single most important action on a page. */
+export const DefaultVariant: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      {buttonContract.props.variants.map((variant) => (
-        <Button key={variant} variant={variant} title={buttonContract.docs.variants[variant]}>
-          {variant.charAt(0).toUpperCase() + variant.slice(1)}
-        </Button>
-      ))}
-    </div>
+    <Button variant="default" title={buttonContract.docs.variants['default']}>
+      Default
+    </Button>
   ),
 };
 
-/** Text sizes from small to large. */
-export const Sizes: Story = {
+/** Bordered, transparent fill — secondary actions beside a primary button. */
+export const Outline: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">Large</Button>
-    </div>
+    <Button variant="outline" title={buttonContract.docs.variants['outline']}>
+      Outline
+    </Button>
+  ),
+};
+
+/** Muted fill — general-purpose secondary action. */
+export const Secondary: Story = {
+  render: () => (
+    <Button variant="secondary" title={buttonContract.docs.variants['secondary']}>
+      Secondary
+    </Button>
+  ),
+};
+
+/** No background or border — tertiary actions and icon toolbars. */
+export const Ghost: Story = {
+  render: () => (
+    <Button variant="ghost" title={buttonContract.docs.variants['ghost']}>
+      Ghost
+    </Button>
+  ),
+};
+
+/** Solid danger fill — destructive or irreversible actions. */
+export const Destructive: Story = {
+  render: () => (
+    <Button variant="destructive" title={buttonContract.docs.variants['destructive']}>
+      Destructive
+    </Button>
+  ),
+};
+
+/** Looks like a hyperlink — inline or contextual navigation actions. */
+export const Link: Story = {
+  render: () => (
+    <Button variant="link" title={buttonContract.docs.variants['link']}>
+      Link
+    </Button>
+  ),
+};
+
+/** Small — secondary controls, filter bars. */
+export const Sm: Story = {
+  render: () => (
+    <Button size="sm" title={buttonContract.docs.sizes['sm']}>
+      Small
+    </Button>
+  ),
+};
+
+/** Large — prominent calls to action. */
+export const Lg: Story = {
+  render: () => (
+    <Button size="lg" title={buttonContract.docs.sizes['lg']}>
+      Large
+    </Button>
+  ),
+};
+
+/** Square icon-only button at extra-small size. */
+export const IconXs: Story = {
+  render: () => (
+    <Button size="icon-xs" aria-label="Add" title={buttonContract.docs.sizes['icon-xs']}>
+      <PlusIcon />
+    </Button>
+  ),
+};
+
+/** Square icon-only button at small size. */
+export const IconSm: Story = {
+  render: () => (
+    <Button size="icon-sm" aria-label="Add" title={buttonContract.docs.sizes['icon-sm']}>
+      <PlusIcon />
+    </Button>
+  ),
+};
+
+/** Square icon-only button at large size. */
+export const IconLg: Story = {
+  render: () => (
+    <Button size="icon-lg" aria-label="Add" title={buttonContract.docs.sizes['icon-lg']}>
+      <PlusIcon />
+    </Button>
   ),
 };
 
 /**
- * Square icon-only sizes. Drop a Phosphor icon (`@phosphor-icons/react`) inside the button —
- * the button's CSS auto-sizes the SVG per size, so no `size-*` class is needed.
+ * Icon alongside text. Use `data-icon="inline-start"` for left alignment.
  */
-export const IconSizes: Story = {
+export const IconLeft: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button size="icon-xs" aria-label="Add">
-        <PlusIcon />
-      </Button>
-      <Button size="icon-sm" aria-label="Add">
-        <PlusIcon />
-      </Button>
-      <Button size="icon" aria-label="Add">
-        <PlusIcon />
-      </Button>
-      <Button size="icon-lg" aria-label="Add">
-        <PlusIcon />
-      </Button>
-    </div>
+    <Button>
+      <PlusIcon data-icon="inline-start" />
+      Add item
+    </Button>
   ),
 };
 
 /**
- * Icons alongside text. Tag the icon with `data-icon="inline-start"` or
- * `data-icon="inline-end"` so the button tightens the padding on that side.
+ * Icon alongside text. Use `data-icon="inline-end"` for right alignment.
  */
-export const WithIcon: Story = {
+export const IconRight: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button>
-        <PlusIcon data-icon="inline-start" />
-        Add item
-      </Button>
-      <Button variant="secondary">
-        Continue
-        <ArrowRightIcon data-icon="inline-end" />
-      </Button>
-    </div>
+    <Button variant="secondary">
+      Continue
+      <ArrowRightIcon data-icon="inline-end" />
+    </Button>
   ),
 };
 
-/**
- * The destructive variant is a solid `--destructive` fill with `--destructive-foreground`
- * text. Hover darkens it with the same alpha layer the primary button uses. The middle
- * button hard-codes that hover layer so the state is visible without a pointer.
- */
-export const DestructiveStates: Story = {
+/** Disabled default variant. */
+export const DisabledDefault: Story = {
+  render: () => <Button disabled>Default</Button>,
+};
+
+/** Disabled outline variant. */
+export const DisabledOutline: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button variant="destructive">Delete</Button>
-      <Button variant="destructive" className="bg-destructive/90">
-        Delete (hover)
-      </Button>
-      <Button variant="destructive" disabled>
-        Delete (disabled)
-      </Button>
-    </div>
+    <Button variant="outline" disabled>
+      Outline
+    </Button>
   ),
 };
 
-/** Disabled state across the main variants. */
-export const Disabled: Story = {
+/** Disabled secondary variant. */
+export const DisabledSecondary: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button disabled>Default</Button>
-      <Button variant="outline" disabled>
-        Outline
-      </Button>
-      <Button variant="destructive" disabled>
-        Destructive
-      </Button>
-    </div>
+    <Button variant="secondary" disabled>
+      Secondary
+    </Button>
+  ),
+};
+
+/** Disabled ghost variant. */
+export const DisabledGhost: Story = {
+  render: () => (
+    <Button variant="ghost" disabled>
+      Ghost
+    </Button>
+  ),
+};
+
+/** Disabled destructive variant. */
+export const DisabledDestructive: Story = {
+  render: () => (
+    <Button variant="destructive" disabled>
+      Destructive
+    </Button>
+  ),
+};
+
+/** Disabled link variant. */
+export const DisabledLink: Story = {
+  render: () => (
+    <Button variant="link" disabled>
+      Link
+    </Button>
   ),
 };
 

@@ -1,4 +1,3 @@
-import { Component, Input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   phosphorTextAlignCenter,
@@ -82,6 +81,10 @@ const meta: Meta<ToggleGroupArgs> = {
       table: { defaultValue: { summary: 'single' } },
     },
     disabled: { control: 'boolean' },
+    spacing: {
+      control: 'number',
+      description: `The spacing between the items. 0 gives the default 'merged' look.`,
+    },
   },
   args: {
     variant: toggleContract.defaults.variants,
@@ -89,6 +92,7 @@ const meta: Meta<ToggleGroupArgs> = {
     orientation: 'horizontal',
     type: 'single',
     disabled: false,
+    spacing: 0,
   },
 };
 
@@ -101,80 +105,64 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-			<div hlmToggleGroup value="bold" ${argsToTemplate(args)}>
-				<button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
-				<button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
-				<button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
-			</div>
-		`,
+      <div hlmToggleGroup value="bold" ${argsToTemplate(args)}>
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
   }),
 };
 
-@Component({
-  selector: 'toggle-group-variants',
-  imports: [HlmToggleGroupImports, NgIcon],
-  template: `
-    <div class="flex flex-col gap-4">
-      @for (variant of toggleContract.props.variants; track variant) {
-        <div hlmToggleGroup [variant]="variant" value="bold">
-          <button hlmToggleGroupItem value="bold" aria-label="Toggle bold">
-            <ng-icon name="phosphorTextB" />
-          </button>
-          <button hlmToggleGroupItem value="italic" aria-label="Toggle italic">
-            <ng-icon name="phosphorTextItalic" />
-          </button>
-          <button hlmToggleGroupItem value="underline" aria-label="Toggle underline">
-            <ng-icon name="phosphorTextUnderline" />
-          </button>
-        </div>
-      }
-    </div>
-  `,
-})
-class ToggleGroupVariants {
-  @Input() toggleContract!: typeof toggleContract;
-}
-
-/** Every visual variant, borrowed from `Toggle`, side by side. */
-export const Variants: Story = {
+/** Outline variant — bordered, transparent fill. */
+export const Outline: Story = {
   render: () => ({
-    moduleMetadata: { imports: [ToggleGroupVariants] },
-    props: { toggleContract },
-    template: '<toggle-group-variants [toggleContract]="toggleContract"></toggle-group-variants>',
+    template: `
+      <div hlmToggleGroup variant="outline" value="bold">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
   }),
 };
 
-@Component({
-  selector: 'toggle-group-sizes',
-  imports: [HlmToggleGroupImports, NgIcon],
-  template: `
-    <div class="flex flex-col items-start gap-4">
-      @for (size of toggleContract.props.sizes; track size) {
-        <div hlmToggleGroup [size]="size" value="bold">
-          <button hlmToggleGroupItem value="bold" aria-label="Toggle bold">
-            <ng-icon name="phosphorTextB" />
-          </button>
-          <button hlmToggleGroupItem value="italic" aria-label="Toggle italic">
-            <ng-icon name="phosphorTextItalic" />
-          </button>
-          <button hlmToggleGroupItem value="underline" aria-label="Toggle underline">
-            <ng-icon name="phosphorTextUnderline" />
-          </button>
-        </div>
-      }
-    </div>
-  `,
-})
-class ToggleGroupSizes {
-  @Input() toggleContract!: typeof toggleContract;
-}
-
-/** Every size, borrowed from `Toggle`, side by side. */
-export const Sizes: Story = {
+/** Small size — compact toggle group for toolbars. */
+export const Sm: Story = {
   render: () => ({
-    moduleMetadata: { imports: [ToggleGroupSizes] },
-    props: { toggleContract },
-    template: '<toggle-group-sizes [toggleContract]="toggleContract"></toggle-group-sizes>',
+    template: `
+      <div hlmToggleGroup size="sm" value="bold">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
+  }),
+};
+
+/** Large size — prominent controls. */
+export const Lg: Story = {
+  render: () => ({
+    template: `
+      <div hlmToggleGroup size="lg" value="bold">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
+  }),
+};
+
+/** You can specify the spacing between the items. 0 gives the default 'merged' look. */
+export const WithSpacing: Story = {
+  render: () => ({
+    template: `
+      <div hlmToggleGroup spacing="2" value="bold">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
   }),
 };
 
@@ -182,12 +170,12 @@ export const Sizes: Story = {
 export const Vertical: Story = {
   render: () => ({
     template: `
-			<div hlmToggleGroup orientation="vertical" value="bold">
-				<button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
-				<button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
-				<button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
-			</div>
-		`,
+      <div hlmToggleGroup orientation="vertical" value="bold">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
   }),
 };
 
@@ -198,12 +186,12 @@ export const Vertical: Story = {
 export const TextFormatting: Story = {
   render: () => ({
     template: `
-			<div hlmToggleGroup variant="outline" type="multiple" [value]="['bold']">
-				<button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
-				<button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
-				<button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
-			</div>
-		`,
+      <div hlmToggleGroup variant="outline" type="multiple" [value]="['bold']">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
   }),
 };
 
@@ -214,31 +202,37 @@ export const TextFormatting: Story = {
 export const TextAlignment: Story = {
   render: () => ({
     template: `
-			<div hlmToggleGroup value="left">
-				<button hlmToggleGroupItem value="left" aria-label="Align left"><ng-icon name="phosphorTextAlignLeft" /></button>
-				<button hlmToggleGroupItem value="center" aria-label="Align center"><ng-icon name="phosphorTextAlignCenter" /></button>
-				<button hlmToggleGroupItem value="right" aria-label="Align right"><ng-icon name="phosphorTextAlignRight" /></button>
-			</div>
-		`,
+      <div hlmToggleGroup value="left">
+        <button hlmToggleGroupItem value="left" aria-label="Align left"><ng-icon name="phosphorTextAlignLeft" /></button>
+        <button hlmToggleGroupItem value="center" aria-label="Align center"><ng-icon name="phosphorTextAlignCenter" /></button>
+        <button hlmToggleGroupItem value="right" aria-label="Align right"><ng-icon name="phosphorTextAlignRight" /></button>
+      </div>
+    `,
   }),
 };
 
-/** Disabling the whole group versus disabling a single item within it. */
+/** Disabling the whole group. */
 export const Disabled: Story = {
   render: () => ({
     template: `
-			<div class="flex flex-col gap-4">
-				<div hlmToggleGroup value="bold" disabled>
-					<button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
-					<button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
-					<button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
-				</div>
-				<div hlmToggleGroup value="bold">
-					<button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
-					<button hlmToggleGroupItem value="italic" aria-label="Toggle italic" disabled><ng-icon name="phosphorTextItalic" /></button>
-					<button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
-				</div>
-			</div>
-		`,
+      <div hlmToggleGroup value="bold" disabled>
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic"><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
+  }),
+};
+
+/** Disabling a single item within the group. */
+export const DisabledItem: Story = {
+  render: () => ({
+    template: `
+      <div hlmToggleGroup value="bold">
+        <button hlmToggleGroupItem value="bold" aria-label="Toggle bold"><ng-icon name="phosphorTextB" /></button>
+        <button hlmToggleGroupItem value="italic" aria-label="Toggle italic" disabled><ng-icon name="phosphorTextItalic" /></button>
+        <button hlmToggleGroupItem value="underline" aria-label="Toggle underline"><ng-icon name="phosphorTextUnderline" /></button>
+      </div>
+    `,
   }),
 };

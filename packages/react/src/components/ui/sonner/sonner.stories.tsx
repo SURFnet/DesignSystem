@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 import { Toaster } from './sonner';
 
-const meta = {
+const meta: Meta<typeof Toaster> = {
   title: 'Components/Sonner',
   // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
   tags: ['a11y-minor'],
@@ -16,6 +16,10 @@ const meta = {
       description: {
         component: sonnerContract.docs.description,
       },
+      story: {
+        height: 200,
+        inline: false,
+      },
     },
     design: {
       type: 'figma',
@@ -24,27 +28,26 @@ const meta = {
   },
   argTypes: {
     position: {
-      control: 'select',
-      options: [
-        'top-left',
-        'top-center',
-        'top-right',
-        'bottom-left',
-        'bottom-center',
-        'bottom-right',
-      ],
+      control: false,
+      table: {
+        type: {
+          summary: 'enum',
+          detail:
+            "'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'",
+        },
+      },
       description: 'Where toasts are rendered on screen.',
     },
     richColors: {
-      control: 'boolean',
-      description: 'Use stronger colors for success/error/warning toasts.',
+      control: false,
+      description: 'Use background colors for success/error/warning toasts.',
     },
     closeButton: {
-      control: 'boolean',
+      control: false,
       description: 'Show a dismiss button on each toast.',
     },
     expand: {
-      control: 'boolean',
+      control: false,
       description: 'Always expand toasts instead of stacking them.',
     },
   },
@@ -61,85 +64,317 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * The toaster itself renders nothing visible — mount it once, then call `toast()` from
- * anywhere to push a message onto it. Tweak the controls and click the button to see them
- * take effect.
+ * The toaster itself renders nothing visible — render it once in the root of
+ * your app, then call `toast()` from anywhere to push a message onto it.
  */
 export const Default: Story = {
   render: (args) => (
-    <div>
+    <div id="root-of-your-app">
       <Toaster {...args} />
-      <Button variant="outline" onClick={() => toast('Event has been created.')}>
-        Show toast
-      </Button>
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Show toast
+        </Button>
+      </div>
     </div>
   ),
 };
 
-/** Every toast type side by side. */
-export const Types: Story = {
+/** A success toast using `toast.success()` */
+export const Success: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-3">
+    <div id="root-of-your-app">
       <Toaster />
-      <Button variant="outline" onClick={() => toast('Event has been created.')}>
-        Default
-      </Button>
-      <Button variant="outline" onClick={() => toast.success('Changes saved successfully.')}>
-        Success
-      </Button>
-      <Button variant="outline" onClick={() => toast.info('A new version is available.')}>
-        Info
-      </Button>
-      <Button variant="outline" onClick={() => toast.warning('Your session is about to expire.')}>
-        Warning
-      </Button>
-      <Button variant="outline" onClick={() => toast.error('Something went wrong.')}>
-        Error
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() => toast.loading('Uploading file…', { id: 'sonner-story-upload' })}
-      >
-        Loading
-      </Button>
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.success('Changes saved successfully.')}>
+          Success
+        </Button>
+      </div>
     </div>
   ),
 };
 
-/** A toast with a title, a description, and an action button — the most common composed shape. */
+/** An info toast using `toast.info()` */
+export const InfoToast: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.info('A new version is available.')}>
+          Info
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** A warning toast using `toast.warning()` */
+export const Warning: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.warning('Your session is about to expire.')}>
+          Warning
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** An error toast using `toast.error()` */
+export const Error: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.error('Something went wrong.')}>
+          Error
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** A loading toast with a spinner using `toast.loading()`. Pass an id so you can dismiss the toast later using `toast.dismiss(id)` */
+export const Loading: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster />
+      <div id="anywhere-in-your-app">
+        <Button
+          variant="outline"
+          onClick={() => {
+            const id = 'sonner-story-upload';
+            toast.getToasts().find((t) => t.id === id)
+              ? toast.dismiss(id)
+              : toast.loading('Uploading file…', { id: 'sonner-story-upload' });
+          }}
+        >
+          Loading
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** A loading toast with a spinner that automatically updates to a success/error toast using `toast.promise()` */
+export const LoadingPromise: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster />
+      <div id="anywhere-in-your-app">
+        <Button
+          variant="outline"
+          onClick={() => {
+            const myPromise = new Promise<{ name: string }>((resolve, reject) => {
+              setTimeout(() => {
+                Math.random() > 0.5
+                  ? resolve({ name: 'My toast' })
+                  : reject({ error: 'Some error' });
+              }, 1000);
+            });
+
+            toast.promise(myPromise, {
+              loading: 'Loading...',
+              success: (data) => {
+                return `${data.name} has been added`;
+              },
+              error: (data) => {
+                return `An error occurred: ${data.error}`;
+              },
+            });
+          }}
+        >
+          Loading
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Setting the `richColors` flag gives each type a distinctive colored background. A green background for 'success'. */
+export const RichColorsSuccess: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster richColors />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.success('Changes saved successfully.')}>
+          Success
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Setting the `richColors` flag gives each type a distinctive colored background. A blue background for 'info'. */
+export const RichColorsInfoToast: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster richColors />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.info('A new version is available.')}>
+          Info
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Setting the `richColors` flag gives each type a distinctive colored background. A yellow background for 'warning'. */
+export const RichColorsWarning: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster richColors />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.warning('Your session is about to expire.')}>
+          Warning
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Setting the `richColors` flag gives each type a distinctive colored background. A red background for 'error'. */
+export const RichColorsError: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster richColors />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast.error('Something went wrong.')}>
+          Error
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Show it in the top-left corner by setting `position="top-left"` */
+export const PositionTopLeft: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster position="top-left" />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Top Left
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Show it in the top-center by setting `position="top-center"` */
+export const PositionTopCenter: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster position="top-center" />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Top Center
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Show it in the top-right corner by setting `position="top-right"` */
+export const PositionTopRight: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster position="top-right" />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Top Right
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Show it in the bottom-left corner by setting `position="bottom-left"` */
+export const PositionBottomLeft: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster position="bottom-left" />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Bottom Left
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Show it in the bottom-center by setting `position="bottom-center"` */
+export const PositionBottomCenter: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster position="bottom-center" />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Bottom Center
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** Show it in the bottom-right by setting `position="bottom-right"` */
+export const PositionBottomRight: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster position="bottom-right" />
+      <div id="anywhere-in-your-app">
+        <Button variant="outline" onClick={() => toast('Event has been created.')}>
+          Bottom Right
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** A toast with a title and a description */
+export const WithDescription: Story = {
+  render: () => (
+    <div id="root-of-your-app">
+      <Toaster />
+      <div id="anywhere-in-your-app">
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast('Event has been created.', {
+              description: 'Sunday, December 03, 2023 at 9:00 AM',
+            })
+          }
+        >
+          Show toast with description
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** A toast with a title, a description, and an action button */
 export const WithAction: Story = {
   render: () => (
-    <div>
+    <div id="root-of-your-app">
       <Toaster />
-      <Button
-        variant="outline"
-        onClick={() =>
-          toast('Event has been created.', {
-            description: 'Sunday, December 03, 2023 at 9:00 AM',
-            action: {
-              label: 'Undo',
-              onClick: () => {},
-            },
-          })
-        }
-      >
-        Show toast with action
-      </Button>
-    </div>
-  ),
-};
-
-/** `richColors` gives success/error/warning toasts a stronger, semantic background color. */
-export const RichColors: Story = {
-  render: () => (
-    <div className="flex flex-wrap items-center gap-3">
-      <Toaster richColors />
-      <Button variant="outline" onClick={() => toast.success('Changes saved successfully.')}>
-        Success
-      </Button>
-      <Button variant="outline" onClick={() => toast.error('Something went wrong.')}>
-        Error
-      </Button>
+      <div id="anywhere-in-your-app">
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast('Event has been created.', {
+              description: 'Sunday, December 03, 2023 at 9:00 AM',
+              action: {
+                label: 'Undo',
+                onClick: () => {},
+              },
+            })
+          }
+        >
+          Show toast with action
+        </Button>
+      </div>
     </div>
   ),
 };

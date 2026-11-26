@@ -28,18 +28,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/** The default spinner at its default `size-4`. */
+/** The default spinner. Its size is 4x the spacing value (1rem). */
 export const Default: Story = {
   render: () => <Spinner />,
 };
 
-/** Sizes are just utility classes — override `size-*` to scale the icon. */
+/** You can override the size of the spinner directly by adding a css class that applies width+height. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Spinner className="size-4" />
       <Spinner className="size-6" />
-      <Spinner className="size-8" />
       <Spinner className="size-10" />
     </div>
   ),

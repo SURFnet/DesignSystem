@@ -63,6 +63,10 @@ const meta = {
       },
     },
     disabled: { control: 'boolean' },
+    spacing: {
+      control: 'number',
+      description: `The spacing between the items. 0 gives the default 'merged' look.`,
+    },
   },
   args: {
     variant: toggleContract.defaults.variants,
@@ -70,6 +74,7 @@ const meta = {
     orientation: 'horizontal',
     multiple: false,
     disabled: false,
+    spacing: 0,
   },
 } satisfies Meta<typeof ToggleGroup>;
 
@@ -94,45 +99,71 @@ export const Default: Story = {
   ),
 };
 
-/** Every visual variant, borrowed from `Toggle`, side by side. */
-export const Variants: Story = {
+/** Outline variant — bordered, transparent fill. */
+export const Outline: Story = {
   render: () => (
-    <div className="flex flex-col gap-4">
-      {toggleContract.props.variants.map((variant) => (
-        <ToggleGroup key={variant} variant={variant} defaultValue={['bold']}>
-          <ToggleGroupItem value="bold" aria-label="Toggle bold">
-            <TextBIcon />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="italic" aria-label="Toggle italic">
-            <TextItalicIcon />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="underline" aria-label="Toggle underline">
-            <TextUnderlineIcon />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      ))}
-    </div>
+    <ToggleGroup variant="outline" defaultValue={['bold']}>
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <TextBIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic">
+        <TextItalicIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <TextUnderlineIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
   ),
 };
 
-/** Every size, borrowed from `Toggle`, side by side. */
-export const Sizes: Story = {
+/** Small size — compact toggle group for toolbars. */
+export const Sm: Story = {
   render: () => (
-    <div className="flex flex-col items-start gap-4">
-      {toggleContract.props.sizes.map((size) => (
-        <ToggleGroup key={size} size={size} defaultValue={['bold']}>
-          <ToggleGroupItem value="bold" aria-label="Toggle bold">
-            <TextBIcon />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="italic" aria-label="Toggle italic">
-            <TextItalicIcon />
-          </ToggleGroupItem>
-          <ToggleGroupItem value="underline" aria-label="Toggle underline">
-            <TextUnderlineIcon />
-          </ToggleGroupItem>
-        </ToggleGroup>
-      ))}
-    </div>
+    <ToggleGroup size="sm" defaultValue={['bold']}>
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <TextBIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic">
+        <TextItalicIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <TextUnderlineIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};
+
+/** Large size — prominent controls. */
+export const Lg: Story = {
+  render: () => (
+    <ToggleGroup size="lg" defaultValue={['bold']}>
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <TextBIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic">
+        <TextItalicIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <TextUnderlineIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};
+
+/** You can specify the spacing between the items. 0 gives the default 'merged' look. */
+export const WithSpacing: Story = {
+  render: () => (
+    <ToggleGroup spacing={2} defaultValue={['bold']}>
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <TextBIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic">
+        <TextItalicIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <TextUnderlineIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
   ),
 };
 
@@ -203,32 +234,36 @@ export const TextAlignment: Story = {
   render: () => <TextAlignmentExample />,
 };
 
-/** Disabling the whole group versus disabling a single item within it. */
+/** Disabling the whole group. */
 export const Disabled: Story = {
   render: () => (
-    <div className="flex flex-col gap-4">
-      <ToggleGroup defaultValue={['bold']} disabled>
-        <ToggleGroupItem value="bold" aria-label="Toggle bold">
-          <TextBIcon />
-        </ToggleGroupItem>
-        <ToggleGroupItem value="italic" aria-label="Toggle italic">
-          <TextItalicIcon />
-        </ToggleGroupItem>
-        <ToggleGroupItem value="underline" aria-label="Toggle underline">
-          <TextUnderlineIcon />
-        </ToggleGroupItem>
-      </ToggleGroup>
-      <ToggleGroup defaultValue={['bold']}>
-        <ToggleGroupItem value="bold" aria-label="Toggle bold">
-          <TextBIcon />
-        </ToggleGroupItem>
-        <ToggleGroupItem value="italic" aria-label="Toggle italic" disabled>
-          <TextItalicIcon />
-        </ToggleGroupItem>
-        <ToggleGroupItem value="underline" aria-label="Toggle underline">
-          <TextUnderlineIcon />
-        </ToggleGroupItem>
-      </ToggleGroup>
-    </div>
+    <ToggleGroup defaultValue={['bold']} disabled>
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <TextBIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic">
+        <TextItalicIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <TextUnderlineIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};
+
+/** Disabling a single item within the group. */
+export const DisabledItem: Story = {
+  render: () => (
+    <ToggleGroup defaultValue={['bold']}>
+      <ToggleGroupItem value="bold" aria-label="Toggle bold">
+        <TextBIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic" disabled>
+        <TextItalicIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Toggle underline">
+        <TextUnderlineIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
   ),
 };

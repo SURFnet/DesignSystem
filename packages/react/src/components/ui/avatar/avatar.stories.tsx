@@ -41,9 +41,29 @@ type Story = StoryObj<typeof meta>;
 /** An avatar with an image and a fallback. */
 export const Default: Story = {
   render: (args) => (
-    <Avatar {...args}>
+    <Avatar title={avatarContract.docs.sizes['default']} {...args}>
       <AvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace" />
       <AvatarFallback>AL</AvatarFallback>
+    </Avatar>
+  ),
+};
+
+/** Compact size for dense lists and inline mentions. */
+export const Sm: Story = {
+  render: () => (
+    <Avatar size="sm" title={avatarContract.docs.sizes['sm']}>
+      <AvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace" />
+      <AvatarFallback>SM</AvatarFallback>
+    </Avatar>
+  ),
+};
+
+/** Large size for profile headers and prominent placements. */
+export const Lg: Story = {
+  render: () => (
+    <Avatar size="lg" title={avatarContract.docs.sizes['lg']}>
+      <AvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace" />
+      <AvatarFallback>LG</AvatarFallback>
     </Avatar>
   ),
 };
@@ -55,19 +75,6 @@ export const Fallback: Story = {
       <AvatarImage src="https://example.com/does-not-exist.jpg" alt="Grace Hopper" />
       <AvatarFallback>GH</AvatarFallback>
     </Avatar>
-  ),
-};
-
-/** Every size declared in the contract. */
-export const Sizes: Story = {
-  render: () => (
-    <div className="flex items-center gap-3">
-      {avatarContract.props.sizes.map((size) => (
-        <Avatar key={size} size={size} title={avatarContract.docs.sizes[size]}>
-          <AvatarFallback>{size.slice(0, 2).toUpperCase()}</AvatarFallback>
-        </Avatar>
-      ))}
-    </div>
   ),
 };
 

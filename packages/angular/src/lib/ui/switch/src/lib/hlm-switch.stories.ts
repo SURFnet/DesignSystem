@@ -68,48 +68,62 @@ export const WithLabel: Story = {
   }),
 };
 
-/** Every size declared in the contract. */
-export const Sizes: Story = {
+/** Small size — compact forms and toolbars. */
+export const Sm: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-wrap items-center gap-6">
-        ${switchContract.props.sizes
-          .map(
-            (size) => `
-              <label class="gap-2" hlmLabel>
-                <hlm-switch size="${size}" checked title="${switchContract.docs.sizes[size]}" />
-                ${size}
-              </label>
-            `,
-          )
-          .join('')}
-      </div>
+      <label class="gap-2" hlmLabel>
+        <hlm-switch size="sm" checked title="${switchContract.docs.sizes.sm}" />
+        Small switch
+      </label>
     `,
   }),
 };
 
-/** Every state side by side. */
-export const States: Story = {
+/** An unchecked switch. */
+export const Unchecked: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-col gap-3">
-        <label class="gap-2" hlmLabel>
-          <hlm-switch />
-          Unchecked
-        </label>
-        <label class="gap-2" hlmLabel>
-          <hlm-switch checked />
-          Checked
-        </label>
-        <label class="gap-2" hlmLabel>
-          <hlm-switch disabled />
-          Disabled
-        </label>
-        <label class="gap-2" hlmLabel>
-          <hlm-switch checked disabled />
-          Disabled checked
-        </label>
-      </div>
+      <label class="gap-2" hlmLabel>
+        <hlm-switch />
+        Unchecked
+      </label>
+    `,
+  }),
+};
+
+/** A checked switch. */
+export const Checked: Story = {
+  render: () => ({
+    template: `
+      <label class="gap-2" hlmLabel>
+        <hlm-switch checked />
+        Checked
+      </label>
+    `,
+  }),
+};
+
+/** A disabled unchecked switch. */
+export const Disabled: Story = {
+  render: () => ({
+    template: `
+      <label class="gap-2" hlmLabel>
+        <hlm-switch disabled />
+        Disabled
+      </label>
+    `,
+  }),
+};
+
+/** A disabled checked switch. */
+export const DisabledChecked: Story = {
+  render: () => ({
+    template: `
+      <label class="gap-2" hlmLabel>
+        <hlm-switch checked disabled />
+        Disabled checked
+      </label>
     `,
   }),
 };
@@ -125,16 +139,16 @@ export const Invalid: Story = {
     return {
       props: { form },
       template: `
-				<form [formGroup]="form">
-					<div hlmField orientation="horizontal">
-						<hlm-switch inputId="invalid-consent" formControlName="consent" />
-						<div hlmFieldContent>
-							<label hlmFieldLabel for="invalid-consent">Share usage data</label>
-							<hlm-field-error />
-						</div>
-					</div>
-				</form>
-			`,
+        <form [formGroup]="form">
+          <div hlmField orientation="horizontal">
+            <hlm-switch inputId="invalid-consent" formControlName="consent" />
+            <div hlmFieldContent>
+              <label hlmFieldLabel for="invalid-consent">Share usage data</label>
+              <hlm-field-error />
+            </div>
+          </div>
+        </form>
+      `,
     };
   },
 };
