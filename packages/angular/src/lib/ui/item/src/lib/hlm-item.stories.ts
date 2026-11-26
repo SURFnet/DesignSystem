@@ -94,9 +94,11 @@ export const Default: Story = {
 
 /** No border, transparent background. */
 export const DefaultVariant: Story = {
-  render: () => ({
+  args: { variant: 'default' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="default" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon">
           <ng-icon name="phosphorGearSix" />
         </div>
@@ -111,9 +113,11 @@ export const DefaultVariant: Story = {
 
 /** Bordered container. */
 export const Outline: Story = {
-  render: () => ({
+  args: { variant: 'outline' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon">
           <ng-icon name="phosphorGearSix" />
         </div>
@@ -128,9 +132,11 @@ export const Outline: Story = {
 
 /** Subtle muted background, no border. */
 export const Muted: Story = {
-  render: () => ({
+  args: { variant: 'muted' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="muted" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon">
           <ng-icon name="phosphorGearSix" />
         </div>
@@ -145,9 +151,11 @@ export const Muted: Story = {
 
 /** Standard padding and gaps. */
 export const SizeDefault: Story = {
-  render: () => ({
+  args: { variant: 'outline', size: 'default' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" size="default" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon">
           <ng-icon name="phosphorUser" />
         </div>
@@ -162,9 +170,11 @@ export const SizeDefault: Story = {
 
 /** Compact padding and gaps. */
 export const SizeSm: Story = {
-  render: () => ({
+  args: { variant: 'outline', size: 'sm' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" size="sm" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon">
           <ng-icon name="phosphorUser" />
         </div>
@@ -179,9 +189,11 @@ export const SizeSm: Story = {
 
 /** Extra compact — dense lists such as menus. */
 export const SizeXs: Story = {
-  render: () => ({
+  args: { variant: 'outline', size: 'xs' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" size="xs" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon">
           <ng-icon name="phosphorUser" />
         </div>
@@ -196,9 +208,11 @@ export const SizeXs: Story = {
 
 /** No styling — media renders as-is. */
 export const MediaDefault: Story = {
-  render: () => ({
+  args: { variant: 'outline' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="default" title="${itemContract.docs.mediaVariants.default}">
           <ng-icon name="phosphorUser" size="2rem" />
         </div>
@@ -213,9 +227,11 @@ export const MediaDefault: Story = {
 
 /** Rounded icon badge background. */
 export const MediaIcon: Story = {
-  render: () => ({
+  args: { variant: 'outline' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="icon" title="${itemContract.docs.mediaVariants.icon}">
           <ng-icon name="phosphorCreditCard" />
         </div>
@@ -230,9 +246,11 @@ export const MediaIcon: Story = {
 
 /** Fixed square image thumbnail. */
 export const MediaImage: Story = {
-  render: () => ({
+  args: { variant: 'outline' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemMedia variant="image" title="${itemContract.docs.mediaVariants.image}">
           <img src="https://github.com/shadcn.png" alt="" />
         </div>
@@ -247,10 +265,11 @@ export const MediaImage: Story = {
 
 /** A grouped list of items with a separator, e.g. an account settings page. */
 export const Group: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <ul hlmItemGroup class="w-full max-w-md">
-        <li hlmItem>
+        <li hlmItem ${argsToTemplate(args)}>
           <div hlmItemMedia variant="icon">
             <ng-icon name="phosphorUser" />
           </div>
@@ -263,7 +282,7 @@ export const Group: Story = {
           </div>
         </li>
         <li aria-hidden="true"><hlm-item-separator /></li>
-        <li hlmItem>
+        <li hlmItem ${argsToTemplate(args)}>
           <div hlmItemMedia variant="icon">
             <ng-icon name="phosphorCreditCard" />
           </div>
@@ -276,7 +295,7 @@ export const Group: Story = {
           </div>
         </li>
         <li aria-hidden="true"><hlm-item-separator /></li>
-        <li hlmItem>
+        <li hlmItem ${argsToTemplate(args)}>
           <div hlmItemMedia variant="icon">
             <ng-icon name="phosphorBell" />
           </div>
@@ -295,9 +314,11 @@ export const Group: Story = {
 
 /** `hlmItemHeader` and `hlmItemFooter` wrap content that spans the full width of the item, below the main row. */
 export const WithHeaderAndFooter: Story = {
-  render: () => ({
+  args: { variant: 'outline' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmItem variant="outline" class="w-full max-w-md">
+      <div hlmItem ${argsToTemplate(args)} class="w-full max-w-md">
         <div hlmItemHeader>
           <div hlmItemTitle>Storage plan</div>
           <span class="text-sm text-muted-foreground">80% used</span>
