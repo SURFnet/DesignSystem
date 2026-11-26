@@ -65,11 +65,13 @@ export const Default: Story = {
 
 /** A horizontal divider between stacked blocks of text. */
 export const Horizontal: Story = {
-  render: () => ({
+  args: { orientation: 'horizontal' },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-72">
 				<p class="text-sm">Curve</p>
-				<hlm-separator orientation="horizontal" class="my-3" /> 
+				<hlm-separator ${argsToTemplate(args)} class="my-3" />
 				<p class="text-sm text-muted-foreground">Components for React and Angular.</p>
 			</div>
 		`,
@@ -78,13 +80,15 @@ export const Horizontal: Story = {
 
 /** A vertical divider between inline items. */
 export const Vertical: Story = {
-  render: () => ({
+  args: { orientation: 'vertical' },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="flex h-5 items-center gap-3 text-sm">
 				<span>Docs</span>
-				<hlm-separator orientation="vertical" /> 
+				<hlm-separator ${argsToTemplate(args)} />
 				<span>Source</span>
-				<hlm-separator orientation="vertical" /> 
+				<hlm-separator ${argsToTemplate(args)} />
 				<span>Storybook</span>
 			</div>
 		`,
