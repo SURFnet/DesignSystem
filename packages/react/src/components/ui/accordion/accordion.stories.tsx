@@ -78,8 +78,9 @@ export const Default: Story = {
 
 /** With `multiple`, several items can stay expanded at the same time. */
 export const Multiple: Story = {
-  render: () => (
-    <Accordion multiple defaultValue={['item-1', 'item-2']} className="w-96">
+  args: { multiple: true },
+  render: (args) => (
+    <Accordion {...args} defaultValue={['item-1', 'item-2']} className="w-96">
       {faqItems.map(({ value, question, answer }) => (
         <AccordionItem key={value} value={value}>
           <AccordionTrigger>{question}</AccordionTrigger>
@@ -92,8 +93,8 @@ export const Multiple: Story = {
 
 /** A single item can be disabled independently of the rest of the accordion. */
 export const DisabledItem: Story = {
-  render: () => (
-    <Accordion defaultValue={['item-1']} className="w-96">
+  render: (args) => (
+    <Accordion {...args} defaultValue={['item-1']} className="w-96">
       <AccordionItem value="item-1">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
         <AccordionContent>

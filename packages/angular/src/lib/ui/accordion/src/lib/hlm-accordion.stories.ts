@@ -69,9 +69,11 @@ export const Default: Story = {
 
 /** With `type="multiple"`, several items can stay expanded at the same time. */
 export const Multiple: Story = {
-  render: () => ({
+  args: { type: 'multiple' },
+  render: (args) => ({
+    props: args,
     template: `
-			<div hlmAccordion type="multiple" class="w-96">
+			<div hlmAccordion ${argsToTemplate(args)} class="w-96">
 				<div hlmAccordionItem [isOpened]="true">
 					<hlm-accordion-trigger>Is it accessible?</hlm-accordion-trigger>
 					<hlm-accordion-content>Yes. It adheres to the WAI-ARIA accordion design pattern.</hlm-accordion-content>
@@ -91,9 +93,10 @@ export const Multiple: Story = {
 
 /** A single item can be disabled independently of the rest of the accordion. */
 export const DisabledItem: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-			<div hlmAccordion class="w-96">
+			<div hlmAccordion ${argsToTemplate(args)} class="w-96">
 				<div hlmAccordionItem [isOpened]="true">
 					<hlm-accordion-trigger>Is it accessible?</hlm-accordion-trigger>
 					<hlm-accordion-content>Yes. It adheres to the WAI-ARIA accordion design pattern.</hlm-accordion-content>
