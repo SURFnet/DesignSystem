@@ -56,6 +56,12 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=466-336&t=vT3gKkMDSpQaeqci-4',
     },
   },
+  argTypes: {
+    disabled: { control: 'boolean' },
+  },
+  args: {
+    disabled: false,
+  },
 } satisfies Meta<typeof Combobox>;
 
 export default meta;
@@ -64,8 +70,8 @@ type Story = StoryObj<typeof meta>;
 
 /** A searchable, filterable select — type to filter, with a trigger and clear button. */
 export const Default: Story = {
-  render: () => (
-    <Combobox items={countries}>
+  render: (args) => (
+    <Combobox {...args} items={countries}>
       <ComboboxInput placeholder="Search a country…" showClear className="w-64" />
       <ComboboxContent>
         <ComboboxEmpty>No countries found.</ComboboxEmpty>
@@ -83,8 +89,8 @@ export const Default: Story = {
 
 /** Options organized into labelled, independently-filtered groups. */
 export const Grouped: Story = {
-  render: () => (
-    <Combobox items={frameworkGroups}>
+  render: (args) => (
+    <Combobox {...args} items={frameworkGroups}>
       <ComboboxInput placeholder="Search a framework…" className="w-64" />
       <ComboboxContent>
         <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
@@ -112,10 +118,10 @@ export const Grouped: Story = {
 
 /** Multi-select with removable chips, anchored to the chips row instead of the input. */
 export const Multiple: Story = {
-  render: function MultipleCombobox() {
+  render: function MultipleCombobox(args) {
     const anchor = useComboboxAnchor();
     return (
-      <Combobox items={languages} multiple defaultValue={['TypeScript']}>
+      <Combobox {...args} items={languages} multiple defaultValue={['TypeScript']}>
         <div ref={anchor}>
           <ComboboxChips>
             <ComboboxValue>
@@ -149,8 +155,9 @@ export const Multiple: Story = {
 
 /** Disabled state — the input, trigger, and clear button all ignore interaction. */
 export const Disabled: Story = {
-  render: () => (
-    <Combobox items={countries} defaultValue="Netherlands" disabled>
+  args: { disabled: true },
+  render: (args) => (
+    <Combobox {...args} items={countries} defaultValue="Netherlands">
       <ComboboxInput placeholder="Search a country…" showClear className="w-64" />
       <ComboboxContent>
         <ComboboxList>
