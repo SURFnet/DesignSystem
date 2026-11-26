@@ -103,10 +103,15 @@ export const Default: Story = {
 
 /** `orientation="horizontal"` — slides pan left/right (the default). */
 export const Horizontal: Story = {
-  render: () => ({
+  args: { orientation: 'horizontal' },
+  render: (args) => ({
+    props: args,
     template: `
-			<hlm-carousel orientation="horizontal" class="w-full max-w-xs">
-				<hlm-carousel-content>
+			<hlm-carousel
+				${argsToTemplate(args)}
+				class="{{orientation === 'vertical' ? 'h-72 w-full max-w-xs' : 'w-full max-w-xs'}}"
+			>
+				<hlm-carousel-content class="{{orientation === 'vertical' ? 'h-72' : ''}}">
 					<hlm-carousel-item>
 						<div hlmCard>
 							<div hlmCardContent class="flex aspect-square items-center justify-center">
@@ -152,10 +157,15 @@ export const Horizontal: Story = {
 
 /** `orientation="vertical"` — slides pan up/down. */
 export const Vertical: Story = {
-  render: () => ({
+  args: { orientation: 'vertical' },
+  render: (args) => ({
+    props: args,
     template: `
-			<hlm-carousel orientation="vertical" class="h-72 w-full max-w-xs">
-				<hlm-carousel-content class="h-72">
+			<hlm-carousel
+				${argsToTemplate(args)}
+				class="{{orientation === 'vertical' ? 'h-72 w-full max-w-xs' : 'w-full max-w-xs'}}"
+			>
+				<hlm-carousel-content class="{{orientation === 'vertical' ? 'h-72' : ''}}">
 					<hlm-carousel-item>
 						<div hlmCard>
 							<div hlmCardContent class="flex items-center justify-center p-6">

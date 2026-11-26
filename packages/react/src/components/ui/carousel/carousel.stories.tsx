@@ -77,9 +77,13 @@ export const Default: Story = {
 
 /** `orientation="horizontal"` — slides pan left/right (the default). */
 export const Horizontal: Story = {
-  render: () => (
-    <Carousel orientation="horizontal" className="w-full max-w-xs">
-      <CarouselContent>
+  args: { orientation: 'horizontal' },
+  render: (args) => (
+    <Carousel
+      {...args}
+      className={args.orientation === 'vertical' ? 'h-72 w-full max-w-xs' : 'w-full max-w-xs'}
+    >
+      <CarouselContent className={args.orientation === 'vertical' ? 'h-72' : undefined}>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
             <Card>
@@ -98,9 +102,13 @@ export const Horizontal: Story = {
 
 /** `orientation="vertical"` — slides pan up/down. */
 export const Vertical: Story = {
-  render: () => (
-    <Carousel orientation="vertical" className="h-72 w-full max-w-xs">
-      <CarouselContent className="h-72">
+  args: { orientation: 'vertical' },
+  render: (args) => (
+    <Carousel
+      {...args}
+      className={args.orientation === 'vertical' ? 'h-72 w-full max-w-xs' : 'w-full max-w-xs'}
+    >
+      <CarouselContent className={args.orientation === 'vertical' ? 'h-72' : undefined}>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
             <Card>
