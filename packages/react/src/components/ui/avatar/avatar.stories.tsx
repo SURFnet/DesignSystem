@@ -50,8 +50,9 @@ export const Default: Story = {
 
 /** Compact size for dense lists and inline mentions. */
 export const Sm: Story = {
-  render: () => (
-    <Avatar size="sm" title={avatarContract.docs.sizes['sm']}>
+  args: { size: 'sm' },
+  render: (args) => (
+    <Avatar title={avatarContract.docs.sizes['sm']} {...args}>
       <AvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace" />
       <AvatarFallback>SM</AvatarFallback>
     </Avatar>
@@ -60,8 +61,9 @@ export const Sm: Story = {
 
 /** Large size for profile headers and prominent placements. */
 export const Lg: Story = {
-  render: () => (
-    <Avatar size="lg" title={avatarContract.docs.sizes['lg']}>
+  args: { size: 'lg' },
+  render: (args) => (
+    <Avatar title={avatarContract.docs.sizes['lg']} {...args}>
       <AvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace" />
       <AvatarFallback>LG</AvatarFallback>
     </Avatar>
@@ -70,8 +72,8 @@ export const Lg: Story = {
 
 /** When the image fails to load, the initials fallback shows. */
 export const Fallback: Story = {
-  render: () => (
-    <Avatar>
+  render: (args) => (
+    <Avatar {...args}>
       <AvatarImage src="https://example.com/does-not-exist.jpg" alt="Grace Hopper" />
       <AvatarFallback>GH</AvatarFallback>
     </Avatar>
@@ -80,15 +82,15 @@ export const Fallback: Story = {
 
 /** Stacked avatars with an overflow count. */
 export const Group: Story = {
-  render: () => (
+  render: (args) => (
     <AvatarGroup>
-      <Avatar>
+      <Avatar {...args}>
         <AvatarFallback>AL</AvatarFallback>
       </Avatar>
-      <Avatar>
+      <Avatar {...args}>
         <AvatarFallback>GH</AvatarFallback>
       </Avatar>
-      <Avatar>
+      <Avatar {...args}>
         <AvatarFallback>KJ</AvatarFallback>
       </Avatar>
       <AvatarGroupCount>+3</AvatarGroupCount>
