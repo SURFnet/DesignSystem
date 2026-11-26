@@ -46,11 +46,12 @@ export const Default: Story = {
 
 /** A label wired to an input through `htmlFor`. */
 export const WithInput: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-full max-w-md">
 				<div hlmField class="w-72">
-					<label hlmLabel for="email">Email</label>
+					<label hlmLabel for="email">{{children}}</label>
 					<input hlmInput id="email" placeholder="you@surf.nl"/>
 				</div>
 			</div>
