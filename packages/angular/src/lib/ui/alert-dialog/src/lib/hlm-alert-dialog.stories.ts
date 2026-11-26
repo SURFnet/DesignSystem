@@ -1,12 +1,15 @@
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorWarning } from '@ng-icons/phosphor-icons/regular';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { alertDialogContract } from '@surfnet/curve-contracts';
+import { alertDialogContract, type AlertDialogSizeName } from '@surfnet/curve-contracts';
 
 import { HlmButton } from '../../../button/src';
 import { HlmAlertDialog, HlmAlertDialogImports } from '..';
 
-const meta: Meta<HlmAlertDialog> = {
+// `size` lives on `hlm-alert-dialog-content`, not the root, so widen the story args to expose it.
+type AlertDialogArgs = HlmAlertDialog & { size: AlertDialogSizeName };
+
+const meta: Meta<AlertDialogArgs> = {
   title: 'Components/AlertDialog',
   component: HlmAlertDialog,
   decorators: [
@@ -26,19 +29,38 @@ const meta: Meta<HlmAlertDialog> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=22-307&p=f&t=vT3gKkMDSpQaeqci-0',
     },
   },
+  argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: [...alertDialogContract.props.sizes],
+      description: alertDialogContract.props.sizes
+        .map((size) => `\`${size}\` — ${alertDialogContract.docs.sizes[size]}`)
+        .join('\n\n'),
+      table: {
+        type: {
+          summary: alertDialogContract.props.sizes.join(' | '),
+        },
+        defaultValue: { summary: alertDialogContract.defaults.sizes },
+      },
+    },
+  },
+  args: {
+    size: alertDialogContract.defaults.sizes,
+  },
 };
 
 export default meta;
 
-type Story = StoryObj<HlmAlertDialog>;
+type Story = StoryObj<AlertDialogArgs>;
 
 /** The confirm/cancel pattern — interrupts the user before an irreversible action. */
 export const Default: Story = {
-  render: () => ({
+  render: ({ size }) => ({
+    props: { size },
     template: `
       <hlm-alert-dialog>
         <button hlmAlertDialogTrigger hlmBtn variant="outline">Show dialog</button>
-        <hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
+        <hlm-alert-dialog-content [size]="size" *hlmAlertDialogPortal="let ctx">
           <hlm-alert-dialog-header>
             <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
             <p hlmAlertDialogDescription>
@@ -58,11 +80,12 @@ export const Default: Story = {
 
 /** A destructive confirmation, using an icon in the media slot and a destructive action button. */
 export const WithMedia: Story = {
-  render: () => ({
+  render: ({ size }) => ({
+    props: { size },
     template: `
       <hlm-alert-dialog>
         <button hlmAlertDialogTrigger hlmBtn variant="destructive">Delete account</button>
-        <hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
+        <hlm-alert-dialog-content [size]="size" *hlmAlertDialogPortal="let ctx">
           <hlm-alert-dialog-header>
             <div hlmAlertDialogMedia>
               <ng-icon name="phosphorWarning" />
@@ -85,11 +108,13 @@ export const WithMedia: Story = {
 
 /** The compact (`sm`) content size — footer buttons switch to a two-column grid. */
 export const Small: Story = {
-  render: () => ({
+  args: { size: 'sm' },
+  render: ({ size }) => ({
+    props: { size },
     template: `
       <hlm-alert-dialog>
         <button hlmAlertDialogTrigger hlmBtn variant="outline">Leave page</button>
-        <hlm-alert-dialog-content size="sm" *hlmAlertDialogPortal="let ctx">
+        <hlm-alert-dialog-content [size]="size" *hlmAlertDialogPortal="let ctx">
           <hlm-alert-dialog-header>
             <h2 hlmAlertDialogTitle>Leave without saving?</h2>
             <p hlmAlertDialogDescription>Your changes will be lost.</p>
