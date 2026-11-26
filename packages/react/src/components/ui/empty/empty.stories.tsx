@@ -1,6 +1,7 @@
 import { FolderIcon, MagnifyingGlassIcon, PlusIcon, TrayIcon } from '@phosphor-icons/react';
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { emptyContract } from '@surfnet/curve-contracts';
+import { emptyContract, type EmptyMediaVariantName } from '@surfnet/curve-contracts';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -11,6 +12,9 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from './empty';
+
+/** `variant` is a story arg for the `EmptyMedia` inside the empty state. */
+type EmptyArgs = ComponentProps<typeof Empty> & { variant?: EmptyMediaVariantName };
 
 const meta = {
   title: 'Components/Empty',
@@ -26,18 +30,34 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18672-1039',
     },
   },
-} satisfies Meta<typeof Empty>;
+  argTypes: {
+    variant: {
+      control: 'inline-radio',
+      options: emptyContract.props.variants,
+      description: emptyContract.props.variants
+        .map((variant) => `\`${variant}\` — ${emptyContract.docs.variants[variant]}`)
+        .join('\n\n'),
+      table: {
+        defaultValue: { summary: emptyContract.defaults.variants },
+      },
+    },
+  },
+  args: {
+    variant: emptyContract.defaults.variants,
+  },
+} satisfies Meta<EmptyArgs>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<EmptyArgs>;
 
 /** A "no documents" state with an icon-badged media, title, description, and a call to action. */
 export const Default: Story = {
-  render: () => (
+  args: { variant: 'icon' },
+  render: ({ variant }) => (
     <Empty className="w-full max-w-sm">
       <EmptyHeader>
-        <EmptyMedia variant="icon" title={emptyContract.docs.variants.icon}>
+        <EmptyMedia variant={variant} title={emptyContract.docs.variants.icon}>
           <FolderIcon />
         </EmptyMedia>
         <EmptyTitle>No documents yet</EmptyTitle>
@@ -55,10 +75,11 @@ export const Default: Story = {
 
 /** Default media variant — renders the media as-is for a custom illustration. */
 export const MediaDefault: Story = {
-  render: () => (
+  args: { variant: 'default' },
+  render: ({ variant }) => (
     <Empty className="w-64">
       <EmptyHeader>
-        <EmptyMedia variant="default" title={emptyContract.docs.variants.default}>
+        <EmptyMedia variant={variant} title={emptyContract.docs.variants.default}>
           <FolderIcon className="size-10" />
         </EmptyMedia>
         <EmptyTitle>Default</EmptyTitle>
@@ -69,10 +90,11 @@ export const MediaDefault: Story = {
 
 /** Icon media variant — adds a rounded badge background. */
 export const MediaIcon: Story = {
-  render: () => (
+  args: { variant: 'icon' },
+  render: ({ variant }) => (
     <Empty className="w-64">
       <EmptyHeader>
-        <EmptyMedia variant="icon" title={emptyContract.docs.variants.icon}>
+        <EmptyMedia variant={variant} title={emptyContract.docs.variants.icon}>
           <FolderIcon />
         </EmptyMedia>
         <EmptyTitle>Icon</EmptyTitle>
@@ -83,10 +105,10 @@ export const MediaIcon: Story = {
 
 /** A "no results" search state — plain media lets a larger illustrative icon sit un-badged. */
 export const NoResults: Story = {
-  render: () => (
+  render: ({ variant }) => (
     <Empty className="w-full max-w-sm">
       <EmptyHeader>
-        <EmptyMedia>
+        <EmptyMedia variant={variant}>
           <MagnifyingGlassIcon className="size-10" />
         </EmptyMedia>
         <EmptyTitle>No results found</EmptyTitle>
@@ -98,10 +120,11 @@ export const NoResults: Story = {
 
 /** An empty inbox with two competing actions in `EmptyContent`. */
 export const WithMultipleActions: Story = {
-  render: () => (
+  args: { variant: 'icon' },
+  render: ({ variant }) => (
     <Empty className="w-full max-w-sm">
       <EmptyHeader>
-        <EmptyMedia variant="icon">
+        <EmptyMedia variant={variant}>
           <TrayIcon />
         </EmptyMedia>
         <EmptyTitle>Inbox zero</EmptyTitle>
