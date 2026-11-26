@@ -15,6 +15,8 @@ const meta = {
   title: 'Components/Breadcrumb',
   component: Breadcrumb,
   parameters: {
+    // Breadcrumb has no variants or options to tweak; the stories only differ in their items.
+    controls: { disable: true },
     docs: {
       description: {
         component: breadcrumbContract.docs.description,
