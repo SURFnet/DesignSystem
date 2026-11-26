@@ -66,10 +66,12 @@ export const Default: Story = {
 
 /** Small size — compact forms and toolbars. */
 export const SizeSm: Story = {
-  render: () => ({
+  args: { size: 'sm' },
+  render: (args) => ({
+    props: args,
     template: `
       <label hlmLabel for="sm-select" class="sr-only">Small select</label>
-      <hlm-native-select size="sm" title="${nativeSelectContract.docs.sizes.sm}" selectId="sm-select">
+      <hlm-native-select ${argsToTemplate(args)} title="${nativeSelectContract.docs.sizes.sm}" selectId="sm-select">
         <option hlmNativeSelectOption value="apple">Apple</option>
         <option hlmNativeSelectOption value="banana">Banana</option>
         <option hlmNativeSelectOption value="cherry">Cherry</option>
@@ -80,10 +82,11 @@ export const SizeSm: Story = {
 
 /** Composed usage with grouped options, mirroring a real form field. */
 export const WithOptionGroups: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <label hlmLabel for="with-option-groups-select" class="sr-only">With Option Groups select</label>
-      <hlm-native-select aria-label="Favorite fruit or vegetable" selectId="with-option-groups-select">
+      <hlm-native-select ${argsToTemplate(args)} aria-label="Favorite fruit or vegetable" selectId="with-option-groups-select">
         <optgroup hlmNativeSelectOptGroup label="Fruit">
           <option hlmNativeSelectOption value="apple">Apple</option>
           <option hlmNativeSelectOption value="banana">Banana</option>
@@ -100,10 +103,12 @@ export const WithOptionGroups: Story = {
 
 /** Disabled state. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
       <label hlmLabel for="disabled-select" class="sr-only">Disabled select</label>
-      <hlm-native-select selectId="disabled-select" disabled value="apple">
+      <hlm-native-select ${argsToTemplate(args)} selectId="disabled-select" value="apple">
         <option hlmNativeSelectOption value="apple" selected>Apple</option>
         <option hlmNativeSelectOption value="banana">Banana</option>
       </hlm-native-select>
@@ -113,19 +118,24 @@ export const Disabled: Story = {
 
 /** A required select left empty: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  render: (args) => {
+    // A reactive-form control owns its disabled state, so feed the `disabled` arg in here
+    // instead of binding it on the element.
     const form = new FormGroup({
-      fruit: new FormControl('', { validators: [Validators.required] }),
+      fruit: new FormControl(
+        { value: '', disabled: !!args.disabled },
+        { validators: [Validators.required] },
+      ),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
         <form [formGroup]="form" class="w-72">
           <div hlmField>
             <label hlmFieldLabel for="invalid-select">Fruit</label>
-            <hlm-native-select selectId="invalid-select" formControlName="fruit">
+            <hlm-native-select [size]="size" selectId="invalid-select" formControlName="fruit">
               <option hlmNativeSelectOption value="" disabled>Choose an option</option>
               <option hlmNativeSelectOption value="apple">Apple</option>
               <option hlmNativeSelectOption value="banana">Banana</option>

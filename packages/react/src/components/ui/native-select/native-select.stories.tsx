@@ -60,12 +60,13 @@ export const Default: Story = {
 
 /** Small size — compact forms and toolbars. */
 export const SizeSm: Story = {
-  render: () => (
+  args: { size: 'sm', 'aria-label': undefined },
+  render: (args) => (
     <>
       <Label htmlFor="sm-select" className="sr-only">
         Small select
       </Label>
-      <NativeSelect size="sm" title={nativeSelectContract.docs.sizes.sm} id="sm-select">
+      <NativeSelect {...args} title={nativeSelectContract.docs.sizes.sm} id="sm-select">
         <NativeSelectOption value="apple">Apple</NativeSelectOption>
         <NativeSelectOption value="banana">Banana</NativeSelectOption>
         <NativeSelectOption value="cherry">Cherry</NativeSelectOption>
@@ -76,16 +77,13 @@ export const SizeSm: Story = {
 
 /** Composed usage with grouped options, mirroring a real form field. */
 export const WithOptionGroups: Story = {
-  render: () => (
+  args: { 'aria-label': 'Favorite fruit or vegetable' },
+  render: (args) => (
     <>
       <Label htmlFor="with-option-groups-select" className="sr-only">
         With Option Groups select
       </Label>
-      <NativeSelect
-        aria-label="Favorite fruit or vegetable"
-        id="with-option-groups-select"
-        defaultValue="apple"
-      >
+      <NativeSelect {...args} id="with-option-groups-select" defaultValue="apple">
         <NativeSelectOptGroup label="Fruit">
           <NativeSelectOption value="apple">Apple</NativeSelectOption>
           <NativeSelectOption value="banana">Banana</NativeSelectOption>
@@ -102,12 +100,13 @@ export const WithOptionGroups: Story = {
 
 /** Disabled state. */
 export const Disabled: Story = {
-  render: () => (
+  args: { disabled: true, 'aria-label': undefined },
+  render: (args) => (
     <>
       <Label htmlFor="disabled-select" className="sr-only">
         Disabled select
       </Label>
-      <NativeSelect id="disabled-select" disabled defaultValue="apple">
+      <NativeSelect {...args} id="disabled-select" defaultValue="apple">
         <NativeSelectOption value="apple">Apple</NativeSelectOption>
         <NativeSelectOption value="banana">Banana</NativeSelectOption>
       </NativeSelect>
@@ -117,12 +116,13 @@ export const Disabled: Story = {
 
 /** Invalid state, driven by `aria-invalid`. */
 export const Invalid: Story = {
-  render: () => (
+  args: { 'aria-label': undefined },
+  render: (args) => (
     <>
       <Label htmlFor="invalid-select" className="sr-only">
         Invalid select
       </Label>
-      <NativeSelect id="invalid-select" aria-invalid defaultValue="">
+      <NativeSelect {...args} id="invalid-select" aria-invalid defaultValue="">
         <NativeSelectOption value="" disabled>
           Choose an option
         </NativeSelectOption>
