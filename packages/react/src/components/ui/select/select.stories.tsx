@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { selectContract } from '@surfnet/curve-contracts';
+import { selectContract, type SelectTriggerSizeName } from '@surfnet/curve-contracts';
 
 import {
   Select,
@@ -11,6 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from './select';
+
+// `size` lives on SelectTrigger rather than the Select root, so widen the story args to
+// expose it as a control next to the root's `disabled`.
+type SelectStoryArgs = React.ComponentProps<typeof Select> & { size?: SelectTriggerSizeName };
 
 const meta = {
   title: 'Components/Select',
@@ -26,11 +30,29 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=118-1264',
     },
   },
-} satisfies Meta<typeof Select>;
+  argTypes: {
+    size: {
+      control: 'select',
+      options: [...selectContract.props.sizes],
+      description: 'Size of the select trigger.',
+      table: {
+        type: {
+          summary: selectContract.props.sizes.join(' | '),
+        },
+        defaultValue: { summary: selectContract.defaults.sizes },
+      },
+    },
+    disabled: { control: 'boolean' },
+  },
+  args: {
+    size: selectContract.defaults.sizes,
+    disabled: false,
+  },
+} satisfies Meta<SelectStoryArgs>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<SelectStoryArgs>;
 
 const items = [
   { label: 'All', value: 'all' },
@@ -52,9 +74,9 @@ const allFoodItems = [...fruitItems, ...veggieItems];
 
 /** A select with a placeholder until a value is chosen. */
 export const Default: Story = {
-  render: () => (
-    <Select items={items}>
-      <SelectTrigger className="w-56" aria-label="Category">
+  render: ({ size, ...args }) => (
+    <Select {...args} items={items}>
+      <SelectTrigger size={size} className="w-56" aria-label="Category">
         <SelectValue placeholder="Category: All" />
       </SelectTrigger>
       <SelectContent>
@@ -68,10 +90,11 @@ export const Default: Story = {
 
 /** Small size — compact forms and toolbars. */
 export const SizeSm: Story = {
-  render: () => (
+  args: { size: 'sm' },
+  render: ({ size, ...args }) => (
     <div className="flex items-center gap-3">
-      <Select items={items} defaultValue={items[0]}>
-        <SelectTrigger size="sm" className="w-40" title={selectContract.docs.sizes.sm}>
+      <Select {...args} items={items} defaultValue={items[0]}>
+        <SelectTrigger size={size} className="w-40" title={selectContract.docs.sizes.sm}>
           <SelectValue placeholder="Category" />
         </SelectTrigger>
         <SelectContent>
@@ -88,9 +111,9 @@ export const SizeSm: Story = {
 
 /** A pre-selected value with grouped, labelled options. */
 export const Grouped: Story = {
-  render: () => (
-    <Select items={allFoodItems} defaultValue={allFoodItems[0]}>
-      <SelectTrigger className="w-56" aria-label="Category">
+  render: ({ size, ...args }) => (
+    <Select {...args} items={allFoodItems} defaultValue={allFoodItems[0]}>
+      <SelectTrigger size={size} className="w-56" aria-label="Category">
         <SelectValue placeholder="Pick a category" />
       </SelectTrigger>
       <SelectContent>
@@ -118,9 +141,10 @@ export const Grouped: Story = {
 
 /** Disabled trigger. */
 export const Disabled: Story = {
-  render: () => (
-    <Select disabled items={items}>
-      <SelectTrigger className="w-56" aria-label="Category">
+  args: { disabled: true },
+  render: ({ size, ...args }) => (
+    <Select {...args} items={items}>
+      <SelectTrigger size={size} className="w-56" aria-label="Category">
         <SelectValue placeholder="Category: All" />
       </SelectTrigger>
       <SelectContent>
@@ -136,9 +160,9 @@ export const Disabled: Story = {
 
 /** Invalid state, driven by `aria-invalid` on the trigger. */
 export const Invalid: Story = {
-  render: () => (
-    <Select items={items} defaultValue="">
-      <SelectTrigger className="w-56" aria-label="Category" aria-invalid>
+  render: ({ size, ...args }) => (
+    <Select {...args} items={items} defaultValue="">
+      <SelectTrigger size={size} className="w-56" aria-label="Category" aria-invalid>
         <SelectValue placeholder="Pick a category" />
       </SelectTrigger>
       <SelectContent>
