@@ -53,42 +53,44 @@ export const Default: Story = {
 
 /** Multiple, individually toggled dates via `hlm-calendar-multi`. */
 export const Multiple: Story = {
-  render: () => ({
-    props: { dates: [] as Date[] },
-    template: `<hlm-calendar-multi [(date)]="dates" />`,
+  render: (args) => ({
+    props: { ...args, dates: [] as Date[] },
+    template: `<hlm-calendar-multi ${argsToTemplate(args)} [(date)]="dates" />`,
   }),
 };
 
 /** A contiguous range with a start and end date via `hlm-calendar-range`. */
 export const Range: Story = {
-  render: () => ({
-    props: { start: undefined as Date | undefined, end: undefined as Date | undefined },
-    template: `<hlm-calendar-range [(startDate)]="start" [(endDate)]="end" />`,
+  render: (args) => ({
+    props: { ...args, start: undefined as Date | undefined, end: undefined as Date | undefined },
+    template: `<hlm-calendar-range ${argsToTemplate(args)} [(startDate)]="start" [(endDate)]="end" />`,
   }),
 };
 
 /** Dropdown month/year selectors instead of a static caption — useful for jumping across years. */
 export const DropdownCaption: Story = {
-  render: () => ({
-    props: { date: new Date() },
-    template: `<hlm-calendar captionLayout="dropdown" [(date)]="date" />`,
+  args: { captionLayout: 'dropdown' },
+  render: (args) => ({
+    props: { ...args, date: new Date() },
+    template: `<hlm-calendar ${argsToTemplate(args)} [(date)]="date" />`,
   }),
 };
 
 /** Weekends disabled via `dateDisabled` — disabled days cannot be selected. */
 export const DisabledDates: Story = {
-  render: () => ({
+  render: (args) => ({
     props: {
+      ...args,
       date: undefined as Date | undefined,
       isWeekend: (d: Date) => d.getDay() === 0 || d.getDay() === 6,
     },
-    template: `<hlm-calendar [(date)]="date" [dateDisabled]="isWeekend" />`,
+    template: `<hlm-calendar ${argsToTemplate(args)} [(date)]="date" [dateDisabled]="isWeekend" />`,
   }),
 };
 
 /** Highlighted dates alongside a bounded `min`/`max` navigable range. */
 export const HighlightedAndBounded: Story = {
-  render: () => {
+  render: (args) => {
     const today = new Date();
     const highlight = new Date(today);
     highlight.setDate(today.getDate() + 3);
@@ -99,12 +101,13 @@ export const HighlightedAndBounded: Story = {
 
     return {
       props: {
+        ...args,
         date: undefined as Date | undefined,
         highlights: [highlight],
         min,
         max,
       },
-      template: `<hlm-calendar [(date)]="date" [highlightDays]="highlights" [min]="min" [max]="max" />`,
+      template: `<hlm-calendar ${argsToTemplate(args)} [(date)]="date" [highlightDays]="highlights" [min]="min" [max]="max" />`,
     };
   },
 };
@@ -114,15 +117,15 @@ export const HighlightedAndBounded: Story = {
  * uses internally, built here directly from `hlm-calendar` and the popover primitives.
  */
 export const InPopover: Story = {
-  render: () => ({
-    props: { date: undefined as Date | undefined },
+  render: (args) => ({
+    props: { ...args, date: undefined as Date | undefined },
     template: `
       <hlm-popover>
         <button hlmBtn hlmPopoverTrigger variant="outline" class="w-56 justify-start font-normal">
           {{ date ? date.toLocaleDateString() : 'Pick a date' }}
         </button>
         <hlm-popover-content class="w-fit p-0" *hlmPopoverPortal>
-          <hlm-calendar calendarClass="rounded-none border-0" [(date)]="date" />
+          <hlm-calendar ${argsToTemplate(args)} calendarClass="rounded-none border-0" [(date)]="date" />
         </hlm-popover-content>
       </hlm-popover>
     `,
