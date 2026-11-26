@@ -16,6 +16,9 @@ const meta: Meta<HlmDropdownMenu> = {
     }),
   ],
   parameters: {
+    // Every story is a fixed composition (fixed default + destructive items), with no
+    // single input to drive, so hide the Controls panel rather than show dead controls.
+    controls: { disable: true },
     docs: {
       description: {
         component: dropdownMenuContract.docs.description,
