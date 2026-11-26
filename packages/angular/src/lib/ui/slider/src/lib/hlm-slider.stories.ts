@@ -71,10 +71,12 @@ export const Default: Story = {
 
 /** A track running left to right — the default orientation. */
 export const Horizontal: Story = {
-  render: () => ({
+  args: { orientation: 'horizontal' },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-72">
-				<hlm-slider [value]="[50]" orientation="horizontal" />
+				<hlm-slider [value]="[50]" ${argsToTemplate(args)} />
 			</div>
 		`,
   }),
@@ -82,10 +84,12 @@ export const Horizontal: Story = {
 
 /** A track running bottom to top. */
 export const Vertical: Story = {
-  render: () => ({
+  args: { orientation: 'vertical' },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="flex h-40 items-center">
-				<hlm-slider [value]="[50]" orientation="vertical" />
+				<hlm-slider [value]="[50]" ${argsToTemplate(args)} />
 			</div>
 		`,
   }),
@@ -93,10 +97,11 @@ export const Vertical: Story = {
 
 /** A range slider with two thumbs, dragging independently between `min` and `max`. */
 export const Range: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-72">
-				<hlm-slider [value]="[25, 75]" />
+				<hlm-slider [value]="[25, 75]" ${argsToTemplate(args)} />
 			</div>
 		`,
   }),
@@ -104,10 +109,12 @@ export const Range: Story = {
 
 /** Disabled state — the slider ignores pointer and keyboard interaction. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-72">
-				<hlm-slider [value]="[50]" [disabled]="true" />
+				<hlm-slider [value]="[50]" ${argsToTemplate(args)} />
 			</div>
 		`,
   }),
@@ -115,11 +122,12 @@ export const Disabled: Story = {
 
 /** A slider composed with a field label and description, the typical form usage. */
 export const WithField: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div hlmField class="w-72">
 				<label hlmFieldLabel for="volume">Volume</label>
-				<hlm-slider id="volume" [value]="[60]" />
+				<hlm-slider id="volume" [value]="[60]" ${argsToTemplate(args)} />
 				<p hlmFieldDescription>Drag the thumb or use the arrow keys to adjust.</p>
 			</div>
 		`,
@@ -128,7 +136,9 @@ export const WithField: Story = {
 
 /** A value below the minimum: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  // The value and disabled state come from the form control, so only `orientation` is bound.
+  argTypes: { disabled: { table: { disable: true } } },
+  render: ({ orientation }) => {
     const form = new FormGroup({
       volume: new FormControl([20], {
         validators: [
@@ -140,12 +150,12 @@ export const Invalid: Story = {
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { form, orientation },
       template: `
 				<form [formGroup]="form" class="w-72">
 					<div hlmField>
 						<label hlmFieldLabel>Volume</label>
-						<hlm-slider formControlName="volume" aria-label="Volume" />
+						<hlm-slider formControlName="volume" [orientation]="orientation" aria-label="Volume" />
 						<hlm-field-error />
 					</div>
 				</form>

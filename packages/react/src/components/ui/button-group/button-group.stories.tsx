@@ -58,8 +58,9 @@ export const Default: Story = {
 
 /** Buttons stacked in a column instead of a row. */
 export const Vertical: Story = {
-  render: () => (
-    <ButtonGroup orientation="vertical">
+  args: { orientation: 'vertical' },
+  render: (args) => (
+    <ButtonGroup {...args}>
       <Button variant="outline">One</Button>
       <Button variant="outline">Two</Button>
       <Button variant="outline">Three</Button>
@@ -72,8 +73,8 @@ export const Vertical: Story = {
  * logical clusters while keeping the connected-border look within each cluster.
  */
 export const WithSeparator: Story = {
-  render: () => (
-    <ButtonGroup>
+  render: (args) => (
+    <ButtonGroup {...args}>
       <ButtonGroup>
         <Button variant="outline" size="icon" aria-label="Copy">
           <CopyIcon />
@@ -90,8 +91,8 @@ export const WithSeparator: Story = {
 
 /** `ButtonGroupText` renders a non-interactive, label-styled slot alongside the buttons. */
 export const WithText: Story = {
-  render: () => (
-    <ButtonGroup>
+  render: (args) => (
+    <ButtonGroup {...args}>
       <Button variant="outline">Previous</Button>
       <ButtonGroupText>Page 1 of 10</ButtonGroupText>
       <Button variant="outline">Next</Button>
@@ -104,8 +105,8 @@ export const WithText: Story = {
  * overflow menu trigger. The group's CSS makes the `<Input>` flex to fill the space.
  */
 export const WithInput: Story = {
-  render: () => (
-    <ButtonGroup className="w-80">
+  render: (args) => (
+    <ButtonGroup {...args} className="w-80">
       <Input placeholder="Search…" aria-label="Search" />
       <Button variant="outline" size="icon" aria-label="Search">
         <MagnifyingGlassIcon />

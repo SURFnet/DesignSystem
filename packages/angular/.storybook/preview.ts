@@ -20,6 +20,7 @@ export default {
     ...sharedParameters,
     ...a11yParameters,
     docs: {
+      codePanel: true,
       source: {
         // Drop brackets around plain string args (e.g. `[variant]="variant"`
         // -> `variant="outline"`) in the "Show code" snippet only — see

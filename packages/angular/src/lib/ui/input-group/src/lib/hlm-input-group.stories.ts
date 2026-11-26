@@ -29,6 +29,7 @@ const meta: Meta<HlmInputGroup> = {
     }),
   ],
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         component: inputGroupContract.docs.description,

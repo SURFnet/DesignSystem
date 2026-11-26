@@ -47,75 +47,79 @@ export default meta;
 
 type Story = StoryObj<HlmBadge>;
 
+const renderBadge =
+  (content: string, attrs = '', tag = 'span'): Story['render'] =>
+  (args) => ({
+    props: args,
+    template: `<${tag} hlmBadge ${argsToTemplate(args)}${attrs}>${content}</${tag}>`,
+  });
+
 /** The default badge — rendered with the default args; tweak them via the controls. */
 export const Default: Story = {
-  render: (args) => ({
-    props: args,
-    template: `<span hlmBadge ${argsToTemplate(args)}>Badge</span>`,
-  }),
+  render: renderBadge(`Badge`),
 };
 
 /** Primary brand fill — the most prominent badge style. */
 export const DefaultVariant: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="default" title="${badgeContract.docs.variants['default']}">Default</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'default' },
+  render: renderBadge(`Default`, ` title="${badgeContract.docs.variants['default']}"`),
 };
 
 /** Muted fill — general-purpose secondary label. */
 export const Secondary: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="secondary" title="${badgeContract.docs.variants['secondary']}">Secondary</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'secondary' },
+  render: renderBadge(`Secondary`, ` title="${badgeContract.docs.variants['secondary']}"`),
 };
 
 /** Informational tint — does not require immediate action. */
 export const Info: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="info" title="${badgeContract.docs.variants['info']}">Info</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'info' },
+  render: renderBadge(`Info`, ` title="${badgeContract.docs.variants['info']}"`),
 };
 
 /** Success tint — confirms a successful action or state. */
 export const Success: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="success" title="${badgeContract.docs.variants['success']}">Success</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'success' },
+  render: renderBadge(`Success`, ` title="${badgeContract.docs.variants['success']}"`),
 };
 
 /** Warning tint — highlights something that needs attention. */
 export const Warning: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="warning" title="${badgeContract.docs.variants['warning']}">Warning</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'warning' },
+  render: renderBadge(`Warning`, ` title="${badgeContract.docs.variants['warning']}"`),
 };
 
 /** Danger tint — errors, warnings, or destructive states. */
 export const Danger: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="danger" title="${badgeContract.docs.variants['danger']}">Danger</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'danger' },
+  render: renderBadge(`Danger`, ` title="${badgeContract.docs.variants['danger']}"`),
 };
 
 /** Bordered, transparent fill — low-emphasis label. */
 export const Outline: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="outline" title="${badgeContract.docs.variants['outline']}">Outline</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'outline' },
+  render: renderBadge(`Outline`, ` title="${badgeContract.docs.variants['outline']}"`),
 };
 
 /** No background or border — minimal label. */
 export const Ghost: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="ghost" title="${badgeContract.docs.variants['ghost']}">Ghost</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'ghost' },
+  render: renderBadge(`Ghost`, ` title="${badgeContract.docs.variants['ghost']}"`),
 };
 
 /** Looks like a hyperlink — inline actionable label. */
 export const Link: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="link" title="${badgeContract.docs.variants['link']}">Link</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'link' },
+  render: renderBadge(`Link`, ` title="${badgeContract.docs.variants['link']}"`),
 };
 
 /**
@@ -123,10 +127,12 @@ export const Link: Story = {
  * `data-icon="inline-end"` so the badge tightens the padding on that side.
  */
 export const WithIcon: Story = {
-  render: () => ({
+  args: { variant: 'secondary' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex flex-wrap items-center gap-3">
-        <span hlmBadge variant="secondary">
+        <span hlmBadge ${argsToTemplate(args)}>
           <ng-icon name="phosphorCheck" data-icon="inline-start" />
           Verified
         </span>
@@ -136,34 +142,33 @@ export const WithIcon: Story = {
 
 /** Single-digit count. */
 export const CountSingleDigit: Story = {
-  render: () => ({
-    template: `<span hlmBadge class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</span>`,
-  }),
+  tags: ['!autodocs'],
+  render: renderBadge(`8`, ` class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"`),
 };
 
 /** Double-digit count. */
 export const CountDoubleDigit: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="danger" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">99</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'danger' },
+  render: renderBadge(`99`, ` class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"`),
 };
 
 /** Count with plus suffix. */
 export const CountPlus: Story = {
-  render: () => ({
-    template: `<span hlmBadge variant="outline" class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">20+</span>`,
-  }),
+  tags: ['!autodocs'],
+  args: { variant: 'outline' },
+  render: renderBadge(`20+`, ` class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"`),
 };
 
 /** The `hlmBadge` directive works on any host element — here it renders as an anchor. */
 export const AsLink: Story = {
-  render: () => ({
-    template: `<a hlmBadge variant="link" href="https://www.surf.nl">Visit SURF</a>`,
-  }),
+  args: { variant: 'link' },
+  render: renderBadge(`Visit SURF`, ` href="https://www.surf.nl"`, 'a'),
 };
 
 /** Realistic composed usage: status labels attached to a list of items. */
 export const StatusList: Story = {
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
       <ul class="flex w-80 flex-col gap-2 text-sm">

@@ -74,10 +74,12 @@ export const Default: Story = {
 
 /** A horizontal field, e.g. a checkbox with its label. */
 export const Horizontal: Story = {
-  render: () => ({
+  args: { orientation: 'horizontal' },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-full max-w-md">
-				<div hlmField orientation="horizontal" class="w-72">
+				<div hlmField class="w-72" ${argsToTemplate(args)}>
 					<hlm-checkbox inputId="remember" />
 					<label hlmFieldLabel for="remember" class="font-normal">Remember me</label>
 				</div>
@@ -88,8 +90,9 @@ export const Horizontal: Story = {
 
 /** An invalid field showing an error message. Touch the field to test the minimum of 8 characters. */
 export const WithError: Story = {
-  render: () => ({
+  render: (args) => ({
     props: {
+      ...args,
       form: new FormGroup({
         password: new FormControl('', {
           validators: [Validators.required, Validators.minLength(8)],
@@ -98,7 +101,7 @@ export const WithError: Story = {
     },
     template: `
 			<form [formGroup]="form" class="w-full max-w-md">
-				<div hlmField class="w-72">
+				<div hlmField class="w-72" ${argsToTemplate(args)}>
 					<label hlmFieldLabel for="password">Password</label>
 					<input hlmInput formControlName="password" id="password" type="password" />
 					<hlm-field-error validator="required">Password must be at least 8 characters.</hlm-field-error>
@@ -115,7 +118,7 @@ export const WithError: Story = {
  * errors become a list.
  */
 export const AutomaticMessages: Story = {
-  render: () => {
+  render: (args) => {
     const form = new FormGroup({
       email: new FormControl('not-an-email', { validators: [Validators.email] }),
       name: new FormControl('Al', { validators: [Validators.minLength(3)] }),
@@ -129,25 +132,25 @@ export const AutomaticMessages: Story = {
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
 				<form [formGroup]="form" class="flex w-72 flex-col gap-6">
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="auto-email">Email</label>
 						<input hlmInput formControlName="email" id="auto-email" type="email" />
 						<hlm-field-error />
 					</div>
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="auto-name">Name</label>
 						<input hlmInput formControlName="name" id="auto-name" />
 						<hlm-field-error />
 					</div>
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="auto-postcode">Postcode</label>
 						<input hlmInput formControlName="postcode" id="auto-postcode" />
 						<hlm-field-error />
 					</div>
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="auto-code">Code</label>
 						<input hlmInput formControlName="code" id="auto-code" />
 						<hlm-field-error />
@@ -170,7 +173,7 @@ export const CustomMessages: Story = {
       ],
     }),
   ],
-  render: () => {
+  render: (args) => {
     const form = new FormGroup({
       username: new FormControl('', { validators: [Validators.required] }),
       password: new FormControl('secret', { validators: [Validators.minLength(8)] }),
@@ -178,15 +181,15 @@ export const CustomMessages: Story = {
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
 				<form [formGroup]="form" class="flex w-72 flex-col gap-6">
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="custom-username">Username</label>
 						<input hlmInput formControlName="username" id="custom-username" />
 						<hlm-field-error />
 					</div>
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="custom-password">Password</label>
 						<input hlmInput formControlName="password" id="custom-password" type="password" />
 						<hlm-field-error />
@@ -199,16 +202,17 @@ export const CustomMessages: Story = {
 
 /** Several fields grouped, with a labelled separator. */
 export const Group: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-full max-w-md">
 				<fieldset hlmFieldSet class="w-72">
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="g-email">Email</label>
 						<input hlmInput id="g-email" type="email" placeholder="you@surf.nl" />
 					</div>
 					<hlm-field-separator>Or continue with</hlm-field-separator>
-					<div hlmField>
+					<div hlmField ${argsToTemplate(args)}>
 						<label hlmFieldLabel for="g-password">Password</label>
 						<input hlmInput id="g-password" type="password" />
 					</div>
@@ -223,10 +227,12 @@ export const Group: Story = {
  * "(optioneel)" suffix and the control loses `aria-required`.
  */
 export const Optional: Story = {
-  render: () => ({
+  args: { optional: true },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="w-full max-w-md">
-				<div hlmField optional class="w-72">
+				<div hlmField class="w-72" ${argsToTemplate(args)}>
 					<label hlmFieldLabel for="phone">Telefoonnummer</label>
 					<input hlmInput id="phone" type="tel" autocomplete="tel" />
 				</div>
@@ -240,6 +246,7 @@ export const Optional: Story = {
  * swaps the suffix for an English form. A consent checkbox stays required, a newsletter one is optional.
  */
 export const MixedForm: Story = {
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<div hlmFieldGroup class="w-72">

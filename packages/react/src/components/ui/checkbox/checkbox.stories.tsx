@@ -54,9 +54,9 @@ export const WithLabel: Story = {
 
 /** An unchecked checkbox. */
 export const Unchecked: Story = {
-  render: () => (
+  render: (args) => (
     <Label className="gap-2">
-      <Checkbox />
+      <Checkbox {...args} />
       Unchecked
     </Label>
   ),
@@ -64,9 +64,9 @@ export const Unchecked: Story = {
 
 /** A checked checkbox. */
 export const Checked: Story = {
-  render: () => (
+  render: (args) => (
     <Label className="gap-2">
-      <Checkbox defaultChecked />
+      <Checkbox defaultChecked {...args} />
       Checked
     </Label>
   ),
@@ -74,9 +74,9 @@ export const Checked: Story = {
 
 /** An indeterminate checkbox. */
 export const Indeterminate: Story = {
-  render: () => (
+  render: (args) => (
     <Label className="gap-2">
-      <Checkbox indeterminate />
+      <Checkbox indeterminate {...args} />
       Indeterminate
     </Label>
   ),
@@ -84,9 +84,10 @@ export const Indeterminate: Story = {
 
 /** A disabled unchecked checkbox. */
 export const Disabled: Story = {
-  render: () => (
+  args: { disabled: true },
+  render: (args) => (
     <Label className="gap-2">
-      <Checkbox disabled />
+      <Checkbox {...args} />
       Disabled
     </Label>
   ),
@@ -94,9 +95,10 @@ export const Disabled: Story = {
 
 /** A disabled checked checkbox. */
 export const DisabledChecked: Story = {
-  render: () => (
+  args: { disabled: true },
+  render: (args) => (
     <Label className="gap-2">
-      <Checkbox defaultChecked disabled />
+      <Checkbox defaultChecked {...args} />
       Disabled checked
     </Label>
   ),
@@ -104,11 +106,12 @@ export const DisabledChecked: Story = {
 
 /** A required checkbox left unchecked: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  render: (args) => {
     const [checked, setChecked] = useState(false);
     return (
       <Label className="gap-2" data-invalid>
-        <Checkbox checked={checked} onCheckedChange={setChecked} aria-invalid />I accept the terms
+        <Checkbox {...args} checked={checked} onCheckedChange={setChecked} aria-invalid />I accept
+        the terms
       </Label>
     );
   },

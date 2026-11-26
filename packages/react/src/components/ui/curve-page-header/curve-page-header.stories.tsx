@@ -168,6 +168,7 @@ export const WithBreadcrumbs: Story = {
 
 /** Default media variant — keeps the media as-is. */
 export const MediaDefault: Story = {
+  tags: ['!autodocs'],
   render: () => (
     <CurvePageHeader>
       <CurvePageHeaderMedia variant="default">
@@ -182,6 +183,7 @@ export const MediaDefault: Story = {
 
 /** Icon media variant — adds a muted tile background. */
 export const MediaIcon: Story = {
+  tags: ['!autodocs'],
   render: () => (
     <CurvePageHeader>
       <CurvePageHeaderMedia variant="icon">
@@ -196,6 +198,7 @@ export const MediaIcon: Story = {
 
 /** Image media variant — crops a square thumbnail. */
 export const MediaImage: Story = {
+  tags: ['!autodocs'],
   render: () => (
     <CurvePageHeader>
       <CurvePageHeaderMedia variant="image">

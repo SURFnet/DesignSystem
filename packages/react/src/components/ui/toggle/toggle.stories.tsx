@@ -59,29 +59,27 @@ export const Default: Story = {};
 
 /** Outline variant — bordered, transparent fill. */
 export const Outline: Story = {
-  render: () => (
-    <Toggle variant="outline" title={toggleContract.docs.variants.outline}>
-      Outline
-    </Toggle>
-  ),
+  args: { variant: 'outline', title: toggleContract.docs.variants.outline, children: 'Outline' },
 };
 
 /** Small size — compact toggle for toolbars. */
 export const Sm: Story = {
-  render: () => (
-    <Toggle size="sm" title={toggleContract.docs.sizes.sm} defaultPressed>
-      Small
-    </Toggle>
-  ),
+  args: {
+    size: 'sm',
+    title: toggleContract.docs.sizes.sm,
+    defaultPressed: true,
+    children: 'Small',
+  },
 };
 
 /** Large size — prominent controls. */
 export const Lg: Story = {
-  render: () => (
-    <Toggle size="lg" title={toggleContract.docs.sizes.lg} defaultPressed>
-      Large
-    </Toggle>
-  ),
+  args: {
+    size: 'lg',
+    title: toggleContract.docs.sizes.lg,
+    defaultPressed: true,
+    children: 'Large',
+  },
 };
 
 /**
@@ -89,8 +87,9 @@ export const Lg: Story = {
  * `data-icon="inline-end"` so the toggle tightens the padding on that side.
  */
 export const WithIcon: Story = {
-  render: () => (
-    <Toggle variant="outline" aria-label="Toggle bookmark">
+  args: { variant: 'outline', 'aria-label': 'Toggle bookmark' },
+  render: (args) => (
+    <Toggle {...args}>
       <BookmarkSimpleIcon data-icon="inline-start" />
       Bookmark
     </Toggle>
@@ -102,15 +101,15 @@ export const WithIcon: Story = {
  * independently pressed toggles — each one tracks its own on/off state.
  */
 export const FormattingToolbar: Story = {
-  render: () => (
+  render: (args) => (
     <div className="flex items-center gap-1 rounded-md border border-input p-1">
-      <Toggle aria-label="Toggle bold" defaultPressed>
+      <Toggle {...args} aria-label="Toggle bold" defaultPressed>
         <TextBIcon />
       </Toggle>
-      <Toggle aria-label="Toggle italic">
+      <Toggle {...args} aria-label="Toggle italic">
         <TextItalicIcon />
       </Toggle>
-      <Toggle aria-label="Toggle underline">
+      <Toggle {...args} aria-label="Toggle underline">
         <TextUnderlineIcon />
       </Toggle>
     </div>
@@ -119,14 +118,10 @@ export const FormattingToolbar: Story = {
 
 /** Disabled default variant. */
 export const DisabledDefault: Story = {
-  render: () => <Toggle disabled>Default</Toggle>,
+  args: { disabled: true, children: 'Default' },
 };
 
 /** Disabled outline variant. */
 export const DisabledOutline: Story = {
-  render: () => (
-    <Toggle variant="outline" disabled>
-      Outline
-    </Toggle>
-  ),
+  args: { variant: 'outline', disabled: true, children: 'Outline' },
 };

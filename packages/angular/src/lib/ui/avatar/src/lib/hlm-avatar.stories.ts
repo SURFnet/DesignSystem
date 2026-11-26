@@ -56,9 +56,11 @@ export const Default: Story = {
 
 /** Compact size for dense lists and inline mentions. */
 export const Sm: Story = {
-  render: () => ({
+  args: { size: 'sm' },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-avatar size="sm" title="${avatarContract.docs.sizes['sm']}">
+      <hlm-avatar title="${avatarContract.docs.sizes['sm']}" ${argsToTemplate(args)}>
         <img hlmAvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace">
         <span hlmAvatarFallback>SM</span>
       </hlm-avatar>
@@ -68,9 +70,11 @@ export const Sm: Story = {
 
 /** Large size for profile headers and prominent placements. */
 export const Lg: Story = {
-  render: () => ({
+  args: { size: 'lg' },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-avatar size="lg" title="${avatarContract.docs.sizes['lg']}">
+      <hlm-avatar title="${avatarContract.docs.sizes['lg']}" ${argsToTemplate(args)}>
         <img hlmAvatarImage src="https://i.pravatar.cc/80?img=12" alt="Ada Lovelace">
         <span hlmAvatarFallback>LG</span>
       </hlm-avatar>
@@ -80,9 +84,10 @@ export const Lg: Story = {
 
 /** When the image fails to load, the initials fallback shows. */
 export const Fallback: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-avatar>
+      <hlm-avatar ${argsToTemplate(args)}>
         <img hlmAvatarImage src="https://example.com/does-not-exist.jpg" alt="Grace Hopper">
         <span hlmAvatarFallback>GH</span>
       </hlm-avatar>
@@ -92,18 +97,19 @@ export const Fallback: Story = {
 
 /** Stacked avatars with an overflow count. */
 export const Group: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <hlm-avatar-group>
-        <hlm-avatar>
+        <hlm-avatar ${argsToTemplate(args)}>
           <span hlmAvatarFallback>AL</span>
         </hlm-avatar>
 
-        <hlm-avatar>
+        <hlm-avatar ${argsToTemplate(args)}>
           <span hlmAvatarFallback>GH</span>
         </hlm-avatar>
 
-        <hlm-avatar>
+        <hlm-avatar ${argsToTemplate(args)}>
           <span hlmAvatarFallback>KJ</span>
         </hlm-avatar>
 

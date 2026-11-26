@@ -1,6 +1,7 @@
 import { WarningIcon } from '@phosphor-icons/react';
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { alertDialogContract } from '@surfnet/curve-contracts';
+import { alertDialogContract, type AlertDialogSizeName } from '@surfnet/curve-contracts';
 
 import { Button } from '@/components/ui/button';
 
@@ -17,6 +18,9 @@ import {
   AlertDialogTrigger,
 } from './alert-dialog';
 
+// `size` lives on `AlertDialogContent`, not the root, so widen the story args to expose it.
+type AlertDialogArgs = ComponentProps<typeof AlertDialog> & { size?: AlertDialogSizeName };
+
 const meta = {
   title: 'Components/AlertDialog',
   component: AlertDialog,
@@ -31,18 +35,33 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=22-307&p=f&t=vT3gKkMDSpQaeqci-0',
     },
   },
-} satisfies Meta<typeof AlertDialog>;
+  argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: alertDialogContract.props.sizes,
+      description: alertDialogContract.props.sizes
+        .map((size) => `\`${size}\` — ${alertDialogContract.docs.sizes[size]}`)
+        .join('\n\n'),
+      table: {
+        defaultValue: { summary: alertDialogContract.defaults.sizes },
+      },
+    },
+  },
+  args: {
+    size: alertDialogContract.defaults.sizes,
+  },
+} satisfies Meta<AlertDialogArgs>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<AlertDialogArgs>;
 
 /** The confirm/cancel pattern — interrupts the user before an irreversible action. */
 export const Default: Story = {
-  render: () => (
-    <AlertDialog>
+  render: ({ size, ...args }) => (
+    <AlertDialog {...args}>
       <AlertDialogTrigger render={<Button variant="outline">Show dialog</Button>} />
-      <AlertDialogContent>
+      <AlertDialogContent size={size}>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -61,10 +80,10 @@ export const Default: Story = {
 
 /** A destructive confirmation, using an icon in the media slot and a destructive action button. */
 export const WithMedia: Story = {
-  render: () => (
-    <AlertDialog>
+  render: ({ size, ...args }) => (
+    <AlertDialog {...args}>
       <AlertDialogTrigger render={<Button variant="destructive">Delete account</Button>} />
-      <AlertDialogContent>
+      <AlertDialogContent size={size}>
         <AlertDialogHeader>
           <AlertDialogMedia>
             <WarningIcon />
@@ -86,10 +105,11 @@ export const WithMedia: Story = {
 
 /** The compact (`sm`) content size — footer buttons switch to a two-column grid. */
 export const Small: Story = {
-  render: () => (
-    <AlertDialog>
+  args: { size: 'sm' },
+  render: ({ size, ...args }) => (
+    <AlertDialog {...args}>
       <AlertDialogTrigger render={<Button variant="outline">Leave page</Button>} />
-      <AlertDialogContent size="sm">
+      <AlertDialogContent size={size}>
         <AlertDialogHeader>
           <AlertDialogTitle>Leave without saving?</AlertDialogTitle>
           <AlertDialogDescription>Your changes will be lost.</AlertDialogDescription>

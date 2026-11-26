@@ -35,8 +35,8 @@ type Story = StoryObj<typeof meta>;
 
 /** A typical page trail with previous/next controls and an active page. */
 export const Default: Story = {
-  render: () => (
-    <Pagination>
+  render: (args) => (
+    <Pagination {...args}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious href="#" />
@@ -65,8 +65,8 @@ export const Default: Story = {
 
 /** A long page trail collapsed with ellipses on both ends. */
 export const ManyPages: Story = {
-  render: () => (
-    <Pagination>
+  render: (args) => (
+    <Pagination {...args}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious href="#" />

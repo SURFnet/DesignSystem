@@ -15,6 +15,7 @@ const meta = {
   title: 'Components/Breadcrumb',
   component: Breadcrumb,
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         component: breadcrumbContract.docs.description,

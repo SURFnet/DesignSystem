@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { comboboxContract } from '@surfnet/curve-contracts';
 
@@ -7,7 +7,11 @@ import { HlmCombobox } from './hlm-combobox';
 import { HlmComboboxImports } from '..';
 import { HlmFieldImports } from '../../../field/src';
 
-const meta: Meta<HlmCombobox> = {
+// `disabled` is contributed by the BrnCombobox host directive rather than HlmCombobox
+// itself, so widen the story args to expose it as a control.
+type ComboboxArgs = HlmCombobox & { disabled: boolean };
+
+const meta: Meta<ComboboxArgs> = {
   title: 'Components/Combobox',
   // Unverified: shadcn/ui WCAG 2.2 AA audit (thefrontkit, 2026).
   tags: ['a11y-gap'],
@@ -28,16 +32,23 @@ const meta: Meta<HlmCombobox> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=466-336&t=vT3gKkMDSpQaeqci-4',
     },
   },
+  argTypes: {
+    disabled: { control: 'boolean' },
+  },
+  args: {
+    disabled: false,
+  },
 };
 
 export default meta;
-type Story = StoryObj<HlmCombobox>;
+type Story = StoryObj<ComboboxArgs>;
 
 /** A searchable, filterable select — type to filter, with a trigger and clear button. */
 export const Default: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-			<hlm-combobox>
+			<hlm-combobox [disabled]="disabled">
 				<hlm-combobox-input placeholder="Search a country…" showClear class="w-64" />
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-empty>No countries found.</hlm-combobox-empty>
@@ -61,9 +72,10 @@ export const Default: Story = {
 
 /** Options organized into labelled groups, separated with a divider. */
 export const Grouped: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-			<hlm-combobox>
+			<hlm-combobox [disabled]="disabled">
 				<hlm-combobox-input placeholder="Search a framework…" class="w-64" />
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-empty>No frameworks found.</hlm-combobox-empty>
@@ -94,7 +106,7 @@ export const Grouped: Story = {
   selector: 'combobox-multiple-demo',
   imports: [HlmComboboxImports],
   template: `
-    <hlm-combobox-multiple [(value)]="values">
+    <hlm-combobox-multiple [(value)]="values" [disabled]="disabled()">
       <hlm-combobox-chips class="w-64">
         <ng-template hlmComboboxValues let-values>
           @for (value of values; track value) {
@@ -117,24 +129,28 @@ export const Grouped: Story = {
   `,
 })
 class ComboboxMultipleDemo {
+  public readonly disabled = input(false);
   public readonly values = signal(['TypeScript']);
 }
 
 /** Multi-select with removable chips. */
 export const Multiple: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     moduleMetadata: {
       imports: [ComboboxMultipleDemo],
     },
-    template: '<combobox-multiple-demo />',
+    template: '<combobox-multiple-demo [disabled]="disabled" />',
   }),
 };
 
 /** Disabled state — the input, trigger, and clear button all ignore interaction. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
-			<hlm-combobox disabled>
+			<hlm-combobox [disabled]="disabled">
 				<hlm-combobox-input placeholder="Search a country…" class="w-64" />
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-item value="Netherlands">Netherlands</hlm-combobox-item>
@@ -146,19 +162,19 @@ export const Disabled: Story = {
 
 /** A required combobox left empty: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  render: (args) => {
     const form = new FormGroup({
       country: new FormControl<string | null>(null, { validators: [Validators.required] }),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
 				<form [formGroup]="form" class="w-64">
 					<div hlmField>
 						<label hlmFieldLabel>Country</label>
-						<hlm-combobox formControlName="country">
+						<hlm-combobox formControlName="country" [disabled]="disabled">
 							<hlm-combobox-input placeholder="Search a country…" />
 							<hlm-combobox-content *hlmComboboxPortal>
 								<hlm-combobox-empty>No countries found.</hlm-combobox-empty>

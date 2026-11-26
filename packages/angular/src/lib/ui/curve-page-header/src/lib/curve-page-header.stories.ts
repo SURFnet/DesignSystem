@@ -150,7 +150,8 @@ export const WithBreadcrumbs: Story = story(`
 </curve-page-header>`);
 
 /** Default media variant — keeps the media as-is. */
-export const MediaDefault: Story = story(`
+export const MediaDefault: Story = {
+  ...story(`
 <curve-page-header>
   <div curvePageHeaderMedia variant="default">
     <ng-icon name="phosphorGlobe" size="2rem" aria-hidden="true" />
@@ -158,10 +159,13 @@ export const MediaDefault: Story = story(`
   <div curvePageHeaderContent>
     <h1 curvePageHeaderTitle>Default media</h1>
   </div>
-</curve-page-header>`);
+</curve-page-header>`),
+  tags: ['!autodocs'],
+};
 
 /** Icon media variant — adds a muted tile background. */
-export const MediaIcon: Story = story(`
+export const MediaIcon: Story = {
+  ...story(`
 <curve-page-header>
   <div curvePageHeaderMedia variant="icon">
     <ng-icon name="phosphorGlobe" aria-hidden="true" />
@@ -169,10 +173,13 @@ export const MediaIcon: Story = story(`
   <div curvePageHeaderContent>
     <h1 curvePageHeaderTitle>Icon media</h1>
   </div>
-</curve-page-header>`);
+</curve-page-header>`),
+  tags: ['!autodocs'],
+};
 
 /** Image media variant — crops a square thumbnail. */
-export const MediaImage: Story = story(`
+export const MediaImage: Story = {
+  ...story(`
 <curve-page-header>
   <div curvePageHeaderMedia variant="image">
     <img src="https://github.com/shadcn.png" alt="" />
@@ -180,7 +187,9 @@ export const MediaImage: Story = story(`
   <div curvePageHeaderContent>
     <h1 curvePageHeaderTitle>Image media</h1>
   </div>
-</curve-page-header>`);
+</curve-page-header>`),
+  tags: ['!autodocs'],
+};
 
 export const WithBadges: Story = story(`
 <curve-page-header>

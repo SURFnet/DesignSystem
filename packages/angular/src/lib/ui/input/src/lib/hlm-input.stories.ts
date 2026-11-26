@@ -88,6 +88,7 @@ export const Default: Story = {
 
 /** Common input types side by side. */
 export const Types: Story = {
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<div class="flex w-72 flex-col gap-3">
@@ -102,28 +103,33 @@ export const Types: Story = {
 
 /** Disabled state. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true, placeholder: 'Disabled' },
+  argTypes: { optional: { table: { disable: true } } },
+  render: (args) => ({
+    props: args,
     template: `
-    	<input aria-label="Email" disabled class="w-72" hlmInput placeholder="Disabled"/>
+    	<input aria-label="Email" class="w-72" hlmInput ${argsToTemplate(args, { exclude: ['optional'] })}/>
     `,
   }),
 };
 
 /** Invalid state: a required field left empty shows its error message. */
 export const Error: Story = {
-  render: () => {
+  args: { type: 'email', placeholder: '' },
+  argTypes: { disabled: { table: { disable: true } } },
+  render: (args) => {
     const form = new FormGroup({
       email: new FormControl('', { validators: [Validators.required, Validators.email] }),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
 				<form [formGroup]="form" class="w-full max-w-md">
-					<div hlmField class="w-72">
+					<div hlmField class="w-72" [optional]="optional">
 						<label hlmFieldLabel for="invalid-email">Email</label>
-						<input hlmInput formControlName="email" id="invalid-email" type="email" />
+						<input hlmInput formControlName="email" id="invalid-email" ${argsToTemplate(args, { include: ['type', 'placeholder'] })} />
 						<hlm-field-error />
 					</div>
 				</form>

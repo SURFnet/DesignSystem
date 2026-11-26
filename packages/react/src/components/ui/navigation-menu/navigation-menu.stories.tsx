@@ -26,6 +26,24 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=209-1883',
     },
   },
+  argTypes: {
+    align: {
+      control: 'select',
+      options: ['start', 'center', 'end'],
+      description: 'Where the popup is aligned relative to its trigger.',
+      table: { defaultValue: { summary: 'start' } },
+    },
+    orientation: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: 'Layout direction of the menu and its arrow-key navigation.',
+      table: { defaultValue: { summary: 'horizontal' } },
+    },
+  },
+  args: {
+    align: 'start',
+    orientation: 'horizontal',
+  },
 } satisfies Meta<typeof NavigationMenu>;
 
 export default meta;
@@ -81,8 +99,8 @@ function ListItem({
  * item styled with `navigationMenuTriggerStyle`.
  */
 export const Default: Story = {
-  render: () => (
-    <NavigationMenu>
+  render: (args) => (
+    <NavigationMenu {...args}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
@@ -133,8 +151,8 @@ export const Default: Story = {
 
 /** Sub-items paired with a leading icon. */
 export const WithIcon: Story = {
-  render: () => (
-    <NavigationMenu>
+  render: (args) => (
+    <NavigationMenu {...args}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Dashboard</NavigationMenuTrigger>
@@ -164,8 +182,8 @@ export const WithIcon: Story = {
 
 /** A row of plain links with no dropdown content, styled with `navigationMenuTriggerStyle`. */
 export const SimpleLinks: Story = {
-  render: () => (
-    <NavigationMenu>
+  render: (args) => (
+    <NavigationMenu {...args}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()} active>
@@ -189,9 +207,10 @@ export const SimpleLinks: Story = {
 
 /** The popup is anchored to the start of the trigger. */
 export const AlignStart: Story = {
-  render: () => (
+  args: { align: 'start' },
+  render: (args) => (
     <div className="flex flex-col items-center gap-2">
-      <NavigationMenu align="start">
+      <NavigationMenu {...args}>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
@@ -212,9 +231,10 @@ export const AlignStart: Story = {
 
 /** The popup is centered relative to the trigger. */
 export const AlignCenter: Story = {
-  render: () => (
+  args: { align: 'center' },
+  render: (args) => (
     <div className="flex flex-col items-center gap-2">
-      <NavigationMenu align="center">
+      <NavigationMenu {...args}>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
@@ -235,9 +255,10 @@ export const AlignCenter: Story = {
 
 /** The popup is anchored to the end of the trigger. */
 export const AlignEnd: Story = {
-  render: () => (
+  args: { align: 'end' },
+  render: (args) => (
     <div className="flex flex-col items-center gap-2">
-      <NavigationMenu align="end">
+      <NavigationMenu {...args}>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
@@ -258,8 +279,9 @@ export const AlignEnd: Story = {
 
 /** The `orientation` prop switches roving focus to the up/down arrow keys and stacks the list. */
 export const Vertical: Story = {
-  render: () => (
-    <NavigationMenu orientation="vertical">
+  args: { orientation: 'vertical' },
+  render: (args) => (
+    <NavigationMenu {...args}>
       <NavigationMenuList className="w-40">
         <NavigationMenuItem>
           <NavigationMenuTrigger className="w-full">Menu</NavigationMenuTrigger>

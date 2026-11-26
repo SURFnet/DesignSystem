@@ -22,6 +22,7 @@ const meta = {
   title: 'Components/InputGroup',
   component: InputGroup,
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         component: inputGroupContract.docs.description,

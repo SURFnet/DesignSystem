@@ -64,6 +64,7 @@ export const Default: Story = {
 
 /** Common input types side by side. */
 export const Types: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex w-72 flex-col gap-3">
       <Input type="text" placeholder="Text" />
@@ -81,5 +82,8 @@ export const Disabled: Story = {
 
 /** Invalid state, driven by `aria-invalid`. */
 export const Invalid: Story = {
-  render: () => <Input aria-invalid placeholder="Invalid value" className="w-72" />,
+  args: { placeholder: 'Invalid value' },
+  argTypes: { optional: { table: { disable: true } } },
+  // No wrapping Field here, so leave `optional` off the input.
+  render: ({ optional: _optional, ...args }) => <Input {...args} aria-invalid className="w-72" />,
 };

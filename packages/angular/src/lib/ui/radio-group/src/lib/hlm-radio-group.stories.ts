@@ -74,12 +74,13 @@ export const Default: Story = {
  * target for its item.
  */
 export const InFieldset: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<fieldset hlmFieldSet class="w-80">
 				<legend hlmFieldLegend>Notification preference</legend>
 				<p hlmFieldDescription>Choose how you'd like to receive updates.</p>
-				<hlm-radio-group value="email">
+				<hlm-radio-group value="email" ${argsToTemplate(args)}>
 					<div class="flex items-center gap-3">
 						<hlm-radio value="email" inputId="notif-email">
 							<hlm-radio-indicator indicator />
@@ -111,11 +112,12 @@ export const InFieldset: Story = {
  * radio gets the native `required`.
  */
 export const OptionalFieldset: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<fieldset hlmFieldSet optional class="w-80">
 				<legend hlmFieldLegend>Preferred contact time</legend>
-				<hlm-radio-group>
+				<hlm-radio-group ${argsToTemplate(args)}>
 					<div class="flex items-center gap-3">
 						<hlm-radio value="morning" inputId="time-morning">
 							<hlm-radio-indicator indicator />
@@ -140,11 +142,12 @@ export const OptionalFieldset: Story = {
  * background. The group is named by a visible `label[hlmLabel]` via `aria-labelledby`.
  */
 export const ChoiceCard: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="flex max-w-sm flex-col gap-3">
 				<label hlmLabel id="plan-label">Plan</label>
-				<hlm-radio-group value="plus" aria-labelledby="plan-label">
+				<hlm-radio-group value="plus" aria-labelledby="plan-label" ${argsToTemplate(args)}>
 					<label hlmFieldLabel for="plus-plan">
 						<div hlmField orientation="horizontal">
 							<div hlmFieldContent>
@@ -201,7 +204,9 @@ export const ChoiceCard: Story = {
 
 /** Disabling a single item versus disabling the whole group. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="flex flex-col gap-6">
 				<hlm-radio-group value="comfortable" class="w-fit">
@@ -218,7 +223,7 @@ export const Disabled: Story = {
 						<label hlmLabel for="d2">Comfortable</label>
 					</div>
 				</hlm-radio-group>
-				<hlm-radio-group value="comfortable" disabled class="w-fit">
+				<hlm-radio-group value="comfortable" ${argsToTemplate(args)} class="w-fit">
 					<div class="flex items-center gap-3">
 						<hlm-radio value="default" inputId="d3">
 							<hlm-radio-indicator indicator />
@@ -239,9 +244,14 @@ export const Disabled: Story = {
 
 /** Invalid state via a required reactive-form control, pre-touched so the error message shows immediately. */
 export const Invalid: Story = {
-  render: () => {
+  render: (args) => {
+    // A reactive-form control owns its disabled state, so feed the `disabled` arg in here
+    // instead of binding it on the element.
     const form = new FormGroup({
-      plan: new FormControl('', { validators: [Validators.required] }),
+      plan: new FormControl(
+        { value: '', disabled: !!args.disabled },
+        { validators: [Validators.required] },
+      ),
     });
     form.markAllAsTouched();
 

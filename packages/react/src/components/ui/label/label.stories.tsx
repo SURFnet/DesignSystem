@@ -33,9 +33,9 @@ export const Default: Story = {};
 
 /** A label wired to an input through `htmlFor`. */
 export const WithInput: Story = {
-  render: () => (
+  render: (args) => (
     <div className="flex w-72 flex-col gap-2">
-      <Label htmlFor="email">Email</Label>
+      <Label htmlFor="email" {...args} />
       <Input id="email" type="email" placeholder="you@surf.nl" />
     </div>
   ),

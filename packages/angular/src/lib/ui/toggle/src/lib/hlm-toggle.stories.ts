@@ -76,46 +76,34 @@ export default meta;
 
 type Story = StoryObj<ToggleArgs>;
 
+const renderToggle =
+  (content: string, attrs = ''): Story['render'] =>
+  (args) => ({
+    props: args,
+    template: `<button hlmToggle ${argsToTemplate(args)}${attrs}>${content}</button>`,
+  });
+
 /** The default toggle — rendered with the default args; tweak them via the controls. */
 export const Default: Story = {
-  args: { disabled: false },
-  render: (args) => ({
-    props: args,
-    template: `<button hlmToggle ${argsToTemplate(args)}>Toggle</button>`,
-  }),
+  render: renderToggle('Toggle'),
 };
 
 /** Outline variant — bordered, transparent fill. */
 export const Outline: Story = {
-  render: () => ({
-    template: `
-      <button hlmToggle variant="outline" title="${toggleContract.docs.variants.outline}">
-        Outline
-      </button>
-    `,
-  }),
+  args: { variant: 'outline' },
+  render: renderToggle('Outline', ` title="${toggleContract.docs.variants.outline}"`),
 };
 
 /** Small size — compact toggle for toolbars. */
 export const Sm: Story = {
-  render: () => ({
-    template: `
-      <button hlmToggle size="sm" title="${toggleContract.docs.sizes.sm}" state="on">
-        Small
-      </button>
-    `,
-  }),
+  args: { size: 'sm' },
+  render: renderToggle('Small', ` title="${toggleContract.docs.sizes.sm}" state="on"`),
 };
 
 /** Large size — prominent controls. */
 export const Lg: Story = {
-  render: () => ({
-    template: `
-      <button hlmToggle size="lg" title="${toggleContract.docs.sizes.lg}" state="on">
-        Large
-      </button>
-    `,
-  }),
+  args: { size: 'lg' },
+  render: renderToggle('Large', ` title="${toggleContract.docs.sizes.lg}" state="on"`),
 };
 
 /**
@@ -123,13 +111,14 @@ export const Lg: Story = {
  * `data-icon="inline-end"` so the toggle tightens the padding on that side.
  */
 export const WithIcon: Story = {
-  render: () => ({
-    template: `
-      <button hlmToggle variant="outline" aria-label="Toggle bookmark">
+  args: { variant: 'outline' },
+  render: renderToggle(
+    `
         <ng-icon name="phosphorBookmarkSimple" data-icon="inline-start" />
         Bookmark
-      </button>`,
-  }),
+      `,
+    ` aria-label="Toggle bookmark"`,
+  ),
 };
 
 /**
@@ -137,16 +126,17 @@ export const WithIcon: Story = {
  * independently pressed toggles — each one tracks its own on/off state.
  */
 export const FormattingToolbar: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex items-center gap-1 rounded-md border border-input p-1">
-        <button hlmToggle aria-label="Toggle bold" state="on">
+        <button hlmToggle ${argsToTemplate(args)} aria-label="Toggle bold" state="on">
           <ng-icon name="phosphorTextB" />
         </button>
-        <button hlmToggle aria-label="Toggle italic">
+        <button hlmToggle ${argsToTemplate(args)} aria-label="Toggle italic">
           <ng-icon name="phosphorTextItalic" />
         </button>
-        <button hlmToggle aria-label="Toggle underline">
+        <button hlmToggle ${argsToTemplate(args)} aria-label="Toggle underline">
           <ng-icon name="phosphorTextUnderline" />
         </button>
       </div>`,
@@ -155,18 +145,12 @@ export const FormattingToolbar: Story = {
 
 /** Disabled default variant. */
 export const DisabledDefault: Story = {
-  render: () => ({
-    template: `
-      <button hlmToggle disabled>Default</button>
-    `,
-  }),
+  args: { disabled: true },
+  render: renderToggle('Default'),
 };
 
 /** Disabled outline variant. */
 export const DisabledOutline: Story = {
-  render: () => ({
-    template: `
-      <button hlmToggle variant="outline" disabled>Outline</button>
-    `,
-  }),
+  args: { variant: 'outline', disabled: true },
+  render: renderToggle('Outline'),
 };

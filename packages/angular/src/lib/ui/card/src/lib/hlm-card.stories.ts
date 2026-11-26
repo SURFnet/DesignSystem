@@ -62,9 +62,11 @@ export const Default: Story = {
 
 /** Compact (`sm`) card with tighter spacing. */
 export const Small: Story = {
-  render: () => ({
+  args: { size: 'sm' },
+  render: (args) => ({
+    props: args,
     template: `
-      <section hlmCard size="sm" class="w-80">
+      <section hlmCard class="w-80" ${argsToTemplate(args)}>
         <div hlmCardHeader>
           <h3 hlmCardTitle>Small card</h3>
           <p hlmCardDescription>Compact spacing variant.</p>
@@ -77,9 +79,10 @@ export const Small: Story = {
 
 /** Card with an action slot in the header (e.g. a menu trigger). */
 export const WithHeaderAction: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <section hlmCard class='w-80'>
+      <section hlmCard class='w-80' ${argsToTemplate(args)}>
         <div hlmCardHeader>
           <h3 hlmCardTitle>With action</h3>
           <p hlmCardDescription>
@@ -97,9 +100,10 @@ export const WithHeaderAction: Story = {
 
 /** Card with only a content area — no header or footer. */
 export const ContentOnly: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <section hlmCard class='w-80'>
+      <section hlmCard class='w-80' ${argsToTemplate(args)}>
         <p hlmCardContent class="text-muted-foreground">
           Just a card with content and no header or footer.
         </p>

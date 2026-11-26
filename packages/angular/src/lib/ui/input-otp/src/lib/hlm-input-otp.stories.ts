@@ -1,14 +1,19 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
-import { inputOtpContract } from '@surfnet/curve-contracts';
+import { inputOtpContract, type InputOtpVariantName } from '@surfnet/curve-contracts';
 import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
 
 import { HlmInputOtp, HlmInputOtpImports } from '..';
 import { HlmButton, HlmFieldImports } from '../../../../../public-api';
 
 // `maxLength`/`disabled` are contributed by the BrnInputOtp host directive rather than
-// HlmInputOtp itself, so widen the story args to expose them as controls.
-type InputOtpArgs = HlmInputOtp & { maxLength: number; disabled: boolean };
+// HlmInputOtp itself, so widen the story args to expose them as controls. `variant` is a
+// story arg for the `hlm-input-otp-group`s inside.
+type InputOtpArgs = HlmInputOtp & {
+  maxLength: number;
+  disabled: boolean;
+  variant: InputOtpVariantName;
+};
 
 const meta: Meta<InputOtpArgs> = {
   title: 'Components/InputOTP',
@@ -38,23 +43,41 @@ const meta: Meta<InputOtpArgs> = {
       control: 'text',
       description: 'Screen-reader announcement when every slot is filled, including after paste.',
     },
+    variant: {
+      control: 'inline-radio',
+      options: [...inputOtpContract.props.variants],
+      description: inputOtpContract.props.variants
+        .map((variant) => `\`${variant}\` — ${inputOtpContract.docs.variants[variant]}`)
+        .join('\n\n'),
+      table: {
+        type: {
+          summary: inputOtpContract.props.variants.join(' | '),
+        },
+        defaultValue: { summary: inputOtpContract.defaults.variants },
+      },
+    },
   },
   args: {
     maxLength: 6,
     disabled: false,
+    variant: inputOtpContract.defaults.variants,
   },
 };
 
 export default meta;
 type Story = StoryObj<InputOtpArgs>;
 
-/** The default OTP input — tweak `maxLength`/`disabled` via the controls. */
+/** Bind the args that belong on `brn-input-otp`; `variant` goes on the groups instead. */
+const otpBindings = (args: Parameters<typeof argsToTemplate>[0], exclude: string[] = []) =>
+  argsToTemplate(args, { exclude: ['variant', ...exclude] });
+
+/** The default OTP input — tweak `maxLength`/`disabled`/`variant` via the controls. */
 export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <brn-input-otp hlmInputOtp aria-label="One-time password" ${argsToTemplate(args)}>
-        <hlm-input-otp-group>
+      <brn-input-otp hlmInputOtp aria-label="One-time password" ${otpBindings(args)}>
+        <hlm-input-otp-group [variant]="variant">
           <hlm-input-otp-slot index="0" />
           <hlm-input-otp-slot index="1" />
           <hlm-input-otp-slot index="2" />
@@ -69,16 +92,17 @@ export const Default: Story = {
 
 /** Slots split into two groups with a separator, the common six-digit layout. */
 export const WithSeparator: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <brn-input-otp hlmInputOtp aria-label="One-time password" maxLength="6">
-        <hlm-input-otp-group>
+      <brn-input-otp hlmInputOtp aria-label="One-time password" ${otpBindings(args)}>
+        <hlm-input-otp-group [variant]="variant">
           <hlm-input-otp-slot index="0" />
           <hlm-input-otp-slot index="1" />
           <hlm-input-otp-slot index="2" />
         </hlm-input-otp-group>
         <hlm-input-otp-separator />
-        <hlm-input-otp-group>
+        <hlm-input-otp-group [variant]="variant">
           <hlm-input-otp-slot index="3" />
           <hlm-input-otp-slot index="4" />
           <hlm-input-otp-slot index="5" />
@@ -93,11 +117,13 @@ export const WithSeparator: Story = {
  * each slot its own rounded border, with a gap between slots.
  */
 export const WithSpacing: Story = {
-  render: () => ({
+  args: { variant: 'with-spacing' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex flex-col gap-4">
-        <brn-input-otp hlmInputOtp aria-label="One-time password" maxLength="6">
-          <hlm-input-otp-group variant="with-spacing">
+        <brn-input-otp hlmInputOtp aria-label="One-time password" ${otpBindings(args)}>
+          <hlm-input-otp-group [variant]="variant">
             <hlm-input-otp-slot index="0" />
             <hlm-input-otp-slot index="1" />
             <hlm-input-otp-slot index="2" />
@@ -106,8 +132,8 @@ export const WithSpacing: Story = {
             <hlm-input-otp-slot index="5" />
           </hlm-input-otp-group>
         </brn-input-otp>
-        <brn-input-otp hlmInputOtp aria-label="One-time password, disabled" value="123456" disabled maxLength="6">
-          <hlm-input-otp-group variant="with-spacing">
+        <brn-input-otp hlmInputOtp aria-label="One-time password, disabled" value="123456" disabled ${otpBindings(args, ['disabled'])}>
+          <hlm-input-otp-group [variant]="variant">
             <hlm-input-otp-slot index="0" />
             <hlm-input-otp-slot index="1" />
             <hlm-input-otp-slot index="2" />
@@ -123,16 +149,18 @@ export const WithSpacing: Story = {
 
 /** Disabled state, pre-filled with a value. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
-      <brn-input-otp hlmInputOtp aria-label="One-time password" value="123456" disabled maxLength="6">
-        <hlm-input-otp-group>
+      <brn-input-otp hlmInputOtp aria-label="One-time password" value="123456" ${otpBindings(args)}>
+        <hlm-input-otp-group [variant]="variant">
           <hlm-input-otp-slot index="0" />
           <hlm-input-otp-slot index="1" />
           <hlm-input-otp-slot index="2" />
         </hlm-input-otp-group>
         <hlm-input-otp-separator />
-        <hlm-input-otp-group>
+        <hlm-input-otp-group [variant]="variant">
           <hlm-input-otp-slot index="3" />
           <hlm-input-otp-slot index="4" />
           <hlm-input-otp-slot index="5" />
@@ -147,8 +175,10 @@ export const Disabled: Story = {
  * reactive form, that enables its submit button once all slots are filled.
  */
 export const VerificationForm: Story = {
-  render: () => ({
+  argTypes: { disabled: { table: { disable: true } } },
+  render: (args) => ({
     props: {
+      ...args,
       form: new FormGroup({
         otp: new FormControl(''),
       }),
@@ -160,14 +190,14 @@ export const VerificationForm: Story = {
       <form [formGroup]="form" class="w-72">
         <div hlmField>
           <label hlmFieldLabel for="otp">Verification code</label>
-          <brn-input-otp hlmInputOtp inputId="otp" maxLength="6" formControlName="otp">
-            <hlm-input-otp-group>
+          <brn-input-otp hlmInputOtp inputId="otp" ${otpBindings(args, ['disabled'])} formControlName="otp">
+            <hlm-input-otp-group [variant]="variant">
               <hlm-input-otp-slot index="0" />
               <hlm-input-otp-slot index="1" />
               <hlm-input-otp-slot index="2" />
             </hlm-input-otp-group>
             <hlm-input-otp-separator />
-            <hlm-input-otp-group>
+            <hlm-input-otp-group [variant]="variant">
               <hlm-input-otp-slot index="3" />
               <hlm-input-otp-slot index="4" />
               <hlm-input-otp-slot index="5" />
@@ -175,7 +205,7 @@ export const VerificationForm: Story = {
           </brn-input-otp>
           <p hlmFieldDescription>Enter the 6-digit code sent to your email.</p>
         </div>
-        <button hlmBtn type="submit" class="mt-4" [disabled]="(form.value.otp?.length ?? 0) < 6">
+        <button hlmBtn type="submit" class="mt-4" [disabled]="(form.value.otp?.length ?? 0) < maxLength">
           Verify
         </button>
       </form>
@@ -185,20 +215,21 @@ export const VerificationForm: Story = {
 
 /** A required code left empty: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  argTypes: { disabled: { table: { disable: true } } },
+  render: (args) => {
     const form = new FormGroup({
       code: new FormControl('', { validators: [Validators.required] }),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
 				<form [formGroup]="form">
 					<div hlmField>
 						<label hlmFieldLabel>Verification code</label>
-						<brn-input-otp hlmInputOtp maxLength="6" formControlName="code" aria-label="Verification code">
-							<hlm-input-otp-group>
+						<brn-input-otp hlmInputOtp ${otpBindings(args, ['disabled'])} formControlName="code" aria-label="Verification code">
+							<hlm-input-otp-group [variant]="variant">
 								<hlm-input-otp-slot index="0" />
 								<hlm-input-otp-slot index="1" />
 								<hlm-input-otp-slot index="2" />

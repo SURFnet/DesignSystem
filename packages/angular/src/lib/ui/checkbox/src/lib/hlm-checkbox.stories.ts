@@ -25,6 +25,12 @@ const meta: Meta<HlmCheckbox> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=18692-39410&t=vT3gKkMDSpQaeqci-4',
     },
   },
+  argTypes: {
+    disabled: { control: 'boolean' },
+  },
+  args: {
+    disabled: false,
+  },
 };
 
 export default meta;
@@ -32,7 +38,6 @@ type Story = StoryObj<HlmCheckbox>;
 
 /** A controlled checkbox driven by Angular state — the typical usage pattern. */
 export const Default: Story = {
-  args: { disabled: false },
   render: (args) => ({
     props: args,
     template: `
@@ -43,10 +48,11 @@ export const Default: Story = {
 
 /** A checkbox paired with a clickable label. */
 export const WithLabel: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-checkbox checked/>
+        <hlm-checkbox checked [disabled]="disabled" />
         Accept terms and conditions
       </label>
     `,
@@ -55,10 +61,11 @@ export const WithLabel: Story = {
 
 /** An unchecked checkbox. */
 export const Unchecked: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-checkbox/>
+        <hlm-checkbox [disabled]="disabled" />
         Unchecked
       </label>
     `,
@@ -67,10 +74,11 @@ export const Unchecked: Story = {
 
 /** A checked checkbox. */
 export const Checked: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-checkbox checked/>
+        <hlm-checkbox checked [disabled]="disabled" />
         Checked
       </label>
     `,
@@ -79,10 +87,11 @@ export const Checked: Story = {
 
 /** An indeterminate checkbox. */
 export const Indeterminate: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-checkbox indeterminate="true"/>
+        <hlm-checkbox indeterminate="true" [disabled]="disabled" />
         Indeterminate
       </label>
     `,
@@ -91,10 +100,12 @@ export const Indeterminate: Story = {
 
 /** A disabled unchecked checkbox. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-checkbox disabled/>
+        <hlm-checkbox [disabled]="disabled" />
         Disabled
       </label>
     `,
@@ -103,10 +114,12 @@ export const Disabled: Story = {
 
 /** A disabled checked checkbox. */
 export const DisabledChecked: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-checkbox checked disabled/>
+        <hlm-checkbox checked [disabled]="disabled" />
         Disabled checked
       </label>
     `,
@@ -115,18 +128,18 @@ export const DisabledChecked: Story = {
 
 /** Invalid, such as a required checkbox left unchecked */
 export const Invalid: Story = {
-  render: () => {
+  render: (args) => {
     const form = new FormGroup({
       terms: new FormControl(false, { validators: [Validators.requiredTrue] }),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
         <form [formGroup]="form">
           <div hlmField orientation="horizontal">
-            <hlm-checkbox inputId="invalid-terms" formControlName="terms" />
+            <hlm-checkbox inputId="invalid-terms" formControlName="terms" [disabled]="disabled" />
             <div hlmFieldContent>
               <label hlmFieldLabel for="invalid-terms">I accept the terms</label>
               <hlm-field-error />

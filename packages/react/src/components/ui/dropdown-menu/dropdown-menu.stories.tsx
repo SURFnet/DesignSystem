@@ -20,6 +20,7 @@ const meta = {
   title: 'Components/DropdownMenu',
   component: DropdownMenu,
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         component: dropdownMenuContract.docs.description,

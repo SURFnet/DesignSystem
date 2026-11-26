@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { switchContract } from '@surfnet/curve-contracts';
 
@@ -58,62 +58,47 @@ export const Default: Story = {
   },
 };
 
+const renderLabelled =
+  (label: string, extra: Partial<ComponentProps<typeof Switch>> = {}): Story['render'] =>
+  (args) => (
+    <Label className="gap-2">
+      <Switch {...args} {...extra} />
+      {label}
+    </Label>
+  );
+
 /** A switch paired with a clickable label. */
 export const WithLabel: Story = {
-  render: () => (
-    <Label className="gap-2">
-      <Switch defaultChecked />
-      Enable notifications
-    </Label>
-  ),
+  render: renderLabelled('Enable notifications', { defaultChecked: true }),
 };
 
 /** Small size — compact forms and toolbars. */
 export const Sm: Story = {
-  render: () => (
-    <Label className="gap-2">
-      <Switch size="sm" defaultChecked title={switchContract.docs.sizes.sm} />
-      Small switch
-    </Label>
-  ),
+  args: { size: 'sm' },
+  render: renderLabelled('Small switch', {
+    defaultChecked: true,
+    title: switchContract.docs.sizes.sm,
+  }),
 };
 
 /** An unchecked switch. */
 export const Unchecked: Story = {
-  render: () => (
-    <Label className="gap-2">
-      <Switch />
-      Unchecked
-    </Label>
-  ),
+  render: renderLabelled('Unchecked'),
 };
 
 /** A checked switch. */
 export const Checked: Story = {
-  render: () => (
-    <Label className="gap-2">
-      <Switch defaultChecked />
-      Checked
-    </Label>
-  ),
+  render: renderLabelled('Checked', { defaultChecked: true }),
 };
 
 /** A disabled unchecked switch. */
 export const Disabled: Story = {
-  render: () => (
-    <Label className="gap-2">
-      <Switch disabled />
-      Disabled
-    </Label>
-  ),
+  args: { disabled: true },
+  render: renderLabelled('Disabled'),
 };
 
 /** A disabled checked switch. */
 export const DisabledChecked: Story = {
-  render: () => (
-    <Label className="gap-2">
-      <Switch defaultChecked disabled />
-      Disabled checked
-    </Label>
-  ),
+  args: { disabled: true },
+  render: renderLabelled('Disabled checked', { defaultChecked: true }),
 };

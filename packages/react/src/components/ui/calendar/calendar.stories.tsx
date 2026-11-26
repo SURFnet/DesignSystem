@@ -55,10 +55,11 @@ export const Default: Story = {};
 
 /** Single-date selection, the most common mode, driven by React state. */
 export const Single: Story = {
-  render: function SingleCalendar() {
+  render: function SingleCalendar(args) {
     const [date, setDate] = React.useState<Date | undefined>(new Date());
     return (
       <Calendar
+        {...args}
         mode="single"
         selected={date}
         onSelect={setDate}
@@ -70,10 +71,11 @@ export const Single: Story = {
 
 /** Multiple, individually toggled dates. */
 export const Multiple: Story = {
-  render: function MultipleCalendar() {
+  render: function MultipleCalendar(args) {
     const [dates, setDates] = React.useState<Date[] | undefined>(undefined);
     return (
       <Calendar
+        {...args}
         mode="multiple"
         selected={dates}
         onSelect={setDates}
@@ -85,10 +87,11 @@ export const Multiple: Story = {
 
 /** A contiguous range with a start and end date. */
 export const Range: Story = {
-  render: function RangeCalendar() {
+  render: function RangeCalendar(args) {
     const [range, setRange] = React.useState<DateRange | undefined>(undefined);
     return (
       <Calendar
+        {...args}
         mode="range"
         selected={range}
         onSelect={setRange}
@@ -100,10 +103,11 @@ export const Range: Story = {
 
 /** Two months side by side — the layout typically used for a date-range picker. */
 export const TwoMonths: Story = {
-  render: function TwoMonthsCalendar() {
+  render: function TwoMonthsCalendar(args) {
     const [range, setRange] = React.useState<DateRange | undefined>(undefined);
     return (
       <Calendar
+        {...args}
         mode="range"
         numberOfMonths={2}
         selected={range}
@@ -116,12 +120,13 @@ export const TwoMonths: Story = {
 
 /** Dropdown month/year selectors instead of a static caption — useful for jumping across years (e.g. a birthdate field). */
 export const DropdownCaption: Story = {
-  render: function DropdownCaptionCalendar() {
+  args: { captionLayout: 'dropdown' },
+  render: function DropdownCaptionCalendar(args) {
     const [date, setDate] = React.useState<Date | undefined>(new Date());
     return (
       <Calendar
+        {...args}
         mode="single"
-        captionLayout="dropdown"
         selected={date}
         onSelect={setDate}
         className="rounded-md ring-1 ring-foreground/10"
@@ -132,10 +137,11 @@ export const DropdownCaption: Story = {
 
 /** Weekends disabled via a day-of-week matcher — disabled days cannot be selected. */
 export const DisabledDates: Story = {
-  render: function DisabledDatesCalendar() {
+  render: function DisabledDatesCalendar(args) {
     const [date, setDate] = React.useState<Date | undefined>(undefined);
     return (
       <Calendar
+        {...args}
         mode="single"
         selected={date}
         onSelect={setDate}
@@ -148,10 +154,11 @@ export const DisabledDates: Story = {
 
 /** A footer acting as a live region, announcing the current selection — recommended for accessibility. */
 export const WithFooter: Story = {
-  render: function WithFooterCalendar() {
+  render: function WithFooterCalendar(args) {
     const [date, setDate] = React.useState<Date | undefined>(undefined);
     return (
       <Calendar
+        {...args}
         mode="single"
         selected={date}
         onSelect={setDate}
@@ -167,12 +174,12 @@ export const WithFooter: Story = {
  * `data-slot="card-content"` as transparent, so it blends with the card background.
  */
 export const InCard: Story = {
-  render: function CalendarInCard() {
+  render: function CalendarInCard(args) {
     const [date, setDate] = React.useState<Date | undefined>(new Date());
     return (
       <Card className="w-fit p-0">
         <CardContent className="px-0">
-          <Calendar mode="single" selected={date} onSelect={setDate} />
+          <Calendar {...args} mode="single" selected={date} onSelect={setDate} />
         </CardContent>
       </Card>
     );
@@ -184,7 +191,7 @@ export const InCard: Story = {
  * content). See the dedicated `DatePicker` component for a ready-made version of this pattern.
  */
 export const InPopover: Story = {
-  render: function CalendarInPopover() {
+  render: function CalendarInPopover(args) {
     const [date, setDate] = React.useState<Date | undefined>(undefined);
     return (
       <Popover>
@@ -194,7 +201,7 @@ export const InPopover: Story = {
           {date ? date.toLocaleDateString() : 'Pick a date'}
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <Calendar mode="single" selected={date} onSelect={setDate} />
+          <Calendar {...args} mode="single" selected={date} onSelect={setDate} />
         </PopoverContent>
       </Popover>
     );

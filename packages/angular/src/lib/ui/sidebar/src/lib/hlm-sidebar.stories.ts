@@ -6,9 +6,10 @@ import {
   phosphorSquaresFour,
   phosphorUser,
 } from '@ng-icons/phosphor-icons/regular';
-import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 import { sidebarContract, sidebarMenuButtonContract } from '@surfnet/curve-contracts';
 import { HlmSidebar, HlmSidebarImports } from '..';
+import type { SidebarVariant as SidebarVariantName } from './hlm-sidebar.service';
 
 const meta: Meta<HlmSidebar> = {
   title: 'Components/Sidebar',
@@ -30,6 +31,32 @@ const meta: Meta<HlmSidebar> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=25594-28607',
     },
   },
+  argTypes: {
+    side: {
+      control: 'inline-radio',
+      options: ['left', 'right'],
+      description: 'Which edge of the screen the sidebar sits on.',
+      table: { defaultValue: { summary: 'left' } },
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['sidebar', 'floating', 'inset'],
+      description: 'Visual style: flush against the edge, floating, or inset next to the content.',
+      table: { defaultValue: { summary: 'sidebar' } },
+    },
+    collapsible: {
+      control: 'inline-radio',
+      options: ['offcanvas', 'icon', 'none'],
+      description:
+        'How the sidebar collapses: slide off screen, shrink to an icon rail, or not at all.',
+      table: { defaultValue: { summary: 'offcanvas' } },
+    },
+  },
+  args: {
+    side: 'left',
+    variant: 'sidebar',
+    collapsible: 'offcanvas',
+  },
 };
 
 export default meta;
@@ -41,7 +68,7 @@ type Story = StoryObj<HlmSidebar>;
   providers: [provideIcons({ phosphorGear, phosphorGauge, phosphorSquaresFour, phosphorUser })],
   template: `
     <div hlmSidebarWrapper>
-      <hlm-sidebar>
+      <hlm-sidebar [side]="side" [variant]="variant" [collapsible]="collapsible">
         <div hlmSidebarHeader>
           <div hlmSidebarMenu>
             <div hlmSidebarMenuItem>
@@ -101,6 +128,10 @@ type Story = StoryObj<HlmSidebar>;
   `,
 })
 class Sidebar {
+  @Input() side: 'left' | 'right' = 'left';
+  @Input() variant: SidebarVariantName = 'sidebar';
+  @Input() collapsible: 'offcanvas' | 'icon' | 'none' = 'offcanvas';
+
   public readonly nav = [
     { title: 'Dashboard', icon: 'phosphorGauge', active: true },
     { title: 'Apps', icon: 'phosphorSquaresFour' },
@@ -110,11 +141,13 @@ class Sidebar {
 
 /** A full sidebar with a collapsible icon rail, grouped menu, submenu, and trigger. */
 export const Default: Story = {
-  render: () => ({
+  args: { collapsible: 'icon' },
+  render: (args) => ({
     moduleMetadata: {
       imports: [Sidebar],
     },
-    template: '<sidebar/>',
+    props: args,
+    template: `<sidebar ${argsToTemplate(args)} />`,
   }),
 };
 
@@ -171,6 +204,7 @@ class SidebarVariant {
 
 /** The `SidebarMenuButton` variants and sizes declared in the contract. */
 export const MenuButtonVariants: Story = {
+  parameters: { controls: { disable: true } },
   render: () => ({
     moduleMetadata: {
       imports: [SidebarVariant],

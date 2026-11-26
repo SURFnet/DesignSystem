@@ -71,9 +71,11 @@ export const Default: Story = {
 
 /** Info variant with info icon. */
 export const Info: Story = {
-  render: () => ({
+  args: { variant: 'info' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmAlert variant="info" class="w-96">
+      <div hlmAlert ${argsToTemplate(args)} class="w-96">
         <ng-icon name="phosphorInfo" />
         <h5 hlmAlertTitle>Notification</h5>
         <p hlmAlertDescription>New features are available in your dashboard.</p>
@@ -84,9 +86,11 @@ export const Info: Story = {
 
 /** Success variant with check icon. */
 export const Success: Story = {
-  render: () => ({
+  args: { variant: 'success' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmAlert variant="success" class="w-96">
+      <div hlmAlert ${argsToTemplate(args)} class="w-96">
         <ng-icon name="phosphorCheckCircle" />
         <h5 hlmAlertTitle>Changes saved</h5>
         <p hlmAlertDescription>Your preferences have been updated successfully.</p>
@@ -97,9 +101,11 @@ export const Success: Story = {
 
 /** Warning variant with warning icon. */
 export const Warning: Story = {
-  render: () => ({
+  args: { variant: 'warning' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmAlert variant="warning" class="w-96">
+      <div hlmAlert ${argsToTemplate(args)} class="w-96">
         <ng-icon name="phosphorWarning" />
         <h5 hlmAlertTitle>Session expiring</h5>
         <p hlmAlertDescription>Your session will expire in 5 minutes. Save your work.</p>
@@ -110,9 +116,11 @@ export const Warning: Story = {
 
 /** Danger variant with error icon. */
 export const Danger: Story = {
-  render: () => ({
+  args: { variant: 'danger' },
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmAlert variant="danger" class="w-96">
+      <div hlmAlert ${argsToTemplate(args)} class="w-96">
         <ng-icon name="phosphorWarningCircle" />
         <h5 hlmAlertTitle>Unable to process payment</h5>
         <p hlmAlertDescription>Please verify your billing details and try again.</p>
@@ -123,9 +131,10 @@ export const Danger: Story = {
 
 /** An action slot (e.g. a button) anchored to the top-right of the alert. */
 export const WithAction: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmAlert class="w-96">
+      <div hlmAlert ${argsToTemplate(args)} class="w-96">
         <ng-icon name="phosphorCheckCircle" />
         <h5 hlmAlertTitle>Update available</h5>
         <p hlmAlertDescription>A new version is ready to install.</p>
@@ -139,9 +148,10 @@ export const WithAction: Story = {
 
 /** Title only — no icon or description. */
 export const TitleOnly: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <div hlmAlert class="w-96">
+      <div hlmAlert ${argsToTemplate(args)} class="w-96">
         <h5 hlmAlertTitle>Heads up, this action can't be undone.</h5>
       </div>
     `,

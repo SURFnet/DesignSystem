@@ -58,28 +58,31 @@ export const Default: Story = {
 
 /** A track running left to right — the default orientation. */
 export const Horizontal: Story = {
-  render: () => (
+  args: { orientation: 'horizontal' },
+  render: (args) => (
     <div className="w-72">
-      <Slider orientation="horizontal" defaultValue={50} aria-label="Volume" />
+      <Slider {...args} aria-label="Volume" />
     </div>
   ),
 };
 
 /** A track running bottom to top. */
 export const Vertical: Story = {
-  render: () => (
+  args: { orientation: 'vertical' },
+  render: (args) => (
     <div className="flex h-40 items-center">
-      <Slider orientation="vertical" defaultValue={50} aria-label="Volume" />
+      <Slider {...args} aria-label="Volume" />
     </div>
   ),
 };
 
 /** A range slider with two thumbs, dragging independently between `min` and `max`. */
 export const Range: Story = {
-  render: () => (
+  args: { defaultValue: [25, 75] },
+  render: (args) => (
     <div className="w-72">
       <Slider
-        defaultValue={[25, 75]}
+        {...args}
         getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
       />
     </div>
@@ -88,19 +91,21 @@ export const Range: Story = {
 
 /** Disabled state — the slider ignores pointer and keyboard interaction. */
 export const Disabled: Story = {
-  render: () => (
+  args: { disabled: true },
+  render: (args) => (
     <div className="w-72">
-      <Slider defaultValue={50} disabled aria-label="Volume" />
+      <Slider {...args} aria-label="Volume" />
     </div>
   ),
 };
 
 /** A slider composed with a `Field` label and description, the typical form usage. */
 export const WithField: Story = {
-  render: () => (
+  args: { defaultValue: 60 },
+  render: (args) => (
     <Field className="w-72">
       <FieldLabel htmlFor="volume">Volume</FieldLabel>
-      <Slider id="volume" defaultValue={60} aria-label="Volume" />
+      <Slider {...args} id="volume" aria-label="Volume" />
       <FieldDescription>Drag the thumb or use the arrow keys to adjust.</FieldDescription>
     </Field>
   ),

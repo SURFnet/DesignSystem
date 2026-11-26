@@ -63,72 +63,58 @@ export default meta;
 
 type Story = StoryObj<TooltipArgs>;
 
+const renderTooltip =
+  (label: string, attrs = ''): Story['render'] =>
+  ({ content, ...args }) => ({
+    props: { content, ...args },
+    template: `
+      <button hlmBtn variant="outline"${attrs} [hlmTooltip]="content" ${argsToTemplate(args)}>
+        ${label}
+      </button>
+    `,
+  });
+
 /** A button trigger with a short informative label — tweak it via the controls. */
 export const Default: Story = {
-  render: ({ content, ...args }) => ({
-    props: { content, ...args },
-    template: `<button hlmBtn variant="outline" [hlmTooltip]="content" ${argsToTemplate(args)}>Hover me</button>`,
-  }),
+  render: renderTooltip('Hover me'),
 };
 
 /** The tooltip opens above the trigger. */
 export const Top: Story = {
-  render: () => ({
-    template: `
-      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the top.'" position="top">
-        Top
-      </button>
-    `,
-  }),
+  args: { content: 'Positioned on the top.', position: 'top' },
+  render: renderTooltip('Top'),
 };
 
 /** The tooltip opens to the right of the trigger. */
 export const Right: Story = {
-  render: () => ({
-    template: `
-      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the right.'" position="right">
-        Right
-      </button>
-    `,
-  }),
+  args: { content: 'Positioned on the right.', position: 'right' },
+  render: renderTooltip('Right'),
 };
 
 /** The tooltip opens below the trigger. */
 export const Bottom: Story = {
-  render: () => ({
-    template: `
-      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the bottom.'" position="bottom">
-        Bottom
-      </button>
-    `,
-  }),
+  args: { content: 'Positioned on the bottom.', position: 'bottom' },
+  render: renderTooltip('Bottom'),
 };
 
 /** The tooltip opens to the left of the trigger. */
 export const Left: Story = {
-  render: () => ({
-    template: `
-      <button hlmBtn variant="outline" [hlmTooltip]="'Positioned on the left.'" position="left">
-        Left
-      </button>
-    `,
-  }),
+  args: { content: 'Positioned on the left.', position: 'left' },
+  render: renderTooltip('Left'),
 };
 
 /** An icon-only action still needs an accessible name — the tooltip surfaces it visually too. */
 export const IconTrigger: Story = {
-  render: () => ({
-    template: `
-      <button hlmBtn variant="outline" size="icon" aria-label="Add item" [hlmTooltip]="'Add item'">
-        <ng-icon name="phosphorPlus" />
-      </button>
-    `,
-  }),
+  args: { content: 'Add item' },
+  render: renderTooltip('<ng-icon name="phosphorPlus" />', ' size="icon" aria-label="Add item"'),
 };
 
 /** `hlmTooltip` also accepts a `TemplateRef`, so richer markup than plain text is possible. */
 export const RichContent: Story = {
-  render: () => ({
+  // The tooltip content is a template here, so the `content` text control does not apply.
+  parameters: { controls: { exclude: ['content'] } },
+  render: ({ content: _content, ...args }) => ({
+    props: args,
     template: `
       <ng-template #richContent>
         <div class="flex items-center gap-1.5">
@@ -136,18 +122,13 @@ export const RichContent: Story = {
           <span>Syncs with your <strong>SURFdrive</strong> account.</span>
         </div>
       </ng-template>
-      <button hlmBtn variant="outline" [hlmTooltip]="richContent">Storage</button>
+      <button hlmBtn variant="outline" [hlmTooltip]="richContent" ${argsToTemplate(args)}>Storage</button>
     `,
   }),
 };
 
 /** Custom `showDelay` / `hideDelay` (in ms) require a deliberate hover before the popup appears. */
 export const DelayedOpen: Story = {
-  render: () => ({
-    template: `
-      <button hlmBtn variant="outline" [hlmTooltip]="'Appears after ~700ms'" [showDelay]="700" [hideDelay]="0">
-        Hover and hold
-      </button>
-    `,
-  }),
+  args: { content: 'Appears after ~700ms' },
+  render: renderTooltip('Hover and hold', ' [showDelay]="700" [hideDelay]="0"'),
 };

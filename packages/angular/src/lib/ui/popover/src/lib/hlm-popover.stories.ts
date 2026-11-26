@@ -6,7 +6,11 @@ import { HlmInputImports } from '../../../input/src';
 import { HlmLabelImports } from '../../../label/src';
 import { HlmPopover, HlmPopoverImports } from '..';
 
-const meta: Meta<HlmPopover> = {
+// `align` is contributed by the BrnPopover host directive rather than HlmPopover itself,
+// so widen the story args to expose it as a control.
+type PopoverArgs = HlmPopover & { align: 'start' | 'center' | 'end' };
+
+const meta: Meta<PopoverArgs> = {
   title: 'Components/Popover',
   component: HlmPopover,
   decorators: [
@@ -25,17 +29,29 @@ const meta: Meta<HlmPopover> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=193-1388',
     },
   },
+  argTypes: {
+    align: {
+      control: 'select',
+      options: ['start', 'center', 'end'],
+      description: 'Where the popup is aligned relative to its trigger.',
+      table: { defaultValue: { summary: 'center' } },
+    },
+  },
+  args: {
+    align: 'center',
+  },
 };
 
 export default meta;
 
-type Story = StoryObj<HlmPopover>;
+type Story = StoryObj<PopoverArgs>;
 
 /** A composed popover with a heading, description, and a small form. */
 export const Default: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-popover sideOffset="5">
+      <hlm-popover sideOffset="5" [align]="align">
         <button hlmPopoverTrigger hlmBtn variant="outline">Open popover</button>
         <hlm-popover-content class="grid w-72 gap-4" *hlmPopoverPortal="let ctx">
           <div class="space-y-2">
@@ -64,10 +80,12 @@ export const Default: Story = {
 
 /** The popup can align to the start of the trigger. */
 export const AlignStart: Story = {
-  render: () => ({
+  args: { align: 'start' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex items-center justify-center p-12">
-        <hlm-popover sideOffset="5" align="start">
+        <hlm-popover sideOffset="5" [align]="align">
           <button hlmPopoverTrigger hlmBtn variant="outline">Start</button>
           <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
             <p class="text-sm">Aligned to start.</p>
@@ -80,10 +98,12 @@ export const AlignStart: Story = {
 
 /** The popup can align to the center of the trigger. */
 export const AlignCenter: Story = {
-  render: () => ({
+  args: { align: 'center' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex items-center justify-center p-12">
-        <hlm-popover sideOffset="5" align="center">
+        <hlm-popover sideOffset="5" [align]="align">
           <button hlmPopoverTrigger hlmBtn variant="outline">Center</button>
           <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
             <p class="text-sm">Aligned to center.</p>
@@ -96,10 +116,12 @@ export const AlignCenter: Story = {
 
 /** The popup can align to the end of the trigger. */
 export const AlignEnd: Story = {
-  render: () => ({
+  args: { align: 'end' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex items-center justify-center p-12">
-        <hlm-popover sideOffset="5" align="end">
+        <hlm-popover sideOffset="5" [align]="align">
           <button hlmPopoverTrigger hlmBtn variant="outline">End</button>
           <hlm-popover-content class="w-48" *hlmPopoverPortal="let ctx">
             <p class="text-sm">Aligned to end.</p>

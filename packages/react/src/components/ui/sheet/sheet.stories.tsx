@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { sheetContract } from '@surfnet/curve-contracts';
 
 import { Button } from '@/components/ui/button';
@@ -16,7 +17,11 @@ import {
   SheetTrigger,
 } from './sheet';
 
-const meta = {
+// `side` and `showCloseButton` live on `SheetContent`, so widen the story args to expose them.
+type SheetStoryArgs = ComponentProps<typeof Sheet> &
+  Pick<ComponentProps<typeof SheetContent>, 'side' | 'showCloseButton'>;
+
+const meta: Meta<SheetStoryArgs> = {
   title: 'Components/Sheet',
   component: Sheet,
   parameters: {
@@ -30,7 +35,30 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=216-3314',
     },
   },
-} satisfies Meta<typeof Sheet>;
+  argTypes: {
+    side: {
+      control: 'inline-radio',
+      options: sheetContract.props.sides,
+      description: sheetContract.props.sides
+        .map((side) => `\`${side}\` — ${sheetContract.docs.sides[side]}`)
+        .join('\n\n'),
+      table: {
+        defaultValue: { summary: sheetContract.defaults.sides },
+      },
+    },
+    showCloseButton: {
+      control: 'boolean',
+      description: 'Show the close icon in the corner of the sheet.',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
+    },
+  },
+  args: {
+    side: sheetContract.defaults.sides,
+    showCloseButton: true,
+  },
+};
 
 export default meta;
 
@@ -38,10 +66,10 @@ type Story = StoryObj<typeof meta>;
 
 /** A composed sheet with a trigger, a form, and a footer action — slides in from the right. */
 export const Default: Story = {
-  render: () => (
-    <Sheet>
+  render: ({ side, showCloseButton, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline">Edit profile</Button>} />
-      <SheetContent>
+      <SheetContent side={side} showCloseButton={showCloseButton}>
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
           <SheetDescription>
@@ -72,10 +100,11 @@ export const Default: Story = {
  * explicit `SheetClose` action in the footer so the user still has a way to dismiss.
  */
 export const WithoutCloseButton: Story = {
-  render: () => (
-    <Sheet>
+  args: { showCloseButton: false },
+  render: ({ side, showCloseButton, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline">Show terms</Button>} />
-      <SheetContent showCloseButton={false}>
+      <SheetContent side={side} showCloseButton={showCloseButton}>
         <SheetHeader>
           <SheetTitle>Terms of service</SheetTitle>
           <SheetDescription>
@@ -92,10 +121,11 @@ export const WithoutCloseButton: Story = {
 
 /** The sheet slides in from the top of the screen. */
 export const Top: Story = {
-  render: () => (
-    <Sheet>
+  args: { side: 'top' },
+  render: ({ side, showCloseButton, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline">Top</Button>} />
-      <SheetContent side="top">
+      <SheetContent side={side} showCloseButton={showCloseButton}>
         <SheetHeader>
           <SheetTitle>Top sheet</SheetTitle>
           <SheetDescription>Slides in from the top of the screen.</SheetDescription>
@@ -110,10 +140,11 @@ export const Top: Story = {
 
 /** The sheet slides in from the right of the screen. */
 export const Right: Story = {
-  render: () => (
-    <Sheet>
+  args: { side: 'right' },
+  render: ({ side, showCloseButton, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline">Right</Button>} />
-      <SheetContent side="right">
+      <SheetContent side={side} showCloseButton={showCloseButton}>
         <SheetHeader>
           <SheetTitle>Right sheet</SheetTitle>
           <SheetDescription>Slides in from the right of the screen.</SheetDescription>
@@ -128,10 +159,11 @@ export const Right: Story = {
 
 /** The sheet slides in from the bottom of the screen. */
 export const Bottom: Story = {
-  render: () => (
-    <Sheet>
+  args: { side: 'bottom' },
+  render: ({ side, showCloseButton, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline">Bottom</Button>} />
-      <SheetContent side="bottom">
+      <SheetContent side={side} showCloseButton={showCloseButton}>
         <SheetHeader>
           <SheetTitle>Bottom sheet</SheetTitle>
           <SheetDescription>Slides in from the bottom of the screen.</SheetDescription>
@@ -146,10 +178,11 @@ export const Bottom: Story = {
 
 /** The sheet slides in from the left of the screen. */
 export const Left: Story = {
-  render: () => (
-    <Sheet>
+  args: { side: 'left' },
+  render: ({ side, showCloseButton, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline">Left</Button>} />
-      <SheetContent side="left">
+      <SheetContent side={side} showCloseButton={showCloseButton}>
         <SheetHeader>
           <SheetTitle>Left sheet</SheetTitle>
           <SheetDescription>Slides in from the left of the screen.</SheetDescription>

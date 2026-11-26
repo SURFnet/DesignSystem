@@ -73,8 +73,9 @@ export const Default: Story = {
 
 /** A horizontal field, e.g. a checkbox with its label. */
 export const Horizontal: Story = {
-  render: () => (
-    <Field orientation="horizontal" className="w-72">
+  args: { orientation: 'horizontal' },
+  render: (args) => (
+    <Field {...args} className="w-72">
       <Checkbox id="remember" />
       <FieldLabel htmlFor="remember">Remember me</FieldLabel>
     </Field>
@@ -83,8 +84,8 @@ export const Horizontal: Story = {
 
 /** An invalid field showing an error message. */
 export const WithError: Story = {
-  render: () => (
-    <Field data-invalid className="w-72">
+  render: (args) => (
+    <Field {...args} data-invalid className="w-72">
       <FieldLabel htmlFor="password">Password</FieldLabel>
       <Input id="password" type="password" aria-invalid aria-describedby="password-error" />
       <FieldError id="password-error">Password must be at least 8 characters.</FieldError>
@@ -94,8 +95,8 @@ export const WithError: Story = {
 
 /** Several errors (e.g. from a form library's `errors`) render as a list. */
 export const WithErrors: Story = {
-  render: () => (
-    <Field data-invalid className="w-72">
+  render: (args) => (
+    <Field {...args} data-invalid className="w-72">
       <FieldLabel htmlFor="code">Code</FieldLabel>
       <Input id="code" defaultValue="a1" aria-invalid aria-describedby="code-error" />
       <FieldError
@@ -111,14 +112,14 @@ export const WithErrors: Story = {
 
 /** Several fields grouped, with a labelled separator. */
 export const Group: Story = {
-  render: () => (
+  render: (args) => (
     <FieldGroup className="w-72">
-      <Field>
+      <Field {...args}>
         <FieldLabel htmlFor="g-email">Email</FieldLabel>
         <Input id="g-email" type="email" placeholder="you@surf.nl" />
       </Field>
       <FieldSeparator>Or continue with</FieldSeparator>
-      <Field>
+      <Field {...args}>
         <FieldLabel htmlFor="g-password">Password</FieldLabel>
         <Input id="g-password" type="password" />
       </Field>
@@ -131,8 +132,9 @@ export const Group: Story = {
  * "(optioneel)" suffix and the control loses `aria-required`.
  */
 export const Optional: Story = {
-  render: () => (
-    <Field optional className="w-72">
+  args: { optional: true },
+  render: (args) => (
+    <Field {...args} className="w-72">
       <FieldLabel htmlFor="phone">Telefoonnummer</FieldLabel>
       <Input id="phone" type="tel" autoComplete="tel" />
     </Field>
@@ -144,6 +146,7 @@ export const Optional: Story = {
  * swaps the suffix for an English form. A consent checkbox stays required, a newsletter one is optional.
  */
 export const MixedForm: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <FieldGroup className="w-72">
       <Field>

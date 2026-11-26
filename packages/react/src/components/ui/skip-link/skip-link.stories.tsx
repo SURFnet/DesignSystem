@@ -96,9 +96,10 @@ export const Focused: Story = {
 
 /** Several skip links in a row; each one only shows while it has focus. */
 export const MultipleLinks: Story = {
-  render: () => (
+  args: { href: '#multiple-main-content' },
+  render: (args) => (
     <Page mainId="multiple-main-content" navId="multiple-navigation">
-      <SkipLink href="#multiple-main-content">Skip to main content</SkipLink>
+      <SkipLink {...args} />
       <SkipLink href="#multiple-navigation">Skip to navigation</SkipLink>
     </Page>
   ),

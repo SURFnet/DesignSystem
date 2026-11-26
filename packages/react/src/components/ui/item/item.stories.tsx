@@ -85,8 +85,10 @@ export const Default: Story = {
 
 /** No border, transparent background. */
 export const DefaultVariant: Story = {
-  render: () => (
-    <Item variant="default" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'default' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon">
         <GearSixIcon />
       </ItemMedia>
@@ -100,8 +102,10 @@ export const DefaultVariant: Story = {
 
 /** Bordered container. */
 export const Outline: Story = {
-  render: () => (
-    <Item variant="outline" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon">
         <GearSixIcon />
       </ItemMedia>
@@ -115,8 +119,10 @@ export const Outline: Story = {
 
 /** Subtle muted background, no border. */
 export const Muted: Story = {
-  render: () => (
-    <Item variant="muted" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'muted' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon">
         <GearSixIcon />
       </ItemMedia>
@@ -130,8 +136,10 @@ export const Muted: Story = {
 
 /** Standard padding and gaps. */
 export const SizeDefault: Story = {
-  render: () => (
-    <Item variant="outline" size="default" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline', size: 'default' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon">
         <UserIcon />
       </ItemMedia>
@@ -145,8 +153,10 @@ export const SizeDefault: Story = {
 
 /** Compact padding and gaps. */
 export const SizeSm: Story = {
-  render: () => (
-    <Item variant="outline" size="sm" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline', size: 'sm' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon">
         <UserIcon />
       </ItemMedia>
@@ -160,8 +170,10 @@ export const SizeSm: Story = {
 
 /** Extra compact — dense lists such as menus. */
 export const SizeXs: Story = {
-  render: () => (
-    <Item variant="outline" size="xs" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline', size: 'xs' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon">
         <UserIcon />
       </ItemMedia>
@@ -175,8 +187,10 @@ export const SizeXs: Story = {
 
 /** No styling — media renders as-is. */
 export const MediaDefault: Story = {
-  render: () => (
-    <Item variant="outline" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="default" title={itemContract.docs.mediaVariants.default}>
         <UserIcon className="size-8" />
       </ItemMedia>
@@ -190,8 +204,10 @@ export const MediaDefault: Story = {
 
 /** Rounded icon badge background. */
 export const MediaIcon: Story = {
-  render: () => (
-    <Item variant="outline" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="icon" title={itemContract.docs.mediaVariants.icon}>
         <CreditCardIcon />
       </ItemMedia>
@@ -205,8 +221,10 @@ export const MediaIcon: Story = {
 
 /** Fixed square image thumbnail. */
 export const MediaImage: Story = {
-  render: () => (
-    <Item variant="outline" className="w-full max-w-md">
+  tags: ['!autodocs'],
+  args: { variant: 'outline' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemMedia variant="image" title={itemContract.docs.mediaVariants.image}>
         <img src="https://github.com/shadcn.png" alt="" />
       </ItemMedia>
@@ -220,9 +238,9 @@ export const MediaImage: Story = {
 
 /** A grouped list of items with a separator, e.g. an account settings page. */
 export const Group: Story = {
-  render: () => (
+  render: (args) => (
     <ItemGroup className="w-full max-w-md">
-      <Item>
+      <Item {...args}>
         <ItemMedia variant="icon">
           <UserIcon />
         </ItemMedia>
@@ -237,7 +255,7 @@ export const Group: Story = {
         </ItemActions>
       </Item>
       <ItemSeparator />
-      <Item>
+      <Item {...args}>
         <ItemMedia variant="icon">
           <CreditCardIcon />
         </ItemMedia>
@@ -252,7 +270,7 @@ export const Group: Story = {
         </ItemActions>
       </Item>
       <ItemSeparator />
-      <Item>
+      <Item {...args}>
         <ItemMedia variant="icon">
           <BellIcon />
         </ItemMedia>
@@ -272,8 +290,9 @@ export const Group: Story = {
 
 /** `ItemHeader` and `ItemFooter` wrap content that spans the full width of the item, below the main row. */
 export const WithHeaderAndFooter: Story = {
-  render: () => (
-    <Item variant="outline" className="w-full max-w-md">
+  args: { variant: 'outline' },
+  render: (args) => (
+    <Item {...args} className="w-full max-w-md">
       <ItemHeader>
         <ItemTitle>Storage plan</ItemTitle>
         <span className="text-sm text-muted-foreground">80% used</span>

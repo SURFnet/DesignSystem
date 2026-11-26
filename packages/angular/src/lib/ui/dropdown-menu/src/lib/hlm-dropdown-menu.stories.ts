@@ -16,6 +16,7 @@ const meta: Meta<HlmDropdownMenu> = {
     }),
   ],
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         component: dropdownMenuContract.docs.description,

@@ -61,9 +61,10 @@ export const Default: Story = {
 
 /** Panels stacked top to bottom instead of side by side. */
 export const Vertical: Story = {
-  render: () => (
+  args: { orientation: 'vertical' },
+  render: (args) => (
     <div className="h-64 w-full max-w-md">
-      <ResizablePanelGroup orientation="vertical" className="h-full w-full rounded-lg border">
+      <ResizablePanelGroup {...args} className="h-full w-full rounded-lg border">
         <ResizablePanel defaultSize={50}>
           <div className="flex h-full items-center justify-center p-6">
             <span className="font-mono text-sm">Top</span>
@@ -85,9 +86,9 @@ export const Vertical: Story = {
  * itself nests a vertical group to split content from a console.
  */
 export const ComposedLayout: Story = {
-  render: () => (
+  render: (args) => (
     <div className="h-80 w-full max-w-3xl">
-      <ResizablePanelGroup className="h-full w-full rounded-lg border">
+      <ResizablePanelGroup {...args} className="h-full w-full rounded-lg border">
         <ResizablePanel defaultSize={20} minSize={15}>
           <div className="flex h-full min-w-0 flex-col gap-1 p-4">
             <span className="truncate text-sm font-medium">Sidebar</span>
@@ -124,9 +125,9 @@ export const ComposedLayout: Story = {
 
 /** Handles without the visible grip, for a more minimal seam between panels. */
 export const WithoutHandleGrip: Story = {
-  render: () => (
+  render: (args) => (
     <div className="h-64 w-full max-w-md">
-      <ResizablePanelGroup className="h-full w-full rounded-lg border">
+      <ResizablePanelGroup {...args} className="h-full w-full rounded-lg border">
         <ResizablePanel defaultSize={50}>
           <div className="flex h-full items-center justify-center p-6">
             <span className="font-mono text-sm">One</span>

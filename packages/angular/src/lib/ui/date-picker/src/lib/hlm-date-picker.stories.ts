@@ -75,10 +75,10 @@ export const Default: Story = {
 
 /** Pre-filled with a selected date. */
 export const WithValue: Story = {
-  render: () => ({
-    props: { date: new Date() as Date | undefined },
+  render: (args) => ({
+    props: { ...args, date: new Date() as Date | undefined },
     template: `
-      <hlm-date-picker [(date)]="date">
+      <hlm-date-picker ${argsToTemplate(args)} [(date)]="date">
         <hlm-date-picker-trigger>Pick a date</hlm-date-picker-trigger>
       </hlm-date-picker>
     `,
@@ -90,11 +90,11 @@ export const WithValue: Story = {
  * calendar/clear buttons. Built from `hlm-date-picker-input`.
  */
 export const TextInputTrigger: Story = {
-  render: () => ({
-    props: { date: undefined as Date | undefined },
+  render: (args) => ({
+    props: { ...args, date: undefined as Date | undefined },
     template: `
       <div class="w-64">
-        <hlm-date-picker [(date)]="date">
+        <hlm-date-picker ${argsToTemplate(args)} [(date)]="date">
           <hlm-date-picker-input placeholder="Pick a date" />
         </hlm-date-picker>
       </div>
@@ -104,10 +104,12 @@ export const TextInputTrigger: Story = {
 
 /** A contiguous range with a start and end date via `hlm-date-range-picker`. */
 export const Range: Story = {
-  render: () => ({
-    props: { range: undefined as [Date, Date] | undefined },
+  // The range picker has no `autoCloseOnSelect` (it closes on end selection instead).
+  argTypes: { autoCloseOnSelect: { table: { disable: true } } },
+  render: (args) => ({
+    props: { ...args, range: undefined as [Date, Date] | undefined },
     template: `
-      <hlm-date-range-picker [(date)]="range">
+      <hlm-date-range-picker ${argsToTemplate(args, { exclude: ['autoCloseOnSelect'] })} [(date)]="range">
         <hlm-date-picker-trigger class="w-72">Pick a date range</hlm-date-picker-trigger>
       </hlm-date-range-picker>
     `,
@@ -116,10 +118,12 @@ export const Range: Story = {
 
 /** Multiple, individually toggled dates via `hlm-date-picker-multi`, capped to 3 selections. */
 export const Multiple: Story = {
-  render: () => ({
-    props: { dates: [] as Date[] },
+  // The multi picker has no `autoCloseOnSelect` (it closes on max selection instead).
+  argTypes: { autoCloseOnSelect: { table: { disable: true } } },
+  render: (args) => ({
+    props: { ...args, dates: [] as Date[] },
     template: `
-      <hlm-date-picker-multi [(date)]="dates" [maxSelection]="3">
+      <hlm-date-picker-multi ${argsToTemplate(args, { exclude: ['autoCloseOnSelect'] })} [(date)]="dates" [maxSelection]="3">
         <hlm-date-picker-trigger class="w-72">Pick up to 3 dates</hlm-date-picker-trigger>
       </hlm-date-picker-multi>
     `,
@@ -128,7 +132,7 @@ export const Multiple: Story = {
 
 /** Bounded to a navigable `min`/`max` range — days outside it can't be selected. */
 export const BoundedDates: Story = {
-  render: () => {
+  render: (args) => {
     const today = new Date();
     const min = new Date(today);
     min.setDate(today.getDate() - 7);
@@ -136,9 +140,9 @@ export const BoundedDates: Story = {
     max.setDate(today.getDate() + 14);
 
     return {
-      props: { date: undefined as Date | undefined, min, max },
+      props: { ...args, date: undefined as Date | undefined, min, max },
       template: `
-        <hlm-date-picker [(date)]="date" [min]="min" [max]="max">
+        <hlm-date-picker ${argsToTemplate(args)} [(date)]="date" [min]="min" [max]="max">
           <hlm-date-picker-trigger>Pick a date</hlm-date-picker-trigger>
         </hlm-date-picker>
       `,
@@ -148,9 +152,11 @@ export const BoundedDates: Story = {
 
 /** Disabled state — the trigger is inert and the popover cannot be opened. */
 export const Disabled: Story = {
-  render: () => ({
+  args: { disabled: true },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-date-picker disabled>
+      <hlm-date-picker ${argsToTemplate(args)}>
         <hlm-date-picker-trigger>Pick a date</hlm-date-picker-trigger>
       </hlm-date-picker>
     `,
@@ -162,10 +168,10 @@ export const Disabled: Story = {
  * actions to jump to today or clear the selection.
  */
 export const WithFooterActions: Story = {
-  render: () => ({
-    props: { date: new Date() as Date | undefined, today: new Date() },
+  render: (args) => ({
+    props: { ...args, date: new Date() as Date | undefined, today: new Date() },
     template: `
-      <hlm-date-picker [(date)]="date">
+      <hlm-date-picker ${argsToTemplate(args)} [(date)]="date">
         <hlm-date-picker-trigger>Pick a date</hlm-date-picker-trigger>
         <div hlmDatePickerFooter class="flex justify-end gap-2 border-t p-2">
           <button hlmBtn size="sm" variant="ghost" (click)="date = undefined">Clear</button>
@@ -178,19 +184,19 @@ export const WithFooterActions: Story = {
 
 /** A required date left empty: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  render: (args) => {
     const form = new FormGroup({
       date: new FormControl<Date | null>(null, { validators: [Validators.required] }),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { ...args, form },
       template: `
 				<form [formGroup]="form" class="w-64">
 					<div hlmField>
 						<label hlmFieldLabel>Start date</label>
-						<hlm-date-picker formControlName="date">
+						<hlm-date-picker ${argsToTemplate(args)} formControlName="date">
 							<hlm-date-picker-trigger>Pick a date</hlm-date-picker-trigger>
 						</hlm-date-picker>
 						<hlm-field-error />

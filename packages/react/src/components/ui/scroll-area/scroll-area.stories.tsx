@@ -28,8 +28,8 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length
 
 /** A vertical scroll area constraining a long list of tags. */
 export const Default: Story = {
-  render: () => (
-    <ScrollArea className="h-72 w-48 rounded-md border">
+  render: (args) => (
+    <ScrollArea {...args} className="h-72 w-48 rounded-md border">
       <div className="p-4">
         <h4 className="mb-4 text-sm leading-none font-medium">Tags</h4>
         {tags.map((tag) => (
@@ -48,8 +48,8 @@ export const Default: Story = {
  * `whitespace-nowrap` and `flex w-max` content wrapper so the row doesn't collapse.
  */
 export const Horizontal: Story = {
-  render: () => (
-    <ScrollArea className="w-96 rounded-md border whitespace-nowrap">
+  render: (args) => (
+    <ScrollArea {...args} className="w-96 rounded-md border whitespace-nowrap">
       <div className="flex w-max gap-4 p-4">
         {['Ornella Binni', 'Tom Byrom', 'Vladimir Malyavko'].map((artist) => (
           <figure key={artist} className="shrink-0">

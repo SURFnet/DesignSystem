@@ -23,6 +23,7 @@ const meta: Meta<HlmBreadcrumb> = {
     }),
   ],
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         component: breadcrumbContract.docs.description,
