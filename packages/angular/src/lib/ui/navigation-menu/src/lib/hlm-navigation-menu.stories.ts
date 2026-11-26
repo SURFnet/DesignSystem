@@ -5,7 +5,14 @@ import { navigationMenuContract } from '@surfnet/curve-contracts';
 
 import { HlmNavigationMenu, HlmNavigationMenuImports } from '..';
 
-const meta: Meta<HlmNavigationMenu> = {
+// `orientation` comes from the BrnNavigationMenu host directive and `align` lives on each
+// trigger (BrnNavigationMenuTrigger), so widen the story args to expose both as controls.
+type NavigationMenuArgs = HlmNavigationMenu & {
+  align: 'start' | 'center' | 'end';
+  orientation: 'horizontal' | 'vertical';
+};
+
+const meta: Meta<NavigationMenuArgs> = {
   title: 'Components/NavigationMenu',
   component: HlmNavigationMenu,
   decorators: [
@@ -25,10 +32,28 @@ const meta: Meta<HlmNavigationMenu> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=209-1883',
     },
   },
+  argTypes: {
+    align: {
+      control: 'select',
+      options: ['start', 'center', 'end'],
+      description: 'Where the popup is aligned relative to its trigger.',
+      table: { defaultValue: { summary: 'start' } },
+    },
+    orientation: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: 'Layout direction of the menu and its arrow-key navigation.',
+      table: { defaultValue: { summary: 'horizontal' } },
+    },
+  },
+  args: {
+    align: 'start',
+    orientation: 'horizontal',
+  },
 };
 
 export default meta;
-type Story = StoryObj<HlmNavigationMenu>;
+type Story = StoryObj<NavigationMenuArgs>;
 
 /**
  * A composed menu with a featured item, a grid of links, and a plain link item — the
@@ -36,12 +61,13 @@ type Story = StoryObj<HlmNavigationMenu>;
  * menu is built from.
  */
 export const Default: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <nav hlmNavigationMenu>
+      <nav hlmNavigationMenu [orientation]="orientation">
         <ul hlmNavigationMenuList>
           <li hlmNavigationMenuItem>
-            <button hlmNavigationMenuTrigger>Home</button>
+            <button hlmNavigationMenuTrigger [align]="align">Home</button>
             <hlm-navigation-menu-content *hlmNavigationMenuPortal>
               <ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li class="row-span-3">
@@ -93,7 +119,7 @@ export const Default: Story = {
           </li>
 
           <li hlmNavigationMenuItem>
-            <button hlmNavigationMenuTrigger>Components</button>
+            <button hlmNavigationMenuTrigger [align]="align">Components</button>
             <hlm-navigation-menu-content *hlmNavigationMenuPortal>
               <ul class="grid w-[300px] gap-4">
                 <li>
@@ -121,12 +147,13 @@ export const Default: Story = {
 
 /** Sub-items paired with a leading icon. */
 export const WithIcon: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <nav hlmNavigationMenu>
+      <nav hlmNavigationMenu [orientation]="orientation">
         <ul hlmNavigationMenuList>
           <li hlmNavigationMenuItem>
-            <button hlmNavigationMenuTrigger>Dashboard</button>
+            <button hlmNavigationMenuTrigger [align]="align">Dashboard</button>
             <hlm-navigation-menu-content *hlmNavigationMenuPortal>
               <ul class="w-[220px]">
                 <li>
@@ -157,9 +184,10 @@ export const WithIcon: Story = {
  * highlight the current page.
  */
 export const SimpleLinks: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <nav hlmNavigationMenu>
+      <nav hlmNavigationMenu [orientation]="orientation">
         <ul hlmNavigationMenuList>
           <li hlmNavigationMenuItem>
             <a hlmNavigationMenuLink href="#" [active]="true">Home</a>
@@ -178,13 +206,15 @@ export const SimpleLinks: Story = {
 
 /** The popup is anchored to the start of the trigger. */
 export const AlignStart: Story = {
-  render: () => ({
+  args: { align: 'start' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex flex-col items-center gap-2">
-        <nav hlmNavigationMenu>
+        <nav hlmNavigationMenu [orientation]="orientation">
           <ul hlmNavigationMenuList>
             <li hlmNavigationMenuItem>
-              <button hlmNavigationMenuTrigger align="start">Menu</button>
+              <button hlmNavigationMenuTrigger [align]="align">Menu</button>
               <hlm-navigation-menu-content *hlmNavigationMenuPortal>
                 <ul class="grid w-[200px] gap-4">
                   <li>
@@ -203,13 +233,15 @@ export const AlignStart: Story = {
 
 /** The popup is centered relative to the trigger. */
 export const AlignCenter: Story = {
-  render: () => ({
+  args: { align: 'center' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex flex-col items-center gap-2">
-        <nav hlmNavigationMenu>
+        <nav hlmNavigationMenu [orientation]="orientation">
           <ul hlmNavigationMenuList>
             <li hlmNavigationMenuItem>
-              <button hlmNavigationMenuTrigger align="center">Menu</button>
+              <button hlmNavigationMenuTrigger [align]="align">Menu</button>
               <hlm-navigation-menu-content *hlmNavigationMenuPortal>
                 <ul class="grid w-[200px] gap-4">
                   <li>
@@ -228,13 +260,15 @@ export const AlignCenter: Story = {
 
 /** The popup is anchored to the end of the trigger. */
 export const AlignEnd: Story = {
-  render: () => ({
+  args: { align: 'end' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex flex-col items-center gap-2">
-        <nav hlmNavigationMenu>
+        <nav hlmNavigationMenu [orientation]="orientation">
           <ul hlmNavigationMenuList>
             <li hlmNavigationMenuItem>
-              <button hlmNavigationMenuTrigger align="end">Menu</button>
+              <button hlmNavigationMenuTrigger [align]="align">Menu</button>
               <hlm-navigation-menu-content *hlmNavigationMenuPortal>
                 <ul class="grid w-[200px] gap-4">
                   <li>
@@ -253,12 +287,14 @@ export const AlignEnd: Story = {
 
 /** The `orientation` prop switches roving focus to the up/down arrow keys and stacks the list. */
 export const Vertical: Story = {
-  render: () => ({
+  args: { orientation: 'vertical' },
+  render: (args) => ({
+    props: args,
     template: `
-      <nav hlmNavigationMenu orientation="vertical">
+      <nav hlmNavigationMenu [orientation]="orientation">
         <ul hlmNavigationMenuList class="w-40">
           <li hlmNavigationMenuItem>
-            <button hlmNavigationMenuTrigger class="w-full">Menu</button>
+            <button hlmNavigationMenuTrigger [align]="align" class="w-full">Menu</button>
             <hlm-navigation-menu-content *hlmNavigationMenuPortal>
               <ul class="w-[200px]">
                 <li>
