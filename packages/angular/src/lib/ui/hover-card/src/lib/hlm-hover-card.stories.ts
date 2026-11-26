@@ -7,7 +7,15 @@ import { HlmAvatarImports } from '../../../avatar/src';
 import { HlmButton } from '../../../button/src';
 import { HlmHoverCard, HlmHoverCardImports } from '..';
 
-const meta: Meta<HlmHoverCard> = {
+const SIDES = ['top', 'right', 'bottom', 'left'] as const;
+
+/**
+ * `side` is a story arg for where the card opens relative to the trigger. Spartan calls this
+ * input `align` on `hlmHoverCardTrigger`; the arg keeps React's name for parity.
+ */
+type HoverCardArgs = HlmHoverCard & { side: (typeof SIDES)[number] };
+
+const meta: Meta<HoverCardArgs> = {
   title: 'Components/HoverCard',
   component: HlmHoverCard,
   decorators: [
@@ -27,18 +35,33 @@ const meta: Meta<HlmHoverCard> = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=216-2886',
     },
   },
+  argTypes: {
+    side: {
+      control: 'inline-radio',
+      options: [...SIDES],
+      description: 'Which side of the trigger the card opens on.',
+      table: {
+        type: { summary: SIDES.join(' | ') },
+        defaultValue: { summary: 'bottom' },
+      },
+    },
+  },
+  args: {
+    side: 'bottom',
+  },
 };
 
 export default meta;
 
-type Story = StoryObj<HlmHoverCard>;
+type Story = StoryObj<HoverCardArgs>;
 
 /** A profile preview shown when hovering (or focusing) the trigger. */
 export const Default: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <hlm-hover-card>
-        <button hlmBtn variant="link" class="px-0" hlmHoverCardTrigger>&#64;surfnet</button>
+        <button hlmBtn variant="link" class="px-0" hlmHoverCardTrigger [align]="side">&#64;surfnet</button>
         <hlm-hover-card-content *hlmHoverCardPortal>
           <div class="flex gap-3">
             <hlm-avatar>
@@ -64,10 +87,12 @@ export const Default: Story = {
 
 /** HoverCard opens above the trigger. */
 export const AlignTop: Story = {
-  render: () => ({
+  args: { side: 'top' },
+  render: (args) => ({
+    props: args,
     template: `
       <hlm-hover-card>
-        <button hlmHoverCardTrigger hlmBtn variant="outline" align="top">Top</button>
+        <button hlmHoverCardTrigger hlmBtn variant="outline" [align]="side">Top</button>
         <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
           <p class="text-sm">Positioned on the top.</p>
         </hlm-hover-card-content>
@@ -78,10 +103,12 @@ export const AlignTop: Story = {
 
 /** HoverCard opens to the right of the trigger. */
 export const AlignRight: Story = {
-  render: () => ({
+  args: { side: 'right' },
+  render: (args) => ({
+    props: args,
     template: `
       <hlm-hover-card>
-        <button hlmHoverCardTrigger hlmBtn variant="outline" align="right">Right</button>
+        <button hlmHoverCardTrigger hlmBtn variant="outline" [align]="side">Right</button>
         <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
           <p class="text-sm">Positioned on the right.</p>
         </hlm-hover-card-content>
@@ -92,11 +119,13 @@ export const AlignRight: Story = {
 
 /** HoverCard opens below the trigger. */
 export const AlignBottom: Story = {
-  render: () => ({
+  args: { side: 'bottom' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex items-center justify-center p-12">
         <hlm-hover-card>
-          <button hlmHoverCardTrigger hlmBtn variant="outline" align="bottom">Bottom</button>
+          <button hlmHoverCardTrigger hlmBtn variant="outline" [align]="side">Bottom</button>
           <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
             <p class="text-sm">Positioned on the bottom.</p>
           </hlm-hover-card-content>
@@ -108,11 +137,13 @@ export const AlignBottom: Story = {
 
 /** HoverCard opens to the left of the trigger. */
 export const AlignLeft: Story = {
-  render: () => ({
+  args: { side: 'left' },
+  render: (args) => ({
+    props: args,
     template: `
       <div class="flex items-center justify-center p-12">
         <hlm-hover-card>
-          <button hlmHoverCardTrigger hlmBtn variant="outline" align="left">Left</button>
+          <button hlmHoverCardTrigger hlmBtn variant="outline" [align]="side">Left</button>
           <hlm-hover-card-content *hlmHoverCardPortal class="w-48">
             <p class="text-sm">Positioned on the left.</p>
           </hlm-hover-card-content>
@@ -124,12 +155,13 @@ export const AlignLeft: Story = {
 
 /** The trigger renders an anchor by default, so inline text links work without extra markup. */
 export const TextTrigger: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
       <p class="max-w-sm text-sm">
         Curve is maintained by
         <hlm-hover-card>
-          <a href="#" hlmHoverCardTrigger class="font-medium underline underline-offset-4">SURF</a>
+          <a href="#" hlmHoverCardTrigger [align]="side" class="font-medium underline underline-offset-4">SURF</a>
           <hlm-hover-card-content *hlmHoverCardPortal>
             <p class="text-sm">
               SURF is the collaborative organisation for IT in Dutch education and research.
