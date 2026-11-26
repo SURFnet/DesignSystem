@@ -91,26 +91,31 @@ export const Default: Story = {
 
 /** A success toast using `toast.success()` */
 export const Success: Story = {
+  tags: ['!autodocs'],
   render: renderToaster('Success', () => toast.success('Changes saved successfully.')),
 };
 
 /** An info toast using `toast.info()` */
 export const InfoToast: Story = {
+  tags: ['!autodocs'],
   render: renderToaster('Info', () => toast.info('A new version is available.')),
 };
 
 /** A warning toast using `toast.warning()` */
 export const Warning: Story = {
+  tags: ['!autodocs'],
   render: renderToaster('Warning', () => toast.warning('Your session is about to expire.')),
 };
 
 /** An error toast using `toast.error()` */
 export const Error: Story = {
+  tags: ['!autodocs'],
   render: renderToaster('Error', () => toast.error('Something went wrong.')),
 };
 
 /** A loading toast with a spinner using `toast.loading()`. Pass an id so you can dismiss the toast later using `toast.dismiss(id)` */
 export const Loading: Story = {
+  tags: ['!autodocs'],
   render: renderToaster('Loading', () => {
     const id = 'sonner-story-upload';
     const existing = toastState.toasts().find((t) => t.id === id);
@@ -120,6 +125,7 @@ export const Loading: Story = {
 
 /** A loading toast with a spinner that automatically updates to a success/error toast using `toast.promise()` */
 export const LoadingPromise: Story = {
+  tags: ['!autodocs'],
   render: renderToaster('Loading', () => {
     const myPromise = new Promise<{ name: string }>((resolve, reject) => {
       setTimeout(() => {
@@ -141,60 +147,70 @@ export const LoadingPromise: Story = {
 
 /** Setting the `richColors` flag gives each type a distinctive colored background. A green background for 'success'. */
 export const RichColorsSuccess: Story = {
+  tags: ['!autodocs'],
   args: { richColors: true },
   render: renderToaster('Success', () => toast.success('Changes saved successfully.')),
 };
 
 /** Setting the `richColors` flag gives each type a distinctive colored background. A blue background for 'info'. */
 export const RichColorsInfoToast: Story = {
+  tags: ['!autodocs'],
   args: { richColors: true },
   render: renderToaster('Info', () => toast.info('A new version is available.')),
 };
 
 /** Setting the `richColors` flag gives each type a distinctive colored background. A yellow background for 'warning'. */
 export const RichColorsWarning: Story = {
+  tags: ['!autodocs'],
   args: { richColors: true },
   render: renderToaster('Warning', () => toast.warning('Your session is about to expire.')),
 };
 
 /** Setting the `richColors` flag gives each type a distinctive colored background. A red background for 'error'. */
 export const RichColorsError: Story = {
+  tags: ['!autodocs'],
   args: { richColors: true },
   render: renderToaster('Error', () => toast.error('Something went wrong.')),
 };
 
 /** Show it in the top-left corner by setting `position="top-left"` */
 export const PositionTopLeft: Story = {
+  tags: ['!autodocs'],
   args: { position: 'top-left' },
   render: renderToaster('Top Left', () => toast('Event has been created.')),
 };
 
 /** Show it in the top-center by setting `position="top-center"` */
 export const PositionTopCenter: Story = {
+  tags: ['!autodocs'],
   args: { position: 'top-center' },
   render: renderToaster('Top Center', () => toast('Event has been created.')),
 };
 
 /** Show it in the top-right corner by setting `position="top-right"` */
 export const PositionTopRight: Story = {
+  tags: ['!autodocs'],
   args: { position: 'top-right' },
   render: renderToaster('Top Right', () => toast('Event has been created.')),
 };
 
 /** Show it in the bottom-left corner by setting `position="bottom-left"` */
 export const PositionBottomLeft: Story = {
+  tags: ['!autodocs'],
   args: { position: 'bottom-left' },
   render: renderToaster('Bottom Left', () => toast('Event has been created.')),
 };
 
 /** Show it in the bottom-center by setting `position="bottom-center"` */
 export const PositionBottomCenter: Story = {
+  tags: ['!autodocs'],
   args: { position: 'bottom-center' },
   render: renderToaster('Bottom Center', () => toast('Event has been created.')),
 };
 
 /** Show it in the bottom-right by setting `position="bottom-right"` */
 export const PositionBottomRight: Story = {
+  tags: ['!autodocs'],
   args: { position: 'bottom-right' },
   render: renderToaster('Bottom Right', () => toast('Event has been created.')),
 };

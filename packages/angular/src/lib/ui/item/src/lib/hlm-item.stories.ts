@@ -94,6 +94,7 @@ export const Default: Story = {
 
 /** No border, transparent background. */
 export const DefaultVariant: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'default' },
   render: (args) => ({
     props: args,
@@ -113,6 +114,7 @@ export const DefaultVariant: Story = {
 
 /** Bordered container. */
 export const Outline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: (args) => ({
     props: args,
@@ -132,6 +134,7 @@ export const Outline: Story = {
 
 /** Subtle muted background, no border. */
 export const Muted: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'muted' },
   render: (args) => ({
     props: args,
@@ -151,6 +154,7 @@ export const Muted: Story = {
 
 /** Standard padding and gaps. */
 export const SizeDefault: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', size: 'default' },
   render: (args) => ({
     props: args,
@@ -170,6 +174,7 @@ export const SizeDefault: Story = {
 
 /** Compact padding and gaps. */
 export const SizeSm: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', size: 'sm' },
   render: (args) => ({
     props: args,
@@ -189,6 +194,7 @@ export const SizeSm: Story = {
 
 /** Extra compact — dense lists such as menus. */
 export const SizeXs: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', size: 'xs' },
   render: (args) => ({
     props: args,
@@ -208,6 +214,7 @@ export const SizeXs: Story = {
 
 /** No styling — media renders as-is. */
 export const MediaDefault: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: (args) => ({
     props: args,
@@ -227,6 +234,7 @@ export const MediaDefault: Story = {
 
 /** Rounded icon badge background. */
 export const MediaIcon: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: (args) => ({
     props: args,
@@ -246,6 +254,7 @@ export const MediaIcon: Story = {
 
 /** Fixed square image thumbnail. */
 export const MediaImage: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: (args) => ({
     props: args,

@@ -61,54 +61,63 @@ export const Default: Story = {
 
 /** Primary brand fill — the most prominent badge style. */
 export const DefaultVariant: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'default' },
   render: renderBadge(`Default`, ` title="${badgeContract.docs.variants['default']}"`),
 };
 
 /** Muted fill — general-purpose secondary label. */
 export const Secondary: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'secondary' },
   render: renderBadge(`Secondary`, ` title="${badgeContract.docs.variants['secondary']}"`),
 };
 
 /** Informational tint — does not require immediate action. */
 export const Info: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'info' },
   render: renderBadge(`Info`, ` title="${badgeContract.docs.variants['info']}"`),
 };
 
 /** Success tint — confirms a successful action or state. */
 export const Success: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'success' },
   render: renderBadge(`Success`, ` title="${badgeContract.docs.variants['success']}"`),
 };
 
 /** Warning tint — highlights something that needs attention. */
 export const Warning: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'warning' },
   render: renderBadge(`Warning`, ` title="${badgeContract.docs.variants['warning']}"`),
 };
 
 /** Danger tint — errors, warnings, or destructive states. */
 export const Danger: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'danger' },
   render: renderBadge(`Danger`, ` title="${badgeContract.docs.variants['danger']}"`),
 };
 
 /** Bordered, transparent fill — low-emphasis label. */
 export const Outline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: renderBadge(`Outline`, ` title="${badgeContract.docs.variants['outline']}"`),
 };
 
 /** No background or border — minimal label. */
 export const Ghost: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'ghost' },
   render: renderBadge(`Ghost`, ` title="${badgeContract.docs.variants['ghost']}"`),
 };
 
 /** Looks like a hyperlink — inline actionable label. */
 export const Link: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'link' },
   render: renderBadge(`Link`, ` title="${badgeContract.docs.variants['link']}"`),
 };
@@ -133,17 +142,20 @@ export const WithIcon: Story = {
 
 /** Single-digit count. */
 export const CountSingleDigit: Story = {
+  tags: ['!autodocs'],
   render: renderBadge(`8`, ` class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"`),
 };
 
 /** Double-digit count. */
 export const CountDoubleDigit: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'danger' },
   render: renderBadge(`99`, ` class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"`),
 };
 
 /** Count with plus suffix. */
 export const CountPlus: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: renderBadge(`20+`, ` class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"`),
 };

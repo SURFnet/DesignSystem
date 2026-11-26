@@ -109,18 +109,21 @@ export const Default: Story = {
 
 /** Outline variant — bordered, transparent fill. */
 export const Outline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: renderFormatGroup(),
 };
 
 /** Small size — compact toggle group for toolbars. */
 export const Sm: Story = {
+  tags: ['!autodocs'],
   args: { size: 'sm' },
   render: renderFormatGroup(),
 };
 
 /** Large size — prominent controls. */
 export const Lg: Story = {
+  tags: ['!autodocs'],
   args: { size: 'lg' },
   render: renderFormatGroup(),
 };
@@ -190,11 +193,13 @@ export const TextAlignment: Story = {
 
 /** Disabling the whole group. */
 export const Disabled: Story = {
+  tags: ['!autodocs'],
   args: { disabled: true },
   render: renderFormatGroup(),
 };
 
 /** Disabling a single item within the group. */
 export const DisabledItem: Story = {
+  tags: ['!autodocs'],
   render: renderFormatGroup({ disabledItem: 'italic' }),
 };

@@ -56,16 +56,19 @@ export const Default: Story = {};
 
 /** Primary brand fill — use for the single most important action on a page. */
 export const DefaultVariant: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'default', children: 'Default', title: buttonContract.docs.variants['default'] },
 };
 
 /** Bordered, transparent fill — secondary actions beside a primary button. */
 export const Outline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', children: 'Outline', title: buttonContract.docs.variants['outline'] },
 };
 
 /** Muted fill — general-purpose secondary action. */
 export const Secondary: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'secondary',
     children: 'Secondary',
@@ -75,11 +78,13 @@ export const Secondary: Story = {
 
 /** No background or border — tertiary actions and icon toolbars. */
 export const Ghost: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'ghost', children: 'Ghost', title: buttonContract.docs.variants['ghost'] },
 };
 
 /** Solid danger fill — destructive or irreversible actions. */
 export const Destructive: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'destructive',
     children: 'Destructive',
@@ -89,21 +94,25 @@ export const Destructive: Story = {
 
 /** Looks like a hyperlink — inline or contextual navigation actions. */
 export const Link: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'link', children: 'Link', title: buttonContract.docs.variants['link'] },
 };
 
 /** Small — secondary controls, filter bars. */
 export const Sm: Story = {
+  tags: ['!autodocs'],
   args: { size: 'sm', children: 'Small', title: buttonContract.docs.sizes['sm'] },
 };
 
 /** Large — prominent calls to action. */
 export const Lg: Story = {
+  tags: ['!autodocs'],
   args: { size: 'lg', children: 'Large', title: buttonContract.docs.sizes['lg'] },
 };
 
 /** Square icon-only button at extra-small size. */
 export const IconXs: Story = {
+  tags: ['!autodocs'],
   args: {
     size: 'icon-xs',
     children: <PlusIcon />,
@@ -114,6 +123,7 @@ export const IconXs: Story = {
 
 /** Square icon-only button at small size. */
 export const IconSm: Story = {
+  tags: ['!autodocs'],
   args: {
     size: 'icon-sm',
     children: <PlusIcon />,
@@ -124,6 +134,7 @@ export const IconSm: Story = {
 
 /** Square icon-only button at large size. */
 export const IconLg: Story = {
+  tags: ['!autodocs'],
   args: {
     size: 'icon-lg',
     children: <PlusIcon />,
@@ -163,31 +174,37 @@ export const IconRight: Story = {
 
 /** Disabled default variant. */
 export const DisabledDefault: Story = {
+  tags: ['!autodocs'],
   args: { disabled: true, children: 'Default' },
 };
 
 /** Disabled outline variant. */
 export const DisabledOutline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', disabled: true, children: 'Outline' },
 };
 
 /** Disabled secondary variant. */
 export const DisabledSecondary: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'secondary', disabled: true, children: 'Secondary' },
 };
 
 /** Disabled ghost variant. */
 export const DisabledGhost: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'ghost', disabled: true, children: 'Ghost' },
 };
 
 /** Disabled destructive variant. */
 export const DisabledDestructive: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'destructive', disabled: true, children: 'Destructive' },
 };
 
 /** Disabled link variant. */
 export const DisabledLink: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'link', disabled: true, children: 'Link' },
 };
 

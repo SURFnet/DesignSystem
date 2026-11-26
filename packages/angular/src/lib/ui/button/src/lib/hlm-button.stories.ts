@@ -80,54 +80,63 @@ export const Default: Story = {
 
 /** Primary brand fill — use for the single most important action on a page. */
 export const DefaultVariant: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'default' },
   render: renderButton(`Default`, ` title="${buttonContract.docs.variants['default']}"`),
 };
 
 /** Bordered, transparent fill — secondary actions beside a primary button. */
 export const Outline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline' },
   render: renderButton(`Outline`, ` title="${buttonContract.docs.variants['outline']}"`),
 };
 
 /** Muted fill — general-purpose secondary action. */
 export const Secondary: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'secondary' },
   render: renderButton(`Secondary`, ` title="${buttonContract.docs.variants['secondary']}"`),
 };
 
 /** No background or border — tertiary actions and icon toolbars. */
 export const Ghost: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'ghost' },
   render: renderButton(`Ghost`, ` title="${buttonContract.docs.variants['ghost']}"`),
 };
 
 /** Solid danger fill — destructive or irreversible actions. */
 export const Destructive: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'destructive' },
   render: renderButton(`Destructive`, ` title="${buttonContract.docs.variants['destructive']}"`),
 };
 
 /** Looks like a hyperlink — inline or contextual navigation actions. */
 export const Link: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'link' },
   render: renderButton(`Link`, ` title="${buttonContract.docs.variants['link']}"`),
 };
 
 /** Small — secondary controls, filter bars. */
 export const Sm: Story = {
+  tags: ['!autodocs'],
   args: { size: 'sm' },
   render: renderButton(`Small`, ` title="${buttonContract.docs.sizes['sm']}"`),
 };
 
 /** Large — prominent calls to action. */
 export const Lg: Story = {
+  tags: ['!autodocs'],
   args: { size: 'lg' },
   render: renderButton(`Large`, ` title="${buttonContract.docs.sizes['lg']}"`),
 };
 
 /** Square icon-only button at extra-small size. */
 export const IconXs: Story = {
+  tags: ['!autodocs'],
   args: { size: 'icon-xs' },
   render: renderButton(
     `<ng-icon name="phosphorPlus" />`,
@@ -137,6 +146,7 @@ export const IconXs: Story = {
 
 /** Square icon-only button at small size. */
 export const IconSm: Story = {
+  tags: ['!autodocs'],
   args: { size: 'icon-sm' },
   render: renderButton(
     `<ng-icon name="phosphorPlus" />`,
@@ -146,6 +156,7 @@ export const IconSm: Story = {
 
 /** Square icon-only button at large size. */
 export const IconLg: Story = {
+  tags: ['!autodocs'],
   args: { size: 'icon-lg' },
   render: renderButton(
     `<ng-icon name="phosphorPlus" />`,
@@ -170,36 +181,42 @@ export const IconRight: Story = {
 
 /** Disabled default variant. */
 export const DisabledDefault: Story = {
+  tags: ['!autodocs'],
   args: { disabled: true },
   render: renderButton(`Default`),
 };
 
 /** Disabled outline variant. */
 export const DisabledOutline: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', disabled: true },
   render: renderButton(`Outline`),
 };
 
 /** Disabled secondary variant. */
 export const DisabledSecondary: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'secondary', disabled: true },
   render: renderButton(`Secondary`),
 };
 
 /** Disabled ghost variant. */
 export const DisabledGhost: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'ghost', disabled: true },
   render: renderButton(`Ghost`),
 };
 
 /** Disabled destructive variant. */
 export const DisabledDestructive: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'destructive', disabled: true },
   render: renderButton(`Destructive`),
 };
 
 /** Disabled link variant. */
 export const DisabledLink: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'link', disabled: true },
   render: renderButton(`Link`),
 };

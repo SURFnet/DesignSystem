@@ -43,6 +43,7 @@ export const Default: Story = {};
 
 /** Primary brand fill — the most prominent badge style. */
 export const DefaultVariant: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'default',
     children: 'Default',
@@ -52,6 +53,7 @@ export const DefaultVariant: Story = {
 
 /** Muted fill — general-purpose secondary label. */
 export const Secondary: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'secondary',
     children: 'Secondary',
@@ -61,6 +63,7 @@ export const Secondary: Story = {
 
 /** Informational tint — does not require immediate action. */
 export const Info: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'info',
     children: 'Info',
@@ -70,6 +73,7 @@ export const Info: Story = {
 
 /** Success tint — confirms a successful action or state. */
 export const Success: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'success',
     children: 'Success',
@@ -79,6 +83,7 @@ export const Success: Story = {
 
 /** Warning tint — highlights something that needs attention. */
 export const Warning: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'warning',
     children: 'Warning',
@@ -88,6 +93,7 @@ export const Warning: Story = {
 
 /** Danger tint — errors, warnings, or destructive states. */
 export const Danger: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'danger',
     children: 'Danger',
@@ -97,6 +103,7 @@ export const Danger: Story = {
 
 /** Bordered, transparent fill — low-emphasis label. */
 export const Outline: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'outline',
     children: 'Outline',
@@ -106,6 +113,7 @@ export const Outline: Story = {
 
 /** No background or border — minimal label. */
 export const Ghost: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'ghost',
     children: 'Ghost',
@@ -115,6 +123,7 @@ export const Ghost: Story = {
 
 /** Looks like a hyperlink — inline actionable label. */
 export const Link: Story = {
+  tags: ['!autodocs'],
   args: {
     variant: 'link',
     children: 'Link',
@@ -140,6 +149,7 @@ export const WithIcon: Story = {
 
 /** Single-digit count. */
 export const CountSingleDigit: Story = {
+  tags: ['!autodocs'],
   args: { children: '8' },
   render: (args) => (
     <Badge {...args} className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" />
@@ -148,6 +158,7 @@ export const CountSingleDigit: Story = {
 
 /** Double-digit count. */
 export const CountDoubleDigit: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'danger', children: '99' },
   render: (args) => (
     <Badge {...args} className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" />
@@ -156,6 +167,7 @@ export const CountDoubleDigit: Story = {
 
 /** Count with plus suffix. */
 export const CountPlus: Story = {
+  tags: ['!autodocs'],
   args: { variant: 'outline', children: '20+' },
   render: (args) => (
     <Badge {...args} className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" />
