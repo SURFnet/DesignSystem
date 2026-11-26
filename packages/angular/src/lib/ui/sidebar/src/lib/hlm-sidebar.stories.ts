@@ -204,7 +204,6 @@ class SidebarVariant {
 
 /** The `SidebarMenuButton` variants and sizes declared in the contract. */
 export const MenuButtonVariants: Story = {
-  // A fixed showcase of every `SidebarMenuButton` variant and size; the sidebar args don't apply.
   parameters: { controls: { disable: true } },
   render: () => ({
     moduleMetadata: {

@@ -48,7 +48,6 @@ export const Default: Story = {
 
 /** Common ratios side by side, each constraining the same photo. */
 export const Ratios: Story = {
-  // Shows four fixed ratios side by side, so a single `ratio` control has nothing to drive.
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap gap-4">

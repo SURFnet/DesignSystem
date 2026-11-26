@@ -20,8 +20,6 @@ const meta = {
   title: 'Components/DropdownMenu',
   component: DropdownMenu,
   parameters: {
-    // Every story is a fixed composition (fixed default + destructive items), with no
-    // single input to drive, so hide the Controls panel rather than show dead controls.
     controls: { disable: true },
     docs: {
       description: {

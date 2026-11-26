@@ -175,7 +175,6 @@ export const Disabled: Story = {
  * reactive form, that enables its submit button once all slots are filled.
  */
 export const VerificationForm: Story = {
-  // `disabled` is left to the reactive form control, so it is not bound here.
   argTypes: { disabled: { table: { disable: true } } },
   render: (args) => ({
     props: {
@@ -216,7 +215,6 @@ export const VerificationForm: Story = {
 
 /** A required code left empty: the field shows its error message. */
 export const Invalid: Story = {
-  // `disabled` is left to the reactive form control, so it is not bound here.
   argTypes: { disabled: { table: { disable: true } } },
   render: (args) => {
     const form = new FormGroup({

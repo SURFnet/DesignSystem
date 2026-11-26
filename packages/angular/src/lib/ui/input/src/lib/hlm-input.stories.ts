@@ -88,7 +88,6 @@ export const Default: Story = {
 
 /** Common input types side by side. */
 export const Types: Story = {
-  // Shows several types and placeholders at once, so a single control can't drive it.
   parameters: { controls: { disable: true } },
   render: () => ({
     template: `
@@ -106,7 +105,6 @@ export const Types: Story = {
 export const Disabled: Story = {
   args: { disabled: true, placeholder: 'Disabled' },
   argTypes: { optional: { table: { disable: true } } },
-  // No wrapping field here, so leave `optional` off the input.
   render: (args) => ({
     props: args,
     template: `
@@ -118,7 +116,6 @@ export const Disabled: Story = {
 /** Invalid state: a required field left empty shows its error message. */
 export const Error: Story = {
   args: { type: 'email', placeholder: '' },
-  // `disabled` is left to the reactive form control, so it is not bound here.
   argTypes: { disabled: { table: { disable: true } } },
   render: (args) => {
     const form = new FormGroup({

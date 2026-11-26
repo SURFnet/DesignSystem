@@ -62,10 +62,7 @@ export default meta;
 
 type Story = StoryObj<TooltipArgs>;
 
-/**
- * Render a tooltip around `trigger`, bound to the story args so the Controls panel
- * drives it. `extra` is appended after the `content` text (e.g. a `Kbd`).
- */
+/** `extra` is appended after the `content` text (e.g. a `Kbd`). */
 const renderTooltip =
   (
     trigger: ReactElement,

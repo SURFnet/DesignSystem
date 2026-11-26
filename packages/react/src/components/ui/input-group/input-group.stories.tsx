@@ -22,8 +22,6 @@ const meta = {
   title: 'Components/InputGroup',
   component: InputGroup,
   parameters: {
-    // Every story is a fixed composition (addons with mixed alignments), with no
-    // single input to drive, so hide the Controls panel rather than show dead controls.
     controls: { disable: true },
     docs: {
       description: {

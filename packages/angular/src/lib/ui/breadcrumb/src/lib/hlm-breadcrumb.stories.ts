@@ -23,7 +23,6 @@ const meta: Meta<HlmBreadcrumb> = {
     }),
   ],
   parameters: {
-    // Breadcrumb has no variants or options to tweak; the stories only differ in their items.
     controls: { disable: true },
     docs: {
       description: {

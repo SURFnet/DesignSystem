@@ -63,10 +63,6 @@ export default meta;
 
 type Story = StoryObj<TooltipArgs>;
 
-/**
- * Render an `hlmBtn` trigger with a tooltip bound to the story args, so the Controls
- * panel drives it. Each story sets its own starting args (e.g. `position: 'right'`).
- */
 const renderTooltip =
   (label: string, attrs = ''): Story['render'] =>
   ({ content, ...args }) => ({

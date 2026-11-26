@@ -64,7 +64,6 @@ export const Default: Story = {
 
 /** Common input types side by side. */
 export const Types: Story = {
-  // Shows several types and placeholders at once, so a single control can't drive it.
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex w-72 flex-col gap-3">

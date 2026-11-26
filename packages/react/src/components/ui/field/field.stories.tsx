@@ -146,7 +146,6 @@ export const Optional: Story = {
  * swaps the suffix for an English form. A consent checkbox stays required, a newsletter one is optional.
  */
 export const MixedForm: Story = {
-  // Each field sets its own orientation/optional, so one control can't drive them all.
   parameters: { controls: { disable: true } },
   render: () => (
     <FieldGroup className="w-72">

@@ -82,10 +82,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/**
- * Render the bold / italic / underline group bound to the story args, so the Controls
- * panel drives it. Each story sets its own starting args (e.g. `variant: 'outline'`).
- */
 const renderFormatGroup =
   ({ disabledItem }: { disabledItem?: 'italic' } = {}): Story['render'] =>
   (args) => (

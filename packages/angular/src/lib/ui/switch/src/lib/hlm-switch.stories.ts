@@ -58,10 +58,6 @@ export const Default: Story = {
   }),
 };
 
-/**
- * Render an `hlm-switch` inside a clickable label, bound to the story args so the
- * Controls panel drives it. Each story sets its own starting args.
- */
 const renderLabelled =
   (label: string, attrs = ''): Story['render'] =>
   (args) => ({

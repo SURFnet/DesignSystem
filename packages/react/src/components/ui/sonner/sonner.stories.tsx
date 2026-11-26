@@ -64,10 +64,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/**
- * Render a `Toaster` bound to the story args, plus a button that pushes a toast onto it.
- * Each story sets its own starting args (e.g. `richColors: true`).
- */
 const renderToaster =
   (label: string, onClick: () => unknown): Story['render'] =>
   (args) => (

@@ -173,7 +173,6 @@ export const AsLink: Story = {
 
 /** Realistic composed usage: status labels attached to a list of items. */
 export const StatusList: Story = {
-  // Each badge shows a different fixed status variant, so one `variant` control has nothing to drive.
   parameters: { controls: { disable: true } },
   render: () => (
     <ul className="flex w-80 flex-col gap-2 text-sm">

@@ -67,10 +67,6 @@ const meta: Meta<HlmToaster> = {
 export default meta;
 type Story = StoryObj<HlmToaster>;
 
-/**
- * Render an `hlm-toaster` bound to the story args, plus a button that pushes a toast onto it.
- * Each story sets its own starting args (e.g. `richColors: true`).
- */
 const renderToaster =
   (label: string, show: () => unknown): Story['render'] =>
   (args) => ({

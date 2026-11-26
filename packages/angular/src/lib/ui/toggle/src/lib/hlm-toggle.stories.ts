@@ -76,10 +76,6 @@ export default meta;
 
 type Story = StoryObj<ToggleArgs>;
 
-/**
- * Render an `hlmToggle` bound to the story args, so the Controls panel drives it.
- * Each story sets its own starting args (e.g. `variant: 'outline'`).
- */
 const renderToggle =
   (content: string, attrs = ''): Story['render'] =>
   (args) => ({

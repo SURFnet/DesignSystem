@@ -47,10 +47,6 @@ export default meta;
 
 type Story = StoryObj<HlmBadge>;
 
-/**
- * Render an `hlmBadge` bound to the story args, so the Controls panel drives it.
- * Each story sets its own starting args (e.g. `variant: 'info'`).
- */
 const renderBadge =
   (content: string, attrs = '', tag = 'span'): Story['render'] =>
   (args) => ({
@@ -160,7 +156,6 @@ export const AsLink: Story = {
 
 /** Realistic composed usage: status labels attached to a list of items. */
 export const StatusList: Story = {
-  // Each badge shows a different fixed status variant, so one `variant` control has nothing to drive.
   parameters: { controls: { disable: true } },
   render: () => ({
     template: `

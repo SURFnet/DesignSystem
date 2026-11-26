@@ -58,10 +58,6 @@ export const Default: Story = {
   },
 };
 
-/**
- * Render a `Switch` inside a clickable `Label`, bound to the story args so the
- * Controls panel drives it. Each story sets its own starting args.
- */
 const renderLabelled =
   (label: string, extra: Partial<ComponentProps<typeof Switch>> = {}): Story['render'] =>
   (args) => (
