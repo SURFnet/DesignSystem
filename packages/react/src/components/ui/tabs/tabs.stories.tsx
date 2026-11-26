@@ -49,6 +49,10 @@ const meta = {
       },
     },
   },
+  args: {
+    orientation: 'horizontal',
+    variant: 'default',
+  },
 } satisfies Meta<TabsRootProps & TabsListVariantsOptions>;
 
 export default meta;
@@ -115,9 +119,10 @@ export const Default: Story = {
 
 /** Default variant — tabs with a bordered background. */
 export const DefaultVariant: Story = {
-  render: () => (
-    <Tabs defaultValue="tab-1" className="w-96">
-      <TabsList variant="default" title={tabsContract.docs.variants.default}>
+  args: { variant: 'default' },
+  render: (args) => (
+    <Tabs defaultValue="tab-1" className="w-96" orientation={args.orientation}>
+      <TabsList variant={args.variant} title={tabsContract.docs.variants.default}>
         <TabsTrigger value="tab-1">First tab</TabsTrigger>
         <TabsTrigger value="tab-2">Second tab</TabsTrigger>
         <TabsTrigger value="tab-3">Third tab</TabsTrigger>
@@ -131,9 +136,10 @@ export const DefaultVariant: Story = {
 
 /** Underlined variant — tabs without a background, just an underline on the active tab. */
 export const Line: Story = {
-  render: () => (
-    <Tabs defaultValue="tab-1" className="w-96">
-      <TabsList variant="line" title={tabsContract.docs.variants.line}>
+  args: { variant: 'line' },
+  render: (args) => (
+    <Tabs defaultValue="tab-1" className="w-96" orientation={args.orientation}>
+      <TabsList variant={args.variant} title={tabsContract.docs.variants.line}>
         <TabsTrigger value="tab-1">First tab</TabsTrigger>
         <TabsTrigger value="tab-2">Second tab</TabsTrigger>
         <TabsTrigger value="tab-3">Third tab</TabsTrigger>
@@ -147,9 +153,10 @@ export const Line: Story = {
 
 /** Vertical orientation */
 export const Vertical: Story = {
-  render: () => (
-    <Tabs defaultValue="tab-1" orientation="vertical" className="w-96">
-      <TabsList>
+  args: { orientation: 'vertical' },
+  render: (args) => (
+    <Tabs defaultValue="tab-1" orientation={args.orientation} className="w-96">
+      <TabsList variant={args.variant}>
         <TabsTrigger value="tab-1">First tab</TabsTrigger>
         <TabsTrigger value="tab-2">Second tab</TabsTrigger>
         <TabsTrigger value="tab-3">Third tab</TabsTrigger>
@@ -163,9 +170,10 @@ export const Vertical: Story = {
 
 /** Vertical orientation with line variant. */
 export const VerticalLine: Story = {
-  render: () => (
-    <Tabs defaultValue="tab-1" orientation="vertical" className="w-96">
-      <TabsList variant="line">
+  args: { orientation: 'vertical', variant: 'line' },
+  render: (args) => (
+    <Tabs defaultValue="tab-1" orientation={args.orientation} className="w-96">
+      <TabsList variant={args.variant}>
         <TabsTrigger value="tab-1">First tab</TabsTrigger>
         <TabsTrigger value="tab-2">Second tab</TabsTrigger>
         <TabsTrigger value="tab-3">Third tab</TabsTrigger>
@@ -179,9 +187,9 @@ export const VerticalLine: Story = {
 
 /** An individual trigger can be disabled independently of the rest of the tabs. */
 export const DisabledTrigger: Story = {
-  render: () => (
-    <Tabs defaultValue="tab-1" className="w-96">
-      <TabsList>
+  render: (args) => (
+    <Tabs defaultValue="tab-1" className="w-96" orientation={args.orientation}>
+      <TabsList variant={args.variant}>
         <TabsTrigger value="tab-1">First tab</TabsTrigger>
         <TabsTrigger value="tab-2" disabled>
           Disabled tab

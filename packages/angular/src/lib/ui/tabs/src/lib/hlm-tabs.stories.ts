@@ -61,9 +61,10 @@ type Story = StoryObj<TabsInputs>;
 /** A realistic composed example — a settings panel switching between two forms. */
 export const Default: Story = {
   render: (args) => ({
+    props: args,
     template: `
-      <hlm-tabs tab="account" class="w-96" orientation=${args.orientation}>
-        <hlm-tabs-list aria-label="Settings" variant=${args.variant}>
+      <hlm-tabs tab="account" class="w-96" [orientation]="orientation">
+        <hlm-tabs-list aria-label="Settings" [variant]="variant">
           <button hlmTabsTrigger="account">Account</button>
           <button hlmTabsTrigger="password">Password</button>
         </hlm-tabs-list>
@@ -116,10 +117,12 @@ export const Default: Story = {
 
 /** Default variant — tabs with a bordered background. */
 export const DefaultVariant: Story = {
-  render: () => ({
+  args: { variant: 'default' },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-tabs tab="tab-1" class="w-96">
-        <hlm-tabs-list variant="default" title="${tabsContract.docs.variants.default}">
+      <hlm-tabs tab="tab-1" class="w-96" [orientation]="orientation">
+        <hlm-tabs-list [variant]="variant" title="${tabsContract.docs.variants.default}">
           <button hlmTabsTrigger="tab-1">First tab</button>
           <button hlmTabsTrigger="tab-2">Second tab</button>
           <button hlmTabsTrigger="tab-3">Third tab</button>
@@ -134,10 +137,12 @@ export const DefaultVariant: Story = {
 
 /** Underlined variant — tabs without a background, just an underline on the active tab. */
 export const Line: Story = {
-  render: () => ({
+  args: { variant: 'line' },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-tabs tab="tab-1" class="w-96">
-        <hlm-tabs-list variant="line" title="${tabsContract.docs.variants.line}">
+      <hlm-tabs tab="tab-1" class="w-96" [orientation]="orientation">
+        <hlm-tabs-list [variant]="variant" title="${tabsContract.docs.variants.line}">
           <button hlmTabsTrigger="tab-1">First tab</button>
           <button hlmTabsTrigger="tab-2">Second tab</button>
           <button hlmTabsTrigger="tab-3">Third tab</button>
@@ -152,10 +157,12 @@ export const Line: Story = {
 
 /** Vertical orientation */
 export const Vertical: Story = {
-  render: () => ({
+  args: { orientation: 'vertical' },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-tabs tab="tab-1" orientation="vertical" class="w-96">
-        <hlm-tabs-list>
+      <hlm-tabs tab="tab-1" [orientation]="orientation" class="w-96">
+        <hlm-tabs-list [variant]="variant">
           <button hlmTabsTrigger="tab-1">First tab</button>
           <button hlmTabsTrigger="tab-2">Second tab</button>
           <button hlmTabsTrigger="tab-3">Third tab</button>
@@ -170,10 +177,12 @@ export const Vertical: Story = {
 
 /** Vertical orientation with line variant. */
 export const VerticalLine: Story = {
-  render: () => ({
+  args: { orientation: 'vertical', variant: 'line' },
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-tabs tab="tab-1" orientation="vertical" class="w-96">
-        <hlm-tabs-list variant="line">
+      <hlm-tabs tab="tab-1" [orientation]="orientation" class="w-96">
+        <hlm-tabs-list [variant]="variant">
           <button hlmTabsTrigger="tab-1">First tab</button>
           <button hlmTabsTrigger="tab-2">Second tab</button>
           <button hlmTabsTrigger="tab-3">Third tab</button>
@@ -188,10 +197,11 @@ export const VerticalLine: Story = {
 
 /** An individual trigger can be disabled independently of the rest of the tabs. */
 export const DisabledTrigger: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
-      <hlm-tabs tab="tab-1" class="w-96">
-        <hlm-tabs-list>
+      <hlm-tabs tab="tab-1" class="w-96" [orientation]="orientation">
+        <hlm-tabs-list [variant]="variant">
           <button hlmTabsTrigger="tab-1">First tab</button>
           <button hlmTabsTrigger="tab-2" disabled>Disabled tab</button>
         </hlm-tabs-list>
