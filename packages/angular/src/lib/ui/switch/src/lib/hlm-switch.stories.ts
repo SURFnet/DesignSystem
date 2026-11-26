@@ -39,9 +39,11 @@ const meta: Meta<HlmSwitch> = {
         defaultValue: { summary: switchContract.defaults.sizes },
       },
     },
+    disabled: { control: 'boolean' },
   },
   args: {
     size: switchContract.defaults.sizes,
+    disabled: false,
   },
 };
 
@@ -56,92 +58,71 @@ export const Default: Story = {
   }),
 };
 
-/** A switch paired with a clickable label. */
-export const WithLabel: Story = {
-  render: () => ({
+/**
+ * Render an `hlm-switch` inside a clickable label, bound to the story args so the
+ * Controls panel drives it. Each story sets its own starting args.
+ */
+const renderLabelled =
+  (label: string, attrs = ''): Story['render'] =>
+  (args) => ({
+    props: args,
     template: `
       <label class="gap-2" hlmLabel>
-        <hlm-switch checked />
-        Enable notifications
+        <hlm-switch ${argsToTemplate(args)}${attrs} />
+        ${label}
       </label>
     `,
-  }),
+  });
+
+/** A switch paired with a clickable label. */
+export const WithLabel: Story = {
+  render: renderLabelled('Enable notifications', ' checked'),
 };
 
 /** Small size — compact forms and toolbars. */
 export const Sm: Story = {
-  render: () => ({
-    template: `
-      <label class="gap-2" hlmLabel>
-        <hlm-switch size="sm" checked title="${switchContract.docs.sizes.sm}" />
-        Small switch
-      </label>
-    `,
-  }),
+  args: { size: 'sm' },
+  render: renderLabelled('Small switch', ` checked title="${switchContract.docs.sizes.sm}"`),
 };
 
 /** An unchecked switch. */
 export const Unchecked: Story = {
-  render: () => ({
-    template: `
-      <label class="gap-2" hlmLabel>
-        <hlm-switch />
-        Unchecked
-      </label>
-    `,
-  }),
+  render: renderLabelled('Unchecked'),
 };
 
 /** A checked switch. */
 export const Checked: Story = {
-  render: () => ({
-    template: `
-      <label class="gap-2" hlmLabel>
-        <hlm-switch checked />
-        Checked
-      </label>
-    `,
-  }),
+  render: renderLabelled('Checked', ' checked'),
 };
 
 /** A disabled unchecked switch. */
 export const Disabled: Story = {
-  render: () => ({
-    template: `
-      <label class="gap-2" hlmLabel>
-        <hlm-switch disabled />
-        Disabled
-      </label>
-    `,
-  }),
+  args: { disabled: true },
+  render: renderLabelled('Disabled'),
 };
 
 /** A disabled checked switch. */
 export const DisabledChecked: Story = {
-  render: () => ({
-    template: `
-      <label class="gap-2" hlmLabel>
-        <hlm-switch checked disabled />
-        Disabled checked
-      </label>
-    `,
-  }),
+  args: { disabled: true },
+  render: renderLabelled('Disabled checked', ' checked'),
 };
 
 /** A switch that must be on: the field shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  // The reactive form owns the disabled state, so only `size` is controllable here.
+  parameters: { controls: { exclude: ['disabled'] } },
+  render: ({ size }) => {
     const form = new FormGroup({
       consent: new FormControl(false, { validators: [Validators.requiredTrue] }),
     });
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { form, size },
       template: `
         <form [formGroup]="form">
           <div hlmField orientation="horizontal">
-            <hlm-switch inputId="invalid-consent" formControlName="consent" />
+            <hlm-switch inputId="invalid-consent" formControlName="consent" [size]="size" />
             <div hlmFieldContent>
               <label hlmFieldLabel for="invalid-consent">Share usage data</label>
               <hlm-field-error />
