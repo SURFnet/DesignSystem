@@ -74,10 +74,12 @@ export const Default: Story = {
 
 /** Panels stacked top to bottom instead of side by side. */
 export const Vertical: Story = {
-  render: () => ({
+  args: { direction: 'vertical' },
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="h-64 w-full max-w-md">
-				<div hlmResizableGroup direction="vertical" class="h-full w-full rounded-lg border">
+				<div hlmResizableGroup ${argsToTemplate(args)} class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">Top panel</span>
@@ -100,10 +102,11 @@ export const Vertical: Story = {
  * itself nests a vertical group to split content from a console.
  */
 export const ComposedLayout: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="h-80 w-full max-w-3xl">
-				<div hlmResizableGroup class="h-full w-full rounded-lg border">
+				<div hlmResizableGroup ${argsToTemplate(args)} class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="20" [minSize]="15">
 					<div class="flex h-full flex-col gap-1 p-4">
 						<span class="text-sm font-medium">Sidebar</span>
@@ -141,10 +144,11 @@ export const ComposedLayout: Story = {
 
 /** Handles without the visible grip, for a more minimal seam between panels. */
 export const WithoutHandleGrip: Story = {
-  render: () => ({
+  render: (args) => ({
+    props: args,
     template: `
 			<div class="h-64 w-full max-w-md">
-				<div hlmResizableGroup class="h-full w-full rounded-lg border">
+				<div hlmResizableGroup ${argsToTemplate(args)} class="h-full w-full rounded-lg border">
 				<div hlmResizablePanel [defaultSize]="50">
 					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-mono text-sm">One</span>
