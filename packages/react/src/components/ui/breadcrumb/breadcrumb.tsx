@@ -66,16 +66,18 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
   );
 }
 
-function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<'span'>) {
+function BreadcrumbEllipsis({
+  className,
+  srOnlyText = 'More',
+  ...props
+}: React.ComponentProps<'span'> & {
+  /** Text a screen reader reads for the ellipsis. */
+  srOnlyText?: string;
+}) {
   return (
-    <span
-      data-slot="breadcrumb-ellipsis"
-      aria-hidden="true"
-      className={cn(styles.ellipsis, className)}
-      {...props}
-    >
-      <DotsThreeIcon />
-      <span className={styles.srOnly}>More</span>
+    <span data-slot="breadcrumb-ellipsis" className={cn(styles.ellipsis, className)} {...props}>
+      <DotsThreeIcon aria-hidden="true" />
+      <span className={styles.srOnly}>{srOnlyText}</span>
     </span>
   );
 }

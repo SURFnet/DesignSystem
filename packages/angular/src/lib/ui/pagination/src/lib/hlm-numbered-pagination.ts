@@ -74,7 +74,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 
       <!-- Show Page Size selector -->
       <hlm-select [(value)]="itemsPerPage" class="curve-numbered-pagination-size">
-        <hlm-select-trigger aria-label="Items per page">
+        <hlm-select-trigger [aria-label]="itemsPerPageLabel()">
           <hlm-select-value />
         </hlm-select-trigger>
         <hlm-select-content *hlmSelectPortal>
@@ -127,6 +127,8 @@ export class HlmNumberedPagination {
    * Defaults to [10, 20, 50, 100]
    */
   public readonly pageSizes = input<number[]>([10, 20, 50, 100]);
+  /** Text a screen reader reads for the page size picker. */
+  public readonly itemsPerPageLabel = input<string>('Items per page');
 
   protected readonly _pageSizesWithCurrent = computed(() => {
     const pageSizes = this.pageSizes();

@@ -39,6 +39,8 @@ export type NumberedPaginationProps = React.ComponentProps<'div'> & {
    * page returned by the server API.
    */
   totalItems: number;
+  /** Text a screen reader reads for the page size picker. */
+  itemsPerPageLabel?: string;
   /** The number of page links to show. Defaults to 7. */
   maxSize?: number;
   /** Show the previous/next edge controls. Defaults to true. */
@@ -56,6 +58,7 @@ function NumberedPagination({
   maxSize = 7,
   showEdges = true,
   pageSizes = [10, 20, 50, 100],
+  itemsPerPageLabel = 'Items per page',
   className,
   ...props
 }: NumberedPaginationProps) {
@@ -139,7 +142,7 @@ function NumberedPagination({
           }
         }}
       >
-        <SelectTrigger className={numberedStyles.pageSize} aria-label="Items per page">
+        <SelectTrigger className={numberedStyles.pageSize} aria-label={itemsPerPageLabel}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

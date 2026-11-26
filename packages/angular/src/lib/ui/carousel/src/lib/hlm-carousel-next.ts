@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   inject,
+  input,
   untracked,
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -29,10 +30,12 @@ import { HlmCarousel } from './hlm-carousel';
   },
   template: `
     <ng-icon hlm size="sm" name="phosphorArrowRight" class="curve-carousel-nav-icon" />
-    <span class="sr-only">Next slide</span>
+    <span class="sr-only">{{ srOnlyText() }}</span>
   `,
 })
 export class HlmCarouselNext {
+  /** Text a screen reader reads for the button. */
+  public readonly srOnlyText = input<string>('Next slide');
   private readonly _button = inject(HlmButton);
   protected readonly _carousel = inject(HlmCarousel);
   private readonly _computedClass = computed(() =>

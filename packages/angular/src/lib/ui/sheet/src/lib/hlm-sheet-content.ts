@@ -33,7 +33,7 @@ import { HlmSheetClose } from './hlm-sheet-close';
 
     @if (showCloseButton()) {
       <button hlmBtn variant="ghost" size="icon-sm" class="curve-sheet-close" hlmSheetClose>
-        <span class="sr-only">Close</span>
+        <span class="sr-only">{{ closeLabel() }}</span>
         <ng-icon hlm size="sm" name="phosphorX" />
       </button>
     }
@@ -49,6 +49,9 @@ export class HlmSheetContent {
   public readonly showCloseButton = input<boolean, BooleanInput>(true, {
     transform: booleanAttribute,
   });
+
+  /** Text a screen reader reads for the close button. */
+  public readonly closeLabel = input<string>('Close');
 
   constructor() {
     // Styling (incl. slide in/out motion) lives in ./hlm-sheet.css.

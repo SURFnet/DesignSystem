@@ -193,8 +193,16 @@
       "component": "Pagination",
       "kind": "screenreader",
       "description": "Toegankelijke naam van de keuzelijst voor het aantal items per pagina.",
-      "angular": { "text": "Items per page", "where": "hlm-numbered-pagination", "change": null },
-      "react": { "text": "Items per page", "where": "NumberedPagination", "change": null }
+      "angular": {
+        "text": "Items per page",
+        "where": "hlm-numbered-pagination",
+        "change": "input `itemsPerPageLabel`"
+      },
+      "react": {
+        "text": "Items per page",
+        "where": "NumberedPagination",
+        "change": "prop `itemsPerPageLabel`"
+      }
     },
     "breadcrumb.label": {
       "component": "Breadcrumb",
@@ -216,7 +224,7 @@
         "where": "hlm-breadcrumb-ellipsis",
         "change": "input `srOnlyText`"
       },
-      "react": { "text": "More", "where": "BreadcrumbEllipsis", "change": null }
+      "react": { "text": "More", "where": "BreadcrumbEllipsis", "change": "prop `srOnlyText`" }
     },
     "spinner.label": {
       "component": "Spinner",
@@ -229,15 +237,22 @@
       "component": "Dialog",
       "kind": "screenreader",
       "description": "Naam van de sluitknop (kruisje) rechtsboven in een dialoog.",
-      "angular": { "text": "close", "where": "hlm-dialog-content", "change": null },
-      "react": { "text": "Close", "where": "DialogContent", "change": null }
+      "angular": { "text": "Close", "where": "hlm-dialog-content", "change": "input `closeLabel`" },
+      "react": { "text": "Close", "where": "DialogContent", "change": "prop `closeLabel`" }
+    },
+    "dialog.footer-close": {
+      "component": "Dialog",
+      "kind": "zichtbaar",
+      "description": "Tekst op de sluitknop onderin een dialoog (`<DialogFooter showCloseButton>`).",
+      "angular": null,
+      "react": { "text": "Close", "where": "DialogFooter", "change": "prop `closeText`" }
     },
     "sheet.close": {
       "component": "Sheet",
       "kind": "screenreader",
       "description": "Naam van de sluitknop (kruisje) in een sheet.",
-      "angular": { "text": "Close", "where": "hlm-sheet-content", "change": null },
-      "react": { "text": "Close", "where": "SheetContent", "change": null }
+      "angular": { "text": "Close", "where": "hlm-sheet-content", "change": "input `closeLabel`" },
+      "react": { "text": "Close", "where": "SheetContent", "change": "prop `closeLabel`" }
     },
     "sidebar.toggle": {
       "component": "Sidebar",
@@ -248,7 +263,29 @@
         "where": "hlm-sidebar-trigger",
         "change": "input `srOnlyText`"
       },
-      "react": { "text": "Toggle Sidebar", "where": "SidebarTrigger", "change": null }
+      "react": {
+        "text": "Toggle Sidebar",
+        "where": "SidebarTrigger",
+        "change": "prop `srOnlyText`"
+      }
+    },
+    "sidebar.mobile-title": {
+      "component": "Sidebar",
+      "kind": "screenreader",
+      "description": "Titel van de sidebar als die op mobiel als sheet opent.",
+      "angular": null,
+      "react": { "text": "Sidebar", "where": "Sidebar", "change": "prop `mobileTitle`" }
+    },
+    "sidebar.mobile-description": {
+      "component": "Sidebar",
+      "kind": "screenreader",
+      "description": "Beschrijving van de sidebar als die op mobiel als sheet opent.",
+      "angular": null,
+      "react": {
+        "text": "Displays the mobile sidebar.",
+        "where": "Sidebar",
+        "change": "prop `mobileDescription`"
+      }
     },
     "sidebar.rail": {
       "component": "Sidebar",
@@ -265,15 +302,23 @@
       "component": "Carousel",
       "kind": "screenreader",
       "description": "Voorgelezen type van het gebied (aria-roledescription).",
-      "angular": { "text": "carousel", "where": "hlm-carousel", "change": null },
+      "angular": {
+        "text": "carousel",
+        "where": "hlm-carousel",
+        "change": "input `aria-roledescription`"
+      },
       "react": { "text": "carousel", "where": "Carousel", "change": "prop `aria-roledescription`" }
     },
     "carousel.slide": {
       "component": "Carousel",
       "kind": "screenreader",
       "description": "Voorgelezen type van een dia (aria-roledescription).",
-      "angular": { "text": "slide", "where": "hlm-carousel-item", "change": null },
-      "react": { "text": "slide", "where": "CarouselItem", "change": null }
+      "angular": {
+        "text": "slide",
+        "where": "hlm-carousel-item",
+        "change": "input `aria-roledescription`"
+      },
+      "react": { "text": "slide", "where": "CarouselItem", "change": "prop `aria-roledescription`" }
     },
     "carousel.slide-display": {
       "component": "Carousel",
@@ -290,25 +335,41 @@
       "component": "Carousel",
       "kind": "screenreader",
       "description": "Naam van de knop naar de vorige dia.",
-      "angular": { "text": "Previous slide", "where": "hlm-carousel-previous", "change": null },
-      "react": { "text": "Previous slide", "where": "CarouselPrevious", "change": null }
+      "angular": {
+        "text": "Previous slide",
+        "where": "hlm-carousel-previous",
+        "change": "input `srOnlyText`"
+      },
+      "react": {
+        "text": "Previous slide",
+        "where": "CarouselPrevious",
+        "change": "prop `srOnlyText`"
+      }
     },
     "carousel.next": {
       "component": "Carousel",
       "kind": "screenreader",
       "description": "Naam van de knop naar de volgende dia.",
-      "angular": { "text": "Next slide", "where": "hlm-carousel-next", "change": null },
-      "react": { "text": "Next slide", "where": "CarouselNext", "change": null }
+      "angular": {
+        "text": "Next slide",
+        "where": "hlm-carousel-next",
+        "change": "input `srOnlyText`"
+      },
+      "react": { "text": "Next slide", "where": "CarouselNext", "change": "prop `srOnlyText`" }
     },
     "combobox.open": {
       "component": "Combobox",
       "kind": "screenreader",
       "description": "Naam van de knop die de lijst met opties opent.",
-      "angular": { "text": "Open combobox", "where": "hlm-combobox-input", "change": null },
+      "angular": {
+        "text": "Open combobox",
+        "where": "hlm-combobox-input",
+        "change": "input `openLabel`"
+      },
       "react": {
         "text": "Open combobox",
         "where": "ComboboxTrigger",
-        "change": "prop `aria-label`"
+        "change": "prop `aria-label` (ComboboxTrigger) of `openLabel` (ComboboxInput)"
       }
     },
     "combobox.open-trigger": {
@@ -318,7 +379,7 @@
       "angular": {
         "text": "Open combobox trigger",
         "where": "hlm-combobox-trigger",
-        "change": null
+        "change": "input `openLabel`"
       },
       "react": null
     },
@@ -326,8 +387,12 @@
       "component": "Combobox",
       "kind": "screenreader",
       "description": "Naam van de knop die de invoer leegmaakt.",
-      "angular": { "text": "Clear", "where": "hlm-combobox-input", "change": null },
-      "react": { "text": "Clear", "where": "ComboboxClear", "change": "prop `aria-label`" }
+      "angular": { "text": "Clear", "where": "hlm-combobox-input", "change": "input `clearLabel`" },
+      "react": {
+        "text": "Clear",
+        "where": "ComboboxClear",
+        "change": "prop `aria-label` (ComboboxClear) of `clearLabel` (ComboboxInput)"
+      }
     },
     "combobox.chip-remove": {
       "component": "Combobox",
@@ -423,14 +488,58 @@
       "kind": "screenreader",
       "description": "Naam van het selectievakje dat alle rijen selecteert.",
       "angular": { "text": "Select all", "where": "data-table-select-all", "change": null },
-      "react": null
+      "react": { "text": "Select all", "where": "CurveDataTable", "change": null }
     },
     "data-table.select-row": {
       "component": "DataTable",
       "kind": "screenreader",
       "description": "Naam van het selectievakje van één rij.",
       "angular": { "text": "Select row", "where": "data-table-select-row", "change": null },
-      "react": null
+      "react": { "text": "Select row", "where": "CurveDataTable", "change": null }
+    },
+    "curve-data-table.action-menu": {
+      "component": "CurveDataTable",
+      "kind": "screenreader",
+      "description": "Naam van de knop die het actiemenu van een rij opent.",
+      "angular": { "text": "Open action menu", "where": "curve-data-table", "change": null },
+      "react": { "text": "Open action menu", "where": "CurveDataTable", "change": null }
+    },
+    "curve-data-table.search": {
+      "component": "CurveDataTable",
+      "kind": "screenreader",
+      "description": "Naam van het zoekveld. {column} is de kolom waarop je zoekt.",
+      "angular": {
+        "text": "Search {column}",
+        "where": "curve-data-table",
+        "change": null
+      },
+      "react": {
+        "text": "Search {column}",
+        "where": "CurveDataTable",
+        "change": null
+      }
+    },
+    "curve-data-table.search-placeholder": {
+      "component": "CurveDataTable",
+      "kind": "zichtbaar",
+      "description": "Placeholder in het zoekveld. {column} is de kolom waarop je zoekt.",
+      "angular": {
+        "text": "Search {column}...",
+        "where": "curve-data-table",
+        "change": null
+      },
+      "react": {
+        "text": "Search {column}...",
+        "where": "CurveDataTable",
+        "change": null
+      }
+    },
+    "curve-data-table.columns": {
+      "component": "CurveDataTable",
+      "kind": "zichtbaar",
+      "description": "Tekst op de knop die kolommen toont of verbergt.",
+      "angular": { "text": "Columns", "where": "curve-data-table", "change": null },
+      "react": { "text": "Columns", "where": "CurveDataTable", "change": null }
     },
     "curve-page-header.more-actions": {
       "component": "CurvePageHeader",
@@ -480,6 +589,36 @@
         "change": "prop `placeholder`"
       }
     },
+    "date-picker.date": {
+      "component": "DatePicker",
+      "kind": "zichtbaar",
+      "description": "De gekozen datum op de knop. Standaard altijd Engels; geef een eigen functie mee voor een andere taal of notatie.",
+      "angular": {
+        "text": "Mon Oct 26 2026",
+        "where": "hlm-date-picker",
+        "change": "input `formatDate`, of provideHlmDatePickerConfig({ formatDate })"
+      },
+      "react": {
+        "text": "October 26th, 2026",
+        "where": "DatePicker",
+        "change": "prop `formatDate`"
+      }
+    },
+    "date-picker.range": {
+      "component": "DatePicker",
+      "kind": "zichtbaar",
+      "description": "Het gekozen bereik op de knop: twee datums met \" - \" ertussen. Standaard altijd Engels.",
+      "angular": {
+        "text": "Mon Oct 26 2026 - Fri Oct 30 2026",
+        "where": "hlm-date-range-picker",
+        "change": "input `formatDates`, of provideHlmDateRangePickerConfig({ formatDates })"
+      },
+      "react": {
+        "text": "Oct 26, 2026 - Oct 30, 2026",
+        "where": "DateRangePicker",
+        "change": "props `formatDate` en `formatRange`"
+      }
+    },
     "date-picker.clear": {
       "component": "DatePicker",
       "kind": "screenreader",
@@ -514,14 +653,22 @@
       "component": "Calendar",
       "kind": "screenreader",
       "description": "Naam van de keuzelijst voor de maand.",
-      "angular": { "text": "Select month", "where": "hlm-calendar", "change": null },
+      "angular": {
+        "text": "Select month",
+        "where": "hlm-calendar",
+        "change": "input `monthSelectLabel`"
+      },
       "react": null
     },
     "calendar.year": {
       "component": "Calendar",
       "kind": "screenreader",
       "description": "Naam van de keuzelijst voor het jaar.",
-      "angular": { "text": "Select year", "where": "hlm-calendar", "change": null },
+      "angular": {
+        "text": "Select year",
+        "where": "hlm-calendar",
+        "change": "input `yearSelectLabel`"
+      },
       "react": null
     }
   }

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import type { DateRange } from 'react-day-picker';
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { datePickerContract } from '@surfnet/curve-contracts';
 
@@ -50,6 +52,39 @@ export const Range: Story = {
   render: function DateRangePickerStory() {
     const [range, setRange] = React.useState<DateRange | undefined>();
     return <DateRangePicker dateRange={range} onDateRangeChange={setRange} />;
+  },
+};
+
+/**
+ * Your own date notation, e.g. in Dutch: pass `formatDate` (and for a range `formatRange`) to
+ * change the text on the trigger. Pass the same `locale` to translate the calendar itself.
+ */
+export const CustomFormat: Story = {
+  render: function DatePickerCustomFormat() {
+    const [date, setDate] = React.useState<Date | undefined>(new Date(2026, 9, 26));
+    const [range, setRange] = React.useState<DateRange | undefined>({
+      from: new Date(2026, 9, 26),
+      to: new Date(2026, 9, 30),
+    });
+    return (
+      <div className="flex flex-col gap-4">
+        <DatePicker
+          date={date}
+          onDateChange={setDate}
+          locale={nl}
+          formatDate={(value) => format(value, 'PPP', { locale: nl })}
+        />
+        <DateRangePicker
+          dateRange={range}
+          onDateRangeChange={setRange}
+          locale={nl}
+          formatDate={(value) => format(value, 'd MMM y', { locale: nl })}
+          formatRange={(from, to) =>
+            `${format(from, 'd MMM y', { locale: nl })} t/m ${format(to, 'd MMM y', { locale: nl })}`
+          }
+        />
+      </div>
+    );
   },
 };
 

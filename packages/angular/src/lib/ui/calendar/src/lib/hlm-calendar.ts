@@ -50,7 +50,11 @@ import type { ClassValue } from 'clsx';
             <div class="curve-calendar-caption-label">
               <ng-template #month>
                 <hlm-select brnCalendarMonthSelect>
-                  <hlm-select-trigger size="sm" [class]="_selectClass" aria-label="Select month">
+                  <hlm-select-trigger
+                    size="sm"
+                    [class]="_selectClass"
+                    [aria-label]="monthSelectLabel()"
+                  >
                     <hlm-select-value />
                   </hlm-select-trigger>
                   <hlm-select-content *hlmSelectPortal class="curve-calendar-select-content">
@@ -64,7 +68,11 @@ import type { ClassValue } from 'clsx';
               </ng-template>
               <ng-template #year>
                 <hlm-select brnCalendarYearSelect>
-                  <hlm-select-trigger size="sm" [class]="_selectClass" aria-label="Select year">
+                  <hlm-select-trigger
+                    size="sm"
+                    [class]="_selectClass"
+                    [aria-label]="yearSelectLabel()"
+                  >
                     <hlm-select-value />
                   </hlm-select-trigger>
                   <hlm-select-content *hlmSelectPortal class="curve-calendar-select-content">
@@ -140,6 +148,12 @@ import type { ClassValue } from 'clsx';
 })
 export class HlmCalendar<T> {
   public readonly calendarClass = input<ClassValue>('');
+
+  /** Text a screen reader reads for the month picker (with `captionLayout` dropdown). */
+  public readonly monthSelectLabel = input<string>('Select month');
+
+  /** Text a screen reader reads for the year picker (with `captionLayout` dropdown). */
+  public readonly yearSelectLabel = input<string>('Select year');
 
   protected readonly _computedCalenderClass = computed(() =>
     hlm('curve-calendar', this.calendarClass()),

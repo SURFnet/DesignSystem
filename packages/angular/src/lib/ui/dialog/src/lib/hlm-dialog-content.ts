@@ -41,7 +41,7 @@ type HlmDialogContentContext = {
 
     @if (showCloseButton()) {
       <button hlmBtn variant="ghost" size="icon-sm" class="curve-dialog-close" hlmDialogClose>
-        <span class="sr-only">close</span>
+        <span class="sr-only">{{ closeLabel() }}</span>
         <ng-icon hlm size="sm" name="phosphorX" />
       </button>
     }
@@ -59,6 +59,9 @@ export class HlmDialogContent {
       transform: booleanAttribute,
     },
   );
+
+  /** Text a screen reader reads for the close button. */
+  public readonly closeLabel = input<string>('Close');
 
   public readonly state = computed(() => this._dialogRef?.state() ?? 'closed');
 

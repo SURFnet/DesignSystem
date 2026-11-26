@@ -41,10 +41,13 @@ function SheetContent({
   children,
   side = 'right',
   showCloseButton = true,
+  closeLabel = 'Close',
   ...props
 }: SheetPrimitive.Popup.Props & {
   side?: SheetSideName;
   showCloseButton?: boolean;
+  /** Text a screen reader reads for the close button. */
+  closeLabel?: string;
 }) {
   return (
     <SheetPortal>
@@ -62,7 +65,7 @@ function SheetContent({
             render={<Button variant="ghost" className={styles.closeButton} size="icon-sm" />}
           >
             <XIcon />
-            <span className={styles.srOnly}>Close</span>
+            <span className={styles.srOnly}>{closeLabel}</span>
           </SheetPrimitive.Close>
         )}
       </SheetPrimitive.Popup>

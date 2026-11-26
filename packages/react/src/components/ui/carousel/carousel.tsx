@@ -171,8 +171,12 @@ function CarouselPrevious({
   className,
   variant = 'outline',
   size = 'icon-sm',
+  srOnlyText = 'Previous slide',
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & {
+  /** Text a screen reader reads for the button. */
+  srOnlyText?: string;
+}) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
@@ -190,7 +194,7 @@ function CarouselPrevious({
       {...props}
     >
       <CaretLeftIcon />
-      <span className={styles.srOnly}>Previous slide</span>
+      <span className={styles.srOnly}>{srOnlyText}</span>
     </Button>
   );
 }
@@ -199,8 +203,12 @@ function CarouselNext({
   className,
   variant = 'outline',
   size = 'icon-sm',
+  srOnlyText = 'Next slide',
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & {
+  /** Text a screen reader reads for the button. */
+  srOnlyText?: string;
+}) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (
@@ -218,7 +226,7 @@ function CarouselNext({
       {...props}
     >
       <CaretRightIcon />
-      <span className={styles.srOnly}>Next slide</span>
+      <span className={styles.srOnly}>{srOnlyText}</span>
     </Button>
   );
 }

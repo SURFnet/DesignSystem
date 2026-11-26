@@ -35,13 +35,14 @@ function ComboboxTrigger({
   className,
   children,
   'aria-controls': ariaControlsProp,
+  'aria-label': ariaLabel = 'Open combobox',
   ...props
 }: ComboboxPrimitive.Trigger.Props) {
   const listboxId = React.useContext(ComboboxListboxIdContext);
 
   return (
     <ComboboxPrimitive.Trigger
-      aria-label="Open combobox"
+      aria-label={ariaLabel}
       aria-controls={ariaControlsProp ?? listboxId}
       data-slot="combobox-trigger"
       className={cn(styles.trigger, className)}
@@ -77,10 +78,16 @@ function ComboboxInput({
   disabled = false,
   showTrigger = true,
   showClear = false,
+  openLabel,
+  clearLabel,
   ...props
 }: ComboboxPrimitive.Input.Props & {
   showTrigger?: boolean;
   showClear?: boolean;
+  /** Text a screen reader reads for the button that opens the list. Default: "Open combobox". */
+  openLabel?: string;
+  /** Text a screen reader reads for the clear button. Default: "Clear". */
+  clearLabel?: string;
 }) {
   return (
     <InputGroup className={cn(styles.inputGroupWide, className)}>
@@ -91,10 +98,11 @@ function ComboboxInput({
             data-slot="input-group-button"
             className={styles.comboboxTriggerButton}
             disabled={disabled}
+            aria-label={openLabel}
             render={<InputGroupButton size="icon-xs" variant="ghost" disabled={disabled} />}
           />
         )}
-        {showClear && <ComboboxClear disabled={disabled} />}
+        {showClear && <ComboboxClear disabled={disabled} aria-label={clearLabel} />}
       </InputGroupAddon>
       {children}
     </InputGroup>

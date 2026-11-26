@@ -12,16 +12,22 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 import styles from './date-picker.module.css';
 
+const defaultFormatDate = (date: Date) => format(date, 'PPP');
+const defaultFormatRangeDate = (date: Date) => format(date, 'LLL d, y');
+
 function DatePicker({
   date,
   onDateChange,
   placeholder = 'Pick a date',
+  formatDate = defaultFormatDate,
   triggerClassName,
   ...props
 }: Omit<React.ComponentProps<typeof Calendar>, 'mode' | 'selected' | 'onSelect'> & {
   date?: Date;
   onDateChange?: (date: Date | undefined) => void;
   placeholder?: string;
+  /** Turns the picked date into the text on the trigger. Default: "October 26th, 2026". */
+  formatDate?: (date: Date) => string;
   triggerClassName?: string;
 }) {
   return (
@@ -36,7 +42,7 @@ function DatePicker({
         }
       >
         <CalendarIcon data-icon="inline-start" />
-        {date ? format(date, 'PPP') : <span className={styles.placeholder}>{placeholder}</span>}
+        {date ? formatDate(date) : <span className={styles.placeholder}>{placeholder}</span>}
       </PopoverTrigger>
       <PopoverContent className={styles.popoverContent} align="start">
         <Calendar mode="single" selected={date} onSelect={onDateChange} {...props} />
@@ -49,14 +55,23 @@ function DateRangePicker({
   dateRange,
   onDateRangeChange,
   placeholder = 'Pick a date range',
+  formatDate = defaultFormatRangeDate,
+  formatRange,
   triggerClassName,
   ...props
 }: Omit<React.ComponentProps<typeof Calendar>, 'mode' | 'selected' | 'onSelect'> & {
   dateRange?: DateRange;
   onDateRangeChange?: (dateRange: DateRange | undefined) => void;
   placeholder?: string;
+  /** Turns one date into text, also when only the start date is picked. Default: "Oct 26, 2026". */
+  formatDate?: (date: Date) => string;
+  /** Turns a full range into the text on the trigger. Default: both dates with " - " between. */
+  formatRange?: (from: Date, to: Date) => string;
   triggerClassName?: string;
 }) {
+  const rangeText = (from: Date, to: Date) =>
+    formatRange ? formatRange(from, to) : `${formatDate(from)} - ${formatDate(to)}`;
+
   return (
     <Popover>
       <PopoverTrigger
@@ -71,11 +86,9 @@ function DateRangePicker({
         <CalendarIcon data-icon="inline-start" />
         {dateRange?.from ? (
           dateRange.to ? (
-            <>
-              {format(dateRange.from, 'LLL d, y')} - {format(dateRange.to, 'LLL d, y')}
-            </>
+            rangeText(dateRange.from, dateRange.to)
           ) : (
-            format(dateRange.from, 'LLL d, y')
+            formatDate(dateRange.from)
           )
         ) : (
           <span className={styles.placeholder}>{placeholder}</span>
