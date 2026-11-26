@@ -42,6 +42,8 @@ export const Default: Story = {
 
 /** Modifier keys grouped together, and a combination spelled out with a `+`. */
 export const Groups: Story = {
+  // Several different keys at once, so the single `children` control can't drive it.
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<div class="flex flex-col items-center gap-4">
@@ -63,6 +65,8 @@ export const Groups: Story = {
 
 /** Referencing a shortcut inline in body copy. */
 export const InText: Story = {
+  // Several different keys at once, so the single `children` control can't drive it.
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<p class="max-w-xs text-sm text-muted-foreground">
@@ -79,6 +83,8 @@ export const InText: Story = {
 
 /** Hinting a button's shortcut key. */
 export const InButton: Story = {
+  // Several different keys at once, so the single `children` control can't drive it.
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<div class="flex flex-wrap items-center gap-4">
@@ -95,6 +101,8 @@ export const InButton: Story = {
 
 /** Surfacing a search shortcut inside an input's trailing addon. */
 export const InInputGroup: Story = {
+  // Several different keys at once, so the single `children` control can't drive it.
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<div class="w-full max-w-xs">
