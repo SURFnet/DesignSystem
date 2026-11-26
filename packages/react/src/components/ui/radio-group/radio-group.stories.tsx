@@ -69,11 +69,11 @@ export const Default: Story = {
  * radio group, and each option's `Label` doubles as the click target for its item.
  */
 export const InFieldset: Story = {
-  render: () => (
+  render: (args) => (
     <FieldSet className="w-80">
       <FieldLegend>Notification preference</FieldLegend>
       <FieldDescription>Choose how you&apos;d like to receive updates.</FieldDescription>
-      <RadioGroup defaultValue="email">
+      <RadioGroup {...args} defaultValue="email">
         <div className="flex items-center gap-3">
           <RadioGroupItem value="email" id="notif-email" />
           <FieldLabel htmlFor="notif-email">Email</FieldLabel>
@@ -98,10 +98,10 @@ export const InFieldset: Story = {
  * marked required.
  */
 export const OptionalFieldset: Story = {
-  render: () => (
+  render: (args) => (
     <FieldSet optional className="w-80">
       <FieldLegend>Preferred contact time</FieldLegend>
-      <RadioGroup>
+      <RadioGroup {...args}>
         <div className="flex items-center gap-3">
           <RadioGroupItem value="morning" id="time-morning" />
           <FieldLabel htmlFor="time-morning">Morning</FieldLabel>
@@ -121,10 +121,10 @@ export const OptionalFieldset: Story = {
  * is named by a visible `Label` via `aria-labelledby`.
  */
 export const ChoiceCard: Story = {
-  render: () => (
+  render: (args) => (
     <div className="flex max-w-sm flex-col gap-3">
       <Label id="plan-label">Plan</Label>
-      <RadioGroup defaultValue="plus" aria-labelledby="plan-label">
+      <RadioGroup {...args} defaultValue="plus" aria-labelledby="plan-label">
         <FieldLabel htmlFor="plus-plan">
           <Field orientation="horizontal">
             <FieldContent>
@@ -178,7 +178,8 @@ export const ChoiceCard: Story = {
 
 /** Disabling a single item versus disabling the whole group. */
 export const Disabled: Story = {
-  render: () => (
+  args: { disabled: true },
+  render: (args) => (
     <div className="flex flex-col gap-6">
       <RadioGroup defaultValue="comfortable" className="w-fit">
         <div className="flex items-center gap-3">
@@ -190,7 +191,7 @@ export const Disabled: Story = {
           <Label htmlFor="d2">Comfortable</Label>
         </div>
       </RadioGroup>
-      <RadioGroup defaultValue="comfortable" disabled className="w-fit">
+      <RadioGroup {...args} defaultValue="comfortable" className="w-fit">
         <div className="flex items-center gap-3">
           <RadioGroupItem value="default" id="d3" />
           <Label htmlFor="d3">Default</Label>
@@ -206,8 +207,8 @@ export const Disabled: Story = {
 
 /** Invalid state, driven by `aria-invalid` on the selected item. */
 export const Invalid: Story = {
-  render: () => (
-    <RadioGroup defaultValue="one" className="w-fit">
+  render: (args) => (
+    <RadioGroup {...args} defaultValue="one" className="w-fit">
       <div className="flex items-center gap-3">
         <RadioGroupItem value="one" id="i1" aria-invalid />
         <Label htmlFor="i1">Option one</Label>
