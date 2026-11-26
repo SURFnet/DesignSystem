@@ -64,8 +64,8 @@ export const Default: Story = {
 			<div class="w-full max-w-md">
 				<div hlmField class="w-72" ${argsToTemplate(args)}>
 					<label hlmFieldLabel for="email">Email</label>
-					<input hlmInput id="email" type="email" placeholder="you@surf.nl" />
 					<p hlmFieldDescription>This is an input description.</p>
+					<input hlmInput id="email" type="email" placeholder="you@surf.nl" />
 				</div>
 			</div>
 		`,
@@ -260,8 +260,8 @@ export const MixedForm: Story = {
 				</div>
 				<div hlmField optional>
 					<label hlmFieldLabel for="mixed-phone" optionalText="(optional)">Phone number</label>
-					<input hlmInput id="mixed-phone" type="tel" autocomplete="tel" />
 					<p hlmFieldDescription>Only used if we can't reach you by email.</p>
+					<input hlmInput id="mixed-phone" type="tel" autocomplete="tel" />
 				</div>
 				<div hlmField orientation="horizontal" optional>
 					<hlm-checkbox inputId="mixed-newsletter" />
