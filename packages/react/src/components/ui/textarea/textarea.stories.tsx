@@ -61,5 +61,8 @@ export const Disabled: Story = {
 
 /** Invalid state (e.g. after failed form validation). */
 export const Invalid: Story = {
-  render: () => <Textarea aria-invalid="true" placeholder="This field has an error" />,
+  args: { placeholder: 'This field has an error' },
+  // No wrapping `<Field>` here, so `optional` has nothing to drive.
+  parameters: { controls: { exclude: ['optional'] } },
+  render: ({ optional: _optional, ...args }) => <Textarea aria-invalid="true" {...args} />,
 };

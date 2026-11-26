@@ -62,17 +62,21 @@ export const Default: Story = {
 
 /** Disabled state. */
 export const Disabled: Story = {
+  args: { disabled: true, placeholder: 'Cannot type here' },
   render: (args) => ({
-    props: { ...args, disabled: true, placeholder: 'Cannot type here' },
+    props: args,
     template: `
-			<textarea hlmTextarea ${argsToTemplate(args)}></textarea>
+			<textarea hlmTextarea ${argsToTemplate(args, { exclude: ['optional'] })}></textarea>
 		`,
   }),
 };
 
 /** Invalid state: a field below its minimum length shows its error message. */
 export const Invalid: Story = {
-  render: () => {
+  args: { placeholder: 'This field has an error' },
+  // The reactive form owns the disabled state and there is no `optional` field wrapper to drive.
+  parameters: { controls: { include: ['placeholder'] } },
+  render: ({ placeholder }) => {
     const form = new FormGroup({
       message: new FormControl('Hi', {
         validators: [Validators.required, Validators.minLength(8)],
@@ -81,12 +85,17 @@ export const Invalid: Story = {
     form.markAllAsTouched();
 
     return {
-      props: { form },
+      props: { form, placeholder },
       template: `
 				<form [formGroup]="form" class="w-full max-w-md">
 					<div hlmField>
 						<label hlmFieldLabel for="invalid-message">Message</label>
-						<textarea hlmTextarea formControlName="message" id="invalid-message"></textarea>
+						<textarea
+							hlmTextarea
+							formControlName="message"
+							id="invalid-message"
+							[placeholder]="placeholder"
+						></textarea>
 						<hlm-field-error />
 					</div>
 				</form>
