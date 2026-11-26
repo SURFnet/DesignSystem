@@ -48,6 +48,8 @@ export const Default: Story = {
 
 /** Common ratios side by side, each constraining the same photo. */
 export const Ratios: Story = {
+  // Shows four fixed ratios side by side, so a single `ratio` control has nothing to drive.
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap gap-4">
       {(
@@ -77,14 +79,14 @@ export const Ratios: Story = {
 
 /** Composed inside `Card` — a media block constrained to 16/9 above the copy. */
 export const InCard: Story = {
-  render: () => (
+  render: (args) => (
     <Card className="w-80">
       <CardHeader>
         <CardTitle>Mountain sunrise</CardTitle>
         <CardDescription>A 16/9 image constrained by AspectRatio.</CardDescription>
       </CardHeader>
       <CardContent>
-        <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-lg bg-muted">
+        <AspectRatio {...args} className="overflow-hidden rounded-lg bg-muted">
           <img
             src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80"
             alt="Mountain range at sunrise"

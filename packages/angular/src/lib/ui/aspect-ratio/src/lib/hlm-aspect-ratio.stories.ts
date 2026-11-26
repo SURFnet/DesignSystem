@@ -58,6 +58,8 @@ export const Default: Story = {
 
 /** Common ratios side by side, each constraining the same photo. */
 export const Ratios: Story = {
+  // Shows four fixed ratios side by side, so a single `ratio` control has nothing to drive.
+  parameters: { controls: { disable: true } },
   render: () => ({
     template: `
 			<div class="flex flex-wrap gap-4">
@@ -108,7 +110,8 @@ export const Ratios: Story = {
 
 /** Composed inside `hlm-card` — a media block constrained to 16/9 above the copy. */
 export const InCard: Story = {
-  render: () => ({
+  render: ({ ratio }) => ({
+    props: { ratio },
     template: `
 			<section hlmCard class="w-80">
 				<div hlmCardHeader>
@@ -116,7 +119,7 @@ export const InCard: Story = {
 					<p hlmCardDescription>A 16/9 image constrained by AspectRatio.</p>
 				</div>
 				<div hlmCardContent>
-					<div hlmAspectRatio="16/9" class="overflow-hidden rounded-lg bg-muted">
+					<div [hlmAspectRatio]="ratio" class="overflow-hidden rounded-lg bg-muted">
 						<img
 							src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80"
 							alt="Mountain range at sunrise"
