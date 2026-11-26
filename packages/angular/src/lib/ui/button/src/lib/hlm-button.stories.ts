@@ -66,158 +66,146 @@ export default meta;
 
 type Story = StoryObj<ButtonArgs>;
 
+/**
+ * Render an `hlmBtn` bound to the story args, so the Controls panel drives it.
+ * Each story sets its own starting args (e.g. `variant: 'ghost'`).
+ */
+const renderButton =
+  (content: string, attrs = ''): Story['render'] =>
+  (args) => ({
+    props: args,
+    template: `<button hlmBtn ${argsToTemplate(args)}${attrs}>${content}</button>`,
+  });
+
 /** The default button — rendered with the default args; tweak them via the controls. */
 export const Default: Story = {
-  args: { disabled: false },
-  render: (args) => ({
-    props: args,
-    template: `<button hlmBtn ${argsToTemplate(args)}>Button</button>`,
-  }),
+  render: renderButton(`Button`),
 };
 
 /** Primary brand fill — use for the single most important action on a page. */
 export const DefaultVariant: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="default" title="${buttonContract.docs.variants['default']}">Default</button>`,
-  }),
+  args: { variant: 'default' },
+  render: renderButton(`Default`, ` title="${buttonContract.docs.variants['default']}"`),
 };
 
 /** Bordered, transparent fill — secondary actions beside a primary button. */
 export const Outline: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="outline" title="${buttonContract.docs.variants['outline']}">Outline</button>`,
-  }),
+  args: { variant: 'outline' },
+  render: renderButton(`Outline`, ` title="${buttonContract.docs.variants['outline']}"`),
 };
 
 /** Muted fill — general-purpose secondary action. */
 export const Secondary: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="secondary" title="${buttonContract.docs.variants['secondary']}">Secondary</button>`,
-  }),
+  args: { variant: 'secondary' },
+  render: renderButton(`Secondary`, ` title="${buttonContract.docs.variants['secondary']}"`),
 };
 
 /** No background or border — tertiary actions and icon toolbars. */
 export const Ghost: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="ghost" title="${buttonContract.docs.variants['ghost']}">Ghost</button>`,
-  }),
+  args: { variant: 'ghost' },
+  render: renderButton(`Ghost`, ` title="${buttonContract.docs.variants['ghost']}"`),
 };
 
 /** Solid danger fill — destructive or irreversible actions. */
 export const Destructive: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="destructive" title="${buttonContract.docs.variants['destructive']}">Destructive</button>`,
-  }),
+  args: { variant: 'destructive' },
+  render: renderButton(`Destructive`, ` title="${buttonContract.docs.variants['destructive']}"`),
 };
 
 /** Looks like a hyperlink — inline or contextual navigation actions. */
 export const Link: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="link" title="${buttonContract.docs.variants['link']}">Link</button>`,
-  }),
+  args: { variant: 'link' },
+  render: renderButton(`Link`, ` title="${buttonContract.docs.variants['link']}"`),
 };
 
 /** Small — secondary controls, filter bars. */
 export const Sm: Story = {
-  render: () => ({
-    template: `<button hlmBtn size="sm" title="${buttonContract.docs.sizes['sm']}">Small</button>`,
-  }),
+  args: { size: 'sm' },
+  render: renderButton(`Small`, ` title="${buttonContract.docs.sizes['sm']}"`),
 };
 
 /** Large — prominent calls to action. */
 export const Lg: Story = {
-  render: () => ({
-    template: `<button hlmBtn size="lg" title="${buttonContract.docs.sizes['lg']}">Large</button>`,
-  }),
+  args: { size: 'lg' },
+  render: renderButton(`Large`, ` title="${buttonContract.docs.sizes['lg']}"`),
 };
 
 /** Square icon-only button at extra-small size. */
 export const IconXs: Story = {
-  render: () => ({
-    template: `<button hlmBtn size="icon-xs" aria-label="Add" title="${buttonContract.docs.sizes['icon-xs']}"><ng-icon name="phosphorPlus" /></button>`,
-  }),
+  args: { size: 'icon-xs' },
+  render: renderButton(
+    `<ng-icon name="phosphorPlus" />`,
+    ` aria-label="Add" title="${buttonContract.docs.sizes['icon-xs']}"`,
+  ),
 };
 
 /** Square icon-only button at small size. */
 export const IconSm: Story = {
-  render: () => ({
-    template: `<button hlmBtn size="icon-sm" aria-label="Add" title="${buttonContract.docs.sizes['icon-sm']}"><ng-icon name="phosphorPlus" /></button>`,
-  }),
+  args: { size: 'icon-sm' },
+  render: renderButton(
+    `<ng-icon name="phosphorPlus" />`,
+    ` aria-label="Add" title="${buttonContract.docs.sizes['icon-sm']}"`,
+  ),
 };
 
 /** Square icon-only button at large size. */
 export const IconLg: Story = {
-  render: () => ({
-    template: `<button hlmBtn size="icon-lg" aria-label="Add" title="${buttonContract.docs.sizes['icon-lg']}"><ng-icon name="phosphorPlus" /></button>`,
-  }),
+  args: { size: 'icon-lg' },
+  render: renderButton(
+    `<ng-icon name="phosphorPlus" />`,
+    ` aria-label="Add" title="${buttonContract.docs.sizes['icon-lg']}"`,
+  ),
 };
 
 /**
  * Icon alongside text. Use `data-icon="inline-start"` for left alignment.
  */
 export const IconLeft: Story = {
-  render: () => ({
-    template: `
-        <button hlmBtn>
-          <ng-icon name="phosphorPlus" data-icon="inline-start" />
-          Add item
-        </button>`,
-  }),
+  render: renderButton(`<ng-icon name="phosphorPlus" data-icon="inline-start" /> Add item`),
 };
 
 /**
  * Icon alongside text. Use `data-icon="inline-end"` for right alignment.
  */
 export const IconRight: Story = {
-  render: () => ({
-    template: `
-        <button hlmBtn variant="secondary">
-          Continue
-          <ng-icon name="phosphorArrowRight" data-icon="inline-end" />
-        </button> `,
-  }),
+  args: { variant: 'secondary' },
+  render: renderButton(`Continue <ng-icon name="phosphorArrowRight" data-icon="inline-end" />`),
 };
 
 /** Disabled default variant. */
 export const DisabledDefault: Story = {
-  render: () => ({
-    template: `<button hlmBtn disabled>Default</button>`,
-  }),
+  args: { disabled: true },
+  render: renderButton(`Default`),
 };
 
 /** Disabled outline variant. */
 export const DisabledOutline: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="outline" disabled>Outline</button>`,
-  }),
+  args: { variant: 'outline', disabled: true },
+  render: renderButton(`Outline`),
 };
 
 /** Disabled secondary variant. */
 export const DisabledSecondary: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="secondary" disabled>Secondary</button>`,
-  }),
+  args: { variant: 'secondary', disabled: true },
+  render: renderButton(`Secondary`),
 };
 
 /** Disabled ghost variant. */
 export const DisabledGhost: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="ghost" disabled>Ghost</button>`,
-  }),
+  args: { variant: 'ghost', disabled: true },
+  render: renderButton(`Ghost`),
 };
 
 /** Disabled destructive variant. */
 export const DisabledDestructive: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="destructive" disabled>Destructive</button>`,
-  }),
+  args: { variant: 'destructive', disabled: true },
+  render: renderButton(`Destructive`),
 };
 
 /** Disabled link variant. */
 export const DisabledLink: Story = {
-  render: () => ({
-    template: `<button hlmBtn variant="link" disabled>Link</button>`,
-  }),
+  args: { variant: 'link', disabled: true },
+  render: renderButton(`Link`),
 };
 
 /**
@@ -225,7 +213,11 @@ export const DisabledLink: Story = {
  * the button styling — here the button renders as an anchor.
  */
 export const AsLink: Story = {
-  render: () => ({
-    template: `<a hlmBtn variant="link" href="https://www.surf.nl">Visit SURF</a>`,
+  args: { variant: 'link' },
+  argTypes: { disabled: { table: { disable: true } } },
+  // An anchor has no `disabled`, so leave that arg out of the bindings.
+  render: (args) => ({
+    props: args,
+    template: `<a hlmBtn ${argsToTemplate(args, { exclude: ['disabled'] })} href="https://www.surf.nl">Visit SURF</a>`,
   }),
 };
