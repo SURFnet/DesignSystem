@@ -39,7 +39,7 @@
 .field {
   display: flex;
   width: 100%;
-  gap: calc(var(--spacing, 0.25rem) * 3);
+  gap: calc(var(--spacing, 0.25rem));
 }
 
 .field[data-invalid='true'] {

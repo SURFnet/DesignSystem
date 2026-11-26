@@ -7,7 +7,7 @@
 .curve-field {
   display: flex;
   width: 100%;
-  gap: calc(var(--spacing, 0.25rem) * 3);
+  gap: calc(var(--spacing, 0.25rem));
 }
 
 .curve-field[data-matches-spartan-invalid='true'] {
