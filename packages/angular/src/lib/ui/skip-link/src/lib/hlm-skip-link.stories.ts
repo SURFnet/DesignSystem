@@ -89,10 +89,13 @@ export const Focused: Story = {
 
 /** Several skip links in a row; each one only shows while it has focus. */
 export const MultipleLinks: Story = {
-  render: () => ({
+  // The args drive the first link; the second is a fixed companion.
+  args: { href: '#multiple-main-content' },
+  render: (args) => ({
+    props: args,
     template: page(
       `
-		<a hlmSkipLink href="#multiple-main-content">Skip to main content</a>
+		<a hlmSkipLink [href]="href">{{ children }}</a>
 		<a hlmSkipLink href="#multiple-navigation">Skip to navigation</a>
 		`,
       'multiple-main-content',
