@@ -36,6 +36,32 @@ const meta = {
       url: 'https://www.figma.com/design/pEp49benCBB2MYxWvs5A6t/Curve-Design-System?node-id=25594-28607',
     },
   },
+  argTypes: {
+    side: {
+      control: 'inline-radio',
+      options: ['left', 'right'],
+      description: 'Which edge of the screen the sidebar sits on.',
+      table: { defaultValue: { summary: 'left' } },
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['sidebar', 'floating', 'inset'],
+      description: 'Visual style: flush against the edge, floating, or inset next to the content.',
+      table: { defaultValue: { summary: 'sidebar' } },
+    },
+    collapsible: {
+      control: 'inline-radio',
+      options: ['offcanvas', 'icon', 'none'],
+      description:
+        'How the sidebar collapses: slide off screen, shrink to an icon rail, or not at all.',
+      table: { defaultValue: { summary: 'offcanvas' } },
+    },
+  },
+  args: {
+    side: 'left',
+    variant: 'sidebar',
+    collapsible: 'offcanvas',
+  },
 } satisfies Meta<typeof Sidebar>;
 
 export default meta;
@@ -50,9 +76,10 @@ const nav = [
 
 /** A full sidebar with a collapsible icon rail, grouped menu, submenu, and trigger. */
 export const Default: Story = {
-  render: () => (
+  args: { collapsible: 'icon' },
+  render: (args) => (
     <SidebarProvider>
-      <Sidebar collapsible="icon">
+      <Sidebar {...args}>
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
@@ -114,6 +141,8 @@ export const Default: Story = {
 
 /** The `SidebarMenuButton` variants and sizes declared in the contract. */
 export const MenuButtonVariants: Story = {
+  // A fixed showcase of every `SidebarMenuButton` variant and size; the sidebar args don't apply.
+  parameters: { controls: { disable: true } },
   render: () => (
     <SidebarProvider>
       <Sidebar collapsible="none" className="w-64 border-r">
