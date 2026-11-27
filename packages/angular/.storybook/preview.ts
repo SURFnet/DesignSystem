@@ -1,21 +1,50 @@
+import type { Decorator } from '@storybook/angular';
 import {
   a11yParameters,
   frameworkGlobalTypes,
   frameworkSwitcher,
+  languageInitialGlobals,
+  languageSwitcher,
   sharedParameters,
+  storyLocale,
   simplifyAngularDocsSource,
   themeGlobalTypes,
   themeInitialGlobals,
   themeSwitcher,
 } from '@surfnet/curve-storybook-config';
 
+import { CURVE_MICROCOPY, microcopy } from '../src/lib/microcopy';
+
+// Gives every story the texts of the language picked in the toolbar (English / Nederlands).
+// The texts go in `moduleMetadata` on purpose: Storybook rebuilds the Angular story when
+// that changes, so inputs that read their default text at creation pick up the new language.
+// A story's own `provideCurveMicrocopy()` on a component still wins.
+const microcopyDecorator: Decorator = (storyFn, { globals }) => {
+  const story = storyFn();
+  return {
+    ...story,
+    moduleMetadata: {
+      ...story.moduleMetadata,
+      providers: [
+        ...(story.moduleMetadata?.providers ?? []),
+        { provide: CURVE_MICROCOPY, useValue: microcopy[storyLocale(globals)] },
+      ],
+    },
+  };
+};
+
 // Keep this a literal object so Storybook's static analyzer can read `tags`
 // (project-level autodocs) — a factory call can't be parsed statically.
 export default {
   tags: ['autodocs'],
-  initialGlobals: { framework: 'angular', ...themeInitialGlobals },
+  initialGlobals: { framework: 'angular', ...themeInitialGlobals, ...languageInitialGlobals },
   globalTypes: { ...frameworkGlobalTypes, ...themeGlobalTypes },
-  decorators: [frameworkSwitcher('angular'), themeSwitcher()],
+  decorators: [
+    microcopyDecorator,
+    frameworkSwitcher('angular'),
+    themeSwitcher(),
+    languageSwitcher(),
+  ],
   parameters: {
     ...sharedParameters,
     ...a11yParameters,

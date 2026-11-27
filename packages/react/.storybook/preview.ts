@@ -1,25 +1,42 @@
+import { createElement } from 'react';
+import type { Decorator } from '@storybook/react-vite';
 import {
   a11yParameters,
   frameworkGlobalTypes,
   frameworkSwitcher,
+  languageInitialGlobals,
+  languageSwitcher,
   sharedParameters,
+  storyLocale,
   themeGlobalTypes,
   themeInitialGlobals,
   themeSwitcher,
   visualReadyMarker,
 } from '@surfnet/curve-storybook-config';
 
+import { CurveMicrocopyProvider } from '../src/lib/microcopy';
+
 import '../src/index.css';
 import './storybook-docs.css';
 import '@surfnet/curve-storybook-config/story-chrome.css';
+
+// Gives every story the texts of the language picked in the toolbar (English / Nederlands).
+const microcopyDecorator: Decorator = (Story, { globals }) =>
+  createElement(CurveMicrocopyProvider, { locale: storyLocale(globals) }, createElement(Story));
 
 // Keep this a literal object so Storybook's static analyzer can read `tags`
 // (project-level autodocs) — a factory call can't be parsed statically.
 export default {
   tags: ['autodocs'],
-  initialGlobals: { framework: 'react', ...themeInitialGlobals },
+  initialGlobals: { framework: 'react', ...themeInitialGlobals, ...languageInitialGlobals },
   globalTypes: { ...frameworkGlobalTypes, ...themeGlobalTypes },
-  decorators: [frameworkSwitcher('react'), themeSwitcher(), visualReadyMarker()],
+  decorators: [
+    microcopyDecorator,
+    frameworkSwitcher('react'),
+    themeSwitcher(),
+    languageSwitcher(),
+    visualReadyMarker(),
+  ],
   parameters: {
     ...sharedParameters,
     ...a11yParameters,
