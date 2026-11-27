@@ -65,8 +65,8 @@ export const Default: Story = {
   render: (args) => (
     <Field {...args} className="w-72">
       <FieldLabel htmlFor="email">Email</FieldLabel>
-      <Input id="email" type="email" placeholder="you@surf.nl" />
       <FieldDescription>This is an input description.</FieldDescription>
+      <Input id="email" type="email" placeholder="you@surf.nl" />
     </Field>
   ),
 };
@@ -161,8 +161,8 @@ export const MixedForm: Story = {
         <FieldLabel htmlFor="mixed-phone" optionalText="(optional)">
           Phone number
         </FieldLabel>
-        <Input id="mixed-phone" type="tel" autoComplete="tel" />
         <FieldDescription>Only used if we can't reach you by email.</FieldDescription>
+        <Input id="mixed-phone" type="tel" autoComplete="tel" />
       </Field>
       <Field orientation="horizontal" optional>
         <Checkbox id="mixed-newsletter" />

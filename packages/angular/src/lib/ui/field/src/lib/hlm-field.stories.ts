@@ -64,8 +64,8 @@ export const Default: Story = {
 			<div class="w-full max-w-md">
 				<div hlmField class="w-72" ${argsToTemplate(args)}>
 					<label hlmFieldLabel for="email">Email</label>
-					<input hlmInput id="email" type="email" placeholder="you@surf.nl" />
 					<p hlmFieldDescription>This is an input description.</p>
+					<input hlmInput id="email" type="email" placeholder="you@surf.nl" />
 				</div>
 			</div>
 		`,
@@ -88,28 +88,33 @@ export const Horizontal: Story = {
   }),
 };
 
-/** An invalid field showing an error message. Touch the field to test the minimum of 8 characters. */
+/**
+ * An invalid field showing an error message. The field starts touched with a too-short value, so
+ * the error shows right away; clear the field to see the `required` message instead.
+ */
 export const WithError: Story = {
-  render: (args) => ({
-    props: {
-      ...args,
-      form: new FormGroup({
-        password: new FormControl('', {
-          validators: [Validators.required, Validators.minLength(8)],
-        }),
+  render: (args) => {
+    const form = new FormGroup({
+      password: new FormControl('short', {
+        validators: [Validators.required, Validators.minLength(8)],
       }),
-    },
-    template: `
-			<form [formGroup]="form" class="w-full max-w-md">
-				<div hlmField class="w-72" ${argsToTemplate(args)}>
-					<label hlmFieldLabel for="password">Password</label>
-					<input hlmInput formControlName="password" id="password" type="password" />
-					<hlm-field-error validator="required">Password must be at least 8 characters.</hlm-field-error>
-          <hlm-field-error validator="minlength">Password must be at least 8 characters.</hlm-field-error>
-				</div>
-			</form>
-		`,
-  }),
+    });
+    form.markAllAsTouched();
+
+    return {
+      props: { ...args, form },
+      template: `
+				<form [formGroup]="form" class="w-full max-w-md">
+					<div hlmField class="w-72" ${argsToTemplate(args)}>
+						<label hlmFieldLabel for="password">Password</label>
+						<input hlmInput formControlName="password" id="password" type="password" />
+						<hlm-field-error validator="required">Enter a password.</hlm-field-error>
+						<hlm-field-error validator="minlength">Password must be at least 8 characters.</hlm-field-error>
+					</div>
+				</form>
+			`,
+    };
+  },
 };
 
 /**
@@ -260,8 +265,8 @@ export const MixedForm: Story = {
 				</div>
 				<div hlmField optional>
 					<label hlmFieldLabel for="mixed-phone" optionalText="(optional)">Phone number</label>
-					<input hlmInput id="mixed-phone" type="tel" autocomplete="tel" />
 					<p hlmFieldDescription>Only used if we can't reach you by email.</p>
+					<input hlmInput id="mixed-phone" type="tel" autocomplete="tel" />
 				</div>
 				<div hlmField orientation="horizontal" optional>
 					<hlm-checkbox inputId="mixed-newsletter" />
