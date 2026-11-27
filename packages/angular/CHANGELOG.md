@@ -1,5 +1,17 @@
 # @surfnet/curve-angular
 
+## 3.0.0
+
+### Major Changes
+
+- a70092a: Changed the default spacing for ToggleGroup to 0 for React
+
+### Patch Changes
+
+- a70092a: Fixed invisible border on Empty component
+- a70092a: Fixed Sheet's overlay out transition
+- efc9b74: Field: smaller gap between the label, description and control (`0.75rem` → `0.25rem`).
+
 ## 2.0.0
 
 ### Major Changes
