@@ -10,6 +10,7 @@ import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButton } from '../../../button/src';
 import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-combobox-trigger',
@@ -25,7 +26,7 @@ import type { ClassValue } from 'clsx';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
-      aria-label="Open combobox trigger"
+      [attr.aria-label]="openLabel()"
       brnComboboxTrigger
       brnComboboxAnchor
       brnComboboxPopoverTrigger
@@ -51,6 +52,8 @@ export class HlmComboboxTrigger {
     hlm('curve-combobox-trigger', this.userClass()),
   );
 
+  /** Text a screen reader reads for the button that opens the list. */
+  public readonly openLabel = input<string>(injectMicrocopy()['combobox.open-trigger']);
   public readonly buttonId = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);
 
   public readonly variant = input<ButtonVariants['variant']>('outline');

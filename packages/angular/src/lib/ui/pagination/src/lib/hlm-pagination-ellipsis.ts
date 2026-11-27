@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorDotsThree } from '@ng-icons/phosphor-icons/regular';
 import { classes } from '../../../utils/src';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-pagination-ellipsis',
@@ -16,7 +17,7 @@ import { classes } from '../../../utils/src';
 })
 export class HlmPaginationEllipsis {
   /** Screen reader only text for the ellipsis */
-  public readonly srOnlyText = input<string>('More pages');
+  public readonly srOnlyText = input<string>(injectMicrocopy()['pagination.ellipsis']);
 
   constructor() {
     classes(() => 'curve-pagination-ellipsis');

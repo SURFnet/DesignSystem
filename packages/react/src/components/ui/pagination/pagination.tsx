@@ -7,12 +7,14 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 import styles from './pagination.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
+  const texts = useMicrocopy();
   return (
     <nav
       role="navigation"
-      aria-label="pagination"
+      aria-label={texts['pagination.label']}
       data-slot="pagination"
       className={cn(styles.root, className)}
       {...props}
@@ -54,11 +56,14 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
 
 function PaginationPrevious({
   className,
-  text = 'Previous',
+  text: textProp,
   iconOnly = false,
-  'aria-label': ariaLabel = 'Go to previous page',
+  'aria-label': ariaLabelProp,
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string; iconOnly?: boolean }) {
+  const texts = useMicrocopy();
+  const text = textProp ?? texts['pagination.previous'];
+  const ariaLabel = ariaLabelProp ?? texts['pagination.previous.label'];
   return (
     <PaginationLink
       aria-label={ariaLabel}
@@ -74,11 +79,14 @@ function PaginationPrevious({
 
 function PaginationNext({
   className,
-  text = 'Next',
+  text: textProp,
   iconOnly = false,
-  'aria-label': ariaLabel = 'Go to next page',
+  'aria-label': ariaLabelProp,
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string; iconOnly?: boolean }) {
+  const texts = useMicrocopy();
+  const text = textProp ?? texts['pagination.next'];
+  const ariaLabel = ariaLabelProp ?? texts['pagination.next.label'];
   return (
     <PaginationLink
       aria-label={ariaLabel}
@@ -94,9 +102,11 @@ function PaginationNext({
 
 function PaginationEllipsis({
   className,
-  srOnlyText = 'More pages',
+  srOnlyText: srOnlyTextProp,
   ...props
 }: React.ComponentProps<'span'> & { srOnlyText?: string }) {
+  const texts = useMicrocopy();
+  const srOnlyText = srOnlyTextProp ?? texts['pagination.ellipsis'];
   return (
     <span data-slot="pagination-ellipsis" className={cn(styles.ellipsis, className)} {...props}>
       <DotsThreeIcon aria-hidden />

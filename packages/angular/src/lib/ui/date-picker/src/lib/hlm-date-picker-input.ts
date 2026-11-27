@@ -20,6 +20,7 @@ import {
   provideHlmDatePickerTrigger,
 } from './hlm-date-picker-trigger.token';
 import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-date-picker-input',
@@ -148,10 +149,10 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
   });
 
   /** Accessible label for the clear button. */
-  public readonly clearAriaLabel = input<string>('Clear date');
+  public readonly clearAriaLabel = input<string>(injectMicrocopy()['date-picker.clear']);
 
   /** Accessible label for the calendar trigger button. */
-  public readonly calendarAriaLabel = input<string>('Open calendar');
+  public readonly calendarAriaLabel = input<string>(injectMicrocopy()['date-picker.calendar']);
 
   /** @internal Id used by the trigger contract for labeling. */
   public readonly triggerId = this.inputId;

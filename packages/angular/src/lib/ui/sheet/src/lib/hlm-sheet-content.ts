@@ -17,6 +17,7 @@ import { HlmButton } from '../../../button/src';
 import { HlmIconImports } from '../../../icon/src';
 import { classes } from '../../../utils/src';
 import { HlmSheetClose } from './hlm-sheet-close';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-sheet-content',
@@ -33,7 +34,7 @@ import { HlmSheetClose } from './hlm-sheet-close';
 
     @if (showCloseButton()) {
       <button hlmBtn variant="ghost" size="icon-sm" class="curve-sheet-close" hlmSheetClose>
-        <span class="sr-only">Close</span>
+        <span class="sr-only">{{ closeLabel() }}</span>
         <ng-icon hlm size="sm" name="phosphorX" />
       </button>
     }
@@ -49,6 +50,9 @@ export class HlmSheetContent {
   public readonly showCloseButton = input<boolean, BooleanInput>(true, {
     transform: booleanAttribute,
   });
+
+  /** Text a screen reader reads for the close button. */
+  public readonly closeLabel = input<string>(injectMicrocopy()['sheet.close']);
 
   constructor() {
     // Styling (incl. slide in/out motion) lives in ./hlm-sheet.css.

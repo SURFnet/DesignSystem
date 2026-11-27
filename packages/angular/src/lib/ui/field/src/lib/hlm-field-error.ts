@@ -15,7 +15,7 @@ import { phosphorWarningCircle } from '@ng-icons/phosphor-icons/regular';
 import { BrnField, BrnFieldA11yService } from '@spartan-ng/brain/field';
 import { HlmIcon } from '../../../icon/src';
 import { classes } from '../../../utils/src';
-import { fieldErrorMessages, HLM_FIELD_ERROR_MESSAGES } from './hlm-field-error-messages';
+import { fieldErrorMessages, injectFieldErrorMessages } from './hlm-field-error-messages';
 
 @Component({
   selector: 'hlm-field-error',
@@ -55,7 +55,7 @@ export class HlmFieldError implements OnDestroy {
 
   private readonly _field = inject(BrnField, { optional: true });
   private readonly _a11y = inject(BrnFieldA11yService, { optional: true, host: true });
-  private readonly _errorMessages = inject(HLM_FIELD_ERROR_MESSAGES);
+  private readonly _errorMessages = injectFieldErrorMessages();
 
   private _registeredId?: string | undefined;
 

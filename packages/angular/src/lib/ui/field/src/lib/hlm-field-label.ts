@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core
 import { HlmLabel } from '../../../label/src';
 import { classes } from '../../../utils/src';
 import { HlmField } from './hlm-field';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: '[hlmFieldLabel],hlm-field-label',
@@ -20,7 +21,7 @@ export class HlmFieldLabel {
   protected readonly _field = inject(HlmField, { optional: true });
 
   /** Suffix shown when the surrounding field is `optional`. */
-  public readonly optionalText = input('(optioneel)');
+  public readonly optionalText = input<string>(injectMicrocopy()['field.label.optional']);
 
   constructor() {
     // Adds to hlmLabel's `curve-label`; `group/field-label` and `peer/field-label` stay as hooks.

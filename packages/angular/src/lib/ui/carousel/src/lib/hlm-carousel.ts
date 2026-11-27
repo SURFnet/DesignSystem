@@ -14,6 +14,7 @@ import { classes } from '../../../utils/src';
 import type { EmblaEventType, EmblaOptionsType, EmblaPluginType } from 'embla-carousel';
 import { EmblaCarouselDirective } from 'embla-carousel-angular';
 import type { CarouselOrientationName } from '@surfnet/curve-contracts';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-carousel',
@@ -22,7 +23,7 @@ import type { CarouselOrientationName } from '@surfnet/curve-contracts';
   host: {
     'data-slot': 'carousel',
     role: 'region',
-    'aria-roledescription': 'carousel',
+    '[attr.aria-roledescription]': 'roleDescription()',
     '(keydown)': 'onKeydown($event)',
   },
   template: `
@@ -44,6 +45,10 @@ export class HlmCarousel {
   private readonly _dir = inject(Directionality);
 
   public readonly orientation = input<CarouselOrientationName>('horizontal');
+  /** What a screen reader calls the carousel, instead of "region". */
+  public readonly roleDescription = input<string>(injectMicrocopy()['carousel.label'], {
+    alias: 'aria-roledescription',
+  });
   public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> =
     input<Omit<EmblaOptionsType, 'axis'>>();
   public readonly plugins: InputSignal<EmblaPluginType[]> = input<EmblaPluginType[]>([]);

@@ -21,6 +21,7 @@ import {
   PaginationPrevious,
 } from './pagination';
 import numberedStyles from './numbered-pagination.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 type Page = number | '...';
 
@@ -39,6 +40,8 @@ export type NumberedPaginationProps = React.ComponentProps<'div'> & {
    * page returned by the server API.
    */
   totalItems: number;
+  /** Text a screen reader reads for the page size picker. */
+  itemsPerPageLabel?: string;
   /** The number of page links to show. Defaults to 7. */
   maxSize?: number;
   /** Show the previous/next edge controls. Defaults to true. */
@@ -56,9 +59,12 @@ function NumberedPagination({
   maxSize = 7,
   showEdges = true,
   pageSizes = [10, 20, 50, 100],
+  itemsPerPageLabel: itemsPerPageLabelProp,
   className,
   ...props
 }: NumberedPaginationProps) {
+  const texts = useMicrocopy();
+  const itemsPerPageLabel = itemsPerPageLabelProp ?? texts['pagination.items-per-page'];
   const lastPageNumber = totalItems < 1 ? 1 : Math.ceil(totalItems / itemsPerPage);
   const correctedCurrentPage = outOfBoundCorrection(totalItems, itemsPerPage, currentPage);
 
@@ -139,7 +145,7 @@ function NumberedPagination({
           }
         }}
       >
-        <SelectTrigger className={numberedStyles.pageSize} aria-label="Items per page">
+        <SelectTrigger className={numberedStyles.pageSize} aria-label={itemsPerPageLabel}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

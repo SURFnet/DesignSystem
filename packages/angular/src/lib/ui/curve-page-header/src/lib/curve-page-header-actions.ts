@@ -3,6 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorDotsThreeVertical } from '@ng-icons/phosphor-icons/regular';
 import { HlmButton } from '../../../button/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
+import { injectMicrocopy } from '../../../../microcopy';
 
 /**
  * A page action. Mark one as `primary`; the others are shown as ghost buttons.
@@ -85,7 +86,9 @@ export interface CurvePageHeaderAction {
 export class CurvePageHeaderActionsComponent {
   public readonly actions = input.required<CurvePageHeaderAction[]>();
   /** Accessible name of the overflow menu button on narrow screens. */
-  public readonly moreActionsLabel = input<string>('More actions');
+  public readonly moreActionsLabel = input<string>(
+    injectMicrocopy()['curve-page-header.more-actions'],
+  );
   /** Emits when someone clicks an action button or picks one from the overflow menu. */
   public readonly actionTriggered = output<CurvePageHeaderAction>();
 

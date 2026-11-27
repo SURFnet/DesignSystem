@@ -15,12 +15,15 @@ import { InputGroup, InputGroupAddon } from '@/components/ui/input-group';
 import { MagnifyingGlassIcon, CheckIcon } from '@phosphor-icons/react';
 
 import styles from './command.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 function Command({
   className,
-  label = 'Type a command or search...',
+  label: labelProp,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive>) {
+  const texts = useMicrocopy();
+  const label = labelProp ?? texts['command.label'];
   return (
     <CommandPrimitive
       data-slot="command"
@@ -32,8 +35,8 @@ function Command({
 }
 
 function CommandDialog({
-  title = 'Command Palette',
-  description = 'Search for a command to run...',
+  title: titleProp,
+  description: descriptionProp,
   children,
   className,
   showCloseButton = false,
@@ -45,6 +48,9 @@ function CommandDialog({
   showCloseButton?: boolean;
   children: React.ReactNode;
 }) {
+  const texts = useMicrocopy();
+  const title = titleProp ?? texts['command.dialog.title'];
+  const description = descriptionProp ?? texts['command.dialog.description'];
   return (
     <Dialog {...props}>
       <DialogHeader className={styles.srOnly}>

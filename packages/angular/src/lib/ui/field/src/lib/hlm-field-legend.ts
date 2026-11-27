@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import { HlmFieldSet } from './hlm-field-set';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'legend[hlmFieldLegend]',
@@ -23,7 +24,7 @@ export class HlmFieldLegend {
   public readonly variant = input<'label' | 'legend'>('legend');
 
   /** Suffix shown when the surrounding fieldset is `optional`. */
-  public readonly optionalText = input('(optioneel)');
+  public readonly optionalText = input<string>(injectMicrocopy()['field.label.optional']);
 
   constructor() {
     classes(() => 'curve-field-legend');

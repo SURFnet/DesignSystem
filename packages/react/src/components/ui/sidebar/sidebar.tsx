@@ -25,6 +25,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { SidebarSimpleIcon } from '@phosphor-icons/react';
 
 import styles from './sidebar.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -144,12 +145,21 @@ function Sidebar({
   className,
   children,
   dir,
+  mobileTitle: mobileTitleProp,
+  mobileDescription: mobileDescriptionProp,
   ...props
 }: React.ComponentProps<'div'> & {
   side?: 'left' | 'right';
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
+  /** Title a screen reader reads when the sidebar opens as a sheet on mobile. */
+  mobileTitle?: string;
+  /** Description a screen reader reads when the sidebar opens as a sheet on mobile. */
+  mobileDescription?: string;
 }) {
+  const texts = useMicrocopy();
+  const mobileTitle = mobileTitleProp ?? texts['sidebar.mobile-title'];
+  const mobileDescription = mobileDescriptionProp ?? texts['sidebar.mobile-description'];
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
   if (collapsible === 'none') {
@@ -177,8 +187,8 @@ function Sidebar({
           side={side}
         >
           <SheetHeader className={styles.srOnly}>
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+            <SheetTitle>{mobileTitle}</SheetTitle>
+            <SheetDescription>{mobileDescription}</SheetDescription>
           </SheetHeader>
           <div className={styles.mobileInner}>{children}</div>
         </SheetContent>
@@ -210,7 +220,17 @@ function Sidebar({
   );
 }
 
-function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<typeof Button>) {
+function SidebarTrigger({
+  className,
+  onClick,
+  srOnlyText: srOnlyTextProp,
+  ...props
+}: React.ComponentProps<typeof Button> & {
+  /** Text a screen reader reads for the button. */
+  srOnlyText?: string;
+}) {
+  const texts = useMicrocopy();
+  const srOnlyText = srOnlyTextProp ?? texts['sidebar.toggle'];
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -227,22 +247,23 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
       {...props}
     >
       <SidebarSimpleIcon />
-      <span className={styles.srOnly}>Toggle Sidebar</span>
+      <span className={styles.srOnly}>{srOnlyText}</span>
     </Button>
   );
 }
 
 function SidebarRail({ className, ...props }: React.ComponentProps<'button'>) {
+  const texts = useMicrocopy();
   const { toggleSidebar } = useSidebar();
 
   return (
     <button
       data-sidebar="rail"
       data-slot="sidebar-rail"
-      aria-label="Toggle Sidebar"
+      aria-label={texts['sidebar.rail']}
       tabIndex={-1}
       onClick={toggleSidebar}
-      title="Toggle Sidebar"
+      title={texts['sidebar.rail']}
       className={cn(styles.rail, className)}
       {...props}
     />

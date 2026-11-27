@@ -10,6 +10,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./microcopy": {
+      "types": "./dist/microcopy.d.ts",
+      "default": "./dist/microcopy.js"
+    },
     "./manager": {
       "types": "./dist/manager.d.ts",
       "default": "./dist/manager.js"

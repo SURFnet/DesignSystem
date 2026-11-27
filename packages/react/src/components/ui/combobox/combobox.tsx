@@ -14,6 +14,7 @@ import {
 import { CaretDownIcon, XIcon, CheckIcon } from '@phosphor-icons/react';
 
 import styles from './combobox.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 const ComboboxListboxIdContext = React.createContext<string | undefined>(undefined);
 
@@ -35,13 +36,16 @@ function ComboboxTrigger({
   className,
   children,
   'aria-controls': ariaControlsProp,
+  'aria-label': ariaLabelProp,
   ...props
 }: ComboboxPrimitive.Trigger.Props) {
+  const texts = useMicrocopy();
+  const ariaLabel = ariaLabelProp ?? texts['combobox.open'];
   const listboxId = React.useContext(ComboboxListboxIdContext);
 
   return (
     <ComboboxPrimitive.Trigger
-      aria-label="Open combobox"
+      aria-label={ariaLabel}
       aria-controls={ariaControlsProp ?? listboxId}
       data-slot="combobox-trigger"
       className={cn(styles.trigger, className)}
@@ -55,9 +59,11 @@ function ComboboxTrigger({
 
 function ComboboxClear({
   className,
-  'aria-label': ariaLabel = 'Clear',
+  'aria-label': ariaLabelProp,
   ...props
 }: ComboboxPrimitive.Clear.Props) {
+  const texts = useMicrocopy();
+  const ariaLabel = ariaLabelProp ?? texts['combobox.clear'];
   return (
     <ComboboxPrimitive.Clear
       aria-label={ariaLabel}
@@ -77,10 +83,16 @@ function ComboboxInput({
   disabled = false,
   showTrigger = true,
   showClear = false,
+  openLabel,
+  clearLabel,
   ...props
 }: ComboboxPrimitive.Input.Props & {
   showTrigger?: boolean;
   showClear?: boolean;
+  /** Text a screen reader reads for the button that opens the list. Default: microcopy `combobox.open`. */
+  openLabel?: string;
+  /** Text a screen reader reads for the clear button. Default: microcopy `combobox.clear`. */
+  clearLabel?: string;
 }) {
   return (
     <InputGroup className={cn(styles.inputGroupWide, className)}>
@@ -91,10 +103,11 @@ function ComboboxInput({
             data-slot="input-group-button"
             className={styles.comboboxTriggerButton}
             disabled={disabled}
+            aria-label={openLabel}
             render={<InputGroupButton size="icon-xs" variant="ghost" disabled={disabled} />}
           />
         )}
-        {showClear && <ComboboxClear disabled={disabled} />}
+        {showClear && <ComboboxClear disabled={disabled} aria-label={clearLabel} />}
       </InputGroupAddon>
       {children}
     </InputGroup>
@@ -220,13 +233,15 @@ function ComboboxChip({
   className,
   children,
   showRemove = true,
-  removeLabel = 'Remove',
+  removeLabel: removeLabelProp,
   ...props
 }: ComboboxPrimitive.Chip.Props & {
   showRemove?: boolean;
   /** Accessible name for the remove button. Include the chip's own label for screen reader clarity. */
   removeLabel?: string;
 }) {
+  const texts = useMicrocopy();
+  const removeLabel = removeLabelProp ?? texts['combobox.chip-remove'];
   return (
     <ComboboxPrimitive.Chip
       data-slot="combobox-chip"

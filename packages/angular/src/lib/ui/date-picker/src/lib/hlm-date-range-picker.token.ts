@@ -1,4 +1,6 @@
-import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import { type FactoryProvider, inject, InjectionToken } from '@angular/core';
+
+import { injectMicrocopy } from '../../../../microcopy';
 
 export interface HlmDateRangePickerConfig<T> {
   /**
@@ -23,13 +25,17 @@ export interface HlmDateRangePickerConfig<T> {
   transformDates: (dates: [T, T]) => [T, T];
 }
 
-function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
+/** `rangeText` is the `date-picker.range` microcopy, e.g. "{from} - {to}". */
+function getDefaultConfig<T>(rangeText: string): HlmDateRangePickerConfig<T> {
+  const format = (date: T) => (date instanceof Date ? date.toDateString() : `${date}`);
   return {
-    formatDates: (dates) =>
-      dates
-        .filter(Boolean)
-        .map((date) => (date instanceof Date ? date.toDateString() : `${date}`))
-        .join(' - '),
+    formatDates: ([start, end]) =>
+      start && end
+        ? rangeText.replace('{from}', format(start)).replace('{to}', format(end))
+        : [start, end]
+            .filter(Boolean)
+            .map((date) => format(date as T))
+            .join(''),
     transformDates: (dates) => dates,
     autoCloseOnEndSelection: false,
   };
@@ -41,11 +47,16 @@ const HlmDateRangePickerConfigToken = new InjectionToken<HlmDateRangePickerConfi
 
 export function provideHlmDateRangePickerConfig<T>(
   config: Partial<HlmDateRangePickerConfig<T>>,
-): ValueProvider {
-  return { provide: HlmDateRangePickerConfigToken, useValue: { ...getDefaultConfig(), ...config } };
+): FactoryProvider {
+  return {
+    provide: HlmDateRangePickerConfigToken,
+    useFactory: () => ({ ...getDefaultConfig(injectMicrocopy()['date-picker.range']), ...config }),
+  };
 }
 
 export function injectHlmDateRangePickerConfig<T>(): HlmDateRangePickerConfig<T> {
   const injectedConfig = inject(HlmDateRangePickerConfigToken, { optional: true });
-  return injectedConfig ? (injectedConfig as HlmDateRangePickerConfig<T>) : getDefaultConfig();
+  return injectedConfig
+    ? (injectedConfig as HlmDateRangePickerConfig<T>)
+    : getDefaultConfig(injectMicrocopy()['date-picker.range']);
 }

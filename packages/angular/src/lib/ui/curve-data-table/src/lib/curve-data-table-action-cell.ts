@@ -5,6 +5,7 @@ import { HlmButton } from '../../../button/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
 import type { CurveDataTableAlignment } from './model/curve-data-table-column';
 import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'data-table-action-cell',
@@ -18,7 +19,7 @@ import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
         variant="ghost"
         size="icon-sm"
         [hlmDropdownMenuTrigger]="menu"
-        aria-label="Open action menu"
+        [attr.aria-label]="label"
       >
         <ng-icon name="phosphorDotsThree" />
       </button>
@@ -35,6 +36,7 @@ import { CurveDataTableRowEvent } from './model/curve-data-table-row-event';
   `,
 })
 export class DataTableActionCell<TData> {
+  protected readonly label = injectMicrocopy()['curve-data-table.action-menu'];
   public readonly record = input.required<TData>();
   public readonly actions = input.required<string[]>();
   public readonly align = input<CurveDataTableAlignment>();

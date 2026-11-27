@@ -9,6 +9,7 @@ import {
 } from '@spartan-ng/brain/combobox';
 import { HlmInputGroupImports } from '../../../input-group/src';
 import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-combobox-input',
@@ -31,7 +32,7 @@ import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
       <hlm-input-group-addon align="inline-end">
         @if (showTrigger()) {
           <button
-            aria-label="Open combobox"
+            [attr.aria-label]="openLabel()"
             aria-haspopup="listbox"
             brnComboboxPopoverTrigger
             hlmInputGroupButton
@@ -55,7 +56,7 @@ import { injectHlmComboboxListboxId } from './hlm-combobox-listbox-id';
             [disabled]="comboboxInput.disabled()"
             size="icon-xs"
             variant="ghost"
-            aria-label="Clear"
+            [attr.aria-label]="clearLabel()"
           >
             <ng-icon name="phosphorX" />
           </button>
@@ -75,6 +76,10 @@ export class HlmComboboxInput {
 
   public readonly inputId = input<string>(`hlm-combobox-input-${HlmComboboxInput._id++}`);
   public readonly placeholder = input<string>('');
+  /** Text a screen reader reads for the button that opens the list. */
+  public readonly openLabel = input<string>(injectMicrocopy()['combobox.open']);
+  /** Text a screen reader reads for the clear button. */
+  public readonly clearLabel = input<string>(injectMicrocopy()['combobox.clear']);
 
   public readonly showTrigger = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
   public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

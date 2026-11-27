@@ -4,6 +4,7 @@ import { create } from 'storybook/theming/create';
 
 import { registerA11yStatus } from './a11y-status.js';
 import type { Framework } from './frameworks.js';
+import { LANGUAGE_TOGGLE_ID, LanguageToggle } from './language-toggle.js';
 import { LOGO_SVG } from './logo.js';
 import { MODE_TOGGLE_ID, ModeToggle } from './mode-toggle.js';
 
@@ -44,6 +45,15 @@ export function registerManager(framework: Framework): void {
       title: 'Mode',
       match: () => true,
       render: () => <ModeToggle />,
+    });
+  });
+
+  addons.register(LANGUAGE_TOGGLE_ID, () => {
+    addons.add(LANGUAGE_TOGGLE_ID, {
+      type: types.TOOL,
+      title: 'Language',
+      match: () => true,
+      render: () => <LanguageToggle />,
     });
   });
 }

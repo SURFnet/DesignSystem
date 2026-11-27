@@ -61,3 +61,4 @@ export * from './lib/ui/toggle/src';
 export * from './lib/ui/toggle-group/src';
 export * from './lib/ui/tooltip/src';
 export * from './lib/ui/utils/src';
+export * from './lib/microcopy';

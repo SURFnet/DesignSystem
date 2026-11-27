@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 
+import { useMicrocopy } from '@/lib/microcopy';
+
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { XIcon } from '@phosphor-icons/react';
@@ -39,10 +41,15 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  closeLabel: closeLabelProp,
   ...props
 }: DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean;
+  /** Text a screen reader reads for the close button. */
+  closeLabel?: string;
 }) {
+  const texts = useMicrocopy();
+  const closeLabel = closeLabelProp ?? texts['dialog.close'];
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -58,7 +65,7 @@ function DialogContent({
             render={<Button variant="ghost" className={styles.closeButton} size="icon-sm" />}
           >
             <XIcon />
-            <span className={styles.srOnly}>Close</span>
+            <span className={styles.srOnly}>{closeLabel}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Popup>
@@ -73,16 +80,23 @@ function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
 function DialogFooter({
   className,
   showCloseButton = false,
+  closeText: closeTextProp,
   children,
   ...props
 }: React.ComponentProps<'div'> & {
   showCloseButton?: boolean;
+  /** Text on the close button. */
+  closeText?: string;
 }) {
+  const texts = useMicrocopy();
+  const closeText = closeTextProp ?? texts['dialog.footer-close'];
   return (
     <div data-slot="dialog-footer" className={cn(styles.footer, className)} {...props}>
       {children}
       {showCloseButton && (
-        <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>
+        <DialogPrimitive.Close render={<Button variant="outline" />}>
+          {closeText}
+        </DialogPrimitive.Close>
       )}
     </div>
   );

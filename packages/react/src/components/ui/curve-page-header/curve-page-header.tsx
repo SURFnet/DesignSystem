@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import pageHeaderStyles from './curve-page-header.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 type PageHeaderModuleClasses = Record<
   | 'root'
@@ -131,11 +132,13 @@ interface CurvePageHeaderActionsProps extends Omit<React.ComponentProps<'div'>, 
  */
 function CurvePageHeaderActions({
   actions,
-  moreActionsLabel = 'More actions',
+  moreActionsLabel: moreActionsLabelProp,
   onActionTriggered,
   className,
   ...props
 }: CurvePageHeaderActionsProps) {
+  const texts = useMicrocopy();
+  const moreActionsLabel = moreActionsLabelProp ?? texts['curve-page-header.more-actions'];
   const primary = actions.find((action) => action.primary);
   const secondary = actions.filter((action) => action !== primary);
   const overflow = secondary.slice(1);
@@ -196,9 +199,11 @@ function CurvePageHeaderActions({
 /** Page-level navigation under the header. Holds `CurvePageHeaderTab` links. */
 function CurvePageHeaderTabs({
   className,
-  'aria-label': ariaLabel = 'Page navigation',
+  'aria-label': ariaLabelProp,
   ...props
 }: React.ComponentProps<'nav'>) {
+  const texts = useMicrocopy();
+  const ariaLabel = ariaLabelProp ?? texts['curve-page-header.tabs-label'];
   return (
     <nav
       data-slot="curve-page-header-tabs"

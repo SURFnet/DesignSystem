@@ -1,6 +1,7 @@
 import { Directive, inject, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import { HlmSidebarService } from './hlm-sidebar.service';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Directive({
   selector: 'button[hlmSidebarRail]',
@@ -15,7 +16,9 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 export class HlmSidebarRail {
   private readonly _sidebarService = inject(HlmSidebarService);
 
-  public readonly ariaLabel = input<string>('Toggle Sidebar', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['sidebar.rail'], {
+    alias: 'aria-label',
+  });
 
   constructor() {
     classes(() => 'curve-sidebar-rail');

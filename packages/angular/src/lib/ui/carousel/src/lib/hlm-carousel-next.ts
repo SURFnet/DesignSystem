@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   inject,
+  input,
   untracked,
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -12,6 +13,7 @@ import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
 import { HlmIcon } from '../../../icon/src';
 import { hlm } from '../../../utils/src';
 import { HlmCarousel } from './hlm-carousel';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'button[hlm-carousel-next], button[hlmCarouselNext]',
@@ -29,10 +31,12 @@ import { HlmCarousel } from './hlm-carousel';
   },
   template: `
     <ng-icon hlm size="sm" name="phosphorArrowRight" class="curve-carousel-nav-icon" />
-    <span class="sr-only">Next slide</span>
+    <span class="sr-only">{{ srOnlyText() }}</span>
   `,
 })
 export class HlmCarouselNext {
+  /** Text a screen reader reads for the button. */
+  public readonly srOnlyText = input<string>(injectMicrocopy()['carousel.next']);
   private readonly _button = inject(HlmButton);
   protected readonly _carousel = inject(HlmCarousel);
   private readonly _computedClass = computed(() =>

@@ -12,6 +12,7 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { injectMicrocopy } from '../../../../microcopy';
 import { HlmButton } from '../../../button/src';
 import { HlmIconImports } from '../../../icon/src';
 import { classes } from '../../../utils/src';
@@ -41,7 +42,7 @@ type HlmDialogContentContext = {
 
     @if (showCloseButton()) {
       <button hlmBtn variant="ghost" size="icon-sm" class="curve-dialog-close" hlmDialogClose>
-        <span class="sr-only">close</span>
+        <span class="sr-only">{{ closeLabel() }}</span>
         <ng-icon hlm size="sm" name="phosphorX" />
       </button>
     }
@@ -59,6 +60,9 @@ export class HlmDialogContent {
       transform: booleanAttribute,
     },
   );
+
+  /** Text a screen reader reads for the close button. */
+  public readonly closeLabel = input<string>(injectMicrocopy()['dialog.close']);
 
   public readonly state = computed(() => this._dialogRef?.state() ?? 'closed');
 
