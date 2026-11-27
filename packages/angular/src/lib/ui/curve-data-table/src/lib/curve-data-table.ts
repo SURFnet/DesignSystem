@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   Injector,
   input,
@@ -35,6 +36,7 @@ import {
   type DataTableColumnDef,
 } from '../../../data-table/src';
 import { HlmDropdownMenuImports } from '../../../dropdown-menu/src';
+import { injectMicrocopy } from '../../../../microcopy';
 import { HlmInputImports } from '../../../input/src';
 import { HlmInputGroupImports } from '../../../input-group/src';
 
@@ -60,6 +62,19 @@ export class CurveDataTableComponent<TData extends RowData> implements OnInit {
   public data = input.required<TData[]>();
   public columns = input.required<ICurveDataTableColumn[]>();
   public searchColumn = input<string | null>(null);
+
+  private readonly _texts = injectMicrocopy();
+
+  protected readonly searchLabel = computed(() =>
+    this._texts['curve-data-table.search'].replace('{column}', this.searchColumn() ?? ''),
+  );
+  protected readonly searchPlaceholder = computed(() =>
+    this._texts['curve-data-table.search-placeholder'].replace(
+      '{column}',
+      this.searchColumn() ?? '',
+    ),
+  );
+  protected readonly columnsLabel = this._texts['curve-data-table.columns'];
   public hasColumnFilter = input<boolean>(true);
   public rowActionTriggered = output<CurveDataTableRowEvent<TData>>();
 

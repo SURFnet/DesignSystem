@@ -13,6 +13,7 @@ import type { ButtonVariants } from '../../../button/src';
 import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-pagination-next',
@@ -44,9 +45,11 @@ export class HlmPaginationNext {
   public readonly queryParamsHandling = input<RouterLink['queryParamsHandling']>();
 
   /** The aria-label for the next page link. */
-  public readonly ariaLabel = input<string>('Go to next page', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['pagination.next.label'], {
+    alias: 'aria-label',
+  });
   /** The text to display for the next page link. */
-  public readonly text = input<string>('Next');
+  public readonly text = input<string>(injectMicrocopy()['pagination.next']);
   /** Whether the button should only display the icon. */
   public readonly iconOnly = input<boolean, BooleanInput>(false, {
     transform: booleanAttribute,

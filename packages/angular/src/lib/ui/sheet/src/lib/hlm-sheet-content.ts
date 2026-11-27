@@ -17,6 +17,7 @@ import { HlmButton } from '../../../button/src';
 import { HlmIconImports } from '../../../icon/src';
 import { classes } from '../../../utils/src';
 import { HlmSheetClose } from './hlm-sheet-close';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-sheet-content',
@@ -51,7 +52,7 @@ export class HlmSheetContent {
   });
 
   /** Text a screen reader reads for the close button. */
-  public readonly closeLabel = input<string>('Close');
+  public readonly closeLabel = input<string>(injectMicrocopy()['sheet.close']);
 
   constructor() {
     // Styling (incl. slide in/out motion) lives in ./hlm-sheet.css.

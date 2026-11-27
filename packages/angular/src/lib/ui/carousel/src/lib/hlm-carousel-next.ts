@@ -13,6 +13,7 @@ import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
 import { HlmIcon } from '../../../icon/src';
 import { hlm } from '../../../utils/src';
 import { HlmCarousel } from './hlm-carousel';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'button[hlm-carousel-next], button[hlmCarouselNext]',
@@ -35,7 +36,7 @@ import { HlmCarousel } from './hlm-carousel';
 })
 export class HlmCarouselNext {
   /** Text a screen reader reads for the button. */
-  public readonly srOnlyText = input<string>('Next slide');
+  public readonly srOnlyText = input<string>(injectMicrocopy()['carousel.next']);
   private readonly _button = inject(HlmButton);
   protected readonly _carousel = inject(HlmCarousel);
   private readonly _computedClass = computed(() =>

@@ -15,8 +15,9 @@ import {
   useFieldSetRequired,
 } from './field-context';
 import styles from './field.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
-// CURVE: `Field optional` drives both the label's "(optioneel)" suffix and the controls'
+// CURVE: `Field optional` drives both the label's "(optional)" suffix and the controls'
 // `aria-required` (issue #144); see ./field-context.
 const fieldNecessityAttrs = {
   required: undefined,
@@ -51,13 +52,15 @@ function FieldLegend({
   className,
   children,
   variant = 'legend',
-  optionalText = '(optioneel)',
+  optionalText: optionalTextProp,
   ...props
 }: React.ComponentProps<'legend'> & {
   variant?: 'legend' | 'label';
   /** Suffix shown when the surrounding FieldSet is `optional`. */
   optionalText?: React.ReactNode;
 }) {
+  const texts = useMicrocopy();
+  const optionalText = optionalTextProp ?? texts['field.label.optional'];
   const required = useFieldSetRequired();
   return (
     <legend
@@ -125,12 +128,14 @@ function FieldContent({ className, ...props }: React.ComponentProps<'div'>) {
 function FieldLabel({
   className,
   children,
-  optionalText = '(optioneel)',
+  optionalText: optionalTextProp,
   ...props
 }: React.ComponentProps<typeof Label> & {
   /** Suffix shown when the surrounding Field is `optional`. */
   optionalText?: React.ReactNode;
 }) {
+  const texts = useMicrocopy();
+  const optionalText = optionalTextProp ?? texts['field.label.optional'];
   const required = useFieldRequired();
   return (
     <Label data-slot="field-label" className={cn(styles.fieldLabel, className)} {...props}>

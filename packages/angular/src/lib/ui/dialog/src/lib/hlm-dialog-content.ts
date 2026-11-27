@@ -12,6 +12,7 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { injectMicrocopy } from '../../../../microcopy';
 import { HlmButton } from '../../../button/src';
 import { HlmIconImports } from '../../../icon/src';
 import { classes } from '../../../utils/src';
@@ -61,7 +62,7 @@ export class HlmDialogContent {
   );
 
   /** Text a screen reader reads for the close button. */
-  public readonly closeLabel = input<string>('Close');
+  public readonly closeLabel = input<string>(injectMicrocopy()['dialog.close']);
 
   public readonly state = computed(() => this._dialogRef?.state() ?? 'closed');
 

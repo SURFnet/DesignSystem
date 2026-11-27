@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { useAriaRequired } from '@/components/ui/field/field-context';
 
 import styles from './input-otp.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 function InputOTP({
   className,
@@ -17,13 +18,15 @@ function InputOTP({
   defaultValue,
   onChange,
   maxLength,
-  completeAnnouncement = 'Verification code complete',
+  completeAnnouncement: completeAnnouncementProp,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
   /** Screen-reader announcement when every slot is filled, including after paste. */
   completeAnnouncement?: string;
 }) {
+  const texts = useMicrocopy();
+  const completeAnnouncement = completeAnnouncementProp ?? texts['input-otp.complete'];
   // CURVE: required by default unless inside <Field optional> (issue #144).
   const ariaRequired = useAriaRequired(props['aria-required']);
   const [uncontrolledValue, setUncontrolledValue] = React.useState(() =>

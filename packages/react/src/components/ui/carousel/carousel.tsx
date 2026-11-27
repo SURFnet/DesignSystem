@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react';
 
 import styles from './carousel.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -52,6 +53,7 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<'div'> & CarouselProps) {
+  const texts = useMicrocopy();
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
@@ -122,7 +124,7 @@ function Carousel({
         onKeyDownCapture={handleKeyDown}
         className={cn(styles.root, className)}
         role="region"
-        aria-roledescription="carousel"
+        aria-roledescription={texts['carousel.label']}
         data-slot="carousel"
         {...props}
       >
@@ -150,12 +152,13 @@ function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
+  const texts = useMicrocopy();
   const { orientation } = useCarousel();
 
   return (
     <div
       role="group"
-      aria-roledescription="slide"
+      aria-roledescription={texts['carousel.slide']}
       data-slot="carousel-item"
       className={cn(
         styles.item,
@@ -171,12 +174,14 @@ function CarouselPrevious({
   className,
   variant = 'outline',
   size = 'icon-sm',
-  srOnlyText = 'Previous slide',
+  srOnlyText: srOnlyTextProp,
   ...props
 }: React.ComponentProps<typeof Button> & {
   /** Text a screen reader reads for the button. */
   srOnlyText?: string;
 }) {
+  const texts = useMicrocopy();
+  const srOnlyText = srOnlyTextProp ?? texts['carousel.previous'];
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
@@ -203,12 +208,14 @@ function CarouselNext({
   className,
   variant = 'outline',
   size = 'icon-sm',
-  srOnlyText = 'Next slide',
+  srOnlyText: srOnlyTextProp,
   ...props
 }: React.ComponentProps<typeof Button> & {
   /** Text a screen reader reads for the button. */
   srOnlyText?: string;
 }) {
+  const texts = useMicrocopy();
+  const srOnlyText = srOnlyTextProp ?? texts['carousel.next'];
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (

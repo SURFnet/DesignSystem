@@ -14,6 +14,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 import styles from './date-picker.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 const DISPLAY_FORMAT = 'PP';
 const ISO_FORMAT = 'yyyy-MM-dd';
@@ -82,8 +83,8 @@ function DatePickerInput({
   parseDate = defaultParseDate,
   showClear = true,
   openOnClick = false,
-  clearAriaLabel = 'Clear date',
-  calendarAriaLabel = 'Select date',
+  clearAriaLabel: clearAriaLabelProp,
+  calendarAriaLabel: calendarAriaLabelProp,
   calendarProps,
   disabled,
   className,
@@ -93,6 +94,9 @@ function DatePickerInput({
   'aria-invalid': ariaInvalid,
   ...props
 }: DatePickerInputProps) {
+  const texts = useMicrocopy();
+  const clearAriaLabel = clearAriaLabelProp ?? texts['date-picker.clear'];
+  const calendarAriaLabel = calendarAriaLabelProp ?? texts['date-picker.calendar'];
   const [open, setOpen] = React.useState(false);
   const popupRef = React.useRef<HTMLDivElement>(null);
   const [text, setText] = React.useState(() => (date ? formatDate(date) : ''));

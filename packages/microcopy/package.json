@@ -4,9 +4,17 @@
   "private": true,
   "type": "module",
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "exports": {
+    ".": "./dist/index.ts",
     "./microcopy.json": "./src/microcopy.json"
+  },
+  "scripts": {
+    "build": "jiti scripts/build.ts"
+  },
+  "devDependencies": {
+    "jiti": "2.7.0"
   }
 }

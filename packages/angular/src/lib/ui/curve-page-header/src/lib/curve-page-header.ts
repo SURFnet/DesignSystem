@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import type { CurvePageHeaderMediaVariantName } from '@surfnet/curve-contracts';
 import { classes } from '../../../utils/src';
+import { injectMicrocopy } from '../../../../microcopy';
 
 const mediaVariantClasses = {
   default: 'curve-page-header-media--variant-default',
@@ -84,7 +85,9 @@ export class CurvePageHeaderDescription {}
   },
 })
 export class CurvePageHeaderTabs {
-  public readonly ariaLabel = input<string>('Page navigation', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['curve-page-header.tabs-label'], {
+    alias: 'aria-label',
+  });
 }
 
 /** One link in `curvePageHeaderTabs`. Set `active` on the current page; add your own `routerLink`. */

@@ -11,6 +11,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 import styles from './date-picker.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 const defaultFormatDate = (date: Date) => format(date, 'PPP');
 const defaultFormatRangeDate = (date: Date) => format(date, 'LLL d, y');
@@ -18,7 +19,7 @@ const defaultFormatRangeDate = (date: Date) => format(date, 'LLL d, y');
 function DatePicker({
   date,
   onDateChange,
-  placeholder = 'Pick a date',
+  placeholder: placeholderProp,
   formatDate = defaultFormatDate,
   triggerClassName,
   ...props
@@ -30,6 +31,8 @@ function DatePicker({
   formatDate?: (date: Date) => string;
   triggerClassName?: string;
 }) {
+  const texts = useMicrocopy();
+  const placeholder = placeholderProp ?? texts['date-picker.placeholder'];
   return (
     <Popover>
       <PopoverTrigger
@@ -54,7 +57,7 @@ function DatePicker({
 function DateRangePicker({
   dateRange,
   onDateRangeChange,
-  placeholder = 'Pick a date range',
+  placeholder: placeholderProp,
   formatDate = defaultFormatRangeDate,
   formatRange,
   triggerClassName,
@@ -69,6 +72,8 @@ function DateRangePicker({
   formatRange?: (from: Date, to: Date) => string;
   triggerClassName?: string;
 }) {
+  const texts = useMicrocopy();
+  const placeholder = placeholderProp ?? texts['date-picker.range-placeholder'];
   const rangeText = (from: Date, to: Date) =>
     formatRange ? formatRange(from, to) : `${formatDate(from)} - ${formatDate(to)}`;
 

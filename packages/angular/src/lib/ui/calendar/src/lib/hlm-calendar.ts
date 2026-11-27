@@ -24,6 +24,7 @@ import { HlmIcon } from '../../../icon/src';
 import { HlmSelectImports } from '../../../select/src';
 import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-calendar',
@@ -150,10 +151,10 @@ export class HlmCalendar<T> {
   public readonly calendarClass = input<ClassValue>('');
 
   /** Text a screen reader reads for the month picker (with `captionLayout` dropdown). */
-  public readonly monthSelectLabel = input<string>('Select month');
+  public readonly monthSelectLabel = input<string>(injectMicrocopy()['calendar.month']);
 
   /** Text a screen reader reads for the year picker (with `captionLayout` dropdown). */
-  public readonly yearSelectLabel = input<string>('Select year');
+  public readonly yearSelectLabel = input<string>(injectMicrocopy()['calendar.year']);
 
   protected readonly _computedCalenderClass = computed(() =>
     hlm('curve-calendar', this.calendarClass()),

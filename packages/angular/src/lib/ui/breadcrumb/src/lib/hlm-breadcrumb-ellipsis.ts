@@ -4,6 +4,7 @@ import { phosphorDotsThree } from '@ng-icons/phosphor-icons/regular';
 import { HlmIcon } from '../../../icon/src';
 import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-breadcrumb-ellipsis',
@@ -20,7 +21,7 @@ import type { ClassValue } from 'clsx';
 export class HlmBreadcrumbEllipsis {
   public readonly userClass = input<ClassValue>('', { alias: 'class' });
   /** Screen reader only text for the ellipsis */
-  public readonly srOnlyText = input<string>('More');
+  public readonly srOnlyText = input<string>(injectMicrocopy()['breadcrumb.ellipsis']);
 
   protected readonly _computedClass = computed(() =>
     hlm('curve-breadcrumb-ellipsis', this.userClass()),

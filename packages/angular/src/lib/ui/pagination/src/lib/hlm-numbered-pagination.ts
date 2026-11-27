@@ -17,6 +17,7 @@ import { HlmPaginationItem } from './hlm-pagination-item';
 import { HlmPaginationLink } from './hlm-pagination-link';
 import { HlmPaginationNext } from './hlm-pagination-next';
 import { HlmPaginationPrevious } from './hlm-pagination-previous';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-numbered-pagination',
@@ -128,7 +129,7 @@ export class HlmNumberedPagination {
    */
   public readonly pageSizes = input<number[]>([10, 20, 50, 100]);
   /** Text a screen reader reads for the page size picker. */
-  public readonly itemsPerPageLabel = input<string>('Items per page');
+  public readonly itemsPerPageLabel = input<string>(injectMicrocopy()['pagination.items-per-page']);
 
   protected readonly _pageSizesWithCurrent = computed(() => {
     const pageSizes = this.pageSizes();

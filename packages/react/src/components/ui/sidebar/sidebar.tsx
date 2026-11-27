@@ -25,6 +25,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { SidebarSimpleIcon } from '@phosphor-icons/react';
 
 import styles from './sidebar.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -144,8 +145,8 @@ function Sidebar({
   className,
   children,
   dir,
-  mobileTitle = 'Sidebar',
-  mobileDescription = 'Displays the mobile sidebar.',
+  mobileTitle: mobileTitleProp,
+  mobileDescription: mobileDescriptionProp,
   ...props
 }: React.ComponentProps<'div'> & {
   side?: 'left' | 'right';
@@ -156,6 +157,9 @@ function Sidebar({
   /** Description a screen reader reads when the sidebar opens as a sheet on mobile. */
   mobileDescription?: string;
 }) {
+  const texts = useMicrocopy();
+  const mobileTitle = mobileTitleProp ?? texts['sidebar.mobile-title'];
+  const mobileDescription = mobileDescriptionProp ?? texts['sidebar.mobile-description'];
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
   if (collapsible === 'none') {
@@ -219,12 +223,14 @@ function Sidebar({
 function SidebarTrigger({
   className,
   onClick,
-  srOnlyText = 'Toggle Sidebar',
+  srOnlyText: srOnlyTextProp,
   ...props
 }: React.ComponentProps<typeof Button> & {
   /** Text a screen reader reads for the button. */
   srOnlyText?: string;
 }) {
+  const texts = useMicrocopy();
+  const srOnlyText = srOnlyTextProp ?? texts['sidebar.toggle'];
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -247,16 +253,17 @@ function SidebarTrigger({
 }
 
 function SidebarRail({ className, ...props }: React.ComponentProps<'button'>) {
+  const texts = useMicrocopy();
   const { toggleSidebar } = useSidebar();
 
   return (
     <button
       data-sidebar="rail"
       data-slot="sidebar-rail"
-      aria-label="Toggle Sidebar"
+      aria-label={texts['sidebar.rail']}
       tabIndex={-1}
       onClick={toggleSidebar}
-      title="Toggle Sidebar"
+      title={texts['sidebar.rail']}
       className={cn(styles.rail, className)}
       {...props}
     />

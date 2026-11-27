@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmTableImports } from '../../../table/src';
 import { FlexRenderDirective, type RowData } from '@tanstack/angular-table';
 import type { DataTable, DataTableColumnDef } from './inject-data-table';
+import { injectMicrocopy } from '../../../../microcopy';
 
 /**
  * Renders a TanStack table instance into the styled helm `table` directives. Mirrors React's
@@ -84,5 +85,5 @@ export class HlmDataTableContent<TData extends RowData> {
   public readonly columns = input.required<DataTableColumnDef<TData>[]>();
 
   /** Content shown in the body when there are no rows. */
-  public readonly noResultsLabel = input<string>('No results.');
+  public readonly noResultsLabel = input<string>(injectMicrocopy()['data-table.no-results']);
 }

@@ -5,6 +5,7 @@ import { phosphorX } from '@ng-icons/phosphor-icons/regular';
 import { BrnComboboxChip } from '@spartan-ng/brain/combobox';
 import { classes } from '../../../utils/src';
 import { HlmComboboxChipRemove } from './hlm-combobox-chip-remove';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-combobox-chip',
@@ -26,7 +27,7 @@ import { HlmComboboxChipRemove } from './hlm-combobox-chip-remove';
 export class HlmComboboxChip {
   public readonly showRemove = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
   /** The aria-label for the chip's remove button. */
-  public readonly removeLabel = input<string>('Remove');
+  public readonly removeLabel = input<string>(injectMicrocopy()['combobox.chip-remove']);
 
   constructor() {
     classes(() => 'curve-combobox-chip');

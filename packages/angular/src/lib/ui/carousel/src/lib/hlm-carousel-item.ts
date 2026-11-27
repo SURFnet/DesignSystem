@@ -1,6 +1,7 @@
 import { Directive, inject, input } from '@angular/core';
 import { classes } from '../../../utils/src';
 import { HlmCarousel } from './hlm-carousel';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Directive({
   selector: '[hlmCarouselItem],hlm-carousel-item',
@@ -12,7 +13,9 @@ import { HlmCarousel } from './hlm-carousel';
 })
 export class HlmCarouselItem {
   /** What a screen reader calls one item, instead of "group". */
-  public readonly roleDescription = input<string>('slide', { alias: 'aria-roledescription' });
+  public readonly roleDescription = input<string>(injectMicrocopy()['carousel.slide'], {
+    alias: 'aria-roledescription',
+  });
   private readonly _orientation = inject(HlmCarousel).orientation;
 
   constructor() {

@@ -21,6 +21,7 @@ import {
   PaginationPrevious,
 } from './pagination';
 import numberedStyles from './numbered-pagination.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 type Page = number | '...';
 
@@ -58,10 +59,12 @@ function NumberedPagination({
   maxSize = 7,
   showEdges = true,
   pageSizes = [10, 20, 50, 100],
-  itemsPerPageLabel = 'Items per page',
+  itemsPerPageLabel: itemsPerPageLabelProp,
   className,
   ...props
 }: NumberedPaginationProps) {
+  const texts = useMicrocopy();
+  const itemsPerPageLabel = itemsPerPageLabelProp ?? texts['pagination.items-per-page'];
   const lastPageNumber = totalItems < 1 ? 1 : Math.ceil(totalItems / itemsPerPage);
   const correctedCurrentPage = outOfBoundCorrection(totalItems, itemsPerPage, currentPage);
 

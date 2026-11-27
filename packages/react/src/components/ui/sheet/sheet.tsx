@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { XIcon } from '@phosphor-icons/react';
 
 import styles from './sheet.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
@@ -41,7 +42,7 @@ function SheetContent({
   children,
   side = 'right',
   showCloseButton = true,
-  closeLabel = 'Close',
+  closeLabel: closeLabelProp,
   ...props
 }: SheetPrimitive.Popup.Props & {
   side?: SheetSideName;
@@ -49,6 +50,8 @@ function SheetContent({
   /** Text a screen reader reads for the close button. */
   closeLabel?: string;
 }) {
+  const texts = useMicrocopy();
+  const closeLabel = closeLabelProp ?? texts['sheet.close'];
   return (
     <SheetPortal>
       <SheetOverlay />

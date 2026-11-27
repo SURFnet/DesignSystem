@@ -3,6 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorSidebarSimple } from '@ng-icons/phosphor-icons/regular';
 import { HlmButton, provideBrnButtonConfig } from '../../../button/src';
 import { HlmSidebarService } from './hlm-sidebar.service';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -27,7 +28,7 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 export class HlmSidebarTrigger {
   private readonly _sidebarService = inject(HlmSidebarService);
 
-  public readonly srOnlyText = input('Toggle Sidebar');
+  public readonly srOnlyText = input<string>(injectMicrocopy()['sidebar.toggle']);
 
   protected _onClick(): void {
     this._sidebarService.toggleSidebar();

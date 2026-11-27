@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 import { BrnComboboxChipRemove } from '@spartan-ng/brain/combobox';
 import { buttonVariants } from '../../../button/src';
 import { classes } from '../../../utils/src';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Directive({
   selector: 'button[hlmComboboxChipRemove]',
@@ -10,7 +11,9 @@ import { classes } from '../../../utils/src';
 })
 export class HlmComboboxChipRemove {
   /** The aria-label for the remove button. */
-  public readonly ariaLabel = input<string>('Remove', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['combobox.chip-remove'], {
+    alias: 'aria-label',
+  });
 
   constructor() {
     classes(() => [

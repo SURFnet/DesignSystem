@@ -1,4 +1,5 @@
 import { Directive, input } from '@angular/core';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Directive({
   selector: '[hlmBreadcrumb]',
@@ -9,5 +10,7 @@ import { Directive, input } from '@angular/core';
   },
 })
 export class HlmBreadcrumb {
-  public readonly ariaLabel = input<string>('You are here: ', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['breadcrumb.label'], {
+    alias: 'aria-label',
+  });
 }

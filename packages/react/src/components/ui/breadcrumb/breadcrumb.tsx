@@ -8,10 +8,17 @@ import { CaretRightIcon, DotsThreeIcon } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 
 import styles from './breadcrumb.module.css';
+import { useMicrocopy } from '@/lib/microcopy';
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
+  const texts = useMicrocopy();
   return (
-    <nav aria-label="You are here: " data-slot="breadcrumb" className={cn(className)} {...props} />
+    <nav
+      aria-label={texts['breadcrumb.label']}
+      data-slot="breadcrumb"
+      className={cn(className)}
+      {...props}
+    />
   );
 }
 
@@ -68,12 +75,14 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
 
 function BreadcrumbEllipsis({
   className,
-  srOnlyText = 'More',
+  srOnlyText: srOnlyTextProp,
   ...props
 }: React.ComponentProps<'span'> & {
   /** Text a screen reader reads for the ellipsis. */
   srOnlyText?: string;
 }) {
+  const texts = useMicrocopy();
+  const srOnlyText = srOnlyTextProp ?? texts['breadcrumb.ellipsis'];
   return (
     <span data-slot="breadcrumb-ellipsis" className={cn(styles.ellipsis, className)} {...props}>
       <DotsThreeIcon aria-hidden="true" />

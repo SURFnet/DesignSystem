@@ -7,8 +7,8 @@
     </div>
     <input
       hlmInputGroupInput
-      [attr.aria-label]="`Search ${searchColumn()}`"
-      [placeholder]="`Search ${searchColumn()}...`"
+      [attr.aria-label]="searchLabel()"
+      [placeholder]="searchPlaceholder()"
       [value]="appFilter()"
       (input)="setAppFilter($event)"
     />
@@ -20,7 +20,7 @@
     class="curve-data-table-columns-button"
     [hlmDropdownMenuTrigger]="columnsMenu"
   >
-    Columns
+    {{ columnsLabel }}
   </button>
   <ng-template #columnsMenu>
     <hlm-dropdown-menu class="curve-data-table-columns-menu">

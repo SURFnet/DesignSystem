@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorSpinner } from '@ng-icons/phosphor-icons/regular';
 import { classes } from '../../../utils/src';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-spinner',
@@ -22,7 +23,9 @@ export class HlmSpinner {
   public readonly icon = input<string>('phosphorSpinner');
 
   /** Aria label for the spinner for accessibility. */
-  public readonly ariaLabel = input<string>('Loading', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['spinner.label'], {
+    alias: 'aria-label',
+  });
 
   constructor() {
     classes(() => 'curve-spinner');

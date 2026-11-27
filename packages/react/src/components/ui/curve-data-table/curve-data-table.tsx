@@ -9,6 +9,7 @@ import {
   MagnifyingGlassIcon,
 } from '@phosphor-icons/react';
 
+import { useMicrocopy, type Microcopy } from '@/lib/microcopy';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -65,6 +66,7 @@ function CurveDataTable<TData extends RowData>({
   className,
   ...props
 }: CurveDataTableProps<TData>) {
+  const texts = useMicrocopy();
   // Keep the latest callback in a ref so the column definitions don't have to be rebuilt
   // (and the table re-created) every time the parent passes a new function.
   const onRowActionRef = React.useRef(onRowActionTriggered);
@@ -76,10 +78,10 @@ function CurveDataTable<TData extends RowData>({
   // the `columns` prop itself changes.
   const tableColumns = React.useMemo(
     () =>
-      createColumns<TData>(columns, (event) => {
+      createColumns<TData>(columns, texts, (event) => {
         onRowActionRef.current?.(event);
       }),
-    [columns],
+    [columns, texts],
   );
 
   const table = useDataTable({ data, columns: tableColumns });
@@ -96,8 +98,11 @@ function CurveDataTable<TData extends RowData>({
                 <MagnifyingGlassIcon aria-hidden />
               </InputGroupAddon>
               <InputGroupInput
-                aria-label={`Search ${searchColumn}`}
-                placeholder={`Search ${searchColumn}...`}
+                aria-label={texts['curve-data-table.search'].replace('{column}', searchColumn)}
+                placeholder={texts['curve-data-table.search-placeholder'].replace(
+                  '{column}',
+                  searchColumn,
+                )}
                 value={(searchTarget?.getFilterValue() as string | undefined) ?? ''}
                 onChange={(event) => searchTarget?.setFilterValue(event.target.value)}
               />
@@ -108,7 +113,7 @@ function CurveDataTable<TData extends RowData>({
               <DropdownMenuTrigger
                 render={
                   <Button variant="outline" className={styles.columnsButton}>
-                    Columns
+                    {texts['curve-data-table.columns']}
                   </Button>
                 }
               />
@@ -140,13 +145,14 @@ function CurveDataTable<TData extends RowData>({
 
 function createColumns<TData extends RowData>(
   columns: ICurveDataTableColumn[],
+  texts: Microcopy,
   onRowAction: (event: CurveDataTableRowEvent<TData>) => void,
 ): DataTableColumnDef<TData>[] {
   const result: DataTableColumnDef<TData>[] = [];
 
   for (const column of columns) {
     if (column instanceof CurveDataTableSelectionColumn) {
-      result.push(createSelectionColumn<TData>());
+      result.push(createSelectionColumn<TData>(texts));
     } else if (column instanceof CurveDataTableStringColumn) {
       result.push(createStringColumn<TData>(column));
     } else if (column instanceof CurveDataTableCustomColumn) {
@@ -154,19 +160,19 @@ function createColumns<TData extends RowData>(
     } else if (column instanceof CurveDataTableImageColumn) {
       result.push(createImageColumn<TData>(column));
     } else if (column instanceof CurveDataTableActionColumn) {
-      result.push(createActionColumn<TData>(column, onRowAction));
+      result.push(createActionColumn<TData>(column, texts, onRowAction));
     }
   }
 
   return result;
 }
 
-function createSelectionColumn<TData extends RowData>(): DataTableColumnDef<TData> {
+function createSelectionColumn<TData extends RowData>(texts: Microcopy): DataTableColumnDef<TData> {
   return {
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        aria-label="Select all"
+        aria-label={texts['data-table.select-all']}
         checked={table.getIsAllPageRowsSelected()}
         indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
@@ -174,7 +180,7 @@ function createSelectionColumn<TData extends RowData>(): DataTableColumnDef<TDat
     ),
     cell: ({ row }) => (
       <Checkbox
-        aria-label="Select row"
+        aria-label={texts['data-table.select-row']}
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
       />
@@ -256,6 +262,7 @@ function createImageColumn<TData extends RowData>(
 
 function createActionColumn<TData extends RowData>(
   column: CurveDataTableActionColumn,
+  texts: Microcopy,
   onRowAction: (event: CurveDataTableRowEvent<TData>) => void,
 ): DataTableColumnDef<TData> {
   const { actions, header, options } = column;
@@ -270,7 +277,11 @@ function createActionColumn<TData extends RowData>(
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <Button variant="ghost" size="icon-sm" aria-label="Open action menu">
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label={texts['curve-data-table.action-menu']}
+              >
                 <DotsThreeIcon />
               </Button>
             }

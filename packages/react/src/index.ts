@@ -56,3 +56,4 @@ export * from '@/components/ui/toggle';
 export * from '@/components/ui/toggle-group';
 export * from '@/components/ui/tooltip';
 export { cn } from '@/lib/utils';
+export * from '@/lib/microcopy';

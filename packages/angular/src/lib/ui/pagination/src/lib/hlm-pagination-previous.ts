@@ -13,6 +13,7 @@ import type { ButtonVariants } from '../../../button/src';
 import { hlm } from '../../../utils/src';
 import type { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-pagination-previous',
@@ -44,9 +45,11 @@ export class HlmPaginationPrevious {
   public readonly queryParamsHandling = input<RouterLink['queryParamsHandling']>();
 
   /** The aria-label for the previous page link. */
-  public readonly ariaLabel = input<string>('Go to previous page', { alias: 'aria-label' });
+  public readonly ariaLabel = input<string>(injectMicrocopy()['pagination.previous.label'], {
+    alias: 'aria-label',
+  });
   /** The text to display for the previous page link. */
-  public readonly text = input<string>('Previous');
+  public readonly text = input<string>(injectMicrocopy()['pagination.previous']);
   /** Whether the button should only display the icon. */
   public readonly iconOnly = input<boolean, BooleanInput>(false, {
     transform: booleanAttribute,

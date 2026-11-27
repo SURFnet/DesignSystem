@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmButton } from '../../../button/src';
 import { type RowData } from '@tanstack/angular-table';
 import type { DataTable } from './inject-data-table';
+import { injectMicrocopy } from '../../../../microcopy';
 
 /**
  * Selection summary plus Previous / Next paging controls. Mirrors React's
@@ -51,10 +52,10 @@ export class HlmDataTablePagination<TData extends RowData> {
   public readonly table = input.required<DataTable<TData>>();
 
   /** Label for the "previous page" button. */
-  public readonly previousLabel = input<string>('Previous');
+  public readonly previousLabel = input<string>(injectMicrocopy()['data-table.previous']);
 
   /** Label for the "next page" button. */
-  public readonly nextLabel = input<string>('Next');
+  public readonly nextLabel = input<string>(injectMicrocopy()['data-table.next']);
 
   /** Builds the selection-summary text from the selected and total row counts. */
   public readonly selectionLabel = input<(selectedCount: number, totalCount: number) => string>(

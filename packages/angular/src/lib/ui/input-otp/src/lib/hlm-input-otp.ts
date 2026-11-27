@@ -16,6 +16,7 @@ import {
   syncAriaRequired,
 } from '../../../field/src/lib/hlm-field-required';
 import { injectFieldDescribedBy, syncAttribute } from '../../../field/src/lib/hlm-field-a11y';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Directive({
   selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
@@ -41,7 +42,7 @@ export class HlmInputOtp {
   public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 
   /** Screen-reader announcement when every slot is filled, including after paste. */
-  public readonly completeAnnouncement = input('Verification code complete');
+  public readonly completeAnnouncement = input<string>(injectMicrocopy()['input-otp.complete']);
 
   /** Explicit `aria-required`; when absent, the surrounding field decides (required by default). */
   public readonly ariaRequiredOverride = input<boolean | undefined, unknown>(undefined, {

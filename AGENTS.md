@@ -8,13 +8,14 @@ easy to get wrong.
 
 A Turborepo + pnpm monorepo with five packages:
 
-| Package                            | What                                                                                            | Build                               | Storybook                      |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------ |
-| `@surfnet/curve-react`             | React components on shadcn/ui + **Base UI** (_published_)                                       | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
-| `@surfnet/curve-angular`           | Angular components on **Spartan** (`brain` + `helm`) (_published_)                              | `ng-packagr`                        | `@storybook/angular` (webpack) |
-| `@surfnet/curve-tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_private_)                        | Style Dictionary                    | —                              |
-| `@surfnet/curve-contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_) | `tsc --noEmit`                      | —                              |
-| `@surfnet/curve-typescript-config` | Shared base `tsconfig`s                                                                         | —                                   | —                              |
+| Package                            | What                                                                                                                 | Build                               | Storybook                      |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------ |
+| `@surfnet/curve-react`             | React components on shadcn/ui + **Base UI** (_published_)                                                            | Vite (lib mode) + `vite-plugin-dts` | `@storybook/react-vite`        |
+| `@surfnet/curve-angular`           | Angular components on **Spartan** (`brain` + `helm`) (_published_)                                                   | `ng-packagr`                        | `@storybook/angular` (webpack) |
+| `@surfnet/curve-tokens`            | DTCG JSON -> Style Dictionary -> `tokens.css` + typed TS map (_private_)                                             | Style Dictionary                    | —                              |
+| `@surfnet/curve-contracts`         | Per-component `as const` specs: variant/size names, defaults, docs (_private, build-time only_)                      | `tsc --noEmit`                      | —                              |
+| `@surfnet/curve-microcopy`         | Default UI texts in `en` + `nl` (labels, screen-reader texts, error messages) as JSON -> `microcopy` map (_private_) | `jiti scripts/build.ts`             | —                              |
+| `@surfnet/curve-typescript-config` | Shared base `tsconfig`s                                                                                              | —                                   | —                              |
 
 Both component packages style with **plain CSS in cascade layers** and source their design tokens from `@surfnet/curve-tokens`: React with co-located CSS Modules, Angular with a co-located `hlm-<name>.css` per component (`curve-*` classes). Neither published `styles.css` contains Tailwind; apps can still add their own Tailwind on top.
 
@@ -174,6 +175,15 @@ OpenCode): `npx shadcn@latest mcp init --client <name>` for shadcn, and add the
   docs. Both frameworks enforce this at compile time with
   `satisfies Record<ButtonVariantName, string>` on their variant → class maps. A mismatch (stray
   variant in one framework, missing size in another) fails `pnpm lint` immediately.
+- **Microcopy is the source of every default text.** Never hard-code a label, screen-reader text or
+  error message in a component: add it to `packages/microcopy/src/microcopy.json` with both an `en`
+  and an `nl` text. The microcopy build writes `dist/index.ts` (`microcopy.en` / `microcopy.nl`);
+  each component package copies it to `src/lib/microcopy.generated.ts` (`scripts/copy-microcopy.ts`,
+  run before build/lint/Storybook, git-ignored), so the texts are compiled in and the published types
+  never point at the private package. Components read the current language, not the constant:
+  React `const texts = useMicrocopy()` then `prop ?? texts['key']`; Angular
+  `input<string>(injectMicrocopy()['key'])`. English is the default; apps switch with
+  `CurveMicrocopyProvider` / `provideCurveMicrocopy()`.
 - **Contracts are build-time only.** `@surfnet/curve-contracts` is private and must not appear
   in any published `dist` — types erase after compilation. Each framework exports its own
   plain variant option types (e.g. `ButtonVariants`) and `buttonVariants()` helpers.

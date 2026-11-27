@@ -12,6 +12,7 @@ import { BrnDialogContent, BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmDialogImports } from '../../../dialog/src';
 import { hlm } from '../../../utils/src';
 import { ClassValue } from 'clsx';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-command-dialog',
@@ -34,8 +35,8 @@ import { ClassValue } from 'clsx';
   `,
 })
 export class HlmCommandDialog {
-  public readonly title = input<string>('Command Palette');
-  public readonly description = input<string>('Search for a command to run...');
+  public readonly title = input<string>(injectMicrocopy()['command.dialog.title']);
+  public readonly description = input<string>(injectMicrocopy()['command.dialog.description']);
 
   public readonly state = input<BrnDialogState>('closed');
   protected readonly _state = linkedSignal(this.state);

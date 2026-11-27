@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import type { ClassValue } from 'clsx';
 import { HlmCarousel } from './hlm-carousel';
+import { injectMicrocopy } from '../../../../microcopy';
 
 @Component({
   selector: 'hlm-carousel-slide-display',
@@ -23,7 +24,7 @@ export class HlmCarouselSlideDisplay {
   public readonly slideClass = input<ClassValue>('curve-carousel-slide-display');
 
   /** Screen reader only text for the slide display */
-  public readonly label = input<string>('Slide');
+  public readonly label = input<string>(injectMicrocopy()['carousel.slide-display']);
 
   protected readonly _labelContent = computed(() => {
     const currentSlide = this._currentSlide();

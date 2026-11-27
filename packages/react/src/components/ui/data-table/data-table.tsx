@@ -16,6 +16,7 @@ import {
 
 import styles from './data-table.module.css';
 import type { DataTable, DataTableColumnDef } from './use-data-table';
+import { useMicrocopy } from '@/lib/microcopy';
 
 interface DataTableToolbarProps extends React.ComponentProps<'div'> {}
 
@@ -35,10 +36,12 @@ interface DataTableContentProps<TData extends RowData> extends React.ComponentPr
 function DataTableContent<TData extends RowData>({
   table,
   columns,
-  noResultsLabel = 'No results.',
+  noResultsLabel: noResultsLabelProp,
   className,
   ...props
 }: DataTableContentProps<TData>) {
+  const texts = useMicrocopy();
+  const noResultsLabel = noResultsLabelProp ?? texts['data-table.no-results'];
   return (
     <div data-slot="data-table-content" className={cn(styles.content, className)} {...props}>
       <Table>
@@ -91,13 +94,16 @@ interface DataTablePaginationProps<TData extends RowData> extends React.Componen
 
 function DataTablePagination<TData extends RowData>({
   table,
-  previousLabel = 'Previous',
-  nextLabel = 'Next',
+  previousLabel: previousLabelProp,
+  nextLabel: nextLabelProp,
   selectionLabel = (selectedCount, totalCount) =>
     `${selectedCount} of ${totalCount} row(s) selected.`,
   className,
   ...props
 }: DataTablePaginationProps<TData>) {
+  const texts = useMicrocopy();
+  const previousLabel = previousLabelProp ?? texts['data-table.previous'];
+  const nextLabel = nextLabelProp ?? texts['data-table.next'];
   return (
     <div data-slot="data-table-pagination" className={cn(styles.pagination, className)} {...props}>
       <div className={styles.selectionSummary}>
