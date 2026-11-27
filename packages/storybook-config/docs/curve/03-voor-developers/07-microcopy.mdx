@@ -1,62 +1,114 @@
 import { Meta } from '@storybook/addon-docs/blocks';
-import microcopy from '@surfnet/curve-microcopy/microcopy.json';
 
 <Meta title="Curve/Voor developers" name="Microcopy" />
 
-export const entries = Object.entries(microcopy.entries);
-export const components = [...new Set(entries.map(([, entry]) => entry.component))];
-export const kinds = {
-  zichtbaar: 'Zichtbaar',
-  screenreader: 'Alleen screenreader',
-  foutmelding: 'Foutmelding',
-};
-
-export const Inline = ({ text }) =>
-  text.split('`').map((part, index) => (index % 2 ? <code key={index}>{part}</code> : part));
-
-export const Copy = ({ value }) =>
-  value ? (
-    <>
-      <strong>“{value.text}”</strong>
-      <br />
-      <code>{value.where}</code>
-      <br />
-      <small>{value.change ? <>Aanpassen: <Inline text={value.change} /></> : 'Vast in de component'}</small>
-    </>
-  ) : (
-    <small>Geen standaardtekst</small>
-  );
-
-export const differs = (entry) =>
-  entry.angular && entry.react && entry.angular.text !== entry.react.text;
-
 # Microcopy
 
-Curve's componenten hebben teksten ingebouwd: een knop "Previous", een sluitknop die "Close" voorleest,
-een foutmelding "Dit veld is verplicht." Hieronder staan ze allemaal, met per framework de huidige
-tekst, de component waarin hij staat, en hoe je hem in je app aanpast.
+Curve's componenten hebben soms kleine tekstsnippets ingebouwd: een knop "Previous", een sluitknop die "Close" voorleest, een foutmelding "This field is required." Elke tekst bestaat in het Engels (de standaard) en het Nederlands. Soms zijn deze teksten voor het blote oog onzichtbaar en ondersteunend voor screenreaders.
 
-Hoe je zelf goede teksten schrijft, staat bij [Microcopy voor designers](?path=/docs/curve-voor-designers--microcopy).
+Om mogelijk te maken om componenten vertaalbaar te maken (Engels/Nederlands) en om de teksten te kunnen aanpassen, hebben we een microcopy-systeem gebouwd. Dat werkt in React en Angular, en is ook beschikbaar voor designers in Figma. In een apart pakket `@surfnet/curve-microcopy` staan de teksten in een centraal JSON-bestand, en de componenten lezen die teksten in. Je kunt ze vervangen met een prop (React) of input (Angular). 
 
-## Zo lees je de lijst
+In Storybook kun je ze vinden bij [Foundations › Microcopy](?path=/docs/foundations-microcopy--docs). Daar staat per component de key, wanneer je de tekst ziet of hoort, Engels en Nederlands, en hoe je één tekst vervangt. 
 
-- **Sleutel**: een vaste naam voor de tekst, bijvoorbeeld `field.error.required`. Gebruik die als je
-  het in een issue of met een designer over een tekst hebt.
-- **Soort**: _zichtbaar_ staat op het scherm, _alleen screenreader_ wordt alleen voorgelezen (een
-  `aria-label` of verborgen tekst), _foutmelding_ verschijnt bij een veld dat niet goed is ingevuld.
-- **Aanpassen**: de input (Angular) of prop (React) waarmee je de tekst vervangt. Staat er _vast in de
-  component_, dan kun je hem nu nog niet aanpassen.
-- **⚠ verschilt**: Angular en React gebruiken nu een andere tekst.
+Wil je een component in het Nederlands zien? Klik in de werkbalk boven elke story op 'English' om van taal te wisselen, naast de knop voor licht en donker.
 
-Veel teksten zijn nog Engels, terwijl Curve verder Nederlands is. Deze lijst maakt dat zichtbaar; de
-teksten zelf veranderen we later.
+Hoe je zelf goede microcopy schrijft, staat bij [Microcopy voor designers](?path=/docs/curve-voor-designers--microcopy).
+
+## Een taal kiezen
+
+Standaard zijn alle microcopy teksten in het Engels. Wil je dat voor je hele app anders, dan zet je de taal in de provider (React) of in de `providers` van je app-config (Angular). De taal is een _locale_, bijvoorbeeld `"en"` of `"nl"`.
+
+```tsx
+// React: om je app heen
+import { CurveMicrocopyProvider } from '@surfnet/curve-react';
+
+<CurveMicrocopyProvider locale="nl">
+  <App />
+</CurveMicrocopyProvider>;
+```
+
+```ts
+// Angular: app.config.ts
+import { provideCurveMicrocopy } from '@surfnet/curve-angular';
+
+export const appConfig = {
+  providers: [provideCurveMicrocopy('nl')],
+};
+```
+
+## Teksten aanpassen
+
+Soms past een standaardtekst niet bij je app. Je kunt een tekst op drie manieren aanpassen. Hoe 'dichter' bij het component, hoe hoger de prioriteit (bijvoorbeeld handig als je een blok hebt dat Engelstalig moet zijn binnen een Nederlandse app of site).
+
+| Wat                                                          | Waar                                                | Voorbeeld                                                                           |
+| -------------------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Taal van de applicatie aanpassen | De taal (`locale`)                                  | `locale="nl"` of `provideCurveMicrocopy('nl')`                                      |
+| Terugkerende microcopy teksten aanpassen  | `messages`, als object binnen de provider | `messages={{ 'dialog.close': 'Venster sluiten' }}`                                  |
+| Een uitzondering op een specifiek component op een bepaalde plek | Een prop of input  | Zie de tabel bij [Foundations › Microcopy](?path=/docs/foundations-microcopy--docs) bij "Waar pas je de tekst aan" |
+
+### Overschrijven van teksten op alle plekken binnen de applicatie
+
+Geef de teksten mee die je door de app heen anders wil, elk met zijn _key_. De key codes vind je bij [Foundations › Microcopy](?path=/docs/foundations-microcopy--docs). 
+
+Stel dat je de tekst "(optioneel)" wil vervangen door "(niet verplicht)":
+
+```tsx
+// React
+<CurveMicrocopyProvider
+  locale="nl"
+  messages={{
+    'field.label.optional': '(niet verplicht)',
+  }}
+>
+  <App />
+</CurveMicrocopyProvider>
+```
+
+```ts
+// Angular: app.config.ts
+providers: [
+  provideCurveMicrocopy('nl', {
+    'field.label.optional': '(niet verplicht)',
+  }),
+];
+```
+
+Laat je de taal weg (De `<CurveMicrocopyProvider messages={…}>` wrapper in React, of
+`provideCurveMicrocopy(undefined, { … })` in Angular), dan blijft de taal overal Engels.
+
+Typ je een key verkeerd, dan geeft TypeScript een fout.
+
+### Aanpassen van een tekst op een specifieke plek
+
+Moet op alleen één plek een andere tekst komen, gebruik dan de prop (React) of input (Angular) van die component. Welke dat is, staat bij elke tekst in de kolom **Waar pas je de tekst aan**.
+
+```tsx
+// React
+<DialogContent closeLabel="Annuleren">…</DialogContent>
+```
+
+```html
+<!-- Angular -->
+<hlm-dialog-content closeLabel="Annuleren">…</hlm-dialog-content>
+```
+
+Een prop of input gaat altijd voor, ook als je `messages` of een taal hebt ingesteld.
+
+### Voor een deel van je app
+
+Je kunt de provider ook om een deel van je app zetten, bijvoorbeeld een Engelstalige pagina in een
+Nederlandse app. Binnen dat deel gelden dan die taal en teksten. In React zet je een tweede
+`<CurveMicrocopyProvider>` om dat deel. In Angular zet je `provideCurveMicrocopy()` in de `providers`
+van die component.
+
+## React en client components
+
+In React lezen de componenten de taal via React context. Ze zijn daarom client components
+(`'use client'`); in een Next.js-app werkt dat gewoon, ook vanuit een server component.
 
 ## Foutmeldingen aanpassen (Angular)
 
-Een lege `<hlm-field-error />` toont automatisch een melding bij de fout van het veld. De sleutels
-`field.error.*` hieronder horen bij de validators van Angular: `field.error.minlength` is de melding
-voor `Validators.minLength`. Vervang ze voor je hele app met `provideHlmFieldErrorMessages`, met
-hetzelfde laatste deel van de sleutel:
+Een lege `<hlm-field-error />` toont automatisch een melding bij de fout van het veld. De keys `field.error.*` hieronder horen bij de validators van Angular: `field.error.minlength` is de melding voor `Validators.minLength`. Vervang ze voor je hele app met `provideHlmFieldErrorMessages`, met hetzelfde laatste deel van de key:
 
 ```ts
 // app.config.ts
@@ -72,68 +124,32 @@ export const appConfig = {
 };
 ```
 
-Wat je niet noemt, houdt de standaardtekst. Een `{placeholder}` in de tekst, zoals `{requiredLength}`,
-komt uit de fout van de validator; geef dan een functie in plaats van een tekst. Tekst die je zelf in
-`<hlm-field-error>` zet, gaat altijd voor.
+Wat je niet noemt, houdt de tekst in de gekozen taal. Een `{placeholder}` in de tekst zoals `{requiredLength}` komt uit de fout van de validator; geef dan een functie in plaats van een tekst. Tekst die je zelf in `<hlm-field-error>` zet, gaat altijd voor.
 
-React heeft geen standaard foutmeldingen: daar geef je de meldingen van je formulierbibliotheek mee
-aan `<FieldError errors={…} />`.
+## Foutmeldingen aanpassen (React)
 
-## Alle teksten
-
-{components.map((component) => (
-  <section key={component}>
-    <h3>{component}</h3>
-    <table style={{ width: '100%', tableLayout: 'fixed' }}>
-      <thead>
-        <tr>
-          <th>Sleutel en soort</th>
-          <th>Wanneer</th>
-          <th>Angular</th>
-          <th>React</th>
-        </tr>
-      </thead>
-      <tbody>
-        {entries
-          .filter(([, entry]) => entry.component === component)
-          .map(([key, entry]) => (
-            <tr key={key}>
-              <td>
-                <code>{key}</code>
-                <br />
-                <small>{kinds[entry.kind]}</small>
-                {differs(entry) && (
-                  <>
-                    <br />
-                    <small>⚠ verschilt</small>
-                  </>
-                )}
-              </td>
-              <td>
-                <Inline text={entry.description} />
-              </td>
-              <td>
-                <Copy value={entry.angular} />
-              </td>
-              <td>
-                <Copy value={entry.react} />
-              </td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
-  </section>
-))}
+React heeft geen standaard foutmeldingen: daar geef je de meldingen van je formulierbibliotheek mee aan `<FieldError errors={…} />`.
 
 ## Een tekst toevoegen of wijzigen
 
-De lijst komt uit `packages/microcopy/src/microcopy.json`. Voeg je een standaardtekst toe aan een
-component, of verander je er een, pas dan ook dat bestand aan:
+Alle teksten staan in `packages/microcopy/src/microcopy.json`, en de componenten halen hun
+standaardteksten daar ook uit. Dat werkt net als de design tokens: de build van
+`@surfnet/curve-microcopy` maakt van de JSON een bestand `dist/index.ts` met `microcopy.en` en
+`microcopy.nl`. React en Angular kopiëren dat bestand naar `src/lib/microcopy.generated.ts` (met
+`scripts/copy-microcopy.ts`) en bouwen de teksten zo mee in. Een tekst wijzigen doe je dus alleen in de
+JSON.
 
-1. Kies een sleutel als `<component>.<onderdeel>`, bijvoorbeeld `dialog.close`.
-2. Vul `component`, `kind` (`zichtbaar`, `screenreader` of `foutmelding`) en een korte `description`
-   in: wanneer ziet of hoort iemand deze tekst?
-3. Geef per framework `text`, `where` (de selector of componentnaam) en `change` (de input of prop,
-   of `null` als hij vast staat). Heeft een framework de tekst niet, zet het framework dan op `null`.
+Een nieuwe standaardtekst voeg je zo toe:
+
+1. Kies een key als `<component>.<onderdeel>`, bijvoorbeeld `dialog.close`.
+2. Vul `component`, `kind` (`zichtbaar`, `screenreader` of `foutmelding`), een korte `description`
+   (wanneer ziet of hoort iemand deze tekst?) en `text` met `en` én `nl`. Zonder een van beide faalt
+   de build.
+3. Geef per framework `where` (de selector of componentnaam) en `change` (de input of prop, of
+   `null` als hij alleen via de taal verandert). Heeft een framework de tekst niet, zet het framework
+   dan op `null`.
+4. Gebruik hem in de component als standaardwaarde. React: `const texts = useMicrocopy()` en dan
+   `closeLabel ?? texts['dialog.close']`. Angular: `input<string>(injectMicrocopy()['dialog.close'])`.
+   Een key die niet bestaat, laat `pnpm lint` falen.
 
 Later halen we deze teksten ook uit Figma, net als de design tokens.
