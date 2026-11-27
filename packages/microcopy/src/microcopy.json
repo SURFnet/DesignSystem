@@ -491,19 +491,13 @@
     "date-picker.range": {
       "component": "DatePicker",
       "kind": "zichtbaar",
-      "description": "Het gekozen bereik op de knop: twee datums met \" - \" ertussen. Standaard altijd Engels.",
-      "text": { "en": "Oct 26, 2026 - Oct 30, 2026", "nl": "26 okt. 2026 - 30 okt. 2026" },
-      "example": true,
+      "description": "Het gekozen bereik op de knop. {from} en {to} worden de twee datums, gemaakt door de datumnotatie (zie date-picker.date). Met alleen een begindatum staat er alleen die datum.",
+      "text": { "en": "{from} - {to}", "nl": "{from} - {to}" },
       "angular": {
-        "example": "Mon Oct 26 2026 - Fri Oct 30 2026",
         "where": "hlm-date-range-picker",
         "change": "input `formatDates`, of provideHlmDateRangePickerConfig({ formatDates })"
       },
-      "react": {
-        "example": "Oct 26, 2026 - Oct 30, 2026",
-        "where": "DateRangePicker",
-        "change": "props `formatDate` en `formatRange`"
-      }
+      "react": { "where": "DateRangePicker", "change": "prop `formatRange`" }
     },
     "date-picker.clear": {
       "component": "DatePicker",

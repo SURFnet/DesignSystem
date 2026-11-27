@@ -68,14 +68,18 @@ function DateRangePicker({
   placeholder?: string;
   /** Turns one date into text, also when only the start date is picked. Default: "Oct 26, 2026". */
   formatDate?: (date: Date) => string;
-  /** Turns a full range into the text on the trigger. Default: both dates with " - " between. */
+  /** Turns a full range into the text on the trigger. Default: the `date-picker.range` microcopy, "{from} - {to}". */
   formatRange?: (from: Date, to: Date) => string;
   triggerClassName?: string;
 }) {
   const texts = useMicrocopy();
   const placeholder = placeholderProp ?? texts['date-picker.range-placeholder'];
   const rangeText = (from: Date, to: Date) =>
-    formatRange ? formatRange(from, to) : `${formatDate(from)} - ${formatDate(to)}`;
+    formatRange
+      ? formatRange(from, to)
+      : texts['date-picker.range']
+          .replace('{from}', formatDate(from))
+          .replace('{to}', formatDate(to));
 
   return (
     <Popover>
